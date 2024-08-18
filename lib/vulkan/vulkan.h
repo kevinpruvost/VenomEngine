@@ -9,6 +9,7 @@
 
 #include <vulkan/vulkan.hpp>
 #include <common/Application.h>
+#include <GLFW/glfw3.h>
 
 class VulkanApplication : public venom::ApplicationBackend
 {

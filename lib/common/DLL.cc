@@ -21,22 +21,17 @@ DLL::DLL(const char * path)
     strcpy(realPath + strlen(realPath),
 #ifdef _WIN32
         ".dll");
-#elif __APPLE__
-        ".dylib");
-#else // Linux
-        ".so");
-#endif
-
-#ifdef _WIN32
     m_handle = LoadLibrary(realPath);
 #elif __APPLE__
+        ".dylib");
     m_handle = dlopen(realPath, RTLD_LAZY);
 #else // Linux
+        ".so");
     m_handle = dlopen(realPath, RTLD_LAZY);
 #endif
     if (!m_handle)
     {
-        std::cerr << "Failed to load DLL: " << path << std::endl;
+        std::cerr << "Failed to load DLL: " << realPath << std::endl;
     }
 }
 
