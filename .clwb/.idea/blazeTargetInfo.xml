@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BlazeCTargetInfoService">
+    <infoMap>
+      <entry key="//:VenomEngine">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//:VenomEngine" />
+      </entry>
+      <entry key="//lib/common:venom_common_static">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/common:venom_common_static" />
+      </entry>
+      <entry key="//lib/vulkan:venom_vulkan_static">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/vulkan:venom_vulkan_static" />
+      </entry>
+    </infoMap>
+  </component>
+</project>

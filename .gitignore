@@ -1,3 +1,5 @@
+bazel-*
+MODULE.bazel.lock
 # Prerequisites
 *.d
 
