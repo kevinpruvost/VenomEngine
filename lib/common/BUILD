@@ -10,10 +10,20 @@ cc_library(
         "//lib/common",
     ],
     visibility = ["//visibility:public"],
+    deps = [
+        "//lib/GLFW:glfw_static",
+    ],
 )
 
 cc_shared_library(
-    name = "venom_common_dll",
+    name = "VenomCommon",
+    dynamic_deps = [
+        "//lib/GLFW:glfw",
+    ],
+    exports_filter = [
+        ":venom_common_static",
+        "//lib/GLFW:glfw",
+    ],
     visibility = ["//visibility:public"],
     deps = [
         ":venom_common_static",

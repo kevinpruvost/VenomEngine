@@ -1,28 +1,52 @@
-cc_library(
+cc_shared_library(
     name = "glfw",
+    exports_filter = [
+        ":glfw_static",
+        ":glfw_platform",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":glfw_platform",
+        ":glfw_static",
+    ],
+)
+
+cc_library(
+    name = "glfw_static",
     srcs = [
         "src/context.c",
+        "src/egl_context.c",
         "src/init.c",
         "src/input.c",
         "src/monitor.c",
+        "src/null_init.c",
+        "src/null_joystick.c",
+        "src/null_monitor.c",
+        "src/null_window.c",
+        "src/osmesa_context.c",
+        "src/platform.c",
         "src/vulkan.c",
         "src/window.c",
     ],
     hdrs = [
         "include/GLFW/glfw3.h",
         "include/GLFW/glfw3native.h",
+        "src/internal.h",
         "src/mappings.h",
     ],
     # Macros: GLFW_BUILD_WIN32,GLFW_BUILD_COCOA,GLFW_BUILD_X11
     copts = select({
         "@platforms//os:windows": [
             "-D_GLFW_WIN32",
+            "-D_GLFW_BUILD_DLL",
         ],
         "@platforms//os:linux": [
             "-D_GLFW_X11",
+            "-D_GLFW_BUILD_DLL",
         ],
         "@platforms//os:macos": [
             "-D_GLFW_COCOA",
+            "-D_GLFW_BUILD_DLL",
         ],
     }),
     includes = ["include"],
@@ -40,6 +64,7 @@ cc_library(
             "src/wgl_context.c",
             "src/win32_init.c",
             "src/win32_joystick.c",
+            "src/win32_module.c",
             "src/win32_monitor.c",
             "src/win32_thread.c",
             "src/win32_time.c",
@@ -102,13 +127,25 @@ cc_library(
     copts = select({
         "@platforms//os:windows": [
             "-D_GLFW_WIN32",
+            "-D_GLFW_BUILD_DLL",
         ],
         "@platforms//os:linux": [
             "-D_GLFW_X11",
+            "-D_GLFW_BUILD_DLL",
         ],
         "@platforms//os:macos": [
             "-D_GLFW_COCOA",
+            "-D_GLFW_BUILD_DLL",
         ],
+    }),
+    linkopts = select({
+        "@platforms//os:windows": [
+            "-DEFAULTLIB:gdi32.lib",
+            "-DEFAULTLIB:shell32.lib",
+            "-DEFAULTLIB:kernel32.lib",
+            "-DEFAULTLIB:user32.lib",
+        ],
+        "//conditions:default": [],
     }),
     target_compatible_with = select({
         "@platforms//os:windows": ["@platforms//os:windows"],

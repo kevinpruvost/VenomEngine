@@ -5,7 +5,8 @@
 /// Description:
 /// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include "include/common/DLL.h"
+#include <common/DLL.h>
+#include <common/Log.h>
 
 #include <iostream>
 
@@ -13,7 +14,7 @@ namespace venom
 {
 
 DLL::DLL(const char * path)
-    : m_handle(nullptr)
+    : handle_(nullptr)
 {
 // Modify Path name to add extension considering platform
     char realPath[256] = {0};
@@ -21,7 +22,7 @@ DLL::DLL(const char * path)
     strcpy(realPath + strlen(realPath),
 #ifdef _WIN32
         ".dll");
-    m_handle = LoadLibrary(realPath);
+    handle_ = LoadLibrary(realPath);
 #elif __APPLE__
         ".dylib");
     m_handle = dlopen(realPath, RTLD_LAZY);
@@ -29,18 +30,18 @@ DLL::DLL(const char * path)
         ".so");
     m_handle = dlopen(realPath, RTLD_LAZY);
 #endif
-    if (!m_handle)
+    if (!handle_)
     {
-        std::cerr << "Failed to load DLL: " << realPath << std::endl;
+        Log::Error("Failed to load DLL: %s\n", realPath);
     }
 }
 
 DLL::~DLL()
 {
-    if (m_handle)
+    if (handle_)
     {
 #ifdef _WIN32
-        FreeLibrary((HMODULE)m_handle);
+        FreeLibrary((HMODULE)handle_);
 #elif __APPLE__
         dlclose(m_handle);
 #else // Linux
@@ -51,9 +52,9 @@ DLL::~DLL()
 
 void * DLL::GetFunction(const char * name)
 {
-    if (!m_handle) return nullptr;
+    if (!handle_) return nullptr;
 #ifdef _WIN32
-    return (void*)GetProcAddress((HMODULE)m_handle, (LPCSTR)name);
+    return (void*)GetProcAddress((HMODULE)handle_, (LPCSTR)name);
 #elif __APPLE__
     return dlsym(m_handle, name);
 #else // Linux

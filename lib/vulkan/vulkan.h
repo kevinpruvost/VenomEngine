@@ -9,12 +9,32 @@
 
 #include <vulkan/vulkan.hpp>
 #include <common/Application.h>
+#include <common/Context.h>
+
+#define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-class VulkanApplication : public venom::ApplicationBackend
+#include <glm/glm.hpp>
+
+namespace venom
+{
+
+class VulkanApplication : public ApplicationBackend
 {
 public:
-    venom::Error run() override;
+    VulkanApplication();
+    ~VulkanApplication();
+    Error run() override;
+
+private:
+    Error __loop();
+    Error __initVulkan();
+
+    Error __createInstance();
+
+    VkInstance __instance;
+    Context __context;
 };
+}
 
 extern "C" EXPORT venom::ApplicationBackend* createApplication();

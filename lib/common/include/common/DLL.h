@@ -16,6 +16,8 @@
 #include <dlfcn.h>
 #endif
 
+#include <common/Export.h>
+
 namespace venom
 {
 /// @brief Contains a shared library handle and provides a way to get symbols from it
@@ -39,6 +41,6 @@ public:
     ReturnType(*GetFunction(const char * name))(Args...) { return reinterpret_cast<ReturnType(*)(Args...)>(GetFunction(name)); }
 
 private:
-    void * m_handle;
+    void * handle_;
 };
 }

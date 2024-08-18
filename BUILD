@@ -21,11 +21,12 @@ cc_binary(
     name = "VenomEngine",
     srcs = ["VenomEngine/main.cc"],
     dynamic_deps = [
-        "//lib/common:venom_common_dll",
+        "//lib/vulkan:VenomVulkan",
     ],
     includes = [
         "./lib/common/include",
     ],
     deps = [
+        "//lib/common:venom_common_static",
     ],
 )

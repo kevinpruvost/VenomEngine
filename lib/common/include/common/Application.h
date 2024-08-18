@@ -9,33 +9,16 @@
 
 #include <common/Error.h>
 
-#ifdef _WIN32
-#define EXPORT __declspec(dllexport)
-#define IMPORT __declspec(dllimport)
-#elif __APPLE__
-#define EXPORT __attribute__((visibility("default")))
-#define IMPORT
-#else
-#define EXPORT __attribute__((visibility("default")))
-#define IMPORT
-#endif
-
-#ifdef VENOM_COMMON_EXPORTS
-#define APPLICATION_API EXPORT
-#else
-#define APPLICATION_API IMPORT
-#endif
-
 namespace venom
 {
-class APPLICATION_API ApplicationBackend
+class VENOM_COMMON_API ApplicationBackend
 {
 public:
     ApplicationBackend();
     virtual Error run() = 0;
 };
 
-class APPLICATION_API Application
+class VENOM_COMMON_API Application
 {
 public:
     Application();
@@ -44,7 +27,7 @@ public:
     Error run();
 
 private:
-    ApplicationBackend * m_backend;
+    ApplicationBackend * backend_;
 
 public:
     enum class ApiType

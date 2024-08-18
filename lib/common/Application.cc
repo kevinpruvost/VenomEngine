@@ -5,8 +5,8 @@
 /// Description:
 /// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include "include/common/Application.h"
-#include "include/common/DLL.h"
+#include <common/Application.h>
+#include <common/DLL.h>
 
 #include <iostream>
 
@@ -27,7 +27,7 @@ Application::~Application()
 
 Error Application::run()
 {
-    return m_backend->run();
+    return backend_->run();
 }
 
 Error Application::LoadApi(const ApiType apiType)
@@ -36,7 +36,7 @@ Error Application::LoadApi(const ApiType apiType)
     switch (apiType)
     {
     case ApiType::Vulkan:
-        dll = new DLL("lib/vulkan/venom_vulkan_dll");
+        dll = new DLL("VenomVulkan");
         break;
     default:
         std::cerr << "Unsupported API type" << std::endl;
@@ -53,7 +53,7 @@ Error Application::LoadApi(const ApiType apiType)
         std::cerr << "data = " << data << std::endl;
         return Error::Failure;
     }
-    m_backend = createApplicationFunc();
+    backend_ = createApplicationFunc();
     return Error::Success;
 }
 
