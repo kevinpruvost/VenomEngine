@@ -7,8 +7,8 @@
 ///
 #pragma once
 
-#include "Error.h"
-#include "Export.h"
+#include <common/Error.h>
+#include <common/Export.h>
 
 namespace venom
 {
@@ -19,7 +19,7 @@ public:
     template <typename... Args>
     static void LogToFile(const char* fmt, Args&&... args)
     {
-        String str = format(format, args...);
+        const String str = format(format, args...);
         LogToFile(str.c_str());
     }
 
@@ -27,7 +27,7 @@ public:
     template <typename... Args>
     static void Print(const char* fmt, Args&&... args)
     {
-        String str = format(fmt, args...);
+        const String str = format(fmt, args...);
         Print(str.c_str());
     }
 
@@ -35,7 +35,7 @@ public:
     template <typename... Args>
     static void Print(FILE * const stream, const char* fmt, Args&&... args)
     {
-        String str = format(fmt, args...);
+        const String str = format(fmt, args...);
         Print(stream, str.c_str());
     }
 

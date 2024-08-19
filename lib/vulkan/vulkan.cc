@@ -5,9 +5,9 @@
 /// Description:
 /// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include "vulkan.h"
+#include "Vulkan.h"
 
-#include "common/Log.h"
+#include <vector>
 
 namespace venom
 {
@@ -25,9 +25,20 @@ VulkanApplication::~VulkanApplication()
 
 Error VulkanApplication::run()
 {
+    Error res;
+
     printf("Hello, Vulkan!\n");
-    __context.initContext();
-    __initVulkan();
+    if (res = __context.initContext(); res != Error::Success)
+    {
+        Log::Error("Failed to initialize context: %d", res);
+        return Error::InitializationFailed;
+    }
+
+    if (res = __initVulkan(); res != Error::Success)
+    {
+        Log::Error("Failed to initialize Vulkan: %d", res);
+        return Error::InitializationFailed;
+    }
     return venom::Error::Success;
 }
 
@@ -42,8 +53,13 @@ Error VulkanApplication::__loop()
 
 Error VulkanApplication::__initVulkan()
 {
+    Error res;
+
     // Create Vulkan instance
-    __createInstance();
+    if (res = __createInstance(); res != Error::Success) return Error::InitializationFailed;
+
+    // Validation Layers
+    DEBUG_CODE(if (res = initDebug(); res != Error::Success) return Error::InitializationFailed;)
 
     return Error::Success;
 }
@@ -77,10 +93,11 @@ Error VulkanApplication::__createInstance()
     createInfo.ppEnabledExtensionNames = glfwExtensions;
 
     createInfo.enabledLayerCount = 0;
+
     if (auto res = vkCreateInstance(&createInfo, nullptr, &__instance); res != VK_SUCCESS)
     {
         Log::Error("Failed to create Vulkan instance, error code: %d", res);
-#ifdef _DEBUG
+#ifdef VENOM_DEBUG
         if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
             uint32_t extensionCount = 0;
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
@@ -100,6 +117,7 @@ Error VulkanApplication::__createInstance()
     }
     return Error::Success;
 }
+
 }
 
 extern "C" venom::ApplicationBackend* createApplication()

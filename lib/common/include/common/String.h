@@ -16,8 +16,8 @@ using String = std::string;
 template<typename ...Args>
 String format(const char* fmt, Args&&... args)
 {
-    int length = snprintf(NULL, 0, fmt, args...);
-    String message(length+1, 0);
+    const int length = snprintf(nullptr, 0, fmt, args...);
+    String message(length + 1, 0);
     sprintf(const_cast<char *>(message.c_str()), fmt, args...);
     return message;
 }

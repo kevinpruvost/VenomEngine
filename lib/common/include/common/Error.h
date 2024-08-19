@@ -8,6 +8,7 @@
 #pragma once
 
 #include <common/Export.h>
+#include <common/Debug.h>
 
 #include <cstdint>
 #include <cstring>

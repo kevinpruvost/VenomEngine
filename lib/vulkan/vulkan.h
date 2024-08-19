@@ -7,19 +7,18 @@
 ///
 #pragma once
 
-#include <vulkan/vulkan.hpp>
+#include "VulkanDebug.h"
+
 #include <common/Application.h>
 #include <common/Context.h>
-
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
 
 namespace venom
 {
 
 class VulkanApplication : public ApplicationBackend
+#ifdef VENOM_DEBUG
+    , public VulkanDebugApplication
+#endif
 {
 public:
     VulkanApplication();
