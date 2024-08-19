@@ -35,20 +35,24 @@ void Log::LogToFile(const char* str)
         // Name with datetime and create directory if doesn't exist
         std::filesystem::create_directory("logs");
         String date_time = getTimeString();
-        String name = format("logs/Venom_{}.txt", date_time.c_str());
+        String name = format("logs/Venom_%s.txt", date_time.c_str());
         logFile.open(name.c_str(), std::ios::out);
     }
-    logFile << str;
-    logFile.flush();
+    // Log time first [hh:mm:ss]
+    std::time_t time = std::time({});
+    static char timeString[std::size("hh:mm:ss")] = {0};
+    std::strftime(std::data(timeString), std::size(timeString), "%H:%M:%S", std::localtime(&time));
+    logFile << "[" << timeString << "] ";
+    logFile << str << std::endl;
 }
 
 void Log::Print(const char* str)
 {
-    printf("%s", str);
+    printf("%s\n", str);
 }
 
 void Log::Print(FILE* const stream, const char* str)
 {
-    fprintf(stream, str);
+    fprintf(stream, "%s\n", str);
 }
 }

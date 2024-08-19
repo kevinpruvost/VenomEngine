@@ -45,9 +45,8 @@ Error Context::initContext()
     }
 
 #ifdef _DEBUG
-    for (int i = 0; i < __modes.size(); i++)
-    {
-        Log::Print("Mode: %d: %dx%d | Refresh Rate: %d\n", i, __modes[i].width, __modes[i].height, __modes[i].refreshRate);
+    for (int i = 0; i < __modes.size(); i++) {
+        Log::LogToFile("Mode: %d: %dx%d | Refresh Rate: %d", i, __modes[i].width, __modes[i].height, __modes[i].refreshRate);
     }
 #endif
     // Just take the last video mode by default and take 3/4 of the window size

@@ -13,14 +13,11 @@ namespace venom
 {
 VulkanApplication::VulkanApplication()
     : __context()
-    , __instance(VK_NULL_HANDLE)
 {
 }
 
 VulkanApplication::~VulkanApplication()
 {
-    if (__instance != VK_NULL_HANDLE)
-        vkDestroyInstance(__instance, nullptr);
 }
 
 Error VulkanApplication::run()
@@ -53,15 +50,18 @@ Error VulkanApplication::__loop()
 
 Error VulkanApplication::__initVulkan()
 {
-    Error res;
+    Error res = Error::Success;
+
+    // Debug Initialization first
+    DEBUG_CODE(if (res = initDebug(); res != Error::Success) return res);
 
     // Create Vulkan instance
-    if (res = __createInstance(); res != Error::Success) return Error::InitializationFailed;
+    if (res = __createInstance(); res != Error::Success) return res;
 
-    // Validation Layers
-    DEBUG_CODE(if (res = initDebug(); res != Error::Success) return Error::InitializationFailed;)
+    // Debug Code for Vulkan Instance
+    DEBUG_CODE(if (res = _postInstance_setDebugParameters(); res != Error::Success) return res);
 
-    return Error::Success;
+    return res;
 }
 
 Error VulkanApplication::__createInstance()
@@ -78,23 +78,13 @@ Error VulkanApplication::__createInstance()
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
 
-    // We are only using GLFW anyway for Windows, Linux & MacOS and next to Vulkan will only be Metal
-    // DX12 will be for another standalone project
-    uint32_t glfwExtensionCount = 0;
-    const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+    // Get required extensions
+    __instance_getRequiredExtensions(&createInfo);
 
-#ifdef __APPLE__
-    // Might have a bug with MoltenVK
-    requiredExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
-    createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
-#endif
+    // Set Validation Layers parameters in VulkanDebugApplication
+    _preInstance_setDebugParameters(&createInfo);
 
-    createInfo.enabledExtensionCount = glfwExtensionCount;
-    createInfo.ppEnabledExtensionNames = glfwExtensions;
-
-    createInfo.enabledLayerCount = 0;
-
-    if (auto res = vkCreateInstance(&createInfo, nullptr, &__instance); res != VK_SUCCESS)
+    if (auto res = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance); res != VK_SUCCESS)
     {
         Log::Error("Failed to create Vulkan instance, error code: %d", res);
 #ifdef VENOM_DEBUG
@@ -105,11 +95,11 @@ Error VulkanApplication::__createInstance()
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
             Log::Print("Available Extensions:");
             for (const auto& extension : extensions) {
-                Log::Print("\t%s\n", extension.extensionName);
+                Log::Print("\t%s", extension.extensionName);
             }
             Log::Print("Extensions passed:");
-            for (uint32_t i = 0; i < glfwExtensionCount; ++i) {
-                Log::Print("\t%s\n", glfwExtensions[i]);
+            for (uint32_t i = 0; i < createInfo.enabledExtensionCount; ++i) {
+                Log::Print("\t%s", createInfo.ppEnabledExtensionNames[i]);
             }
         }
 #endif
@@ -118,6 +108,27 @@ Error VulkanApplication::__createInstance()
     return Error::Success;
 }
 
+void VulkanApplication::__instance_getRequiredExtensions(VkInstanceCreateInfo * createInfo)
+{
+    // We are only using GLFW anyway for Windows, Linux & MacOS and next to Vulkan will only be Metal
+    // DX12 will be for another standalone project
+    uint32_t glfwExtensionCount = 0;
+    const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+    __instanceExtensions = std::vector<const char *>(glfwExtensions, glfwExtensions + glfwExtensionCount);
+
+#ifdef __APPLE__
+    // Might have a bug with MoltenVK
+    __instanceExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+    createInfo->flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+#endif
+
+#ifdef VENOM_DEBUG
+    __instanceExtensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+#endif
+
+    createInfo->enabledExtensionCount = __instanceExtensions.size();
+    createInfo->ppEnabledExtensionNames = __instanceExtensions.data();
+}
 }
 
 extern "C" venom::ApplicationBackend* createApplication()

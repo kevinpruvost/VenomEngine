@@ -15,10 +15,9 @@
 namespace venom
 {
 
-class VulkanApplication : public ApplicationBackend
-#ifdef VENOM_DEBUG
+class VulkanApplication
+    : public ApplicationBackend
     , public VulkanDebugApplication
-#endif
 {
 public:
     VulkanApplication();
@@ -30,8 +29,9 @@ private:
     Error __initVulkan();
 
     Error __createInstance();
+    void __instance_getRequiredExtensions(VkInstanceCreateInfo * createInfo);
 
-    VkInstance __instance;
+    std::vector<const char *> __instanceExtensions;
     Context __context;
 };
 }

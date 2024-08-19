@@ -19,7 +19,7 @@ public:
     template <typename... Args>
     static void LogToFile(const char* fmt, Args&&... args)
     {
-        const String str = format(format, args...);
+        const String str = format(fmt, args...);
         LogToFile(str.c_str());
     }
 

@@ -7,15 +7,11 @@
 ///
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-
-#include <common/Log.h>
+#include "VulkanInstance.h"
 
 namespace venom
 {
-class VulkanDebugApplication
+class VulkanDebugApplication : public VulkanInstance
 {
 public:
     VulkanDebugApplication();
@@ -24,8 +20,19 @@ public:
     Error initDebug();
     void destroyDebug();
 
+protected:
+    void _preInstance_setDebugParameters(VkInstanceCreateInfo * createInfos);
+    Error _postInstance_setDebugParameters();
+
 private:
     Error __initValidationLayers();
-    VkInstance __instance;
+
+#ifdef VENOM_DEBUG
+    std::vector<const char *>      __validationLayersInUse;
+    std::vector<VkLayerProperties> __validationLayersAvailable;
+
+    VkDebugUtilsMessengerEXT __debugMessenger;
+    VkDebugUtilsMessengerCreateInfoEXT __debugMessengerCreateInfo;
+#endif
 };
 }
