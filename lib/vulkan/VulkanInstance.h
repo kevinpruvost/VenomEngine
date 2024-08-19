@@ -22,7 +22,6 @@ public:
     VulkanInstance();
     ~VulkanInstance();
 
-protected:
-    VkInstance _vulkanInstance;
+    static VkInstance & GetInstance();
 };
 }

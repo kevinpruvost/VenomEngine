@@ -26,8 +26,8 @@ VulkanDebugApplication::~VulkanDebugApplication()
 {
 #ifdef VENOM_DEBUG
     if (__debugMessenger) {
-        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(_vulkanInstance, "vkDestroyDebugUtilsMessengerEXT"));
-        destroyDebugUtilsMessengerEXT(_vulkanInstance, __debugMessenger, nullptr);
+        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(VulkanInstance::GetInstance(), "vkDestroyDebugUtilsMessengerEXT"));
+        destroyDebugUtilsMessengerEXT(VulkanInstance::GetInstance(), __debugMessenger, nullptr);
     }
 #endif
 }
@@ -97,8 +97,8 @@ Error VulkanDebugApplication::_postInstance_setDebugParameters()
 {
 #ifdef VENOM_DEBUG
     // Debug Utils Messenger
-    auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(_vulkanInstance, "vkCreateDebugUtilsMessengerEXT"));
-    if (createDebugUtilsMessengerEXT(_vulkanInstance, &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
+    auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(VulkanInstance::GetInstance(), "vkCreateDebugUtilsMessengerEXT"));
+    if (createDebugUtilsMessengerEXT(VulkanInstance::GetInstance(), &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
         Log::Error("Failed to set up debug messenger!");
         return Error::Failure;
     }

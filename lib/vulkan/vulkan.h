@@ -8,6 +8,7 @@
 #pragma once
 
 #include "VulkanDebug.h"
+#include "VulkanPhysicalDevice.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -27,6 +28,8 @@ public:
 private:
     Error __loop();
     Error __initVulkan();
+
+    Error __initPhysicalDevices();
 
     Error __createInstance();
     void __instance_getRequiredExtensions(VkInstanceCreateInfo * createInfo);

@@ -61,7 +61,18 @@ Error VulkanApplication::__initVulkan()
     // Debug Code for Vulkan Instance
     DEBUG_CODE(if (res = _postInstance_setDebugParameters(); res != Error::Success) return res);
 
+    // Get Physical Devices
+    if (res = __initPhysicalDevices(); res != Error::Success) return res;
+
     return res;
+}
+
+Error VulkanApplication::__initPhysicalDevices()
+{
+    auto physicalDevices = GetVulkanPhysicalDevices();
+
+
+    return Error::Success;
 }
 
 Error VulkanApplication::__createInstance()
@@ -84,7 +95,7 @@ Error VulkanApplication::__createInstance()
     // Set Validation Layers parameters in VulkanDebugApplication
     _preInstance_setDebugParameters(&createInfo);
 
-    if (auto res = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance); res != VK_SUCCESS)
+    if (auto res = vkCreateInstance(&createInfo, nullptr, &VulkanInstance::GetInstance()); res != VK_SUCCESS)
     {
         Log::Error("Failed to create Vulkan instance, error code: %d", res);
 #ifdef VENOM_DEBUG

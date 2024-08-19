@@ -10,15 +10,20 @@
 namespace venom
 {
 
+static VkInstance vulkanInstance = VK_NULL_HANDLE;
+
 VulkanInstance::VulkanInstance()
-    : _vulkanInstance(VK_NULL_HANDLE)
 {
 }
 
 VulkanInstance::~VulkanInstance()
 {
-    if (_vulkanInstance != VK_NULL_HANDLE)
-        vkDestroyInstance(_vulkanInstance, nullptr);
+    if (vulkanInstance != VK_NULL_HANDLE)
+        vkDestroyInstance(vulkanInstance, nullptr);
 }
 
+VkInstance & VulkanInstance::GetInstance()
+{
+    return vulkanInstance;
+}
 }
