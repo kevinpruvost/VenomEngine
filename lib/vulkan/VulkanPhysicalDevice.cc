@@ -11,6 +11,7 @@ namespace venom
 {
 VulkanPhysicalDevice::VulkanPhysicalDevice()
     : physicalDevice(VK_NULL_HANDLE)
+    , logicalDevice(VK_NULL_HANDLE)
     , properties()
     , features()
     , memoryProperties()
@@ -19,9 +20,12 @@ VulkanPhysicalDevice::VulkanPhysicalDevice()
 
 VulkanPhysicalDevice::~VulkanPhysicalDevice()
 {
+    if (logicalDevice != VK_NULL_HANDLE) {
+        vkDestroyDevice(logicalDevice, nullptr);
+    }
 }
 
-uint64_t VulkanPhysicalDevice::GetDeviceLocalVRAM() const
+uint64_t VulkanPhysicalDevice::GetDeviceLocalVRAMAmount() const
 {
     uint64_t totalVRAM = 0;
     for (uint32_t i = 0; i < memoryProperties.memoryHeapCount; i++) {
@@ -30,6 +34,12 @@ uint64_t VulkanPhysicalDevice::GetDeviceLocalVRAM() const
         }
     }
     return totalVRAM;
+}
+
+void VulkanPhysicalDevice::GetDeviceQueue(VkQueue* queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const
+{
+    venom_assert(logicalDevice != VK_NULL_HANDLE, "Logical device is not initialized");
+    vkGetDeviceQueue(logicalDevice, queueFamilyIndex, queueIndex, queuePtr);
 }
 
 std::vector<VulkanPhysicalDevice> GetVulkanPhysicalDevices()

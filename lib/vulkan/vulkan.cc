@@ -97,17 +97,39 @@ Error VulkanApplication::__InitPhysicalDevices()
         if (physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
          && physicalDevices[i].features.geometryShader
          && physicalDevices[i].features.tessellationShader) {
-            if (__physicalDevice.physicalDevice == VK_NULL_HANDLE || __physicalDevice.GetDeviceLocalVRAM() < physicalDevices[i].GetDeviceLocalVRAM()) {
+            if (__physicalDevice.physicalDevice == VK_NULL_HANDLE || __physicalDevice.GetDeviceLocalVRAMAmount() < physicalDevices[i].GetDeviceLocalVRAMAmount()) {
                 __physicalDevice = physicalDevices[i];
             }
         }
     }
     DEBUG_LOG("Chosen phyiscal device:");
     DEBUG_LOG("-%s:", __physicalDevice.properties.deviceName);
-    DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAM() / (1024 * 1024));
+    DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAMAmount() / (1024 * 1024));
 
     // Get Queue Families
     __queueFamilies = getVulkanQueueFamilies(__physicalDevice);
+
+    VkDeviceQueueCreateInfo queueCreateInfo = {};
+    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    queueCreateInfo.queueFamilyIndex = __queueFamilies.graphicsQueueFamilyIndices[0];
+    queueCreateInfo.queueCount = 1;
+    float queuePriority = 1.0f;
+    queueCreateInfo.pQueuePriorities = &queuePriority;
+
+    VkDeviceCreateInfo createInfo{};
+    createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+    createInfo.pQueueCreateInfos = &queueCreateInfo;
+    createInfo.queueCreateInfoCount = 1;
+    createInfo.pEnabledFeatures = &__physicalDevice.features;
+
+    if (auto res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
+    {
+        Log::Error("Failed to create logical device, error code: %d", res);
+        return Error::InitializationFailed;
+    }
+
+    VkQueue queue;
+    __physicalDevice.GetDeviceQueue(&queue, __queueFamilies.graphicsQueueFamilyIndices[0], 0);
 
     return Error::Success;
 }

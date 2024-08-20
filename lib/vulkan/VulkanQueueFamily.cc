@@ -26,25 +26,25 @@ MappedVulkanQueueFamilies::MappedVulkanQueueFamilies(std::vector<VulkanQueueFami
 {
     for (int i = 0; i < __queueFamilies.size(); ++i) {
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
-            __graphicsQueueFamilyIndices.push_back(i);
+            graphicsQueueFamilyIndices.push_back(i);
         }
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_COMPUTE_BIT) {
-            __computeQueueFamilyIndices.push_back(i);
+            computeQueueFamilyIndices.push_back(i);
         }
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_TRANSFER_BIT) {
-            __transferQueueFamilyIndices.push_back(i);
+            transferQueueFamilyIndices.push_back(i);
         }
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_SPARSE_BINDING_BIT) {
-            __sparseBindingQueueFamilyIndices.push_back(i);
+            sparseBindingQueueFamilyIndices.push_back(i);
         }
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_PROTECTED_BIT) {
-            __protectedQueueFamilyIndices.push_back(i);
+            protectedQueueFamilyIndices.push_back(i);
         }
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_VIDEO_DECODE_BIT_KHR) {
-            __videoDecodeQueueFamilyIndices.push_back(i);
+            videoDecodeQueueFamilyIndices.push_back(i);
         }
         if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_VIDEO_ENCODE_BIT_KHR) {
-            __videoEncodeQueueFamilyIndices.push_back(i);
+            videoEncodeQueueFamilyIndices.push_back(i);
         }
     }
 }
@@ -52,14 +52,14 @@ MappedVulkanQueueFamilies::MappedVulkanQueueFamilies(std::vector<VulkanQueueFami
 MappedVulkanQueueFamilies& MappedVulkanQueueFamilies::operator=(MappedVulkanQueueFamilies&& other) noexcept
 {
     __queueFamilies = std::move(other.__queueFamilies);
-    __graphicsQueueFamilyIndices = std::move(other.__graphicsQueueFamilyIndices);
-    __presentQueueFamilyIndices = std::move(other.__presentQueueFamilyIndices);
-    __computeQueueFamilyIndices = std::move(other.__computeQueueFamilyIndices);
-    __transferQueueFamilyIndices = std::move(other.__transferQueueFamilyIndices);
-    __sparseBindingQueueFamilyIndices = std::move(other.__sparseBindingQueueFamilyIndices);
-    __protectedQueueFamilyIndices = std::move(other.__protectedQueueFamilyIndices);
-    __videoDecodeQueueFamilyIndices = std::move(other.__videoDecodeQueueFamilyIndices);
-    __videoEncodeQueueFamilyIndices = std::move(other.__videoEncodeQueueFamilyIndices);
+    graphicsQueueFamilyIndices = std::move(other.graphicsQueueFamilyIndices);
+    presentQueueFamilyIndices = std::move(other.presentQueueFamilyIndices);
+    computeQueueFamilyIndices = std::move(other.computeQueueFamilyIndices);
+    transferQueueFamilyIndices = std::move(other.transferQueueFamilyIndices);
+    sparseBindingQueueFamilyIndices = std::move(other.sparseBindingQueueFamilyIndices);
+    protectedQueueFamilyIndices = std::move(other.protectedQueueFamilyIndices);
+    videoDecodeQueueFamilyIndices = std::move(other.videoDecodeQueueFamilyIndices);
+    videoEncodeQueueFamilyIndices = std::move(other.videoEncodeQueueFamilyIndices);
     return *this;
 }
 

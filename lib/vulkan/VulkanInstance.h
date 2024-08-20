@@ -7,11 +7,28 @@
 ///
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
 #include <vector>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 
+#define GLFW_INCLUDE_VULKAN
+#if defined(_WIN32)
+#define VK_USE_PLATFORM_WIN32_KHR
+#elif defined(__APPLE__)
+#define VK_USE_PLATFORM_MACOS_MVK
+#elif defined(__linux__)
+#define VK_USE_PLATFORM_XLIB_KHR
+#endif
+#include <GLFW/glfw3.h>
+
+#if defined(_WIN32)
+#define GLFW_EXPOSE_NATIVE_WIN32
+#elif defined(__APPLE__)
+#define GLFW_EXPOSE_NATIVE_COCOA
+#elif defined(__linux__)
+#define GLFW_EXPOSE_NATIVE_X11
+#endif
+#include <GLFW/glfw3native.h>
+
+#include <glm/glm.hpp>
 #include <common/Log.h>
 
 namespace venom

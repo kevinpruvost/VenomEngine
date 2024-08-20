@@ -23,6 +23,7 @@ public:
     Error InitContext();
     bool ShouldClose();
     void PollEvents();
+    GLFWwindow * GetWindow();
 
 private:
     GLFWwindow * __window;

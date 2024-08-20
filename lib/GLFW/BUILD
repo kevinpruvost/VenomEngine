@@ -42,6 +42,7 @@ cc_library(
         ],
         "@platforms//os:linux": [
             "-D_GLFW_X11",
+            #"-D_GLFW_WAYLAND",
             "-D_GLFW_BUILD_DLL",
         ],
         "@platforms//os:macos": [
@@ -131,6 +132,7 @@ cc_library(
         ],
         "@platforms//os:linux": [
             "-D_GLFW_X11",
+            #"-D_GLFW_WAYLAND",
             "-D_GLFW_BUILD_DLL",
         ],
         "@platforms//os:macos": [

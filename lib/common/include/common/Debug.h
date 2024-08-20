@@ -27,6 +27,10 @@
         DEBUG_PRINT("File: %s, Line: %d\n", __FILE__, __LINE__); \
         DEBUG_PRINT(__VA_ARGS__); \
         DEBUG_PRINT("\n"); \
+        DEBUG_LOG("Assertion failed: %s\n", #condition); \
+        DEBUG_LOG("File: %s, Line: %d\n", __FILE__, __LINE__); \
+        DEBUG_LOG(__VA_ARGS__); \
+        DEBUG_LOG("\n"); \
         abort(); \
     }
 

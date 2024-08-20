@@ -4,7 +4,18 @@ cc_library(
     hdrs = glob(["*.h"]),
     copts = [
         "-DGLFW_DLL",
-    ],
+    ] + select({
+        "@platforms//os:windows": [
+            "-D_GLFW_WIN32",
+        ],
+        "@platforms//os:linux": [
+            "-D_GLFW_X11",
+            #"-D_GLFW_WAYLAND",
+        ],
+        "@platforms//os:macos": [
+            "-D_GLFW_COCOA",
+        ],
+    }),
     visibility = ["//visibility:public"],
     deps = [
         "//lib/common:venom_common_static",

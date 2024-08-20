@@ -68,4 +68,9 @@ void Context::PollEvents()
 {
     glfwPollEvents();
 }
+
+GLFWwindow* Context::GetWindow()
+{
+    return __window;
+}
 }

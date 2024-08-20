@@ -17,13 +17,17 @@ public:
     VulkanPhysicalDevice();
     ~VulkanPhysicalDevice();
 
-    uint64_t GetDeviceLocalVRAM() const;
+    uint64_t GetDeviceLocalVRAMAmount() const;
+
+    void GetDeviceQueue(VkQueue * queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const;
 
 public:
     VkPhysicalDevice physicalDevice;
     VkPhysicalDeviceProperties properties;
     VkPhysicalDeviceFeatures features;
     VkPhysicalDeviceMemoryProperties memoryProperties;
+
+    VkDevice logicalDevice;
 };
 
 std::vector<VulkanPhysicalDevice> GetVulkanPhysicalDevices();

@@ -31,14 +31,15 @@ public:
     explicit MappedVulkanQueueFamilies(std::vector<VulkanQueueFamily>& queueFamilies);
     MappedVulkanQueueFamilies & operator=(MappedVulkanQueueFamilies&& other) noexcept;
 
+public:
+    std::vector<uint32_t> graphicsQueueFamilyIndices,
+    presentQueueFamilyIndices, computeQueueFamilyIndices,
+    transferQueueFamilyIndices, sparseBindingQueueFamilyIndices,
+    protectedQueueFamilyIndices, videoDecodeQueueFamilyIndices,
+    videoEncodeQueueFamilyIndices;
+
 private:
     std::vector<VulkanQueueFamily> __queueFamilies;
-    std::vector<uint32_t> __graphicsQueueFamilyIndices,
-    __presentQueueFamilyIndices, __computeQueueFamilyIndices,
-    __transferQueueFamilyIndices, __sparseBindingQueueFamilyIndices,
-    __protectedQueueFamilyIndices, __videoDecodeQueueFamilyIndices,
-    __videoEncodeQueueFamilyIndices;
-
 };
 
 MappedVulkanQueueFamilies getVulkanQueueFamilies(const VulkanPhysicalDevice& physicalDevice);
