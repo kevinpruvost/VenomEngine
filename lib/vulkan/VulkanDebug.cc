@@ -32,11 +32,11 @@ VulkanDebugApplication::~VulkanDebugApplication()
 #endif
 }
 
-Error VulkanDebugApplication::initDebug()
+Error VulkanDebugApplication::InitDebug()
 {
 #ifdef VENOM_DEBUG
     Error res;
-    if (res = __initValidationLayers(); res != Error::Success)
+    if (res = __InitValidationLayers(); res != Error::Success)
     {
         Log::Error("Failed to initialize validation layers: %d", res);
         return Error::InitializationFailed;
@@ -45,7 +45,7 @@ Error VulkanDebugApplication::initDebug()
     return Error::Success;
 }
 
-void VulkanDebugApplication::destroyDebug()
+void VulkanDebugApplication::DestroyDebug()
 {
 }
 
@@ -74,7 +74,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     return VK_FALSE;
 }
 
-void VulkanDebugApplication::_preInstance_setDebugParameters(VkInstanceCreateInfo* createInfos)
+void VulkanDebugApplication::_PreInstance_SetDebugParameters(VkInstanceCreateInfo* createInfos)
 {
     // Validation Layers
 #ifdef VENOM_DEBUG
@@ -93,7 +93,7 @@ void VulkanDebugApplication::_preInstance_setDebugParameters(VkInstanceCreateInf
 #endif
 }
 
-Error VulkanDebugApplication::_postInstance_setDebugParameters()
+Error VulkanDebugApplication::_PostInstance_SetDebugParameters()
 {
 #ifdef VENOM_DEBUG
     // Debug Utils Messenger
@@ -106,7 +106,7 @@ Error VulkanDebugApplication::_postInstance_setDebugParameters()
     return Error::Success;
 }
 
-Error VulkanDebugApplication::__initValidationLayers()
+Error VulkanDebugApplication::__InitValidationLayers()
 {
 #ifdef VENOM_DEBUG
     constexpr const char * validationLayers[] = {

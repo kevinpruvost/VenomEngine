@@ -20,9 +20,9 @@ public:
     Context();
     ~Context();
 public:
-    Error initContext();
-    bool shouldClose();
-    void pollEvents();
+    Error InitContext();
+    bool ShouldClose();
+    void PollEvents();
 
 private:
     GLFWwindow * __window;

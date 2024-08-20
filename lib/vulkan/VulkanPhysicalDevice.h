@@ -15,13 +15,15 @@ class VulkanPhysicalDevice
 {
 public:
     VulkanPhysicalDevice();
-    VulkanPhysicalDevice(const VkPhysicalDevice & device, const VkPhysicalDeviceProperties & properties, const VkPhysicalDeviceFeatures & features);
     ~VulkanPhysicalDevice();
+
+    uint64_t GetDeviceLocalVRAM() const;
 
 public:
     VkPhysicalDevice physicalDevice;
     VkPhysicalDeviceProperties properties;
     VkPhysicalDeviceFeatures features;
+    VkPhysicalDeviceMemoryProperties memoryProperties;
 };
 
 std::vector<VulkanPhysicalDevice> GetVulkanPhysicalDevices();

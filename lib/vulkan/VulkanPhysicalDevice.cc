@@ -10,19 +10,26 @@
 namespace venom
 {
 VulkanPhysicalDevice::VulkanPhysicalDevice()
-    : physicalDevice(VK_NULL_HANDLE), properties(), features()
-{
-}
-
-VulkanPhysicalDevice::VulkanPhysicalDevice(const VkPhysicalDevice& device,
-                                           const VkPhysicalDeviceProperties& properties,
-                                           const VkPhysicalDeviceFeatures& features)
-        : physicalDevice(device), properties(properties), features(features)
+    : physicalDevice(VK_NULL_HANDLE)
+    , properties()
+    , features()
+    , memoryProperties()
 {
 }
 
 VulkanPhysicalDevice::~VulkanPhysicalDevice()
 {
+}
+
+uint64_t VulkanPhysicalDevice::GetDeviceLocalVRAM() const
+{
+    uint64_t totalVRAM = 0;
+    for (uint32_t i = 0; i < memoryProperties.memoryHeapCount; i++) {
+        if (memoryProperties.memoryHeaps[i].flags & VK_MEMORY_HEAP_DEVICE_LOCAL_BIT) {
+            totalVRAM += memoryProperties.memoryHeaps[i].size;
+        }
+    }
+    return totalVRAM;
 }
 
 std::vector<VulkanPhysicalDevice> GetVulkanPhysicalDevices()
@@ -42,12 +49,11 @@ std::vector<VulkanPhysicalDevice> GetVulkanPhysicalDevices()
     vkEnumeratePhysicalDevices(VulkanInstance::GetInstance(), &deviceCount, vkPhysicalDevices.data());
     for (uint32_t i = 0; i < deviceCount; i++)
     {
-        VkPhysicalDeviceProperties properties;
-        VkPhysicalDeviceFeatures features;
-        vkGetPhysicalDeviceProperties(vkPhysicalDevices[i], &properties);
-        vkGetPhysicalDeviceFeatures(vkPhysicalDevices[i], &features);
-        auto ret = physicalDevices.emplace_back(vkPhysicalDevices[i], properties, features);
-
+        physicalDevices[i].physicalDevice = vkPhysicalDevices[i];
+        vkGetPhysicalDeviceProperties(vkPhysicalDevices[i], &physicalDevices[i].properties);
+        vkGetPhysicalDeviceFeatures(vkPhysicalDevices[i], &physicalDevices[i].features);
+        vkGetPhysicalDeviceMemoryProperties(vkPhysicalDevices[i], &physicalDevices[i].memoryProperties);
     }
+    return physicalDevices;
 }
 }

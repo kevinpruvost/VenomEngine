@@ -14,7 +14,7 @@ int main()
     venom::Application app;
     app.LoadApi(venom::Application::ApiType::Vulkan);
     venom::Log::LogToFile("bonjour");
-    if (const venom::Error err = app.run(); err != venom::Error::Success)
+    if (const venom::Error err = app.Run(); err != venom::Error::Success)
     {
         printf("Failed to run application: %d\n", static_cast<int>(err));
         return 1;

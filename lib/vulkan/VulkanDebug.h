@@ -17,15 +17,15 @@ public:
     VulkanDebugApplication();
     ~VulkanDebugApplication();
 
-    Error initDebug();
-    void destroyDebug();
+    Error InitDebug();
+    void DestroyDebug();
 
 protected:
-    void _preInstance_setDebugParameters(VkInstanceCreateInfo * createInfos);
-    Error _postInstance_setDebugParameters();
+    void _PreInstance_SetDebugParameters(VkInstanceCreateInfo * createInfos);
+    Error _PostInstance_SetDebugParameters();
 
 private:
-    Error __initValidationLayers();
+    Error __InitValidationLayers();
 
 #ifdef VENOM_DEBUG
     std::vector<const char *>      __validationLayersInUse;

@@ -20,18 +20,18 @@ VulkanApplication::~VulkanApplication()
 {
 }
 
-Error VulkanApplication::run()
+Error VulkanApplication::Run()
 {
     Error res;
 
     printf("Hello, Vulkan!\n");
-    if (res = __context.initContext(); res != Error::Success)
+    if (res = __context.InitContext(); res != Error::Success)
     {
         Log::Error("Failed to initialize context: %d", res);
         return Error::InitializationFailed;
     }
 
-    if (res = __initVulkan(); res != Error::Success)
+    if (res = __InitVulkan(); res != Error::Success)
     {
         Log::Error("Failed to initialize Vulkan: %d", res);
         return Error::InitializationFailed;
@@ -39,43 +39,82 @@ Error VulkanApplication::run()
     return venom::Error::Success;
 }
 
-Error VulkanApplication::__loop()
+Error VulkanApplication::__Loop()
 {
-    while (!__context.shouldClose())
+    while (!__context.ShouldClose())
     {
-        __context.pollEvents();
+        __context.PollEvents();
     }
     return Error::Success;
 }
 
-Error VulkanApplication::__initVulkan()
+Error VulkanApplication::__InitVulkan()
 {
     Error res = Error::Success;
 
     // Debug Initialization first
-    DEBUG_CODE(if (res = initDebug(); res != Error::Success) return res);
+    DEBUG_CODE(if (res = InitDebug(); res != Error::Success) return res);
 
     // Create Vulkan instance
-    if (res = __createInstance(); res != Error::Success) return res;
+    if (res = __CreateInstance(); res != Error::Success) return res;
 
     // Debug Code for Vulkan Instance
-    DEBUG_CODE(if (res = _postInstance_setDebugParameters(); res != Error::Success) return res);
+    DEBUG_CODE(if (res = _PostInstance_SetDebugParameters(); res != Error::Success) return res);
 
     // Get Physical Devices
-    if (res = __initPhysicalDevices(); res != Error::Success) return res;
+    if (res = __InitPhysicalDevices(); res != Error::Success) return res;
+
+    // Get Queue Families
+
 
     return res;
 }
 
-Error VulkanApplication::__initPhysicalDevices()
+Error VulkanApplication::__InitPhysicalDevices()
 {
-    auto physicalDevices = GetVulkanPhysicalDevices();
+    std::vector<VulkanPhysicalDevice> physicalDevices = GetVulkanPhysicalDevices();
+
+    if (physicalDevices.empty())
+    {
+        Log::Error("Failed to find GPUs with Vulkan support");
+        return Error::InitializationFailed;
+    }
+
+    DEBUG_LOG("Physical Devices:");
+    for (int i = 0; i < physicalDevices.size(); ++i) {
+        DEBUG_LOG("-%s:", physicalDevices[i].properties.deviceName);
+        DEBUG_LOG("\tType: %s", physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU ? "Discrete" : physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU ? "Integrated" : "Other Type of GPU");
+        DEBUG_LOG("\tAPI Version: %u", physicalDevices[i].properties.apiVersion);
+        DEBUG_LOG("\tDriver Version: %u", physicalDevices[i].properties.driverVersion);
+        DEBUG_LOG("\tVendor ID: %u", physicalDevices[i].properties.vendorID);
+        DEBUG_LOG("\tDevice ID: %u", physicalDevices[i].properties.deviceID);
+        DEBUG_LOG("\tGeometry Shader: %s", physicalDevices[i].features.geometryShader ? "Yes" : "No");
+        DEBUG_LOG("\tTesselation Shader: %s", physicalDevices[i].features.tessellationShader ? "Yes" : "No");
+        for (int j = 0; j < physicalDevices[i].memoryProperties.memoryHeapCount; ++j) {
+            DEBUG_LOG("\tHeap %d: %luMB", j, physicalDevices[i].memoryProperties.memoryHeaps[j].size / (1024 * 1024));
+        }
+        // Select GPU
+        if (physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
+         && physicalDevices[i].features.geometryShader
+         && physicalDevices[i].features.tessellationShader) {
+            if (__physicalDevice.physicalDevice == VK_NULL_HANDLE || __physicalDevice.GetDeviceLocalVRAM() < physicalDevices[i].GetDeviceLocalVRAM()) {
+                __physicalDevice = physicalDevices[i];
+            }
+        }
+    }
+    DEBUG_LOG("Chosen phyiscal device:");
+    DEBUG_LOG("-%s:", __physicalDevice.properties.deviceName);
+    DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAM() / (1024 * 1024));
+
+    // Get Queue Families
+    auto queueFamilies = getVulkanQueueFamilies(__physicalDevice);
+
 
 
     return Error::Success;
 }
 
-Error VulkanApplication::__createInstance()
+Error VulkanApplication::__CreateInstance()
 {
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -90,10 +129,10 @@ Error VulkanApplication::__createInstance()
     createInfo.pApplicationInfo = &appInfo;
 
     // Get required extensions
-    __instance_getRequiredExtensions(&createInfo);
+    __Instance_GetRequiredExtensions(&createInfo);
 
     // Set Validation Layers parameters in VulkanDebugApplication
-    _preInstance_setDebugParameters(&createInfo);
+    _PreInstance_SetDebugParameters(&createInfo);
 
     if (auto res = vkCreateInstance(&createInfo, nullptr, &VulkanInstance::GetInstance()); res != VK_SUCCESS)
     {
@@ -119,7 +158,7 @@ Error VulkanApplication::__createInstance()
     return Error::Success;
 }
 
-void VulkanApplication::__instance_getRequiredExtensions(VkInstanceCreateInfo * createInfo)
+void VulkanApplication::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo)
 {
     // We are only using GLFW anyway for Windows, Linux & MacOS and next to Vulkan will only be Metal
     // DX12 will be for another standalone project

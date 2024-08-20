@@ -9,6 +9,7 @@
 
 #include "VulkanDebug.h"
 #include "VulkanPhysicalDevice.h"
+#include "VulkanQueueFamily.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -23,19 +24,20 @@ class VulkanApplication
 public:
     VulkanApplication();
     ~VulkanApplication();
-    Error run() override;
+    Error Run() override;
 
 private:
-    Error __loop();
-    Error __initVulkan();
+    Error __Loop();
+    Error __InitVulkan();
 
-    Error __initPhysicalDevices();
+    Error __InitPhysicalDevices();
 
-    Error __createInstance();
-    void __instance_getRequiredExtensions(VkInstanceCreateInfo * createInfo);
+    Error __CreateInstance();
+    void __Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo);
 
     std::vector<const char *> __instanceExtensions;
     Context __context;
+    VulkanPhysicalDevice __physicalDevice;
 };
 }
 

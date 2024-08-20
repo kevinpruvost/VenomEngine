@@ -25,9 +25,9 @@ Application::~Application()
 {
 }
 
-Error Application::run()
+Error Application::Run()
 {
-    return backend_->run();
+    return backend_->Run();
 }
 
 Error Application::LoadApi(const ApiType apiType)

@@ -24,7 +24,7 @@ Context::~Context()
     glfwTerminate();
 }
 
-Error Context::initContext()
+Error Context::InitContext()
 {
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -59,12 +59,12 @@ Error Context::initContext()
     return Error::Success;
 }
 
-bool Context::shouldClose()
+bool Context::ShouldClose()
 {
     return glfwWindowShouldClose(__window);
 }
 
-void Context::pollEvents()
+void Context::PollEvents()
 {
     glfwPollEvents();
 }

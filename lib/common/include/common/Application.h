@@ -15,7 +15,7 @@ class VENOM_COMMON_API ApplicationBackend
 {
 public:
     ApplicationBackend();
-    virtual Error run() = 0;
+    virtual Error Run() = 0;
 };
 
 class VENOM_COMMON_API Application
@@ -24,7 +24,7 @@ public:
     Application();
     ~Application();
 
-    Error run();
+    Error Run();
 
 private:
     ApplicationBackend * backend_;

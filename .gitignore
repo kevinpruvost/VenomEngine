@@ -1,5 +1,7 @@
 bazel-*
 MODULE.bazel.lock
+logs
+
 # Prerequisites
 *.d
 
