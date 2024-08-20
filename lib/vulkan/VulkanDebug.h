@@ -21,7 +21,9 @@ public:
     void DestroyDebug();
 
 protected:
-    void _PreInstance_SetDebugParameters(VkInstanceCreateInfo * createInfos);
+    void _SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo * createInfos);
+    template<typename CreateInfo>
+    void _SetCreateInfoValidationLayers(CreateInfo * createInfos);
     Error _PostInstance_SetDebugParameters();
 
 private:
@@ -35,4 +37,5 @@ private:
     VkDebugUtilsMessengerCreateInfoEXT __debugMessengerCreateInfo;
 #endif
 };
+
 }

@@ -64,9 +64,6 @@ Error VulkanApplication::__InitVulkan()
     // Get Physical Devices
     if (res = __InitPhysicalDevices(); res != Error::Success) return res;
 
-    // Get Queue Families
-
-
     return res;
 }
 
@@ -109,18 +106,58 @@ Error VulkanApplication::__InitPhysicalDevices()
     // Get Queue Families
     __queueFamilies = getVulkanQueueFamilies(__physicalDevice);
 
-    VkDeviceQueueCreateInfo queueCreateInfo = {};
-    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    queueCreateInfo.queueFamilyIndex = __queueFamilies.graphicsQueueFamilyIndices[0];
-    queueCreateInfo.queueCount = 1;
+    // Create Surface
+    __surface.CreateSurface(&__context);
+
+    // Check if the device supports the surface for presentation and which queue family supports it
+    if (auto err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != Error::Success)
+        return err;
+
+    // Create Logical device
+    // Create Queue Create Infos
+    std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
+
     float queuePriority = 1.0f;
-    queueCreateInfo.pQueuePriorities = &queuePriority;
+    // Graphics Queue
+    queueCreateInfos.emplace_back(
+        VkDeviceQueueCreateInfo{
+            .sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+            .queueFamilyIndex = __queueFamilies.graphicsQueueFamilyIndices[0],
+            .queueCount = 1,
+            .pQueuePriorities = new float(1.0f)
+        }
+    );
+    queueCreateInfos[0].pQueuePriorities = &queuePriority;
+
+    // Present Queue
+    if (queueCreateInfos[0].queueFamilyIndex != __queueFamilies.presentQueueFamilyIndices[0]) {
+        queueCreateInfos.emplace_back(
+            VkDeviceQueueCreateInfo{
+                .sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+                .queueFamilyIndex = __queueFamilies.presentQueueFamilyIndices[0],
+                .queueCount = 1,
+                .pQueuePriorities = new float(1.0f)
+            }
+        );
+        queueCreateInfos[1].pQueuePriorities = &queuePriority;
+    }
 
     VkDeviceCreateInfo createInfo{};
+    VkPhysicalDeviceFeatures deviceFeatures{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.pQueueCreateInfos = &queueCreateInfo;
-    createInfo.queueCreateInfoCount = 1;
-    createInfo.pEnabledFeatures = &__physicalDevice.features;
+    createInfo.pQueueCreateInfos = queueCreateInfos.data();
+    createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
+    createInfo.pEnabledFeatures = &deviceFeatures;
+
+    // Extensions
+    const std::vector<const char *> deviceExtensions = {
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    };
+    createInfo.enabledExtensionCount = deviceExtensions.size();
+    createInfo.ppEnabledExtensionNames = deviceExtensions.data();
+
+    // Validation Layers
+    _SetCreateInfoValidationLayers(&createInfo);
 
     if (auto res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
     {
@@ -128,8 +165,13 @@ Error VulkanApplication::__InitPhysicalDevices()
         return Error::InitializationFailed;
     }
 
-    VkQueue queue;
-    __physicalDevice.GetDeviceQueue(&queue, __queueFamilies.graphicsQueueFamilyIndices[0], 0);
+    // Create Graphics Queue
+    VkQueue graphicsQueue;
+    __physicalDevice.GetDeviceQueue(&graphicsQueue, __queueFamilies.graphicsQueueFamilyIndices[0], 0);
+
+    // Create Present Queue
+    VkQueue presentQueue;
+    __physicalDevice.GetDeviceQueue(&presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
 
     return Error::Success;
 }
@@ -152,7 +194,7 @@ Error VulkanApplication::__CreateInstance()
     __Instance_GetRequiredExtensions(&createInfo);
 
     // Set Validation Layers parameters in VulkanDebugApplication
-    _PreInstance_SetDebugParameters(&createInfo);
+    _SetInstanceCreateInfoValidationLayers(&createInfo);
 
     if (auto res = vkCreateInstance(&createInfo, nullptr, &VulkanInstance::GetInstance()); res != VK_SUCCESS)
     {

@@ -19,7 +19,7 @@ public:
     VulkanSurface();
     ~VulkanSurface();
 
-    Error CreateSurface(VkInstance instance, Context * context);
+    Error CreateSurface(Context * context);
 
 public:
     VkSurfaceKHR surface;

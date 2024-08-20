@@ -74,7 +74,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     return VK_FALSE;
 }
 
-void VulkanDebugApplication::_PreInstance_SetDebugParameters(VkInstanceCreateInfo* createInfos)
+void VulkanDebugApplication::_SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* createInfos)
 {
     // Validation Layers
 #ifdef VENOM_DEBUG
@@ -87,6 +87,18 @@ void VulkanDebugApplication::_PreInstance_SetDebugParameters(VkInstanceCreateInf
     __debugMessengerCreateInfo.pfnUserCallback = debugCallback;
     __debugMessengerCreateInfo.pNext = __debugMessengerCreateInfo.pUserData = nullptr;
     createInfos->pNext = reinterpret_cast<VkDebugUtilsMessengerCreateInfoEXT *>(&__debugMessengerCreateInfo);
+#else
+    createInfos->enabledLayerCount = 0;
+    createInfos->ppEnabledLayerNames = nullptr;
+#endif
+}
+
+template <>
+void VulkanDebugApplication::_SetCreateInfoValidationLayers(VkDeviceCreateInfo* createInfos)
+{
+#ifdef VENOM_DEBUG
+    createInfos->enabledLayerCount = static_cast<uint32_t>(__validationLayersInUse.size());
+    createInfos->ppEnabledLayerNames = __validationLayersInUse.data();
 #else
     createInfos->enabledLayerCount = 0;
     createInfos->ppEnabledLayerNames = nullptr;

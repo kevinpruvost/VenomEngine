@@ -53,7 +53,6 @@ MappedVulkanQueueFamilies& MappedVulkanQueueFamilies::operator=(MappedVulkanQueu
 {
     __queueFamilies = std::move(other.__queueFamilies);
     graphicsQueueFamilyIndices = std::move(other.graphicsQueueFamilyIndices);
-    presentQueueFamilyIndices = std::move(other.presentQueueFamilyIndices);
     computeQueueFamilyIndices = std::move(other.computeQueueFamilyIndices);
     transferQueueFamilyIndices = std::move(other.transferQueueFamilyIndices);
     sparseBindingQueueFamilyIndices = std::move(other.sparseBindingQueueFamilyIndices);
@@ -61,6 +60,26 @@ MappedVulkanQueueFamilies& MappedVulkanQueueFamilies::operator=(MappedVulkanQueu
     videoDecodeQueueFamilyIndices = std::move(other.videoDecodeQueueFamilyIndices);
     videoEncodeQueueFamilyIndices = std::move(other.videoEncodeQueueFamilyIndices);
     return *this;
+}
+
+const std::vector<VulkanQueueFamily> MappedVulkanQueueFamilies::GetQueueFamilies() const
+{
+    return __queueFamilies;
+}
+
+Error MappedVulkanQueueFamilies::SetPresentQueueFamilyIndices(const VulkanPhysicalDevice& physicalDevice, const VulkanSurface & surface)
+{
+    for (int i = 0; i < __queueFamilies.size(); ++i) {
+        VkBool32 presentSupport = false;
+        if (auto err = vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.physicalDevice, i, surface.surface, &presentSupport); err != VK_SUCCESS) {
+            Log::Error("Failed to get physical device surface support, error code: %d", err);
+            return Error::InitializationFailed;
+        }
+        if (presentSupport) {
+            presentQueueFamilyIndices.push_back(i);
+        }
+    }
+    return Error::Success;
 }
 
 MappedVulkanQueueFamilies getVulkanQueueFamilies(const VulkanPhysicalDevice& physicalDevice)

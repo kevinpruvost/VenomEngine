@@ -10,6 +10,7 @@
 #include "VulkanDebug.h"
 #include "VulkanPhysicalDevice.h"
 #include "VulkanQueueFamily.h"
+#include "VulkanSurface.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -39,6 +40,7 @@ private:
     Context __context;
     VulkanPhysicalDevice __physicalDevice;
     MappedVulkanQueueFamilies __queueFamilies;
+    VulkanSurface __surface;
 };
 }
 
