@@ -107,9 +107,7 @@ Error VulkanApplication::__InitPhysicalDevices()
     DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAM() / (1024 * 1024));
 
     // Get Queue Families
-    auto queueFamilies = getVulkanQueueFamilies(__physicalDevice);
-
-
+    __queueFamilies = getVulkanQueueFamilies(__physicalDevice);
 
     return Error::Success;
 }

@@ -38,6 +38,7 @@ private:
     std::vector<const char *> __instanceExtensions;
     Context __context;
     VulkanPhysicalDevice __physicalDevice;
+    MappedVulkanQueueFamilies __queueFamilies;
 };
 }
 
