@@ -3,5 +3,9 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/DirectX-Headers" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/SPIRV-Headers" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/SPIRV-Tools" vcs="Git" />
   </component>
 </project>

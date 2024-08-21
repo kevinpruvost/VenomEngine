@@ -27,13 +27,44 @@ dxc:
 	cmake ../lib/DirectXShaderCompiler -C ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v" && \
 	cmake --build . --target dxc --config Release
 
-compile_shader:
-	-mkdir ./assets/shaders/compiled
-	./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./assets/shaders/hlsl/vertex_shader.hlsl   -Fo ./assets/shaders/compiled/vertex_shader.spv
-	./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./assets/shaders/hlsl/pixel_shader.hlsl -Fo ./assets/shaders/compiled/fragment_shader.spv
+check_ruby:
+	@ruby -v > /dev/null 2>&1 || make __install_ruby
 
+__install_ruby:
+	@echo "Installing Ruby..."
+ifeq ($(OS),Windows_NT)
+	# Windows: Using RubyInstaller
+	@echo "Installing Ruby on Windows..."
+	@powershell -Command "Invoke-WebRequest -Uri 'https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.2.5-1/rubyinstaller-devkit-3.2.5-1-x64.exe' -OutFile 'rubyinstaller.exe'"
+	@powershell -Command "Start-Process -Wait -FilePath 'rubyinstaller.exe'"
+	@powershell -Command "Remove-Item 'rubyinstaller.exe'"
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		# Linux: Using apt-get
+		@sudo apt-get update && sudo apt-get install -y ruby-full
+	else ifeq ($(UNAME_S),Darwin)
+		# macOS: Using Homebrew
+		@brew install ruby
+	endif
+endif
+
+compile_shaders: check_ruby
+	ruby ./assets/shaders/compile_shaders.rb compile
+
+validate_shaders:
+	@echo "Validating all SPIR-V shaders..."
+	@echo "If no output is shown, the shaders are valid."
+	@for spv in ./assets/shaders/compiled/*.spv; do \
+		spirv-val $$spv; \
+	done
+
+clean_shaders:
+	@ruby ./assets/shaders/compile_shaders.rb clean
 
 clean:
+	@echo "Cleaning bazel solution..."
 	bazel clean
+	make clean_shaders
 
 .PHONY: debug release debug_run release_run fast fast_run clean

@@ -2,7 +2,7 @@
 
 ## Description
 
-`Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, ...
+`Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, `Ruby`, ...
 
 ## Setup
 
@@ -26,6 +26,15 @@ cd cmake_build
 # You can ignore the generator flag if you want to use the default one
 cmake ../lib/DirectXShaderCompiler -G <Generator> -C ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v"
 cmake --build . --target dxc --config Release
+```
+
+### Ruby
+
+I use `Ruby` in order to take care of some small parts of the project, shader compiling for example.
+But don't worry, if you don't have it, just launch this command to install Ruby on your machine, it will do everything automatically:
+
+```bash
+make check_ruby
 ```
 
 ## Compilation
