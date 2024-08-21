@@ -73,4 +73,9 @@ GLFWwindow* Context::GetWindow()
 {
     return __window;
 }
+
+const GLFWwindow* Context::GetWindow() const
+{
+    return __window;
+}
 }

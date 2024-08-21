@@ -8,6 +8,7 @@
 #pragma once
 
 #include <vector>
+#include <set>
 
 #define GLFW_INCLUDE_VULKAN
 #if defined(_WIN32)

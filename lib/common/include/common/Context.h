@@ -24,6 +24,7 @@ public:
     bool ShouldClose();
     void PollEvents();
     GLFWwindow * GetWindow();
+    const GLFWwindow * GetWindow() const;
 
 private:
     GLFWwindow * __window;

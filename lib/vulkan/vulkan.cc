@@ -7,10 +7,16 @@
 ///
 #include "Vulkan.h"
 
+#include <array>
 #include <vector>
 
 namespace venom
 {
+/// @brief Device extensions to use
+static constexpr std::array s_deviceExtensions = {
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+};
+
 VulkanApplication::VulkanApplication()
     : __context()
 {
@@ -150,20 +156,32 @@ Error VulkanApplication::__InitPhysicalDevices()
     createInfo.pEnabledFeatures = &deviceFeatures;
 
     // Extensions
-    const std::vector<const char *> deviceExtensions = {
-        VK_KHR_SWAPCHAIN_EXTENSION_NAME
-    };
-    createInfo.enabledExtensionCount = deviceExtensions.size();
-    createInfo.ppEnabledExtensionNames = deviceExtensions.data();
+    createInfo.enabledExtensionCount = s_deviceExtensions.size();
+    createInfo.ppEnabledExtensionNames = s_deviceExtensions.data();
 
     // Validation Layers
     _SetCreateInfoValidationLayers(&createInfo);
+
+    // Create Swap Chain
+    if (auto err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
+        return err;
+
+    // Verify if the device is suitable
+    if (!__IsDeviceSuitable(&createInfo))
+    {
+        Log::Error("Physical Device not suitable for Vulkan");
+        return Error::InitializationFailed;
+    }
 
     if (auto res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
     {
         Log::Error("Failed to create logical device, error code: %d", res);
         return Error::InitializationFailed;
     }
+
+    // Create SwapChain
+    if (auto err = __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
+        return err;
 
     // Create Graphics Queue
     VkQueue graphicsQueue;
@@ -174,6 +192,34 @@ Error VulkanApplication::__InitPhysicalDevices()
     __physicalDevice.GetDeviceQueue(&presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
 
     return Error::Success;
+}
+
+bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo)
+{
+    // Check if the device supports the extensions
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(__physicalDevice.physicalDevice, nullptr, &extensionCount, nullptr);
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(__physicalDevice.physicalDevice, nullptr, &extensionCount, availableExtensions.data());
+
+    std::set<std::string> requiredExtensions(createInfo->ppEnabledExtensionNames, createInfo->ppEnabledExtensionNames + createInfo->enabledExtensionCount);
+    for (const auto& extension : availableExtensions) {
+        requiredExtensions.erase(extension.extensionName);
+    }
+    if (!requiredExtensions.empty()) {
+        Log::Error("Missing required extensions:");
+        for (const auto& extension : requiredExtensions) {
+            Log::Error("\t%s", extension);
+        }
+        return false;
+    }
+
+    // Check if the device's swap chain is ok
+    if (__swapChain.presentModes.empty() || __swapChain.surfaceFormats.empty()) {
+        Log::Error("Failed to get surface formats or present modes for swap chain");
+        return false;
+    }
+    return true;
 }
 
 Error VulkanApplication::__CreateInstance()

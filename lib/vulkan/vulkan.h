@@ -11,6 +11,7 @@
 #include "VulkanPhysicalDevice.h"
 #include "VulkanQueueFamily.h"
 #include "VulkanSurface.h"
+#include "VulkanSwapChain.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -32,15 +33,18 @@ private:
     Error __InitVulkan();
 
     Error __InitPhysicalDevices();
+    bool __IsDeviceSuitable(const VkDeviceCreateInfo * createInfo);
 
     Error __CreateInstance();
     void __Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo);
 
+private:
     std::vector<const char *> __instanceExtensions;
     Context __context;
     VulkanPhysicalDevice __physicalDevice;
     MappedVulkanQueueFamilies __queueFamilies;
     VulkanSurface __surface;
+    VulkanSwapChain __swapChain;
 };
 }
 
