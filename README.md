@@ -2,7 +2,7 @@
 
 ## Description
 
-`Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other C++ technical notions that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, ...
+`Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, ...
 
 ## Setup
 
@@ -30,14 +30,40 @@ cmake --build . --target dxc --config Release
 
 ## Compilation
 
-### Windows & MacOS
+### Shaders
+
+We will basically follow this guideline:
+- Guideline: https://github.com/microsoft/DirectXShaderCompiler/wiki/SPIR‐V-CodeGen
+- Command Line Options: https://github.com/Microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#supported-command-line-options
+
+You can either do this to compile every shader:
+
+```
+make compile_shader
+```
+
+Or do this manually:
+
+```
+# Example for vertex and fragment/pixel shader
+## -T: shader profile, -Fo: output file, -spirv: output format
+mkdir ./assets/shaders/compiled
+./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./assets/shaders/hlsl/vertex_shader.hlsl -Fo ./assets/shaders/compiled/vertex_shader.spv
+./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./assets/shaders/hlsl/pixel_shader.hlsl -Fo ./assets/shaders/compiled/fragment_shader.spv
+```
+
+Refer to this for Shader Profiles: https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-models
+
+### Project
+
+#### Windows & MacOS
 
 ```bash
 bazel build -c opt //:VenomEngine
 bazel run //:VenomEngine
 ```
 
-### Linux
+#### Linux
 
 First, you will need to make sure you know which windowing system you are using (`X11` or `Wayland`).
 

@@ -27,6 +27,12 @@ dxc:
 	cmake ../lib/DirectXShaderCompiler -C ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v" && \
 	cmake --build . --target dxc --config Release
 
+compile_shader:
+	-mkdir ./assets/shaders/compiled
+	./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./assets/shaders/hlsl/vertex_shader.hlsl   -Fo ./assets/shaders/compiled/vertex_shader.spv
+	./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./assets/shaders/hlsl/pixel_shader.hlsl -Fo ./assets/shaders/compiled/fragment_shader.spv
+
+
 clean:
 	bazel clean
 
