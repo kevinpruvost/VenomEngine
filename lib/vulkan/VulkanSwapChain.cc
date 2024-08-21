@@ -28,6 +28,11 @@ VulkanSwapChain::~VulkanSwapChain()
     if (swapChain != VK_NULL_HANDLE) {
         vkDestroySwapchainKHR(__logicalDevice, swapChain, nullptr);
     }
+
+    for (auto & imageView : swapChainImageViews) {
+        if (imageView != VK_NULL_HANDLE)
+            vkDestroyImageView(__logicalDevice, imageView, nullptr);
+    }
 }
 
 Error VulkanSwapChain::InitSwapChainSettings(const VulkanPhysicalDevice* physicalDevice, const VulkanSurface* surface,
@@ -133,10 +138,42 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
     // Old swap chain, if it exists, VK_NULL_HANDLE on the first try
     createInfo.oldSwapchain = swapChain;
 
+    // Creating SwapChain
     if (vkCreateSwapchainKHR(physicalDevice->logicalDevice, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
         Log::Error("Failed to create swap chain");
         return Error::InitializationFailed;
     }
+
+    // Getting handles of images in the swap chain
+    swapChainImageHandles.resize(imageCount);
+    vkGetSwapchainImagesKHR(physicalDevice->logicalDevice, swapChain, &imageCount, swapChainImageHandles.data());
+
+    // Create ImageViews
+    swapChainImageViews.resize(imageCount);
+    for (size_t i = 0; i < imageCount; i++) {
+        VkImageViewCreateInfo imageViewCreateInfo = {};
+        imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+        imageViewCreateInfo.image = swapChainImageHandles[i];
+        imageViewCreateInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+        imageViewCreateInfo.format = activeSurfaceFormat.format;
+        // No swizzling, swizzling means changing the order of components
+        imageViewCreateInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+        imageViewCreateInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+        imageViewCreateInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+        imageViewCreateInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+
+        imageViewCreateInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageViewCreateInfo.subresourceRange.baseMipLevel = 0;
+        imageViewCreateInfo.subresourceRange.levelCount = 1;
+        imageViewCreateInfo.subresourceRange.baseArrayLayer = 0;
+        imageViewCreateInfo.subresourceRange.layerCount = 1;
+
+        if (vkCreateImageView(physicalDevice->logicalDevice, &imageViewCreateInfo, nullptr, &swapChainImageViews[i]) != VK_SUCCESS) {
+            Log::Error("Failed to create image views");
+            return Error::InitializationFailed;
+        }
+    }
+
     __logicalDevice = physicalDevice->logicalDevice;
     return Error::Success;
 }

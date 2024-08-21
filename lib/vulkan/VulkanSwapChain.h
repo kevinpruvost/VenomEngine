@@ -34,6 +34,8 @@ public:
     VkPresentModeKHR activePresentMode;
     VkExtent2D extent;
     VkSwapchainKHR swapChain;
+    std::vector<VkImage> swapChainImageHandles;
+    std::vector<VkImageView> swapChainImageViews;
 
 private:
     // For destruction
