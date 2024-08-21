@@ -2,6 +2,10 @@ bazel-*
 MODULE.bazel.lock
 logs
 
+CMakeFiles
+
+cmake_build
+
 # Prerequisites
 *.d
 

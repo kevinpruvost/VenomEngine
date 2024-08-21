@@ -20,6 +20,13 @@ fast:
 fast_run: fast
 	bazel run //:$(TARGET) --compilation_mode=fastbuild
 
+dxc:
+	-mkdir -p cmake_build
+	# You can ignore the generator flag if you want to use the default one
+	cd cmake_build && \
+	cmake ../lib/DirectXShaderCompiler -C ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v" && \
+	cmake --build . --target dxc --config Release
+
 clean:
 	bazel clean
 
