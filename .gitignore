@@ -6,6 +6,8 @@ CMakeFiles
 
 cmake_build
 
+assets/shaders/compiled
+
 # Prerequisites
 *.d
 
