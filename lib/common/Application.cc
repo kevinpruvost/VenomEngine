@@ -57,4 +57,14 @@ Error Application::LoadApi(const ApiType apiType)
     return Error::Success;
 }
 
+static bazel::tools::cpp::runfiles::Runfiles * runfiles = nullptr;
+void InitializeResourcesFilesystem(char** argv)
+{
+    runfiles = bazel::tools::cpp::runfiles::Runfiles::Create(argv[0]);
+}
+
+bazel::tools::cpp::runfiles::Runfiles* GetRunfiles()
+{
+    return runfiles;
+}
 }

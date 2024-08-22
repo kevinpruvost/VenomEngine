@@ -12,6 +12,7 @@
 #include "VulkanQueueFamily.h"
 #include "VulkanSurface.h"
 #include "VulkanSwapChain.h"
+#include "VulkanShader.h"
 
 #include <common/Application.h>
 #include <common/Context.h>

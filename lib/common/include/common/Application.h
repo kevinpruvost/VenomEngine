@@ -8,6 +8,7 @@
 #pragma once
 
 #include <common/Error.h>
+#include "tools/cpp/runfiles/runfiles.h"
 
 namespace venom
 {

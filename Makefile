@@ -50,7 +50,7 @@ else
 endif
 
 compile_shaders: check_ruby
-	ruby ./assets/shaders/compile_shaders.rb compile
+	ruby ./resources/compile_shaders.rb compile
 
 validate_shaders:
 	@echo "Validating all SPIR-V shaders..."
@@ -60,7 +60,7 @@ validate_shaders:
 	done
 
 clean_shaders:
-	@ruby ./assets/shaders/compile_shaders.rb clean
+	@ruby ./resources/compile_shaders.rb clean
 
 clean:
 	@echo "Cleaning bazel solution..."

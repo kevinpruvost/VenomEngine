@@ -20,6 +20,7 @@ refresh_compile_commands(
 cc_binary(
     name = "VenomEngine",
     srcs = ["VenomEngine/main.cc"],
+    data = glob(["resources/*/**"]) + ["VenomEngine/main.cc"],
     dynamic_deps = [
         "//lib/vulkan:VenomVulkan",
     ],

@@ -3,7 +3,7 @@
   <component name="BlazeCTargetInfoService">
     <infoMap>
       <entry key="//:VenomEngine">
-        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//:VenomEngine" />
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//:VenomEngine and 1 other target(s)" />
       </entry>
       <entry key="//lib/GLFW:glfw_platform">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/GLFW:glfw_platform" />
@@ -12,7 +12,7 @@
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/GLFW:glfw_static" />
       </entry>
       <entry key="//lib/common:venom_common_static">
-        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/common:venom_common_static" />
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//:VenomEngine and 1 other target(s)" />
       </entry>
       <entry key="//lib/glm:glm_library">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/glm:glm_library" />

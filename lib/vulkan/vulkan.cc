@@ -42,6 +42,10 @@ Error VulkanApplication::Run()
         Log::Error("Failed to initialize Vulkan: %d", res);
         return Error::InitializationFailed;
     }
+
+    VulkanShader shader;
+    shader.LoadShader(&__context, "pixel_shader.spv");
+
     return venom::Error::Success;
 }
 

@@ -1,8 +1,8 @@
 require 'fileutils'
 
 # Directories
-hlsl_dir = './assets/shaders/hlsl'
-compiled_dir = './assets/shaders/compiled'
+hlsl_dir = './resources/shaders/hlsl'
+compiled_dir = './resources/shaders/compiled'
 dxc_path = './cmake_build/Release/bin/dxc'
 
 # Ensure the compiled directory exists

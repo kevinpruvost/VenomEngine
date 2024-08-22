@@ -56,9 +56,9 @@ Or do this manually:
 ```
 # Example for vertex and fragment/pixel shader
 ## -T: shader profile, -Fo: output file, -spirv: output format
-mkdir ./assets/shaders/compiled
-./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./assets/shaders/hlsl/vertex_shader.hlsl -Fo ./assets/shaders/compiled/vertex_shader.spv
-./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./assets/shaders/hlsl/pixel_shader.hlsl -Fo ./assets/shaders/compiled/fragment_shader.spv
+mkdir ./resources/shaders/compiled
+./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./resources/shaders/hlsl/vertex_shader.hlsl -Fo ./resources/shaders/compiled/vertex_shader.spv
+./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./resources/shaders/hlsl/pixel_shader.hlsl -Fo ./resources/shaders/compiled/fragment_shader.spv
 ```
 
 Refer to this for Shader Profiles: https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-models

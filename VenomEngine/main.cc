@@ -8,9 +8,12 @@
 #include <stdio.h>
 #include <common/Application.h>
 #include <common/Log.h>
+#include <common/Resources.h>
 
-int main()
+int main(int argc, char** argv)
 {
+    venom::Resources::InitializeFilesystem(argv);
+
     venom::Application app;
     app.LoadApi(venom::Application::ApiType::Vulkan);
     venom::Log::LogToFile("bonjour");
