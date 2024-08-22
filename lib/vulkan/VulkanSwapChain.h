@@ -20,6 +20,10 @@ class VulkanSwapChain
 public:
     VulkanSwapChain();
     ~VulkanSwapChain();
+    VulkanSwapChain(const VulkanSwapChain&) = delete;
+    VulkanSwapChain& operator=(const VulkanSwapChain&) = delete;
+    VulkanSwapChain(VulkanSwapChain&&);
+    VulkanSwapChain& operator=(VulkanSwapChain&&);
 
     Error InitSwapChainSettings(const VulkanPhysicalDevice * physicalDevice, const VulkanSurface * surface,
         const Context * context, const MappedVulkanQueueFamilies * queueFamilies);

@@ -18,11 +18,15 @@ ApplicationBackend::ApplicationBackend()
 }
 
 Application::Application()
+    : backend_(nullptr)
 {
 }
 
 Application::~Application()
 {
+    if (backend_) {
+        delete backend_;
+    }
 }
 
 Error Application::Run()

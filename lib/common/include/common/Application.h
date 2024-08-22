@@ -16,6 +16,7 @@ class VENOM_COMMON_API ApplicationBackend
 {
 public:
     ApplicationBackend();
+    virtual ~ApplicationBackend() = default;
     virtual Error Run() = 0;
 };
 

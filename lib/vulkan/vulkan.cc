@@ -24,6 +24,7 @@ VulkanApplication::VulkanApplication()
 
 VulkanApplication::~VulkanApplication()
 {
+    Log::Print("Destroying Vulkan app...");
 }
 
 Error VulkanApplication::Run()
@@ -43,8 +44,10 @@ Error VulkanApplication::Run()
         return Error::InitializationFailed;
     }
 
-    VulkanShader shader;
-    shader.LoadShader(&__context, "pixel_shader.spv");
+    VulkanShaderPipeline shaderPipeline;
+    shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, {
+        "pixel_shader.spv", "vertex_shader.spv"
+    });
 
     return venom::Error::Success;
 }

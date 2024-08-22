@@ -35,10 +35,44 @@ VulkanSwapChain::~VulkanSwapChain()
     }
 }
 
-Error VulkanSwapChain::InitSwapChainSettings(const VulkanPhysicalDevice* physicalDevice, const VulkanSurface* surface,
-    const Context* context, const MappedVulkanQueueFamilies* queueFamilies)
+VulkanSwapChain::VulkanSwapChain(VulkanSwapChain&& other)
+    : swapChain(other.swapChain)
+    , swapChainImageHandles(std::move(other.swapChainImageHandles))
+    , swapChainImageViews(std::move(other.swapChainImageViews))
+    , capabilities(other.capabilities)
+    , surfaceFormats(std::move(other.surfaceFormats))
+    , presentModes(std::move(other.presentModes))
+    , activeSurfaceFormat(other.activeSurfaceFormat)
+    , activePresentMode(other.activePresentMode)
+    , extent(other.extent)
+    , __logicalDevice(other.__logicalDevice)
 {
-        // Get surface capabilities
+    other.swapChain = VK_NULL_HANDLE;
+    other.__logicalDevice = VK_NULL_HANDLE;
+}
+
+VulkanSwapChain& VulkanSwapChain::operator=(VulkanSwapChain&& other)
+{
+    if (this == &other) return *this;
+    swapChain = other.swapChain;
+    swapChainImageHandles = std::move(other.swapChainImageHandles);
+    swapChainImageViews = std::move(other.swapChainImageViews);
+    capabilities = other.capabilities;
+    surfaceFormats = std::move(other.surfaceFormats);
+    presentModes = std::move(other.presentModes);
+    activeSurfaceFormat = other.activeSurfaceFormat;
+    activePresentMode = other.activePresentMode;
+    extent = other.extent;
+    __logicalDevice = other.__logicalDevice;
+    other.swapChain = VK_NULL_HANDLE;
+    other.__logicalDevice = VK_NULL_HANDLE;
+    return *this;
+}
+
+Error VulkanSwapChain::InitSwapChainSettings(const VulkanPhysicalDevice* physicalDevice, const VulkanSurface* surface,
+                                             const Context* context, const MappedVulkanQueueFamilies* queueFamilies)
+{
+    // Get surface capabilities
     if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->physicalDevice, surface->surface, &capabilities); err != VK_SUCCESS)
     {
         Log::Error("Failed to get physical device surface capabilities: %d", err);

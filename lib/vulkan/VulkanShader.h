@@ -7,9 +7,7 @@
 ///
 #pragma once
 
-#include "VulkanDebug.h"
-
-#include "common/Context.h"
+#include "VulkanPhysicalDevice.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
 namespace venom
@@ -17,9 +15,32 @@ namespace venom
 class VulkanShader
 {
 public:
+    // Making sure handles are not destroyed when the object is moved
+
     VulkanShader();
     ~VulkanShader();
+    VulkanShader(const VulkanShader&) = delete;
+    VulkanShader& operator=(const VulkanShader&) = delete;
+    VulkanShader(VulkanShader&&);
+    VulkanShader& operator=(VulkanShader&&);
 
-    Error LoadShader(const Context* context, const std::string& shaderPath);
+    Error LoadShader(VkDevice logicalDevice, const std::string& shaderPath);
+
+private:
+    VkShaderModule __shaderModule;
+    VkDevice __logicalDevice;
 };
+
+class VulkanShaderPipeline
+{
+public:
+    VulkanShaderPipeline();
+    ~VulkanShaderPipeline();
+
+    Error LoadShaders(VkDevice logicalDevice, const std::vector<std::string>& shaderPaths);
+
+private:
+    std::vector<VulkanShader> __shaders;
+};
+
 }

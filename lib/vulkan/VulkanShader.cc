@@ -15,14 +15,38 @@
 namespace venom
 {
 VulkanShader::VulkanShader()
+    : __shaderModule(VK_NULL_HANDLE)
+    , __logicalDevice(VK_NULL_HANDLE)
 {
 }
 
 VulkanShader::~VulkanShader()
 {
+    if (__shaderModule != VK_NULL_HANDLE) {
+        vkDestroyShaderModule(__logicalDevice, __shaderModule, nullptr);
+    }
 }
 
-Error VulkanShader::LoadShader(const Context* context, const std::string& shaderPath)
+VulkanShader::VulkanShader(VulkanShader && other)
+    : __shaderModule(other.__shaderModule)
+    , __logicalDevice(other.__logicalDevice)
+{
+    other.__shaderModule = VK_NULL_HANDLE;
+    other.__logicalDevice = VK_NULL_HANDLE;
+}
+
+VulkanShader & VulkanShader::operator=(VulkanShader && other)
+{
+    if (this == &other) return *this;
+
+    __shaderModule = other.__shaderModule;
+    __logicalDevice = other.__logicalDevice;
+    other.__shaderModule = VK_NULL_HANDLE;
+    other.__logicalDevice = VK_NULL_HANDLE;
+    return *this;
+}
+
+Error VulkanShader::LoadShader(VkDevice logicalDevice, const std::string& shaderPath)
 {
     const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath;
     const std::string path = Resources::GetResourcePath(folder_shaderPath);
@@ -36,7 +60,45 @@ Error VulkanShader::LoadShader(const Context* context, const std::string& shader
 
     size_t fileSize = (size_t) file.tellg();
     std::vector<char> buffer(fileSize);
+    file.seekg(0);
+    file.read(buffer.data(), fileSize);
+    file.close();
+
+    VkShaderModuleCreateInfo createInfo = {};
+    createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    createInfo.codeSize = buffer.size();
+    createInfo.pCode = reinterpret_cast<const uint32_t*>(buffer.data());
+
+    if (vkCreateShaderModule(logicalDevice, &createInfo, nullptr, &__shaderModule) != VK_SUCCESS)
+    {
+        Log::Error("Failed to create shader module");
+        return Error::Failure;
+    }
+    __logicalDevice = logicalDevice;
     return Error::Success;
 }
 
+VulkanShaderPipeline::VulkanShaderPipeline()
+{
+}
+
+VulkanShaderPipeline::~VulkanShaderPipeline()
+{
+}
+
+Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const std::vector<std::string>& shaderPaths)
+{
+    for (const auto& shaderPath : shaderPaths)
+    {
+        VulkanShader shader;
+        if (shader.LoadShader(logicalDevice, shaderPath) != Error::Success)
+        {
+            Log::Error("Failed to load shader: %s", shaderPath.c_str());
+            return Error::Failure;
+        }
+        // Avoid shader from destruction
+        __shaders.emplace_back(std::move(shader));
+    }
+    return Error::Success;
+}
 }
