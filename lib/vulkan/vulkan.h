@@ -13,6 +13,7 @@
 #include "VulkanSurface.h"
 #include "VulkanSwapChain.h"
 #include "VulkanShader.h"
+#include "VulkanRenderPass.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -46,6 +47,7 @@ private:
     MappedVulkanQueueFamilies __queueFamilies;
     VulkanSurface __surface;
     VulkanSwapChain __swapChain;
+    VulkanRenderPass __renderPass;
 };
 }
 

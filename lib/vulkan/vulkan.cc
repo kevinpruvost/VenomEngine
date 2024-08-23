@@ -44,11 +44,6 @@ Error VulkanApplication::Run()
         return Error::InitializationFailed;
     }
 
-    VulkanShaderPipeline shaderPipeline;
-    shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, &__swapChain, {
-        "pixel_shader.spv", "vertex_shader.spv"
-    });
-
     return Error::Success;
 }
 
@@ -197,6 +192,10 @@ Error VulkanApplication::__InitPhysicalDevices()
     // Create Present Queue
     VkQueue presentQueue;
     __physicalDevice.GetDeviceQueue(&presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
+
+    // Create Render Pass
+    if (auto err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != Error::Success)
+        return err;
 
     return Error::Success;
 }

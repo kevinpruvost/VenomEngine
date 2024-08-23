@@ -9,6 +9,7 @@
 
 #include "VulkanPhysicalDevice.h"
 #include "VulkanSwapChain.h"
+#include "VulkanRenderPass.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
 namespace venom
@@ -21,16 +22,14 @@ public:
     ~VulkanShaderPipeline();
 
     Error LoadShader(VkDevice logicalDevice, const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
-    Error LoadShaders(VkDevice logicalDevice, const VulkanSwapChain * swapChain, const std::vector<std::string>& shaderPaths);
+    Error LoadShaders(VkDevice logicalDevice, const VulkanSwapChain * swapChain, const VulkanRenderPass * renderPass, const std::vector<std::string>& shaderPaths);
 
 private:
-    Error CreateRenderPass(VkDevice logicalDevice, const VulkanSwapChain * swapChain);
 
 private:
     VkPipeline __graphicsPipeline;
     VkPipelineLayout __pipelineLayout;
     VkDevice __logicalDevice;
-    VkRenderPass __renderPass;
 };
 
 }

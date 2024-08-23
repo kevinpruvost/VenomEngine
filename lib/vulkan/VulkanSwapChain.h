@@ -39,7 +39,10 @@ public:
     VkExtent2D extent;
     VkSwapchainKHR swapChain;
     std::vector<VkImage> swapChainImageHandles;
-    std::vector<VkImageView> swapChainImageViews;
+
+private:
+    std::vector<VkImageView> __swapChainImageViews;
+    std::vector<VkFramebuffer> __swapChainFramebuffers;
 
 private:
     // For destruction

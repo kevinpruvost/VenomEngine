@@ -29,7 +29,7 @@ VulkanSwapChain::~VulkanSwapChain()
         vkDestroySwapchainKHR(__logicalDevice, swapChain, nullptr);
     }
 
-    for (auto & imageView : swapChainImageViews) {
+    for (auto & imageView : __swapChainImageViews) {
         if (imageView != VK_NULL_HANDLE)
             vkDestroyImageView(__logicalDevice, imageView, nullptr);
     }
@@ -38,7 +38,7 @@ VulkanSwapChain::~VulkanSwapChain()
 VulkanSwapChain::VulkanSwapChain(VulkanSwapChain&& other)
     : swapChain(other.swapChain)
     , swapChainImageHandles(std::move(other.swapChainImageHandles))
-    , swapChainImageViews(std::move(other.swapChainImageViews))
+    , __swapChainImageViews(std::move(other.__swapChainImageViews))
     , capabilities(other.capabilities)
     , surfaceFormats(std::move(other.surfaceFormats))
     , presentModes(std::move(other.presentModes))
@@ -56,7 +56,7 @@ VulkanSwapChain& VulkanSwapChain::operator=(VulkanSwapChain&& other)
     if (this == &other) return *this;
     swapChain = other.swapChain;
     swapChainImageHandles = std::move(other.swapChainImageHandles);
-    swapChainImageViews = std::move(other.swapChainImageViews);
+    __swapChainImageViews = std::move(other.__swapChainImageViews);
     capabilities = other.capabilities;
     surfaceFormats = std::move(other.surfaceFormats);
     presentModes = std::move(other.presentModes);
@@ -183,7 +183,8 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
     vkGetSwapchainImagesKHR(physicalDevice->logicalDevice, swapChain, &imageCount, swapChainImageHandles.data());
 
     // Create ImageViews
-    swapChainImageViews.resize(imageCount);
+    __swapChainImageViews.resize(imageCount);
+    __swapChainFramebuffers.resize(imageCount);
     for (size_t i = 0; i < imageCount; i++) {
         VkImageViewCreateInfo imageViewCreateInfo = {};
         imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -202,7 +203,7 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
         imageViewCreateInfo.subresourceRange.baseArrayLayer = 0;
         imageViewCreateInfo.subresourceRange.layerCount = 1;
 
-        if (vkCreateImageView(physicalDevice->logicalDevice, &imageViewCreateInfo, nullptr, &swapChainImageViews[i]) != VK_SUCCESS) {
+        if (vkCreateImageView(physicalDevice->logicalDevice, &imageViewCreateInfo, nullptr, &__swapChainImageViews[i]) != VK_SUCCESS) {
             Log::Error("Failed to create image views");
             return Error::InitializationFailed;
         }

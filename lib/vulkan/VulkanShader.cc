@@ -19,7 +19,6 @@ VulkanShaderPipeline::VulkanShaderPipeline()
     : __graphicsPipeline(VK_NULL_HANDLE)
     , __pipelineLayout(VK_NULL_HANDLE)
     , __logicalDevice(VK_NULL_HANDLE)
-    , __renderPass(VK_NULL_HANDLE)
 {
 }
 
@@ -29,8 +28,6 @@ VulkanShaderPipeline::~VulkanShaderPipeline()
         vkDestroyPipeline(__logicalDevice, __graphicsPipeline, nullptr);
     if (__pipelineLayout != VK_NULL_HANDLE)
         vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, nullptr);
-    if (__renderPass != VK_NULL_HANDLE)
-        vkDestroyRenderPass(__logicalDevice, __renderPass, nullptr);
 }
 
 Error VulkanShaderPipeline::LoadShader(VkDevice logicalDevice,
@@ -84,7 +81,8 @@ Error VulkanShaderPipeline::LoadShader(VkDevice logicalDevice,
     return Error::Success;
 }
 
-Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwapChain* swapChain, const std::vector<std::string>& shaderPaths)
+Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwapChain* swapChain,
+    const VulkanRenderPass * renderPass, const std::vector<std::string>& shaderPaths)
 {
     // Loading every shader
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages(shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
@@ -234,13 +232,6 @@ Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwap
     }
     __logicalDevice = logicalDevice;
 
-    // Render Pass
-    if (CreateRenderPass(logicalDevice, swapChain) != Error::Success)
-    {
-        Log::Error("Failed to create render pass");
-        return Error::Failure;
-    }
-
     // Setting up the pipeline
     VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
     graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -254,7 +245,7 @@ Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwap
     graphicsPipelineCreateInfo.pDepthStencilState = &depthStencil;
     graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
     graphicsPipelineCreateInfo.layout = __pipelineLayout;
-    graphicsPipelineCreateInfo.renderPass = __renderPass;
+    graphicsPipelineCreateInfo.renderPass = renderPass->GetRenderPass();
     graphicsPipelineCreateInfo.subpass = 0; // Index of the subpass in the render pass where this pipeline will be used
     graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
     graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
@@ -269,53 +260,6 @@ Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwap
     // Cleaning up shader modules
     for (int i = 0; i < shaderStages.size(); ++i) {
         vkDestroyShaderModule(logicalDevice, shaderStages[i].module, nullptr);
-    }
-    return Error::Success;
-}
-
-Error VulkanShaderPipeline::CreateRenderPass(VkDevice logicalDevice, const VulkanSwapChain* swapChain)
-{
-    // Render Pass
-    VkAttachmentDescription colorAttachment{};
-    // Should match the format of the swap chain
-    colorAttachment.format = swapChain->activeSurfaceFormat.format;
-    colorAttachment.samples = VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT;
-    // What to do with the data before rendering
-    colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR; // OP_LOAD might be useful for deferred shading or temporal AA
-    // What to do with the data after rendering
-    colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE; // OP_STORE might be useful for post-processing
-    colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    // Layout of the image before and after the render pass
-    colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-
-    // Color attachment reference
-    VkAttachmentReference colorAttachmentRef{};
-    colorAttachmentRef.attachment = 0;
-    colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
-    // Subpass
-    VkSubpassDescription subpass{};
-    subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    subpass.colorAttachmentCount = 1;
-    subpass.pColorAttachments = &colorAttachmentRef;
-    subpass.inputAttachmentCount = 0;
-    subpass.pInputAttachments = nullptr; // Input attachments
-    subpass.pResolveAttachments = nullptr; // Multisampling
-    subpass.pDepthStencilAttachment = nullptr; // Depth and stencil
-
-    VkRenderPassCreateInfo renderPassInfo{};
-    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    renderPassInfo.attachmentCount = 1;
-    renderPassInfo.pAttachments = &colorAttachment;
-    renderPassInfo.subpassCount = 1;
-    renderPassInfo.pSubpasses = &subpass;
-
-    if (vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &__renderPass) != VK_SUCCESS)
-    {
-        Log::Error("Failed to create render pass");
-        return Error::Failure;
     }
     return Error::Success;
 }
