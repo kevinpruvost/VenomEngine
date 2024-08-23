@@ -45,11 +45,11 @@ Error VulkanApplication::Run()
     }
 
     VulkanShaderPipeline shaderPipeline;
-    shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, {
+    shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, &__swapChain, {
         "pixel_shader.spv", "vertex_shader.spv"
     });
 
-    return venom::Error::Success;
+    return Error::Success;
 }
 
 Error VulkanApplication::__Loop()

@@ -8,28 +8,11 @@
 #pragma once
 
 #include "VulkanPhysicalDevice.h"
+#include "VulkanSwapChain.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
 namespace venom
 {
-class VulkanShader
-{
-public:
-    // Making sure handles are not destroyed when the object is moved
-
-    VulkanShader();
-    ~VulkanShader();
-    VulkanShader(const VulkanShader&) = delete;
-    VulkanShader& operator=(const VulkanShader&) = delete;
-    VulkanShader(VulkanShader&&);
-    VulkanShader& operator=(VulkanShader&&);
-
-    Error LoadShader(VkDevice logicalDevice, const std::string& shaderPath);
-
-private:
-    VkShaderModule __shaderModule;
-    VkDevice __logicalDevice;
-};
 
 class VulkanShaderPipeline
 {
@@ -37,10 +20,17 @@ public:
     VulkanShaderPipeline();
     ~VulkanShaderPipeline();
 
-    Error LoadShaders(VkDevice logicalDevice, const std::vector<std::string>& shaderPaths);
+    Error LoadShader(VkDevice logicalDevice, const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
+    Error LoadShaders(VkDevice logicalDevice, const VulkanSwapChain * swapChain, const std::vector<std::string>& shaderPaths);
 
 private:
-    std::vector<VulkanShader> __shaders;
+    Error CreateRenderPass(VkDevice logicalDevice, const VulkanSwapChain * swapChain);
+
+private:
+    VkPipeline __graphicsPipeline;
+    VkPipelineLayout __pipelineLayout;
+    VkDevice __logicalDevice;
+    VkRenderPass __renderPass;
 };
 
 }
