@@ -21,11 +21,11 @@ public:
     VulkanShaderPipeline();
     ~VulkanShaderPipeline();
 
-    Error LoadShaders(VkDevice logicalDevice, const VulkanSwapChain * swapChain, const VulkanRenderPass * renderPass, const std::vector<std::string>& shaderPaths);
+    Error LoadShaders(const VkDevice logicalDevice, const VulkanSwapChain * swapChain, const VulkanRenderPass * renderPass, const std::vector<std::string>& shaderPaths);
     VkPipeline GetPipeline() const;
 
 private:
-    Error LoadShader(VkDevice logicalDevice, const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
+    Error LoadShader(const VkDevice logicalDevice, const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
 
 private:
     VkPipeline __graphicsPipeline;

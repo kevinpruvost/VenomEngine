@@ -70,7 +70,7 @@ Error VulkanApplication::__Loop()
     // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
     VkRect2D scissor{};
     scissor.offset = {0, 0};
-    scissor.extent = __swapChain->extent;
+    scissor.extent = __swapChain.extent;
 
     while (!__context.ShouldClose())
     {

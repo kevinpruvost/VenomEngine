@@ -35,7 +35,7 @@ VulkanRenderPass& VulkanRenderPass::operator=(VulkanRenderPass&& other)
     return *this;
 }
 
-Error VulkanRenderPass::InitRenderPass(VkDevice logicalDevice, const VulkanSwapChain* swapChain)
+Error VulkanRenderPass::InitRenderPass(const VkDevice logicalDevice, const VulkanSwapChain* swapChain)
 {
     // Render Pass
     VkAttachmentDescription colorAttachment{};

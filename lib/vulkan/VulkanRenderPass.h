@@ -22,7 +22,7 @@ public:
     VulkanRenderPass(VulkanRenderPass&& other);
     VulkanRenderPass& operator=(VulkanRenderPass&& other);
 
-    Error InitRenderPass(VkDevice logicalDevice, const VulkanSwapChain * swapChain);
+    Error InitRenderPass(const VkDevice logicalDevice, const VulkanSwapChain * swapChain);
     Error BeginRenderPass(VulkanSwapChain * swapChain, VulkanCommandBuffer * commandBuffer, int framebufferIndex);
     Error EndRenderPass(VulkanCommandBuffer * commandBuffer);
     VkRenderPass GetRenderPass() const;

@@ -12,10 +12,26 @@ namespace venom
 VulkanCommandBuffer::VulkanCommandBuffer()
     : __commandBuffer(VK_NULL_HANDLE)
 {
+    // Important to check because of allocation & free of command buffers
+    static_assert(sizeof(VulkanCommandBuffer) == sizeof(VkCommandBuffer), "Unexpected Command Buffer size!");
 }
 
 VulkanCommandBuffer::~VulkanCommandBuffer()
 {
+}
+
+VulkanCommandBuffer::VulkanCommandBuffer(VulkanCommandBuffer&& other)
+    : __commandBuffer(other.__commandBuffer)
+{
+    other.__commandBuffer = VK_NULL_HANDLE;
+}
+
+VulkanCommandBuffer& VulkanCommandBuffer::operator=(VulkanCommandBuffer&& other)
+{
+    if (this == &other) return *this;
+    __commandBuffer = other.__commandBuffer;
+    other.__commandBuffer = VK_NULL_HANDLE;
+    return *this;
 }
 
 Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
@@ -72,6 +88,12 @@ VulkanCommandPool::~VulkanCommandPool()
 {
     if (__commandPool != VK_NULL_HANDLE)
         vkDestroyCommandPool(__logicalDevice, __commandPool, nullptr);
+    if (__commandBuffers.size() != 0) {
+        vkFreeCommandBuffers(__logicalDevice, __commandPool,
+            static_cast<uint32_t>(__commandBuffers.size()),
+            reinterpret_cast<const VkCommandBuffer*>(__commandBuffers.data()) // Can be done because VulkanCommandBuffer is the same size as VkCommandBuffer
+        );
+    }
 }
 
 VulkanCommandPool::VulkanCommandPool(VulkanCommandPool&& other)
@@ -92,7 +114,7 @@ VulkanCommandPool& VulkanCommandPool::operator=(VulkanCommandPool&& other)
     return *this;
 }
 
-Error VulkanCommandPool::InitCommandPool(VkDevice logicalDevice, VulkanQueueFamilyIndex queueFamilyIndex)
+Error VulkanCommandPool::InitCommandPool(const VkDevice logicalDevice, VulkanQueueFamilyIndex queueFamilyIndex)
 {
     VkCommandPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -120,7 +142,8 @@ Error VulkanCommandPool::CreateCommandBuffer(VulkanCommandBuffer** commandBuffer
     allocInfo.level = level;
     allocInfo.commandBufferCount = 1;
 
-    auto & newCommandBuffer = __commandBuffers.emplace_back();
+    __commandBuffers.push_back(VulkanCommandBuffer());
+    auto & newCommandBuffer = __commandBuffers.back();
 
     if (vkAllocateCommandBuffers(__logicalDevice, &allocInfo, &newCommandBuffer.__commandBuffer) != VK_SUCCESS) {
         Log::Error("Failed to allocate command buffer");

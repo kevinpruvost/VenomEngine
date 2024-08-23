@@ -30,7 +30,7 @@ VulkanShaderPipeline::~VulkanShaderPipeline()
         vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, nullptr);
 }
 
-Error VulkanShaderPipeline::LoadShader(VkDevice logicalDevice,
+Error VulkanShaderPipeline::LoadShader(const VkDevice logicalDevice,
     const std::string& shaderPath,
     VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
@@ -81,7 +81,7 @@ Error VulkanShaderPipeline::LoadShader(VkDevice logicalDevice,
     return Error::Success;
 }
 
-Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwapChain* swapChain,
+Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const VulkanSwapChain* swapChain,
     const VulkanRenderPass * renderPass, const std::vector<std::string>& shaderPaths)
 {
     // Loading every shader
