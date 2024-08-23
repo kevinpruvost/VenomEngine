@@ -41,6 +41,7 @@ class VulkanCommandBuffer
 {
 private:
     VulkanCommandBuffer();
+public:
     ~VulkanCommandBuffer();
     VulkanCommandBuffer(const VulkanCommandBuffer&) = delete;
     VulkanCommandBuffer& operator=(const VulkanCommandBuffer&) = delete;

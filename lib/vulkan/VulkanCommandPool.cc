@@ -36,6 +36,7 @@ VulkanCommandBuffer& VulkanCommandBuffer::operator=(VulkanCommandBuffer&& other)
 
 Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
 {
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     beginInfo.flags = flags; // Optional
@@ -50,6 +51,7 @@ Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) c
 
 Error VulkanCommandBuffer::EndCommandBuffer() const
 {
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     if (vkEndCommandBuffer(__commandBuffer) != VK_SUCCESS) {
         Log::Error("Failed to record command buffer");
         return Error::Failure;
@@ -59,22 +61,26 @@ Error VulkanCommandBuffer::EndCommandBuffer() const
 
 void VulkanCommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const
 {
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     vkCmdBindPipeline(__commandBuffer, bindPoint, pipeline);
 }
 
 void VulkanCommandBuffer::SetViewport(const VkViewport& viewport) const
 {
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     vkCmdSetViewport(__commandBuffer, 0, 1, &viewport);
 }
 
 void VulkanCommandBuffer::SetScissor(const VkRect2D& scissor) const
 {
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     vkCmdSetScissor(__commandBuffer, 0, 1, &scissor);
 }
 
 void VulkanCommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     uint32_t firstVertex, uint32_t firstInstance) const
 {
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     vkCmdDraw(__commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
