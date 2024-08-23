@@ -14,6 +14,7 @@
 #include "VulkanSwapChain.h"
 #include "VulkanShader.h"
 #include "VulkanRenderPass.h"
+#include "VulkanCommandPool.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -48,6 +49,7 @@ private:
     VulkanSurface __surface;
     VulkanSwapChain __swapChain;
     VulkanRenderPass __renderPass;
+    VulkanCommandPool __commandPool;
 };
 }
 

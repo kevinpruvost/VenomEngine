@@ -10,6 +10,7 @@
 #include "VulkanPhysicalDevice.h"
 #include "VulkanSurface.h"
 #include "VulkanQueueFamily.h"
+#include "VulkanRenderPass.h"
 
 #include <common/Context.h>
 
@@ -27,8 +28,16 @@ public:
 
     Error InitSwapChainSettings(const VulkanPhysicalDevice * physicalDevice, const VulkanSurface * surface,
         const Context * context, const MappedVulkanQueueFamilies * queueFamilies);
+    
+    /// @brief Inits Swap chain and swap chain image views
+    /// @param physicalDevice 
+    /// @param surface 
+    /// @param context
+    /// @param queueFamilies 
+    /// @return Error
     Error InitSwapChain(const VulkanPhysicalDevice * physicalDevice, const VulkanSurface * surface,
         const Context * context, const MappedVulkanQueueFamilies * queueFamilies);
+    Error InitSwapChainFramebuffers(const VulkanRenderPass * renderPass);
 
 public:
     VkSurfaceCapabilitiesKHR capabilities;

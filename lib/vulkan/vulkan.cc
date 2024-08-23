@@ -197,6 +197,10 @@ Error VulkanApplication::__InitPhysicalDevices()
     if (auto err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != Error::Success)
         return err;
 
+    // Create Graphics Command Pool
+    if (auto err = __commandPool.InitCommandPool(__physicalDevice.logicalDevice, __queueFamilies.graphicsQueueFamilyIndices[0]); err != Error::Success)
+        return err;
+
     return Error::Success;
 }
 

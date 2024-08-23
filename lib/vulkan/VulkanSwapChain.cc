@@ -212,4 +212,29 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
     __logicalDevice = physicalDevice->logicalDevice;
     return Error::Success;
 }
+
+Error VulkanSwapChain::InitSwapChainFramebuffers(const VulkanRenderPass* renderPass)
+{
+    __swapChainFramebuffers.resize(__swapChainImageViews.size());
+    for (int i = 0; i < __swapChainImageViews.size(); ++i) {
+        VkImageView attachments[] = {
+            __swapChainImageViews[i]
+        };
+
+        VkFramebufferCreateInfo framebufferInfo = {};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = renderPass->GetRenderPass();
+        framebufferInfo.attachmentCount = 1;
+        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.width = extent.width;
+        framebufferInfo.height = extent.height;
+        framebufferInfo.layers = 1;
+
+        if (vkCreateFramebuffer(__logicalDevice, &framebufferInfo, nullptr, &__swapChainFramebuffers[i]) != VK_SUCCESS) {
+            Log::Error("Failed to create framebuffer");
+            return Error::InitializationFailed;
+        }
+    }
+    return Error::Success;
+}
 }

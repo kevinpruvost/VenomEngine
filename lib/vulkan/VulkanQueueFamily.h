@@ -23,6 +23,8 @@ public:
 public:
     VkQueueFamilyProperties properties;
 };
+typedef uint32_t VulkanQueueFamilyIndex;
+typedef std::vector<uint32_t> VulkanQueueFamilyIndices;
 
 class MappedVulkanQueueFamilies
 {
@@ -35,12 +37,12 @@ public:
     Error SetPresentQueueFamilyIndices(const VulkanPhysicalDevice& physicalDevice, const VulkanSurface & surface);
 
 public:
-    std::vector<uint32_t> graphicsQueueFamilyIndices,
+    VulkanQueueFamilyIndices graphicsQueueFamilyIndices,
     computeQueueFamilyIndices, transferQueueFamilyIndices, sparseBindingQueueFamilyIndices,
     protectedQueueFamilyIndices, videoDecodeQueueFamilyIndices,
     videoEncodeQueueFamilyIndices;
     // To set considering the utilized surface
-    std::vector<uint32_t> presentQueueFamilyIndices;
+    VulkanQueueFamilyIndices presentQueueFamilyIndices;
 
 private:
     std::vector<VulkanQueueFamily> __queueFamilies;
