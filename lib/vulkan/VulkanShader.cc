@@ -110,7 +110,6 @@ Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwap
         }
     }
 
-
     // Dynamic States are to specify which states can be changed without recreating the pipeline
     std::vector<VkDynamicState> dynamicStates = {
         VK_DYNAMIC_STATE_VIEWPORT,
@@ -262,5 +261,10 @@ Error VulkanShaderPipeline::LoadShaders(VkDevice logicalDevice, const VulkanSwap
         vkDestroyShaderModule(logicalDevice, shaderStages[i].module, nullptr);
     }
     return Error::Success;
+}
+
+VkPipeline VulkanShaderPipeline::GetPipeline() const
+{
+    return __graphicsPipeline;
 }
 }

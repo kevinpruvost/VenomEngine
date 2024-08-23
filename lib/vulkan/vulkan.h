@@ -50,6 +50,10 @@ private:
     VulkanSwapChain __swapChain;
     VulkanRenderPass __renderPass;
     VulkanCommandPool __commandPool;
+
+private:
+    // For test
+    VulkanShaderPipeline __shaderPipeline;
 };
 }
 

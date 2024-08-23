@@ -44,14 +44,44 @@ Error VulkanApplication::Run()
         return Error::InitializationFailed;
     }
 
+    // Test
+    __shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, &__swapChain, &__renderPass, {
+        "pixel_shader.spv",
+        "vertex_shader.spv"
+    });
     return Error::Success;
 }
 
 Error VulkanApplication::__Loop()
 {
+    VulkanCommandBuffer * commandBuffer = nullptr;
+    if (auto res = __commandPool.CreateCommandBuffer(&commandBuffer); res != Error::Success)
+        return res;
+
+    // Viewport
+    VkViewport viewport{};
+    viewport.x = 0.0f;
+    viewport.y = 0.0f;
+    viewport.width = static_cast<float>(__swapChain.extent.width);
+    viewport.height = static_cast<float>(__swapChain.extent.height);
+    viewport.minDepth = 0.0f;
+    viewport.maxDepth = 1.0f;
+
+    // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
+    VkRect2D scissor{};
+    scissor.offset = {0, 0};
+    scissor.extent = __swapChain->extent;
+
     while (!__context.ShouldClose())
     {
         __context.PollEvents();
+
+        __renderPass.BeginRenderPass(&__swapChain, commandBuffer, 0);
+        commandBuffer->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+        commandBuffer->SetViewport(viewport);
+        commandBuffer->SetScissor(scissor);
+        commandBuffer->Draw(3, 1, 0, 0);
+        __renderPass.EndRenderPass(commandBuffer);
     }
     return Error::Success;
 }
