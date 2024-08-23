@@ -10,12 +10,12 @@
 #include "VulkanPhysicalDevice.h"
 #include "VulkanSurface.h"
 #include "VulkanQueueFamily.h"
-#include "VulkanRenderPass.h"
 
 #include <common/Context.h>
 
 namespace venom
 {
+class VulkanRenderPass;
 class VulkanSwapChain
 {
 public:

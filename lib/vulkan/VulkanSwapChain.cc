@@ -6,6 +6,7 @@
 /// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include "VulkanSwapChain.h"
+#include "VulkanRenderPass.h"
 
 #include <algorithm>
 

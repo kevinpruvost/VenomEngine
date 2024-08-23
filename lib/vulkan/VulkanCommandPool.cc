@@ -9,6 +9,38 @@
 
 namespace venom
 {
+VulkanCommandBuffer::VulkanCommandBuffer()
+    : __commandBuffer(VK_NULL_HANDLE)
+{
+}
+
+VulkanCommandBuffer::~VulkanCommandBuffer()
+{
+}
+
+Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags)
+{
+    VkCommandBufferBeginInfo beginInfo{};
+    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    beginInfo.flags = flags; // Optional
+    beginInfo.pInheritanceInfo = nullptr; // Optional
+
+    if (vkBeginCommandBuffer(__commandBuffer, &beginInfo) != VK_SUCCESS) {
+        Log::Error("Failed to begin recording command buffer");
+        return Error::Failure;
+    }
+    return Error::Success;
+}
+
+Error VulkanCommandBuffer::EndCommandBuffer()
+{
+    if (vkEndCommandBuffer(__commandBuffer) != VK_SUCCESS) {
+        Log::Error("Failed to record command buffer");
+        return Error::Failure;
+    }
+    return Error::Success;
+}
+
 VulkanCommandPool::VulkanCommandPool()
     : __commandPool(VK_NULL_HANDLE)
     , __logicalDevice(VK_NULL_HANDLE)
@@ -51,6 +83,29 @@ Error VulkanCommandPool::InitCommandPool(VkDevice logicalDevice, VulkanQueueFami
         return Error::Failure;
     }
     __logicalDevice = logicalDevice;
+    return Error::Success;
+}
+
+Error VulkanCommandPool::CreateCommandBuffer(VulkanCommandBuffer** commandBuffer, VkCommandBufferLevel level)
+{
+    if (__logicalDevice == VK_NULL_HANDLE) {
+        Log::Error("Command pool not initialized");
+        return Error::InvalidUse;
+    }
+
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool = __commandPool;
+    allocInfo.level = level;
+    allocInfo.commandBufferCount = 1;
+
+    auto & newCommandBuffer = __commandBuffers.emplace_back();
+
+    if (vkAllocateCommandBuffers(__logicalDevice, &allocInfo, &newCommandBuffer.__commandBuffer) != VK_SUCCESS) {
+        Log::Error("Failed to allocate command buffer");
+        return Error::Failure;
+    }
+    *commandBuffer = &newCommandBuffer;
     return Error::Success;
 }
 }

@@ -25,6 +25,7 @@ enum class Error : uint32_t
     OutOfMemory     = 1 << 2,
     DeviceLost      = 1 << 3,
     InitializationFailed = 1 << 4,
+    InvalidUse      = 1 << 5,
     Unknown = UINT32_MAX
 };
 VENOM_COMMON_API void setErrorString(const char * str);
