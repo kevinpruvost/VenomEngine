@@ -53,6 +53,8 @@ private:
     std::vector<VkImageView> __swapChainImageViews;
     std::vector<VkFramebuffer> __swapChainFramebuffers;
 
+    friend class VulkanRenderPass;
+
 private:
     // For destruction
     VkDevice __logicalDevice;

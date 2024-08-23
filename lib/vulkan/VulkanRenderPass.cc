@@ -83,6 +83,30 @@ Error VulkanRenderPass::InitRenderPass(VkDevice logicalDevice, const VulkanSwapC
     return Error::Success;
 }
 
+Error VulkanRenderPass::BeginRenderPass(VulkanSwapChain* swapChain,
+    VulkanCommandBuffer* commandBuffer, int framebufferIndex)
+{
+    VkRenderPassBeginInfo renderPassInfo{};
+    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    renderPassInfo.renderPass = __renderPass;
+    renderPassInfo.framebuffer = swapChain->__swapChainFramebuffers[framebufferIndex];
+    renderPassInfo.renderArea.offset = {0, 0};
+    renderPassInfo.renderArea.extent = swapChain->extent;
+
+    VkClearValue clearColor = {{{0.0f, 0.0f, 0.0f, 1.0f}}};
+    renderPassInfo.clearValueCount = 1;
+    renderPassInfo.pClearValues = &clearColor;
+
+    vkCmdBeginRenderPass(commandBuffer->__commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    return Error::Success;
+}
+
+Error VulkanRenderPass::EndRenderPass(VulkanCommandBuffer* commandBuffer)
+{
+    vkCmdEndRenderPass(commandBuffer->__commandBuffer);
+    return Error::Success;
+}
+
 VkRenderPass VulkanRenderPass::GetRenderPass() const
 {
     return __renderPass;

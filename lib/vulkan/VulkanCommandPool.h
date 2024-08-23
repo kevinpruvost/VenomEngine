@@ -11,6 +11,7 @@
 
 namespace venom
 {
+class VulkanRenderPass;
 
 /// @brief Command Buffer class, only instanciable by VulkanCommandPool.
 /// To use them, you need to create a VulkanCommandPool and then create/access them via VulkanCommandPool.
@@ -26,13 +27,19 @@ private:
     VulkanCommandBuffer(VulkanCommandBuffer&& other) = delete;
     VulkanCommandBuffer& operator=(VulkanCommandBuffer&& other) = delete;
     friend class VulkanCommandPool;
+    friend class VulkanRenderPass;
 
 private:
     VkCommandBuffer __commandBuffer;
 
 public:
-    Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0);
-    Error EndCommandBuffer();
+    Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0) const;
+    Error EndCommandBuffer() const;
+public:
+    void BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const;
+    void SetViewport(const VkViewport& viewport) const;
+    void SetScissor(const VkRect2D& scissor) const;
+    void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
 };
 
 class VulkanCommandPool

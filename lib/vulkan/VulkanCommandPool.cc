@@ -18,7 +18,7 @@ VulkanCommandBuffer::~VulkanCommandBuffer()
 {
 }
 
-Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags)
+Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
 {
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -32,13 +32,34 @@ Error VulkanCommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags)
     return Error::Success;
 }
 
-Error VulkanCommandBuffer::EndCommandBuffer()
+Error VulkanCommandBuffer::EndCommandBuffer() const
 {
     if (vkEndCommandBuffer(__commandBuffer) != VK_SUCCESS) {
         Log::Error("Failed to record command buffer");
         return Error::Failure;
     }
     return Error::Success;
+}
+
+void VulkanCommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const
+{
+    vkCmdBindPipeline(__commandBuffer, bindPoint, pipeline);
+}
+
+void VulkanCommandBuffer::SetViewport(const VkViewport& viewport) const
+{
+    vkCmdSetViewport(__commandBuffer, 0, 1, &viewport);
+}
+
+void VulkanCommandBuffer::SetScissor(const VkRect2D& scissor) const
+{
+    vkCmdSetScissor(__commandBuffer, 0, 1, &scissor);
+}
+
+void VulkanCommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
+    uint32_t firstVertex, uint32_t firstInstance) const
+{
+    vkCmdDraw(__commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
 VulkanCommandPool::VulkanCommandPool()

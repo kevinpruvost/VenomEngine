@@ -8,6 +8,7 @@
 #pragma once
 
 #include "VulkanSwapChain.h"
+#include "VulkanCommandPool.h"
 
 namespace venom
 {
@@ -22,6 +23,8 @@ public:
     VulkanRenderPass& operator=(VulkanRenderPass&& other);
 
     Error InitRenderPass(VkDevice logicalDevice, const VulkanSwapChain * swapChain);
+    Error BeginRenderPass(VulkanSwapChain * swapChain, VulkanCommandBuffer * commandBuffer, int framebufferIndex);
+    Error EndRenderPass(VulkanCommandBuffer * commandBuffer);
     VkRenderPass GetRenderPass() const;
 
 private:
