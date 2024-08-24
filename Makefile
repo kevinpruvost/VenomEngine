@@ -49,6 +49,9 @@ else
 	endif
 endif
 
+compile_shaders_glsl: check_ruby
+	ruby ./resources/compile_shaders.rb compile_glsl
+
 compile_shaders: check_ruby
 	ruby ./resources/compile_shaders.rb compile
 

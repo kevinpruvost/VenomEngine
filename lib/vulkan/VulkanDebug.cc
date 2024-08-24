@@ -122,7 +122,9 @@ Error VulkanDebugApplication::__InitValidationLayers()
 {
 #ifdef VENOM_DEBUG
     constexpr const char * validationLayers[] = {
-        "VK_LAYER_KHRONOS_validation"
+        "VK_LAYER_KHRONOS_validation",
+        "VK_LAYER_KHRONOS_shader_object",
+        "VK_LAYER_KHRONOS_synchronization2",
     };
 
     uint32_t layerCount;

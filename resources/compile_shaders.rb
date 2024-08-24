@@ -2,6 +2,7 @@ require 'fileutils'
 
 # Directories
 hlsl_dir = './resources/shaders/hlsl'
+glsl_dir = './resources/shaders/glsl'
 compiled_dir = './resources/shaders/compiled'
 dxc_path = './cmake_build/Release/bin/dxc'
 
@@ -10,6 +11,7 @@ FileUtils.mkdir_p(compiled_dir)
 
 # Find all HLSL files in the HLSL directory
 hlsl_files = Dir.glob("#{hlsl_dir}/*.hlsl")
+glsl_files = Dir.glob("#{glsl_dir}/*.glsl")
 
 # Function to determine shader type based on filename
 def shader_type(file)
@@ -39,6 +41,14 @@ elsif ARGV[0] == 'compile'
         output_file = "#{compiled_dir}/#{File.basename(file, '.hlsl')}.spv"
         type = shader_type(file)
         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file}"
+        puts "Compiling #{file} to #{output_file}..."
+        system(cmd)
+    end
+elsif ARGV[0] == 'compile_glsl'
+    # Compile each GLSL file to SPIR-V
+    glsl_files.each do |file|
+        output_file = "#{compiled_dir}/#{File.basename(file, '.glsl')}.spv"
+        cmd = "glslangValidator -V #{file} -o #{output_file}"
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)
     end

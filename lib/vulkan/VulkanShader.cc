@@ -110,16 +110,6 @@ Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const Vulk
         }
     }
 
-    // Dynamic States are to specify which states can be changed without recreating the pipeline
-    std::vector<VkDynamicState> dynamicStates = {
-        VK_DYNAMIC_STATE_VIEWPORT,
-        VK_DYNAMIC_STATE_SCISSOR
-    };
-    VkPipelineDynamicStateCreateInfo dynamicState{};
-    dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-    dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
-    dynamicState.pDynamicStates = dynamicStates.data();
-
     // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -136,26 +126,10 @@ Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const Vulk
     // up a line strip, you can insert a special index value that tells the GPU to start a new line
     inputAssembly.primitiveRestartEnable = VK_FALSE;
 
-    // Viewport
-    VkViewport viewport{};
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.width = static_cast<float>(swapChain->extent.width);
-    viewport.height = static_cast<float>(swapChain->extent.height);
-    viewport.minDepth = 0.0f;
-    viewport.maxDepth = 1.0f;
-
-    // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
-    VkRect2D scissor{};
-    scissor.offset = {0, 0};
-    scissor.extent = swapChain->extent;
-
     VkPipelineViewportStateCreateInfo viewportState{};
     viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     viewportState.viewportCount = 1;
     viewportState.scissorCount = 1;
-    viewportState.pScissors = &scissor;
-    viewportState.pViewports = &viewport;
 
     // Rasterizer
     VkPipelineRasterizationStateCreateInfo rasterizer{};
@@ -172,13 +146,23 @@ Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const Vulk
     // Can be used for shadow mapping
     // https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias
     rasterizer.depthBiasEnable = VK_FALSE;
-    rasterizer.depthBiasConstantFactor = 0.0f;
-    rasterizer.depthBiasClamp = 0.0f;
-    rasterizer.depthBiasSlopeFactor = 0.0f;
+    //rasterizer.depthBiasConstantFactor = 0.0f;
+    //rasterizer.depthBiasClamp = 0.0f;
+    //rasterizer.depthBiasSlopeFactor = 0.0f;
+
+    // Multisampling: on of the ways to do antialiasing
+    VkPipelineMultisampleStateCreateInfo multisampling{};
+    multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+    multisampling.sampleShadingEnable = VK_FALSE;
+    multisampling.rasterizationSamples = VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT;
+    //multisampling.minSampleShading = 1.0f; // Optional
+    //multisampling.pSampleMask = nullptr; // Optional
+    //multisampling.alphaToCoverageEnable = VK_FALSE; // Optional
+    //multisampling.alphaToOneEnable = VK_FALSE; // Optional
 
     // TODO: Stencil & Depth testing
-    VkPipelineDepthStencilStateCreateInfo depthStencil{};
-    depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    // VkPipelineDepthStencilStateCreateInfo depthStencil{};
+    // depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     // Depth test determines if a fragment is drawn based on its depth value
     // depthStencil.depthTestEnable = VK_TRUE;
     // Depth write determines if the depth value of a fragment is written to the depth buffer
@@ -187,13 +171,13 @@ Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const Vulk
     // Color blending
     VkPipelineColorBlendAttachmentState colorBlendAttachment{};
     colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    colorBlendAttachment.blendEnable = VK_TRUE;
-    colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-    colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
-    colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+    colorBlendAttachment.blendEnable = VK_FALSE;
+    //colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+    //colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+    //colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+    //colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+    //colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+    //colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
 
     VkPipelineColorBlendStateCreateInfo colorBlending{};
     colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
@@ -206,23 +190,23 @@ Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const Vulk
     colorBlending.blendConstants[2] = 0.0f; // Optional
     colorBlending.blendConstants[3] = 0.0f; // Optional
 
-    // Multisampling: on of the ways to do antialiasing
-    VkPipelineMultisampleStateCreateInfo multisampling{};
-    multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-    multisampling.sampleShadingEnable = VK_FALSE;
-    multisampling.rasterizationSamples = VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT;
-    multisampling.minSampleShading = 1.0f; // Optional
-    multisampling.pSampleMask = nullptr; // Optional
-    multisampling.alphaToCoverageEnable = VK_FALSE; // Optional
-    multisampling.alphaToOneEnable = VK_FALSE; // Optional
+    // Dynamic States are to specify which states can be changed without recreating the pipeline
+    std::vector<VkDynamicState> dynamicStates = {
+        VK_DYNAMIC_STATE_VIEWPORT,
+        VK_DYNAMIC_STATE_SCISSOR
+    };
+    VkPipelineDynamicStateCreateInfo dynamicState{};
+    dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+    dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
+    dynamicState.pDynamicStates = dynamicStates.data();
 
     // Pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     pipelineLayoutInfo.setLayoutCount = 0; // Optional
-    pipelineLayoutInfo.pSetLayouts = nullptr; // Optional
+    //pipelineLayoutInfo.pSetLayouts = nullptr; // Optional
     pipelineLayoutInfo.pushConstantRangeCount = 0; // Optional
-    pipelineLayoutInfo.pPushConstantRanges = nullptr; // Optional
+    //pipelineLayoutInfo.pPushConstantRanges = nullptr; // Optional
 
     if (vkCreatePipelineLayout(logicalDevice, &pipelineLayoutInfo, nullptr, &__pipelineLayout) != VK_SUCCESS)
     {
@@ -236,19 +220,19 @@ Error VulkanShaderPipeline::LoadShaders(const VkDevice logicalDevice, const Vulk
     graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(shaderStages.size());
     graphicsPipelineCreateInfo.pStages = shaderStages.data();
-    graphicsPipelineCreateInfo.pRasterizationState = &rasterizer;
     graphicsPipelineCreateInfo.pVertexInputState = &vertexInputInfo;
     graphicsPipelineCreateInfo.pInputAssemblyState = &inputAssembly;
     graphicsPipelineCreateInfo.pViewportState = &viewportState;
+    graphicsPipelineCreateInfo.pRasterizationState = &rasterizer;
     graphicsPipelineCreateInfo.pMultisampleState = &multisampling;
-    graphicsPipelineCreateInfo.pDepthStencilState = &depthStencil;
+    //graphicsPipelineCreateInfo.pDepthStencilState = &depthStencil;
     graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
+    graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
     graphicsPipelineCreateInfo.layout = __pipelineLayout;
     graphicsPipelineCreateInfo.renderPass = renderPass->GetRenderPass();
     graphicsPipelineCreateInfo.subpass = 0; // Index of the subpass in the render pass where this pipeline will be used
     graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
-    graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
-    graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
+    //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
 
     if (vkCreateGraphicsPipelines(logicalDevice, VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, nullptr, &__graphicsPipeline) != VK_SUCCESS)
     {

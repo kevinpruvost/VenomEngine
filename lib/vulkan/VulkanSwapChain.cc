@@ -185,13 +185,13 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
     }
 
     // Getting handles of images in the swap chain
+    vkGetSwapchainImagesKHR(physicalDevice->logicalDevice, swapChain, &imageCount, nullptr);
     swapChainImageHandles.resize(imageCount);
     vkGetSwapchainImagesKHR(physicalDevice->logicalDevice, swapChain, &imageCount, swapChainImageHandles.data());
 
     // Create ImageViews
     __swapChainImageViews.resize(imageCount);
-    __swapChainFramebuffers.resize(imageCount);
-    for (size_t i = 0; i < imageCount; i++) {
+    for (size_t i = 0; i < imageCount; ++i) {
         VkImageViewCreateInfo imageViewCreateInfo = {};
         imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
         imageViewCreateInfo.image = swapChainImageHandles[i];
