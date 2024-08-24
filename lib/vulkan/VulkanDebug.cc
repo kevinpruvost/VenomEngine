@@ -127,6 +127,16 @@ Error VulkanDebugApplication::__InitValidationLayers()
         "VK_LAYER_KHRONOS_synchronization2",
     };
 
+    std::vector<const char *> validationLayers_finalUse(validationLayers, validationLayers + std::size(validationLayers));
+    // Get env variable VK_INSTANCE_LAYERS
+    if (const char * envValidationLayers = std::getenv("VK_INSTANCE_LAYERS")) {
+        Log::Print("Using VK_INSTANCE_LAYERS: %s", envValidationLayers);
+        // Split the string by ';'
+        for (const char * layer = strtok(const_cast<char *>(envValidationLayers), ";"); layer; layer = strtok(nullptr, ";")) {
+            validationLayers_finalUse.push_back(layer);
+        }
+    }
+
     uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
@@ -148,6 +158,12 @@ Error VulkanDebugApplication::__InitValidationLayers()
             Log::Error("Validation Layer not found: %s\n", layerName);
             return Error::Failure;
         }
+    }
+
+    // Print validation layers in use
+    Log::Print("Validation Layers in use:");
+    for (const char * layer : validationLayers_finalUse) {
+        Log::Print("\t- %s", layer);
     }
 
     __validationLayersInUse = {validationLayers, validationLayers + std::size(validationLayers)};

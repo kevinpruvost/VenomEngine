@@ -48,7 +48,11 @@ We will basically follow this guideline:
 You can either do this to compile every shader:
 
 ```
-make compile_shader
+make compile_shaders
+# Or with debugging info (especially useful if you want to use a debugger such as NSight Graphics)
+make compile_shaders_debug
+# Or if you want to use glslc
+make compile_shaders_glsl
 ```
 
 Or do this manually:
@@ -95,10 +99,21 @@ bazel run //:VenomEngine
 
 - [Jetbrains Debugger Renderers](https://www.jetbrains.com/help/clion/qt-tutorial.html#debug-renderers)
 
+- [NSight Graphics Doc](https://docs.nvidia.com/nsight-graphics/InstallationGuide/index.html)
+
+- [NSight Download Page](https://developer.nvidia.com/gameworksdownload#?tx=$gameworks,developer_tools)
+
+- [RenderDoc](https://renderdoc.org/docs/index.html)
+
 ### Windows
 
 - Do not forget to setup your default debugger as the one from Visual Studio (`lldb`) because MinGW is using `gdb` and the default settings aren't as helpful as Visual Studio brings a lot of `Debugger Renderers` (`.natvis` files).
 
 ### macOS
 
-- 
+-
+
+## References
+
+- [Havok Physics (Physics)](https://www.havok.com/havok-physics/)
+  - Should apply to get access to their code, will try when I will have a more advanced project.

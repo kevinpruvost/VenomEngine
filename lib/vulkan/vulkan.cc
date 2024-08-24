@@ -387,6 +387,10 @@ void VulkanApplication::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * 
 
 #ifdef VENOM_DEBUG
     __instanceExtensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+    Log::Print("Instance Extensions:");
+    for (const char * extension : __instanceExtensions) {
+        Log::Print("\t-%s", extension);
+    }
 #endif
 
     createInfo->enabledExtensionCount = __instanceExtensions.size();

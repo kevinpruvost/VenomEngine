@@ -55,6 +55,9 @@ compile_shaders_glsl: check_ruby
 compile_shaders: check_ruby
 	ruby ./resources/compile_shaders.rb compile
 
+compile_shaders_debug: check_ruby
+	ruby ./resources/compile_shaders.rb compile_debug
+
 validate_shaders:
 	@echo "Validating all SPIR-V shaders..."
 	@echo "If no output is shown, the shaders are valid."

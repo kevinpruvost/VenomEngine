@@ -40,7 +40,17 @@ elsif ARGV[0] == 'compile'
     hlsl_files.each do |file|
         output_file = "#{compiled_dir}/#{File.basename(file, '.hlsl')}.spv"
         type = shader_type(file)
+        #
         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file}"
+        puts "Compiling #{file} to #{output_file}..."
+        system(cmd)
+    end
+elsif ARGV[0] == 'compile_debug'
+    # Compile each HLSL file to SPIR-V
+    hlsl_files.each do |file|
+        output_file = "#{compiled_dir}/#{File.basename(file, '.hlsl')}.spv"
+        type = shader_type(file)
+        cmd = "#{dxc_path} -Zi -T #{type} -spirv #{file} -Fo #{output_file}"
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)
     end
