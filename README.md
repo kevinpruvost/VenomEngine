@@ -69,7 +69,7 @@ Refer to this for Shader Profiles: https://learn.microsoft.com/en-us/windows/win
 
 ### Project
 
-#### Windows & MacOS
+#### Windows & macOS
 
 ```bash
 bazel build -c opt //:VenomEngine
@@ -105,15 +105,24 @@ bazel run //:VenomEngine
 
 - [RenderDoc](https://renderdoc.org/docs/index.html)
 
-### Windows
+### Windows 
 
 - Do not forget to setup your default debugger as the one from Visual Studio (`lldb`) because MinGW is using `gdb` and the default settings aren't as helpful as Visual Studio brings a lot of `Debugger Renderers` (`.natvis` files).
+
+- I recommend you to debug this app with `NSight Graphics` as I found it to be best for debugging GPU side. You can use `RenderDoc` if you want also.
+
+### Linux
+
+- I recommend you to debug this app with `NSight Graphics` as I found it to be best for debugging GPU side. You can use `RenderDoc` if you want also.
 
 ### macOS
 
 -
 
-## References
+## Notes
 
 - [Havok Physics (Physics)](https://www.havok.com/havok-physics/)
   - Should apply to get access to their code, will try when I will have a more advanced project.
+- [Comparison of Math libraries](https://bargor.github.io/Comparison-of-3d-math-libraries/)
+  - Should use [`glm` with `SIMD`](https://glm.g-truc.net/0.9.1/api/a00002.html) (Single Instruction Multiple Data) mode for better performance.
+  - I can't find any comparison between `glm` and `DirectXMath`, so I might prepare some benchmarks later. 
