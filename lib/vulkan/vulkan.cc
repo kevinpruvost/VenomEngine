@@ -20,6 +20,7 @@ static constexpr std::array s_deviceExtensions = {
 VulkanApplication::VulkanApplication()
     : __context()
     , __currentFrame(0)
+    , __framebufferChanged(false)
 {
 }
 
@@ -38,6 +39,8 @@ Error VulkanApplication::Run()
         Log::Error("Failed to initialize context: %d", res);
         return Error::InitializationFailed;
     }
+
+    __SetGLFWCallbacks();
 
     if (res = __InitVulkan(); res != Error::Success)
     {
@@ -61,70 +64,92 @@ Error VulkanApplication::Run()
 
 Error VulkanApplication::__Loop()
 {
+    Error err;
     while (!__context.ShouldClose())
     {
         __context.PollEvents();
-
-        // Draw image
-        vkWaitForFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
-        vkResetFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence());
-
-        uint32_t imageIndex;
-        vkAcquireNextImageKHR(__physicalDevice.logicalDevice, __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[__currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
-        __commandBuffers[__currentFrame]->Reset(0);
-
-        if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != Error::Success)
+        if (err = __DrawFrame(); err != Error::Success)
             return err;
-
-            __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[__currentFrame], imageIndex);
-            __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-            __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
-            __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
-            __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
-            __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
-
-        if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != Error::Success)
-            return err;
-
-        // Synchronization between the image being presented and the image being rendered
-        VkSubmitInfo submitInfo{};
-        submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-
-        VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[__currentFrame].GetSemaphore()};
-        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-        submitInfo.waitSemaphoreCount = 1;
-        submitInfo.pWaitSemaphores = waitSemaphores;
-        submitInfo.pWaitDstStageMask = waitStages;
-        submitInfo.commandBufferCount = 1;
-        VkCommandBuffer commandBuffers[] = {*reinterpret_cast<VkCommandBuffer*>(__commandBuffers[__currentFrame])};
-        submitInfo.pCommandBuffers = commandBuffers;
-        VkSemaphore signalSemaphores[] = {__renderFinishedSemaphores[__currentFrame].GetSemaphore()};
-        submitInfo.signalSemaphoreCount = 1;
-        submitInfo.pSignalSemaphores = signalSemaphores;
-
-        if (vkQueueSubmit(__graphicsQueue, 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()) != VK_SUCCESS) {
-            Log::Error("Failed to submit draw command buffer");
-            return Error::Failure;
-        }
-
-        VkPresentInfoKHR presentInfo{};
-        presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-
-        presentInfo.waitSemaphoreCount = 1;
-        presentInfo.pWaitSemaphores = signalSemaphores;
-
-        VkSwapchainKHR swapChains[] = {__swapChain.swapChain};
-        presentInfo.swapchainCount = 1;
-        presentInfo.pSwapchains = swapChains;
-
-        presentInfo.pImageIndices = &imageIndex;
-
-        vkQueuePresentKHR(__presentQueue, &presentInfo);
-
-        __currentFrame = (__currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     }
 
     vkDeviceWaitIdle(__physicalDevice.logicalDevice);
+    return Error::Success;
+}
+
+Error VulkanApplication::__DrawFrame()
+{
+    // Draw image
+    vkWaitForFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
+
+    uint32_t imageIndex;
+    VkResult result = vkAcquireNextImageKHR(__physicalDevice.logicalDevice, __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[__currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
+        __framebufferChanged = false;
+        Log::Print("Recreating swap chain");
+        __RecreateSwapChain();
+        return Error::Success;
+    } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+        Log::Error("Failed to acquire swap chain image");
+        return Error::Failure;
+    }
+
+    // If we reset before, then it will wait endlessly as no work is done
+    vkResetFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence());
+    __commandBuffers[__currentFrame]->Reset(0);
+
+    if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != Error::Success)
+        return err;
+
+        __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[__currentFrame], imageIndex);
+        __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+        __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
+        __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
+        __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
+        __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
+
+    if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != Error::Success)
+        return err;
+
+    // Synchronization between the image being presented and the image being rendered
+    VkSubmitInfo submitInfo{};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+    VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[__currentFrame].GetSemaphore()};
+    VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+    submitInfo.waitSemaphoreCount = 1;
+    submitInfo.pWaitSemaphores = waitSemaphores;
+    submitInfo.pWaitDstStageMask = waitStages;
+    submitInfo.commandBufferCount = 1;
+    VkCommandBuffer commandBuffers[] = {*reinterpret_cast<VkCommandBuffer*>(__commandBuffers[__currentFrame])};
+    submitInfo.pCommandBuffers = commandBuffers;
+    VkSemaphore signalSemaphores[] = {__renderFinishedSemaphores[__currentFrame].GetSemaphore()};
+    submitInfo.signalSemaphoreCount = 1;
+    submitInfo.pSignalSemaphores = signalSemaphores;
+
+    if (result = vkQueueSubmit(__graphicsQueue, 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+        __framebufferChanged = false;
+        __RecreateSwapChain();
+        return Error::Success;
+    } else if (result != VK_SUCCESS) {
+        Log::Error("Failed to submit draw command buffer");
+        return Error::Failure;
+    }
+
+    VkPresentInfoKHR presentInfo{};
+    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
+    presentInfo.waitSemaphoreCount = 1;
+    presentInfo.pWaitSemaphores = signalSemaphores;
+
+    VkSwapchainKHR swapChains[] = {__swapChain.swapChain};
+    presentInfo.swapchainCount = 1;
+    presentInfo.pSwapchains = swapChains;
+
+    presentInfo.pImageIndices = &imageIndex;
+
+    vkQueuePresentKHR(__presentQueue, &presentInfo);
+
+    __currentFrame = (__currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     return Error::Success;
 }
 
@@ -145,6 +170,15 @@ Error VulkanApplication::__InitVulkan()
     if (res = __InitPhysicalDevices(); res != Error::Success) return res;
 
     return res;
+}
+
+void VulkanApplication::__SetGLFWCallbacks()
+{
+    glfwSetWindowUserPointer(__context.GetWindow(), this);
+    glfwSetFramebufferSizeCallback(__context.GetWindow(), [](GLFWwindow * window, int width, int height) {
+        auto app = reinterpret_cast<VulkanApplication*>(glfwGetWindowUserPointer(window));
+        app->__framebufferChanged = true;
+    });
 }
 
 Error VulkanApplication::__InitPhysicalDevices()
@@ -238,7 +272,7 @@ Error VulkanApplication::__InitPhysicalDevices()
     _SetCreateInfoValidationLayers(&createInfo);
 
     // Create Swap Chain
-    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != Error::Success)
         return err;
 
     // Verify if the device is suitable
@@ -395,6 +429,17 @@ void VulkanApplication::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * 
 
     createInfo->enabledExtensionCount = __instanceExtensions.size();
     createInfo->ppEnabledExtensionNames = __instanceExtensions.data();
+}
+
+void VulkanApplication::__RecreateSwapChain()
+{
+    vkDeviceWaitIdle(__physicalDevice.logicalDevice);
+    __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context);
+    __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies);
+    __swapChain.InitSwapChainFramebuffers(&__renderPass);
+
+    // We also need to reset the last used semaphore
+    __imageAvailableSemaphores[__currentFrame].InitSemaphore(__physicalDevice.logicalDevice);
 }
 }
 

@@ -21,6 +21,7 @@ public:
     VulkanSemaphore(VulkanSemaphore && other);
     VulkanSemaphore & operator=(VulkanSemaphore && other);
 
+    void DestroySemaphore();
     Error InitSemaphore(const VkDevice logicalDevice);
     VkSemaphore GetSemaphore() const;
 

@@ -17,9 +17,7 @@ VulkanSemaphore::VulkanSemaphore()
 
 VulkanSemaphore::~VulkanSemaphore()
 {
-    if (__semaphore != VK_NULL_HANDLE) {
-        vkDestroySemaphore(__logicalDevice, __semaphore, nullptr);
-    }
+    DestroySemaphore();
 }
 
 VulkanSemaphore::VulkanSemaphore(VulkanSemaphore&& other)
@@ -39,8 +37,18 @@ VulkanSemaphore& VulkanSemaphore::operator=(VulkanSemaphore&& other)
     other.__logicalDevice = VK_NULL_HANDLE;
 }
 
+void VulkanSemaphore::DestroySemaphore()
+{
+    if (__semaphore != VK_NULL_HANDLE) {
+        vkDestroySemaphore(__logicalDevice, __semaphore, nullptr);
+        __semaphore = VK_NULL_HANDLE;
+    }
+}
+
 Error VulkanSemaphore::InitSemaphore(const VkDevice logicalDevice)
 {
+    DestroySemaphore();
+
     VkSemaphoreCreateInfo semaphoreInfo = {};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
     semaphoreInfo.pNext = nullptr;

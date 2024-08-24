@@ -28,19 +28,7 @@ VulkanSwapChain::VulkanSwapChain()
 
 VulkanSwapChain::~VulkanSwapChain()
 {
-    if (swapChain != VK_NULL_HANDLE) {
-        vkDestroySwapchainKHR(__logicalDevice, swapChain, nullptr);
-    }
-
-    for (auto & imageView : __swapChainImageViews) {
-        if (imageView != VK_NULL_HANDLE)
-            vkDestroyImageView(__logicalDevice, imageView, nullptr);
-    }
-
-    for (auto & framebuffer : __swapChainFramebuffers) {
-        if (framebuffer != VK_NULL_HANDLE)
-            vkDestroyFramebuffer(__logicalDevice, framebuffer, nullptr);
-    }
+    CleanSwapChain();
 }
 
 VulkanSwapChain::VulkanSwapChain(VulkanSwapChain&& other)
@@ -77,8 +65,27 @@ VulkanSwapChain& VulkanSwapChain::operator=(VulkanSwapChain&& other)
     return *this;
 }
 
-Error VulkanSwapChain::InitSwapChainSettings(const VulkanPhysicalDevice* physicalDevice, const VulkanSurface* surface,
-                                             const Context* context, const MappedVulkanQueueFamilies* queueFamilies)
+void VulkanSwapChain::CleanSwapChain()
+{
+    for (auto & framebuffer : __swapChainFramebuffers) {
+        if (framebuffer != VK_NULL_HANDLE)
+            vkDestroyFramebuffer(__logicalDevice, framebuffer, nullptr);
+    }
+    __swapChainFramebuffers.clear();
+
+    for (auto & imageView : __swapChainImageViews) {
+        if (imageView != VK_NULL_HANDLE)
+            vkDestroyImageView(__logicalDevice, imageView, nullptr);
+    }
+    __swapChainImageViews.clear();
+
+    if (swapChain != VK_NULL_HANDLE) {
+        vkDestroySwapchainKHR(__logicalDevice, swapChain, nullptr);
+        swapChain = VK_NULL_HANDLE;
+    }
+}
+
+Error VulkanSwapChain::InitSwapChainSettings(const VulkanPhysicalDevice* physicalDevice, const VulkanSurface* surface, const Context* context)
 {
     // Get surface capabilities
     if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->physicalDevice, surface->surface, &capabilities); err != VK_SUCCESS)
@@ -153,6 +160,11 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
                                      const Context * context, const MappedVulkanQueueFamilies * queueFamilies)
 {
     venom_assert(capabilities.maxImageCount > 0, "Swap chain must have at least 1 image");
+
+    // If already created, then clean up first
+    if (swapChain != VK_NULL_HANDLE)
+        CleanSwapChain();
+
     // Image count, must be at least the minimum image count, but no more than the maximum image count
     // One more is recommeneded to avoid waiting on the driver
     uint32_t imageCount = std::clamp(capabilities.minImageCount + 1, capabilities.minImageCount, capabilities.maxImageCount);
@@ -189,8 +201,8 @@ Error VulkanSwapChain::InitSwapChain(const VulkanPhysicalDevice* physicalDevice,
     // Clip pixels that are obscured by other windows
     createInfo.clipped = VK_TRUE;
 
-    // Old swap chain, if it exists, VK_NULL_HANDLE on the first try
-    createInfo.oldSwapchain = swapChain;
+    // Old swap chain
+    createInfo.oldSwapchain = VK_NULL_HANDLE;
 
     // Creating SwapChain
     if (vkCreateSwapchainKHR(physicalDevice->logicalDevice, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {

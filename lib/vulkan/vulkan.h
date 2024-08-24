@@ -35,13 +35,18 @@ public:
 
 private:
     Error __Loop();
+    Error __DrawFrame();
     Error __InitVulkan();
+
+    void __SetGLFWCallbacks();
 
     Error __InitPhysicalDevices();
     bool __IsDeviceSuitable(const VkDeviceCreateInfo * createInfo);
 
     Error __CreateInstance();
     void __Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo);
+
+    void __RecreateSwapChain();
 
 private:
     std::vector<const char *> __instanceExtensions;
@@ -64,6 +69,7 @@ private:
     std::vector<VulkanSemaphore> __renderFinishedSemaphores;
     std::vector<VulkanFence> __inFlightFences;
     int __currentFrame;
+    bool __framebufferChanged;
 };
 }
 

@@ -26,8 +26,9 @@ public:
     VulkanSwapChain(VulkanSwapChain&&);
     VulkanSwapChain& operator=(VulkanSwapChain&&);
 
-    Error InitSwapChainSettings(const VulkanPhysicalDevice * physicalDevice, const VulkanSurface * surface,
-        const Context * context, const MappedVulkanQueueFamilies * queueFamilies);
+    void CleanSwapChain();
+
+    Error InitSwapChainSettings(const VulkanPhysicalDevice * physicalDevice, const VulkanSurface * surface, const Context * context);
     
     /// @brief Inits Swap chain and swap chain image views
     /// @param physicalDevice 
