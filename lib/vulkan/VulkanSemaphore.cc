@@ -53,4 +53,9 @@ Error VulkanSemaphore::InitSemaphore(const VkDevice logicalDevice)
     __logicalDevice = logicalDevice;
     return Error::Success;
 }
+
+VkSemaphore VulkanSemaphore::GetSemaphore() const
+{
+    return __semaphore;
+}
 }

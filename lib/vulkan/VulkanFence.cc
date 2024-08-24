@@ -40,12 +40,12 @@ VulkanFence& VulkanFence::operator=(VulkanFence&& other)
     return *this;
 }
 
-Error VulkanFence::InitFence(const VkDevice logicalDevice)
+Error VulkanFence::InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags flags)
 {
     VkFenceCreateInfo fenceCreateInfo = {};
     fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceCreateInfo.pNext = nullptr;
-    fenceCreateInfo.flags = 0;
+    fenceCreateInfo.flags = flags;
 
     if (vkCreateFence(logicalDevice, &fenceCreateInfo, nullptr, &__fence) != VK_SUCCESS) {
         Log::Error("Failed to create fence");
@@ -53,5 +53,10 @@ Error VulkanFence::InitFence(const VkDevice logicalDevice)
     }
     __logicalDevice = logicalDevice;
     return Error::Success;
+}
+
+const VkFence * VulkanFence::GetFence() const
+{
+    return &__fence;
 }
 }

@@ -22,6 +22,7 @@ public:
     VulkanSemaphore & operator=(VulkanSemaphore && other);
 
     Error InitSemaphore(const VkDevice logicalDevice);
+    VkSemaphore GetSemaphore() const;
 
 private:
     VkSemaphore __semaphore;

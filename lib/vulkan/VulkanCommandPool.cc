@@ -59,6 +59,11 @@ Error VulkanCommandBuffer::EndCommandBuffer() const
     return Error::Success;
 }
 
+void VulkanCommandBuffer::Reset(VkCommandBufferResetFlags flags)
+{
+    vkResetCommandBuffer(__commandBuffer, flags);
+}
+
 void VulkanCommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const
 {
     venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
@@ -92,14 +97,14 @@ VulkanCommandPool::VulkanCommandPool()
 
 VulkanCommandPool::~VulkanCommandPool()
 {
-    if (__commandPool != VK_NULL_HANDLE)
-        vkDestroyCommandPool(__logicalDevice, __commandPool, nullptr);
     if (__commandBuffers.size() != 0) {
         vkFreeCommandBuffers(__logicalDevice, __commandPool,
             static_cast<uint32_t>(__commandBuffers.size()),
             reinterpret_cast<const VkCommandBuffer*>(__commandBuffers.data()) // Can be done because VulkanCommandBuffer is the same size as VkCommandBuffer
         );
     }
+    if (__commandPool != VK_NULL_HANDLE)
+        vkDestroyCommandPool(__logicalDevice, __commandPool, nullptr);
 }
 
 VulkanCommandPool::VulkanCommandPool(VulkanCommandPool&& other)

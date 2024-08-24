@@ -57,6 +57,7 @@ public:
     Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0) const;
     Error EndCommandBuffer() const;
 public:
+    void Reset(VkCommandBufferResetFlags flags);
     void BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const;
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;

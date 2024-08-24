@@ -34,6 +34,11 @@ VulkanSwapChain::~VulkanSwapChain()
         if (imageView != VK_NULL_HANDLE)
             vkDestroyImageView(__logicalDevice, imageView, nullptr);
     }
+
+    for (auto & framebuffer : __swapChainFramebuffers) {
+        if (framebuffer != VK_NULL_HANDLE)
+            vkDestroyFramebuffer(__logicalDevice, framebuffer, nullptr);
+    }
 }
 
 VulkanSwapChain::VulkanSwapChain(VulkanSwapChain&& other)

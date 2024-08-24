@@ -15,6 +15,8 @@
 #include "VulkanShader.h"
 #include "VulkanRenderPass.h"
 #include "VulkanCommandPool.h"
+#include "VulkanSemaphore.h"
+#include "VulkanFence.h"
 
 #include <common/Application.h>
 #include <common/Context.h>
@@ -50,6 +52,8 @@ private:
     VulkanSwapChain __swapChain;
     VulkanRenderPass __renderPass;
     VulkanCommandPool __commandPool;
+
+    VkQueue __graphicsQueue, __presentQueue;
 
 private:
     // For test
