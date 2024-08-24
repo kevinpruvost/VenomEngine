@@ -46,6 +46,8 @@ public:
     VkSurfaceFormatKHR activeSurfaceFormat;
     VkPresentModeKHR activePresentMode;
     VkExtent2D extent;
+    VkViewport viewport;
+    VkRect2D scissor;
     VkSwapchainKHR swapChain;
     std::vector<VkImage> swapChainImageHandles;
 

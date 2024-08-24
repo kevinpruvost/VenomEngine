@@ -21,6 +21,8 @@ VulkanSwapChain::VulkanSwapChain()
     , activePresentMode(VK_PRESENT_MODE_MAX_ENUM_KHR)
     , extent(0, 0)
     , swapChain(VK_NULL_HANDLE)
+    , viewport{}
+    , scissor{}
 {
 }
 
@@ -132,6 +134,18 @@ Error VulkanSwapChain::InitSwapChainSettings(const VulkanPhysicalDevice* physica
         extent.width = std::clamp<uint32_t>(w, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
         extent.height = std::clamp<uint32_t>(h, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
     }
+
+    // Viewport
+    viewport.x = 0.0f;
+    viewport.y = 0.0f;
+    viewport.width = static_cast<float>(extent.width);
+    viewport.height = static_cast<float>(extent.height);
+    viewport.minDepth = 0.0f;
+    viewport.maxDepth = 1.0f;
+
+    // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
+    scissor.offset = {0, 0};
+    scissor.extent = extent;
     return Error::Success;
 }
 

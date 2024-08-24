@@ -19,6 +19,7 @@ static constexpr std::array s_deviceExtensions = {
 
 VulkanApplication::VulkanApplication()
     : __context()
+    , __currentFrame(0)
 {
 }
 
@@ -60,72 +61,48 @@ Error VulkanApplication::Run()
 
 Error VulkanApplication::__Loop()
 {
-    VulkanCommandBuffer * commandBuffer = nullptr;
-    if (auto res = __commandPool.CreateCommandBuffer(&commandBuffer); res != Error::Success)
-        return res;
-
-    // Viewport
-    VkViewport viewport{};
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.width = static_cast<float>(__swapChain.extent.width);
-    viewport.height = static_cast<float>(__swapChain.extent.height);
-    viewport.minDepth = 0.0f;
-    viewport.maxDepth = 1.0f;
-
-    // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
-    VkRect2D scissor{};
-    scissor.offset = {0, 0};
-    scissor.extent = __swapChain.extent;
-
-    VulkanSemaphore imageAvailableSemaphore, renderFinishedSemaphore;
-    VulkanFence inFlightFence;
-    imageAvailableSemaphore.InitSemaphore(__physicalDevice.logicalDevice);
-    renderFinishedSemaphore.InitSemaphore(__physicalDevice.logicalDevice);
-    inFlightFence.InitFence(__physicalDevice.logicalDevice, VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT);
-
     while (!__context.ShouldClose())
     {
         __context.PollEvents();
 
         // Draw image
-        vkWaitForFences(__physicalDevice.logicalDevice, 1, inFlightFence.GetFence(), VK_TRUE, UINT64_MAX);
-        vkResetFences(__physicalDevice.logicalDevice, 1, inFlightFence.GetFence());
+        vkWaitForFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
+        vkResetFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence());
 
         uint32_t imageIndex;
-        vkAcquireNextImageKHR(__physicalDevice.logicalDevice, __swapChain.swapChain, UINT64_MAX, imageAvailableSemaphore.GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
-        commandBuffer->Reset(0);
+        vkAcquireNextImageKHR(__physicalDevice.logicalDevice, __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[__currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
+        __commandBuffers[__currentFrame]->Reset(0);
 
-        if (auto err = commandBuffer->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != Error::Success)
+        if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != Error::Success)
             return err;
 
-            __renderPass.BeginRenderPass(&__swapChain, commandBuffer, imageIndex);
-            commandBuffer->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-            commandBuffer->SetViewport(viewport);
-            commandBuffer->SetScissor(scissor);
-            commandBuffer->Draw(3, 1, 0, 0);
-            __renderPass.EndRenderPass(commandBuffer);
+            __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[__currentFrame], imageIndex);
+            __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
+            __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
+            __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
+            __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
-        if (auto err = commandBuffer->EndCommandBuffer(); err != Error::Success)
+        if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != Error::Success)
             return err;
 
         // Synchronization between the image being presented and the image being rendered
         VkSubmitInfo submitInfo{};
         submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
-        VkSemaphore waitSemaphores[] = {imageAvailableSemaphore.GetSemaphore()};
+        VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[__currentFrame].GetSemaphore()};
         VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
         submitInfo.waitSemaphoreCount = 1;
         submitInfo.pWaitSemaphores = waitSemaphores;
         submitInfo.pWaitDstStageMask = waitStages;
         submitInfo.commandBufferCount = 1;
-        VkCommandBuffer commandBuffers[] = {*reinterpret_cast<VkCommandBuffer*>(commandBuffer)};
+        VkCommandBuffer commandBuffers[] = {*reinterpret_cast<VkCommandBuffer*>(__commandBuffers[__currentFrame])};
         submitInfo.pCommandBuffers = commandBuffers;
-        VkSemaphore signalSemaphores[] = {renderFinishedSemaphore.GetSemaphore()};
+        VkSemaphore signalSemaphores[] = {__renderFinishedSemaphores[__currentFrame].GetSemaphore()};
         submitInfo.signalSemaphoreCount = 1;
         submitInfo.pSignalSemaphores = signalSemaphores;
 
-        if (vkQueueSubmit(__graphicsQueue, 1, &submitInfo, *inFlightFence.GetFence()) != VK_SUCCESS) {
+        if (vkQueueSubmit(__graphicsQueue, 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()) != VK_SUCCESS) {
             Log::Error("Failed to submit draw command buffer");
             return Error::Failure;
         }
@@ -143,6 +120,8 @@ Error VulkanApplication::__Loop()
         presentInfo.pImageIndices = &imageIndex;
 
         vkQueuePresentKHR(__presentQueue, &presentInfo);
+
+        __currentFrame = (__currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     }
 
     vkDeviceWaitIdle(__physicalDevice.logicalDevice);
@@ -170,6 +149,7 @@ Error VulkanApplication::__InitVulkan()
 
 Error VulkanApplication::__InitPhysicalDevices()
 {
+    Error err;
     std::vector<VulkanPhysicalDevice> physicalDevices = GetVulkanPhysicalDevices();
 
     if (physicalDevices.empty())
@@ -211,7 +191,7 @@ Error VulkanApplication::__InitPhysicalDevices()
     __surface.CreateSurface(&__context);
 
     // Check if the device supports the surface for presentation and which queue family supports it
-    if (auto err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != Error::Success)
+    if (err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != Error::Success)
         return err;
 
     // Create Logical device
@@ -258,7 +238,7 @@ Error VulkanApplication::__InitPhysicalDevices()
     _SetCreateInfoValidationLayers(&createInfo);
 
     // Create Swap Chain
-    if (auto err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
         return err;
 
     // Verify if the device is suitable
@@ -268,14 +248,14 @@ Error VulkanApplication::__InitPhysicalDevices()
         return Error::InitializationFailed;
     }
 
-    if (auto res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
+    if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
     {
         Log::Error("Failed to create logical device, error code: %d", res);
         return Error::InitializationFailed;
     }
 
     // Create SwapChain
-    if (auto err = __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
+    if (err = __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
         return err;
 
     // Create Graphics Queue
@@ -285,16 +265,36 @@ Error VulkanApplication::__InitPhysicalDevices()
     __physicalDevice.GetDeviceQueue(&__presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
 
     // Create Render Pass
-    if (auto err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != Error::Success)
+    if (err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != Error::Success)
         return err;
 
     // Init Render Pass Framebuffers
-    if (auto err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != Error::Success)
+    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != Error::Success)
         return err;
 
     // Create Graphics Command Pool
-    if (auto err = __commandPool.InitCommandPool(__physicalDevice.logicalDevice, __queueFamilies.graphicsQueueFamilyIndices[0]); err != Error::Success)
+    if (err = __commandPool.InitCommandPool(__physicalDevice.logicalDevice, __queueFamilies.graphicsQueueFamilyIndices[0]); err != Error::Success)
         return err;
+
+    // Create Command Buffers
+    __commandBuffers.resize(MAX_FRAMES_IN_FLIGHT);
+    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+        if (err = __commandPool.CreateCommandBuffer(&__commandBuffers[i]); err != Error::Success)
+            return err;
+    }
+
+    // Create Semaphores & Fences
+    __imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+    __renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+    __inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
+    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+        if (err = __imageAvailableSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != Error::Success)
+            return err;
+        if (err =__renderFinishedSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != Error::Success)
+            return err;
+        if (err =__inFlightFences[i].InitFence(__physicalDevice.logicalDevice, VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != Error::Success)
+            return err;
+    }
 
     return Error::Success;
 }

@@ -98,9 +98,13 @@ VulkanCommandPool::VulkanCommandPool()
 VulkanCommandPool::~VulkanCommandPool()
 {
     if (__commandBuffers.size() != 0) {
+        std::vector<VkCommandBuffer> commandBuffers(__commandBuffers.size());
+        for (size_t i = 0; i < __commandBuffers.size(); ++i) {
+            commandBuffers[i] = __commandBuffers[i]->__commandBuffer;
+        }
         vkFreeCommandBuffers(__logicalDevice, __commandPool,
             static_cast<uint32_t>(__commandBuffers.size()),
-            reinterpret_cast<const VkCommandBuffer*>(__commandBuffers.data()) // Can be done because VulkanCommandBuffer is the same size as VkCommandBuffer
+            commandBuffers.data()
         );
     }
     if (__commandPool != VK_NULL_HANDLE)
@@ -153,14 +157,14 @@ Error VulkanCommandPool::CreateCommandBuffer(VulkanCommandBuffer** commandBuffer
     allocInfo.level = level;
     allocInfo.commandBufferCount = 1;
 
-    __commandBuffers.push_back(VulkanCommandBuffer());
+    __commandBuffers.emplace_back(new VulkanCommandBuffer());
     auto & newCommandBuffer = __commandBuffers.back();
 
-    if (vkAllocateCommandBuffers(__logicalDevice, &allocInfo, &newCommandBuffer.__commandBuffer) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(__logicalDevice, &allocInfo, &newCommandBuffer->__commandBuffer) != VK_SUCCESS) {
         Log::Error("Failed to allocate command buffer");
         return Error::Failure;
     }
-    *commandBuffer = &newCommandBuffer;
+    *commandBuffer = newCommandBuffer.get();
     return Error::Success;
 }
 }

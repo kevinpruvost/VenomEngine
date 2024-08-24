@@ -58,6 +58,12 @@ private:
 private:
     // For test
     VulkanShaderPipeline __shaderPipeline;
+    static constexpr const int MAX_FRAMES_IN_FLIGHT = 2;
+    std::vector<VulkanCommandBuffer *> __commandBuffers;
+    std::vector<VulkanSemaphore> __imageAvailableSemaphores;
+    std::vector<VulkanSemaphore> __renderFinishedSemaphores;
+    std::vector<VulkanFence> __inFlightFences;
+    int __currentFrame;
 };
 }
 

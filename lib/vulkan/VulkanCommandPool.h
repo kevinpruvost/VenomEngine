@@ -9,6 +9,8 @@
 
 #include "VulkanQueueFamily.h"
 
+#include <memory>
+
 namespace venom
 {
 class VulkanRenderPass;
@@ -30,7 +32,7 @@ public:
 private:
     VkCommandPool __commandPool;
     VkDevice __logicalDevice;
-    std::vector<VulkanCommandBuffer> __commandBuffers;
+    std::vector<std::unique_ptr<VulkanCommandBuffer>> __commandBuffers;
 };
 
 /// @brief Command Buffer class, only instanciable by VulkanCommandPool.
