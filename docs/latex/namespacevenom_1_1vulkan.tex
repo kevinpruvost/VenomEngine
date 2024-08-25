@@ -1,0 +1,77 @@
+\doxysection{venom\+::vulkan Namespace Reference}
+\hypertarget{namespacevenom_1_1vulkan}{}\label{namespacevenom_1_1vulkan}\index{venom::vulkan@{venom::vulkan}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_application}{Application}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}}
+\begin{DoxyCompactList}\small\item\em Command Buffer class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{Command\+Pool}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{Debug\+Application}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_fence}{Fence}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_instance}{Instance}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_family}{Queue\+Family}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_a565f3d57ffd973594a9b31af32af3dd8}\label{namespacevenom_1_1vulkan_a565f3d57ffd973594a9b31af32af3dd8} 
+typedef uint32\+\_\+t {\bfseries Queue\+Family\+Index}
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_a52c443d43d401da1bb229042d34bc9d6}\label{namespacevenom_1_1vulkan_a52c443d43d401da1bb229042d34bc9d6} 
+typedef std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries Queue\+Family\+Indices}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_ac0a2a2145aa9478f18a6d13b2f7216e1}\label{namespacevenom_1_1vulkan_ac0a2a2145aa9478f18a6d13b2f7216e1} 
+std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} $>$ {\bfseries Get\+Vulkan\+Physical\+Devices} ()
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_a425819e2f03f966cd161d2af3eaf9409}\label{namespacevenom_1_1vulkan_a425819e2f03f966cd161d2af3eaf9409} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}} {\bfseries get\+Vulkan\+Queue\+Families} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \&physical\+Device)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: vulkan.\+cc Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Command\+Pool.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Debug.\+cc Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Fence.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Instance.\+cc Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Physical\+Device.\+cc Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Queue\+Family.\+cc Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Render\+Pass.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Semaphore.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Shader.\+cc Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Surface.\+cc Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Swap\+Chain.\+cc Date\+: 8/21/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 

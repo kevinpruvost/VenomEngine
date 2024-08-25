@@ -1,0 +1,100 @@
+\doxysection{venom\+::vulkan\+::Swap\+Chain Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_swap_chain}{}\label{classvenom_1_1vulkan_1_1_swap_chain}\index{venom::vulkan::SwapChain@{venom::vulkan::SwapChain}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a2a0ed234efd2cf71520b95aff3d1fcb2}\label{classvenom_1_1vulkan_1_1_swap_chain_a2a0ed234efd2cf71520b95aff3d1fcb2} 
+{\bfseries Swap\+Chain} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a4ffb4104f5b1488dac231a35298d6adf}\label{classvenom_1_1vulkan_1_1_swap_chain_a4ffb4104f5b1488dac231a35298d6adf} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a81b3560aef3fa2d6e5a2ebb5b5efdac3}\label{classvenom_1_1vulkan_1_1_swap_chain_a81b3560aef3fa2d6e5a2ebb5b5efdac3} 
+{\bfseries Swap\+Chain} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \&\&)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_aaba950de05f01cf9ed7ae840ada262ab}\label{classvenom_1_1vulkan_1_1_swap_chain_aaba950de05f01cf9ed7ae840ada262ab} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \&\&)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a186429cc2d804206c1b9e36a4524abab}\label{classvenom_1_1vulkan_1_1_swap_chain_a186429cc2d804206c1b9e36a4524abab} 
+void {\bfseries Clean\+Swap\+Chain} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_afa5775bed555da34770863daf80c4039}\label{classvenom_1_1vulkan_1_1_swap_chain_afa5775bed555da34770863daf80c4039} 
+Error {\bfseries Init\+Swap\+Chain\+Settings} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \texorpdfstring{$\ast$}{*}physical\+Device, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}} \texorpdfstring{$\ast$}{*}surface, const \mbox{\hyperlink{classvenom_1_1_context}{Context}} \texorpdfstring{$\ast$}{*}context)
+\item 
+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain_aaa3d0eb3255f48b2ebc28dffa3e446ec}{Init\+Swap\+Chain}} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \texorpdfstring{$\ast$}{*}physical\+Device, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}} \texorpdfstring{$\ast$}{*}surface, const \mbox{\hyperlink{classvenom_1_1_context}{Context}} \texorpdfstring{$\ast$}{*}context, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}} \texorpdfstring{$\ast$}{*}queue\+Families)
+\begin{DoxyCompactList}\small\item\em Inits Swap chain and swap chain image views. \end{DoxyCompactList}\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a412e4d656aa7c1f71dcbd6342c82e3ab}\label{classvenom_1_1vulkan_1_1_swap_chain_a412e4d656aa7c1f71dcbd6342c82e3ab} 
+Error {\bfseries Init\+Swap\+Chain\+Framebuffers} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*}render\+Pass)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_ad0197452de6f051e379fa62baa84e6cd}\label{classvenom_1_1vulkan_1_1_swap_chain_ad0197452de6f051e379fa62baa84e6cd} 
+Vk\+Surface\+Capabilities\+KHR {\bfseries capabilities}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a250cb109dc9283f67d229d7c23a09f7a}\label{classvenom_1_1vulkan_1_1_swap_chain_a250cb109dc9283f67d229d7c23a09f7a} 
+std\+::vector$<$ Vk\+Surface\+Format\+KHR $>$ {\bfseries surface\+Formats}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a6438760ad7c5a50f160965d875934047}\label{classvenom_1_1vulkan_1_1_swap_chain_a6438760ad7c5a50f160965d875934047} 
+std\+::vector$<$ Vk\+Present\+Mode\+KHR $>$ {\bfseries present\+Modes}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a8e64b05bc346140c51d4827d37ae8815}\label{classvenom_1_1vulkan_1_1_swap_chain_a8e64b05bc346140c51d4827d37ae8815} 
+Vk\+Surface\+Format\+KHR {\bfseries active\+Surface\+Format}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_ab19425cc86a46aec5086dfc02526898f}\label{classvenom_1_1vulkan_1_1_swap_chain_ab19425cc86a46aec5086dfc02526898f} 
+Vk\+Present\+Mode\+KHR {\bfseries active\+Present\+Mode}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a9b61a0d7c025ac272d969d7a35873123}\label{classvenom_1_1vulkan_1_1_swap_chain_a9b61a0d7c025ac272d969d7a35873123} 
+Vk\+Extent2D {\bfseries extent}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a42fb1ecd973918d43e4c4348505570c5}\label{classvenom_1_1vulkan_1_1_swap_chain_a42fb1ecd973918d43e4c4348505570c5} 
+Vk\+Viewport {\bfseries viewport}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_a44fd9edd714a69c6024473c8de370352}\label{classvenom_1_1vulkan_1_1_swap_chain_a44fd9edd714a69c6024473c8de370352} 
+Vk\+Rect2D {\bfseries scissor}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_aebe5e86ac069d6ab63204193153268ab}\label{classvenom_1_1vulkan_1_1_swap_chain_aebe5e86ac069d6ab63204193153268ab} 
+Vk\+Swapchain\+KHR {\bfseries swap\+Chain}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_ac2fc3fca8c32cb0df0bdd34ad9116a38}\label{classvenom_1_1vulkan_1_1_swap_chain_ac2fc3fca8c32cb0df0bdd34ad9116a38} 
+std\+::vector$<$ Vk\+Image $>$ {\bfseries swap\+Chain\+Image\+Handles}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_aa8ab806874e69ead344abef1c5e76aa0}\label{classvenom_1_1vulkan_1_1_swap_chain_aa8ab806874e69ead344abef1c5e76aa0} 
+class {\bfseries Render\+Pass}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_swap_chain_aaa3d0eb3255f48b2ebc28dffa3e446ec}\index{venom::vulkan::SwapChain@{venom::vulkan::SwapChain}!InitSwapChain@{InitSwapChain}}
+\index{InitSwapChain@{InitSwapChain}!venom::vulkan::SwapChain@{venom::vulkan::SwapChain}}
+\doxysubsubsection{\texorpdfstring{InitSwapChain()}{InitSwapChain()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_swap_chain_aaa3d0eb3255f48b2ebc28dffa3e446ec} 
+Error venom\+::vulkan\+::\+Swap\+Chain\+::\+Init\+Swap\+Chain (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \texorpdfstring{$\ast$}{*}}]{physical\+Device}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}} \texorpdfstring{$\ast$}{*}}]{surface}{, }\item[{const \mbox{\hyperlink{classvenom_1_1_context}{Context}} \texorpdfstring{$\ast$}{*}}]{context}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}} \texorpdfstring{$\ast$}{*}}]{queue\+Families}{}\end{DoxyParamCaption})}
+
+
+
+Inits Swap chain and swap chain image views. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em physical\+Device} & \\
+\hline
+{\em surface} & \\
+\hline
+{\em context} & \\
+\hline
+{\em queue\+Families} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/include/venom/vulkan/Swap\+Chain.\+h\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/src/Swap\+Chain.\+cc\end{DoxyCompactItemize}

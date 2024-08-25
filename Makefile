@@ -1,4 +1,8 @@
 TARGET = VenomEngine
+DOXYGEN = doxygen
+DOC_FOLDER = docs
+DOXYFILE = Doxyfile
+
 
 all: fast_run
 
@@ -20,6 +24,9 @@ fast:
 fast_run: fast
 	bazel run //:$(TARGET) --compilation_mode=fastbuild
 
+docs:
+	cd $(DOC_FOLDER) && $(DOXYGEN) $(DOXYFILE)
+
 dxc:
 	-mkdir -p cmake_build
 	# You can ignore the generator flag if you want to use the default one
@@ -28,6 +35,7 @@ dxc:
 	cmake --build . --target dxc --config Release
 
 check_ruby:
+	@echo "Checking Ruby..."
 	@ruby -v > /dev/null 2>&1 || make __install_ruby
 
 __install_ruby:
@@ -73,4 +81,4 @@ clean:
 	bazel clean
 	make clean_shaders
 
-.PHONY: debug release debug_run release_run fast fast_run clean
+.PHONY: debug release debug_run release_run fast fast_run clean docs

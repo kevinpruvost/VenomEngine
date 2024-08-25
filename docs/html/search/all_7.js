@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resources_0',['Resources',['../classvenom_1_1_resources.html',1,'venom']]]
+  ['mappedqueuefamilies_0',['MappedQueueFamilies',['../classvenom_1_1vulkan_1_1_mapped_queue_families.html',1,'venom::vulkan']]]
 ];

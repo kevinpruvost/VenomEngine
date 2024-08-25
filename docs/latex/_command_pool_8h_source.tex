@@ -1,0 +1,67 @@
+\doxysection{Command\+Pool.\+h}
+\hypertarget{_command_pool_8h_source}{}\label{_command_pool_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/CommandPool.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/CommandPool.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <venom/vulkan/QueueFamily.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }RenderPass;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }CommandBuffer;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{\string~CommandPool}}();}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\&\ other);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\&\ other);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ Error\ InitCommandPool(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ QueueFamilyIndex\ queueFamilyIndex);}
+\DoxyCodeLine{00032\ \ \ \ \ Error\ CreateCommandBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ **\ commandBuffer,\ VkCommandBufferLevel\ level\ =\ VkCommandBufferLevel::VK\_COMMAND\_BUFFER\_LEVEL\_PRIMARY);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ VkCommandPool\ \_\_commandPool;}
+\DoxyCodeLine{00036\ \ \ \ \ VkDevice\ \_\_logicalDevice;}
+\DoxyCodeLine{00037\ \ \ \ \ std::vector<std::unique\_ptr<CommandBuffer>>\ \_\_commandBuffers;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}();}
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{\string~CommandBuffer}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\&\&\ other);}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\&\&\ other);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \ \ VkCommandBuffer\ \_\_commandBuffer;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ Error\ BeginCommandBuffer(VkCommandBufferUsageFlags\ flags\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ \ \ \ \ Error\ EndCommandBuffer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset(VkCommandBufferResetFlags\ flags);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ BindPipeline(VkPipeline\ pipeline,\ VkPipelineBindPoint\ bindPoint)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ SetViewport(\textcolor{keyword}{const}\ VkViewport\&\ viewport)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ SetScissor(\textcolor{keyword}{const}\ VkRect2D\&\ scissor)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(uint32\_t\ vertexCount,\ uint32\_t\ instanceCount,\ uint32\_t\ firstVertex,\ uint32\_t\ firstInstance)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,38 @@
+\doxysection{Shader.\+h}
+\hypertarget{_shader_8h_source}{}\label{_shader_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/Shader.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/Shader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <venom/vulkan/PhysicalDevice.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <venom/vulkan/SwapChain.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <venom/vulkan/RenderPass.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}tools/cpp/runfiles/runfiles.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}();}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{\string~ShaderPipeline}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ Error\ LoadShaders(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ *\ swapChain,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ *\ renderPass,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ shaderPaths);}
+\DoxyCodeLine{00026\ \ \ \ \ VkPipeline\ GetPipeline()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ Error\ LoadShader(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ std::string\&\ shaderPath,\ VkPipelineShaderStageCreateInfo\ *\ pipelineCreateInfo);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ VkPipeline\ \_\_graphicsPipeline;}
+\DoxyCodeLine{00033\ \ \ \ \ VkPipelineLayout\ \_\_pipelineLayout;}
+\DoxyCodeLine{00034\ \ \ \ \ VkDevice\ \_\_logicalDevice;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00038\ \}}
+
+\end{DoxyCode}

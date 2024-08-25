@@ -1,0 +1,65 @@
+\doxysection{venom\+::vulkan\+::Command\+Buffer Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_command_buffer}{}\label{classvenom_1_1vulkan_1_1_command_buffer}\index{venom::vulkan::CommandBuffer@{venom::vulkan::CommandBuffer}}
+
+
+Command Buffer class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them.  
+
+
+
+
+{\ttfamily \#include $<$Command\+Pool.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a22494672083a27dbeea1a550e5be9ea2}\label{classvenom_1_1vulkan_1_1_command_buffer_a22494672083a27dbeea1a550e5be9ea2} 
+{\bfseries Command\+Buffer} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ad76603baedc7763980745823dc6f5780}\label{classvenom_1_1vulkan_1_1_command_buffer_ad76603baedc7763980745823dc6f5780} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a5d89e55d643c9bafdd8af6d1b49fdd6b}\label{classvenom_1_1vulkan_1_1_command_buffer_a5d89e55d643c9bafdd8af6d1b49fdd6b} 
+{\bfseries Command\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a6545cfb6e91750506aaf4da1002341cf}\label{classvenom_1_1vulkan_1_1_command_buffer_a6545cfb6e91750506aaf4da1002341cf} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_af6ab5f9bfaae1904da65b69c3c1f2988}\label{classvenom_1_1vulkan_1_1_command_buffer_af6ab5f9bfaae1904da65b69c3c1f2988} 
+Error {\bfseries Begin\+Command\+Buffer} (Vk\+Command\+Buffer\+Usage\+Flags flags=0) const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a38f243ab753352138f1051a725b5295e}\label{classvenom_1_1vulkan_1_1_command_buffer_a38f243ab753352138f1051a725b5295e} 
+Error {\bfseries End\+Command\+Buffer} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ac3fb03ed79c4470270c7fac3fdcd337f}\label{classvenom_1_1vulkan_1_1_command_buffer_ac3fb03ed79c4470270c7fac3fdcd337f} 
+void {\bfseries Reset} (Vk\+Command\+Buffer\+Reset\+Flags flags)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_abaa9d531cd169726c3b7e153a831ff76}\label{classvenom_1_1vulkan_1_1_command_buffer_abaa9d531cd169726c3b7e153a831ff76} 
+void {\bfseries Bind\+Pipeline} (Vk\+Pipeline pipeline, Vk\+Pipeline\+Bind\+Point bind\+Point) const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a80ee2ce2e7527cd48426eec25511feae}\label{classvenom_1_1vulkan_1_1_command_buffer_a80ee2ce2e7527cd48426eec25511feae} 
+void {\bfseries Set\+Viewport} (const Vk\+Viewport \&viewport) const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ad9cb86367a4acb8ad5105075b99c9271}\label{classvenom_1_1vulkan_1_1_command_buffer_ad9cb86367a4acb8ad5105075b99c9271} 
+void {\bfseries Set\+Scissor} (const Vk\+Rect2D \&scissor) const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ae408ebdb45af81e84a77dc27fe579ee6}\label{classvenom_1_1vulkan_1_1_command_buffer_ae408ebdb45af81e84a77dc27fe579ee6} 
+void {\bfseries Draw} (uint32\+\_\+t vertex\+Count, uint32\+\_\+t instance\+Count, uint32\+\_\+t first\+Vertex, uint32\+\_\+t first\+Instance) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a7a92bbad605726aca732f86118a128e4}\label{classvenom_1_1vulkan_1_1_command_buffer_a7a92bbad605726aca732f86118a128e4} 
+class {\bfseries Command\+Pool}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_aa8ab806874e69ead344abef1c5e76aa0}\label{classvenom_1_1vulkan_1_1_command_buffer_aa8ab806874e69ead344abef1c5e76aa0} 
+class {\bfseries Render\+Pass}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Command Buffer class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/include/venom/vulkan/Command\+Pool.\+h\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/src/Command\+Pool.\+cc\end{DoxyCompactItemize}

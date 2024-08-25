@@ -1,7 +1,7 @@
 cc_library(
     name = "venom_vulkan_static",
-    srcs = glob(["*.cc"]),
-    hdrs = glob(["*.h"]),
+    srcs = glob(["src/*.cc"]),
+    hdrs = glob(["include/venom/vulkan/*.h"]),
     copts = [
         "-DGLFW_DLL",
     ] + select({
@@ -16,6 +16,8 @@ cc_library(
             "-D_GLFW_COCOA",
         ],
     }),
+    include_prefix = "include",
+    includes = ["include"],
     visibility = ["//visibility:public"],
     deps = [
         "//lib:glm",

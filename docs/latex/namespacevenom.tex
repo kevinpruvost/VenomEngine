@@ -1,5 +1,10 @@
 \doxysection{venom Namespace Reference}
 \hypertarget{namespacevenom}{}\label{namespacevenom}\index{venom@{venom}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,35 +18,7 @@ class \mbox{\hyperlink{classvenom_1_1_d_l_l}{DLL}}
 \begin{DoxyCompactList}\small\item\em Contains a shared library handle and provides a way to get symbols from it. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1_log}{Log}}
 \item 
-class \mbox{\hyperlink{classvenom_1_1_mapped_vulkan_queue_families}{Mapped\+Vulkan\+Queue\+Families}}
-\item 
 class \mbox{\hyperlink{classvenom_1_1_resources}{Resources}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_application}{Vulkan\+Application}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_command_buffer}{Vulkan\+Command\+Buffer}}
-\begin{DoxyCompactList}\small\item\em Command Buffer class, only instanciable by \doxylink{classvenom_1_1_vulkan_command_pool}{Vulkan\+Command\+Pool}. To use them, you need to create a \doxylink{classvenom_1_1_vulkan_command_pool}{Vulkan\+Command\+Pool} and then create/access them via \doxylink{classvenom_1_1_vulkan_command_pool}{Vulkan\+Command\+Pool}. To make sure destruction and memory is handled in a correct way for command buffers, only \doxylink{classvenom_1_1_vulkan_command_pool}{Vulkan\+Command\+Pool} should own them. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_command_pool}{Vulkan\+Command\+Pool}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_debug_application}{Vulkan\+Debug\+Application}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_fence}{Vulkan\+Fence}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_instance}{Vulkan\+Instance}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_physical_device}{Vulkan\+Physical\+Device}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_queue_family}{Vulkan\+Queue\+Family}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_semaphore}{Vulkan\+Semaphore}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_surface}{Vulkan\+Surface}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_vulkan_swap_chain}{Vulkan\+Swap\+Chain}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -51,12 +28,6 @@ using {\bfseries String} = std\+::string
 \item 
 \Hypertarget{namespacevenom_a0ea31eb11a66aa8e8c318847ca5a8a95}\label{namespacevenom_a0ea31eb11a66aa8e8c318847ca5a8a95} 
 typedef bazel\+::tools\+::cpp\+::runfiles\+::\+Runfiles {\bfseries Runfiles}
-\item 
-\Hypertarget{namespacevenom_a8d06c6f0b6dc2c9ee362ec1e44b4684e}\label{namespacevenom_a8d06c6f0b6dc2c9ee362ec1e44b4684e} 
-typedef uint32\+\_\+t {\bfseries Vulkan\+Queue\+Family\+Index}
-\item 
-\Hypertarget{namespacevenom_af05be4ed14b04148ce6fe1d4cd66c542}\label{namespacevenom_af05be4ed14b04148ce6fe1d4cd66c542} 
-typedef std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries Vulkan\+Queue\+Family\+Indices}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -94,12 +65,6 @@ const char \texorpdfstring{$\ast$}{*} {\bfseries get\+Error\+String} ()
 \item 
 \Hypertarget{namespacevenom_a5287a28e8598784d6373fd701c11a512}\label{namespacevenom_a5287a28e8598784d6373fd701c11a512} 
 {\footnotesize template$<$typename ... Args$>$ }\\String {\bfseries format} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
-\item 
-\Hypertarget{namespacevenom_aeb4b62f18f7a0544afcbfda41e633821}\label{namespacevenom_aeb4b62f18f7a0544afcbfda41e633821} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1_vulkan_physical_device}{Vulkan\+Physical\+Device}} $>$ {\bfseries Get\+Vulkan\+Physical\+Devices} ()
-\item 
-\Hypertarget{namespacevenom_a1b16966c433c4f43928335a0d6926b26}\label{namespacevenom_a1b16966c433c4f43928335a0d6926b26} 
-\mbox{\hyperlink{classvenom_1_1_mapped_vulkan_queue_families}{Mapped\+Vulkan\+Queue\+Families}} {\bfseries get\+Vulkan\+Queue\+Families} (const \mbox{\hyperlink{classvenom_1_1_vulkan_physical_device}{Vulkan\+Physical\+Device}} \&physical\+Device)
 \end{DoxyCompactItemize}
 
 
@@ -110,7 +75,7 @@ Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Context.\+cc Date\+: 8/18/20
 
 Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: DLL.\+cc Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_application_8h_source}{Application.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Application.\+h Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
 Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_context_8h_source}{Context.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
@@ -126,48 +91,24 @@ Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_string_8h_source}
 
 Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Resources.\+cc Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: vulkan.\+cc Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: vulkan.\+h Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_8h_source}{vulkan.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Command\+Pool.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Command\+Pool.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Debug.\+h Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_command_pool_8h_source}{Vulkan\+Command\+Pool.\+h} Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Fence.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Debug.\+cc Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Physical\+Device.\+h Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_debug_8h_source}{Vulkan\+Debug.\+h} Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Queue\+Family.\+h Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Fence.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Render\+Pass.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_fence_8h_source}{Vulkan\+Fence.\+h} Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Semaphore.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Instance.\+cc Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_shader_8h_source}{Shader.\+h} Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Physical\+Device.\+cc Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Surface.\+h Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
 
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_physical_device_8h_source}{Vulkan\+Physical\+Device.\+h} Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Queue\+Family.\+cc Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_queue_family_8h_source}{Vulkan\+Queue\+Family.\+h} Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Render\+Pass.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_render_pass_8h_source}{Vulkan\+Render\+Pass.\+h} Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Semaphore.\+cc Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_semaphore_8h_source}{Vulkan\+Semaphore.\+h} Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Shader.\+cc Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_shader_8h_source}{Vulkan\+Shader.\+h} Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Surface.\+cc Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_surface_8h_source}{Vulkan\+Surface.\+h} Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Swap\+Chain.\+cc Date\+: 8/21/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_vulkan_swap_chain_8h_source}{Vulkan\+Swap\+Chain.\+h} Date\+: 8/21/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Swap\+Chain.\+h Date\+: 8/21/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 

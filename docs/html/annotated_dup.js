@@ -1,25 +1,27 @@
 var annotated_dup =
 [
     [ "venom", "namespacevenom.html", [
+      [ "vulkan", "namespacevenom_1_1vulkan.html", [
+        [ "Application", "classvenom_1_1vulkan_1_1_application.html", null ],
+        [ "CommandBuffer", "classvenom_1_1vulkan_1_1_command_buffer.html", null ],
+        [ "CommandPool", "classvenom_1_1vulkan_1_1_command_pool.html", null ],
+        [ "DebugApplication", "classvenom_1_1vulkan_1_1_debug_application.html", null ],
+        [ "Fence", "classvenom_1_1vulkan_1_1_fence.html", null ],
+        [ "Instance", "classvenom_1_1vulkan_1_1_instance.html", null ],
+        [ "MappedQueueFamilies", "classvenom_1_1vulkan_1_1_mapped_queue_families.html", null ],
+        [ "PhysicalDevice", "classvenom_1_1vulkan_1_1_physical_device.html", null ],
+        [ "QueueFamily", "classvenom_1_1vulkan_1_1_queue_family.html", null ],
+        [ "RenderPass", "classvenom_1_1vulkan_1_1_render_pass.html", null ],
+        [ "Semaphore", "classvenom_1_1vulkan_1_1_semaphore.html", null ],
+        [ "ShaderPipeline", "classvenom_1_1vulkan_1_1_shader_pipeline.html", null ],
+        [ "Surface", "classvenom_1_1vulkan_1_1_surface.html", null ],
+        [ "SwapChain", "classvenom_1_1vulkan_1_1_swap_chain.html", "classvenom_1_1vulkan_1_1_swap_chain" ]
+      ] ],
       [ "Application", "classvenom_1_1_application.html", null ],
       [ "ApplicationBackend", "classvenom_1_1_application_backend.html", null ],
       [ "Context", "classvenom_1_1_context.html", null ],
       [ "DLL", "classvenom_1_1_d_l_l.html", "classvenom_1_1_d_l_l" ],
       [ "Log", "classvenom_1_1_log.html", null ],
-      [ "MappedVulkanQueueFamilies", "classvenom_1_1_mapped_vulkan_queue_families.html", null ],
-      [ "Resources", "classvenom_1_1_resources.html", null ],
-      [ "VulkanApplication", "classvenom_1_1_vulkan_application.html", null ],
-      [ "VulkanCommandBuffer", "classvenom_1_1_vulkan_command_buffer.html", null ],
-      [ "VulkanCommandPool", "classvenom_1_1_vulkan_command_pool.html", null ],
-      [ "VulkanDebugApplication", "classvenom_1_1_vulkan_debug_application.html", null ],
-      [ "VulkanFence", "classvenom_1_1_vulkan_fence.html", null ],
-      [ "VulkanInstance", "classvenom_1_1_vulkan_instance.html", null ],
-      [ "VulkanPhysicalDevice", "classvenom_1_1_vulkan_physical_device.html", null ],
-      [ "VulkanQueueFamily", "classvenom_1_1_vulkan_queue_family.html", null ],
-      [ "VulkanRenderPass", "classvenom_1_1_vulkan_render_pass.html", null ],
-      [ "VulkanSemaphore", "classvenom_1_1_vulkan_semaphore.html", null ],
-      [ "VulkanShaderPipeline", "classvenom_1_1_vulkan_shader_pipeline.html", null ],
-      [ "VulkanSurface", "classvenom_1_1_vulkan_surface.html", null ],
-      [ "VulkanSwapChain", "classvenom_1_1_vulkan_swap_chain.html", "classvenom_1_1_vulkan_swap_chain" ]
+      [ "Resources", "classvenom_1_1_resources.html", null ]
     ] ]
 ];
