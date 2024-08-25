@@ -18,8 +18,8 @@ cc_library(
     }),
     visibility = ["//visibility:public"],
     deps = [
+        "//lib:glm",
         "//lib/common:venom_common_static",
-        "//lib/glm",
         "@rules_vulkan//vulkan:vulkan_cc_library",
     ],
 )
@@ -28,7 +28,7 @@ cc_shared_library(
     name = "VenomVulkan",
     dynamic_deps = [
         "//lib/common:VenomCommon",
-        "//lib/GLFW:glfw",
+        "//lib:glfw",
     ],
     exports_filter = [
         "//lib/common:VenomCommon",

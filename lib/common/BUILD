@@ -11,7 +11,7 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//lib/GLFW:glfw_static",
+        "//lib:glfw_static",
         "@bazel_tools//tools/cpp/runfiles",
     ],
 )
@@ -19,11 +19,11 @@ cc_library(
 cc_shared_library(
     name = "VenomCommon",
     dynamic_deps = [
-        "//lib/GLFW:glfw",
+        "//lib:glfw",
     ],
     exports_filter = [
         ":venom_common_static",
-        "//lib/GLFW:glfw",
+        "//lib:glfw",
         "@bazel_tools//tools/cpp/runfiles",
     ],
     visibility = ["//visibility:public"],
