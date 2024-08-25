@@ -7,5 +7,7 @@
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/DirectX-Headers" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/SPIRV-Headers" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/SPIRV-Tools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/glfw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/glm" vcs="Git" />
   </component>
 </project>

@@ -1,0 +1,80 @@
+/*
+ * Copyright (c) 2021 Nordic Semiconductor ASA
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* This file contains color customizations that follow Zephyr's branding */
+
+html {
+    --primary-color: #78c27f;         /* Replaced purple with a green shade */
+    --primary-dark-color: #469f4a;    /* Dark green */
+    --primary-light-color: #97d499;   /* Light green */
+    --primary-lighter-color: #b5e6b6; /* Lighter green */
+    --primary-lightest-color: #d6f5d8; /* Lightest green */
+
+    --side-nav-background: #333f67;
+    --side-nav-foreground: #c3e3ff;
+
+    --searchbar-background: var(--page-background-color);
+    --searchbar-foreground: var(--page-foreground-color);
+
+    --link-color: #2980b9;
+    --param-color: #b71c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not(.light-mode) {
+        color-scheme: dark;
+
+        --primary-color: #78c27f;         /* Replaced purple with a green shade */
+        --primary-dark-color: #469f4a;    /* Light green for dark mode */
+        --primary-light-color: #97d499;   /* Dark green for dark mode */
+        --primary-lighter-color: #1b251c; /* Very dark green */
+        --primary-lightest-color: #141b15; /* Darkest green */
+
+        --side-nav-background: #252628;
+        --side-nav-foreground: var(--page-foreground-color);
+
+        --param-color: #ef9a9a;
+    }
+}
+
+html.dark-mode {
+    color-scheme: dark;
+
+    --primary-color: #78c27f;         /* Replaced purple with a green shade */
+    --primary-dark-color: #469f4a;    /* Light green for dark mode */
+    --primary-light-color: #97d499;   /* Dark green for dark mode */
+    --primary-lighter-color: #1b251c; /* Very dark green */
+    --primary-lightest-color: #141b15; /* Darkest green */
+
+    --side-nav-background: #252628;
+    --side-nav-foreground: var(--page-foreground-color);
+
+    --param-color: #ef9a9a;
+}
+
+a:link, a:visited, a:hover, a:focus, a:active {
+    color: var(--link-color) !important;
+}
+
+.paramname {
+    color: var(--param-color);
+}
+
+dl.section dd, dl.bug dd, dl.deprecated dd {
+    margin-inline-start: revert;
+}
+
+@media screen and (min-width: 767px) {
+    #doc-content {
+        padding-top: calc(var(--top-height) - 180px);
+    }
+}
+
+/* style for re-injected version */
+#projectversion {
+    color: var(--side-nav-foreground);
+    padding-top: 25px;
+    text-align: center;
+}

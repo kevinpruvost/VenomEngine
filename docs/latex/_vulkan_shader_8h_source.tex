@@ -1,0 +1,36 @@
+\doxysection{Vulkan\+Shader.\+h}
+\hypertarget{_vulkan_shader_8h_source}{}\label{_vulkan_shader_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/VulkanShader.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/VulkanShader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}VulkanPhysicalDevice.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}VulkanSwapChain.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}VulkanRenderPass.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}tools/cpp/runfiles/runfiles.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1_vulkan_shader_pipeline}{VulkanShaderPipeline}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1_vulkan_shader_pipeline}{VulkanShaderPipeline}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1_vulkan_shader_pipeline}{\string~VulkanShaderPipeline}}();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ Error\ LoadShaders(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1_vulkan_swap_chain}{VulkanSwapChain}}\ *\ swapChain,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1_vulkan_render_pass}{VulkanRenderPass}}\ *\ renderPass,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ shaderPaths);}
+\DoxyCodeLine{00025\ \ \ \ \ VkPipeline\ GetPipeline()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ Error\ LoadShader(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ std::string\&\ shaderPath,\ VkPipelineShaderStageCreateInfo\ *\ pipelineCreateInfo);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00031\ \ \ \ \ VkPipeline\ \_\_graphicsPipeline;}
+\DoxyCodeLine{00032\ \ \ \ \ VkPipelineLayout\ \_\_pipelineLayout;}
+\DoxyCodeLine{00033\ \ \ \ \ VkDevice\ \_\_logicalDevice;}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,25 @@
+\doxysection{Export.\+h}
+\hypertarget{_export_8h_source}{}\label{_export_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/Export.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/Export.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ EXPORT\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ IMPORT\ \_\_declspec(dllimport)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#elif\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ EXPORT\ \_\_attribute\_\_((visibility("{}default"{})))}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ IMPORT}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ EXPORT\ \_\_attribute\_\_((visibility("{}default"{})))}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ IMPORT}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ VENOM\_COMMON\_EXPORTS}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ VENOM\_COMMON\_API\ EXPORT}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ APPLICATION\_API\ IMPORT}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
