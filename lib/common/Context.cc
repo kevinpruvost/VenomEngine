@@ -1,14 +1,14 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Context.cc
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Context.cc
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <common/Context.h>
 #include <common/Log.h>
 
-namespace venom
+namespace venom::common
 {
 
 Context::Context()

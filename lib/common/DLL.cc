@@ -1,16 +1,16 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: DLL.cc
-/// Date: 8/18/2024
-/// Description:
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file DLL.cc
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <common/DLL.h>
 #include <common/Log.h>
 
 #include <iostream>
 
-namespace venom
+namespace venom::common
 {
 
 DLL::DLL(const char * path)

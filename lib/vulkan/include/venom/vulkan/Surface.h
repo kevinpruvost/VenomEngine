@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanSurface.h
-/// Date: 8/20/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file VulkanSurface.h
+/// @date Aug, 20 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -21,7 +21,7 @@ public:
     Surface();
     ~Surface();
 
-    Error CreateSurface(Context * context);
+    vc::Error CreateSurface(vc::Context * context);
 
 public:
     VkSurfaceKHR surface;

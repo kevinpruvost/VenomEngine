@@ -1,11 +1,11 @@
 \doxysection{Command\+Pool.\+h}
 \hypertarget{_command_pool_8h_source}{}\label{_command_pool_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/CommandPool.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/CommandPool.h}}
-
+\mbox{\hyperlink{_command_pool_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <venom/vulkan/QueueFamily.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_queue_family_8h}{venom/vulkan/QueueFamily.h}}>}}
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <memory>}}
 \DoxyCodeLine{00013\ }
@@ -26,8 +26,8 @@
 \DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\&\ other);}
 \DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\&\&\ other);}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ Error\ InitCommandPool(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ QueueFamilyIndex\ queueFamilyIndex);}
-\DoxyCodeLine{00032\ \ \ \ \ Error\ CreateCommandBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ **\ commandBuffer,\ VkCommandBufferLevel\ level\ =\ VkCommandBufferLevel::VK\_COMMAND\_BUFFER\_LEVEL\_PRIMARY);}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ InitCommandPool(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ QueueFamilyIndex\ queueFamilyIndex);}
+\DoxyCodeLine{00032\ \ \ \ \ vc::Error\ CreateCommandBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ **\ commandBuffer,\ VkCommandBufferLevel\ level\ =\ VkCommandBufferLevel::VK\_COMMAND\_BUFFER\_LEVEL\_PRIMARY);}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00035\ \ \ \ \ VkCommandPool\ \_\_commandPool;}
@@ -52,8 +52,8 @@
 \DoxyCodeLine{00058\ \ \ \ \ VkCommandBuffer\ \_\_commandBuffer;}
 \DoxyCodeLine{00059\ }
 \DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00061\ \ \ \ \ Error\ BeginCommandBuffer(VkCommandBufferUsageFlags\ flags\ =\ 0)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00062\ \ \ \ \ Error\ EndCommandBuffer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ \ \ \ \ vc::Error\ BeginCommandBuffer(VkCommandBufferUsageFlags\ flags\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ \ \ \ \ vc::Error\ EndCommandBuffer()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset(VkCommandBufferResetFlags\ flags);}
 \DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ BindPipeline(VkPipeline\ pipeline,\ VkPipelineBindPoint\ bindPoint)\ \textcolor{keyword}{const};}

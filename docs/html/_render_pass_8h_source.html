@@ -106,11 +106,11 @@ $(function(){initNavTree('_render_pass_8h_source.html',''); initResizable(true);
   <div class="headertitle"><div class="title">RenderPass.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<a href="_render_pass_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;venom/vulkan/SwapChain.h&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;venom/vulkan/CommandPool.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="_swap_chain_8h.html">venom/vulkan/SwapChain.h</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="_command_pool_8h.html">venom/vulkan/CommandPool.h</a>&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacevenom.html">venom</a></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
@@ -127,9 +127,9 @@ $(function(){initNavTree('_render_pass_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>&amp;&amp; other);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>&amp; operator=(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>&amp;&amp; other);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    Error InitRenderPass(<span class="keyword">const</span> VkDevice logicalDevice, <span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    Error BeginRenderPass(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain, <a class="code hl_class" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> * commandBuffer, <span class="keywordtype">int</span> framebufferIndex);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    Error EndRenderPass(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> * commandBuffer);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    vc::Error InitRenderPass(<span class="keyword">const</span> VkDevice logicalDevice, <span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    vc::Error BeginRenderPass(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain, <a class="code hl_class" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> * commandBuffer, <span class="keywordtype">int</span> framebufferIndex);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    vc::Error EndRenderPass(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> * commandBuffer);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    VkRenderPass GetRenderPass() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">private</span>:</div>
@@ -139,16 +139,18 @@ $(function(){initNavTree('_render_pass_8h_source.html',''); initResizable(true);
 </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<div class="ttc" id="a_command_pool_8h_html"><div class="ttname"><a href="_command_pool_8h.html">CommandPool.h</a></div></div>
+<div class="ttc" id="a_swap_chain_8h_html"><div class="ttname"><a href="_swap_chain_8h.html">SwapChain.h</a></div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_command_buffer_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_command_buffer.html">venom::vulkan::CommandBuffer</a></div><div class="ttdoc">Command Buffer class, only instanciable by VulkanCommandPool. To use them, you need to create a Vulka...</div><div class="ttdef"><b>Definition</b> CommandPool.h:45</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_render_pass_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_render_pass.html">venom::vulkan::RenderPass</a></div><div class="ttdef"><b>Definition</b> RenderPass.h:18</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_swap_chain_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_swap_chain.html">venom::vulkan::SwapChain</a></div><div class="ttdef"><b>Definition</b> SwapChain.h:22</div></div>
-<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdef"><b>Definition</b> Application.cc:14</div></div>
+<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Application.cc:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_d1f9b7256b60807ee326bfa4f0380207.html">vulkan</a></li><li class="navelem"><a class="el" href="dir_f55c281e0720a6c88254d869b79ad426.html">include</a></li><li class="navelem"><a class="el" href="dir_28597392e3c23de4630bb62256b52858.html">venom</a></li><li class="navelem"><a class="el" href="dir_6f8e46d3370f0e82ceda896bda554542.html">vulkan</a></li><li class="navelem"><b>RenderPass.h</b></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_d1f9b7256b60807ee326bfa4f0380207.html">vulkan</a></li><li class="navelem"><a class="el" href="dir_f55c281e0720a6c88254d869b79ad426.html">include</a></li><li class="navelem"><a class="el" href="dir_28597392e3c23de4630bb62256b52858.html">venom</a></li><li class="navelem"><a class="el" href="dir_6f8e46d3370f0e82ceda896bda554542.html">vulkan</a></li><li class="navelem"><a class="el" href="_render_pass_8h.html">RenderPass.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

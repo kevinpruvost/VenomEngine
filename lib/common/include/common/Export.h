@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Export.h
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Export.h
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 

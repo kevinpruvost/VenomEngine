@@ -1,14 +1,14 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Error.cc
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Error.cc
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include "include/common/Error.h"
 
 static char errorString[256] = {0};
-namespace venom
+namespace venom::common
 {
 void setErrorString(const char* str)
 {

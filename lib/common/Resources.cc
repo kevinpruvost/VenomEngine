@@ -1,15 +1,15 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Resources.cc
-/// Date: 8/22/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Resources.cc
+/// @date Aug, 22 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <common/Resources.h>
 
 #include "tools/cpp/runfiles/runfiles.h"
 
-namespace venom
+namespace venom::common
 {
 typedef bazel::tools::cpp::runfiles::Runfiles Runfiles;
 

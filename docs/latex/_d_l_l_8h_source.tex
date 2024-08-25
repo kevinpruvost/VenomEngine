@@ -1,6 +1,6 @@
 \doxysection{DLL.\+h}
 \hypertarget{_d_l_l_8h_source}{}\label{_d_l_l_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/DLL.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/DLL.h}}
-
+\mbox{\hyperlink{_d_l_l_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
@@ -14,24 +14,27 @@
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <dlfcn.h>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <common/Export.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_export_8h}{common/Export.h}}>}}
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1_d_l_l}{DLL}}}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classvenom_1_1_d_l_l}{DLL}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path);}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1_d_l_l}{\string~DLL}}();}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \mbox{\hyperlink{classvenom_1_1_d_l_l_a5355bdf43b4e49057cf603417c2d8bf0}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ReturnType,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00041\ \ \ \ \ ReturnType(*\mbox{\hyperlink{classvenom_1_1_d_l_l_a5355bdf43b4e49057cf603417c2d8bf0}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name))(Args...)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ReturnType(*)(Args...)\textcolor{keyword}{>}(\mbox{\hyperlink{classvenom_1_1_d_l_l_a5355bdf43b4e49057cf603417c2d8bf0}{GetFunction}}(name));\ \}}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ handle\_;}
-\DoxyCodeLine{00045\ \};}
-\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path);}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{\string~DLL}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ReturnType,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00043\ \ \ \ \ ReturnType(*\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name))(Args...)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ReturnType(*)(Args...)\textcolor{keyword}{>}(\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(name));\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ handle\_;}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ \}}
 
 \end{DoxyCode}

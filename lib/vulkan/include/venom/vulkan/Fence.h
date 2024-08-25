@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanFence.h
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Fence.h
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -23,7 +23,7 @@ public:
     Fence(Fence && other);
     Fence & operator=(Fence && other);
 
-    Error InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags flags = VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT);
+    vc::Error InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags flags = VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT);
     const VkFence * GetFence() const;
 
 private:

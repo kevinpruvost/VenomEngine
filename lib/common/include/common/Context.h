@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Context.h
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Context.h
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -13,6 +13,8 @@
 #include <vector>
 
 namespace venom
+{
+namespace common
 {
 class VENOM_COMMON_API Context
 {
@@ -30,4 +32,5 @@ private:
     GLFWwindow * __window;
     std::vector<GLFWvidmode> __modes;
 };
+}
 }

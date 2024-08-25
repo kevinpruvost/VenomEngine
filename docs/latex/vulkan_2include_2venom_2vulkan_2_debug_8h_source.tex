@@ -1,6 +1,6 @@
 \doxysection{Debug.\+h}
 \hypertarget{vulkan_2include_2venom_2vulkan_2_debug_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2_debug_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/Debug.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/Debug.h}}
-
+\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2_debug_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
@@ -17,17 +17,17 @@
 \DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{DebugApplication}}();}
 \DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{\string~DebugApplication}}();}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ Error\ InitDebug();}
+\DoxyCodeLine{00022\ \ \ \ \ vc::Error\ InitDebug();}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ DestroyDebug();}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keyword}{protected}:}
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo\ *\ createInfos);}
 \DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ CreateInfo>}
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetCreateInfoValidationLayers(CreateInfo\ *\ createInfos);}
-\DoxyCodeLine{00029\ \ \ \ \ Error\ \_PostInstance\_SetDebugParameters();}
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ \_PostInstance\_SetDebugParameters();}
 \DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00032\ \ \ \ \ Error\ \_\_InitValidationLayers();}
+\DoxyCodeLine{00032\ \ \ \ \ vc::Error\ \_\_InitValidationLayers();}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
 \DoxyCodeLine{00035\ \ \ \ \ std::vector<const\ char\ *>\ \ \ \ \ \ \_\_validationLayersInUse;}

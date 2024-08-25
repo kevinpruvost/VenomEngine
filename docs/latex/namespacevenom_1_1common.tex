@@ -1,0 +1,72 @@
+\doxysection{venom\+::common Namespace Reference}
+\hypertarget{namespacevenom_1_1common}{}\label{namespacevenom_1_1common}\index{venom::common@{venom::common}}
+
+
+High-\/\+Level Frontend of the Venom\+Engine project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_application}{Application}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_application_backend}{Application\+Backend}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}
+\begin{DoxyCompactList}\small\item\em Contains a shared library handle and provides a way to get symbols from it. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_log}{Log}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_resources}{Resources}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a90741080148150d7bd6816520f32b60c}\label{namespacevenom_1_1common_a90741080148150d7bd6816520f32b60c} 
+using {\bfseries String} = std\+::string
+\item 
+\Hypertarget{namespacevenom_1_1common_a80ccda757db61d2acd0ce573746f1278}\label{namespacevenom_1_1common_a80ccda757db61d2acd0ce573746f1278} 
+typedef bazel\+::tools\+::cpp\+::runfiles\+::\+Runfiles {\bfseries Runfiles}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ab35b7391fbd93ecb3e6d451155c93d70}\label{namespacevenom_1_1common_ab35b7391fbd93ecb3e6d451155c93d70} 
+enum class {\bfseries Error} \+: uint32\+\_\+t \{ \newline
+{\bfseries Success} = 0
+, {\bfseries Failure} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries Invalid\+Argument} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries Out\+Of\+Memory} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries Device\+Lost} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries Initialization\+Failed} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries Invalid\+Use} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries Unknown} = UINT32\+\_\+\+MAX
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ad364eaaef114535cdf6ac0bee25ef102}\label{namespacevenom_1_1common_ad364eaaef114535cdf6ac0bee25ef102} 
+void {\bfseries Initialize\+Resources\+Filesystem} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+\Hypertarget{namespacevenom_1_1common_acdcc1f192897509482bc3234bb8873ad}\label{namespacevenom_1_1common_acdcc1f192897509482bc3234bb8873ad} 
+bazel\+::tools\+::cpp\+::runfiles\+::\+Runfiles \texorpdfstring{$\ast$}{*} {\bfseries Get\+Runfiles} ()
+\item 
+\Hypertarget{namespacevenom_1_1common_ae35e7c0cb328ad8b77273afdb13a4697}\label{namespacevenom_1_1common_ae35e7c0cb328ad8b77273afdb13a4697} 
+void {\bfseries set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}str)
+\item 
+\Hypertarget{namespacevenom_1_1common_a49f87813aa0a3ce530f3cdc21cddf8aa}\label{namespacevenom_1_1common_a49f87813aa0a3ce530f3cdc21cddf8aa} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries get\+Error\+String} ()
+\item 
+\Hypertarget{namespacevenom_1_1common_abe3dcafc92575a53a242777f3c78d87b}\label{namespacevenom_1_1common_abe3dcafc92575a53a242777f3c78d87b} 
+{\footnotesize template$<$typename... Args$>$ }\\void {\bfseries set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
+\item 
+\Hypertarget{namespacevenom_1_1common_af3503d5de3a440ca113b293ef46b1a27}\label{namespacevenom_1_1common_af3503d5de3a440ca113b293ef46b1a27} 
+{\footnotesize template$<$typename ... Args$>$ }\\String {\bfseries format} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+High-\/\+Level Frontend of the Venom\+Engine project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. 

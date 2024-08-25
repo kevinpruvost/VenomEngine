@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanRenderPass.cc
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file VulkanRenderPass.cc
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/RenderPass.h>
 
@@ -35,7 +35,7 @@ RenderPass& RenderPass::operator=(RenderPass&& other)
     return *this;
 }
 
-Error RenderPass::InitRenderPass(const VkDevice logicalDevice, const SwapChain* swapChain)
+vc::Error RenderPass::InitRenderPass(const VkDevice logicalDevice, const SwapChain* swapChain)
 {
     // Render Pass
     VkAttachmentDescription colorAttachment{};
@@ -87,14 +87,14 @@ Error RenderPass::InitRenderPass(const VkDevice logicalDevice, const SwapChain* 
 
     if (vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &__renderPass) != VK_SUCCESS)
     {
-        Log::Error("Failed to create render pass");
-        return Error::Failure;
+        vc::Log::Error("Failed to create render pass");
+        return vc::Error::Failure;
     }
     __logicalDevice = logicalDevice;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error RenderPass::BeginRenderPass(SwapChain* swapChain,
+vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain,
     CommandBuffer* commandBuffer, int framebufferIndex)
 {
     VkRenderPassBeginInfo renderPassInfo{};
@@ -109,13 +109,13 @@ Error RenderPass::BeginRenderPass(SwapChain* swapChain,
     renderPassInfo.pClearValues = &clearColor;
 
     vkCmdBeginRenderPass(commandBuffer->__commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error RenderPass::EndRenderPass(CommandBuffer* commandBuffer)
+vc::Error RenderPass::EndRenderPass(CommandBuffer* commandBuffer)
 {
     vkCmdEndRenderPass(commandBuffer->__commandBuffer);
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 VkRenderPass RenderPass::GetRenderPass() const

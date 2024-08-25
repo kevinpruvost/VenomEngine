@@ -24,6 +24,7 @@ fast:
 fast_run: fast
 	bazel run //:$(TARGET) --compilation_mode=fastbuild
 
+# Generates and open doc for visualization
 docs:
 	cd $(DOC_FOLDER) && $(DOXYGEN) $(DOXYFILE)
 

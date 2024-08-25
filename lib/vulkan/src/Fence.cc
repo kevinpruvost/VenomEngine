@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanFence.cc
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Fence.cc
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Fence.h>
 
@@ -40,7 +40,7 @@ Fence& Fence::operator=(Fence&& other)
     return *this;
 }
 
-Error Fence::InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags flags)
+vc::Error Fence::InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags flags)
 {
     VkFenceCreateInfo fenceCreateInfo = {};
     fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
@@ -48,11 +48,11 @@ Error Fence::InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags fl
     fenceCreateInfo.flags = flags;
 
     if (vkCreateFence(logicalDevice, &fenceCreateInfo, nullptr, &__fence) != VK_SUCCESS) {
-        Log::Error("Failed to create fence");
-        return Error::Failure;
+        vc::Log::Error("Failed to create fence");
+        return vc::Error::Failure;
     }
     __logicalDevice = logicalDevice;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 const VkFence * Fence::GetFence() const

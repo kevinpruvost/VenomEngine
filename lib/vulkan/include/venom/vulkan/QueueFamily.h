@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanQueueFamily.h
-/// Date: 8/20/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file QueueFamily.h
+/// @date Aug, 20 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -36,7 +36,7 @@ public:
     explicit MappedQueueFamilies(std::vector<QueueFamily>& queueFamilies);
     MappedQueueFamilies & operator=(MappedQueueFamilies&& other) noexcept;
     const std::vector<QueueFamily> GetQueueFamilies() const;
-    Error SetPresentQueueFamilyIndices(const PhysicalDevice& physicalDevice, const Surface & surface);
+    vc::Error SetPresentQueueFamilyIndices(const PhysicalDevice& physicalDevice, const Surface & surface);
 
 public:
     QueueFamilyIndices graphicsQueueFamilyIndices,

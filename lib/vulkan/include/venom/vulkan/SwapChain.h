@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanSwapChain.h
-/// Date: 8/21/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file SwapChain.h
+/// @date Aug, 21 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -30,7 +30,7 @@ public:
 
     void CleanSwapChain();
 
-    Error InitSwapChainSettings(const PhysicalDevice * physicalDevice, const Surface * surface, const Context * context);
+    vc::Error InitSwapChainSettings(const PhysicalDevice * physicalDevice, const Surface * surface, const vc::Context * context);
     
     /// @brief Inits Swap chain and swap chain image views
     /// @param physicalDevice 
@@ -38,9 +38,9 @@ public:
     /// @param context
     /// @param queueFamilies 
     /// @return Error
-    Error InitSwapChain(const PhysicalDevice * physicalDevice, const Surface * surface,
-        const Context * context, const MappedQueueFamilies * queueFamilies);
-    Error InitSwapChainFramebuffers(const RenderPass * renderPass);
+    vc::Error InitSwapChain(const PhysicalDevice * physicalDevice, const Surface * surface,
+        const vc::Context * context, const MappedQueueFamilies * queueFamilies);
+    vc::Error InitSwapChainFramebuffers(const RenderPass * renderPass);
 
 public:
     VkSurfaceCapabilitiesKHR capabilities;

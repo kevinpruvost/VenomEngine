@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Debug.h
-/// Date: 8/19/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Debug.h
+/// @date Aug, 19 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -16,8 +16,8 @@
 #endif
 
 #ifdef VENOM_DEBUG
-#define DEBUG_PRINT(str, ...) venom::Log::Print(str, __VA_ARGS__)
-#define DEBUG_LOG(str, ...) venom::Log::LogToFile(str, __VA_ARGS__)
+#define DEBUG_PRINT(str, ...) vc::Log::Print(str, __VA_ARGS__)
+#define DEBUG_LOG(str, ...) vc::Log::LogToFile(str, __VA_ARGS__)
 #define DEBUG_CODE(code) code
 
 #define venom_assert(condition, ...) \

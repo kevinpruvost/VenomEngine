@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Log.cc
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Log.cc
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 
 #include "include/common/Log.h"
@@ -14,7 +14,7 @@
 
 #include <ctime>
 
-static venom::String getTimeString()
+static venom::common::String getTimeString()
 {
     // Example of the very popular RFC 3339 format UTC time
     std::time_t time = std::time({});
@@ -24,7 +24,7 @@ static venom::String getTimeString()
     return timeString;
 }
 
-namespace venom
+namespace venom::common
 {
 
 void Log::LogToFile(const char* str)

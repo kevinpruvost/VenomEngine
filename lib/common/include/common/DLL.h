@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: DLL.h
-/// Date: 8/18/2024
-/// Description:
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file DLL.h
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -19,6 +19,8 @@
 #include <common/Export.h>
 
 namespace venom
+{
+namespace common
 {
 /// @brief Contains a shared library handle and provides a way to get symbols from it
 class DLL
@@ -43,4 +45,5 @@ public:
 private:
     void * handle_;
 };
+}
 }

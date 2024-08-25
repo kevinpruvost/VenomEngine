@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanCommandPool.h
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file CommandPool.h
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -28,8 +28,8 @@ public:
     CommandPool(CommandPool&& other);
     CommandPool& operator=(CommandPool&& other);
 
-    Error InitCommandPool(const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex);
-    Error CreateCommandBuffer(CommandBuffer ** commandBuffer, VkCommandBufferLevel level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY);
+    vc::Error InitCommandPool(const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex);
+    vc::Error CreateCommandBuffer(CommandBuffer ** commandBuffer, VkCommandBufferLevel level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY);
 
 private:
     VkCommandPool __commandPool;
@@ -58,8 +58,8 @@ private:
     VkCommandBuffer __commandBuffer;
 
 public:
-    Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0) const;
-    Error EndCommandBuffer() const;
+    vc::Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0) const;
+    vc::Error EndCommandBuffer() const;
 public:
     void Reset(VkCommandBufferResetFlags flags);
     void BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const;

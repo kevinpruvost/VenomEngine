@@ -1,15 +1,15 @@
 \doxysection{Swap\+Chain.\+h}
 \hypertarget{_swap_chain_8h_source}{}\label{_swap_chain_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/SwapChain.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/SwapChain.h}}
-
+\mbox{\hyperlink{_swap_chain_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <venom/vulkan/PhysicalDevice.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_physical_device_8h}{venom/vulkan/PhysicalDevice.h}}>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <venom/vulkan/Surface.h>}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <venom/vulkan/QueueFamily.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_queue_family_8h}{venom/vulkan/QueueFamily.h}}>}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <common/Context.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{common/Context.h}}>}}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00017\ \{}
@@ -28,11 +28,11 @@
 \DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanSwapChain();}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ Error\ InitSwapChainSettings(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ *\ physicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ *\ surface,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1_context}{Context}}\ *\ context);}
+\DoxyCodeLine{00033\ \ \ \ \ vc::Error\ InitSwapChainSettings(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ *\ physicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ *\ surface,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{vc::Context}}\ *\ context);}
 \DoxyCodeLine{00034\ \ \ \ \ }
-\DoxyCodeLine{00041\ \ \ \ \ Error\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain_aaa3d0eb3255f48b2ebc28dffa3e446ec}{InitSwapChain}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ *\ physicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ *\ surface,}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1_context}{Context}}\ *\ context,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ *\ queueFamilies);}
-\DoxyCodeLine{00043\ \ \ \ \ Error\ InitSwapChainFramebuffers(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ *\ renderPass);}
+\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain_aa6f6d7a92eff59206ea953c6d3766e21}{InitSwapChain}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ *\ physicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ *\ surface,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{vc::Context}}\ *\ context,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ *\ queueFamilies);}
+\DoxyCodeLine{00043\ \ \ \ \ vc::Error\ InitSwapChainFramebuffers(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ *\ renderPass);}
 \DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00046\ \ \ \ \ VkSurfaceCapabilitiesKHR\ capabilities;}

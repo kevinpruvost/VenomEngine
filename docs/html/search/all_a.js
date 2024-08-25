@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['renderpass_0',['RenderPass',['../classvenom_1_1vulkan_1_1_render_pass.html',1,'venom::vulkan']]],
-  ['resources_1',['Resources',['../classvenom_1_1_resources.html',1,'venom']]]
+  ['queuefamily_0',['QueueFamily',['../classvenom_1_1vulkan_1_1_queue_family.html',1,'venom::vulkan']]],
+  ['queuefamily_2eh_1',['QueueFamily.h',['../_queue_family_8h.html',1,'']]]
 ];

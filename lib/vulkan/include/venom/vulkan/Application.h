@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: vulkan.h
-/// Date: 8/18/2024
-/// Description:
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Application.h
+/// @date Aug, 18 2024
+/// @brief Vulkan Encapsulation of the Application class.
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -23,35 +23,36 @@
 
 namespace venom
 {
+/// @brief Encapsulation of Vulkan for the front end of VenomEngine.
 namespace vulkan
 {
 class Application
-    : public ApplicationBackend
+    : public vc::ApplicationBackend
     , public DebugApplication
 {
 public:
     Application();
     ~Application();
-    Error Run() override;
+    vc::Error Run() override;
 
 private:
-    Error __Loop();
-    Error __DrawFrame();
-    Error __InitVulkan();
+    vc::Error __Loop();
+    vc::Error __DrawFrame();
+    vc::Error __InitVulkan();
 
     void __SetGLFWCallbacks();
 
-    Error __InitPhysicalDevices();
+    vc::Error __InitPhysicalDevices();
     bool __IsDeviceSuitable(const VkDeviceCreateInfo * createInfo);
 
-    Error __CreateInstance();
+    vc::Error __CreateInstance();
     void __Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo);
 
     void __RecreateSwapChain();
 
 private:
     std::vector<const char *> __instanceExtensions;
-    Context __context;
+    vc::Context __context;
     PhysicalDevice __physicalDevice;
     MappedQueueFamilies __queueFamilies;
     Surface __surface;
@@ -74,4 +75,4 @@ private:
 };
 }
 }
-extern "C" EXPORT venom::ApplicationBackend* createApplication();
+extern "C" EXPORT vc::ApplicationBackend* createApplication();

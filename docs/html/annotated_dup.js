@@ -1,6 +1,14 @@
 var annotated_dup =
 [
     [ "venom", "namespacevenom.html", [
+      [ "common", "namespacevenom_1_1common.html", [
+        [ "Application", "classvenom_1_1common_1_1_application.html", null ],
+        [ "ApplicationBackend", "classvenom_1_1common_1_1_application_backend.html", null ],
+        [ "Context", "classvenom_1_1common_1_1_context.html", null ],
+        [ "DLL", "classvenom_1_1common_1_1_d_l_l.html", "classvenom_1_1common_1_1_d_l_l" ],
+        [ "Log", "classvenom_1_1common_1_1_log.html", null ],
+        [ "Resources", "classvenom_1_1common_1_1_resources.html", null ]
+      ] ],
       [ "vulkan", "namespacevenom_1_1vulkan.html", [
         [ "Application", "classvenom_1_1vulkan_1_1_application.html", null ],
         [ "CommandBuffer", "classvenom_1_1vulkan_1_1_command_buffer.html", null ],
@@ -16,12 +24,6 @@ var annotated_dup =
         [ "ShaderPipeline", "classvenom_1_1vulkan_1_1_shader_pipeline.html", null ],
         [ "Surface", "classvenom_1_1vulkan_1_1_surface.html", null ],
         [ "SwapChain", "classvenom_1_1vulkan_1_1_swap_chain.html", "classvenom_1_1vulkan_1_1_swap_chain" ]
-      ] ],
-      [ "Application", "classvenom_1_1_application.html", null ],
-      [ "ApplicationBackend", "classvenom_1_1_application_backend.html", null ],
-      [ "Context", "classvenom_1_1_context.html", null ],
-      [ "DLL", "classvenom_1_1_d_l_l.html", "classvenom_1_1_d_l_l" ],
-      [ "Log", "classvenom_1_1_log.html", null ],
-      [ "Resources", "classvenom_1_1_resources.html", null ]
+      ] ]
     ] ]
 ];

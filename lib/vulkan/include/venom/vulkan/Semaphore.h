@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanSemaphore.h
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Semaphore.h
+/// @date Aug, 23/2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -24,7 +24,7 @@ public:
     Semaphore & operator=(Semaphore && other);
 
     void DestroySemaphore();
-    Error InitSemaphore(const VkDevice logicalDevice);
+    vc::Error InitSemaphore(const VkDevice logicalDevice);
     VkSemaphore GetSemaphore() const;
 
 private:

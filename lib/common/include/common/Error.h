@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Error.h
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Error.h
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -15,7 +15,10 @@
 
 #include "String.h"
 
+namespace vc = venom::common;
 namespace venom
+{
+namespace common
 {
 enum class Error : uint32_t
 {
@@ -37,4 +40,5 @@ void setErrorString(const char* fmt, Args&&... args)
 }
 
 VENOM_COMMON_API const char * getErrorString();
+}
 }

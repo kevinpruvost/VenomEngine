@@ -1,16 +1,16 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Application.cc
-/// Date: 8/18/2024
-/// Description:
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Application.cc
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <common/Application.h>
 #include <common/DLL.h>
 
 #include <iostream>
 
-namespace venom
+namespace venom::common
 {
 
 ApplicationBackend::ApplicationBackend()

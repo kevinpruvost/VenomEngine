@@ -1,0 +1,53 @@
+\doxysection{D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/common/\+Error.h File Reference}
+\hypertarget{_error_8h}{}\label{_error_8h}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/Error.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/Error.h}}
+{\ttfamily \#include $<$common/\+Export.\+h$>$}\newline
+{\ttfamily \#include $<$common/\+Debug.\+h$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include "{}String.\+h"{}}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom}{venom}}
+\begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the Venom\+Engine project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ab35b7391fbd93ecb3e6d451155c93d70}\label{namespacevenom_1_1common_ab35b7391fbd93ecb3e6d451155c93d70} 
+enum class {\bfseries Error} \+: uint32\+\_\+t \{ \newline
+{\bfseries Success} = 0
+, {\bfseries Failure} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries Invalid\+Argument} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries Out\+Of\+Memory} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries Device\+Lost} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries Initialization\+Failed} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries Invalid\+Use} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries Unknown} = UINT32\+\_\+\+MAX
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ae35e7c0cb328ad8b77273afdb13a4697}\label{namespacevenom_1_1common_ae35e7c0cb328ad8b77273afdb13a4697} 
+void {\bfseries venom\+::common\+::set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}str)
+\item 
+\Hypertarget{namespacevenom_1_1common_abe3dcafc92575a53a242777f3c78d87b}\label{namespacevenom_1_1common_abe3dcafc92575a53a242777f3c78d87b} 
+{\footnotesize template$<$typename... Args$>$ }\\void {\bfseries venom\+::common\+::set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
+\item 
+\Hypertarget{namespacevenom_1_1common_a49f87813aa0a3ce530f3cdc21cddf8aa}\label{namespacevenom_1_1common_a49f87813aa0a3ce530f3cdc21cddf8aa} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::get\+Error\+String} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Venom\+Engine
+
+\begin{DoxyDate}{Date}
+Aug, 18 2024 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+\end{DoxyAuthor}

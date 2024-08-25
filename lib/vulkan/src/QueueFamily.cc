@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanQueueFamily.cc
-/// Date: 8/20/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file VulkanQueueFamily.cc
+/// @date Aug, 20 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/QueueFamily.h>
 
@@ -67,19 +67,19 @@ const std::vector<QueueFamily> MappedQueueFamilies::GetQueueFamilies() const
     return __queueFamilies;
 }
 
-Error MappedQueueFamilies::SetPresentQueueFamilyIndices(const PhysicalDevice& physicalDevice, const Surface & surface)
+vc::Error MappedQueueFamilies::SetPresentQueueFamilyIndices(const PhysicalDevice& physicalDevice, const Surface & surface)
 {
     for (int i = 0; i < __queueFamilies.size(); ++i) {
         VkBool32 presentSupport = false;
         if (auto err = vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.physicalDevice, i, surface.surface, &presentSupport); err != VK_SUCCESS) {
-            Log::Error("Failed to get physical device surface support, error code: %d", err);
-            return Error::InitializationFailed;
+            vc::Log::Error("Failed to get physical device surface support, error code: %d", err);
+            return vc::Error::InitializationFailed;
         }
         if (presentSupport) {
             presentQueueFamilyIndices.push_back(i);
         }
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 MappedQueueFamilies getVulkanQueueFamilies(const PhysicalDevice& physicalDevice)

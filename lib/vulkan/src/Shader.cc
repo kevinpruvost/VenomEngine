@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Shader.cc
-/// Date: 8/22/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Shader.cc
+/// @date Aug, 22 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Shader.h>
 
@@ -30,18 +30,18 @@ ShaderPipeline::~ShaderPipeline()
         vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, nullptr);
 }
 
-Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
+vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
     const std::string& shaderPath,
     VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
     const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath;
-    const std::string path = Resources::GetResourcePath(folder_shaderPath);
+    const std::string path = vc::Resources::GetResourcePath(folder_shaderPath);
     std::ifstream file(path, std::ios::ate | std::ios::binary);
 
     if (!file.is_open())
     {
-        Log::Error("Failed to open file: %s", path.c_str());
-        return Error::Failure;
+        vc::Log::Error("Failed to open file: %s", path.c_str());
+        return vc::Error::Failure;
     }
 
     size_t fileSize = (size_t) file.tellg();
@@ -57,8 +57,8 @@ Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
 
     if (vkCreateShaderModule(logicalDevice, &shaderModuleCreateInfo, nullptr, &pipelineCreateInfo->module) != VK_SUCCESS)
     {
-        Log::Error("Failed to create shader module");
-        return Error::Failure;
+        vc::Log::Error("Failed to create shader module");
+        return vc::Error::Failure;
     }
     pipelineCreateInfo->sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     pipelineCreateInfo->pName = "main";
@@ -75,23 +75,23 @@ Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
     else if (shaderPath.find("tese") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT;
     else {
-        Log::Error("Unknown shader type: %s", shaderPath.c_str());
-        return Error::Failure;
+        vc::Log::Error("Unknown shader type: %s", shaderPath.c_str());
+        return vc::Error::Failure;
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapChain* swapChain,
+vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapChain* swapChain,
     const RenderPass * renderPass, const std::vector<std::string>& shaderPaths)
 {
     // Loading every shader
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages(shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
     for (int i = 0; i < shaderPaths.size(); ++i)
     {
-        if (LoadShader(logicalDevice, shaderPaths[i], &shaderStages[i]) != Error::Success)
+        if (LoadShader(logicalDevice, shaderPaths[i], &shaderStages[i]) != vc::Error::Success)
         {
-            Log::Error("Failed to load shader: %s", shaderPaths[i].c_str());
-            return Error::Failure;
+            vc::Log::Error("Failed to load shader: %s", shaderPaths[i].c_str());
+            return vc::Error::Failure;
         }
     }
     // Check if duplicate stages
@@ -101,11 +101,11 @@ Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapChain*
         {
             if (shaderStages[i].stage == shaderStages[j].stage)
             {
-                Log::Error("Duplicate shader stages: [%s] | [%s]", shaderPaths[i].c_str(), shaderPaths[j].c_str());
+                vc::Log::Error("Duplicate shader stages: [%s] | [%s]", shaderPaths[i].c_str(), shaderPaths[j].c_str());
                 for (int k = 0; k < shaderStages.size(); ++k) {
                     vkDestroyShaderModule(logicalDevice, shaderStages[k].module, nullptr);
                 }
-                return Error::Failure;
+                return vc::Error::Failure;
             }
         }
     }
@@ -210,8 +210,8 @@ Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapChain*
 
     if (vkCreatePipelineLayout(logicalDevice, &pipelineLayoutInfo, nullptr, &__pipelineLayout) != VK_SUCCESS)
     {
-        Log::Error("Failed to create pipeline layout");
-        return Error::Failure;
+        vc::Log::Error("Failed to create pipeline layout");
+        return vc::Error::Failure;
     }
     __logicalDevice = logicalDevice;
 
@@ -236,15 +236,15 @@ Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapChain*
 
     if (vkCreateGraphicsPipelines(logicalDevice, VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, nullptr, &__graphicsPipeline) != VK_SUCCESS)
     {
-        Log::Error("Failed to create graphics pipeline");
-        return Error::Failure;
+        vc::Log::Error("Failed to create graphics pipeline");
+        return vc::Error::Failure;
     }
 
     // Cleaning up shader modules
     for (int i = 0; i < shaderStages.size(); ++i) {
         vkDestroyShaderModule(logicalDevice, shaderStages[i].module, nullptr);
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 VkPipeline ShaderPipeline::GetPipeline() const

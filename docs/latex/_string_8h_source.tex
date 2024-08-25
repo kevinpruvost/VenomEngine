@@ -1,6 +1,6 @@
 \doxysection{String.\+h}
 \hypertarget{_string_8h_source}{}\label{_string_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/String.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/String.h}}
-
+\mbox{\hyperlink{_string_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
@@ -9,17 +9,18 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{using\ }String\ =\ std::string;}
-\DoxyCodeLine{00016\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00017\ String\ format(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ Args\&\&...\ args)}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ length\ =\ snprintf(\textcolor{keyword}{nullptr},\ 0,\ fmt,\ args...);}
-\DoxyCodeLine{00020\ \ \ \ \ String\ message(length,\ 0);}
-\DoxyCodeLine{00021\ \ \ \ \ sprintf(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(message.c\_str()),\ fmt,\ args...);}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{return}\ message;}
-\DoxyCodeLine{00023\ \}}
-\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ }String\ =\ std::string;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00018\ String\ format(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ Args\&\&...\ args)}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ length\ =\ snprintf(\textcolor{keyword}{nullptr},\ 0,\ fmt,\ args...);}
+\DoxyCodeLine{00021\ \ \ \ \ String\ message(length,\ 0);}
+\DoxyCodeLine{00022\ \ \ \ \ sprintf(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(message.c\_str()),\ fmt,\ args...);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{return}\ message;}
+\DoxyCodeLine{00024\ \}}
 \DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ \}}
 
 \end{DoxyCode}

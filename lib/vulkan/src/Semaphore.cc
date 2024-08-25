@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanSemaphore.cc
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file VulkanSemaphore.cc
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Semaphore.h>
 
@@ -45,7 +45,7 @@ void Semaphore::DestroySemaphore()
     }
 }
 
-Error Semaphore::InitSemaphore(const VkDevice logicalDevice)
+vc::Error Semaphore::InitSemaphore(const VkDevice logicalDevice)
 {
     DestroySemaphore();
 
@@ -55,11 +55,11 @@ Error Semaphore::InitSemaphore(const VkDevice logicalDevice)
     semaphoreInfo.flags = 0;
 
     if (vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &__semaphore) != VK_SUCCESS) {
-        Log::Error("Failed to create semaphore");
-        return Error::Failure;
+        vc::Log::Error("Failed to create semaphore");
+        return vc::Error::Failure;
     }
     __logicalDevice = logicalDevice;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 VkSemaphore Semaphore::GetSemaphore() const

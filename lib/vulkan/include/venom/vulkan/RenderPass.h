@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanRenderPass.h
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file RenderPass.h
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -24,9 +24,9 @@ public:
     RenderPass(RenderPass&& other);
     RenderPass& operator=(RenderPass&& other);
 
-    Error InitRenderPass(const VkDevice logicalDevice, const SwapChain * swapChain);
-    Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
-    Error EndRenderPass(CommandBuffer * commandBuffer);
+    vc::Error InitRenderPass(const VkDevice logicalDevice, const SwapChain * swapChain);
+    vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
+    vc::Error EndRenderPass(CommandBuffer * commandBuffer);
     VkRenderPass GetRenderPass() const;
 
 private:

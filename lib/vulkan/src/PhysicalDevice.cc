@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanPhysicalDevice.cc
-/// Date: 8/19/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file VulkanPhysicalDevice.cc
+/// @date Aug, 19 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/PhysicalDevice.h>
 
@@ -50,7 +50,7 @@ std::vector<PhysicalDevice> GetVulkanPhysicalDevices()
     vkEnumeratePhysicalDevices(Instance::GetInstance(), &deviceCount, nullptr);
     if (deviceCount == 0)
     {
-        Log::Error("Failed to find GPUs with Vulkan support");
+        vc::Log::Error("Failed to find GPUs with Vulkan support");
         return physicalDevices;
     }
 

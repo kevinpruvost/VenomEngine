@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Debug.cc
-/// Date: 8/19/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Debug.cc
+/// @date Aug, 19 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Debug.h>
 
@@ -26,23 +26,23 @@ DebugApplication::~DebugApplication()
 {
 #ifdef VENOM_DEBUG
     if (__debugMessenger) {
-        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(VulkanInstance::GetInstance(), "vkDestroyDebugUtilsMessengerEXT"));
-        destroyDebugUtilsMessengerEXT(VulkanInstance::GetInstance(), __debugMessenger, nullptr);
+        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetInstance(), "vkDestroyDebugUtilsMessengerEXT"));
+        destroyDebugUtilsMessengerEXT(Instance::GetInstance(), __debugMessenger, nullptr);
     }
 #endif
 }
 
-Error DebugApplication::InitDebug()
+vc::Error DebugApplication::InitDebug()
 {
 #ifdef VENOM_DEBUG
-    Error res;
-    if (res = __InitValidationLayers(); res != Error::Success)
+    vc::Error res;
+    if (res = __InitValidationLayers(); res != vc::Error::Success)
     {
-        Log::Error("Failed to initialize validation layers: %d", res);
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to initialize validation layers: %d", res);
+        return vc::Error::InitializationFailed;
     }
 #endif
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 void DebugApplication::DestroyDebug()
@@ -58,17 +58,17 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     switch (messageSeverity)
     {
     case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-        Log::Error("[VK_VALIDATION_LAYER] ERROR: %s", pCallbackData->pMessage);
-        Log::LogToFile("[VK_VALIDATION_LAYER] ERROR: %s", pCallbackData->pMessage);
+        vc::Log::Error("[VK_VALIDATION_LAYER] ERROR: %s", pCallbackData->pMessage);
+        vc::Log::LogToFile("[VK_VALIDATION_LAYER] ERROR: %s", pCallbackData->pMessage);
         break;
     case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-        Log::Print("[VK_VALIDATION_LAYER] WARNING: %s", pCallbackData->pMessage);
-        Log::LogToFile("[VK_VALIDATION_LAYER] WARNING: %s", pCallbackData->pMessage);
+        vc::Log::Print("[VK_VALIDATION_LAYER] WARNING: %s", pCallbackData->pMessage);
+        vc::Log::LogToFile("[VK_VALIDATION_LAYER] WARNING: %s", pCallbackData->pMessage);
         break;
     case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
-        Log::LogToFile("[VK_VALIDATION_LAYER] INFO: %s", pCallbackData->pMessage);
+        vc::Log::LogToFile("[VK_VALIDATION_LAYER] INFO: %s", pCallbackData->pMessage);
     case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
-        Log::LogToFile("[VK_VALIDATION_LAYER] VERBOSE: %s", pCallbackData->pMessage);
+        vc::Log::LogToFile("[VK_VALIDATION_LAYER] VERBOSE: %s", pCallbackData->pMessage);
     default: break;
     }
     return VK_FALSE;
@@ -105,20 +105,20 @@ void DebugApplication::_SetCreateInfoValidationLayers(VkDeviceCreateInfo* create
 #endif
 }
 
-Error DebugApplication::_PostInstance_SetDebugParameters()
+vc::Error DebugApplication::_PostInstance_SetDebugParameters()
 {
 #ifdef VENOM_DEBUG
     // Debug Utils Messenger
-    auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(VulkanInstance::GetInstance(), "vkCreateDebugUtilsMessengerEXT"));
-    if (createDebugUtilsMessengerEXT(VulkanInstance::GetInstance(), &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
-        Log::Error("Failed to set up debug messenger!");
-        return Error::Failure;
+    auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetInstance(), "vkCreateDebugUtilsMessengerEXT"));
+    if (createDebugUtilsMessengerEXT(Instance::GetInstance(), &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
+        vc::Log::Error("Failed to set up debug messenger!");
+        return vc::Error::Failure;
     }
 #endif
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error DebugApplication::__InitValidationLayers()
+vc::Error DebugApplication::__InitValidationLayers()
 {
 #ifdef VENOM_DEBUG
     constexpr const char * validationLayers[] = {
@@ -130,7 +130,7 @@ Error DebugApplication::__InitValidationLayers()
     std::vector<const char *> validationLayers_finalUse(validationLayers, validationLayers + std::size(validationLayers));
     // Get env variable VK_INSTANCE_LAYERS
     if (const char * envValidationLayers = std::getenv("VK_INSTANCE_LAYERS")) {
-        Log::Print("Using VK_INSTANCE_LAYERS: %s", envValidationLayers);
+        vc::Log::Print("Using VK_INSTANCE_LAYERS: %s", envValidationLayers);
         // Split the string by ';'
         for (const char * layer = strtok(const_cast<char *>(envValidationLayers), ";"); layer; layer = strtok(nullptr, ";")) {
             validationLayers_finalUse.push_back(layer);
@@ -155,20 +155,20 @@ Error DebugApplication::__InitValidationLayers()
         }
 
         if (!layerFound) {
-            Log::Error("Validation Layer not found: %s\n", layerName);
-            return Error::Failure;
+            vc::Log::Error("Validation Layer not found: %s\n", layerName);
+            return vc::Error::Failure;
         }
     }
 
     // Print validation layers in use
-    Log::Print("Validation Layers in use:");
+    vc::Log::Print("Validation Layers in use:");
     for (const char * layer : validationLayers_finalUse) {
-        Log::Print("\t- %s", layer);
+        vc::Log::Print("\t- %s", layer);
     }
 
     __validationLayersInUse = {validationLayers, validationLayers + std::size(validationLayers)};
 #endif
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 }

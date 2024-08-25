@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanSwapChain.cc
-/// Date: 8/21/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file VulkanSwapChain.cc
+/// @date Aug, 21 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/SwapChain.h>
 #include <venom/vulkan/RenderPass.h>
@@ -85,13 +85,13 @@ void SwapChain::CleanSwapChain()
     }
 }
 
-Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface, const Context* context)
+vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface, const vc::Context* context)
 {
     // Get surface capabilities
     if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->physicalDevice, surface->surface, &capabilities); err != VK_SUCCESS)
     {
-        Log::Error("Failed to get physical device surface capabilities: %d", err);
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to get physical device surface capabilities: %d", err);
+        return vc::Error::InitializationFailed;
     }
 
     // Get surface formats
@@ -153,11 +153,11 @@ Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice, con
     // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
     scissor.offset = {0, 0};
     scissor.extent = extent;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const Surface * surface,
-                                     const Context * context, const MappedQueueFamilies * queueFamilies)
+vc::Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const Surface * surface,
+                                     const vc::Context * context, const MappedQueueFamilies * queueFamilies)
 {
     venom_assert(capabilities.maxImageCount > 0, "Swap chain must have at least 1 image");
 
@@ -192,8 +192,8 @@ Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const Surfa
     createInfo.preTransform = capabilities.currentTransform;
     createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
     if (capabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR == 0) {
-        Log::Error("Opaque composite alpha not supported");
-        return Error::InitializationFailed;
+        vc::Log::Error("Opaque composite alpha not supported");
+        return vc::Error::InitializationFailed;
     }
 
     createInfo.presentMode = activePresentMode;
@@ -206,8 +206,8 @@ Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const Surfa
 
     // Creating SwapChain
     if (vkCreateSwapchainKHR(physicalDevice->logicalDevice, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
-        Log::Error("Failed to create swap chain");
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to create swap chain");
+        return vc::Error::InitializationFailed;
     }
 
     // Getting handles of images in the swap chain
@@ -236,16 +236,16 @@ Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const Surfa
         imageViewCreateInfo.subresourceRange.layerCount = 1;
 
         if (vkCreateImageView(physicalDevice->logicalDevice, &imageViewCreateInfo, nullptr, &__swapChainImageViews[i]) != VK_SUCCESS) {
-            Log::Error("Failed to create image views");
-            return Error::InitializationFailed;
+            vc::Log::Error("Failed to create image views");
+            return vc::Error::InitializationFailed;
         }
     }
 
     __logicalDevice = physicalDevice->logicalDevice;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
+vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
 {
     __swapChainFramebuffers.resize(__swapChainImageViews.size());
     for (int i = 0; i < __swapChainImageViews.size(); ++i) {
@@ -263,10 +263,10 @@ Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
         framebufferInfo.layers = 1;
 
         if (vkCreateFramebuffer(__logicalDevice, &framebufferInfo, nullptr, &__swapChainFramebuffers[i]) != VK_SUCCESS) {
-            Log::Error("Failed to create framebuffer");
-            return Error::InitializationFailed;
+            vc::Log::Error("Failed to create framebuffer");
+            return vc::Error::InitializationFailed;
         }
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 }

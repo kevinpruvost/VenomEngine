@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: Log.h
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Log.h
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -11,6 +11,8 @@
 #include <common/Export.h>
 
 namespace venom
+{
+namespace common
 {
 class VENOM_COMMON_API Log
 {
@@ -43,4 +45,5 @@ public:
     template <typename... Args>
     inline static void Error(const char* fmt, Args&&... args) { Print(stderr, fmt, args...); }
 };
+}
 }

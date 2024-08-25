@@ -1,114 +1,18 @@
 \doxysection{venom Namespace Reference}
 \hypertarget{namespacevenom}{}\label{namespacevenom}\index{venom@{venom}}
+
+
+Contains the entirety of the code of the Venom\+Engine project.  
+
+
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the Venom\+Engine project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_application}{Application}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_application_backend}{Application\+Backend}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_context}{Context}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_d_l_l}{DLL}}
-\begin{DoxyCompactList}\small\item\em Contains a shared library handle and provides a way to get symbols from it. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classvenom_1_1_log}{Log}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1_resources}{Resources}}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{namespacevenom_ac925d50017b3e65f58e97d47083f6ea1}\label{namespacevenom_ac925d50017b3e65f58e97d47083f6ea1} 
-using {\bfseries String} = std\+::string
-\item 
-\Hypertarget{namespacevenom_a0ea31eb11a66aa8e8c318847ca5a8a95}\label{namespacevenom_a0ea31eb11a66aa8e8c318847ca5a8a95} 
-typedef bazel\+::tools\+::cpp\+::runfiles\+::\+Runfiles {\bfseries Runfiles}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Enumerations}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{namespacevenom_ae30fdc60ba7511ff1c162bbe7de30082}\label{namespacevenom_ae30fdc60ba7511ff1c162bbe7de30082} 
-enum class {\bfseries Error} \+: uint32\+\_\+t \{ \newline
-{\bfseries Success} = 0
-, {\bfseries Failure} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
-, {\bfseries Invalid\+Argument} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
-, {\bfseries Out\+Of\+Memory} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
-, \newline
-{\bfseries Device\+Lost} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
-, {\bfseries Initialization\+Failed} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
-, {\bfseries Invalid\+Use} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
-, {\bfseries Unknown} = UINT32\+\_\+\+MAX
- \}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{namespacevenom_a1ca64db1853bdcf307639a0580d25b98}\label{namespacevenom_a1ca64db1853bdcf307639a0580d25b98} 
-void {\bfseries Initialize\+Resources\+Filesystem} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
-\item 
-\Hypertarget{namespacevenom_aa470c41e48452326a3677471dfba3200}\label{namespacevenom_aa470c41e48452326a3677471dfba3200} 
-bazel\+::tools\+::cpp\+::runfiles\+::\+Runfiles \texorpdfstring{$\ast$}{*} {\bfseries Get\+Runfiles} ()
-\item 
-\Hypertarget{namespacevenom_a0032215c75dcf8d76ed54ac25bec4649}\label{namespacevenom_a0032215c75dcf8d76ed54ac25bec4649} 
-void {\bfseries set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}str)
-\item 
-\Hypertarget{namespacevenom_a303f5de0fce281cb742cad07611b4bd7}\label{namespacevenom_a303f5de0fce281cb742cad07611b4bd7} 
-const char \texorpdfstring{$\ast$}{*} {\bfseries get\+Error\+String} ()
-\item 
-\Hypertarget{namespacevenom_ae8847608375569869e659907bc1bc9f4}\label{namespacevenom_ae8847608375569869e659907bc1bc9f4} 
-{\footnotesize template$<$typename... Args$>$ }\\void {\bfseries set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
-\item 
-\Hypertarget{namespacevenom_a5287a28e8598784d6373fd701c11a512}\label{namespacevenom_a5287a28e8598784d6373fd701c11a512} 
-{\footnotesize template$<$typename ... Args$>$ }\\String {\bfseries format} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Encapsulation of Vulkan for the front end of Venom\+Engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Application.\+cc Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Context.\+cc Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: DLL.\+cc Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Application.\+h Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_context_8h_source}{Context.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_d_l_l_8h_source}{DLL.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_error_8h_source}{Error.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_log_8h_source}{Log.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_resources_8h_source}{Resources.\+h} Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_string_8h_source}{String.\+h} Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Resources.\+cc Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: vulkan.\+h Date\+: 8/18/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Command\+Pool.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Debug.\+h Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Fence.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Physical\+Device.\+h Date\+: 8/19/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Queue\+Family.\+h Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Render\+Pass.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Semaphore.\+h Date\+: 8/23/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: \doxylink{_shader_8h_source}{Shader.\+h} Date\+: 8/22/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Surface.\+h Date\+: 8/20/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}})
-
-Project\+: Bazel\+\_\+\+Vulkan\+\_\+\+Metal File\+: Vulkan\+Swap\+Chain.\+h Date\+: 8/21/2024 Description\+: Author\+: Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+Contains the entirety of the code of the Venom\+Engine project. 

@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: vulkan.cc
-/// Date: 8/18/2024
-/// Description:
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file Application.cc
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Application.h>
 
@@ -26,26 +26,26 @@ Application::Application()
 
 Application::~Application()
 {
-    Log::Print("Destroying Vulkan app...");
+    vc::Log::Print("Destroying Vulkan app...");
 }
 
-Error Application::Run()
+vc::Error Application::Run()
 {
-    Error res;
+    vc::Error res;
 
     printf("Hello, Vulkan!\n");
-    if (res = __context.InitContext(); res != Error::Success)
+    if (res = __context.InitContext(); res != vc::Error::Success)
     {
-        Log::Error("Failed to initialize context: %d", res);
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to initialize context: %d", res);
+        return vc::Error::InitializationFailed;
     }
 
     __SetGLFWCallbacks();
 
-    if (res = __InitVulkan(); res != Error::Success)
+    if (res = __InitVulkan(); res != vc::Error::Success)
     {
-        Log::Error("Failed to initialize Vulkan: %d", res);
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to initialize Vulkan: %d", res);
+        return vc::Error::InitializationFailed;
     }
 
     // Test
@@ -54,29 +54,29 @@ Error Application::Run()
         "vertex_shader.spv"
     });
 
-    if (res = __Loop(); res != Error::Success)
+    if (res = __Loop(); res != vc::Error::Success)
     {
-        Log::Error("Failed to run loop: %d", res);
-        return Error::Failure;
+        vc::Log::Error("Failed to run loop: %d", res);
+        return vc::Error::Failure;
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error Application::__Loop()
+vc::Error Application::__Loop()
 {
-    Error err;
+    vc::Error err;
     while (!__context.ShouldClose())
     {
         __context.PollEvents();
-        if (err = __DrawFrame(); err != Error::Success)
+        if (err = __DrawFrame(); err != vc::Error::Success)
             return err;
     }
 
     vkDeviceWaitIdle(__physicalDevice.logicalDevice);
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error Application::__DrawFrame()
+vc::Error Application::__DrawFrame()
 {
     // Draw image
     vkWaitForFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
@@ -85,19 +85,19 @@ Error Application::__DrawFrame()
     VkResult result = vkAcquireNextImageKHR(__physicalDevice.logicalDevice, __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[__currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
     if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
         __framebufferChanged = false;
-        Log::Print("Recreating swap chain");
+        vc::Log::Print("Recreating swap chain");
         __RecreateSwapChain();
-        return Error::Success;
+        return vc::Error::Success;
     } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
-        Log::Error("Failed to acquire swap chain image");
-        return Error::Failure;
+        vc::Log::Error("Failed to acquire swap chain image");
+        return vc::Error::Failure;
     }
 
     // If we reset before, then it will wait endlessly as no work is done
     vkResetFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence());
     __commandBuffers[__currentFrame]->Reset(0);
 
-    if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != Error::Success)
+    if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
         __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[__currentFrame], imageIndex);
@@ -107,7 +107,7 @@ Error Application::__DrawFrame()
         __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
-    if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != Error::Success)
+    if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
         return err;
 
     // Synchronization between the image being presented and the image being rendered
@@ -129,10 +129,10 @@ Error Application::__DrawFrame()
     if (result = vkQueueSubmit(__graphicsQueue, 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
         __framebufferChanged = false;
         __RecreateSwapChain();
-        return Error::Success;
+        return vc::Error::Success;
     } else if (result != VK_SUCCESS) {
-        Log::Error("Failed to submit draw command buffer");
-        return Error::Failure;
+        vc::Log::Error("Failed to submit draw command buffer");
+        return vc::Error::Failure;
     }
 
     VkPresentInfoKHR presentInfo{};
@@ -150,24 +150,24 @@ Error Application::__DrawFrame()
     vkQueuePresentKHR(__presentQueue, &presentInfo);
 
     __currentFrame = (__currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error Application::__InitVulkan()
+vc::Error Application::__InitVulkan()
 {
-    Error res = Error::Success;
+    vc::Error res = vc::Error::Success;
 
     // Debug Initialization first
-    DEBUG_CODE(if (res = InitDebug(); res != Error::Success) return res);
+    DEBUG_CODE(if (res = InitDebug(); res != vc::Error::Success) return res);
 
     // Create Vulkan instance
-    if (res = __CreateInstance(); res != Error::Success) return res;
+    if (res = __CreateInstance(); res != vc::Error::Success) return res;
 
     // Debug Code for Vulkan Instance
-    DEBUG_CODE(if (res = _PostInstance_SetDebugParameters(); res != Error::Success) return res);
+    DEBUG_CODE(if (res = _PostInstance_SetDebugParameters(); res != vc::Error::Success) return res);
 
     // Get Physical Devices
-    if (res = __InitPhysicalDevices(); res != Error::Success) return res;
+    if (res = __InitPhysicalDevices(); res != vc::Error::Success) return res;
 
     return res;
 }
@@ -181,15 +181,15 @@ void Application::__SetGLFWCallbacks()
     });
 }
 
-Error Application::__InitPhysicalDevices()
+vc::Error Application::__InitPhysicalDevices()
 {
-    Error err;
+    vc::Error err;
     std::vector<PhysicalDevice> physicalDevices = GetVulkanPhysicalDevices();
 
     if (physicalDevices.empty())
     {
-        Log::Error("Failed to find GPUs with Vulkan support");
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to find GPUs with Vulkan support");
+        return vc::Error::InitializationFailed;
     }
 
     DEBUG_LOG("Physical Devices:");
@@ -225,7 +225,7 @@ Error Application::__InitPhysicalDevices()
     __surface.CreateSurface(&__context);
 
     // Check if the device supports the surface for presentation and which queue family supports it
-    if (err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != Error::Success)
+    if (err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != vc::Error::Success)
         return err;
 
     // Create Logical device
@@ -272,24 +272,24 @@ Error Application::__InitPhysicalDevices()
     _SetCreateInfoValidationLayers(&createInfo);
 
     // Create Swap Chain
-    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != vc::Error::Success)
         return err;
 
     // Verify if the device is suitable
     if (!__IsDeviceSuitable(&createInfo))
     {
-        Log::Error("Physical Device not suitable for Vulkan");
-        return Error::InitializationFailed;
+        vc::Log::Error("Physical Device not suitable for Vulkan");
+        return vc::Error::InitializationFailed;
     }
 
     if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
     {
-        Log::Error("Failed to create logical device, error code: %d", res);
-        return Error::InitializationFailed;
+        vc::Log::Error("Failed to create logical device, error code: %d", res);
+        return vc::Error::InitializationFailed;
     }
 
     // Create SwapChain
-    if (err = __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != Error::Success)
+    if (err = __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != vc::Error::Success)
         return err;
 
     // Create Graphics Queue
@@ -299,21 +299,21 @@ Error Application::__InitPhysicalDevices()
     __physicalDevice.GetDeviceQueue(&__presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
 
     // Create Render Pass
-    if (err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != Error::Success)
+    if (err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != vc::Error::Success)
         return err;
 
     // Init Render Pass Framebuffers
-    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != Error::Success)
+    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
         return err;
 
     // Create Graphics Command Pool
-    if (err = __commandPool.InitCommandPool(__physicalDevice.logicalDevice, __queueFamilies.graphicsQueueFamilyIndices[0]); err != Error::Success)
+    if (err = __commandPool.InitCommandPool(__physicalDevice.logicalDevice, __queueFamilies.graphicsQueueFamilyIndices[0]); err != vc::Error::Success)
         return err;
 
     // Create Command Buffers
     __commandBuffers.resize(MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __commandPool.CreateCommandBuffer(&__commandBuffers[i]); err != Error::Success)
+        if (err = __commandPool.CreateCommandBuffer(&__commandBuffers[i]); err != vc::Error::Success)
             return err;
     }
 
@@ -322,15 +322,15 @@ Error Application::__InitPhysicalDevices()
     __renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
     __inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __imageAvailableSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != Error::Success)
+        if (err = __imageAvailableSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != vc::Error::Success)
             return err;
-        if (err =__renderFinishedSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != Error::Success)
+        if (err =__renderFinishedSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != vc::Error::Success)
             return err;
-        if (err =__inFlightFences[i].InitFence(__physicalDevice.logicalDevice, VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != Error::Success)
+        if (err =__inFlightFences[i].InitFence(__physicalDevice.logicalDevice, VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
     }
 
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 bool Application::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo)
@@ -346,22 +346,22 @@ bool Application::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo)
         requiredExtensions.erase(extension.extensionName);
     }
     if (!requiredExtensions.empty()) {
-        Log::Error("Missing required extensions:");
+        vc::Log::Error("Missing required extensions:");
         for (const auto& extension : requiredExtensions) {
-            Log::Error("\t%s", extension);
+            vc::Log::Error("\t%s", extension);
         }
         return false;
     }
 
     // Check if the device's swap chain is ok
     if (__swapChain.presentModes.empty() || __swapChain.surfaceFormats.empty()) {
-        Log::Error("Failed to get surface formats or present modes for swap chain");
+        vc::Log::Error("Failed to get surface formats or present modes for swap chain");
         return false;
     }
     return true;
 }
 
-Error Application::__CreateInstance()
+vc::Error Application::__CreateInstance()
 {
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -383,26 +383,26 @@ Error Application::__CreateInstance()
 
     if (auto res = vkCreateInstance(&createInfo, nullptr, &Instance::GetInstance()); res != VK_SUCCESS)
     {
-        Log::Error("Failed to create Vulkan instance, error code: %d", res);
+        vc::Log::Error("Failed to create Vulkan instance, error code: %d", res);
 #ifdef VENOM_DEBUG
         if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
             uint32_t extensionCount = 0;
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
             std::vector<VkExtensionProperties> extensions(extensionCount);
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
-            Log::Print("Available Extensions:");
+            vc::Log::Print("Available Extensions:");
             for (const auto& extension : extensions) {
-                Log::Print("\t%s", extension.extensionName);
+                vc::Log::Print("\t%s", extension.extensionName);
             }
-            Log::Print("Extensions passed:");
+            vc::Log::Print("Extensions passed:");
             for (uint32_t i = 0; i < createInfo.enabledExtensionCount; ++i) {
-                Log::Print("\t%s", createInfo.ppEnabledExtensionNames[i]);
+                vc::Log::Print("\t%s", createInfo.ppEnabledExtensionNames[i]);
             }
         }
 #endif
-        return Error::InitializationFailed;
+        return vc::Error::InitializationFailed;
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 void Application::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo)
@@ -421,9 +421,9 @@ void Application::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * create
 
 #ifdef VENOM_DEBUG
     __instanceExtensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-    Log::Print("Instance Extensions:");
+    vc::Log::Print("Instance Extensions:");
     for (const char * extension : __instanceExtensions) {
-        Log::Print("\t-%s", extension);
+        vc::Log::Print("\t-%s", extension);
     }
 #endif
 
@@ -443,7 +443,7 @@ void Application::__RecreateSwapChain()
 }
 }
 
-extern "C" venom::ApplicationBackend* createApplication()
+extern "C" vc::ApplicationBackend* createApplication()
 {
     return new venom::vulkan::Application();
 }

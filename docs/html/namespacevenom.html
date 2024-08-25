@@ -104,107 +104,25 @@ $(function(){initNavTree('namespacevenom.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">venom Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains the entirety of the code of the VenomEngine project.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">common</a></td></tr>
+<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the VenomEngine project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1vulkan.html">vulkan</a></td></tr>
+<tr class="memdesc:namespacevenom_1_1vulkan"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulation of Vulkan for the front end of VenomEngine. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1_application.html">Application</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1_application_backend.html">ApplicationBackend</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1_context.html">Context</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1_d_l_l.html">DLL</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a shared library handle and provides a way to get symbols from it.  <a href="classvenom_1_1_d_l_l.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1_log.html">Log</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1_resources.html">Resources</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ac925d50017b3e65f58e97d47083f6ea1" id="r_ac925d50017b3e65f58e97d47083f6ea1"><td class="memItemLeft" align="right" valign="top"><a id="ac925d50017b3e65f58e97d47083f6ea1" name="ac925d50017b3e65f58e97d47083f6ea1"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>String</b> = std::string</td></tr>
-<tr class="separator:ac925d50017b3e65f58e97d47083f6ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea31eb11a66aa8e8c318847ca5a8a95" id="r_a0ea31eb11a66aa8e8c318847ca5a8a95"><td class="memItemLeft" align="right" valign="top"><a id="a0ea31eb11a66aa8e8c318847ca5a8a95" name="a0ea31eb11a66aa8e8c318847ca5a8a95"></a>
-typedef bazel::tools::cpp::runfiles::Runfiles&#160;</td><td class="memItemRight" valign="bottom"><b>Runfiles</b></td></tr>
-<tr class="separator:a0ea31eb11a66aa8e8c318847ca5a8a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ae30fdc60ba7511ff1c162bbe7de30082" id="r_ae30fdc60ba7511ff1c162bbe7de30082"><td class="memItemLeft" align="right" valign="top"><a id="ae30fdc60ba7511ff1c162bbe7de30082" name="ae30fdc60ba7511ff1c162bbe7de30082"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Error</b> : uint32_t { <br />
-&#160;&#160;<b>Success</b> = 0
-, <b>Failure</b> = 1 &lt;&lt; 0
-, <b>InvalidArgument</b> = 1 &lt;&lt; 1
-, <b>OutOfMemory</b> = 1 &lt;&lt; 2
-, <br />
-&#160;&#160;<b>DeviceLost</b> = 1 &lt;&lt; 3
-, <b>InitializationFailed</b> = 1 &lt;&lt; 4
-, <b>InvalidUse</b> = 1 &lt;&lt; 5
-, <b>Unknown</b> = UINT32_MAX
-<br />
- }</td></tr>
-<tr class="separator:ae30fdc60ba7511ff1c162bbe7de30082"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a1ca64db1853bdcf307639a0580d25b98" id="r_a1ca64db1853bdcf307639a0580d25b98"><td class="memItemLeft" align="right" valign="top"><a id="a1ca64db1853bdcf307639a0580d25b98" name="a1ca64db1853bdcf307639a0580d25b98"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>InitializeResourcesFilesystem</b> (char **argv)</td></tr>
-<tr class="separator:a1ca64db1853bdcf307639a0580d25b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa470c41e48452326a3677471dfba3200" id="r_aa470c41e48452326a3677471dfba3200"><td class="memItemLeft" align="right" valign="top"><a id="aa470c41e48452326a3677471dfba3200" name="aa470c41e48452326a3677471dfba3200"></a>
-bazel::tools::cpp::runfiles::Runfiles *&#160;</td><td class="memItemRight" valign="bottom"><b>GetRunfiles</b> ()</td></tr>
-<tr class="separator:aa470c41e48452326a3677471dfba3200"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0032215c75dcf8d76ed54ac25bec4649" id="r_a0032215c75dcf8d76ed54ac25bec4649"><td class="memItemLeft" align="right" valign="top"><a id="a0032215c75dcf8d76ed54ac25bec4649" name="a0032215c75dcf8d76ed54ac25bec4649"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setErrorString</b> (const char *str)</td></tr>
-<tr class="separator:a0032215c75dcf8d76ed54ac25bec4649"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a303f5de0fce281cb742cad07611b4bd7" id="r_a303f5de0fce281cb742cad07611b4bd7"><td class="memItemLeft" align="right" valign="top"><a id="a303f5de0fce281cb742cad07611b4bd7" name="a303f5de0fce281cb742cad07611b4bd7"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>getErrorString</b> ()</td></tr>
-<tr class="separator:a303f5de0fce281cb742cad07611b4bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8847608375569869e659907bc1bc9f4" id="r_ae8847608375569869e659907bc1bc9f4"><td class="memTemplParams" colspan="2"><a id="ae8847608375569869e659907bc1bc9f4" name="ae8847608375569869e659907bc1bc9f4"></a>
-template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:ae8847608375569869e659907bc1bc9f4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>setErrorString</b> (const char *fmt, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:ae8847608375569869e659907bc1bc9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5287a28e8598784d6373fd701c11a512" id="r_a5287a28e8598784d6373fd701c11a512"><td class="memTemplParams" colspan="2"><a id="a5287a28e8598784d6373fd701c11a512" name="a5287a28e8598784d6373fd701c11a512"></a>
-template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:a5287a28e8598784d6373fd701c11a512"><td class="memTemplItemLeft" align="right" valign="top">String&#160;</td><td class="memTemplItemRight" valign="bottom"><b>format</b> (const char *fmt, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:a5287a28e8598784d6373fd701c11a512"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Project: Bazel_Vulkan_Metal File: Application.cc Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: Context.cc Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: DLL.cc Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: Application.h Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_context_8h_source.html">Context.h</a> Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_d_l_l_8h_source.html">DLL.h</a> Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_error_8h_source.html">Error.h</a> Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_log_8h_source.html">Log.h</a> Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_resources_8h_source.html">Resources.h</a> Date: 8/22/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_string_8h_source.html">String.h</a> Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: Resources.cc Date: 8/22/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: vulkan.h Date: 8/18/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanCommandPool.h Date: 8/23/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: Debug.h Date: 8/19/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanFence.h Date: 8/23/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanPhysicalDevice.h Date: 8/19/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanQueueFamily.h Date: 8/20/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanRenderPass.h Date: 8/23/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanSemaphore.h Date: 8/23/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: <a class="el" href="_shader_8h_source.html">Shader.h</a> Date: 8/22/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanSurface.h Date: 8/20/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</p>
-<p>Project: Bazel_Vulkan_Metal File: VulkanSwapChain.h Date: 8/21/2024 Description: Author: Pruvost Kevin | pruvostkevin (<a href="#" onclick="location.href='mai'+'lto:'+'pru'+'vo'+'stk'+'ev'+'in0'+'@g'+'mai'+'l.'+'com'; return false;">pruvo<span class="obfuscator">.nosp@m.</span>stke<span class="obfuscator">.nosp@m.</span>vin0@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>) </p>
+<div class="textblock"><p>Contains the entirety of the code of the VenomEngine project. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

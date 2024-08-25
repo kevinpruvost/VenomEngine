@@ -106,32 +106,33 @@ $(function(){initNavTree('_string_8h_source.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">String.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<a href="_string_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacevenom.html">venom</a></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using </span>String = std::string;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>String format(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, Args&amp;&amp;... args)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> length = snprintf(<span class="keyword">nullptr</span>, 0, fmt, args...);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    String message(length, 0);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    sprintf(<span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(message.c_str()), fmt, args...);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> message;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>common</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using </span>String = std::string;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>String format(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, Args&amp;&amp;... args)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> length = snprintf(<span class="keyword">nullptr</span>, 0, fmt, args...);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    String message(length, 0);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    sprintf(<span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(message.c_str()), fmt, args...);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> message;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
-<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdef"><b>Definition</b> Application.cc:14</div></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Application.cc:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_8273792b21813559f16458fef7dc9365.html">common</a></li><li class="navelem"><b>String.h</b></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_8273792b21813559f16458fef7dc9365.html">common</a></li><li class="navelem"><a class="el" href="_string_8h.html">String.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

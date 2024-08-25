@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: String.h
-/// Date: 8/18/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file String.h
+/// @date Aug, 18 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
@@ -11,7 +11,8 @@
 
 namespace venom
 {
-
+namespace common
+{
 using String = std::string;
 template<typename ...Args>
 String format(const char* fmt, Args&&... args)
@@ -21,5 +22,5 @@ String format(const char* fmt, Args&&... args)
     sprintf(const_cast<char *>(message.c_str()), fmt, args...);
     return message;
 }
-
+}
 }

@@ -1,9 +1,9 @@
 ///
-/// Project: Bazel_Vulkan_Metal
-/// File: VulkanCommandPool.cc
-/// Date: 8/23/2024
-/// Description: 
-/// Author: Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
+/// Project: VenomEngine
+/// @file CommandPool.cc
+/// @date Aug, 23 2024
+/// @brief
+/// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/CommandPool.h>
 
@@ -34,7 +34,7 @@ CommandBuffer& CommandBuffer::operator=(CommandBuffer&& other)
     return *this;
 }
 
-Error CommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
+vc::Error CommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
 {
     venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     VkCommandBufferBeginInfo beginInfo{};
@@ -43,20 +43,20 @@ Error CommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
     beginInfo.pInheritanceInfo = nullptr; // Optional
 
     if (vkBeginCommandBuffer(__commandBuffer, &beginInfo) != VK_SUCCESS) {
-        Log::Error("Failed to begin recording command buffer");
-        return Error::Failure;
+        vc::Log::Error("Failed to begin recording command buffer");
+        return vc::Error::Failure;
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error CommandBuffer::EndCommandBuffer() const
+vc::Error CommandBuffer::EndCommandBuffer() const
 {
     venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     if (vkEndCommandBuffer(__commandBuffer) != VK_SUCCESS) {
-        Log::Error("Failed to record command buffer");
-        return Error::Failure;
+        vc::Log::Error("Failed to record command buffer");
+        return vc::Error::Failure;
     }
-    return Error::Success;
+    return vc::Error::Success;
 }
 
 void CommandBuffer::Reset(VkCommandBufferResetFlags flags)
@@ -129,7 +129,7 @@ CommandPool& CommandPool::operator=(CommandPool&& other)
     return *this;
 }
 
-Error CommandPool::InitCommandPool(const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex)
+vc::Error CommandPool::InitCommandPool(const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex)
 {
     VkCommandPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -137,18 +137,18 @@ Error CommandPool::InitCommandPool(const VkDevice logicalDevice, QueueFamilyInde
     poolInfo.queueFamilyIndex = queueFamilyIndex;
 
     if (vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &__commandPool) != VK_SUCCESS) {
-        Log::Error("Failed to create command pool with queue family index: %u", queueFamilyIndex);
-        return Error::Failure;
+        vc::Log::Error("Failed to create command pool with queue family index: %u", queueFamilyIndex);
+        return vc::Error::Failure;
     }
     __logicalDevice = logicalDevice;
-    return Error::Success;
+    return vc::Error::Success;
 }
 
-Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkCommandBufferLevel level)
+vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkCommandBufferLevel level)
 {
     if (__logicalDevice == VK_NULL_HANDLE) {
-        Log::Error("Command pool not initialized");
-        return Error::InvalidUse;
+        vc::Log::Error("Command pool not initialized");
+        return vc::Error::InvalidUse;
     }
 
     VkCommandBufferAllocateInfo allocInfo{};
@@ -161,10 +161,10 @@ Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkCommandB
     auto & newCommandBuffer = __commandBuffers.back();
 
     if (vkAllocateCommandBuffers(__logicalDevice, &allocInfo, &newCommandBuffer->__commandBuffer) != VK_SUCCESS) {
-        Log::Error("Failed to allocate command buffer");
-        return Error::Failure;
+        vc::Log::Error("Failed to allocate command buffer");
+        return vc::Error::Failure;
     }
     *commandBuffer = newCommandBuffer.get();
-    return Error::Success;
+    return vc::Error::Success;
 }
 }
