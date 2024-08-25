@@ -29,16 +29,7 @@
 #endif
 #include <GLFW/glfw3native.h>
 
-#define GLM_FORCE_INTRINSICS
-// Will most likely be SSE2 as it's very common among CPUs today
-#if defined(__SSE__)
-#define GLM_FORCE_SSE2
-#elif defined(__AVX__)
-#define GLM_FORCE_AVX
-#elif defined(__ARM_NEON)  // Check if NEON is supported on ARM
-#define GLM_FORCE_NEON
-#endif
-#include <glm/glm.hpp>
+#include <common/math/Math_Api.h>
 #include <common/Log.h>
 
 namespace venom

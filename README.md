@@ -126,3 +126,5 @@ bazel run //:VenomEngine
 - [Comparison of Math libraries](https://bargor.github.io/Comparison-of-3d-math-libraries/)
   - Should use [`glm` with `SIMD`](https://glm.g-truc.net/0.9.1/api/a00002.html) (Single Instruction Multiple Data) mode for better performance.
   - I can't find any comparison between `glm` and `DirectXMath`, so I might prepare some benchmarks later. 
+  - Have to mention that `glm` and `DirectXMath` use different coordinates system by default, `glm` uses Left-Handed Coordinate System and `DirectXMath` uses Right-Handed Coordinate System.
+  - 3 first fingers are x,y,z respectively, so if we point thumb to the right, then it means that z goes forward on left-handed, and backward on right-handed, that's the only change.
