@@ -19,6 +19,12 @@ Config::~Config()
 {
 }
 
+Config * Config::GetInstance()
+{
+    static Config instance;
+    return &instance;
+}
+
 GraphicsPlugin::GraphicsPluginType Config::GetGraphicsPluginType() const
 {
     return GraphicsPlugin::GraphicsPluginType::Vulkan;

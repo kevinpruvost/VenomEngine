@@ -134,3 +134,4 @@ bazel run //:VenomEngine
   -  For `SPIR-V` reflection, can parse and convert SPIR-V to high level SL like `HLSL`, `GLSL`, `MSL`, ...
 - [Indexed vs. Direct & Interleaved vs. Non-Interleaved Vertex Buffers](https://stackoverflow.com/questions/17503787/vertex-buffers-indexed-or-direct-interlaced-or-separate)
 - [flecs: ECS library](https://github.com/SanderMertens/flecs)
+- At best, avoid templated code through dynamic libraries, as it can lead to code replication, which may lead to unintended behavior.

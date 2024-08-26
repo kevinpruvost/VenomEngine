@@ -19,7 +19,6 @@
 #include <memory>
 #include <venom/common/Export.h>
 #include <venom/common/Error.h>
-#include <venom/common/Singleton.h>
 
 #include <unordered_map>
 
@@ -28,7 +27,7 @@ namespace venom
 namespace common
 {
 /// @brief Contains a shared library handle and provides a way to get symbols from it, can only be created through DLL::Create()
-class DLL
+class VENOM_COMMON_API DLL
 {
 private:
     explicit DLL();
@@ -64,7 +63,7 @@ private:
 };
 
 /// @brief Holds all DLLs loaded in memory unless explicitly unloaded/deleted.
-class DLL_Cache : public Singleton<DLL_Cache>
+class VENOM_COMMON_API DLL_Cache
 {
 public:
     DLL_Cache();
@@ -73,6 +72,8 @@ public:
     void StoreInCache(const std::string & name, DLL * dll);
     void UnloadFromCache(const std::string & name);
     DLL * GetFromCache(const std::string & name);
+
+    static DLL_Cache * GetInstance();
 
 private:
     std::unordered_map<std::string, std::shared_ptr<DLL>> __dlls;

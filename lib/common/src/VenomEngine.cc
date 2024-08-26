@@ -25,9 +25,21 @@ VenomEngine::VenomEngine()
     }
 }
 
+// template<>
+// VenomEngine * Singleton<VenomEngine>::GetInstance()
+// {
+//     static VenomEngine instance;
+//     return &instance;
+// }
+
 VenomEngine::~VenomEngine()
 {
 }
 
+VenomEngine* VenomEngine::GetInstance()
+{
+    static VenomEngine instance;
+    return &instance;
+}
 }
 }

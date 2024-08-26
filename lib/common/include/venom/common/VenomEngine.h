@@ -9,19 +9,17 @@
 
 #include <venom/common/plugin/PluginManager.h>
 
-#include <venom/common/Singleton.h>
-
 namespace venom
 {
 namespace common
 {
-class VENOM_COMMON_API VenomEngine : public Singleton<VenomEngine>
+class VENOM_COMMON_API VenomEngine
 {
-    friend class Singleton<VenomEngine>;
 private:
     VenomEngine();
 public:
     ~VenomEngine();
+    static VenomEngine * GetInstance();
 
 public:
     PluginManager pluginManager;

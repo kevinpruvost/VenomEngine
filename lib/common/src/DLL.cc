@@ -113,4 +113,10 @@ DLL* DLL_Cache::GetFromCache(const std::string& name)
         return it->second.get();
     return nullptr;
 }
+
+DLL_Cache * DLL_Cache::GetInstance()
+{
+    static DLL_Cache instance;
+    return &instance;
+}
 }

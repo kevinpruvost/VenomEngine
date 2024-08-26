@@ -20,7 +20,7 @@ namespace venom
 {
 namespace common
 {
-enum class Error : uint32_t
+enum class VENOM_COMMON_API Error : uint32_t
 {
     Success = 0,
     Failure         = 1 << 0,
