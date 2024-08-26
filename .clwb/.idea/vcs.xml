@@ -3,10 +3,12 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../docs/doxygen-awesome" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/DirectX-Headers" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/SPIRV-Headers" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/DirectXShaderCompiler/external/SPIRV-Tools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/glaze" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/glfw" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/glm" vcs="Git" />
   </component>

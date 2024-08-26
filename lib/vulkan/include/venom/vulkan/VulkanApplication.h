@@ -1,8 +1,8 @@
 ///
 /// Project: VenomEngine
-/// @file Application.h
+/// @file GraphicsApplication.h
 /// @date Aug, 18 2024
-/// @brief Vulkan Encapsulation of the Application class.
+/// @brief Vulkan Encapsulation of the VulkanApplication class.
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
@@ -18,21 +18,21 @@
 #include <venom/vulkan/Semaphore.h>
 #include <venom/vulkan/Fence.h>
 
-#include <common/Application.h>
-#include <common/Context.h>
+#include <venom/common/plugin/graphics/GraphicsApplication.h>
+#include <venom/common/Context.h>
 
 namespace venom
 {
 /// @brief Encapsulation of Vulkan for the front end of VenomEngine.
 namespace vulkan
 {
-class Application
-    : public vc::ApplicationBackend
+class VulkanApplication
+    : public vc::GraphicsApplication
     , public DebugApplication
 {
 public:
-    Application();
-    ~Application();
+    VulkanApplication();
+    ~VulkanApplication();
     vc::Error Run() override;
 
 private:
@@ -75,4 +75,3 @@ private:
 };
 }
 }
-extern "C" EXPORT vc::ApplicationBackend* createApplication();

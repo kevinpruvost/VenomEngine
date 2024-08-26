@@ -1,11 +1,10 @@
 build --enable_platform_specific_config
 
-# Set C++20 standard for MSVC
-build:windows --cxxopt="/std:c++20"
-build:windows --cxxopt="/utf-8"
-
-# Set C++20 standard for Clang/GCC
-build:linux --cxxopt="-std=c++20"
-build:macos --cxxopt="-std=c++20"
-build:linux --cxxopt="-utf-8"
-build:macos --cxxopt="-utf-8"
+build:linux --cxxopt=-std=c++20
+build:linux --host_cxxopt=-std=c++20
+build:macos --cxxopt=-std=c++20
+build:macos --host_cxxopt=-std=c++20
+build:windows --cxxopt=/std:c++20
+build:windows --host_cxxopt=/std:c++20
+build:windows --cxxopt=/Zc:__cplusplus
+build:windows --host_cxxopt=/Zc:__cplusplus

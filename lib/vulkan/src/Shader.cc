@@ -9,8 +9,7 @@
 
 #include <fstream>
 
-#include <common/Application.h>
-#include <common/Resources.h>
+#include <venom/common/Resources.h>
 
 namespace venom::vulkan
 {
@@ -34,7 +33,7 @@ vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
     const std::string& shaderPath,
     VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
-    const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath;
+    const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath + ".spv";
     const std::string path = vc::Resources::GetResourcePath(folder_shaderPath);
     std::ifstream file(path, std::ios::ate | std::ios::binary);
 
@@ -62,11 +61,11 @@ vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
     }
     pipelineCreateInfo->sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     pipelineCreateInfo->pName = "main";
-    if (shaderPath.find("vert") != std::string::npos)
+    if (shaderPath.find("vert") != std::string::npos || shaderPath.find("vertex") != std::string::npos || shaderPath.find("vs") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_VERTEX_BIT;
-    else if (shaderPath.find("frag") != std::string::npos || shaderPath.find("pixel") != std::string::npos)
+    else if (shaderPath.find("frag") != std::string::npos || shaderPath.find("fs") != std::string::npos || shaderPath.find("pixel") != std::string::npos || shaderPath.find("ps") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-    else if (shaderPath.find("comp") != std::string::npos)
+    else if (shaderPath.find("comp") != std::string::npos || shaderPath.find("cs") != std::string::npos || shaderPath.find("compute") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_COMPUTE_BIT;
     else if (shaderPath.find("geom") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_GEOMETRY_BIT;

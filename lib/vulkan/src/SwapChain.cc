@@ -17,9 +17,9 @@ SwapChain::SwapChain()
     : capabilities()
     , surfaceFormats()
     , presentModes()
-    , activeSurfaceFormat(VK_FORMAT_UNDEFINED, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
+    , activeSurfaceFormat{VK_FORMAT_UNDEFINED, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR}
     , activePresentMode(VK_PRESENT_MODE_MAX_ENUM_KHR)
-    , extent(0, 0)
+    , extent{0, 0}
     , swapChain(VK_NULL_HANDLE)
     , viewport{}
     , scissor{}

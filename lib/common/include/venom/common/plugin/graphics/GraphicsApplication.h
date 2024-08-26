@@ -1,13 +1,13 @@
 ///
 /// Project: VenomEngine
-/// @file Application.h
+/// @file GraphicsApplication.h
 /// @date Aug, 18 2024
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
-#include <common/Error.h>
+#include <venom/common/Error.h>
 #include "tools/cpp/runfiles/runfiles.h"
 
 
@@ -20,33 +20,14 @@ namespace venom
 /// Use the alias 'vc' to access the namespace.
 namespace common
 {
-class VENOM_COMMON_API ApplicationBackend
+class VENOM_COMMON_API GraphicsApplication
 {
+protected:
+    GraphicsApplication();
 public:
-    ApplicationBackend();
-    virtual ~ApplicationBackend() = default;
+    static GraphicsApplication * Create();
+    virtual ~GraphicsApplication() = default;
     virtual Error Run() = 0;
-};
-
-class VENOM_COMMON_API Application
-{
-public:
-    Application();
-    ~Application();
-
-    Error Run();
-
-private:
-    ApplicationBackend * backend_;
-
-public:
-    enum class ApiType
-    {
-        Vulkan,
-        Metal
-    };
-    Error LoadApi(const ApiType apiType);
-    inline Error ReloadApi(const ApiType apiType) { return LoadApi(apiType); }
 };
 }
 }

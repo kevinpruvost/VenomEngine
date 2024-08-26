@@ -1,5 +1,5 @@
 struct PSInput {
-    float3 color : COLOR;
+    [[vk::location(0)]] float3 color : COLOR;
 };
 
 float4 main(PSInput input) : SV_TARGET {

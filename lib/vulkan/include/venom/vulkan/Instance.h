@@ -29,8 +29,8 @@
 #endif
 #include <GLFW/glfw3native.h>
 
-#include <common/math/Math_Api.h>
-#include <common/Log.h>
+#include <venom/common/math/Math.h>
+#include <venom/common/Log.h>
 
 namespace venom
 {

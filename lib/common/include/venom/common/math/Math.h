@@ -1,6 +1,6 @@
 ///
 /// Project: VenomEngine
-/// @file Math_Api.h
+/// @file Math.h
 /// @date Aug, 25 2024
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
@@ -23,3 +23,11 @@
 #endif
 #include <glm/glm.hpp>
 #endif
+
+namespace venom
+{
+namespace common
+{
+
+}
+}

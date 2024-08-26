@@ -1,11 +1,11 @@
 ///
 /// Project: VenomEngine
-/// @file Application.cc
+/// @file GraphicsApplication.cc
 /// @date Aug, 18 2024
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/Application.h>
+#include <venom/vulkan/VulkanApplication.h>
 
 #include <array>
 #include <vector>
@@ -17,19 +17,19 @@ static constexpr std::array s_deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
-Application::Application()
+VulkanApplication::VulkanApplication()
     : __context()
     , __currentFrame(0)
     , __framebufferChanged(false)
 {
 }
 
-Application::~Application()
+VulkanApplication::~VulkanApplication()
 {
     vc::Log::Print("Destroying Vulkan app...");
 }
 
-vc::Error Application::Run()
+vc::Error VulkanApplication::Run()
 {
     vc::Error res;
 
@@ -50,8 +50,8 @@ vc::Error Application::Run()
 
     // Test
     __shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, &__swapChain, &__renderPass, {
-        "pixel_shader.spv",
-        "vertex_shader.spv"
+        "shader.ps",
+        "shader.vs"
     });
 
     if (res = __Loop(); res != vc::Error::Success)
@@ -62,7 +62,7 @@ vc::Error Application::Run()
     return vc::Error::Success;
 }
 
-vc::Error Application::__Loop()
+vc::Error VulkanApplication::__Loop()
 {
     vc::Error err;
     while (!__context.ShouldClose())
@@ -76,7 +76,7 @@ vc::Error Application::__Loop()
     return vc::Error::Success;
 }
 
-vc::Error Application::__DrawFrame()
+vc::Error VulkanApplication::__DrawFrame()
 {
     // Draw image
     vkWaitForFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
@@ -153,7 +153,7 @@ vc::Error Application::__DrawFrame()
     return vc::Error::Success;
 }
 
-vc::Error Application::__InitVulkan()
+vc::Error VulkanApplication::__InitVulkan()
 {
     vc::Error res = vc::Error::Success;
 
@@ -172,16 +172,16 @@ vc::Error Application::__InitVulkan()
     return res;
 }
 
-void Application::__SetGLFWCallbacks()
+void VulkanApplication::__SetGLFWCallbacks()
 {
     glfwSetWindowUserPointer(__context.GetWindow(), this);
     glfwSetFramebufferSizeCallback(__context.GetWindow(), [](GLFWwindow * window, int width, int height) {
-        auto app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
+        auto app = reinterpret_cast<VulkanApplication*>(glfwGetWindowUserPointer(window));
         app->__framebufferChanged = true;
     });
 }
 
-vc::Error Application::__InitPhysicalDevices()
+vc::Error VulkanApplication::__InitPhysicalDevices()
 {
     vc::Error err;
     std::vector<PhysicalDevice> physicalDevices = GetVulkanPhysicalDevices();
@@ -333,7 +333,7 @@ vc::Error Application::__InitPhysicalDevices()
     return vc::Error::Success;
 }
 
-bool Application::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo)
+bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo)
 {
     // Check if the device supports the extensions
     uint32_t extensionCount;
@@ -361,7 +361,7 @@ bool Application::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo)
     return true;
 }
 
-vc::Error Application::__CreateInstance()
+vc::Error VulkanApplication::__CreateInstance()
 {
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -405,7 +405,7 @@ vc::Error Application::__CreateInstance()
     return vc::Error::Success;
 }
 
-void Application::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo)
+void VulkanApplication::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo)
 {
     // We are only using GLFW anyway for Windows, Linux & MacOS and next to Vulkan will only be Metal
     // DX12 will be for another standalone project
@@ -431,7 +431,7 @@ void Application::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * create
     createInfo->ppEnabledExtensionNames = __instanceExtensions.data();
 }
 
-void Application::__RecreateSwapChain()
+void VulkanApplication::__RecreateSwapChain()
 {
     vkDeviceWaitIdle(__physicalDevice.logicalDevice);
     __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context);
@@ -441,9 +441,4 @@ void Application::__RecreateSwapChain()
     // We also need to reset the last used semaphore
     __imageAvailableSemaphores[__currentFrame].InitSemaphore(__physicalDevice.logicalDevice);
 }
-}
-
-extern "C" vc::ApplicationBackend* createApplication()
-{
-    return new venom::vulkan::Application();
 }

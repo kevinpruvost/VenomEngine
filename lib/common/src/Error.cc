@@ -5,7 +5,7 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include "include/common/Error.h"
+#include <venom/common/Error.h>
 
 static char errorString[256] = {0};
 namespace venom::common

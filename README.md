@@ -1,4 +1,4 @@
-# Bazel_Vulkan_Metal | Bazel_VenomEngine
+# VenomEngine
 
 ## Description
 
@@ -128,3 +128,9 @@ bazel run //:VenomEngine
   - I can't find any comparison between `glm` and `DirectXMath`, so I might prepare some benchmarks later. 
   - Have to mention that `glm` and `DirectXMath` use different coordinates system by default, `glm` uses Left-Handed Coordinate System and `DirectXMath` uses Right-Handed Coordinate System.
   - 3 first fingers are x,y,z respectively, so if we point thumb to the right, then it means that z goes forward on left-handed, and backward on right-handed, that's the only change.
+- [DirectXShaderCompiler: How to write HLSL for Vulkan](https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#hlsl-semantic-and-vulkan-location)
+  - `[[vk:Location(X)]]` is the equivalent of `layout(location = X)` in GLSL
+- [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross)
+  -  For `SPIR-V` reflection, can parse and convert SPIR-V to high level SL like `HLSL`, `GLSL`, `MSL`, ...
+- [Indexed vs. Direct & Interleaved vs. Non-Interleaved Vertex Buffers](https://stackoverflow.com/questions/17503787/vertex-buffers-indexed-or-direct-interlaced-or-separate)
+- [flecs: ECS library](https://github.com/SanderMertens/flecs)

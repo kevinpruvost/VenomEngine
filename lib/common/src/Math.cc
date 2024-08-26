@@ -1,20 +1,16 @@
 ///
-/// Project: VenomEngine
-/// @file Vector.h
+/// Project: Bazel_Vulkan_Metal
+/// @file Math.cc
 /// @date Aug, 25 2024
-/// @brief
+/// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#pragma once
-
-#include <common/math/Math_Api.h>
+#include <venom/common/math/Math.h>
 
 namespace venom
 {
 namespace common
 {
-
-
 
 }
 }

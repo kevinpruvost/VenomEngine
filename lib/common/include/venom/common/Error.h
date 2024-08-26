@@ -7,8 +7,8 @@
 ///
 #pragma once
 
-#include <common/Export.h>
-#include <common/Debug.h>
+#include <venom/common/Export.h>
+#include <venom/common/Debug.h>
 
 #include <cstdint>
 #include <cstring>

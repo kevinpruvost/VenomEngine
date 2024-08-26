@@ -13,17 +13,22 @@ FileUtils.mkdir_p(compiled_dir)
 hlsl_files = Dir.glob("#{hlsl_dir}/*.hlsl")
 glsl_files = Dir.glob("#{glsl_dir}/*.glsl")
 
+def output_file_create_name(file, compiled_dir)
+    filename_parts = File.basename(file).split('.')
+    "#{compiled_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+end
+
 # Function to determine shader type based on filename
 def shader_type(file)
-    case File.basename(file)
-        when /vs_/
-        when /vertex_/
+    # as some files will have 2 '.' in their name, we need to split the name and remove the last element
+    filename_parts = File.basename(file).split('.')
+    stage = filename_parts[filename_parts.length - 2]
+    case stage
+        when /vs/, /vertex/, /vert/
             'vs_6_0'
-        when /ps_/
-        when /pixel_/
+        when /ps/, /pixel/, /frag/, /fs/
             'ps_6_0'
-        when /cs_/
-        when /compute_/
+        when /cs/, /compute/, /comp/
             'cs_6_0'
         else
             raise "Unknown shader type for #{file}"
@@ -38,9 +43,8 @@ if ARGV[0] == 'clean'
 elsif ARGV[0] == 'compile'
     # Compile each HLSL file to SPIR-V
     hlsl_files.each do |file|
-        output_file = "#{compiled_dir}/#{File.basename(file, '.hlsl')}.spv"
+        output_file = output_file_create_name(file, compiled_dir)
         type = shader_type(file)
-        #
         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file}"
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)
@@ -48,7 +52,7 @@ elsif ARGV[0] == 'compile'
 elsif ARGV[0] == 'compile_debug'
     # Compile each HLSL file to SPIR-V
     hlsl_files.each do |file|
-        output_file = "#{compiled_dir}/#{File.basename(file, '.hlsl')}.spv"
+        output_file = output_file_create_name(file, compiled_dir)
         type = shader_type(file)
         cmd = "#{dxc_path} -Zi -T #{type} -spirv #{file} -Fo #{output_file}"
         puts "Compiling #{file} to #{output_file}..."
@@ -57,7 +61,7 @@ elsif ARGV[0] == 'compile_debug'
 elsif ARGV[0] == 'compile_glsl'
     # Compile each GLSL file to SPIR-V
     glsl_files.each do |file|
-        output_file = "#{compiled_dir}/#{File.basename(file, '.glsl')}.spv"
+        output_file = output_file_create_name(file, compiled_dir)
         cmd = "glslangValidator -V #{file} -o #{output_file}"
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)

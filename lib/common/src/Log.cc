@@ -6,8 +6,8 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 
-#include "include/common/Log.h"
-#include "include/common/String.h"
+#include <venom/common/Log.h>
+#include <venom/common/String.h>
 
 #include <fstream>
 #include <filesystem>
