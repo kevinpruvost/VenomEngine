@@ -22,6 +22,10 @@
   </a>
 </p>
 
+## :sparkles: Showcase
+
+TODO
+
 ## :warning: <sub>**Warning: This project is a Work in Progress (WIP).**</sub>
 
 ## :bulb: Description
@@ -34,10 +38,6 @@
 - 💻 **Scripting**: Enhancing workflows with `Ruby` and more.
 
 Join me as I explore these technologies and push the boundaries of what's possible in modern graphics programming.
-
-## :sparkles: Showcase
-
-TODO
 
 ## :rocket: Quick Setup & Compilation
 
