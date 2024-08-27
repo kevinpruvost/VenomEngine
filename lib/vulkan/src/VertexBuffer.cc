@@ -8,6 +8,7 @@
 #include <venom/vulkan/VertexBuffer.h>
 
 #include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/Allocator.h>
 
 namespace venom
 {
@@ -22,9 +23,9 @@ VertexBuffer::VertexBuffer()
 VertexBuffer::~VertexBuffer()
 {
     if (__buffer != VK_NULL_HANDLE)
-        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __buffer, nullptr);
+        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __buffer, Allocator::GetVKAllocationCallbacks());
     if (__bufferMemory != VK_NULL_HANDLE)
-        vkFreeMemory(LogicalDevice::GetVkDevice(), __bufferMemory, nullptr);
+        vkFreeMemory(LogicalDevice::GetVkDevice(), __bufferMemory, Allocator::GetVKAllocationCallbacks());
 }
 
 vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
@@ -36,7 +37,7 @@ vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSi
     bufferInfo.usage = flags;
     bufferInfo.sharingMode = sharingMode;
 
-    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, nullptr, &__buffer) != VK_SUCCESS) {
+    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to create vertex buffer");
         return vc::Error::Failure;
     }
@@ -60,7 +61,7 @@ vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSi
     };
     allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-    if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, nullptr, &__bufferMemory) != VK_SUCCESS) {
+    if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, Allocator::GetVKAllocationCallbacks(), &__bufferMemory) != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate vertex buffer memory");
         return vc::Error::Failure;
     }

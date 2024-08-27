@@ -26,10 +26,10 @@ public:
     void __Instance_GetRequiredExtensions(VkInstanceCreateInfo* create_info);
 #ifdef VENOM_DEBUG
     void __SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* create_info, DebugApplication * debugApp);
-    static vc::Error CreateInstance(DebugApplication * debugApp);
+    static vc::Error CreateInstance(Instance * instance, DebugApplication * debugApp);
 #else
     void __SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* create_info);
-    static vc::Error CreateInstance();
+    static vc::Error CreateInstance(Instance * instance);
 #endif
 
     static const VkInstance & GetVkInstance();

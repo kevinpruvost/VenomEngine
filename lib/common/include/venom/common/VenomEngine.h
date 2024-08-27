@@ -23,6 +23,9 @@ public:
 
 public:
     PluginManager pluginManager;
+
+private:
+    std::unique_ptr<DLL_Cache> __dllCache;
 };
 }
 }

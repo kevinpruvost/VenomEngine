@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Debug.h>
+#include <venom/vulkan/Allocator.h>
 
 #include <venom/vulkan/Instance.h>
 #include <vector>
@@ -27,7 +28,7 @@ DebugApplication::~DebugApplication()
 #ifdef VENOM_DEBUG
     if (__debugMessenger) {
         auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkDestroyDebugUtilsMessengerEXT"));
-        destroyDebugUtilsMessengerEXT(Instance::GetVkInstance(), __debugMessenger, nullptr);
+        destroyDebugUtilsMessengerEXT(Instance::GetVkInstance(), __debugMessenger, Allocator::GetVKAllocationCallbacks());
     }
 #endif
 }
@@ -110,7 +111,7 @@ vc::Error DebugApplication::_PostInstance_SetDebugParameters()
 #ifdef VENOM_DEBUG
     // Debug Utils Messenger
     auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkCreateDebugUtilsMessengerEXT"));
-    if (createDebugUtilsMessengerEXT(Instance::GetVkInstance(), &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
+    if (createDebugUtilsMessengerEXT(Instance::GetVkInstance(), &__debugMessengerCreateInfo, Allocator::GetVKAllocationCallbacks(), &__debugMessenger) != VK_SUCCESS) {
         vc::Log::Error("Failed to set up debug messenger!");
         return vc::Error::Failure;
     }

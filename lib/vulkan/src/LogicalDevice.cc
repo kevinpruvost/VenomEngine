@@ -42,16 +42,15 @@ LogicalDevice::operator struct VkDevice_T*() const
     return __device;
 }
 
-static std::unique_ptr<LogicalDevice> s_instance = nullptr;
+static const LogicalDevice * s_instance = nullptr;
 
-void LogicalDevice::CreateInstance(const VkDevice device)
+void LogicalDevice::CreateInstance(const LogicalDevice * device)
 {
     venom_assert(device != VK_NULL_HANDLE, "LogicalDevice::CreateInstance: device is VK_NULL_HANDLE");
-    s_instance = std::unique_ptr<LogicalDevice>(new LogicalDevice());
-    s_instance->__device = device;
+    s_instance = device;
 }
 
-LogicalDevice& LogicalDevice::GetInstance()
+const LogicalDevice& LogicalDevice::GetInstance()
 {
     return *s_instance;
 }

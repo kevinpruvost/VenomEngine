@@ -10,7 +10,8 @@
 #include <array>
 #include <vector>
 
-#include "venom/vulkan/LogicalDevice.h"
+#include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/Allocator.h>
 
 namespace venom::vulkan
 {
@@ -20,23 +21,27 @@ static constexpr std::array s_deviceExtensions = {
 };
 
 VulkanApplication::VulkanApplication()
-    : __context()
+    : vc::GraphicsApplication()
+    , DebugApplication()
+    , __context()
     , __currentFrame(0)
     , __framebufferChanged(false)
 {
+    Allocator::SetVKAllocationCallbacks();
 }
 
 VulkanApplication::~VulkanApplication()
 {
     vc::Log::Print("Destroying Vulkan app...");
     for (int i = 0; i < 2; ++i) {
-        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __vertexBuffers[i], nullptr);
+        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __vertexBuffers[i], Allocator::GetVKAllocationCallbacks());
     }
     for (int i = 0; i < 2; ++i) {
-        vkFreeMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[i], nullptr);
+        vkFreeMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[i], Allocator::GetVKAllocationCallbacks());
     }
     // Set global physical device back to nullptr
     PhysicalDevice::SetUsedPhysicalDevice(nullptr);
+    vc::Log::Print("Vulkan app succesfully destroyed.");
 }
 
 vc::Error VulkanApplication::Run()
@@ -67,7 +72,7 @@ vc::Error VulkanApplication::Run()
         VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
         __verticesColor, 1, 1, 0);
-    __shaderPipeline.LoadShaders(LogicalDevice::GetVkDevice(), &__swapChain, &__renderPass, {
+    __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader.ps",
         "shader.vs"
     });
@@ -81,7 +86,7 @@ vc::Error VulkanApplication::Run()
         bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
         bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-        if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, nullptr, &__vertexBuffers[i]) != VK_SUCCESS) {
+        if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, Allocator::GetVKAllocationCallbacks(), &__vertexBuffers[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to create vertex buffer");
             return vc::Error::Failure;
         }
@@ -105,7 +110,7 @@ vc::Error VulkanApplication::Run()
         };
         allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-        if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, nullptr, &__vertexBuffersMemory[i]) != VK_SUCCESS) {
+        if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, Allocator::GetVKAllocationCallbacks(), &__vertexBuffersMemory[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to allocate vertex buffer memory");
             return vc::Error::Failure;
         }
@@ -355,13 +360,12 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return vc::Error::InitializationFailed;
     }
 
-    VkDevice logicalDevice;
-    if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &logicalDevice); res != VK_SUCCESS)
+    if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, Allocator::GetVKAllocationCallbacks(), &__logicalDevice.__device); res != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create logical device, error code: %d", res);
         return vc::Error::InitializationFailed;
     }
-    LogicalDevice::CreateInstance(logicalDevice);
+    LogicalDevice::CreateInstance(&__logicalDevice);
 
     // Create SwapChain
     if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
@@ -374,7 +378,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __physicalDevice.GetDeviceQueue(&__presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
 
     // Create Render Pass
-    if (err = __renderPass.InitRenderPass(LogicalDevice::GetVkDevice(), &__swapChain); err != vc::Error::Success)
+    if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
         return err;
 
     // Init Render Pass Framebuffers
@@ -382,7 +386,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Create Graphics Command Pool
-    if (err = __commandPool.InitCommandPool(LogicalDevice::GetVkDevice(), __queueFamilies.graphicsQueueFamilyIndices[0]); err != vc::Error::Success)
+    if (err = __commandPool.InitCommandPool(__queueFamilies.graphicsQueueFamilyIndices[0]); err != vc::Error::Success)
         return err;
 
     // Create Command Buffers
@@ -397,11 +401,11 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
     __inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __imageAvailableSemaphores[i].InitSemaphore(LogicalDevice::GetVkDevice()); err != vc::Error::Success)
+        if (err = __imageAvailableSemaphores[i].InitSemaphore(); err != vc::Error::Success)
             return err;
-        if (err =__renderFinishedSemaphores[i].InitSemaphore(LogicalDevice::GetVkDevice()); err != vc::Error::Success)
+        if (err =__renderFinishedSemaphores[i].InitSemaphore(); err != vc::Error::Success)
             return err;
-        if (err =__inFlightFences[i].InitFence(LogicalDevice::GetVkDevice(), VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
+        if (err =__inFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
     }
 
@@ -440,9 +444,9 @@ vc::Error VulkanApplication::__CreateInstance()
 {
     vc::Error err;
 #ifdef VENOM_DEBUG
-    err = Instance::CreateInstance(this);
+    err = Instance::CreateInstance(&__instance, this);
 #else
-    err = Instance::CreateInstance();
+    err = Instance::CreateInstance(&__instance);
 #endif
     if (err != vc::Error::Success) {
         vc::Log::Error("Failed to create Vulkan instance: %d", err);
@@ -459,6 +463,6 @@ void VulkanApplication::__RecreateSwapChain()
     __swapChain.InitSwapChainFramebuffers(&__renderPass);
 
     // We also need to reset the last used semaphore
-    __imageAvailableSemaphores[__currentFrame].InitSemaphore(LogicalDevice::GetVkDevice());
+    __imageAvailableSemaphores[__currentFrame].InitSemaphore();
 }
 }

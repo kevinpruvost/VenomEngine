@@ -10,6 +10,8 @@
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Debug.h>
 
+#include "venom/common/Log.h"
+
 namespace venom
 {
 namespace common
@@ -23,6 +25,7 @@ PluginObject::PluginObject(const Plugin::PluginType type)
 
 PluginObject::~PluginObject()
 {
+    Log::Print("Plugin Object destruction...");
 }
 
 void PluginObject::Destroy()

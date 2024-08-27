@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#include <venom/common/Log.h>
+
 namespace venom::common
 {
 
@@ -21,5 +23,10 @@ GraphicsApplication::GraphicsApplication()
 GraphicsApplication* GraphicsApplication::Create()
 {
     return GraphicsPlugin::Get()->CreateGraphicsApplication();
+}
+
+GraphicsApplication::~GraphicsApplication()
+{
+    vc::Log::Print("Destroying Graphics Application...");
 }
 }

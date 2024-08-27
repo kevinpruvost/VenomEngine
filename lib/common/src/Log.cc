@@ -49,6 +49,8 @@ void Log::LogToFile(const char* str)
 void Log::Print(const char* str)
 {
     printf("%s\n", str);
+    // weirdly, we actually need to do that manually
+    fflush(stdout);
 }
 
 void Log::Print(FILE* const stream, const char* str)

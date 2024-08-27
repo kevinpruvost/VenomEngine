@@ -27,11 +27,11 @@ public:
     vc::Error AddVertexBufferToLayout(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
         const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data,
         const uint32_t binding, const uint32_t location, const uint32_t offset);
-    vc::Error LoadShaders(const VkDevice logicalDevice, const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
+    vc::Error LoadShaders(const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
     VkPipeline GetPipeline() const;
 
 private:
-    vc::Error LoadShader(const VkDevice logicalDevice, const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
+    vc::Error LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
 
 private:
     VkPipeline __graphicsPipeline;

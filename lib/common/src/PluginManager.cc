@@ -119,5 +119,10 @@ void PluginManager::RemovePluginObject(const Plugin::PluginType type, PluginObje
         break;
     }
 }
+
+void PluginManager::UnloadPlugins()
+{
+    __graphicsPlugin.reset();
+}
 }
 }

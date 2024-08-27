@@ -25,14 +25,14 @@ DLL * DLL::Create()
 
 DLL* DLL::GetFromCache(const std::string& path)
 {
-    return DLL_Cache::GetInstance()->GetFromCache(path);
+    return DLL_Cache::GetCache()->GetFromCache(path);
 }
 
 DLL::~DLL()
 {
     if (__handle) {
 #ifdef _WIN32
-        FreeLibrary((HMODULE)__handle);
+        //FreeLibrary((HMODULE)__handle);
 #elif __APPLE__
         dlclose(m_handle);
 #else // Linux
@@ -79,14 +79,14 @@ Error DLL::LoadDLL(const char* path)
         return Error::Failure;
     }
     __path = path;
-    DLL_Cache::GetInstance()->StoreInCache(__path, this);
+    DLL_Cache::GetCache()->StoreInCache(__path, this);
     return Error::Success;
 }
 
 void DLL::UnloadDLL() const
 {
     venom_assert(__handle, "DLL not loaded");
-    DLL_Cache::GetInstance()->UnloadFromCache(__path);
+    DLL_Cache::GetCache()->UnloadFromCache(__path);
 }
 
 DLL_Cache::DLL_Cache()
@@ -114,9 +114,15 @@ DLL* DLL_Cache::GetFromCache(const std::string& name)
     return nullptr;
 }
 
-DLL_Cache * DLL_Cache::GetInstance()
+static DLL_Cache * s_cache = nullptr;
+void DLL_Cache::SetCache(DLL_Cache* cache)
 {
-    static DLL_Cache instance;
-    return &instance;
+    venom_assert(s_cache == nullptr, "DLL_Cache already set");
+    s_cache = cache;
+}
+
+DLL_Cache * DLL_Cache::GetCache()
+{
+    return s_cache;
 }
 }

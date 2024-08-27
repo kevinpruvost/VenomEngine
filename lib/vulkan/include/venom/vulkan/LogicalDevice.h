@@ -14,8 +14,10 @@ namespace venom
 {
 namespace vulkan
 {
+class VulkanApplication;
 class LogicalDevice
 {
+    friend class VulkanApplication;
 private:
     LogicalDevice();
 public:
@@ -26,8 +28,8 @@ public:
     LogicalDevice& operator=(LogicalDevice&& other);
 
     explicit operator VkDevice() const;
-    static void CreateInstance(const VkDevice device);
-    static LogicalDevice & GetInstance();
+    static void CreateInstance(const LogicalDevice * device);
+    static const LogicalDevice & GetInstance();
     static const VkDevice GetVkDevice();
 
 private:

@@ -32,6 +32,7 @@ public:
 
     void AddPluginObject(const Plugin::PluginType type, PluginObject * object);
     void RemovePluginObject(const Plugin::PluginType type, PluginObject * object);
+    void UnloadPlugins();
 private:
     PluginManager();
 

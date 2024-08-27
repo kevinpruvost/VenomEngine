@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/Allocator.h>
 
 namespace venom::vulkan
 {
@@ -67,18 +68,18 @@ void SwapChain::CleanSwapChain()
 {
     for (auto & framebuffer : __swapChainFramebuffers) {
         if (framebuffer != VK_NULL_HANDLE)
-            vkDestroyFramebuffer(LogicalDevice::GetVkDevice(), framebuffer, nullptr);
+            vkDestroyFramebuffer(LogicalDevice::GetVkDevice(), framebuffer, Allocator::GetVKAllocationCallbacks());
     }
     __swapChainFramebuffers.clear();
 
     for (auto & imageView : __swapChainImageViews) {
         if (imageView != VK_NULL_HANDLE)
-            vkDestroyImageView(LogicalDevice::GetVkDevice(), imageView, nullptr);
+            vkDestroyImageView(LogicalDevice::GetVkDevice(), imageView, Allocator::GetVKAllocationCallbacks());
     }
     __swapChainImageViews.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
-        vkDestroySwapchainKHR(LogicalDevice::GetVkDevice(), swapChain, nullptr);
+        vkDestroySwapchainKHR(LogicalDevice::GetVkDevice(), swapChain, Allocator::GetVKAllocationCallbacks());
         swapChain = VK_NULL_HANDLE;
     }
 }
@@ -202,7 +203,7 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
     createInfo.oldSwapchain = VK_NULL_HANDLE;
 
     // Creating SwapChain
-    if (vkCreateSwapchainKHR(LogicalDevice::GetVkDevice(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
+    if (vkCreateSwapchainKHR(LogicalDevice::GetVkDevice(), &createInfo, Allocator::GetVKAllocationCallbacks(), &swapChain) != VK_SUCCESS) {
         vc::Log::Error("Failed to create swap chain");
         return vc::Error::InitializationFailed;
     }
@@ -232,7 +233,7 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
         imageViewCreateInfo.subresourceRange.baseArrayLayer = 0;
         imageViewCreateInfo.subresourceRange.layerCount = 1;
 
-        if (vkCreateImageView(LogicalDevice::GetVkDevice(), &imageViewCreateInfo, nullptr, &__swapChainImageViews[i]) != VK_SUCCESS) {
+        if (vkCreateImageView(LogicalDevice::GetVkDevice(), &imageViewCreateInfo, Allocator::GetVKAllocationCallbacks(), &__swapChainImageViews[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to create image views");
             return vc::Error::InitializationFailed;
         }
@@ -257,7 +258,7 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
         framebufferInfo.height = extent.height;
         framebufferInfo.layers = 1;
 
-        if (vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &framebufferInfo, nullptr, &__swapChainFramebuffers[i]) != VK_SUCCESS) {
+        if (vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &framebufferInfo, Allocator::GetVKAllocationCallbacks(), &__swapChainFramebuffers[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to create framebuffer");
             return vc::Error::InitializationFailed;
         }

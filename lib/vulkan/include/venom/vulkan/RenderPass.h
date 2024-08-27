@@ -24,14 +24,13 @@ public:
     RenderPass(RenderPass&& other);
     RenderPass& operator=(RenderPass&& other);
 
-    vc::Error InitRenderPass(const VkDevice logicalDevice, const SwapChain * swapChain);
+    vc::Error InitRenderPass(const SwapChain * swapChain);
     vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);
     VkRenderPass GetRenderPass() const;
 
 private:
     VkRenderPass __renderPass;
-    VkDevice __logicalDevice;
 };
 }
 }

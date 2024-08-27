@@ -8,6 +8,8 @@
 #pragma once
 
 #include <venom/common/Error.h>
+
+#include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include "tools/cpp/runfiles/runfiles.h"
 
 
@@ -20,13 +22,13 @@ namespace venom
 /// Use the alias 'vc' to access the namespace.
 namespace common
 {
-class VENOM_COMMON_API GraphicsApplication
+class VENOM_COMMON_API GraphicsApplication : public GraphicsPluginObject
 {
 protected:
     GraphicsApplication();
 public:
     static GraphicsApplication * Create();
-    virtual ~GraphicsApplication() = default;
+    ~GraphicsApplication() override;
     virtual Error Run() = 0;
 };
 }

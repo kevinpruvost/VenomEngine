@@ -7,6 +7,7 @@
 ///
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 
+#include "venom/common/Log.h"
 #include "venom/common/VenomEngine.h"
 
 namespace venom
@@ -20,6 +21,7 @@ GraphicsPluginObject::GraphicsPluginObject()
 
 GraphicsPluginObject::~GraphicsPluginObject()
 {
+    Log::Print("Graphics Plugin Object Destruction...");
 }
 
 GraphicsPlugin::GraphicsPlugin()

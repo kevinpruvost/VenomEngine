@@ -42,7 +42,7 @@ class DebugApplication
     friend class Instance;
 public:
     DebugApplication();
-    ~DebugApplication();
+    virtual ~DebugApplication();
 
     vc::Error InitDebug();
     void DestroyDebug();

@@ -6,19 +6,20 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/Allocator.h>
 
 namespace venom::vulkan
 {
 RenderPass::RenderPass()
     : __renderPass(VK_NULL_HANDLE)
-    , __logicalDevice(VK_NULL_HANDLE)
 {
 }
 
 RenderPass::~RenderPass()
 {
     if (__renderPass != VK_NULL_HANDLE)
-        vkDestroyRenderPass(__logicalDevice, __renderPass, nullptr);
+        vkDestroyRenderPass(LogicalDevice::GetVkDevice(), __renderPass, Allocator::GetVKAllocationCallbacks());
 }
 
 RenderPass::RenderPass(RenderPass&& other)
@@ -35,7 +36,7 @@ RenderPass& RenderPass::operator=(RenderPass&& other)
     return *this;
 }
 
-vc::Error RenderPass::InitRenderPass(const VkDevice logicalDevice, const SwapChain* swapChain)
+vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
 {
     // Render Pass
     VkAttachmentDescription colorAttachment{};
@@ -85,12 +86,11 @@ vc::Error RenderPass::InitRenderPass(const VkDevice logicalDevice, const SwapCha
     renderPassInfo.pDependencies = &dependency;
     renderPassInfo.dependencyCount = 1;
 
-    if (vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &__renderPass) != VK_SUCCESS)
+    if (vkCreateRenderPass(LogicalDevice::GetVkDevice(), &renderPassInfo, Allocator::GetVKAllocationCallbacks(), &__renderPass) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create render pass");
         return vc::Error::Failure;
     }
-    __logicalDevice = logicalDevice;
     return vc::Error::Success;
 }
 

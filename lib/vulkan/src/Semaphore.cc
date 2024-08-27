@@ -6,12 +6,13 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Semaphore.h>
+#include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/LogicalDevice.h>
 
 namespace venom::vulkan
 {
 Semaphore::Semaphore()
     : __semaphore(VK_NULL_HANDLE)
-    , __logicalDevice(VK_NULL_HANDLE)
 {
 }
 
@@ -22,30 +23,27 @@ Semaphore::~Semaphore()
 
 Semaphore::Semaphore(Semaphore&& other)
     : __semaphore(other.__semaphore)
-    , __logicalDevice(other.__logicalDevice)
 {
     other.__semaphore = VK_NULL_HANDLE;
-    other.__logicalDevice = VK_NULL_HANDLE;
 }
 
 Semaphore& Semaphore::operator=(Semaphore&& other)
 {
     if (this == &other) return *this;
     __semaphore = other.__semaphore;
-    __logicalDevice = other.__logicalDevice;
     other.__semaphore = VK_NULL_HANDLE;
-    other.__logicalDevice = VK_NULL_HANDLE;
+    return *this;
 }
 
 void Semaphore::DestroySemaphore()
 {
     if (__semaphore != VK_NULL_HANDLE) {
-        vkDestroySemaphore(__logicalDevice, __semaphore, nullptr);
+        vkDestroySemaphore(LogicalDevice::GetVkDevice(), __semaphore, Allocator::GetVKAllocationCallbacks());
         __semaphore = VK_NULL_HANDLE;
     }
 }
 
-vc::Error Semaphore::InitSemaphore(const VkDevice logicalDevice)
+vc::Error Semaphore::InitSemaphore()
 {
     DestroySemaphore();
 
@@ -54,11 +52,10 @@ vc::Error Semaphore::InitSemaphore(const VkDevice logicalDevice)
     semaphoreInfo.pNext = nullptr;
     semaphoreInfo.flags = 0;
 
-    if (vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &__semaphore) != VK_SUCCESS) {
+    if (vkCreateSemaphore(LogicalDevice::GetVkDevice(), &semaphoreInfo, Allocator::GetVKAllocationCallbacks(), &__semaphore) != VK_SUCCESS) {
         vc::Log::Error("Failed to create semaphore");
         return vc::Error::Failure;
     }
-    __logicalDevice = logicalDevice;
     return vc::Error::Success;
 }
 

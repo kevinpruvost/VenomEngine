@@ -6,13 +6,15 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Instance.h>
+#include <venom/vulkan/Allocator.h>
 
 #include <memory>
 
 namespace venom::vulkan
 {
 
-static std::unique_ptr<Instance> s_instance(nullptr);
+// s_instace MUST NOT OWN the instance, only the VulkanApplication should
+static Instance * s_instance(nullptr);
 
 Instance::Instance()
     : __instance(VK_NULL_HANDLE)
@@ -21,8 +23,9 @@ Instance::Instance()
 
 Instance::~Instance()
 {
+    auto get = Allocator::GetVKAllocationCallbacks();
     if (__instance != VK_NULL_HANDLE)
-        vkDestroyInstance(__instance, nullptr);
+        vkDestroyInstance(__instance, Allocator::GetVKAllocationCallbacks());
 }
 
 void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfos)
@@ -75,12 +78,12 @@ void Instance::__SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* cre
 }
 
 #ifdef VENOM_DEBUG
-vc::Error Instance::CreateInstance(DebugApplication * debugApp)
+vc::Error Instance::CreateInstance(Instance * instance, DebugApplication * debugApp)
 #else
-vc::Error Instance::CreateInstance()
+vc::Error Instance::CreateInstance(Instance * instance)
 #endif
 {
-    s_instance = std::make_unique<Instance>();
+    s_instance = instance;
 
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -104,7 +107,7 @@ vc::Error Instance::CreateInstance()
     s_instance->__SetInstanceCreateInfoValidationLayers(&createInfo);
 #endif
 
-    if (auto res = vkCreateInstance(&createInfo, nullptr, &s_instance->__instance); res != VK_SUCCESS)
+    if (auto res = vkCreateInstance(&createInfo, Allocator::GetVKAllocationCallbacks(), &s_instance->__instance); res != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create Vulkan instance, error code: %d", res);
 #ifdef VENOM_DEBUG

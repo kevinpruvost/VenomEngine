@@ -24,12 +24,11 @@ public:
     Semaphore & operator=(Semaphore && other);
 
     void DestroySemaphore();
-    vc::Error InitSemaphore(const VkDevice logicalDevice);
+    vc::Error InitSemaphore();
     VkSemaphore GetSemaphore() const;
 
 private:
     VkSemaphore __semaphore;
-    VkDevice __logicalDevice;
 };
 }
 }

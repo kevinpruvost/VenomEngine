@@ -28,12 +28,11 @@ public:
     CommandPool(CommandPool&& other);
     CommandPool& operator=(CommandPool&& other);
 
-    vc::Error InitCommandPool(const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex);
+    vc::Error InitCommandPool(QueueFamilyIndex queueFamilyIndex);
     vc::Error CreateCommandBuffer(CommandBuffer ** commandBuffer, VkCommandBufferLevel level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY);
 
 private:
     VkCommandPool __commandPool;
-    VkDevice __logicalDevice;
     std::vector<std::unique_ptr<CommandBuffer>> __commandBuffers;
 };
 

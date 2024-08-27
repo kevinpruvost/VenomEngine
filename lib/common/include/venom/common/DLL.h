@@ -62,18 +62,23 @@ private:
     std::string __path;
 };
 
+class VenomEngine;
 /// @brief Holds all DLLs loaded in memory unless explicitly unloaded/deleted.
+/// Only instantiable by VenomEngine as it must not be deleted before all DLLs are unloaded.
+/// And also to centralize every wannabe singletons into one.
 class VENOM_COMMON_API DLL_Cache
 {
-public:
+    friend class VenomEngine;
+private:
     DLL_Cache();
+public:
     ~DLL_Cache();
 
     void StoreInCache(const std::string & name, DLL * dll);
     void UnloadFromCache(const std::string & name);
     DLL * GetFromCache(const std::string & name);
-
-    static DLL_Cache * GetInstance();
+    static void SetCache(DLL_Cache * cache);
+    static DLL_Cache * GetCache();
 
 private:
     std::unordered_map<std::string, std::shared_ptr<DLL>> __dlls;

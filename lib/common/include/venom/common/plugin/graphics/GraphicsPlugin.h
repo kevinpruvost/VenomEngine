@@ -21,7 +21,7 @@ class VENOM_COMMON_API GraphicsPluginObject : public PluginObject
 {
 public:
     GraphicsPluginObject();
-    ~GraphicsPluginObject();
+    ~GraphicsPluginObject() override;
 };
 
 class VENOM_COMMON_API GraphicsPlugin : public Plugin
@@ -36,7 +36,7 @@ public:
 
 public:
     GraphicsPlugin();
-    ~GraphicsPlugin();
+    ~GraphicsPlugin() override;
 
     static GraphicsPlugin * Get();
 

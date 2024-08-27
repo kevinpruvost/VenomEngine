@@ -24,5 +24,6 @@ int main(int argc, char** argv)
         printf("Failed to run application: %d\n", static_cast<int>(err));
         return 1;
     }
+    engine->pluginManager.UnloadPlugins();
     return 0;
 }

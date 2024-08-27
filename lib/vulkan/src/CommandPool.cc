@@ -6,6 +6,8 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/CommandPool.h>
+#include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/Allocator.h>
 
 namespace venom::vulkan
 {
@@ -91,7 +93,6 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
 
 CommandPool::CommandPool()
     : __commandPool(VK_NULL_HANDLE)
-    , __logicalDevice(VK_NULL_HANDLE)
 {
 }
 
@@ -102,55 +103,45 @@ CommandPool::~CommandPool()
         for (size_t i = 0; i < __commandBuffers.size(); ++i) {
             commandBuffers[i] = __commandBuffers[i]->__commandBuffer;
         }
-        vkFreeCommandBuffers(__logicalDevice, __commandPool,
+        vkFreeCommandBuffers(LogicalDevice::GetVkDevice(), __commandPool,
             static_cast<uint32_t>(__commandBuffers.size()),
             commandBuffers.data()
         );
     }
     if (__commandPool != VK_NULL_HANDLE)
-        vkDestroyCommandPool(__logicalDevice, __commandPool, nullptr);
+        vkDestroyCommandPool(LogicalDevice::GetVkDevice(), __commandPool, Allocator::GetVKAllocationCallbacks());
 }
 
 CommandPool::CommandPool(CommandPool&& other)
     : __commandPool(other.__commandPool)
-    , __logicalDevice(other.__logicalDevice)
 {
     other.__commandPool = VK_NULL_HANDLE;
-    other.__logicalDevice = VK_NULL_HANDLE;
 }
 
 CommandPool& CommandPool::operator=(CommandPool&& other)
 {
     if (this == &other) return *this;
     __commandPool = other.__commandPool;
-    __logicalDevice = other.__logicalDevice;
     other.__commandPool = VK_NULL_HANDLE;
-    other.__logicalDevice = VK_NULL_HANDLE;
     return *this;
 }
 
-vc::Error CommandPool::InitCommandPool(const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex)
+vc::Error CommandPool::InitCommandPool(QueueFamilyIndex queueFamilyIndex)
 {
     VkCommandPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
     poolInfo.queueFamilyIndex = queueFamilyIndex;
 
-    if (vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &__commandPool) != VK_SUCCESS) {
+    if (vkCreateCommandPool(LogicalDevice::GetVkDevice(), &poolInfo, Allocator::GetVKAllocationCallbacks(), &__commandPool) != VK_SUCCESS) {
         vc::Log::Error("Failed to create command pool with queue family index: %u", queueFamilyIndex);
         return vc::Error::Failure;
     }
-    __logicalDevice = logicalDevice;
     return vc::Error::Success;
 }
 
 vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkCommandBufferLevel level)
 {
-    if (__logicalDevice == VK_NULL_HANDLE) {
-        vc::Log::Error("Command pool not initialized");
-        return vc::Error::InvalidUse;
-    }
-
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.commandPool = __commandPool;
@@ -160,7 +151,7 @@ vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkComm
     __commandBuffers.emplace_back(new CommandBuffer());
     auto & newCommandBuffer = __commandBuffers.back();
 
-    if (vkAllocateCommandBuffers(__logicalDevice, &allocInfo, &newCommandBuffer->__commandBuffer) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->__commandBuffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate command buffer");
         return vc::Error::Failure;
     }

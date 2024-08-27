@@ -23,7 +23,7 @@ public:
     Fence(Fence && other);
     Fence & operator=(Fence && other);
 
-    vc::Error InitFence(const VkDevice logicalDevice, const VkFenceCreateFlags flags = VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT);
+    vc::Error InitFence(const VkFenceCreateFlags flags = VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT);
     const VkFence * GetFence() const;
 
 private:

@@ -6,13 +6,14 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Shader.h>
+#include <venom/vulkan/Allocator.h>
 
 #include <fstream>
 
 #include <venom/common/Resources.h>
 
-#include "venom/common/math/Vector.h"
-#include "venom/vulkan/LogicalDevice.h"
+#include <venom/common/math/Vector.h>
+#include <venom/vulkan/LogicalDevice.h>
 
 namespace venom::vulkan
 {
@@ -27,9 +28,9 @@ ShaderPipeline::ShaderPipeline()
 ShaderPipeline::~ShaderPipeline()
 {
     if (__graphicsPipeline != VK_NULL_HANDLE)
-        vkDestroyPipeline(__logicalDevice, __graphicsPipeline, nullptr);
+        vkDestroyPipeline(__logicalDevice, __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
     if (__pipelineLayout != VK_NULL_HANDLE)
-        vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, nullptr);
+        vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
 
 vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexCount, const uint32_t vertexSize,
@@ -57,9 +58,7 @@ vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexCount, co
     return vc::Error::Success;
 }
 
-vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
-                                     const std::string& shaderPath,
-                                     VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
+vc::Error ShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
     const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath + ".spv";
     const std::string path = vc::Resources::GetResourcePath(folder_shaderPath);
@@ -82,7 +81,7 @@ vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
     shaderModuleCreateInfo.codeSize = buffer.size();
     shaderModuleCreateInfo.pCode = reinterpret_cast<const uint32_t*>(buffer.data());
 
-    if (vkCreateShaderModule(logicalDevice, &shaderModuleCreateInfo, nullptr, &pipelineCreateInfo->module) != VK_SUCCESS)
+    if (vkCreateShaderModule(LogicalDevice::GetVkDevice(), &shaderModuleCreateInfo, Allocator::GetVKAllocationCallbacks(), &pipelineCreateInfo->module) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create shader module");
         return vc::Error::Failure;
@@ -108,15 +107,14 @@ vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
     return vc::Error::Success;
 }
 
-vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapChain* swapChain,
-    const RenderPass * renderPass, const std::vector<std::string>& shaderPaths)
+vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths)
 {
     venom_assert(__vertexBuffers.size() != 0, "No vertex buffer has been added to the layout");
     // Loading every shader
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages(shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
     for (int i = 0; i < shaderPaths.size(); ++i)
     {
-        if (LoadShader(logicalDevice, shaderPaths[i], &shaderStages[i]) != vc::Error::Success)
+        if (LoadShader(shaderPaths[i], &shaderStages[i]) != vc::Error::Success)
         {
             vc::Log::Error("Failed to load shader: %s", shaderPaths[i].c_str());
             return vc::Error::Failure;
@@ -131,7 +129,7 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
             {
                 vc::Log::Error("Duplicate shader stages: [%s] | [%s]", shaderPaths[i].c_str(), shaderPaths[j].c_str());
                 for (int k = 0; k < shaderStages.size(); ++k) {
-                    vkDestroyShaderModule(logicalDevice, shaderStages[k].module, nullptr);
+                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
                 }
                 return vc::Error::Failure;
             }
@@ -228,12 +226,11 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
     pipelineLayoutInfo.pushConstantRangeCount = 0; // Optional
     //pipelineLayoutInfo.pPushConstantRanges = nullptr; // Optional
 
-    if (vkCreatePipelineLayout(logicalDevice, &pipelineLayoutInfo, nullptr, &__pipelineLayout) != VK_SUCCESS)
+    if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &__pipelineLayout) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create pipeline layout");
         return vc::Error::Failure;
     }
-    __logicalDevice = logicalDevice;
 
     // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
@@ -262,7 +259,7 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
     graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
     //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
 
-    if (vkCreateGraphicsPipelines(logicalDevice, VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, nullptr, &__graphicsPipeline) != VK_SUCCESS)
+    if (vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &__graphicsPipeline) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create graphics pipeline");
         return vc::Error::Failure;
@@ -270,7 +267,7 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
 
     // Cleaning up shader modules
     for (int i = 0; i < shaderStages.size(); ++i) {
-        vkDestroyShaderModule(logicalDevice, shaderStages[i].module, nullptr);
+        vkDestroyShaderModule(LogicalDevice::GetVkDevice(), shaderStages[i].module, Allocator::GetVKAllocationCallbacks());
     }
 
     return vc::Error::Success;

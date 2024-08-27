@@ -17,6 +17,7 @@
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/Semaphore.h>
 #include <venom/vulkan/Fence.h>
+#include <venom/vulkan/LogicalDevice.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
@@ -34,7 +35,7 @@ class VulkanApplication
 {
 public:
     VulkanApplication();
-    ~VulkanApplication();
+    ~VulkanApplication() override;
     vc::Error Run() override;
 
 private:
@@ -52,6 +53,8 @@ private:
     void __RecreateSwapChain();
 
 private:
+    Instance __instance;
+    LogicalDevice __logicalDevice;
     std::vector<const char *> __instanceExtensions;
     vc::Context __context;
     PhysicalDevice __physicalDevice;
