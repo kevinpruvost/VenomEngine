@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/common/math/Vector.h File Reference</title>
+<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/math/Vector.h File Reference</title>
 <link rel="icon" href="VenomEngineLogo_VerySmall.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -104,11 +104,13 @@ $(function(){initNavTree('_vector_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">Vector.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="_math___api_8h_source.html">common/math/Math_Api.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="_math_8h_source.html">venom/common/math/Math.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_error_8h_source.html">venom/common/Error.h</a>&gt;</code><br />
 </div>
 <p><a href="_vector_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -118,8 +120,35 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacevenom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the entirety of the code of the VenomEngine project. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
-<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the VenomEngine project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
+<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0f19c987f3d388f9c1e3275fe3f433ee" id="r_a0f19c987f3d388f9c1e3275fe3f433ee"><td class="memItemLeft" align="right" valign="top"><a id="a0f19c987f3d388f9c1e3275fe3f433ee" name="a0f19c987f3d388f9c1e3275fe3f433ee"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::VertexPos</b></td></tr>
+<tr class="memdesc:a0f19c987f3d388f9c1e3275fe3f433ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Position (3 floats) <br /></td></tr>
+<tr class="separator:a0f19c987f3d388f9c1e3275fe3f433ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5dea3e0c33e7f9fa8a70316511e3e18" id="r_af5dea3e0c33e7f9fa8a70316511e3e18"><td class="memItemLeft" align="right" valign="top"><a id="af5dea3e0c33e7f9fa8a70316511e3e18" name="af5dea3e0c33e7f9fa8a70316511e3e18"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::VertexNormal</b></td></tr>
+<tr class="memdesc:af5dea3e0c33e7f9fa8a70316511e3e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Normal (3 floats) <br /></td></tr>
+<tr class="separator:af5dea3e0c33e7f9fa8a70316511e3e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86d88b160aab29b665181932349b5e7" id="r_ad86d88b160aab29b665181932349b5e7"><td class="memItemLeft" align="right" valign="top"><a id="ad86d88b160aab29b665181932349b5e7" name="ad86d88b160aab29b665181932349b5e7"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::VertexColor</b></td></tr>
+<tr class="memdesc:ad86d88b160aab29b665181932349b5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Color (3 floats) <br /></td></tr>
+<tr class="separator:ad86d88b160aab29b665181932349b5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5801dca444d1280b4aeae918a1ba2771" id="r_a5801dca444d1280b4aeae918a1ba2771"><td class="memItemLeft" align="right" valign="top"><a id="a5801dca444d1280b4aeae918a1ba2771" name="a5801dca444d1280b4aeae918a1ba2771"></a>
+typedef Vec2&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::VertexUV</b></td></tr>
+<tr class="memdesc:a5801dca444d1280b4aeae918a1ba2771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Texture Coordinates (2 floats) <br /></td></tr>
+<tr class="separator:a5801dca444d1280b4aeae918a1ba2771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9df425bc83943263aed8723682338ee" id="r_aa9df425bc83943263aed8723682338ee"><td class="memItemLeft" align="right" valign="top"><a id="aa9df425bc83943263aed8723682338ee" name="aa9df425bc83943263aed8723682338ee"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::VertexBitangent</b></td></tr>
+<tr class="memdesc:aa9df425bc83943263aed8723682338ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Bitangent (3 floats) <br /></td></tr>
+<tr class="separator:aa9df425bc83943263aed8723682338ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51135be0a3e83e6ec8179802f8737ce" id="r_ad51135be0a3e83e6ec8179802f8737ce"><td class="memItemLeft" align="right" valign="top"><a id="ad51135be0a3e83e6ec8179802f8737ce" name="ad51135be0a3e83e6ec8179802f8737ce"></a>
+typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::VertexIndex</b></td></tr>
+<tr class="memdesc:ad51135be0a3e83e6ec8179802f8737ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Index (used for indexing in element buffers) <br /></td></tr>
+<tr class="separator:ad51135be0a3e83e6ec8179802f8737ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngine</p>
@@ -130,7 +159,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_8273792b21813559f16458fef7dc9365.html">common</a></li><li class="navelem"><a class="el" href="dir_b92421e03a18401640574473fc0520d4.html">math</a></li><li class="navelem"><a class="el" href="_vector_8h.html">Vector.h</a></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_6ac3d180bc89a0c08bca8855d396dc0f.html">venom</a></li><li class="navelem"><a class="el" href="dir_0b493514b1cad3961d82ee5798442dca.html">common</a></li><li class="navelem"><a class="el" href="dir_bba92ba5e482ba390f43aecf39e8475c.html">math</a></li><li class="navelem"><a class="el" href="_vector_8h.html">Vector.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

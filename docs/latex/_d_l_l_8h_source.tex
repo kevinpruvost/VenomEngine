@@ -1,5 +1,5 @@
 \doxysection{DLL.\+h}
-\hypertarget{_d_l_l_8h_source}{}\label{_d_l_l_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/DLL.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/DLL.h}}
+\hypertarget{_d_l_l_8h_source}{}\label{_d_l_l_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/DLL.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/DLL.h}}
 \mbox{\hyperlink{_d_l_l_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -14,27 +14,55 @@
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <dlfcn.h>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_export_8h}{common/Export.h}}>}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}}
-\DoxyCodeLine{00027\ \{}
-\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path);}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{\string~DLL}}();}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ReturnType,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00043\ \ \ \ \ ReturnType(*\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name))(Args...)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ReturnType(*)(Args...)\textcolor{keyword}{>}(\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(name));\ \}}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ handle\_;}
-\DoxyCodeLine{00047\ \};}
-\DoxyCodeLine{00048\ \}}
-\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_export_8h}{venom/common/Export.h}}>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_error_8h}{venom/common/Error.h}}>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}();}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ Create();}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ GetFromCache(\textcolor{keyword}{const}\ std::string\ \&\ path);}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{\string~DLL}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ GetFunction(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ReturnType,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00054\ \ \ \ \ ReturnType(*\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name))(Args...)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ReturnType(*)(Args...)\textcolor{keyword}{>}(\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{GetFunction}}(name));\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ Error\ LoadDLL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ Error\ ReloadDLL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ LoadDLL(path);\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadDLL()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_handle;}
+\DoxyCodeLine{00062\ \ \ \ \ std::string\ \_\_path;}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}();}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{\string~DLL\_Cache}}();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ StoreInCache(\textcolor{keyword}{const}\ std::string\ \&\ name,\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ dll);}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadFromCache(\textcolor{keyword}{const}\ std::string\ \&\ name);}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ GetFromCache(\textcolor{keyword}{const}\ std::string\ \&\ name);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}\ *\ GetInstance();}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00079\ \ \ \ \ std::unordered\_map<std::string,\ std::shared\_ptr<DLL>>\ \_\_dlls;}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ \}}
 
 \end{DoxyCode}

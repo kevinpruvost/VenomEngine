@@ -1,0 +1,38 @@
+\doxysection{venom\+::common\+::DLL\+\_\+\+Cache Class Reference}
+\hypertarget{classvenom_1_1common_1_1_d_l_l___cache}{}\label{classvenom_1_1common_1_1_d_l_l___cache}\index{venom::common::DLL\_Cache@{venom::common::DLL\_Cache}}
+
+
+Holds all DLLs loaded in memory unless explicitly unloaded/deleted.  
+
+
+
+
+{\ttfamily \#include $<$DLL.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a3e4c140cfa049329bc1197681fe99b5a}\label{classvenom_1_1common_1_1_d_l_l___cache_a3e4c140cfa049329bc1197681fe99b5a} 
+void {\bfseries Store\+In\+Cache} (const std\+::string \&name, \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*}dll)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a6ae949ad7c776aa285864ae804959a03}\label{classvenom_1_1common_1_1_d_l_l___cache_a6ae949ad7c776aa285864ae804959a03} 
+void {\bfseries Unload\+From\+Cache} (const std\+::string \&name)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a97ee2b99f0b6995b92b011f2d5a77b02}\label{classvenom_1_1common_1_1_d_l_l___cache_a97ee2b99f0b6995b92b011f2d5a77b02} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+From\+Cache} (const std\+::string \&name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a98ac17e29a95d8450e78f42ec858d80d}\label{classvenom_1_1common_1_1_d_l_l___cache_a98ac17e29a95d8450e78f42ec858d80d} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\+\_\+\+Cache}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds all DLLs loaded in memory unless explicitly unloaded/deleted. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/venom/common/\mbox{\hyperlink{_d_l_l_8h}{DLL.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/src/\mbox{\hyperlink{_d_l_l_8cc}{DLL.\+cc}}\end{DoxyCompactItemize}

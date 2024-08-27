@@ -1,137 +1,50 @@
-# VenomEngine
 
-## Description
+<p align="center">
+  <img src="docs/icons/VenomEngineBanner.png" alt="Venom Engine Logo" width="300">
+</p>
 
-`Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, `Ruby`, ...
+## 💡 Description
 
-## Setup
+`Venom Engine` is my solo Computer Graphics journey, designed to dive deep into cutting-edge technologies:
 
-I strongly recommend you to use CLion as your IDE for running this project as Bazel is better made for this IDE, especially for C++ projects as Google is directly maintaining it. 
+- 🧑‍💻️ **Graphics APIs**: Mastering `Vulkan`, `Metal`, and `DirectX12`.
+- 🛠️ **Build Systems**: Streamlining development with `Bazel`.
+- 🖥️ **Technical Tools**: Exploring `Renderer Debuggers`, `protobuf`, and `HLSL`.
+- 💻 **Scripting**: Enhancing workflows with `Ruby` and more.
 
-### DirectX Shader Compiler
+Join me as I explore these technologies and push the boundaries of what's possible in modern graphics programming.
 
-In order to compile the `HLSL` shaders present in this project to `SPIR-V`, you will need `DXC` or `DirectX Shader Compiler`, to compile it, first refer to the official `Prerequisites` documentation from their repository: https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/BuildingAndTestingDXC.rst#prerequisites. 
+## ✨ Showcase
 
-You could just simply use the Makefile command:
+TODO
 
-```
+## 🚀 Quick Setup & Compilation
+
+`VenomEngine` uses a combination of `Bazel` & `Makefile` as its build system (will integrate CMake later). 
+
+Here is how to setup and compile the project:
+
+```bash
 make dxc
-```
-
-If you want to do it manually, then do this:
-
-```powershell
-mkdir cmake_build
-cd cmake_build
-# You can ignore the generator flag if you want to use the default one
-cmake ../lib/DirectXShaderCompiler -G <Generator> -C ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v"
-cmake --build . --target dxc --config Release
-```
-
-### Ruby
-
-I use `Ruby` in order to take care of some small parts of the project, shader compiling for example.
-But don't worry, if you don't have it, just launch this command to install Ruby on your machine, it will do everything automatically:
-
-```bash
-make check_ruby
-```
-
-## Compilation
-
-### Shaders
-
-We will basically follow this guideline:
-- Guideline: https://github.com/microsoft/DirectXShaderCompiler/wiki/SPIR‐V-CodeGen
-- Command Line Options: https://github.com/Microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#supported-command-line-options
-
-You can either do this to compile every shader:
-
-```
 make compile_shaders
-# Or with debugging info (especially useful if you want to use a debugger such as NSight Graphics)
-make compile_shaders_debug
-# Or if you want to use glslc
-make compile_shaders_glsl
+make release_run
 ```
 
-Or do this manually:
+## 🏛️ Features & Roadmap
 
-```
-# Example for vertex and fragment/pixel shader
-## -T: shader profile, -Fo: output file, -spirv: output format
-mkdir ./resources/shaders/compiled
-./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./resources/shaders/hlsl/vertex_shader.hlsl -Fo ./resources/shaders/compiled/vertex_shader.spv
-./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./resources/shaders/hlsl/pixel_shader.hlsl -Fo ./resources/shaders/compiled/fragment_shader.spv
-```
+- [ ] Vulkan Renderer
+- [ ] Metal Renderer
+- [ ] DirectX12 Renderer
+- [x] Bazel Build System
+- [ ] CMake Build System
+- [x] HLSL to SPIR-V Compilation
+- [x] Ruby Task Runner
+- [ ] Custom Renderer Debuggers
+- [ ] Protobuf Serialization
+- [ ] ...
 
-Refer to this for Shader Profiles: https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-models
+## 📖 Documentation & User Guide
 
-### Project
+Looking for detailed information? Explore the comprehensive documentation and user guide for `Venom Engine`:
 
-#### Windows & macOS
-
-```bash
-bazel build -c opt //:VenomEngine
-bazel run //:VenomEngine
-```
-
-#### Linux
-
-First, you will need to make sure you know which windowing system you are using (`X11` or `Wayland`).
-
-The default setup for `VenomEngine` is based on `X11`, if you want to change it to `Wayland`, you will need to change some of the Bazel `BUILD` files in the project.
-
-- `/lib/GLFW/BUILD`: comment every instance of `"-D_GLFW_X11"` and uncomment every instance of `"-D_GLFW_WAYLAND"`.
-- `/lib/vulkan/BUILD`: comment every instance of `"-D_GLFW_X11"` and uncomment every instance of `"-D_GLFW_WAYLAND"`.
-
-Then, you can compile and run the project with the following commands:
-
-
-```bash
-bazel build -c opt //:VenomEngine
-bazel run //:VenomEngine
-```
-
-## Debugging
-
-### Useful Links
-
-- [Jetbrains Debugger Renderers](https://www.jetbrains.com/help/clion/qt-tutorial.html#debug-renderers)
-
-- [NSight Graphics Doc](https://docs.nvidia.com/nsight-graphics/InstallationGuide/index.html)
-
-- [NSight Download Page](https://developer.nvidia.com/gameworksdownload#?tx=$gameworks,developer_tools)
-
-- [RenderDoc](https://renderdoc.org/docs/index.html)
-
-### Windows 
-
-- Do not forget to setup your default debugger as the one from Visual Studio (`lldb`) because MinGW is using `gdb` and the default settings aren't as helpful as Visual Studio brings a lot of `Debugger Renderers` (`.natvis` files).
-
-- I recommend you to debug this app with `NSight Graphics` as I found it to be best for debugging GPU side. You can use `RenderDoc` if you want also.
-
-### Linux
-
-- I recommend you to debug this app with `NSight Graphics` as I found it to be best for debugging GPU side. You can use `RenderDoc` if you want also.
-
-### macOS
-
--
-
-## Notes
-
-- [Havok Physics (Physics)](https://www.havok.com/havok-physics/)
-  - Should apply to get access to their code, will try when I will have a more advanced project.
-- [Comparison of Math libraries](https://bargor.github.io/Comparison-of-3d-math-libraries/)
-  - Should use [`glm` with `SIMD`](https://glm.g-truc.net/0.9.1/api/a00002.html) (Single Instruction Multiple Data) mode for better performance.
-  - I can't find any comparison between `glm` and `DirectXMath`, so I might prepare some benchmarks later. 
-  - Have to mention that `glm` and `DirectXMath` use different coordinates system by default, `glm` uses Left-Handed Coordinate System and `DirectXMath` uses Right-Handed Coordinate System.
-  - 3 first fingers are x,y,z respectively, so if we point thumb to the right, then it means that z goes forward on left-handed, and backward on right-handed, that's the only change.
-- [DirectXShaderCompiler: How to write HLSL for Vulkan](https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#hlsl-semantic-and-vulkan-location)
-  - `[[vk:Location(X)]]` is the equivalent of `layout(location = X)` in GLSL
-- [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross)
-  -  For `SPIR-V` reflection, can parse and convert SPIR-V to high level SL like `HLSL`, `GLSL`, `MSL`, ...
-- [Indexed vs. Direct & Interleaved vs. Non-Interleaved Vertex Buffers](https://stackoverflow.com/questions/17503787/vertex-buffers-indexed-or-direct-interlaced-or-separate)
-- [flecs: ECS library](https://github.com/SanderMertens/flecs)
-- At best, avoid templated code through dynamic libraries, as it can lead to code replication, which may lead to unintended behavior.
+[![View Documentation](https://img.shields.io/badge/View-Documentation-blue?style=for-the-badge&logo=read-the-docs)](https://kevinpruvost.github.io/VenomEngine/html/index.html)

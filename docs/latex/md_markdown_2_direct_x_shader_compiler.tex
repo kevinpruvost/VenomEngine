@@ -1,0 +1,27 @@
+\chapter{DirectX Shader Compiler Setup}
+\hypertarget{md_markdown_2_direct_x_shader_compiler}{}\label{md_markdown_2_direct_x_shader_compiler}\index{DirectX Shader Compiler Setup@{DirectX Shader Compiler Setup}}
+\label{md_markdown_2_direct_x_shader_compiler_autotoc_md5}%
+\Hypertarget{md_markdown_2_direct_x_shader_compiler_autotoc_md5}%
+
+
+In order to compile the {\ttfamily HLSL} shaders present in this project to {\ttfamily SPIR-\/V}, you will need {\ttfamily DXC} or {\ttfamily DirectX Shader Compiler}.\hypertarget{md_markdown_2_direct_x_shader_compiler_autotoc_md6}{}\doxysection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_markdown_2_direct_x_shader_compiler_autotoc_md6}
+First, refer to the official {\ttfamily Prerequisites} documentation from their repository\+: \href{https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/BuildingAndTestingDXC.rst\#prerequisites}{\texttt{ DXC Prerequisites}}.\hypertarget{md_markdown_2_direct_x_shader_compiler_autotoc_md7}{}\doxysection{\texorpdfstring{Automated Setup}{Automated Setup}}\label{md_markdown_2_direct_x_shader_compiler_autotoc_md7}
+You could simply use the Makefile command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ dxc}
+
+\end{DoxyCode}
+\hypertarget{md_markdown_2_direct_x_shader_compiler_autotoc_md8}{}\doxysection{\texorpdfstring{Manual Setup}{Manual Setup}}\label{md_markdown_2_direct_x_shader_compiler_autotoc_md8}
+If you want to compile {\ttfamily DXC} manually, follow these steps\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ cmake\_build}
+\DoxyCodeLine{cd\ cmake\_build}
+\DoxyCodeLine{cmake\ ../lib/DirectXShaderCompiler\ -\/G\ <Generator>\ -\/C\ ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake\ -\/DCMAKE\_BUILD\_TYPE=Release\ -\/DDXC\_USE\_LIT=On\ -\/DLLVM\_ENABLE\_ASSERTIONS=On\ -\/DLLVM\_LIT\_ARGS="{}-\/v"{}}
+\DoxyCodeLine{cmake\ -\/-\/build\ .\ -\/-\/target\ dxc\ -\/-\/config\ Release}
+
+\end{DoxyCode}
+ 

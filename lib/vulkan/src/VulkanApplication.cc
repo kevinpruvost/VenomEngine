@@ -27,6 +27,12 @@ VulkanApplication::VulkanApplication()
 VulkanApplication::~VulkanApplication()
 {
     vc::Log::Print("Destroying Vulkan app...");
+    for (int i = 0; i < 2; ++i) {
+        vkDestroyBuffer(__physicalDevice.logicalDevice, __vertexBuffers[i], nullptr);
+    }
+    for (int i = 0; i < 2; ++i) {
+        vkFreeMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[i], nullptr);
+    }
 }
 
 vc::Error VulkanApplication::Run()
@@ -53,6 +59,58 @@ vc::Error VulkanApplication::Run()
         "shader.ps",
         "shader.vs"
     });
+
+    __vertexBuffers.resize(2);
+    __vertexBuffersMemory.resize(2);
+    for (int i = 0; i < 2; ++i) {
+        VkBufferCreateInfo bufferInfo{};
+        bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+        bufferInfo.size = sizeof(vc::Vec3) * 3;
+        bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+        bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+
+        if (vkCreateBuffer(__physicalDevice.logicalDevice, &bufferInfo, nullptr, &__vertexBuffers[i]) != VK_SUCCESS) {
+            vc::Log::Error("Failed to create vertex buffer");
+            return vc::Error::Failure;
+        }
+
+        VkMemoryRequirements memRequirements;
+        vkGetBufferMemoryRequirements(__physicalDevice.logicalDevice, __vertexBuffers[i], &memRequirements);
+
+        VkPhysicalDeviceMemoryProperties memProperties;
+        vkGetPhysicalDeviceMemoryProperties(__physicalDevice.physicalDevice, &memProperties);
+
+        VkMemoryAllocateInfo allocInfo{};
+        allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+        allocInfo.allocationSize = memRequirements.size;
+        auto findMemoryType = [&](uint32_t typeFilter, VkMemoryPropertyFlags properties) -> uint32_t {
+            for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i) {
+                if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+        allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+
+        if (vkAllocateMemory(__physicalDevice.logicalDevice, &allocInfo, nullptr, &__vertexBuffersMemory[i]) != VK_SUCCESS) {
+            vc::Log::Error("Failed to allocate vertex buffer memory");
+            return vc::Error::Failure;
+        }
+    }
+
+    vkBindBufferMemory(__physicalDevice.logicalDevice, __vertexBuffers[0], __vertexBuffersMemory[0], 0);
+
+    void* data;
+    vkMapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[0], 0, sizeof(vc::Vec3) * 3, 0, &data);
+    memcpy(data, __verticesPos, sizeof(vc::Vec3) * 3);
+    vkUnmapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[0]);
+
+    vkBindBufferMemory(__physicalDevice.logicalDevice, __vertexBuffers[1], __vertexBuffersMemory[1], 0);
+
+    vkMapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[1], 0, sizeof(vc::Vec3) * 3, 0, &data);
+    memcpy(data, __verticesColor, sizeof(vc::Vec3) * 3);
+    vkUnmapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[1]);
 
     if (res = __Loop(); res != vc::Error::Success)
     {
@@ -104,6 +162,8 @@ vc::Error VulkanApplication::__DrawFrame()
         __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
+        VkDeviceSize offsets[] = {0, 0};
+        vkCmdBindVertexBuffers(__commandBuffers[__currentFrame]->__commandBuffer, 0, 2, __vertexBuffers.data(), offsets);
         __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 

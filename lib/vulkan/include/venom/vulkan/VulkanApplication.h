@@ -21,6 +21,8 @@
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
 
+#include "venom/common/math/Vector.h"
+
 namespace venom
 {
 /// @brief Encapsulation of Vulkan for the front end of VenomEngine.
@@ -72,6 +74,18 @@ private:
     std::vector<Fence> __inFlightFences;
     int __currentFrame;
     bool __framebufferChanged;
+    std::vector<VkBuffer> __vertexBuffers;
+    std::vector<VkDeviceMemory> __vertexBuffersMemory;
+    vc::Vec3 __verticesPos[3] = {
+        {0, -0.5f, 0},
+        {0.5f, 0.5f, 0},
+        {-0.5f, 0.5f, 0}
+    };
+    vc::Vec3 __verticesColor[3] = {
+        {1, 1, 0},
+        {0, 1, 0},
+        {0, 0, 1}
+    };
 };
 }
 }

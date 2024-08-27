@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['physicaldevice_0',['PhysicalDevice',['../classvenom_1_1vulkan_1_1_physical_device.html',1,'venom::vulkan']]],
-  ['physicaldevice_2eh_1',['PhysicalDevice.h',['../_physical_device_8h.html',1,'']]]
+  ['notes_0',['Notes',['../index.html#notes',1,'Additional Notes'],['../md_markdown_2_notes.html',1,'Notes'],['../md_markdown_2main.html#autotoc_md10',1,'Notes']]]
 ];

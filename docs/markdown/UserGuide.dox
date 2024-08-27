@@ -1,0 +1,11 @@
+/** @page userguide User Guide
+
+@brief `Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, `Ruby`, ...
+
+@section guidance Guidance
+- @subpage setup "Setup"
+- @subpage compilation "Compilation"
+- @subpage debugging "Debugging"
+- @subpage notes "Notes"
+
+*/

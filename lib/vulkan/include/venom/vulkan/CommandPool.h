@@ -54,7 +54,7 @@ public:
     friend class CommandPool;
     friend class RenderPass;
 
-private:
+public:
     VkCommandBuffer __commandBuffer;
 
 public:

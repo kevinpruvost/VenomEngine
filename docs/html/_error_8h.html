@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/common/Error.h File Reference</title>
+<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/Error.h File Reference</title>
 <link rel="icon" href="VenomEngineLogo_VerySmall.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -105,13 +105,13 @@ $(function(){initNavTree('_error_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Error.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="_export_8h_source.html">common/Export.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="common_2include_2common_2_debug_8h_source.html">common/Debug.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="_export_8h_source.html">venom/common/Export.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="common_2include_2venom_2common_2_debug_8h_source.html">venom/common/Debug.h</a>&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &quot;<a class="el" href="_string_8h_source.html">String.h</a>&quot;</code><br />
@@ -124,37 +124,47 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacevenom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the entirety of the code of the VenomEngine project. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
-<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the VenomEngine project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
+<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ab35b7391fbd93ecb3e6d451155c93d70" id="r_ab35b7391fbd93ecb3e6d451155c93d70"><td class="memItemLeft" align="right" valign="top"><a id="ab35b7391fbd93ecb3e6d451155c93d70" name="ab35b7391fbd93ecb3e6d451155c93d70"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Error</b> : uint32_t { <br />
-&#160;&#160;<b>Success</b> = 0
-, <b>Failure</b> = 1 &lt;&lt; 0
-, <b>InvalidArgument</b> = 1 &lt;&lt; 1
-, <b>OutOfMemory</b> = 1 &lt;&lt; 2
-, <br />
-&#160;&#160;<b>DeviceLost</b> = 1 &lt;&lt; 3
-, <b>InitializationFailed</b> = 1 &lt;&lt; 4
-, <b>InvalidUse</b> = 1 &lt;&lt; 5
-, <b>Unknown</b> = UINT32_MAX
-<br />
- }</td></tr>
-<tr class="separator:ab35b7391fbd93ecb3e6d451155c93d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae35e7c0cb328ad8b77273afdb13a4697" id="r_ae35e7c0cb328ad8b77273afdb13a4697"><td class="memItemLeft" align="right" valign="top"><a id="ae35e7c0cb328ad8b77273afdb13a4697" name="ae35e7c0cb328ad8b77273afdb13a4697"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::setErrorString</b> (const char *str)</td></tr>
-<tr class="separator:ae35e7c0cb328ad8b77273afdb13a4697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d51f2181f799d19919ff6bda18b8cd1" id="r_a6d51f2181f799d19919ff6bda18b8cd1"><td class="memItemLeft" align="right" valign="top"><a id="a6d51f2181f799d19919ff6bda18b8cd1" name="a6d51f2181f799d19919ff6bda18b8cd1"></a>
+VENOM_COMMON_API void&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::setErrorString</b> (const char *str)</td></tr>
+<tr class="separator:a6d51f2181f799d19919ff6bda18b8cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe3dcafc92575a53a242777f3c78d87b" id="r_abe3dcafc92575a53a242777f3c78d87b"><td class="memTemplParams" colspan="2"><a id="abe3dcafc92575a53a242777f3c78d87b" name="abe3dcafc92575a53a242777f3c78d87b"></a>
 template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:abe3dcafc92575a53a242777f3c78d87b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>venom::common::setErrorString</b> (const char *fmt, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:abe3dcafc92575a53a242777f3c78d87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49f87813aa0a3ce530f3cdc21cddf8aa" id="r_a49f87813aa0a3ce530f3cdc21cddf8aa"><td class="memItemLeft" align="right" valign="top"><a id="a49f87813aa0a3ce530f3cdc21cddf8aa" name="a49f87813aa0a3ce530f3cdc21cddf8aa"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::getErrorString</b> ()</td></tr>
-<tr class="separator:a49f87813aa0a3ce530f3cdc21cddf8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b5d16f34cb53e0ca812addaed8da19" id="r_a62b5d16f34cb53e0ca812addaed8da19"><td class="memItemLeft" align="right" valign="top"><a id="a62b5d16f34cb53e0ca812addaed8da19" name="a62b5d16f34cb53e0ca812addaed8da19"></a>
+VENOM_COMMON_API const char *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::getErrorString</b> ()</td></tr>
+<tr class="separator:a62b5d16f34cb53e0ca812addaed8da19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a213023f1920a6c9efd79fe975ecd0fed" id="r_a213023f1920a6c9efd79fe975ecd0fed"><td class="memItemLeft" align="right" valign="top"><a id="a213023f1920a6c9efd79fe975ecd0fed" name="a213023f1920a6c9efd79fe975ecd0fed"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::Error</b></td></tr>
+<tr class="separator:a213023f1920a6c9efd79fe975ecd0fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f4b675a5fa27c80eaae4f89a98553f7" id="r_a7f4b675a5fa27c80eaae4f89a98553f7"><td class="memItemLeft" align="right" valign="top"><a id="a7f4b675a5fa27c80eaae4f89a98553f7" name="a7f4b675a5fa27c80eaae4f89a98553f7"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::Failure</b> = 1 &lt;&lt; 0</td></tr>
+<tr class="separator:a7f4b675a5fa27c80eaae4f89a98553f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02997e1de3b4698fa8ad76db8c875647" id="r_a02997e1de3b4698fa8ad76db8c875647"><td class="memItemLeft" align="right" valign="top"><a id="a02997e1de3b4698fa8ad76db8c875647" name="a02997e1de3b4698fa8ad76db8c875647"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::InvalidArgument</b> = 1 &lt;&lt; 1</td></tr>
+<tr class="separator:a02997e1de3b4698fa8ad76db8c875647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ac0b8622980167f7de452755bf2548" id="r_a58ac0b8622980167f7de452755bf2548"><td class="memItemLeft" align="right" valign="top"><a id="a58ac0b8622980167f7de452755bf2548" name="a58ac0b8622980167f7de452755bf2548"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::OutOfMemory</b> = 1 &lt;&lt; 2</td></tr>
+<tr class="separator:a58ac0b8622980167f7de452755bf2548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad394a6573e1c930752482afa5e8b3c66" id="r_ad394a6573e1c930752482afa5e8b3c66"><td class="memItemLeft" align="right" valign="top"><a id="ad394a6573e1c930752482afa5e8b3c66" name="ad394a6573e1c930752482afa5e8b3c66"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::DeviceLost</b> = 1 &lt;&lt; 3</td></tr>
+<tr class="separator:ad394a6573e1c930752482afa5e8b3c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf31c07cf05a5be8ed9bc2e90674b7f" id="r_afcf31c07cf05a5be8ed9bc2e90674b7f"><td class="memItemLeft" align="right" valign="top"><a id="afcf31c07cf05a5be8ed9bc2e90674b7f" name="afcf31c07cf05a5be8ed9bc2e90674b7f"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::InitializationFailed</b> = 1 &lt;&lt; 4</td></tr>
+<tr class="separator:afcf31c07cf05a5be8ed9bc2e90674b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72898516813076851d5bb5ab87e20ec9" id="r_a72898516813076851d5bb5ab87e20ec9"><td class="memItemLeft" align="right" valign="top"><a id="a72898516813076851d5bb5ab87e20ec9" name="a72898516813076851d5bb5ab87e20ec9"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::InvalidUse</b> = 1 &lt;&lt; 5</td></tr>
+<tr class="separator:a72898516813076851d5bb5ab87e20ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2841f877864bbe896a476e122c83b1be" id="r_a2841f877864bbe896a476e122c83b1be"><td class="memItemLeft" align="right" valign="top">enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html#a2841f877864bbe896a476e122c83b1be">venom::common::Unknown</a></td></tr>
+<tr class="separator:a2841f877864bbe896a476e122c83b1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngine</p>
@@ -165,7 +175,7 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_8273792b21813559f16458fef7dc9365.html">common</a></li><li class="navelem"><a class="el" href="_error_8h.html">Error.h</a></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_6ac3d180bc89a0c08bca8855d396dc0f.html">venom</a></li><li class="navelem"><a class="el" href="dir_0b493514b1cad3961d82ee5798442dca.html">common</a></li><li class="navelem"><a class="el" href="_error_8h.html">Error.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

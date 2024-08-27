@@ -1,6 +1,5 @@
 var namespacevenom_1_1vulkan =
 [
-    [ "Application", "classvenom_1_1vulkan_1_1_application.html", null ],
     [ "CommandBuffer", "classvenom_1_1vulkan_1_1_command_buffer.html", null ],
     [ "CommandPool", "classvenom_1_1vulkan_1_1_command_pool.html", null ],
     [ "DebugApplication", "classvenom_1_1vulkan_1_1_debug_application.html", null ],
@@ -13,5 +12,8 @@ var namespacevenom_1_1vulkan =
     [ "Semaphore", "classvenom_1_1vulkan_1_1_semaphore.html", null ],
     [ "ShaderPipeline", "classvenom_1_1vulkan_1_1_shader_pipeline.html", null ],
     [ "Surface", "classvenom_1_1vulkan_1_1_surface.html", null ],
-    [ "SwapChain", "classvenom_1_1vulkan_1_1_swap_chain.html", "classvenom_1_1vulkan_1_1_swap_chain" ]
+    [ "SwapChain", "classvenom_1_1vulkan_1_1_swap_chain.html", "classvenom_1_1vulkan_1_1_swap_chain" ],
+    [ "VulkanApplication", "classvenom_1_1vulkan_1_1_vulkan_application.html", null ],
+    [ "VulkanGraphicsPlugin", "classvenom_1_1vulkan_1_1_vulkan_graphics_plugin.html", null ],
+    [ "VulkanMesh", "classvenom_1_1vulkan_1_1_vulkan_mesh.html", null ]
 ];

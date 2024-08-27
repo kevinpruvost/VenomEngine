@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/Error.cc File Reference</title>
+<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/src/Error.cc File Reference</title>
 <link rel="icon" href="VenomEngineLogo_VerySmall.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -109,7 +109,7 @@ $(function(){initNavTree('_error_8cc.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">Error.cc File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_error_8h_source.html">include/common/Error.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="_error_8h_source.html">venom/common/Error.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -117,17 +117,17 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacevenom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the entirety of the code of the VenomEngine project. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
-<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the VenomEngine project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
+<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae35e7c0cb328ad8b77273afdb13a4697" id="r_ae35e7c0cb328ad8b77273afdb13a4697"><td class="memItemLeft" align="right" valign="top"><a id="ae35e7c0cb328ad8b77273afdb13a4697" name="ae35e7c0cb328ad8b77273afdb13a4697"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::setErrorString</b> (const char *str)</td></tr>
-<tr class="separator:ae35e7c0cb328ad8b77273afdb13a4697"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49f87813aa0a3ce530f3cdc21cddf8aa" id="r_a49f87813aa0a3ce530f3cdc21cddf8aa"><td class="memItemLeft" align="right" valign="top"><a id="a49f87813aa0a3ce530f3cdc21cddf8aa" name="a49f87813aa0a3ce530f3cdc21cddf8aa"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::getErrorString</b> ()</td></tr>
-<tr class="separator:a49f87813aa0a3ce530f3cdc21cddf8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d51f2181f799d19919ff6bda18b8cd1" id="r_a6d51f2181f799d19919ff6bda18b8cd1"><td class="memItemLeft" align="right" valign="top"><a id="a6d51f2181f799d19919ff6bda18b8cd1" name="a6d51f2181f799d19919ff6bda18b8cd1"></a>
+VENOM_COMMON_API void&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::setErrorString</b> (const char *str)</td></tr>
+<tr class="separator:a6d51f2181f799d19919ff6bda18b8cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b5d16f34cb53e0ca812addaed8da19" id="r_a62b5d16f34cb53e0ca812addaed8da19"><td class="memItemLeft" align="right" valign="top"><a id="a62b5d16f34cb53e0ca812addaed8da19" name="a62b5d16f34cb53e0ca812addaed8da19"></a>
+VENOM_COMMON_API const char *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::getErrorString</b> ()</td></tr>
+<tr class="separator:a62b5d16f34cb53e0ca812addaed8da19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngine</p>
@@ -138,7 +138,7 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="_error_8cc.html">Error.cc</a></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_0a0c0062cc6850e71388bb71bb49d4ed.html">src</a></li><li class="navelem"><a class="el" href="_error_8cc.html">Error.cc</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

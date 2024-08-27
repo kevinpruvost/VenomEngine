@@ -1,0 +1,31 @@
+\chapter{Project Compilation}
+\hypertarget{md_markdown_2_project_compilation}{}\label{md_markdown_2_project_compilation}\index{Project Compilation@{Project Compilation}}
+\label{md_markdown_2_project_compilation_autotoc_md12}%
+\Hypertarget{md_markdown_2_project_compilation_autotoc_md12}%
+
+
+The project can be compiled using Bazel. Follow the instructions for your platform.\hypertarget{md_markdown_2_project_compilation_autotoc_md13}{}\doxysection{\texorpdfstring{Windows \& mac\+OS}{Windows \& mac\+OS}}\label{md_markdown_2_project_compilation_autotoc_md13}
+Use the following commands\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bazel\ build\ -\/c\ opt\ //:VenomEngine}
+\DoxyCodeLine{bazel\ run\ //:VenomEngine}
+
+\end{DoxyCode}
+\hypertarget{md_markdown_2_project_compilation_autotoc_md14}{}\doxysection{\texorpdfstring{Linux}{Linux}}\label{md_markdown_2_project_compilation_autotoc_md14}
+Ensure you know which windowing system you are using ({\ttfamily X11} or {\ttfamily Wayland}). The default setup is based on {\ttfamily X11}.\hypertarget{md_markdown_2_project_compilation_autotoc_md15}{}\doxysubsection{\texorpdfstring{Switching to Wayland}{Switching to Wayland}}\label{md_markdown_2_project_compilation_autotoc_md15}
+Modify the following Bazel {\ttfamily BUILD} files\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily /lib/\+GLFW/\+BUILD}\+: Comment every instance of {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+X11"{}} and uncomment {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+WAYLAND"{}}.
+\item {\ttfamily /lib/vulkan/\+BUILD}\+: Comment every instance of {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+X11"{}} and uncomment {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+WAYLAND"{}}.
+\end{DoxyItemize}\hypertarget{md_markdown_2_project_compilation_autotoc_md16}{}\doxysubsection{\texorpdfstring{Compilation and Execution}{Compilation and Execution}}\label{md_markdown_2_project_compilation_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bazel\ build\ -\/c\ opt\ //:VenomEngine}
+\DoxyCodeLine{bazel\ run\ //:VenomEngine}
+
+\end{DoxyCode}
+ 

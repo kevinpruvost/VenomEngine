@@ -106,33 +106,77 @@ $(function(){initNavTree('namespacevenom_1_1common.html',''); initResizable(true
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">venom::common Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>High-Level Frontend of the VenomEngine project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace.  
+<p>High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_application.html">Application</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_application_backend.html">ApplicationBackend</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_config.html">Config</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_context.html">Context</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a shared library handle and provides a way to get symbols from it.  <a href="classvenom_1_1common_1_1_d_l_l.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a shared library handle and provides a way to get symbols from it, can only be created through <a class="el" href="classvenom_1_1common_1_1_d_l_l.html#ab11a2004d9fc1ff8c3d3379a6fc7d06b" title="Forces user to use dynamic allocation.">DLL::Create()</a>  <a href="classvenom_1_1common_1_1_d_l_l.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds all DLLs loaded in memory unless explicitly unloaded/deleted.  <a href="classvenom_1_1common_1_1_d_l_l___cache.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">GraphicsPluginObject</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_log.html">Log</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_mesh.html">Mesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all the mesh's data and is the main high-level interface for the user.  <a href="classvenom_1_1common_1_1_mesh.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin.html">Plugin</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_manager.html">PluginManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object.html">PluginObject</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_resources.html">Resources</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a0f19c987f3d388f9c1e3275fe3f433ee" id="r_a0f19c987f3d388f9c1e3275fe3f433ee"><td class="memItemLeft" align="right" valign="top"><a id="a0f19c987f3d388f9c1e3275fe3f433ee" name="a0f19c987f3d388f9c1e3275fe3f433ee"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>VertexPos</b></td></tr>
+<tr class="memdesc:a0f19c987f3d388f9c1e3275fe3f433ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Position (3 floats) <br /></td></tr>
+<tr class="separator:a0f19c987f3d388f9c1e3275fe3f433ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5dea3e0c33e7f9fa8a70316511e3e18" id="r_af5dea3e0c33e7f9fa8a70316511e3e18"><td class="memItemLeft" align="right" valign="top"><a id="af5dea3e0c33e7f9fa8a70316511e3e18" name="af5dea3e0c33e7f9fa8a70316511e3e18"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>VertexNormal</b></td></tr>
+<tr class="memdesc:af5dea3e0c33e7f9fa8a70316511e3e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Normal (3 floats) <br /></td></tr>
+<tr class="separator:af5dea3e0c33e7f9fa8a70316511e3e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86d88b160aab29b665181932349b5e7" id="r_ad86d88b160aab29b665181932349b5e7"><td class="memItemLeft" align="right" valign="top"><a id="ad86d88b160aab29b665181932349b5e7" name="ad86d88b160aab29b665181932349b5e7"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>VertexColor</b></td></tr>
+<tr class="memdesc:ad86d88b160aab29b665181932349b5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Color (3 floats) <br /></td></tr>
+<tr class="separator:ad86d88b160aab29b665181932349b5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5801dca444d1280b4aeae918a1ba2771" id="r_a5801dca444d1280b4aeae918a1ba2771"><td class="memItemLeft" align="right" valign="top"><a id="a5801dca444d1280b4aeae918a1ba2771" name="a5801dca444d1280b4aeae918a1ba2771"></a>
+typedef Vec2&#160;</td><td class="memItemRight" valign="bottom"><b>VertexUV</b></td></tr>
+<tr class="memdesc:a5801dca444d1280b4aeae918a1ba2771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Texture Coordinates (2 floats) <br /></td></tr>
+<tr class="separator:a5801dca444d1280b4aeae918a1ba2771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9df425bc83943263aed8723682338ee" id="r_aa9df425bc83943263aed8723682338ee"><td class="memItemLeft" align="right" valign="top"><a id="aa9df425bc83943263aed8723682338ee" name="aa9df425bc83943263aed8723682338ee"></a>
+typedef Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>VertexBitangent</b></td></tr>
+<tr class="memdesc:aa9df425bc83943263aed8723682338ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Bitangent (3 floats) <br /></td></tr>
+<tr class="separator:aa9df425bc83943263aed8723682338ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51135be0a3e83e6ec8179802f8737ce" id="r_ad51135be0a3e83e6ec8179802f8737ce"><td class="memItemLeft" align="right" valign="top"><a id="ad51135be0a3e83e6ec8179802f8737ce" name="ad51135be0a3e83e6ec8179802f8737ce"></a>
+typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>VertexIndex</b></td></tr>
+<tr class="memdesc:ad51135be0a3e83e6ec8179802f8737ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Index (used for indexing in element buffers) <br /></td></tr>
+<tr class="separator:ad51135be0a3e83e6ec8179802f8737ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90741080148150d7bd6816520f32b60c" id="r_a90741080148150d7bd6816520f32b60c"><td class="memItemLeft" align="right" valign="top"><a id="a90741080148150d7bd6816520f32b60c" name="a90741080148150d7bd6816520f32b60c"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>String</b> = std::string</td></tr>
 <tr class="separator:a90741080148150d7bd6816520f32b60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,48 +184,73 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>String</b> = std::st
 typedef bazel::tools::cpp::runfiles::Runfiles&#160;</td><td class="memItemRight" valign="bottom"><b>Runfiles</b></td></tr>
 <tr class="separator:a80ccda757db61d2acd0ce573746f1278"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ab35b7391fbd93ecb3e6d451155c93d70" id="r_ab35b7391fbd93ecb3e6d451155c93d70"><td class="memItemLeft" align="right" valign="top"><a id="ab35b7391fbd93ecb3e6d451155c93d70" name="ab35b7391fbd93ecb3e6d451155c93d70"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Error</b> : uint32_t { <br />
-&#160;&#160;<b>Success</b> = 0
-, <b>Failure</b> = 1 &lt;&lt; 0
-, <b>InvalidArgument</b> = 1 &lt;&lt; 1
-, <b>OutOfMemory</b> = 1 &lt;&lt; 2
-, <br />
-&#160;&#160;<b>DeviceLost</b> = 1 &lt;&lt; 3
-, <b>InitializationFailed</b> = 1 &lt;&lt; 4
-, <b>InvalidUse</b> = 1 &lt;&lt; 5
-, <b>Unknown</b> = UINT32_MAX
-<br />
- }</td></tr>
-<tr class="separator:ab35b7391fbd93ecb3e6d451155c93d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad364eaaef114535cdf6ac0bee25ef102" id="r_ad364eaaef114535cdf6ac0bee25ef102"><td class="memItemLeft" align="right" valign="top"><a id="ad364eaaef114535cdf6ac0bee25ef102" name="ad364eaaef114535cdf6ac0bee25ef102"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>InitializeResourcesFilesystem</b> (char **argv)</td></tr>
-<tr class="separator:ad364eaaef114535cdf6ac0bee25ef102"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdcc1f192897509482bc3234bb8873ad" id="r_acdcc1f192897509482bc3234bb8873ad"><td class="memItemLeft" align="right" valign="top"><a id="acdcc1f192897509482bc3234bb8873ad" name="acdcc1f192897509482bc3234bb8873ad"></a>
-bazel::tools::cpp::runfiles::Runfiles *&#160;</td><td class="memItemRight" valign="bottom"><b>GetRunfiles</b> ()</td></tr>
-<tr class="separator:acdcc1f192897509482bc3234bb8873ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae35e7c0cb328ad8b77273afdb13a4697" id="r_ae35e7c0cb328ad8b77273afdb13a4697"><td class="memItemLeft" align="right" valign="top"><a id="ae35e7c0cb328ad8b77273afdb13a4697" name="ae35e7c0cb328ad8b77273afdb13a4697"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setErrorString</b> (const char *str)</td></tr>
-<tr class="separator:ae35e7c0cb328ad8b77273afdb13a4697"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49f87813aa0a3ce530f3cdc21cddf8aa" id="r_a49f87813aa0a3ce530f3cdc21cddf8aa"><td class="memItemLeft" align="right" valign="top"><a id="a49f87813aa0a3ce530f3cdc21cddf8aa" name="a49f87813aa0a3ce530f3cdc21cddf8aa"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>getErrorString</b> ()</td></tr>
-<tr class="separator:a49f87813aa0a3ce530f3cdc21cddf8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d51f2181f799d19919ff6bda18b8cd1" id="r_a6d51f2181f799d19919ff6bda18b8cd1"><td class="memItemLeft" align="right" valign="top"><a id="a6d51f2181f799d19919ff6bda18b8cd1" name="a6d51f2181f799d19919ff6bda18b8cd1"></a>
+VENOM_COMMON_API void&#160;</td><td class="memItemRight" valign="bottom"><b>setErrorString</b> (const char *str)</td></tr>
+<tr class="separator:a6d51f2181f799d19919ff6bda18b8cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe3dcafc92575a53a242777f3c78d87b" id="r_abe3dcafc92575a53a242777f3c78d87b"><td class="memTemplParams" colspan="2"><a id="abe3dcafc92575a53a242777f3c78d87b" name="abe3dcafc92575a53a242777f3c78d87b"></a>
 template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:abe3dcafc92575a53a242777f3c78d87b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>setErrorString</b> (const char *fmt, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:abe3dcafc92575a53a242777f3c78d87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b5d16f34cb53e0ca812addaed8da19" id="r_a62b5d16f34cb53e0ca812addaed8da19"><td class="memItemLeft" align="right" valign="top"><a id="a62b5d16f34cb53e0ca812addaed8da19" name="a62b5d16f34cb53e0ca812addaed8da19"></a>
+VENOM_COMMON_API const char *&#160;</td><td class="memItemRight" valign="bottom"><b>getErrorString</b> ()</td></tr>
+<tr class="separator:a62b5d16f34cb53e0ca812addaed8da19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3503d5de3a440ca113b293ef46b1a27" id="r_af3503d5de3a440ca113b293ef46b1a27"><td class="memTemplParams" colspan="2"><a id="af3503d5de3a440ca113b293ef46b1a27" name="af3503d5de3a440ca113b293ef46b1a27"></a>
 template&lt;typename ... Args&gt; </td></tr>
 <tr class="memitem:af3503d5de3a440ca113b293ef46b1a27"><td class="memTemplItemLeft" align="right" valign="top">String&#160;</td><td class="memTemplItemRight" valign="bottom"><b>format</b> (const char *fmt, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:af3503d5de3a440ca113b293ef46b1a27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a34a5d62fc5eff2b4ad7bfeed27c03c" id="r_a0a34a5d62fc5eff2b4ad7bfeed27c03c"><td class="memTemplParams" colspan="2"><a id="a0a34a5d62fc5eff2b4ad7bfeed27c03c" name="a0a34a5d62fc5eff2b4ad7bfeed27c03c"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0a34a5d62fc5eff2b4ad7bfeed27c03c"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>LoadPluginFromNameAndType</b> (const std::string &amp;libName, const char *functionName)</td></tr>
+<tr class="separator:a0a34a5d62fc5eff2b4ad7bfeed27c03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a213023f1920a6c9efd79fe975ecd0fed" id="r_a213023f1920a6c9efd79fe975ecd0fed"><td class="memItemLeft" align="right" valign="top"><a id="a213023f1920a6c9efd79fe975ecd0fed" name="a213023f1920a6c9efd79fe975ecd0fed"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>Error</b></td></tr>
+<tr class="separator:a213023f1920a6c9efd79fe975ecd0fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f4b675a5fa27c80eaae4f89a98553f7" id="r_a7f4b675a5fa27c80eaae4f89a98553f7"><td class="memItemLeft" align="right" valign="top"><a id="a7f4b675a5fa27c80eaae4f89a98553f7" name="a7f4b675a5fa27c80eaae4f89a98553f7"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>Failure</b> = 1 &lt;&lt; 0</td></tr>
+<tr class="separator:a7f4b675a5fa27c80eaae4f89a98553f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02997e1de3b4698fa8ad76db8c875647" id="r_a02997e1de3b4698fa8ad76db8c875647"><td class="memItemLeft" align="right" valign="top"><a id="a02997e1de3b4698fa8ad76db8c875647" name="a02997e1de3b4698fa8ad76db8c875647"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>InvalidArgument</b> = 1 &lt;&lt; 1</td></tr>
+<tr class="separator:a02997e1de3b4698fa8ad76db8c875647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ac0b8622980167f7de452755bf2548" id="r_a58ac0b8622980167f7de452755bf2548"><td class="memItemLeft" align="right" valign="top"><a id="a58ac0b8622980167f7de452755bf2548" name="a58ac0b8622980167f7de452755bf2548"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>OutOfMemory</b> = 1 &lt;&lt; 2</td></tr>
+<tr class="separator:a58ac0b8622980167f7de452755bf2548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad394a6573e1c930752482afa5e8b3c66" id="r_ad394a6573e1c930752482afa5e8b3c66"><td class="memItemLeft" align="right" valign="top"><a id="ad394a6573e1c930752482afa5e8b3c66" name="ad394a6573e1c930752482afa5e8b3c66"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>DeviceLost</b> = 1 &lt;&lt; 3</td></tr>
+<tr class="separator:ad394a6573e1c930752482afa5e8b3c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf31c07cf05a5be8ed9bc2e90674b7f" id="r_afcf31c07cf05a5be8ed9bc2e90674b7f"><td class="memItemLeft" align="right" valign="top"><a id="afcf31c07cf05a5be8ed9bc2e90674b7f" name="afcf31c07cf05a5be8ed9bc2e90674b7f"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>InitializationFailed</b> = 1 &lt;&lt; 4</td></tr>
+<tr class="separator:afcf31c07cf05a5be8ed9bc2e90674b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72898516813076851d5bb5ab87e20ec9" id="r_a72898516813076851d5bb5ab87e20ec9"><td class="memItemLeft" align="right" valign="top"><a id="a72898516813076851d5bb5ab87e20ec9" name="a72898516813076851d5bb5ab87e20ec9"></a>
+enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>InvalidUse</b> = 1 &lt;&lt; 5</td></tr>
+<tr class="separator:a72898516813076851d5bb5ab87e20ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2841f877864bbe896a476e122c83b1be" id="r_a2841f877864bbe896a476e122c83b1be"><td class="memItemLeft" align="right" valign="top">enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2841f877864bbe896a476e122c83b1be">Unknown</a></td></tr>
+<tr class="separator:a2841f877864bbe896a476e122c83b1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>High-Level Frontend of the VenomEngine project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. </p>
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="a2841f877864bbe896a476e122c83b1be" name="a2841f877864bbe896a476e122c83b1be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2841f877864bbe896a476e122c83b1be">&#9670;&#160;</a></span>Unknown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum VENOM_COMMON_API venom::common::Unknown</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= UINT32_MAX</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

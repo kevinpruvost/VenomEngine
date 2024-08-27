@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initswapchain_0',['InitSwapChain',['../classvenom_1_1vulkan_1_1_swap_chain.html#aa6f6d7a92eff59206ea953c6d3766e21',1,'venom::vulkan::SwapChain']]]
+  ['destroy_0',['Destroy',['../classvenom_1_1common_1_1_plugin_object.html#a59339c9ff38ee2b81dcf8adc3b17e847',1,'venom::common::PluginObject']]]
 ];

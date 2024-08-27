@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/common/DLL.h Source File</title>
+<title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/DLL.h Source File</title>
 <link rel="icon" href="VenomEngineLogo_VerySmall.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -118,40 +118,72 @@ $(function(){initNavTree('_d_l_l_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;dlfcn.h&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="_export_8h.html">common/Export.h</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacevenom.html">venom</a></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>common</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_d_l_l.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* path);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">~DLL</a>();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> * <a class="code hl_variable" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">GetFunction</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * name);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ReturnType, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">   43</a></span>    ReturnType(*<a class="code hl_variable" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">GetFunction</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * name))(Args...) { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>ReturnType(*)(Args...)<span class="keyword">&gt;</span>(<a class="code hl_variable" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">GetFunction</a>(name)); }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> * handle_;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="_export_8h.html">venom/common/Export.h</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="_error_8h.html">venom/common/Error.h</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacevenom.html">venom</a></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span>common</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_d_l_l.html">   30</a></span><span class="keyword">class </span>VENOM_COMMON_API <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">static</span> <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> * Create();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">static</span> <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> * GetFromCache(<span class="keyword">const</span> std::string &amp; path);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">~DLL</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> * GetFunction(<span class="keyword">const</span> <span class="keywordtype">char</span> * name);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ReturnType, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">   54</a></span>    ReturnType(*<a class="code hl_variable" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">GetFunction</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * name))(Args...) { <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>ReturnType(*)(Args...)<span class="keyword">&gt;</span>(<a class="code hl_variable" href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">GetFunction</a>(name)); }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    Error LoadDLL(<span class="keyword">const</span> <span class="keywordtype">char</span> * path);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">inline</span> Error ReloadDLL(<span class="keyword">const</span> <span class="keywordtype">char</span> * path) { <span class="keywordflow">return</span> LoadDLL(path); }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">void</span> UnloadDLL() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> * __handle;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    std::string __path;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
 </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="};">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_d_l_l___cache.html">   66</a></span><span class="keyword">class </span>VENOM_COMMON_API <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l___cache.html">~DLL_Cache</a>();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">void</span> StoreInCache(<span class="keyword">const</span> std::string &amp; name, <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> * dll);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> UnloadFromCache(<span class="keyword">const</span> std::string &amp; name);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> * GetFromCache(<span class="keyword">const</span> std::string &amp; name);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">static</span> <a class="code hl_class" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a> * GetInstance();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    std::unordered_map&lt;std::string, std::shared_ptr&lt;DLL&gt;&gt; __dlls;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="ttc" id="a_error_8h_html"><div class="ttname"><a href="_error_8h.html">Error.h</a></div></div>
 <div class="ttc" id="a_export_8h_html"><div class="ttname"><a href="_export_8h.html">Export.h</a></div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_d_l_l_html"><div class="ttname"><a href="classvenom_1_1common_1_1_d_l_l.html">venom::common::DLL</a></div><div class="ttdoc">Contains a shared library handle and provides a way to get symbols from it.</div><div class="ttdef"><b>Definition</b> DLL.h:27</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_d_l_l_html_a36a1d304316faa732690a03e23a075ed"><div class="ttname"><a href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">venom::common::DLL::GetFunction</a></div><div class="ttdeci">ReturnType(*)(Args...) GetFunction(const char *name)</div><div class="ttdoc">Gets a function from the DLL and casts it to the correct type.</div><div class="ttdef"><b>Definition</b> DLL.h:43</div></div>
-<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Application.cc:14</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_d_l_l___cache_html"><div class="ttname"><a href="classvenom_1_1common_1_1_d_l_l___cache.html">venom::common::DLL_Cache</a></div><div class="ttdoc">Holds all DLLs loaded in memory unless explicitly unloaded/deleted.</div><div class="ttdef"><b>Definition</b> DLL.h:67</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_d_l_l_html"><div class="ttname"><a href="classvenom_1_1common_1_1_d_l_l.html">venom::common::DLL</a></div><div class="ttdoc">Contains a shared library handle and provides a way to get symbols from it, can only be created throu...</div><div class="ttdef"><b>Definition</b> DLL.h:31</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_d_l_l_html_a36a1d304316faa732690a03e23a075ed"><div class="ttname"><a href="classvenom_1_1common_1_1_d_l_l.html#a36a1d304316faa732690a03e23a075ed">venom::common::DLL::GetFunction</a></div><div class="ttdeci">ReturnType(*)(Args...) GetFunction(const char *name)</div><div class="ttdoc">Gets a function from the DLL and casts it to the correct type.</div><div class="ttdef"><b>Definition</b> DLL.h:54</div></div>
+<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_8273792b21813559f16458fef7dc9365.html">common</a></li><li class="navelem"><a class="el" href="_d_l_l_8h.html">DLL.h</a></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_6ac3d180bc89a0c08bca8855d396dc0f.html">venom</a></li><li class="navelem"><a class="el" href="dir_0b493514b1cad3961d82ee5798442dca.html">common</a></li><li class="navelem"><a class="el" href="_d_l_l_8h.html">DLL.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

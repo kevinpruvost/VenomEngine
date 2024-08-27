@@ -22,6 +22,7 @@ public:
     ShaderPipeline();
     ~ShaderPipeline();
 
+    VkPipelineVertexInputStateCreateInfo SetupVertexInput();
     vc::Error LoadShaders(const VkDevice logicalDevice, const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
     VkPipeline GetPipeline() const;
 

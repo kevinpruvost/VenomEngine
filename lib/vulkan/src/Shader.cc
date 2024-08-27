@@ -11,6 +11,8 @@
 
 #include <venom/common/Resources.h>
 
+#include "venom/common/math/Vector.h"
+
 namespace venom::vulkan
 {
 
@@ -29,9 +31,51 @@ ShaderPipeline::~ShaderPipeline()
         vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, nullptr);
 }
 
+VkPipelineVertexInputStateCreateInfo ShaderPipeline::SetupVertexInput()
+{
+    // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
+    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+
+    // Define binding descriptions
+    VkVertexInputBindingDescription bindingDescriptions[2] = {};
+
+    // Binding 0: positions
+    bindingDescriptions[0].binding = 0;
+    bindingDescriptions[0].stride = sizeof(vc::Vec3);
+    bindingDescriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    // Binding 1: colors
+    bindingDescriptions[1].binding = 1;
+    bindingDescriptions[1].stride = sizeof(vc::Vec3);
+    bindingDescriptions[1].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    // Define attribute descriptions
+    VkVertexInputAttributeDescription attributeDescriptions[2] = {};
+
+    // Attribute 0: position at binding 0
+    attributeDescriptions[0].binding = 0;
+    attributeDescriptions[0].location = 0;
+    attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[0].offset = 0;
+
+    // Attribute 1: color at binding 1
+    attributeDescriptions[1].binding = 1;
+    attributeDescriptions[1].location = 1;
+    attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[1].offset = 0;
+
+    vertexInputInfo.vertexAttributeDescriptionCount = 2;
+    vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions;
+    vertexInputInfo.vertexBindingDescriptionCount = 2;
+    vertexInputInfo.pVertexBindingDescriptions = bindingDescriptions;
+
+    return vertexInputInfo;
+}
+
 vc::Error ShaderPipeline::LoadShader(const VkDevice logicalDevice,
-    const std::string& shaderPath,
-    VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
+                                     const std::string& shaderPath,
+                                     VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
     const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath + ".spv";
     const std::string path = vc::Resources::GetResourcePath(folder_shaderPath);
@@ -108,14 +152,6 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
             }
         }
     }
-
-    // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
-    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
-    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputInfo.vertexBindingDescriptionCount = 0;
-    vertexInputInfo.pVertexBindingDescriptions = nullptr; // Optional
-    vertexInputInfo.vertexAttributeDescriptionCount = 0;
-    vertexInputInfo.pVertexAttributeDescriptions = nullptr; // Optional
 
     // Input Assembly: Describes how primitives are assembled
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -214,6 +250,43 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
     }
     __logicalDevice = logicalDevice;
 
+    // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
+    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+
+    // Define binding descriptions
+    VkVertexInputBindingDescription bindingDescriptions[2] = {};
+
+    // Binding 0: positions
+    bindingDescriptions[0].binding = 0;
+    bindingDescriptions[0].stride = sizeof(vc::Vec3);
+    bindingDescriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    // Binding 1: colors
+    bindingDescriptions[1].binding = 1;
+    bindingDescriptions[1].stride = sizeof(vc::Vec3);
+    bindingDescriptions[1].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    // Define attribute descriptions
+    VkVertexInputAttributeDescription attributeDescriptions[2] = {};
+
+    // Attribute 0: position at binding 0
+    attributeDescriptions[0].binding = 0;
+    attributeDescriptions[0].location = 0;
+    attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[0].offset = 0;
+
+    // Attribute 1: color at binding 1
+    attributeDescriptions[1].binding = 1;
+    attributeDescriptions[1].location = 1;
+    attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[1].offset = 0;
+
+    vertexInputInfo.vertexAttributeDescriptionCount = 2;
+    vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions;
+    vertexInputInfo.vertexBindingDescriptionCount = 2;
+    vertexInputInfo.pVertexBindingDescriptions = bindingDescriptions;
+
     // Setting up the pipeline
     VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
     graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -243,6 +316,7 @@ vc::Error ShaderPipeline::LoadShaders(const VkDevice logicalDevice, const SwapCh
     for (int i = 0; i < shaderStages.size(); ++i) {
         vkDestroyShaderModule(logicalDevice, shaderStages[i].module, nullptr);
     }
+
     return vc::Error::Success;
 }
 

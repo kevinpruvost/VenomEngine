@@ -19,8 +19,6 @@ int main(int argc, char** argv)
     vc::VenomEngine * engine = vc::VenomEngine::GetInstance();
     vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
 
-    auto mesh = vc::Mesh::Create();
-    mesh->Draw();
     if (const vc::Error err = app->Run(); err != vc::Error::Success)
     {
         printf("Failed to run application: %d\n", static_cast<int>(err));

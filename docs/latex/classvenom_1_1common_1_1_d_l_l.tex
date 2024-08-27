@@ -2,7 +2,7 @@
 \hypertarget{classvenom_1_1common_1_1_d_l_l}{}\label{classvenom_1_1common_1_1_d_l_l}\index{venom::common::DLL@{venom::common::DLL}}
 
 
-Contains a shared library handle and provides a way to get symbols from it.  
+Contains a shared library handle and provides a way to get symbols from it, can only be created through \doxylink{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}{DLL\+::\+Create()}  
 
 
 
@@ -12,11 +12,24 @@ Contains a shared library handle and provides a way to get symbols from it.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_d_l_l_a818a8f3c4fad5ee6bc582fca86a8f00c}\label{classvenom_1_1common_1_1_d_l_l_a818a8f3c4fad5ee6bc582fca86a8f00c} 
-{\bfseries DLL} (const char \texorpdfstring{$\ast$}{*}path)
-\item 
 void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_ad09e577f26449ff1020abb5cd72950fb}{Get\+Function}} (const char \texorpdfstring{$\ast$}{*}name)
-\begin{DoxyCompactList}\small\item\em Gets a function from the \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets a function from the \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL}. \end{DoxyCompactList}\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l_a5ea95866bb7aea7b46f21c15af8c44f7}\label{classvenom_1_1common_1_1_d_l_l_a5ea95866bb7aea7b46f21c15af8c44f7} 
+Error {\bfseries Load\+DLL} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l_a51392d960142c99071425d3eb2da1e72}\label{classvenom_1_1common_1_1_d_l_l_a51392d960142c99071425d3eb2da1e72} 
+Error {\bfseries Reload\+DLL} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l_ab142495f0ef59836e4499f01abd5cd3a}\label{classvenom_1_1common_1_1_d_l_l_ab142495f0ef59836e4499f01abd5cd3a} 
+void {\bfseries Unload\+DLL} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}{Create}} ()
+\begin{DoxyCompactList}\small\item\em Forces user to use dynamic allocation. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_ac58179ea24ad52255f309ad4b52e1435}{Get\+From\+Cache}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Searched for \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} in cache, if not found creates a new one. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -25,9 +38,35 @@ void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_
 
 
 \doxysubsection{Detailed Description}
-Contains a shared library handle and provides a way to get symbols from it. 
+Contains a shared library handle and provides a way to get symbols from it, can only be created through \doxylink{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}{DLL\+::\+Create()} 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}\index{venom::common::DLL@{venom::common::DLL}!Create@{Create}}
+\index{Create@{Create}!venom::common::DLL@{venom::common::DLL}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} venom\+::common\+::\+DLL\+::\+Create (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Forces user to use dynamic allocation. 
+
+\begin{DoxyReturn}{Returns}
+new \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_d_l_l_ac58179ea24ad52255f309ad4b52e1435}\index{venom::common::DLL@{venom::common::DLL}!GetFromCache@{GetFromCache}}
+\index{GetFromCache@{GetFromCache}!venom::common::DLL@{venom::common::DLL}}
+\doxysubsubsection{\texorpdfstring{GetFromCache()}{GetFromCache()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_d_l_l_ac58179ea24ad52255f309ad4b52e1435} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} venom\+::common\+::\+DLL\+::\+Get\+From\+Cache (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Searched for \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} in cache, if not found creates a new one. 
+
+\begin{DoxyReturn}{Returns}
+existing or new \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} 
+\end{DoxyReturn}
 \Hypertarget{classvenom_1_1common_1_1_d_l_l_ad09e577f26449ff1020abb5cd72950fb}\index{venom::common::DLL@{venom::common::DLL}!GetFunction@{GetFunction}}
 \index{GetFunction@{GetFunction}!venom::common::DLL@{venom::common::DLL}}
 \doxysubsubsection{\texorpdfstring{GetFunction()}{GetFunction()}}
@@ -79,5 +118,5 @@ sym address in the form Return\+Type(\texorpdfstring{$\ast$}{*})(Args...)
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/common/\mbox{\hyperlink{_d_l_l_8h}{DLL.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/\mbox{\hyperlink{_d_l_l_8cc}{DLL.\+cc}}\end{DoxyCompactItemize}
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/venom/common/\mbox{\hyperlink{_d_l_l_8h}{DLL.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/src/\mbox{\hyperlink{_d_l_l_8cc}{DLL.\+cc}}\end{DoxyCompactItemize}

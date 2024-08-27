@@ -1,0 +1,19 @@
+\doxysubsection{DirectX Shader Compiler Setup}
+\hypertarget{dxc_setup}{}\label{dxc_setup}\index{DirectX Shader Compiler Setup@{DirectX Shader Compiler Setup}}
+Instructions for setting up DirectX Shader Compiler to compile HLSL shaders to SPIR-\/V.\hypertarget{dxc_setup_prerequisites}{}\doxysubsubsection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{dxc_setup_prerequisites}
+Refer to the official \href{https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/BuildingAndTestingDXC.rst\#prerequisites}{\texttt{ DXC Prerequisites}}.\hypertarget{dxc_setup_automated_setup}{}\doxysubsubsection{\texorpdfstring{Automated Setup}{Automated Setup}}\label{dxc_setup_automated_setup}
+Use the following Makefile command\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ dxc}
+
+\end{DoxyCode}
+\hypertarget{dxc_setup_manual_setup}{}\doxysubsubsection{\texorpdfstring{Manual Setup}{Manual Setup}}\label{dxc_setup_manual_setup}
+Alternatively, you can manually build DXC\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ cmake\_build}
+\DoxyCodeLine{cd\ cmake\_build}
+\DoxyCodeLine{cmake\ ../lib/DirectXShaderCompiler\ -\/G\ <Generator>\ -\/C\ ../lib/DirectXShaderCompiler/cmake/caches/PredefinedParams.cmake\ -\/DCMAKE\_BUILD\_TYPE=Release\ -\/DDXC\_USE\_LIT=On\ -\/DLLVM\_ENABLE\_ASSERTIONS=On\ -\/DLLVM\_LIT\_ARGS="{}-\/v"{}}
+\DoxyCodeLine{cmake\ -\/-\/build\ .\ -\/-\/target\ dxc\ -\/-\/config\ Release}
+
+\end{DoxyCode}
+ 

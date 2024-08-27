@@ -1,7 +1,7 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/common/\+Error.h File Reference}
-\hypertarget{_error_8h}{}\label{_error_8h}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/Error.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/common/Error.h}}
-{\ttfamily \#include $<$common/\+Export.\+h$>$}\newline
-{\ttfamily \#include $<$common/\+Debug.\+h$>$}\newline
+\doxysection{D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/venom/common/\+Error.h File Reference}
+\hypertarget{_error_8h}{}\label{_error_8h}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/Error.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/Error.h}}
+{\ttfamily \#include $<$venom/common/\+Export.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Debug.\+h$>$}\newline
 {\ttfamily \#include $<$cstdint$>$}\newline
 {\ttfamily \#include $<$cstring$>$}\newline
 {\ttfamily \#include "{}String.\+h"{}}\newline
@@ -11,34 +11,44 @@
 namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
-\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the Venom\+Engine project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Enumerations}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{namespacevenom_1_1common_ab35b7391fbd93ecb3e6d451155c93d70}\label{namespacevenom_1_1common_ab35b7391fbd93ecb3e6d451155c93d70} 
-enum class {\bfseries Error} \+: uint32\+\_\+t \{ \newline
-{\bfseries Success} = 0
-, {\bfseries Failure} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
-, {\bfseries Invalid\+Argument} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
-, {\bfseries Out\+Of\+Memory} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
-, \newline
-{\bfseries Device\+Lost} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
-, {\bfseries Initialization\+Failed} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
-, {\bfseries Invalid\+Use} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
-, {\bfseries Unknown} = UINT32\+\_\+\+MAX
- \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{namespacevenom_1_1common_ae35e7c0cb328ad8b77273afdb13a4697}\label{namespacevenom_1_1common_ae35e7c0cb328ad8b77273afdb13a4697} 
-void {\bfseries venom\+::common\+::set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}str)
+\Hypertarget{namespacevenom_1_1common_a6d51f2181f799d19919ff6bda18b8cd1}\label{namespacevenom_1_1common_a6d51f2181f799d19919ff6bda18b8cd1} 
+VENOM\+\_\+\+COMMON\+\_\+\+API void {\bfseries venom\+::common\+::set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}str)
 \item 
 \Hypertarget{namespacevenom_1_1common_abe3dcafc92575a53a242777f3c78d87b}\label{namespacevenom_1_1common_abe3dcafc92575a53a242777f3c78d87b} 
 {\footnotesize template$<$typename... Args$>$ }\\void {\bfseries venom\+::common\+::set\+Error\+String} (const char \texorpdfstring{$\ast$}{*}fmt, Args \&\&... args)
 \item 
-\Hypertarget{namespacevenom_1_1common_a49f87813aa0a3ce530f3cdc21cddf8aa}\label{namespacevenom_1_1common_a49f87813aa0a3ce530f3cdc21cddf8aa} 
-const char \texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::get\+Error\+String} ()
+\Hypertarget{namespacevenom_1_1common_a62b5d16f34cb53e0ca812addaed8da19}\label{namespacevenom_1_1common_a62b5d16f34cb53e0ca812addaed8da19} 
+VENOM\+\_\+\+COMMON\+\_\+\+API const char \texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::get\+Error\+String} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a213023f1920a6c9efd79fe975ecd0fed}\label{namespacevenom_1_1common_a213023f1920a6c9efd79fe975ecd0fed} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Error}
+\item 
+\Hypertarget{namespacevenom_1_1common_a7f4b675a5fa27c80eaae4f89a98553f7}\label{namespacevenom_1_1common_a7f4b675a5fa27c80eaae4f89a98553f7} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Failure} = 1 $<$$<$ 0
+\item 
+\Hypertarget{namespacevenom_1_1common_a02997e1de3b4698fa8ad76db8c875647}\label{namespacevenom_1_1common_a02997e1de3b4698fa8ad76db8c875647} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Invalid\+Argument} = 1 $<$$<$ 1
+\item 
+\Hypertarget{namespacevenom_1_1common_a58ac0b8622980167f7de452755bf2548}\label{namespacevenom_1_1common_a58ac0b8622980167f7de452755bf2548} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Out\+Of\+Memory} = 1 $<$$<$ 2
+\item 
+\Hypertarget{namespacevenom_1_1common_ad394a6573e1c930752482afa5e8b3c66}\label{namespacevenom_1_1common_ad394a6573e1c930752482afa5e8b3c66} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Device\+Lost} = 1 $<$$<$ 3
+\item 
+\Hypertarget{namespacevenom_1_1common_afcf31c07cf05a5be8ed9bc2e90674b7f}\label{namespacevenom_1_1common_afcf31c07cf05a5be8ed9bc2e90674b7f} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Initialization\+Failed} = 1 $<$$<$ 4
+\item 
+\Hypertarget{namespacevenom_1_1common_a72898516813076851d5bb5ab87e20ec9}\label{namespacevenom_1_1common_a72898516813076851d5bb5ab87e20ec9} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Invalid\+Use} = 1 $<$$<$ 5
+\item 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API \mbox{\hyperlink{namespacevenom_1_1common_a2841f877864bbe896a476e122c83b1be}{venom\+::common\+::\+Unknown}}
 \end{DoxyCompactItemize}
 
 

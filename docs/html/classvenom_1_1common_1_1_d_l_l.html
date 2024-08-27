@@ -105,36 +105,108 @@ $(function(){initNavTree('classvenom_1_1common_1_1_d_l_l.html',''); initResizabl
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classvenom_1_1common_1_1_d_l_l-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::common::DLL Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains a shared library handle and provides a way to get symbols from it.  
+<p>Contains a shared library handle and provides a way to get symbols from it, can only be created through <a class="el" href="#ab11a2004d9fc1ff8c3d3379a6fc7d06b" title="Forces user to use dynamic allocation.">DLL::Create()</a>  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_d_l_l_8h_source.html">DLL.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a818a8f3c4fad5ee6bc582fca86a8f00c" id="r_a818a8f3c4fad5ee6bc582fca86a8f00c"><td class="memItemLeft" align="right" valign="top"><a id="a818a8f3c4fad5ee6bc582fca86a8f00c" name="a818a8f3c4fad5ee6bc582fca86a8f00c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DLL</b> (const char *path)</td></tr>
-<tr class="separator:a818a8f3c4fad5ee6bc582fca86a8f00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad09e577f26449ff1020abb5cd72950fb" id="r_ad09e577f26449ff1020abb5cd72950fb"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad09e577f26449ff1020abb5cd72950fb">GetFunction</a> (const char *name)</td></tr>
-<tr class="memdesc:ad09e577f26449ff1020abb5cd72950fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it.">DLL</a>.  <br /></td></tr>
+<tr class="memdesc:ad09e577f26449ff1020abb5cd72950fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a>.  <br /></td></tr>
 <tr class="separator:ad09e577f26449ff1020abb5cd72950fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea95866bb7aea7b46f21c15af8c44f7" id="r_a5ea95866bb7aea7b46f21c15af8c44f7"><td class="memItemLeft" align="right" valign="top"><a id="a5ea95866bb7aea7b46f21c15af8c44f7" name="a5ea95866bb7aea7b46f21c15af8c44f7"></a>
+Error&#160;</td><td class="memItemRight" valign="bottom"><b>LoadDLL</b> (const char *path)</td></tr>
+<tr class="separator:a5ea95866bb7aea7b46f21c15af8c44f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51392d960142c99071425d3eb2da1e72" id="r_a51392d960142c99071425d3eb2da1e72"><td class="memItemLeft" align="right" valign="top"><a id="a51392d960142c99071425d3eb2da1e72" name="a51392d960142c99071425d3eb2da1e72"></a>
+Error&#160;</td><td class="memItemRight" valign="bottom"><b>ReloadDLL</b> (const char *path)</td></tr>
+<tr class="separator:a51392d960142c99071425d3eb2da1e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab142495f0ef59836e4499f01abd5cd3a" id="r_ab142495f0ef59836e4499f01abd5cd3a"><td class="memItemLeft" align="right" valign="top"><a id="ab142495f0ef59836e4499f01abd5cd3a" name="ab142495f0ef59836e4499f01abd5cd3a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UnloadDLL</b> () const</td></tr>
+<tr class="separator:ab142495f0ef59836e4499f01abd5cd3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab11a2004d9fc1ff8c3d3379a6fc7d06b" id="r_ab11a2004d9fc1ff8c3d3379a6fc7d06b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab11a2004d9fc1ff8c3d3379a6fc7d06b">Create</a> ()</td></tr>
+<tr class="memdesc:ab11a2004d9fc1ff8c3d3379a6fc7d06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces user to use dynamic allocation.  <br /></td></tr>
+<tr class="separator:ab11a2004d9fc1ff8c3d3379a6fc7d06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac58179ea24ad52255f309ad4b52e1435" id="r_ac58179ea24ad52255f309ad4b52e1435"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac58179ea24ad52255f309ad4b52e1435">GetFromCache</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:ac58179ea24ad52255f309ad4b52e1435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searched for <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a> in cache, if not found creates a new one.  <br /></td></tr>
+<tr class="separator:ac58179ea24ad52255f309ad4b52e1435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a36a1d304316faa732690a03e23a075ed" id="r_a36a1d304316faa732690a03e23a075ed"><td class="memTemplParams" colspan="2">template&lt;typename ReturnType , typename... Args&gt; </td></tr>
 <tr class="memitem:a36a1d304316faa732690a03e23a075ed"><td class="memTemplItemLeft" align="right" valign="top">ReturnType(*)(Args...)&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a36a1d304316faa732690a03e23a075ed">GetFunction</a> (const char *name)</td></tr>
-<tr class="memdesc:a36a1d304316faa732690a03e23a075ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it.">DLL</a> and casts it to the correct type.  <br /></td></tr>
+<tr class="memdesc:a36a1d304316faa732690a03e23a075ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a> and casts it to the correct type.  <br /></td></tr>
 <tr class="separator:a36a1d304316faa732690a03e23a075ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains a shared library handle and provides a way to get symbols from it. </p>
+<div class="textblock"><p>Contains a shared library handle and provides a way to get symbols from it, can only be created through <a class="el" href="#ab11a2004d9fc1ff8c3d3379a6fc7d06b" title="Forces user to use dynamic allocation.">DLL::Create()</a> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab11a2004d9fc1ff8c3d3379a6fc7d06b" name="ab11a2004d9fc1ff8c3d3379a6fc7d06b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab11a2004d9fc1ff8c3d3379a6fc7d06b">&#9670;&#160;</a></span>Create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> * venom::common::DLL::Create </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forces user to use dynamic allocation. </p>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a> </dd></dl>
+
+</div>
+</div>
+<a id="ac58179ea24ad52255f309ad4b52e1435" name="ac58179ea24ad52255f309ad4b52e1435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac58179ea24ad52255f309ad4b52e1435">&#9670;&#160;</a></span>GetFromCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classvenom_1_1common_1_1_d_l_l.html">DLL</a> * venom::common::DLL::GetFromCache </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searched for <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a> in cache, if not found creates a new one. </p>
+<dl class="section return"><dt>Returns</dt><dd>existing or new <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a> </dd></dl>
+
+</div>
+</div>
 <a id="ad09e577f26449ff1020abb5cd72950fb" name="ad09e577f26449ff1020abb5cd72950fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad09e577f26449ff1020abb5cd72950fb">&#9670;&#160;</a></span>GetFunction()</h2>
 
@@ -150,7 +222,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it.">DLL</a>. </p>
+<p>Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>function name </td></tr>
@@ -184,7 +256,7 @@ template&lt;typename ReturnType , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it.">DLL</a> and casts it to the correct type. </p>
+<p>Gets a function from the <a class="el" href="classvenom_1_1common_1_1_d_l_l.html" title="Contains a shared library handle and provides a way to get symbols from it, can only be created throu...">DLL</a> and casts it to the correct type. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">ReturnType</td><td>return type of the function </td></tr>
@@ -203,8 +275,8 @@ template&lt;typename ReturnType , typename... Args&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/common/<a class="el" href="_d_l_l_8h_source.html">DLL.h</a></li>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/<a class="el" href="_d_l_l_8cc.html">DLL.cc</a></li>
+<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/<a class="el" href="_d_l_l_8h_source.html">DLL.h</a></li>
+<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/src/<a class="el" href="_d_l_l_8cc.html">DLL.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
