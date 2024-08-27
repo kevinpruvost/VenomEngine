@@ -8,7 +8,7 @@
   <a href="#sparkles-showcase">:sparkles: Showcase</a> &nbsp;&bull;&nbsp;
   <a href="#rocket-quick-setup--compilation">:rocket: Quick Setup & Compilation</a> &nbsp;&bull;&nbsp;
   <a href="#classical_building-features--roadmap">:classical_building: Features & Roadmap</a> &nbsp;&bull;&nbsp;
-  <a href="#book-documentation--user-guide">:book: Documentation & User Guide</a>
+  <a href="#book-documentation--user-guide">:book: Documentation & User Guide</a> &nbsp;&bull;&nbsp;
   <a href="#fountain_pen-license">:fountain_pen: License</a>
 </p>
 
