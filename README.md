@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="docs/icons/VenomEngineBanner.png" alt="Venom Engine Logo" width="300">
+  <img src="docs/icons/VenomEngineBanner.png" alt="Venom Engine Logo" width="600">
 </p>
 
 ## 💡 Description
