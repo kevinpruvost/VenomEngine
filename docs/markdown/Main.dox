@@ -1,18 +1,25 @@
-/** @mainpage Features
-
-@brief `Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, `Ruby`, ...
-
-@subpage setup "Setup Guide"
-
-@section compilation Compilation Guide
-- @subpage compilation
-
-@section debugging Debugging Guide
-- @subpage debugging
-
-@section notes Additional Notes
-- @subpage notes
-
-@subpage  "API Reference"
-
-*/
+/**
+ * @mainpage Features
+ *
+ * @brief `Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, `Ruby`, ...
+ *
+ * | Feature/Task                            | Status       |
+ * |-----------------------------------------|--------------|
+ * | **Graphics Plugins**                    |              |
+ * | Vulkan                                  | In Progress  |
+ * | Metal                                   | Planned      |
+ * | DirectX12                               | Planned      |
+ * | **Features**                            |              |
+ * | PhysX Integration                       | Planned      |
+ * | ECS System                              | Planned      |
+ * | Scene System                            | Planned      |
+ * | Accelerated Ray Tracing (Vulkan)        | Planned      |
+ * | Accelerated Ray Tracing (Metal)         | Planned      |
+ * | Accelerated Ray Tracing (DirectX12)     | Planned      |
+ * | DLSS (Deep Learning Super Sampling)     | Planned      |
+ * | MetalFX                                 | Planned      |
+ * | CMake Build System                      | Planned      |
+ * | Bazel Build System                      | Done         |
+ * | HLSL to SPIR-V Compilation              | Done         |
+ * | Ruby for Running Build Tasks            | Done         |
+ */

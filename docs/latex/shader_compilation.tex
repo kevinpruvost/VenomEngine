@@ -1,0 +1,43 @@
+\doxysubsection{Shader Compilation}
+\hypertarget{shader_compilation}{}\label{shader_compilation}\index{Shader Compilation@{Shader Compilation}}
+The shaders in this project are compiled using the DirectX Shader Compiler. Below are the steps to compile them.\hypertarget{shader_compilation_guideline}{}\doxysubsubsection{\texorpdfstring{Guideline}{Guideline}}\label{shader_compilation_guideline}
+Follow this guideline for shader compilation\+: \href{https://github.com/microsoft/DirectXShaderCompiler/wiki/SPIR\%E2\%80\%90V-CodeGen}{\texttt{ SPIR-\/V Code\+Gen}}.\hypertarget{shader_compilation_command_line_options}{}\doxysubsubsection{\texorpdfstring{Command Line Options}{Command Line Options}}\label{shader_compilation_command_line_options}
+Refer to the supported command line options here\+: \href{https://github.com/Microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst\#supported-command-line-options}{\texttt{ SPIR-\/V Command Line Options}}.\hypertarget{shader_compilation_automated_compilation}{}\doxysubsubsection{\texorpdfstring{Automated Compilation}{Automated Compilation}}\label{shader_compilation_automated_compilation}
+To compile all shaders, use\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ compile\_shaders}
+
+\end{DoxyCode}
+
+
+For shaders with debugging info\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ compile\_shaders\_debug}
+
+\end{DoxyCode}
+
+
+For GLSL\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ compile\_shaders\_glsl}
+
+\end{DoxyCode}
+\hypertarget{shader_compilation_manual_compilation}{}\doxysubsubsection{\texorpdfstring{Manual Compilation}{Manual Compilation}}\label{shader_compilation_manual_compilation}
+You can also compile shaders manually\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ ./resources/shaders/compiled}
+\DoxyCodeLine{./cmake\_build/Release/bin/dxc\ -\/T\ vs\_6\_0\ -\/spirv\ ./resources/shaders/hlsl/vertex\_shader.hlsl\ -\/Fo\ ./resources/shaders/compiled/vertex\_shader.spv}
+\DoxyCodeLine{./cmake\_build/Release/bin/dxc\ -\/T\ ps\_6\_0\ -\/spirv\ ./resources/shaders/hlsl/pixel\_shader.hlsl\ -\/Fo\ ./resources/shaders/compiled/fragment\_shader.spv}
+
+\end{DoxyCode}
+
+
+Refer to \href{https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-models}{\texttt{ Shader Profiles}} for more information. 

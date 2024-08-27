@@ -25,34 +25,8 @@
 var NAVTREE =
 [
   [ "VenomEngine", "index.html", [
-    [ "Features", "index.html", "index" ],
-    [ "Debugging Guide", "md_markdown_2_debugging.html", [
-      [ "Useful Links", "md_markdown_2_debugging.html#autotoc_md1", null ],
-      [ "Windows", "md_markdown_2_debugging.html#autotoc_md2", null ],
-      [ "Linux", "md_markdown_2_debugging.html#autotoc_md3", null ],
-      [ "macOS", "md_markdown_2_debugging.html#autotoc_md4", null ]
-    ] ],
-    [ "VenomEngine", "md_markdown_2main.html", [
-      [ "Description", "md_markdown_2main.html#autotoc_md6", null ],
-      [ "Setup", "md_markdown_2main.html#autotoc_md7", null ],
-      [ "Compilation", "md_markdown_2main.html#autotoc_md8", null ],
-      [ "Debugging", "md_markdown_2main.html#autotoc_md9", null ],
-      [ "Notes", "md_markdown_2main.html#autotoc_md10", null ]
-    ] ],
+    [ "Features", "index.html", null ],
     [ "Notes", "md_markdown_2_notes.html", null ],
-    [ "Project Compilation", "md_markdown_2_project_compilation.html", [
-      [ "Windows & macOS", "md_markdown_2_project_compilation.html#autotoc_md13", null ],
-      [ "Linux", "md_markdown_2_project_compilation.html#autotoc_md14", [
-        [ "Switching to Wayland", "md_markdown_2_project_compilation.html#autotoc_md15", null ],
-        [ "Compilation and Execution", "md_markdown_2_project_compilation.html#autotoc_md16", null ]
-      ] ]
-    ] ],
-    [ "Shader Compilation", "md_markdown_2_shader_compilation.html", [
-      [ "Guideline", "md_markdown_2_shader_compilation.html#autotoc_md18", null ],
-      [ "Command Line Options", "md_markdown_2_shader_compilation.html#autotoc_md19", null ],
-      [ "Automated Compilation", "md_markdown_2_shader_compilation.html#autotoc_md20", null ],
-      [ "Manual Compilation", "md_markdown_2_shader_compilation.html#autotoc_md21", null ]
-    ] ],
     [ "User Guide", "userguide.html", "userguide" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],

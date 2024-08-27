@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['macos_0',['macOS',['../md_markdown_2_debugging.html#autotoc_md4',1,'macOS'],['../md_markdown_2_project_compilation.html#autotoc_md13',1,'Windows &amp; macOS']]],
+  ['macos_0',['macOS',['../debugging.html#macos_debugging',1,'macOS'],['../project_compilation.html#windows_mac',1,'Windows &amp; macOS']]],
   ['main_2ecc_1',['main.cc',['../main_8cc.html',1,'']]],
-  ['manual_20compilation_2',['Manual Compilation',['../md_markdown_2_shader_compilation.html#autotoc_md21',1,'']]],
+  ['manual_20compilation_2',['Manual Compilation',['../shader_compilation.html#manual_compilation',1,'']]],
   ['manual_20setup_3',['Manual Setup',['../dxc_setup.html#manual_setup',1,'']]],
   ['mappedqueuefamilies_4',['MappedQueueFamilies',['../classvenom_1_1vulkan_1_1_mapped_queue_families.html',1,'venom::vulkan']]],
   ['math_2ecc_5',['Math.cc',['../_math_8cc.html',1,'']]],

@@ -12,8 +12,8 @@ html {
     --primary-lighter-color: #b5e6b6; /* Lighter green */
     --primary-lightest-color: #d6f5d8; /* Lightest green */
 
-    --side-nav-background: #333f67;
-    --side-nav-foreground: #c3e3ff;
+    --side-nav-background: #fbfbfb;
+    --side-nav-foreground: var(--primary-dark-color);
 
     --searchbar-background: var(--page-background-color);
     --searchbar-foreground: var(--page-foreground-color);

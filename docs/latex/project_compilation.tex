@@ -1,0 +1,27 @@
+\doxysubsection{Project Compilation}
+\hypertarget{project_compilation}{}\label{project_compilation}\index{Project Compilation@{Project Compilation}}
+The project can be compiled using Bazel. Follow the instructions for your platform.\hypertarget{project_compilation_windows_mac}{}\doxysubsubsection{\texorpdfstring{Windows \& mac\+OS}{Windows \& mac\+OS}}\label{project_compilation_windows_mac}
+Use the following commands\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bazel\ build\ -\/c\ opt\ //:VenomEngine}
+\DoxyCodeLine{bazel\ run\ //:VenomEngine}
+
+\end{DoxyCode}
+\hypertarget{project_compilation_linux}{}\doxysubsubsection{\texorpdfstring{Linux}{Linux}}\label{project_compilation_linux}
+Ensure you know which windowing system you are using ({\ttfamily X11} or {\ttfamily Wayland}). The default setup is based on {\ttfamily X11}.\hypertarget{project_compilation_switching_wayland}{}\doxysubsubsubsection{\texorpdfstring{Switching to Wayland}{Switching to Wayland}}\label{project_compilation_switching_wayland}
+Modify the following Bazel {\ttfamily BUILD} files\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily /lib/\+GLFW/\+BUILD}\+: Comment every instance of {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+X11"{}} and uncomment {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+WAYLAND"{}}.
+\item {\ttfamily /lib/vulkan/\+BUILD}\+: Comment every instance of {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+X11"{}} and uncomment {\ttfamily "{}-\/\+D\+\_\+\+GLFW\+\_\+\+WAYLAND"{}}.
+\end{DoxyItemize}\hypertarget{project_compilation_linux_compilation_execution}{}\doxysubsubsubsection{\texorpdfstring{Compilation and Execution}{Compilation and Execution}}\label{project_compilation_linux_compilation_execution}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bazel\ build\ -\/c\ opt\ //:VenomEngine}
+\DoxyCodeLine{bazel\ run\ //:VenomEngine}
+
+\end{DoxyCode}
+ 

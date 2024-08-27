@@ -1,0 +1,45 @@
+/**
+ * @page shader_compilation Shader Compilation
+ *
+ * The shaders in this project are compiled using the DirectX Shader Compiler. Below are the steps to compile them.
+ *
+ * @section guideline Guideline
+ *
+ * Follow this guideline for shader compilation: [SPIR-V CodeGen](https://github.com/microsoft/DirectXShaderCompiler/wiki/SPIR‐V-CodeGen).
+ *
+ * @section command_line_options Command Line Options
+ *
+ * Refer to the supported command line options here: [SPIR-V Command Line Options](https://github.com/Microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#supported-command-line-options).
+ *
+ * @section automated_compilation Automated Compilation
+ *
+ * To compile all shaders, use:
+ *
+ * @code{.sh}
+ * make compile_shaders
+ * @endcode
+ *
+ * For shaders with debugging info:
+ *
+ * @code{.sh}
+ * make compile_shaders_debug
+ * @endcode
+ *
+ * For GLSL:
+ *
+ * @code{.sh}
+ * make compile_shaders_glsl
+ * @endcode
+ *
+ * @section manual_compilation Manual Compilation
+ *
+ * You can also compile shaders manually:
+ *
+ * @code{.sh}
+ * mkdir ./resources/shaders/compiled
+ * ./cmake_build/Release/bin/dxc -T vs_6_0 -spirv ./resources/shaders/hlsl/vertex_shader.hlsl -Fo ./resources/shaders/compiled/vertex_shader.spv
+ * ./cmake_build/Release/bin/dxc -T ps_6_0 -spirv ./resources/shaders/hlsl/pixel_shader.hlsl -Fo ./resources/shaders/compiled/fragment_shader.spv
+ * @endcode
+ *
+ * Refer to [Shader Profiles](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-models) for more information.
+ */

@@ -9,7 +9,6 @@ var searchData=
   ['graphicsplugin_2ecc_6',['GraphicsPlugin.cc',['../common_2src_2_graphics_plugin_8cc.html',1,'(Global Namespace)'],['../vulkan_2src_2_graphics_plugin_8cc.html',1,'(Global Namespace)']]],
   ['graphicsplugin_2eh_7',['GraphicsPlugin.h',['../common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h.html',1,'(Global Namespace)'],['../vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_graphics_plugin_8h.html',1,'(Global Namespace)']]],
   ['graphicspluginobject_8',['GraphicsPluginObject',['../classvenom_1_1common_1_1_graphics_plugin_object.html',1,'venom::common']]],
-  ['guidance_9',['Guidance',['../userguide.html#guidance',1,'']]],
-  ['guide_10',['Guide',['../index.html#compilation',1,'Compilation Guide'],['../md_markdown_2_debugging.html',1,'Debugging Guide'],['../index.html#debugging',1,'Debugging Guide'],['../userguide.html',1,'User Guide']]],
-  ['guideline_11',['Guideline',['../md_markdown_2_shader_compilation.html#autotoc_md18',1,'']]]
+  ['guide_9',['User Guide',['../userguide.html',1,'']]],
+  ['guideline_10',['Guideline',['../shader_compilation.html#guideline',1,'']]]
 ];

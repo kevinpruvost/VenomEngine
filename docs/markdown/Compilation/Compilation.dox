@@ -1,0 +1,9 @@
+/**
+ * @page compilation Compilation
+ *
+ * There are multiple steps to using `VenomEngine`, as such we have to compile not only the project but also the shaders.
+ *
+ * @subpage project_compilation
+ *
+ * @subpage shader_compilation
+ */
