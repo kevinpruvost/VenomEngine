@@ -44,11 +44,10 @@ private:
 
     void __SetGLFWCallbacks();
 
-    vc::Error __InitPhysicalDevices();
+    vc::Error __InitRenderingPipeline();
     bool __IsDeviceSuitable(const VkDeviceCreateInfo * createInfo);
 
     vc::Error __CreateInstance();
-    void __Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo);
 
     void __RecreateSwapChain();
 

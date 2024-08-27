@@ -7,30 +7,7 @@
 ///
 #pragma once
 
-#include <vector>
-#include <set>
-
-#define GLFW_INCLUDE_VULKAN
-#if defined(_WIN32)
-#define VK_USE_PLATFORM_WIN32_KHR
-#elif defined(__APPLE__)
-#define VK_USE_PLATFORM_MACOS_MVK
-#elif defined(__linux__)
-#define VK_USE_PLATFORM_XLIB_KHR
-#endif
-#include <GLFW/glfw3.h>
-
-#if defined(_WIN32)
-#define GLFW_EXPOSE_NATIVE_WIN32
-#elif defined(__APPLE__)
-#define GLFW_EXPOSE_NATIVE_COCOA
-#elif defined(__linux__)
-#define GLFW_EXPOSE_NATIVE_X11
-#endif
-#include <GLFW/glfw3native.h>
-
-#include <venom/common/math/Math.h>
-#include <venom/common/Log.h>
+#include <venom/vulkan/Debug.h>
 
 namespace venom
 {
@@ -46,7 +23,21 @@ public:
     Instance(Instance&&) = delete;
     Instance& operator=(Instance&&) = delete;
 
-    static VkInstance & GetInstance();
+    void __Instance_GetRequiredExtensions(VkInstanceCreateInfo* create_info);
+#ifdef VENOM_DEBUG
+    void __SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* create_info, DebugApplication * debugApp);
+    static vc::Error CreateInstance(DebugApplication * debugApp);
+#else
+    void __SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* create_info);
+    static vc::Error CreateInstance();
+#endif
+
+    static const VkInstance & GetVkInstance();
+    static const Instance & GetInstance();
+
+private:
+    VkInstance __instance;
+    std::vector<const char *> __instanceExtensions;
 };
 }
 }

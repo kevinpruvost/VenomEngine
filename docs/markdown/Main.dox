@@ -1,8 +1,8 @@
 /**
  * @mainpage Features
  *
- * @brief `Bazel_Vulkan_Metal` is a personal Computer Graphics project I'm doing for learning `Vulkan`, `Metal`, `Bazel` and many other technical stuff that I want to learn like `Renderer Debuggers`, `protobuf`, `HLSL`, `Ruby`, ...
- *
+ * @brief `VenomEngine` is my solo Computer Graphics journey, designed to dive deep into cutting-edge Computer Graphics technologies.
+ * 
  * | Feature/Task                            | Status       |
  * |-----------------------------------------|--------------|
  * | **Graphics Plugins**                    |              |

@@ -6,12 +6,12 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/PhysicalDevice.h>
+#include <venom/vulkan/LogicalDevice.h>
 
 namespace venom::vulkan
 {
 PhysicalDevice::PhysicalDevice()
     : physicalDevice(VK_NULL_HANDLE)
-    , logicalDevice(VK_NULL_HANDLE)
     , properties()
     , features()
     , memoryProperties()
@@ -20,9 +20,6 @@ PhysicalDevice::PhysicalDevice()
 
 PhysicalDevice::~PhysicalDevice()
 {
-    if (logicalDevice != VK_NULL_HANDLE) {
-        vkDestroyDevice(logicalDevice, nullptr);
-    }
 }
 
 uint64_t PhysicalDevice::GetDeviceLocalVRAMAmount() const
@@ -38,16 +35,15 @@ uint64_t PhysicalDevice::GetDeviceLocalVRAMAmount() const
 
 void PhysicalDevice::GetDeviceQueue(VkQueue* queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const
 {
-    venom_assert(logicalDevice != VK_NULL_HANDLE, "Logical device is not initialized");
-    vkGetDeviceQueue(logicalDevice, queueFamilyIndex, queueIndex, queuePtr);
+    vkGetDeviceQueue(LogicalDevice::GetVkDevice(), queueFamilyIndex, queueIndex, queuePtr);
 }
 
-std::vector<PhysicalDevice> GetVulkanPhysicalDevices()
+std::vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
 {
     uint32_t deviceCount = 0;
     std::vector<PhysicalDevice> physicalDevices;
 
-    vkEnumeratePhysicalDevices(Instance::GetInstance(), &deviceCount, nullptr);
+    vkEnumeratePhysicalDevices(Instance::GetVkInstance(), &deviceCount, nullptr);
     if (deviceCount == 0)
     {
         vc::Log::Error("Failed to find GPUs with Vulkan support");
@@ -56,7 +52,7 @@ std::vector<PhysicalDevice> GetVulkanPhysicalDevices()
 
     physicalDevices.resize(deviceCount);
     std::vector<VkPhysicalDevice> vkPhysicalDevices(deviceCount);
-    vkEnumeratePhysicalDevices(Instance::GetInstance(), &deviceCount, vkPhysicalDevices.data());
+    vkEnumeratePhysicalDevices(Instance::GetVkInstance(), &deviceCount, vkPhysicalDevices.data());
     for (uint32_t i = 0; i < deviceCount; i++)
     {
         physicalDevices[i].physicalDevice = vkPhysicalDevices[i];

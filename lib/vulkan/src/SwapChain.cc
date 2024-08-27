@@ -10,6 +10,8 @@
 
 #include <algorithm>
 
+#include <venom/vulkan/LogicalDevice.h>
+
 namespace venom::vulkan
 {
 
@@ -41,10 +43,8 @@ SwapChain::SwapChain(SwapChain&& other)
     , activeSurfaceFormat(other.activeSurfaceFormat)
     , activePresentMode(other.activePresentMode)
     , extent(other.extent)
-    , __logicalDevice(other.__logicalDevice)
 {
     other.swapChain = VK_NULL_HANDLE;
-    other.__logicalDevice = VK_NULL_HANDLE;
 }
 
 SwapChain& SwapChain::operator=(SwapChain&& other)
@@ -59,9 +59,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
     activeSurfaceFormat = other.activeSurfaceFormat;
     activePresentMode = other.activePresentMode;
     extent = other.extent;
-    __logicalDevice = other.__logicalDevice;
     other.swapChain = VK_NULL_HANDLE;
-    other.__logicalDevice = VK_NULL_HANDLE;
     return *this;
 }
 
@@ -69,18 +67,18 @@ void SwapChain::CleanSwapChain()
 {
     for (auto & framebuffer : __swapChainFramebuffers) {
         if (framebuffer != VK_NULL_HANDLE)
-            vkDestroyFramebuffer(__logicalDevice, framebuffer, nullptr);
+            vkDestroyFramebuffer(LogicalDevice::GetVkDevice(), framebuffer, nullptr);
     }
     __swapChainFramebuffers.clear();
 
     for (auto & imageView : __swapChainImageViews) {
         if (imageView != VK_NULL_HANDLE)
-            vkDestroyImageView(__logicalDevice, imageView, nullptr);
+            vkDestroyImageView(LogicalDevice::GetVkDevice(), imageView, nullptr);
     }
     __swapChainImageViews.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
-        vkDestroySwapchainKHR(__logicalDevice, swapChain, nullptr);
+        vkDestroySwapchainKHR(LogicalDevice::GetVkDevice(), swapChain, nullptr);
         swapChain = VK_NULL_HANDLE;
     }
 }
@@ -156,8 +154,7 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
     return vc::Error::Success;
 }
 
-vc::Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const Surface * surface,
-                                     const vc::Context * context, const MappedQueueFamilies * queueFamilies)
+vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * context, const MappedQueueFamilies * queueFamilies)
 {
     venom_assert(capabilities.maxImageCount > 0, "Swap chain must have at least 1 image");
 
@@ -205,15 +202,15 @@ vc::Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const S
     createInfo.oldSwapchain = VK_NULL_HANDLE;
 
     // Creating SwapChain
-    if (vkCreateSwapchainKHR(physicalDevice->logicalDevice, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
+    if (vkCreateSwapchainKHR(LogicalDevice::GetVkDevice(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
         vc::Log::Error("Failed to create swap chain");
         return vc::Error::InitializationFailed;
     }
 
     // Getting handles of images in the swap chain
-    vkGetSwapchainImagesKHR(physicalDevice->logicalDevice, swapChain, &imageCount, nullptr);
+    vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, nullptr);
     swapChainImageHandles.resize(imageCount);
-    vkGetSwapchainImagesKHR(physicalDevice->logicalDevice, swapChain, &imageCount, swapChainImageHandles.data());
+    vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, swapChainImageHandles.data());
 
     // Create ImageViews
     __swapChainImageViews.resize(imageCount);
@@ -235,13 +232,11 @@ vc::Error SwapChain::InitSwapChain(const PhysicalDevice* physicalDevice, const S
         imageViewCreateInfo.subresourceRange.baseArrayLayer = 0;
         imageViewCreateInfo.subresourceRange.layerCount = 1;
 
-        if (vkCreateImageView(physicalDevice->logicalDevice, &imageViewCreateInfo, nullptr, &__swapChainImageViews[i]) != VK_SUCCESS) {
+        if (vkCreateImageView(LogicalDevice::GetVkDevice(), &imageViewCreateInfo, nullptr, &__swapChainImageViews[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to create image views");
             return vc::Error::InitializationFailed;
         }
     }
-
-    __logicalDevice = physicalDevice->logicalDevice;
     return vc::Error::Success;
 }
 
@@ -262,7 +257,7 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
         framebufferInfo.height = extent.height;
         framebufferInfo.layers = 1;
 
-        if (vkCreateFramebuffer(__logicalDevice, &framebufferInfo, nullptr, &__swapChainFramebuffers[i]) != VK_SUCCESS) {
+        if (vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &framebufferInfo, nullptr, &__swapChainFramebuffers[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to create framebuffer");
             return vc::Error::InitializationFailed;
         }

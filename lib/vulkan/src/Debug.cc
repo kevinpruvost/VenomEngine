@@ -7,15 +7,15 @@
 ///
 #include <venom/vulkan/Debug.h>
 
+#include <venom/vulkan/Instance.h>
 #include <vector>
 
 namespace venom::vulkan
 {
 
 DebugApplication::DebugApplication()
-    : Instance()
 #ifdef VENOM_DEBUG
-    , __validationLayersInUse()
+    : __validationLayersInUse()
     , __debugMessenger(VK_NULL_HANDLE)
     , __debugMessengerCreateInfo{}
 #endif
@@ -26,8 +26,8 @@ DebugApplication::~DebugApplication()
 {
 #ifdef VENOM_DEBUG
     if (__debugMessenger) {
-        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetInstance(), "vkDestroyDebugUtilsMessengerEXT"));
-        destroyDebugUtilsMessengerEXT(Instance::GetInstance(), __debugMessenger, nullptr);
+        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkDestroyDebugUtilsMessengerEXT"));
+        destroyDebugUtilsMessengerEXT(Instance::GetVkInstance(), __debugMessenger, nullptr);
     }
 #endif
 }
@@ -109,13 +109,18 @@ vc::Error DebugApplication::_PostInstance_SetDebugParameters()
 {
 #ifdef VENOM_DEBUG
     // Debug Utils Messenger
-    auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetInstance(), "vkCreateDebugUtilsMessengerEXT"));
-    if (createDebugUtilsMessengerEXT(Instance::GetInstance(), &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
+    auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkCreateDebugUtilsMessengerEXT"));
+    if (createDebugUtilsMessengerEXT(Instance::GetVkInstance(), &__debugMessengerCreateInfo, nullptr, &__debugMessenger) != VK_SUCCESS) {
         vc::Log::Error("Failed to set up debug messenger!");
         return vc::Error::Failure;
     }
 #endif
     return vc::Error::Success;
+}
+
+PFN_vkDebugUtilsMessengerCallbackEXT DebugApplication::_GetDebugCallback()
+{
+    return debugCallback;
 }
 
 vc::Error DebugApplication::__InitValidationLayers()

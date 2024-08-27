@@ -11,3 +11,7 @@
 - Avoid templated code through dynamic libraries to prevent code replication.
 - [RayTracing in Vulkan with HLSL](https://github.com/microsoft/DirectXShaderCompiler/blob/9c6b2c1275e41cc385b2034aa2716ec2303a62d6/docs/SPIR-V.rst#raytracing-in-vulkan-and-spirv)
 - [Nanite: LOD Handling](https://advances.realtimerendering.com/s2021/Karis_Nanite_SIGGRAPH_Advances_2021_final.pdf)
+- [Glaze: Optimized JSON parsing](https://github.com/stephenberry/glaze?tab=readme-ov-file)
+- [Vulkan vs. DX12 vs. Optix for Raytracing](https://forums.developer.nvidia.com/t/ray-tracing-performance-in-optix-vs-vulkan-dxr/260558)
+- [METIS: Graph Partitioning lib (used by Nanite)](https://github.com/KarypisLab/METIS)
+- [PBRTv4: Scenes for test](https://github.com/mmp/pbrt-v4-scenes?tab=readme-ov-file)

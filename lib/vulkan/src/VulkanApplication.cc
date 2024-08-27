@@ -10,6 +10,8 @@
 #include <array>
 #include <vector>
 
+#include "venom/vulkan/LogicalDevice.h"
+
 namespace venom::vulkan
 {
 /// @brief Device extensions to use
@@ -28,10 +30,10 @@ VulkanApplication::~VulkanApplication()
 {
     vc::Log::Print("Destroying Vulkan app...");
     for (int i = 0; i < 2; ++i) {
-        vkDestroyBuffer(__physicalDevice.logicalDevice, __vertexBuffers[i], nullptr);
+        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __vertexBuffers[i], nullptr);
     }
     for (int i = 0; i < 2; ++i) {
-        vkFreeMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[i], nullptr);
+        vkFreeMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[i], nullptr);
     }
 }
 
@@ -55,7 +57,7 @@ vc::Error VulkanApplication::Run()
     }
 
     // Test
-    __shaderPipeline.LoadShaders(__physicalDevice.logicalDevice, &__swapChain, &__renderPass, {
+    __shaderPipeline.LoadShaders(LogicalDevice::GetVkDevice(), &__swapChain, &__renderPass, {
         "shader.ps",
         "shader.vs"
     });
@@ -69,13 +71,13 @@ vc::Error VulkanApplication::Run()
         bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
         bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-        if (vkCreateBuffer(__physicalDevice.logicalDevice, &bufferInfo, nullptr, &__vertexBuffers[i]) != VK_SUCCESS) {
+        if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, nullptr, &__vertexBuffers[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to create vertex buffer");
             return vc::Error::Failure;
         }
 
         VkMemoryRequirements memRequirements;
-        vkGetBufferMemoryRequirements(__physicalDevice.logicalDevice, __vertexBuffers[i], &memRequirements);
+        vkGetBufferMemoryRequirements(LogicalDevice::GetVkDevice(), __vertexBuffers[i], &memRequirements);
 
         VkPhysicalDeviceMemoryProperties memProperties;
         vkGetPhysicalDeviceMemoryProperties(__physicalDevice.physicalDevice, &memProperties);
@@ -93,24 +95,24 @@ vc::Error VulkanApplication::Run()
         };
         allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-        if (vkAllocateMemory(__physicalDevice.logicalDevice, &allocInfo, nullptr, &__vertexBuffersMemory[i]) != VK_SUCCESS) {
+        if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, nullptr, &__vertexBuffersMemory[i]) != VK_SUCCESS) {
             vc::Log::Error("Failed to allocate vertex buffer memory");
             return vc::Error::Failure;
         }
     }
 
-    vkBindBufferMemory(__physicalDevice.logicalDevice, __vertexBuffers[0], __vertexBuffersMemory[0], 0);
+    vkBindBufferMemory(LogicalDevice::GetVkDevice(), __vertexBuffers[0], __vertexBuffersMemory[0], 0);
 
     void* data;
-    vkMapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[0], 0, sizeof(vc::Vec3) * 3, 0, &data);
+    vkMapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[0], 0, sizeof(vc::Vec3) * 3, 0, &data);
     memcpy(data, __verticesPos, sizeof(vc::Vec3) * 3);
-    vkUnmapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[0]);
+    vkUnmapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[0]);
 
-    vkBindBufferMemory(__physicalDevice.logicalDevice, __vertexBuffers[1], __vertexBuffersMemory[1], 0);
+    vkBindBufferMemory(LogicalDevice::GetVkDevice(), __vertexBuffers[1], __vertexBuffersMemory[1], 0);
 
-    vkMapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[1], 0, sizeof(vc::Vec3) * 3, 0, &data);
+    vkMapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[1], 0, sizeof(vc::Vec3) * 3, 0, &data);
     memcpy(data, __verticesColor, sizeof(vc::Vec3) * 3);
-    vkUnmapMemory(__physicalDevice.logicalDevice, __vertexBuffersMemory[1]);
+    vkUnmapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[1]);
 
     if (res = __Loop(); res != vc::Error::Success)
     {
@@ -130,17 +132,17 @@ vc::Error VulkanApplication::__Loop()
             return err;
     }
 
-    vkDeviceWaitIdle(__physicalDevice.logicalDevice);
+    vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
     return vc::Error::Success;
 }
 
 vc::Error VulkanApplication::__DrawFrame()
 {
     // Draw image
-    vkWaitForFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
+    vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 
     uint32_t imageIndex;
-    VkResult result = vkAcquireNextImageKHR(__physicalDevice.logicalDevice, __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[__currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
+    VkResult result = vkAcquireNextImageKHR(LogicalDevice::GetVkDevice(), __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[__currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
     if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
         __framebufferChanged = false;
         vc::Log::Print("Recreating swap chain");
@@ -152,7 +154,7 @@ vc::Error VulkanApplication::__DrawFrame()
     }
 
     // If we reset before, then it will wait endlessly as no work is done
-    vkResetFences(__physicalDevice.logicalDevice, 1, __inFlightFences[__currentFrame].GetFence());
+    vkResetFences(LogicalDevice::GetVkDevice(), 1, __inFlightFences[__currentFrame].GetFence());
     __commandBuffers[__currentFrame]->Reset(0);
 
     if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
@@ -227,7 +229,7 @@ vc::Error VulkanApplication::__InitVulkan()
     DEBUG_CODE(if (res = _PostInstance_SetDebugParameters(); res != vc::Error::Success) return res);
 
     // Get Physical Devices
-    if (res = __InitPhysicalDevices(); res != vc::Error::Success) return res;
+    if (res = __InitRenderingPipeline(); res != vc::Error::Success) return res;
 
     return res;
 }
@@ -241,10 +243,10 @@ void VulkanApplication::__SetGLFWCallbacks()
     });
 }
 
-vc::Error VulkanApplication::__InitPhysicalDevices()
+vc::Error VulkanApplication::__InitRenderingPipeline()
 {
     vc::Error err;
-    std::vector<PhysicalDevice> physicalDevices = GetVulkanPhysicalDevices();
+    std::vector<PhysicalDevice> physicalDevices = PhysicalDevice::GetVulkanPhysicalDevices();
 
     if (physicalDevices.empty())
     {
@@ -299,10 +301,9 @@ vc::Error VulkanApplication::__InitPhysicalDevices()
             .sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
             .queueFamilyIndex = __queueFamilies.graphicsQueueFamilyIndices[0],
             .queueCount = 1,
-            .pQueuePriorities = new float(1.0f)
+            .pQueuePriorities = &queuePriority
         }
     );
-    queueCreateInfos[0].pQueuePriorities = &queuePriority;
 
     // Present Queue
     if (queueCreateInfos[0].queueFamilyIndex != __queueFamilies.presentQueueFamilyIndices[0]) {
@@ -311,10 +312,9 @@ vc::Error VulkanApplication::__InitPhysicalDevices()
                 .sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
                 .queueFamilyIndex = __queueFamilies.presentQueueFamilyIndices[0],
                 .queueCount = 1,
-                .pQueuePriorities = new float(1.0f)
+                .pQueuePriorities = &queuePriority
             }
         );
-        queueCreateInfos[1].pQueuePriorities = &queuePriority;
     }
 
     VkDeviceCreateInfo createInfo{};
@@ -342,14 +342,16 @@ vc::Error VulkanApplication::__InitPhysicalDevices()
         return vc::Error::InitializationFailed;
     }
 
-    if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &__physicalDevice.logicalDevice); res != VK_SUCCESS)
+    VkDevice logicalDevice;
+    if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, nullptr, &logicalDevice); res != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create logical device, error code: %d", res);
         return vc::Error::InitializationFailed;
     }
+    LogicalDevice::CreateInstance(logicalDevice);
 
     // Create SwapChain
-    if (err = __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
         return err;
 
     // Create Graphics Queue
@@ -359,7 +361,7 @@ vc::Error VulkanApplication::__InitPhysicalDevices()
     __physicalDevice.GetDeviceQueue(&__presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
 
     // Create Render Pass
-    if (err = __renderPass.InitRenderPass(__physicalDevice.logicalDevice, &__swapChain); err != vc::Error::Success)
+    if (err = __renderPass.InitRenderPass(LogicalDevice::GetVkDevice(), &__swapChain); err != vc::Error::Success)
         return err;
 
     // Init Render Pass Framebuffers
@@ -367,7 +369,7 @@ vc::Error VulkanApplication::__InitPhysicalDevices()
         return err;
 
     // Create Graphics Command Pool
-    if (err = __commandPool.InitCommandPool(__physicalDevice.logicalDevice, __queueFamilies.graphicsQueueFamilyIndices[0]); err != vc::Error::Success)
+    if (err = __commandPool.InitCommandPool(LogicalDevice::GetVkDevice(), __queueFamilies.graphicsQueueFamilyIndices[0]); err != vc::Error::Success)
         return err;
 
     // Create Command Buffers
@@ -382,11 +384,11 @@ vc::Error VulkanApplication::__InitPhysicalDevices()
     __renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
     __inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __imageAvailableSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != vc::Error::Success)
+        if (err = __imageAvailableSemaphores[i].InitSemaphore(LogicalDevice::GetVkDevice()); err != vc::Error::Success)
             return err;
-        if (err =__renderFinishedSemaphores[i].InitSemaphore(__physicalDevice.logicalDevice); err != vc::Error::Success)
+        if (err =__renderFinishedSemaphores[i].InitSemaphore(LogicalDevice::GetVkDevice()); err != vc::Error::Success)
             return err;
-        if (err =__inFlightFences[i].InitFence(__physicalDevice.logicalDevice, VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
+        if (err =__inFlightFences[i].InitFence(LogicalDevice::GetVkDevice(), VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
     }
 
@@ -423,82 +425,27 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
 
 vc::Error VulkanApplication::__CreateInstance()
 {
-    VkApplicationInfo appInfo = {};
-    appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Vulkan";
-    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.pEngineName = "VenomEngine";
-    appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.apiVersion = VK_API_VERSION_1_0;
-
-    VkInstanceCreateInfo createInfo = {};
-    createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    createInfo.pApplicationInfo = &appInfo;
-
-    // Get required extensions
-    __Instance_GetRequiredExtensions(&createInfo);
-
-    // Set Validation Layers parameters in VulkanDebugApplication
-    _SetInstanceCreateInfoValidationLayers(&createInfo);
-
-    if (auto res = vkCreateInstance(&createInfo, nullptr, &Instance::GetInstance()); res != VK_SUCCESS)
-    {
-        vc::Log::Error("Failed to create Vulkan instance, error code: %d", res);
+    vc::Error err;
 #ifdef VENOM_DEBUG
-        if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
-            uint32_t extensionCount = 0;
-            vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-            std::vector<VkExtensionProperties> extensions(extensionCount);
-            vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
-            vc::Log::Print("Available Extensions:");
-            for (const auto& extension : extensions) {
-                vc::Log::Print("\t%s", extension.extensionName);
-            }
-            vc::Log::Print("Extensions passed:");
-            for (uint32_t i = 0; i < createInfo.enabledExtensionCount; ++i) {
-                vc::Log::Print("\t%s", createInfo.ppEnabledExtensionNames[i]);
-            }
-        }
+    err = Instance::CreateInstance(this);
+#else
+    err = Instance::CreateInstance();
 #endif
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to create Vulkan instance: %d", err);
         return vc::Error::InitializationFailed;
     }
     return vc::Error::Success;
 }
 
-void VulkanApplication::__Instance_GetRequiredExtensions(VkInstanceCreateInfo * createInfo)
-{
-    // We are only using GLFW anyway for Windows, Linux & MacOS and next to Vulkan will only be Metal
-    // DX12 will be for another standalone project
-    uint32_t glfwExtensionCount = 0;
-    const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-    __instanceExtensions = std::vector<const char *>(glfwExtensions, glfwExtensions + glfwExtensionCount);
-
-#ifdef __APPLE__
-    // Might have a bug with MoltenVK
-    __instanceExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
-    createInfo->flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
-#endif
-
-#ifdef VENOM_DEBUG
-    __instanceExtensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-    vc::Log::Print("Instance Extensions:");
-    for (const char * extension : __instanceExtensions) {
-        vc::Log::Print("\t-%s", extension);
-    }
-#endif
-
-    createInfo->enabledExtensionCount = __instanceExtensions.size();
-    createInfo->ppEnabledExtensionNames = __instanceExtensions.data();
-}
-
 void VulkanApplication::__RecreateSwapChain()
 {
-    vkDeviceWaitIdle(__physicalDevice.logicalDevice);
+    vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
     __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context);
-    __swapChain.InitSwapChain(&__physicalDevice, &__surface, &__context, &__queueFamilies);
+    __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies);
     __swapChain.InitSwapChainFramebuffers(&__renderPass);
 
     // We also need to reset the last used semaphore
-    __imageAvailableSemaphores[__currentFrame].InitSemaphore(__physicalDevice.logicalDevice);
+    __imageAvailableSemaphores[__currentFrame].InitSemaphore(LogicalDevice::GetVkDevice());
 }
 }

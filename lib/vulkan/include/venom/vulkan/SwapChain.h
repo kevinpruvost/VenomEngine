@@ -38,8 +38,7 @@ public:
     /// @param context
     /// @param queueFamilies 
     /// @return Error
-    vc::Error InitSwapChain(const PhysicalDevice * physicalDevice, const Surface * surface,
-        const vc::Context * context, const MappedQueueFamilies * queueFamilies);
+    vc::Error InitSwapChain(const Surface * surface, const vc::Context * context, const MappedQueueFamilies * queueFamilies);
     vc::Error InitSwapChainFramebuffers(const RenderPass * renderPass);
 
 public:
@@ -59,10 +58,6 @@ private:
     std::vector<VkFramebuffer> __swapChainFramebuffers;
 
     friend class RenderPass;
-
-private:
-    // For destruction
-    VkDevice __logicalDevice;
 };
 }
 }
