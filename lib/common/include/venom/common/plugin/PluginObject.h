@@ -7,29 +7,23 @@
 ///
 #pragma once
 #include <memory>
-#include <venom/common/plugin/Plugin.h>
+#include <venom/common/plugin/PluginType.h>
+#include <venom/common/Export.h>
 
 namespace venom
 {
 namespace common
 {
 
-class PluginObjectImpl
-{
-};
-
 class VENOM_COMMON_API PluginObject
 {
 public:
-    PluginObject(const Plugin::PluginType type);
+    PluginObject(const PluginType type);
     virtual ~PluginObject();
     /// @brief /!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE `delete`
     void Destroy();
-
-protected:
-    std::unique_ptr<PluginObjectImpl> _impl;
 private:
-    const Plugin::PluginType __type;
+    const PluginType __type;
 };
 
 }

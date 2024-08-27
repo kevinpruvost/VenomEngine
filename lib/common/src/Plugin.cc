@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/plugin/Plugin.h>
+#include <venom/common/plugin/PluginObject.h>
 
 #include <iterator>
 
@@ -22,14 +23,18 @@ Plugin::Plugin(const PluginType type)
 
 void Plugin::AddPluginObject(PluginObject* object)
 {
-    __objects.emplace_back(object);
+    __objects.push_back(std::unique_ptr<PluginObject>(object));
 }
 
 void Plugin::RemovePluginObject(PluginObject* object)
 {
-    auto ite = std::find_if(__objects.begin(), __objects.end(), [object](const std::shared_ptr<PluginObject>& obj) { return obj.get() == object; });
-    if (ite != __objects.end()) {
-        std::move(ite, ite + 1, std::back_inserter(__objectsToRemove));
+    // We need to delay the destruction as this function might be called from the object to delete itself
+    auto ite = std::find_if(__objects.begin(), __objects.end(), [object](const std::unique_ptr<PluginObject>& obj) { return obj.get() == object; });
+    if (ite != __objects.end())
+    {
+        // Move to remove list
+        __objectsToRemove.push_back(std::move(*ite));
+        __objects.erase(ite);
     }
 }
 
@@ -42,7 +47,7 @@ Plugin::~Plugin()
 {
 }
 
-const Plugin::PluginType Plugin::GetType() const
+const PluginType Plugin::GetType() const
 {
     return __type;
 }

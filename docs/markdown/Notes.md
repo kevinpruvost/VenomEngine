@@ -15,3 +15,5 @@
 - [Vulkan vs. DX12 vs. Optix for Raytracing](https://forums.developer.nvidia.com/t/ray-tracing-performance-in-optix-vs-vulkan-dxr/260558)
 - [METIS: Graph Partitioning lib (used by Nanite)](https://github.com/KarypisLab/METIS)
 - [PBRTv4: Scenes for test](https://github.com/mmp/pbrt-v4-scenes?tab=readme-ov-file)
+
+### Learning Notes

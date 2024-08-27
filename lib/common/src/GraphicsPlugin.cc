@@ -15,7 +15,7 @@ namespace venom
 namespace common
 {
 GraphicsPluginObject::GraphicsPluginObject()
-    : PluginObject(Plugin::PluginType::Graphics)
+    : PluginObject(PluginType::Graphics)
 {
 }
 
@@ -25,7 +25,7 @@ GraphicsPluginObject::~GraphicsPluginObject()
 }
 
 GraphicsPlugin::GraphicsPlugin()
-    : Plugin(Plugin::PluginType::Graphics)
+    : Plugin(PluginType::Graphics)
 {
 }
 

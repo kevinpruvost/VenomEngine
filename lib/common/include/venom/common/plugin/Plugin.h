@@ -11,24 +11,21 @@
 #include <vector>
 #include <venom/common/Error.h>
 #include <venom/common/DLL.h>
+#include <venom/common/plugin/PluginObject.h>
 
 namespace venom
 {
 namespace common
 {
 class PluginManager;
-class PluginObject;
 class VENOM_COMMON_API Plugin
 {
 public:
     virtual ~Plugin();
+    Plugin(const Plugin&) = delete;
+    Plugin& operator=(const Plugin&) = delete;
 
     friend class PluginManager;
-    enum class PluginType
-    {
-        Graphics = 0,
-        TotalCount
-    };
 
     const PluginType GetType() const;
 
@@ -42,8 +39,8 @@ private:
 
 private:
     const PluginType __type;
-    std::vector<std::shared_ptr<PluginObject>> __objects;
-    std::vector<std::shared_ptr<PluginObject>> __objectsToRemove;
+    std::vector<std::unique_ptr<PluginObject>> __objects;
+    std::vector<std::unique_ptr<PluginObject>> __objectsToRemove;
 };
 }
 }

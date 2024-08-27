@@ -16,9 +16,8 @@ namespace venom
 {
 namespace common
 {
-PluginObject::PluginObject(const Plugin::PluginType type)
-    : _impl(nullptr)
-    , __type(type)
+PluginObject::PluginObject(const PluginType type)
+    : __type(type)
 {
     VenomEngine::GetInstance()->pluginManager.AddPluginObject(__type, this);
 }

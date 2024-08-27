@@ -94,11 +94,11 @@ Error PluginManager::LoadGraphicsPlugin()
     return Error::Success;
 }
 
-void PluginManager::AddPluginObject(const Plugin::PluginType type, PluginObject* object)
+void PluginManager::AddPluginObject(const PluginType type, PluginObject* object)
 {
     switch (type)
     {
-    case Plugin::PluginType::Graphics:
+    case PluginType::Graphics:
         __graphicsPlugin->AddPluginObject(object);
         break;
     default:
@@ -107,11 +107,11 @@ void PluginManager::AddPluginObject(const Plugin::PluginType type, PluginObject*
     }
 }
 
-void PluginManager::RemovePluginObject(const Plugin::PluginType type, PluginObject* object)
+void PluginManager::RemovePluginObject(const PluginType type, PluginObject* object)
 {
     switch (type)
     {
-    case Plugin::PluginType::Graphics:
+    case PluginType::Graphics:
         __graphicsPlugin->RemovePluginObject(object);
         break;
     default:
