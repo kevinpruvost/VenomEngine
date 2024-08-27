@@ -78,6 +78,9 @@ Looking for detailed information? Explore the comprehensive documentation and us
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
 
+**Dual Licensing:**  
+Exclusive dual licensing options are available for commercial or other use cases that do not fit within the terms of the CC BY-NC-SA 4.0 license. If you require different licensing terms, please contact me directly to discuss your needs by [mail](mailto:pruvostkevin0@gmail.com), [Linkedin](www.linkedin.com/in/kevin-pruvost-3766a4178) or [Discord](discordapp.com/users/186896052656406528).
+
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
