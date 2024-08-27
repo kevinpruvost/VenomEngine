@@ -18,6 +18,7 @@ class Resources
 {
 public:
     VENOM_COMMON_API static void InitializeFilesystem(char ** argv);
+    VENOM_COMMON_API static void FreeFilesystem();
     VENOM_COMMON_API static std::string GetResourcePath(const std::string & resourcePath);
 };
 }

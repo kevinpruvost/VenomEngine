@@ -16,7 +16,7 @@ Surface::Surface()
 
 Surface::~Surface()
 {
-    vkDestroySurfaceKHR(Instance::GetVkInstance(), surface, nullptr);
+    vkDestroySurfaceKHR(Instance::GetVkInstance(), surface, Allocator::GetVKAllocationCallbacks());
 }
 
 vc::Error Surface::CreateSurface(vc::Context* context)

@@ -5,25 +5,43 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <stdio.h>
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Log.h>
-#include <venom/common/Resources.h>
-
 #include <venom/common/plugin/graphics/Mesh.h>
+
+#ifdef VENOM_DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
+int ReportHook( int reportType, char *message, int *returnValue )
+{
+    if (reportType == _CRT_WARN) {
+        vc::Log::Print("CRT_WARN: %s\n", message);
+    } else if (reportType == _CRT_ERROR) {
+        vc::Log::Print("CRT_ERROR: %s\n", message);
+    } else if (reportType == _CRT_ASSERT) {
+        vc::Log::Print("CRT_ASSERT: %s\n", message);
+    }
+    return TRUE;
+}
 
 int main(int argc, char** argv)
 {
-    vc::Resources::InitializeFilesystem(argv);
-    vc::VenomEngine * engine = vc::VenomEngine::GetInstance();
-    vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
+    int errorCode = EXIT_SUCCESS;
 
-    if (const vc::Error err = app->Run(); err != vc::Error::Success)
-    {
-        printf("Failed to run application: %d\n", static_cast<int>(err));
-        return 1;
-    }
-    engine->pluginManager.UnloadPlugins();
-    return 0;
+    // Enable memory leak detection
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetReportHook(ReportHook);
+    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+
+    // Run the engine
+    const vc::Error error = vc::VenomEngine::RunEngine(argv);
+
+    // Dump memory leaks to output (typically the Output window in Visual Studio)
+    int memoryLeaks = _CrtDumpMemoryLeaks();
+    vc::Log::Print("Memory leaks: %d\n", memoryLeaks);
+    return errorCode;
 }

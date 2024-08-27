@@ -7,6 +7,7 @@
 ///
 #include <memory>
 #include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/Allocator.h>
 
 namespace venom
 {
@@ -20,7 +21,7 @@ LogicalDevice::LogicalDevice()
 LogicalDevice::~LogicalDevice()
 {
     if (__device != VK_NULL_HANDLE)
-        vkDestroyDevice(__device, nullptr);
+        vkDestroyDevice(__device, Allocator::GetVKAllocationCallbacks());
 }
 
 LogicalDevice::LogicalDevice(LogicalDevice&& other)

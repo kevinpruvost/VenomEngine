@@ -20,9 +20,10 @@ private:
 public:
     ~VenomEngine();
     static VenomEngine * GetInstance();
+    static Error RunEngine(char ** argv);
 
 public:
-    PluginManager pluginManager;
+    std::unique_ptr<PluginManager> pluginManager;
 
 private:
     std::unique_ptr<DLL_Cache> __dllCache;

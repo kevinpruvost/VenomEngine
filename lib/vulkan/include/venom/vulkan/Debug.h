@@ -37,9 +37,11 @@ namespace venom
 namespace vulkan
 {
 class Instance;
+class VulkanApplication;
 class DebugApplication
 {
     friend class Instance;
+    friend class VulkanApplication;
 public:
     DebugApplication();
     virtual ~DebugApplication();

@@ -21,16 +21,15 @@ namespace venom::vulkan
 ShaderPipeline::ShaderPipeline()
     : __graphicsPipeline(VK_NULL_HANDLE)
     , __pipelineLayout(VK_NULL_HANDLE)
-    , __logicalDevice(VK_NULL_HANDLE)
 {
 }
 
 ShaderPipeline::~ShaderPipeline()
 {
     if (__graphicsPipeline != VK_NULL_HANDLE)
-        vkDestroyPipeline(__logicalDevice, __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
+        vkDestroyPipeline(LogicalDevice::GetVkDevice(), __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
     if (__pipelineLayout != VK_NULL_HANDLE)
-        vkDestroyPipelineLayout(__logicalDevice, __pipelineLayout, Allocator::GetVKAllocationCallbacks());
+        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
 
 vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexCount, const uint32_t vertexSize,
@@ -49,8 +48,8 @@ vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexCount, co
         .offset = offset
     });
 
-    __vertexBuffers.emplace_back();
-    if (auto err = __vertexBuffers.back().Init(vertexCount, vertexSize, flags, sharingMode, memoryProperties, data); err != vc::Error::Success)
+    __vertexBuffers.emplace_back(new VertexBuffer());
+    if (auto err = __vertexBuffers.back()->Init(vertexCount, vertexSize, flags, sharingMode, memoryProperties, data); err != vc::Error::Success)
     {
         vc::Log::Error("Failed to create vertex buffer");
         return vc::Error::Failure;

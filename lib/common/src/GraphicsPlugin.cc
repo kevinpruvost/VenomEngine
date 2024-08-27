@@ -35,7 +35,7 @@ GraphicsPlugin::~GraphicsPlugin()
 
 GraphicsPlugin* GraphicsPlugin::Get()
 {
-    return VenomEngine::GetInstance()->pluginManager.GetGraphicsPlugin();
+    return VenomEngine::GetInstance()->pluginManager->GetGraphicsPlugin();
 }
 }
 }

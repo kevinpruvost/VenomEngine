@@ -19,7 +19,7 @@ namespace common
 PluginObject::PluginObject(const PluginType type)
     : __type(type)
 {
-    VenomEngine::GetInstance()->pluginManager.AddPluginObject(__type, this);
+    VenomEngine::GetInstance()->pluginManager->AddPluginObject(__type, this);
 }
 
 PluginObject::~PluginObject()
@@ -29,7 +29,7 @@ PluginObject::~PluginObject()
 
 void PluginObject::Destroy()
 {
-    VenomEngine::GetInstance()->pluginManager.RemovePluginObject(__type, this);
+    VenomEngine::GetInstance()->pluginManager->RemovePluginObject(__type, this);
 }
 
 }

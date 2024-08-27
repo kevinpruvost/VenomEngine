@@ -19,6 +19,11 @@ void Resources::InitializeFilesystem(char** argv)
     s_runfiles.reset(bazel::tools::cpp::runfiles::Runfiles::Create(argv[0]));
 }
 
+void Resources::FreeFilesystem()
+{
+    s_runfiles.reset();
+}
+
 std::string Resources::GetResourcePath(const std::string& resourcePath)
 {
     const std::string path = "BazelVulkanMetalWorkspace/resources/" + resourcePath;

@@ -41,6 +41,12 @@ VulkanApplication::~VulkanApplication()
     }
     // Set global physical device back to nullptr
     PhysicalDevice::SetUsedPhysicalDevice(nullptr);
+#ifdef VENOM_DEBUG
+    if (__debugMessenger) {
+        auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkDestroyDebugUtilsMessengerEXT"));
+        destroyDebugUtilsMessengerEXT(Instance::GetVkInstance(), __debugMessenger, Allocator::GetVKAllocationCallbacks());
+    }
+#endif
     vc::Log::Print("Vulkan app succesfully destroyed.");
 }
 

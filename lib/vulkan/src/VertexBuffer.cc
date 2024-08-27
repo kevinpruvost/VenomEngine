@@ -28,8 +28,26 @@ VertexBuffer::~VertexBuffer()
         vkFreeMemory(LogicalDevice::GetVkDevice(), __bufferMemory, Allocator::GetVKAllocationCallbacks());
 }
 
+VertexBuffer::VertexBuffer(VertexBuffer&& other)
+    : __buffer(other.__buffer)
+    , __bufferMemory(other.__bufferMemory)
+{
+    other.__buffer = VK_NULL_HANDLE;
+    other.__bufferMemory = VK_NULL_HANDLE;
+}
+
+VertexBuffer& VertexBuffer::operator=(VertexBuffer && other)
+{
+    if (this == &other) return *this;
+    __buffer = other.__buffer;
+    __bufferMemory = other.__bufferMemory;
+    other.__buffer = VK_NULL_HANDLE;
+    other.__bufferMemory = VK_NULL_HANDLE;
+    return *this;
+}
+
 vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
-    const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void* data)
+                             const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void* data)
 {
     VkBufferCreateInfo bufferInfo{};
     bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;

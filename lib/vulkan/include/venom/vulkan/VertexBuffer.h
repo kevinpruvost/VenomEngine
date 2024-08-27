@@ -18,7 +18,10 @@ class VertexBuffer
 public:
     VertexBuffer();
     ~VertexBuffer();
-
+    VertexBuffer(const VertexBuffer&) = delete;
+    VertexBuffer& operator=(const VertexBuffer&) = delete;
+    VertexBuffer(VertexBuffer&&);
+    VertexBuffer& operator=(VertexBuffer&&);
 
     vc::Error Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
         const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data);

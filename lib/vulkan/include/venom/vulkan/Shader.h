@@ -23,6 +23,8 @@ class ShaderPipeline
 public:
     ShaderPipeline();
     ~ShaderPipeline();
+    ShaderPipeline(const ShaderPipeline&) = delete;
+    ShaderPipeline& operator=(const ShaderPipeline&) = delete;
 
     vc::Error AddVertexBufferToLayout(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
         const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data,
@@ -36,8 +38,7 @@ private:
 private:
     VkPipeline __graphicsPipeline;
     VkPipelineLayout __pipelineLayout;
-    VkDevice __logicalDevice;
-    std::vector<VertexBuffer> __vertexBuffers;
+    std::vector<std::unique_ptr<VertexBuffer>> __vertexBuffers;
 
     std::vector<VkVertexInputBindingDescription> __bindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> __attributeDescriptions;

@@ -16,6 +16,8 @@
 #endif
 
 #ifdef VENOM_DEBUG
+#define _DEBUG
+#define DEBUG
 #define DEBUG_PRINT(str, ...) vc::Log::Print(str, __VA_ARGS__)
 #define DEBUG_LOG(str, ...) vc::Log::LogToFile(str, __VA_ARGS__)
 #define DEBUG_CODE(code) code

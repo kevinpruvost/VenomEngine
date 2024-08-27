@@ -32,7 +32,7 @@ DLL::~DLL()
 {
     if (__handle) {
 #ifdef _WIN32
-        //FreeLibrary((HMODULE)__handle);
+        FreeLibrary((HMODULE)__handle);
 #elif __APPLE__
         dlclose(m_handle);
 #else // Linux
