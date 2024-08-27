@@ -35,6 +35,8 @@ VulkanApplication::~VulkanApplication()
     for (int i = 0; i < 2; ++i) {
         vkFreeMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[i], nullptr);
     }
+    // Set global physical device back to nullptr
+    PhysicalDevice::SetUsedPhysicalDevice(nullptr);
 }
 
 vc::Error VulkanApplication::Run()
@@ -57,6 +59,14 @@ vc::Error VulkanApplication::Run()
     }
 
     // Test
+    __shaderPipeline.AddVertexBufferToLayout(3, sizeof(vc::Vec3),
+        VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+        __verticesPos, 0, 0, 0);
+    __shaderPipeline.AddVertexBufferToLayout(3, sizeof(vc::Vec3),
+        VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+        __verticesColor, 1, 1, 0);
     __shaderPipeline.LoadShaders(LogicalDevice::GetVkDevice(), &__swapChain, &__renderPass, {
         "shader.ps",
         "shader.vs"
@@ -279,6 +289,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     DEBUG_LOG("Chosen phyiscal device:");
     DEBUG_LOG("-%s:", __physicalDevice.properties.deviceName);
     DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAMAmount() / (1024 * 1024));
+
+    // Set global physical device
+    PhysicalDevice::SetUsedPhysicalDevice(&__physicalDevice.physicalDevice);
 
     // Get Queue Families
     __queueFamilies = getVulkanQueueFamilies(__physicalDevice);

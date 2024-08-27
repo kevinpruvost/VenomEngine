@@ -38,6 +38,18 @@ void PhysicalDevice::GetDeviceQueue(VkQueue* queuePtr, uint32_t queueFamilyIndex
     vkGetDeviceQueue(LogicalDevice::GetVkDevice(), queueFamilyIndex, queueIndex, queuePtr);
 }
 
+static const VkPhysicalDevice * s_usedPhysicalDevice = nullptr;
+const VkPhysicalDevice PhysicalDevice::GetUsedPhysicalDevice()
+{
+    venom_assert(s_usedPhysicalDevice != VK_NULL_HANDLE, "No physical device has been set");
+    return *s_usedPhysicalDevice;
+}
+
+void PhysicalDevice::SetUsedPhysicalDevice(const VkPhysicalDevice * device)
+{
+    s_usedPhysicalDevice = device;
+}
+
 std::vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
 {
     uint32_t deviceCount = 0;

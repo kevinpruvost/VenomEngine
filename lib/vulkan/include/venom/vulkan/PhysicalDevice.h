@@ -22,6 +22,8 @@ public:
     uint64_t GetDeviceLocalVRAMAmount() const;
 
     void GetDeviceQueue(VkQueue * queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const;
+    static const VkPhysicalDevice GetUsedPhysicalDevice();
+    static void SetUsedPhysicalDevice(const VkPhysicalDevice * device);
     static std::vector<PhysicalDevice> GetVulkanPhysicalDevices();
 
 public:
