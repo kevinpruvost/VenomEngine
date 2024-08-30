@@ -13,6 +13,8 @@
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
 
+#include <venom/common/FpsCounter.h>
+
 namespace venom::vulkan
 {
 /// @brief Device extensions to use
@@ -146,11 +148,19 @@ vc::Error VulkanApplication::Run()
 vc::Error VulkanApplication::__Loop()
 {
     vc::Error err;
+    vc::FpsCounter fps;
+    vc::Timer timer;
     while (!__context.ShouldClose())
     {
         __context.PollEvents();
         if (err = __DrawFrame(); err != vc::Error::Success)
             return err;
+        fps.RegisterFrame();
+        auto duration = timer.GetMilliSeconds();
+        if (duration >= 1000) {
+            vc::Log::Print("FPS: %d", fps.GetFps());
+            timer.Reset();
+        }
     }
 
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());

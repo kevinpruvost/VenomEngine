@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file VenomEngine.cc
 /// @date Aug, 26 2024
 /// @brief 
@@ -59,9 +59,7 @@ Error VenomEngine::RunEngine(char** argv)
     if (err = app->Run(); err != vc::Error::Success) {
         printf("Failed to run application: %d\n", static_cast<int>(err));
     }
-
     s_instance.reset();
-
     vc::Resources::FreeFilesystem();
     return err;
 }

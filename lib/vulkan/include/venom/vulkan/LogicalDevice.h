@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file LogicalDevice.h
 /// @date Aug, 27 2024
 /// @brief 

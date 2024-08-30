@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file PluginObject.cc
 /// @date Aug, 26 2024
 /// @brief 
@@ -24,7 +24,6 @@ PluginObject::PluginObject(const PluginType type)
 
 PluginObject::~PluginObject()
 {
-    Log::Print("Plugin Object destruction...");
 }
 
 void PluginObject::Destroy()

@@ -7,17 +7,12 @@
 ///
 #pragma once
 
-#if defined(_DEBUG) || defined(DEBUG)
-#define VENOM_DEBUG
-#endif
-
-#if !defined(NDEBUG) && defined(__GNUC__)
+#if defined(_DEBUG) || defined(DEBUG) || (!defined(NDEBUG) && defined(__GNUC__))
 #define VENOM_DEBUG
 #endif
 
 #ifdef VENOM_DEBUG
-#define _DEBUG
-#define DEBUG
+#define _ANALYSIS
 #define DEBUG_PRINT(str, ...) vc::Log::Print(str, __VA_ARGS__)
 #define DEBUG_LOG(str, ...) vc::Log::LogToFile(str, __VA_ARGS__)
 #define DEBUG_CODE(code) code
