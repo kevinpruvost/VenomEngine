@@ -78,8 +78,6 @@ private:
     int __currentFrame;
     bool __framebufferChanged;
     VulkanMesh __mesh;
-    std::vector<VkBuffer> __vkVertexBuffers;
-    std::vector<VkDeviceMemory> __vertexBuffersMemory;
     vc::Vec3 __verticesPos[3] = {
         {0, -0.5f, 0},
         {0.5f, 0.5f, 0},

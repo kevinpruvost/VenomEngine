@@ -35,12 +35,6 @@ VulkanApplication::VulkanApplication()
 VulkanApplication::~VulkanApplication()
 {
     vc::Log::Print("Destroying Vulkan app...");
-    for (int i = 0; i < 2; ++i) {
-        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __vkVertexBuffers[i], Allocator::GetVKAllocationCallbacks());
-    }
-    for (int i = 0; i < 2; ++i) {
-        vkFreeMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[i], Allocator::GetVKAllocationCallbacks());
-    }
     // Set global physical device back to nullptr
     PhysicalDevice::SetUsedPhysicalDevice(nullptr);
 #ifdef VENOM_DEBUG
