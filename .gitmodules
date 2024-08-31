@@ -11,7 +11,7 @@
 	path = docs/doxygen-awesome
 	url = https://github.com/jothepro/doxygen-awesome-css.git
 [submodule "lib/glaze"]
-	path = lib/glaze
+	path = lib/external/glaze
 	url = git@github.com:stephenberry/glaze.git
 [submodule "lib/VulkanMemoryAllocator"]
 	path = lib/external/VulkanMemoryAllocator
