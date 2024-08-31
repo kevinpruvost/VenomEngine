@@ -85,58 +85,6 @@ vc::Error VulkanApplication::Run()
         "shader.vs"
     });
 
-    __vertexBuffers.resize(2);
-    __vertexBuffersMemory.resize(2);
-    for (int i = 0; i < 2; ++i) {
-        VkBufferCreateInfo bufferInfo{};
-        bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-        bufferInfo.size = sizeof(vc::Vec3) * 3;
-        bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
-        bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-
-        if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, Allocator::GetVKAllocationCallbacks(), &__vertexBuffers[i]) != VK_SUCCESS) {
-            vc::Log::Error("Failed to create vertex buffer");
-            return vc::Error::Failure;
-        }
-
-        VkMemoryRequirements memRequirements;
-        vkGetBufferMemoryRequirements(LogicalDevice::GetVkDevice(), __vertexBuffers[i], &memRequirements);
-
-        VkPhysicalDeviceMemoryProperties memProperties;
-        vkGetPhysicalDeviceMemoryProperties(__physicalDevice.physicalDevice, &memProperties);
-
-        VkMemoryAllocateInfo allocInfo{};
-        allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-        allocInfo.allocationSize = memRequirements.size;
-        auto findMemoryType = [&](uint32_t typeFilter, VkMemoryPropertyFlags properties) -> uint32_t {
-            for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i) {
-                if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-                    return i;
-                }
-            }
-            return -1;
-        };
-        allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-        if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, Allocator::GetVKAllocationCallbacks(), &__vertexBuffersMemory[i]) != VK_SUCCESS) {
-            vc::Log::Error("Failed to allocate vertex buffer memory");
-            return vc::Error::Failure;
-        }
-    }
-
-    vkBindBufferMemory(LogicalDevice::GetVkDevice(), __vertexBuffers[0], __vertexBuffersMemory[0], 0);
-
-    void* data;
-    vkMapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[0], 0, sizeof(vc::Vec3) * 3, 0, &data);
-    memcpy(data, __verticesPos, sizeof(vc::Vec3) * 3);
-    vkUnmapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[0]);
-
-    vkBindBufferMemory(LogicalDevice::GetVkDevice(), __vertexBuffers[1], __vertexBuffersMemory[1], 0);
-
-    vkMapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[1], 0, sizeof(vc::Vec3) * 3, 0, &data);
-    memcpy(data, __verticesColor, sizeof(vc::Vec3) * 3);
-    vkUnmapMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[1]);
-
     if (res = __Loop(); res != vc::Error::Success)
     {
         vc::Log::Error("Failed to run loop: %d", res);

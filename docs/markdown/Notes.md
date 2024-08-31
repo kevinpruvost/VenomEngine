@@ -16,5 +16,7 @@
 - [METIS: Graph Partitioning lib (used by Nanite)](https://github.com/KarypisLab/METIS)
 - [PBRTv4: Scenes for test](https://github.com/mmp/pbrt-v4-scenes?tab=readme-ov-file)
 - [Dr.Memory: Valgrind-like Software for Windows/Linux/MacOS](https://drmemory.org/page_download.html)
-  
+- [Memory Allocator for Vulkan](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator)
+- [Memory Allocator for DX12](https://github.com/GPUOpen-LibrariesAndSDKs/D3D12MemoryAllocator)
+
 ### Learning Notes

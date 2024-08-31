@@ -13,3 +13,6 @@
 [submodule "lib/glaze"]
 	path = lib/glaze
 	url = git@github.com:stephenberry/glaze.git
+[submodule "lib/VulkanMemoryAllocator"]
+	path = lib/VulkanMemoryAllocator
+	url = git@github.com:GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
