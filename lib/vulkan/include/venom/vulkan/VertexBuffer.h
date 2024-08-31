@@ -25,6 +25,7 @@ public:
 
     vc::Error Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
         const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data);
+    VkBuffer GetVkBuffer() const;
 
 private:
     VkBuffer __buffer;

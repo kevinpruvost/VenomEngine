@@ -32,9 +32,7 @@ ShaderPipeline::~ShaderPipeline()
         vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
 
-vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexCount, const uint32_t vertexSize,
-    const VkBufferUsageFlags flags, const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties,
-    const void* data, const uint32_t binding, const uint32_t location, const uint32_t offset)
+vc::Error ShaderPipeline::AddVertexBufferToLayout( const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset)
 {
     __bindingDescriptions.push_back({
         .binding = binding,
@@ -47,13 +45,6 @@ vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexCount, co
         .format = VK_FORMAT_R32G32B32_SFLOAT,
         .offset = offset
     });
-
-    __vertexBuffers.emplace_back(new VertexBuffer());
-    if (auto err = __vertexBuffers.back()->Init(vertexCount, vertexSize, flags, sharingMode, memoryProperties, data); err != vc::Error::Success)
-    {
-        vc::Log::Error("Failed to create vertex buffer");
-        return vc::Error::Failure;
-    }
     return vc::Error::Success;
 }
 
@@ -108,7 +99,6 @@ vc::Error ShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineSh
 
 vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths)
 {
-    venom_assert(__vertexBuffers.size() != 0, "No vertex buffer has been added to the layout");
     // Loading every shader
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages(shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
     for (int i = 0; i < shaderPaths.size(); ++i)

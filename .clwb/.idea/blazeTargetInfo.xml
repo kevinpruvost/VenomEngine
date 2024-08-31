@@ -8,17 +8,17 @@
       <entry key="//lib/common:venom_common_static">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//:VenomEngine and 1 other target(s)" />
       </entry>
+      <entry key="//lib/external:glfw_platform">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:glfw_platform" />
+      </entry>
+      <entry key="//lib/external:glfw_static">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:glfw_static" />
+      </entry>
+      <entry key="//lib/external:glm_library">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:glm_library" />
+      </entry>
       <entry key="//lib/vulkan:venom_vulkan_static">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/vulkan:venom_vulkan_static" />
-      </entry>
-      <entry key="//lib:glfw_platform">
-        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib:glfw_platform" />
-      </entry>
-      <entry key="//lib:glfw_static">
-        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib:glfw_static" />
-      </entry>
-      <entry key="//lib:glm_library">
-        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib:glm_library" />
       </entry>
     </infoMap>
   </component>

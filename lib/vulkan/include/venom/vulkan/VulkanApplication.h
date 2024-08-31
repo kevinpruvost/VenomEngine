@@ -18,6 +18,7 @@
 #include <venom/vulkan/Semaphore.h>
 #include <venom/vulkan/Fence.h>
 #include <venom/vulkan/LogicalDevice.h>
+#include <venom/vulkan/plugin/graphics/Mesh.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
@@ -76,7 +77,8 @@ private:
     std::vector<Fence> __inFlightFences;
     int __currentFrame;
     bool __framebufferChanged;
-    std::vector<VkBuffer> __vertexBuffers;
+    VulkanMesh __mesh;
+    std::vector<VkBuffer> __vkVertexBuffers;
     std::vector<VkDeviceMemory> __vertexBuffersMemory;
     vc::Vec3 __verticesPos[3] = {
         {0, -0.5f, 0},

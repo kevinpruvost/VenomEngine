@@ -26,9 +26,7 @@ public:
     ShaderPipeline(const ShaderPipeline&) = delete;
     ShaderPipeline& operator=(const ShaderPipeline&) = delete;
 
-    vc::Error AddVertexBufferToLayout(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
-        const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data,
-        const uint32_t binding, const uint32_t location, const uint32_t offset);
+    vc::Error AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset);
     vc::Error LoadShaders(const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
     VkPipeline GetPipeline() const;
 

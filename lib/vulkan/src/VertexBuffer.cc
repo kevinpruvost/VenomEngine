@@ -77,7 +77,7 @@ vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSi
         }
         return -1;
     };
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, memoryProperties);
 
     if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, Allocator::GetVKAllocationCallbacks(), &__bufferMemory) != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate vertex buffer memory");
@@ -91,6 +91,11 @@ vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSi
     memcpy(dataMap, data, bufferInfo.size);
     vkUnmapMemory(LogicalDevice::GetVkDevice(), __bufferMemory);
     return vc::Error::Success;
+}
+
+VkBuffer VertexBuffer::GetVkBuffer() const
+{
+    return __buffer;
 }
 }
 }

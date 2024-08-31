@@ -36,7 +36,7 @@ VulkanApplication::~VulkanApplication()
 {
     vc::Log::Print("Destroying Vulkan app...");
     for (int i = 0; i < 2; ++i) {
-        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __vertexBuffers[i], Allocator::GetVKAllocationCallbacks());
+        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __vkVertexBuffers[i], Allocator::GetVKAllocationCallbacks());
     }
     for (int i = 0; i < 2; ++i) {
         vkFreeMemory(LogicalDevice::GetVkDevice(), __vertexBuffersMemory[i], Allocator::GetVKAllocationCallbacks());
@@ -72,14 +72,16 @@ vc::Error VulkanApplication::Run()
     }
 
     // Test
-    __shaderPipeline.AddVertexBufferToLayout(3, sizeof(vc::Vec3),
-        VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vc::Vec3), 0, 0, 0);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vc::Vec3), 1, 1, 0);
+    __mesh.AddVertexBuffer(3, sizeof(vc::Vec3), VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+        VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-        __verticesPos, 0, 0, 0);
-    __shaderPipeline.AddVertexBufferToLayout(3, sizeof(vc::Vec3),
-        VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        __verticesPos);
+    __mesh.AddVertexBuffer(3, sizeof(vc::Vec3), VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+        VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-        __verticesColor, 1, 1, 0);
+        __verticesColor);
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader.ps",
         "shader.vs"
@@ -144,7 +146,7 @@ vc::Error VulkanApplication::__DrawFrame()
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
         VkDeviceSize offsets[] = {0, 0};
-        vkCmdBindVertexBuffers(__commandBuffers[__currentFrame]->__commandBuffer, 0, 2, __vertexBuffers.data(), offsets);
+        vkCmdBindVertexBuffers(__commandBuffers[__currentFrame]->__commandBuffer, 0, 2, __mesh.GetVkVertexBuffers(), offsets);
         __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
