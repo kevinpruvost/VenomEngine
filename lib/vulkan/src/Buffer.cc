@@ -51,13 +51,14 @@ Buffer& Buffer::operator=(Buffer&& other)
 vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode,
                                const VkMemoryPropertyFlags memoryProperties)
 {
-    VkBufferCreateInfo bufferInfo{};
-    bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-    bufferInfo.size = size;
-    bufferInfo.usage = flags;
-    bufferInfo.sharingMode = sharingMode;
+    __bufferCreateInfo = {
+        .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
+        .size = size,
+        .usage = flags,
+        .sharingMode = sharingMode
+    };
 
-    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
+    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &__bufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to create vertex buffer");
         return vc::Error::Failure;
     }
@@ -85,6 +86,11 @@ vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags
         vc::Log::Error("Failed to allocate vertex buffer memory");
         return vc::Error::Failure;
     }
+
+    if (auto err = __BindBufferMemory(); err != vc::Error::Success) {
+        vc::Log::Error("Failed to bind buffer memory");
+        return err;
+    }
     return vc::Error::Success;
 }
 
@@ -100,11 +106,6 @@ vc::Error Buffer::__BindBufferMemory()
 
 vc::Error Buffer::WriteBuffer(const void* data)
 {
-    if (auto err = __BindBufferMemory(); err != vc::Error::Success) {
-        vc::Log::Error("Failed to bind buffer memory");
-        return err;
-    }
-
     void* dataMap;
     if (auto vkErr = vkMapMemory(LogicalDevice::GetVkDevice(), __memory, 0, __bufferCreateInfo.size, 0, &dataMap); vkErr != VK_SUCCESS) {
         vc::Log::Error("Failed to map buffer memory");

@@ -142,7 +142,7 @@ vc::Error VulkanApplication::__DrawFrame()
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
         VkDeviceSize offsets[] = {0, 0};
-        vkCmdBindVertexBuffers(__commandBuffers[__currentFrame]->__commandBuffer, 0, 2, __mesh.GetVkVertexBuffers(), offsets);
+        vkCmdBindVertexBuffers(__commandBuffers[__currentFrame]->GetVkCommandBuffer(), 0, 2, __mesh.GetVkVertexBuffers(), offsets);
         __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 

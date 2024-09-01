@@ -17,6 +17,7 @@ namespace vulkan
 {
 class RenderPass;
 class CommandBuffer;
+class Queue;
 
 class CommandPool
 {
@@ -24,6 +25,7 @@ public:
     CommandPool();
     ~CommandPool();
     bool IsReady() const;
+    void SetQueue(Queue* queue);
     CommandPool(const CommandPool&) = delete;
     CommandPool& operator=(const CommandPool&) = delete;
     CommandPool(CommandPool&& other);
@@ -35,6 +37,7 @@ public:
 private:
     VkCommandPool __commandPool;
     std::vector<std::unique_ptr<CommandBuffer>> __commandBuffers;
+    Queue * __queue;
 };
 
 /// @brief Command Buffer class, only instanciable by VulkanCommandPool.
@@ -54,8 +57,8 @@ public:
     friend class CommandPool;
     friend class RenderPass;
 
-public:
-    VkCommandBuffer __commandBuffer;
+    VkCommandBuffer GetVkCommandBuffer() const;
+    operator VkCommandBuffer() const;
 
 public:
     vc::Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0) const;
@@ -66,6 +69,13 @@ public:
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
+
+    void SubmitToQueue(VkFence fence = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitStage = 0,
+        VkSemaphore signalSemaphore = VK_NULL_HANDLE);
+    void WaitForQueue() const;
+private:
+    VkCommandBuffer __commandBuffer;
+    const Queue * __queue;
 };
 }
 }

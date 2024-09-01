@@ -9,6 +9,8 @@
 
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/CommandPoolManager.h>
+#include <venom/vulkan/QueueManager.h>
 
 namespace venom
 {
@@ -51,12 +53,39 @@ vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSi
         memoryProperties
     );
 
+    if (auto err = CopyBuffer(stagingBuffer, __buffer, vertexCount * vertexSize); err != vc::Error::Success)
+        return err;
+
     return vc::Error::Success;
 }
 
 VkBuffer VertexBuffer::GetVkBuffer() const
 {
     return __buffer.GetVkBuffer();
+}
+
+vc::Error VertexBuffer::CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer, const VkDeviceSize size)
+{
+    vc::Error err;
+    CommandPool * transferCommandPool = CommandPoolManager::GetTransferCommandPool();
+    CommandBuffer * commandBuffer = nullptr;
+    if (err = transferCommandPool->CreateCommandBuffer(&commandBuffer, VK_COMMAND_BUFFER_LEVEL_PRIMARY); err != vc::Error::Success)
+        return err;
+    if (err = commandBuffer->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
+        return err;
+    {
+        const VkBufferCopy copyRegion {
+            .srcOffset = 0,
+            .dstOffset = 0,
+            .size = size
+        };
+        vkCmdCopyBuffer(commandBuffer->GetVkCommandBuffer(), srcBuffer.GetVkBuffer(), dstBuffer.GetVkBuffer(), 1, &copyRegion);
+    }
+    if (err = commandBuffer->EndCommandBuffer(); err != vc::Error::Success)
+        return err;
+    commandBuffer->SubmitToQueue();
+    commandBuffer->WaitForQueue();
+    return vc::Error::Success;
 }
 }
 }

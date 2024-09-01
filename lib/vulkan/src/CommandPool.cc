@@ -8,14 +8,13 @@
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/QueueManager.h>
 
 namespace venom::vulkan
 {
 CommandBuffer::CommandBuffer()
     : __commandBuffer(VK_NULL_HANDLE)
 {
-    // Important to check because of allocation & free of command buffers
-    static_assert(sizeof(CommandBuffer) == sizeof(VkCommandBuffer), "Unexpected Command Buffer size!");
 }
 
 CommandBuffer::~CommandBuffer()
@@ -34,6 +33,16 @@ CommandBuffer& CommandBuffer::operator=(CommandBuffer&& other)
     __commandBuffer = other.__commandBuffer;
     other.__commandBuffer = VK_NULL_HANDLE;
     return *this;
+}
+
+VkCommandBuffer CommandBuffer::GetVkCommandBuffer() const
+{
+    return __commandBuffer;
+}
+
+CommandBuffer::operator VkCommandBuffer() const
+{
+    return __commandBuffer;
 }
 
 vc::Error CommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
@@ -91,6 +100,28 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(__commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
+void CommandBuffer::SubmitToQueue(VkFence fence, VkSemaphore waitSemaphore, VkPipelineStageFlags waitStage,
+    VkSemaphore signalSemaphore)
+{
+    VkSubmitInfo submitInfo {
+        .sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
+        .pNext = nullptr,
+        .waitSemaphoreCount = static_cast<uint32_t>(waitSemaphore != VK_NULL_HANDLE ? 1 : 0),
+        .pWaitSemaphores = &waitSemaphore,
+        .pWaitDstStageMask = &waitStage,
+        .commandBufferCount = 1,
+        .pCommandBuffers = &__commandBuffer,
+        .signalSemaphoreCount = static_cast<uint32_t>(signalSemaphore != VK_NULL_HANDLE ? 1 : 0),
+        .pSignalSemaphores = &signalSemaphore
+    };
+    vkQueueSubmit(__queue->GetVkQueue(), 1, &submitInfo, fence);
+}
+
+void CommandBuffer::WaitForQueue() const
+{
+    vkQueueWaitIdle(__queue->GetVkQueue());
+}
+
 CommandPool::CommandPool()
     : __commandPool(VK_NULL_HANDLE)
 {
@@ -116,6 +147,11 @@ bool CommandPool::IsReady() const
 {
     // TODO: Implement
     return true;
+}
+
+void CommandPool::SetQueue(Queue* queue)
+{
+    __queue = queue;
 }
 
 CommandPool::CommandPool(CommandPool&& other)
@@ -154,13 +190,12 @@ vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkComm
     allocInfo.level = level;
     allocInfo.commandBufferCount = 1;
 
-    __commandBuffers.emplace_back(new CommandBuffer());
-    auto & newCommandBuffer = __commandBuffers.back();
-
+    std::unique_ptr<CommandBuffer> & newCommandBuffer = __commandBuffers.emplace_back(new CommandBuffer());
     if (vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->__commandBuffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate command buffer");
         return vc::Error::Failure;
     }
+    newCommandBuffer->__queue = __queue;
     *commandBuffer = newCommandBuffer.get();
     return vc::Error::Success;
 }

@@ -10,6 +10,8 @@
 
 #include <algorithm>
 
+#include <venom/vulkan/CommandPoolManager.h>
+
 namespace venom
 {
 namespace vulkan
@@ -29,10 +31,15 @@ Queue::~Queue()
 
 void Queue::SetQueueFamilyIndex(uint32_t queueFamilyIndex) { __queueFamilyIndex = queueFamilyIndex; }
 void Queue::SetQueueIndex(uint32_t queueIndex) { __queueIndex = queueIndex; }
-void Queue::InitVkQueue() { vkGetDeviceQueue(LogicalDevice::GetVkDevice(), __queueFamilyIndex, __queueIndex, &__vkQueue); }
 uint32_t Queue::GetQueueFamilyIndex() const { return __queueFamilyIndex; }
 uint32_t Queue::GetQueueIndex() const { return __queueIndex; }
 VkQueue Queue::GetVkQueue() const { return __vkQueue; }
+
+void Queue::InitVkQueue()
+{
+    if (__queueFamilyIndex == UINT32_MAX || __queueIndex == UINT32_MAX) return;
+    vkGetDeviceQueue(LogicalDevice::GetVkDevice(), __queueFamilyIndex, __queueIndex, &__vkQueue);
+}
 
 QueueManager::QueueManager()
     : __queueFamilies(nullptr)
@@ -64,6 +71,21 @@ vc::Error QueueManager::Init()
     __protectedQueue.InitVkQueue();
     __videoDecodeQueue.InitVkQueue();
     __videoEncodeQueue.InitVkQueue();
+
+    // Mandatory queues
+    CommandPoolManager::GetGraphicsCommandPool()->SetQueue(&__graphicsQueue);
+    CommandPoolManager::GetComputeCommandPool()->SetQueue(&__computeQueue);
+    CommandPoolManager::GetTransferCommandPool()->SetQueue(&__transferQueue);
+    CommandPoolManager::GetPresentCommandPool()->SetQueue(&__presentQueue);
+    // Optional queues
+    if (CommandPoolManager::GetSparseBindingCommandPool() != nullptr)
+       CommandPoolManager::GetSparseBindingCommandPool()->SetQueue(&__sparseBindingQueue);
+    if (CommandPoolManager::GetProtectedCommandPool() != nullptr)
+        CommandPoolManager::GetProtectedCommandPool()->SetQueue(&__protectedQueue);
+    if (CommandPoolManager::GetVideoDecodeCommandPool() != nullptr)
+        CommandPoolManager::GetVideoDecodeCommandPool()->SetQueue(&__videoDecodeQueue);
+    if (CommandPoolManager::GetVideoEncodeCommandPool() != nullptr)
+        CommandPoolManager::GetVideoEncodeCommandPool()->SetQueue(&__videoEncodeQueue);
     return vc::Error::Success;
 }
 
