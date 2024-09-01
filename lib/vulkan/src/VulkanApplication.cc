@@ -114,6 +114,8 @@ vc::Error VulkanApplication::__Loop()
 vc::Error VulkanApplication::__DrawFrame()
 {
     // Draw image
+
+    // Wait for the fence to be signaled
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __inFlightFences[__currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 
     uint32_t imageIndex;
@@ -163,7 +165,7 @@ vc::Error VulkanApplication::__DrawFrame()
     submitInfo.signalSemaphoreCount = 1;
     submitInfo.pSignalSemaphores = signalSemaphores;
 
-    if (result = vkQueueSubmit(__graphicsQueue, 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+    if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
         __framebufferChanged = false;
         __RecreateSwapChain();
         return vc::Error::Success;
@@ -184,7 +186,7 @@ vc::Error VulkanApplication::__DrawFrame()
 
     presentInfo.pImageIndices = &imageIndex;
 
-    vkQueuePresentKHR(__presentQueue, &presentInfo);
+    vkQueuePresentKHR(__presentQueue.GetVkQueue(), &presentInfo);
 
     __currentFrame = (__currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     return vc::Error::Success;
@@ -192,7 +194,7 @@ vc::Error VulkanApplication::__DrawFrame()
 
 vc::Error VulkanApplication::__InitVulkan()
 {
-    vc::Error res = vc::Error::Success;
+    vc::Error res;
 
     // Debug Initialization first
     DEBUG_CODE(if (res = InitDebug(); res != vc::Error::Success) return res);
@@ -269,37 +271,34 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Create Logical device
-    // Create Queue Create Infos
-    std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
-
-    float queuePriority = 1.0f;
-    // Graphics Queue
-    queueCreateInfos.emplace_back(
-        VkDeviceQueueCreateInfo{
-            .sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
-            .queueFamilyIndex = __queueFamilies.graphicsQueueFamilyIndices[0],
-            .queueCount = 1,
-            .pQueuePriorities = &queuePriority
-        }
-    );
-
-    // Present Queue
-    if (queueCreateInfos[0].queueFamilyIndex != __queueFamilies.presentQueueFamilyIndices[0]) {
-        queueCreateInfos.emplace_back(
-            VkDeviceQueueCreateInfo{
-                .sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
-                .queueFamilyIndex = __queueFamilies.presentQueueFamilyIndices[0],
-                .queueCount = 1,
-                .pQueuePriorities = &queuePriority
-            }
-        );
-    }
-
     VkDeviceCreateInfo createInfo{};
+
+    // Queue Create Infos
+    // Create Queue Create Infos
+    QueueManagerSettings settings {
+        .graphicsQueueCount = 1,
+        .graphicsQueuePriority = 1.0f,
+        .computeQueueCount = 1,
+        .computeQueuePriority = 0.9f,
+        .transferQueueCount = 1,
+        .transferQueuePriority = 0.7f,
+        .sparseBindingQueueCount = 1,
+        .sparseBindingQueuePriority = 0.6f,
+        .protectedQueueCount = 0,
+        .protectedQueuePriority = 0.0f,
+        .videoDecodeQueueCount = 1,
+        .videoDecodeQueuePriority = 0.5f,
+        .videoEncodeQueueCount = 1,
+        .videoEncodeQueuePriority = 0.5f,
+        .presentQueueCount = 1,
+        .presentQueuePriority = 1.0f
+    };
+    __queueManager.SetQueueManagerSettings(settings);
+    if (err = __queueManager.SetLogicalDeviceQueueCreateInfos(__queueFamilies, &createInfo); err != vc::Error::Success)
+        return err;
+
     VkPhysicalDeviceFeatures deviceFeatures{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.pQueueCreateInfos = queueCreateInfos.data();
-    createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
     createInfo.pEnabledFeatures = &deviceFeatures;
 
     // Extensions
@@ -320,22 +319,27 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return vc::Error::InitializationFailed;
     }
 
-    if (VkResult res = vkCreateDevice(__physicalDevice.physicalDevice, &createInfo, Allocator::GetVKAllocationCallbacks(), &__logicalDevice.__device); res != VK_SUCCESS)
-    {
-        vc::Log::Error("Failed to create logical device, error code: %d", res);
-        return vc::Error::InitializationFailed;
-    }
-    LogicalDevice::CreateInstance(&__logicalDevice);
+    // Create Logical Device
+    if (err = __logicalDevice.Init(&createInfo); err != vc::Error::Success)
+        return err;
 
     // Create SwapChain
     if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
         return err;
 
-    // Create Graphics Queue
-    __physicalDevice.GetDeviceQueue(&__graphicsQueue, __queueFamilies.graphicsQueueFamilyIndices[0], 0);
+    // Init Command Pool Manager (inits 1 pool per queue family)
+    if (err = __commandPoolManager.Init(__queueFamilies); err != vc::Error::Success)
+        return err;
 
-    // Create Present Queue
-    __physicalDevice.GetDeviceQueue(&__presentQueue, __queueFamilies.presentQueueFamilyIndices[0], 0);
+    // Init Queue Manager
+    if (err = __queueManager.Init(); err != vc::Error::Success)
+        return err;
+
+    // Get Graphics Queue
+    __graphicsQueue = QueueManager::GetGraphicsQueue();
+
+    // Get Present Queue
+    __presentQueue = QueueManager::GetPresentQueue();
 
     // Create Render Pass
     if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
@@ -346,13 +350,12 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Create Graphics Command Pool
-    if (err = __commandPool.InitCommandPool(__queueFamilies.graphicsQueueFamilyIndices[0]); err != vc::Error::Success)
-        return err;
+    CommandPool * graphicsCommandPool = __commandPoolManager.GetGraphicsCommandPool();
 
     // Create Command Buffers
     __commandBuffers.resize(MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __commandPool.CreateCommandBuffer(&__commandBuffers[i]); err != vc::Error::Success)
+        if (err = graphicsCommandPool->CreateCommandBuffer(&__commandBuffers[i]); err != vc::Error::Success)
             return err;
     }
 

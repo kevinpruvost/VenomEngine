@@ -24,28 +24,22 @@ MappedQueueFamilies::MappedQueueFamilies()
 MappedQueueFamilies::MappedQueueFamilies(std::vector<QueueFamily>& queueFamilies)
     : __queueFamilies(std::move(queueFamilies)) // giving ownership of queue families
 {
-    for (int i = 0; i < __queueFamilies.size(); ++i) {
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+    for (int i = 0; i < __queueFamilies.size(); ++i)
+    {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_GRAPHICS_BIT)
             graphicsQueueFamilyIndices.push_back(i);
-        }
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_COMPUTE_BIT) {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_COMPUTE_BIT)
             computeQueueFamilyIndices.push_back(i);
-        }
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_TRANSFER_BIT) {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_TRANSFER_BIT)
             transferQueueFamilyIndices.push_back(i);
-        }
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_SPARSE_BINDING_BIT) {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_SPARSE_BINDING_BIT)
             sparseBindingQueueFamilyIndices.push_back(i);
-        }
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_PROTECTED_BIT) {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_PROTECTED_BIT)
             protectedQueueFamilyIndices.push_back(i);
-        }
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_VIDEO_DECODE_BIT_KHR) {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_VIDEO_DECODE_BIT_KHR)
             videoDecodeQueueFamilyIndices.push_back(i);
-        }
-        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_VIDEO_ENCODE_BIT_KHR) {
+        if (__queueFamilies[i].properties.queueFlags & VK_QUEUE_VIDEO_ENCODE_BIT_KHR)
             videoEncodeQueueFamilyIndices.push_back(i);
-        }
     }
 }
 
@@ -62,7 +56,7 @@ MappedQueueFamilies& MappedQueueFamilies::operator=(MappedQueueFamilies&& other)
     return *this;
 }
 
-const std::vector<QueueFamily> MappedQueueFamilies::GetQueueFamilies() const
+const std::vector<QueueFamily> & MappedQueueFamilies::GetQueueFamilies() const
 {
     return __queueFamilies;
 }

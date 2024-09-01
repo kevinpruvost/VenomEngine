@@ -8,6 +8,7 @@
 #pragma once
 
 #include <venom/vulkan/Debug.h>
+#include <venom/vulkan/Buffer.h>
 
 namespace venom
 {
@@ -28,8 +29,7 @@ public:
     VkBuffer GetVkBuffer() const;
 
 private:
-    VkBuffer __buffer;
-    VkDeviceMemory __bufferMemory;
+    Buffer __buffer;
 };
 }
 }

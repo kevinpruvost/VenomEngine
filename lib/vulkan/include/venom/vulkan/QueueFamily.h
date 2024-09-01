@@ -35,7 +35,7 @@ public:
 
     explicit MappedQueueFamilies(std::vector<QueueFamily>& queueFamilies);
     MappedQueueFamilies & operator=(MappedQueueFamilies&& other) noexcept;
-    const std::vector<QueueFamily> GetQueueFamilies() const;
+    const std::vector<QueueFamily> & GetQueueFamilies() const;
     vc::Error SetPresentQueueFamilyIndices(const PhysicalDevice& physicalDevice, const Surface & surface);
 
 public:

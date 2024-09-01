@@ -23,12 +23,13 @@ class CommandPool
 public:
     CommandPool();
     ~CommandPool();
+    bool IsReady() const;
     CommandPool(const CommandPool&) = delete;
     CommandPool& operator=(const CommandPool&) = delete;
     CommandPool(CommandPool&& other);
     CommandPool& operator=(CommandPool&& other);
 
-    vc::Error InitCommandPool(QueueFamilyIndex queueFamilyIndex);
+    vc::Error Init(QueueFamilyIndex queueFamilyIndex);
     vc::Error CreateCommandBuffer(CommandBuffer ** commandBuffer, VkCommandBufferLevel level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY);
 
 private:

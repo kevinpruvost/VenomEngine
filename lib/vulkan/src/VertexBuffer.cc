@@ -15,87 +15,48 @@ namespace venom
 namespace vulkan
 {
 VertexBuffer::VertexBuffer()
-    : __buffer(VK_NULL_HANDLE)
-    , __bufferMemory(VK_NULL_HANDLE)
 {
 }
 
 VertexBuffer::~VertexBuffer()
 {
-    if (__buffer != VK_NULL_HANDLE)
-        vkDestroyBuffer(LogicalDevice::GetVkDevice(), __buffer, Allocator::GetVKAllocationCallbacks());
-    if (__bufferMemory != VK_NULL_HANDLE)
-        vkFreeMemory(LogicalDevice::GetVkDevice(), __bufferMemory, Allocator::GetVKAllocationCallbacks());
 }
 
 VertexBuffer::VertexBuffer(VertexBuffer&& other)
-    : __buffer(other.__buffer)
-    , __bufferMemory(other.__bufferMemory)
+    : __buffer(std::move(other.__buffer))
 {
-    other.__buffer = VK_NULL_HANDLE;
-    other.__bufferMemory = VK_NULL_HANDLE;
 }
 
 VertexBuffer& VertexBuffer::operator=(VertexBuffer && other)
 {
     if (this == &other) return *this;
-    __buffer = other.__buffer;
-    __bufferMemory = other.__bufferMemory;
-    other.__buffer = VK_NULL_HANDLE;
-    other.__bufferMemory = VK_NULL_HANDLE;
+    __buffer = std::move(__buffer);
     return *this;
 }
 
 vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
                              const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void* data)
 {
-    VkBufferCreateInfo bufferInfo{};
-    bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-    bufferInfo.size = vertexCount * vertexSize;
-    bufferInfo.usage = flags;
-    bufferInfo.sharingMode = sharingMode;
+    Buffer stagingBuffer;
+    stagingBuffer.CreateBuffer(vertexCount * vertexSize,
+        VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+        VK_SHARING_MODE_EXCLUSIVE,
+        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+    );
+    stagingBuffer.WriteBuffer(data);
 
-    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
-        vc::Log::Error("Failed to create vertex buffer");
-        return vc::Error::Failure;
-    }
+    __buffer.CreateBuffer(vertexCount * vertexSize,
+        VK_BUFFER_USAGE_TRANSFER_DST_BIT | flags,
+        sharingMode,
+        memoryProperties
+    );
 
-    VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(LogicalDevice::GetVkDevice(), __buffer, &memRequirements);
-
-    VkPhysicalDeviceMemoryProperties memProperties;
-    vkGetPhysicalDeviceMemoryProperties(PhysicalDevice::GetUsedPhysicalDevice(), &memProperties);
-
-    VkMemoryAllocateInfo allocInfo{};
-    allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-    allocInfo.allocationSize = memRequirements.size;
-    const auto findMemoryType = [&](uint32_t typeFilter, VkMemoryPropertyFlags properties) -> uint32_t {
-        for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i) {
-            if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-                return i;
-            }
-        }
-        return -1;
-    };
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, memoryProperties);
-
-    if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, Allocator::GetVKAllocationCallbacks(), &__bufferMemory) != VK_SUCCESS) {
-        vc::Log::Error("Failed to allocate vertex buffer memory");
-        return vc::Error::Failure;
-    }
-
-    vkBindBufferMemory(LogicalDevice::GetVkDevice(), __buffer, __bufferMemory, 0);
-
-    void* dataMap;
-    vkMapMemory(LogicalDevice::GetVkDevice(), __bufferMemory, 0, bufferInfo.size, 0, &dataMap);
-    memcpy(dataMap, data, bufferInfo.size);
-    vkUnmapMemory(LogicalDevice::GetVkDevice(), __bufferMemory);
     return vc::Error::Success;
 }
 
 VkBuffer VertexBuffer::GetVkBuffer() const
 {
-    return __buffer;
+    return __buffer.GetVkBuffer();
 }
 }
 }

@@ -13,6 +13,8 @@ namespace venom
 {
 namespace vulkan
 {
+static const LogicalDevice * s_instance = nullptr;
+
 LogicalDevice::LogicalDevice()
     : __device(VK_NULL_HANDLE)
 {
@@ -22,6 +24,7 @@ LogicalDevice::~LogicalDevice()
 {
     if (__device != VK_NULL_HANDLE)
         vkDestroyDevice(__device, Allocator::GetVKAllocationCallbacks());
+    s_instance = nullptr;
 }
 
 LogicalDevice::LogicalDevice(LogicalDevice&& other)
@@ -43,12 +46,15 @@ LogicalDevice::operator struct VkDevice_T*() const
     return __device;
 }
 
-static const LogicalDevice * s_instance = nullptr;
-
-void LogicalDevice::CreateInstance(const LogicalDevice * device)
+vc::Error LogicalDevice::Init(const VkDeviceCreateInfo* createInfo)
 {
-    venom_assert(device != VK_NULL_HANDLE, "LogicalDevice::CreateInstance: device is VK_NULL_HANDLE");
-    s_instance = device;
+    if (VkResult res = vkCreateDevice(PhysicalDevice::GetUsedPhysicalDevice(), createInfo, Allocator::GetVKAllocationCallbacks(), &__device); res != VK_SUCCESS)
+    {
+        vc::Log::Error("Failed to create logical device, error code: %d", res);
+        return vc::Error::InitializationFailed;
+    }
+    s_instance = this;
+    return vc::Error::Success;
 }
 
 const LogicalDevice& LogicalDevice::GetInstance()

@@ -28,7 +28,7 @@ public:
     LogicalDevice& operator=(LogicalDevice&& other);
 
     explicit operator VkDevice() const;
-    static void CreateInstance(const LogicalDevice * device);
+    vc::Error Init(const VkDeviceCreateInfo * createInfo);
     static const LogicalDevice & GetInstance();
     static const VkDevice GetVkDevice();
 

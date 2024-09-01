@@ -19,6 +19,8 @@
 #include <venom/vulkan/Fence.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
+#include <venom/vulkan/CommandPoolManager.h>
+#include <venom/vulkan/QueueManager.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
@@ -63,9 +65,10 @@ private:
     Surface __surface;
     SwapChain __swapChain;
     RenderPass __renderPass;
-    CommandPool __commandPool;
+    CommandPoolManager __commandPoolManager;
+    QueueManager __queueManager;
 
-    VkQueue __graphicsQueue, __presentQueue;
+    Queue __graphicsQueue, __presentQueue;
 
 private:
     // For test

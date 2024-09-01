@@ -112,6 +112,12 @@ CommandPool::~CommandPool()
         vkDestroyCommandPool(LogicalDevice::GetVkDevice(), __commandPool, Allocator::GetVKAllocationCallbacks());
 }
 
+bool CommandPool::IsReady() const
+{
+    // TODO: Implement
+    return true;
+}
+
 CommandPool::CommandPool(CommandPool&& other)
     : __commandPool(other.__commandPool)
 {
@@ -126,7 +132,7 @@ CommandPool& CommandPool::operator=(CommandPool&& other)
     return *this;
 }
 
-vc::Error CommandPool::InitCommandPool(QueueFamilyIndex queueFamilyIndex)
+vc::Error CommandPool::Init(QueueFamilyIndex queueFamilyIndex)
 {
     VkCommandPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
