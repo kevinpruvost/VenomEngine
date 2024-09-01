@@ -6,8 +6,9 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/QueueManager.h>
-
 #include <venom/vulkan/LogicalDevice.h>
+
+#include <algorithm>
 
 namespace venom
 {
@@ -16,6 +17,9 @@ namespace vulkan
 static QueueManager * s_queueManager = nullptr;
 
 Queue::Queue()
+    : __queueFamilyIndex(UINT32_MAX)
+    , __queueIndex(UINT32_MAX)
+    , __vkQueue(VK_NULL_HANDLE)
 {
 }
 
@@ -86,21 +90,21 @@ vc::Error QueueManager::SetLogicalDeviceQueueCreateInfos(const MappedQueueFamili
         __queueCreateInfos[i].queueFamilyIndex = i;
         size_t maxQueueCount = __queueFamilies->GetQueueFamilies()[i].properties.queueCount;
         // Graphics queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.graphicsQueueCount, &__settings.graphicsQueuePriority, maxQueueCount, __queueFamilies->graphicsQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.graphicsQueueCount, &__settings.graphicsQueuePriority, maxQueueCount, __queueFamilies->graphicsQueueFamilyIndices, &__graphicsQueue);
         // Compute queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.computeQueueCount, &__settings.computeQueuePriority, maxQueueCount, __queueFamilies->computeQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.computeQueueCount, &__settings.computeQueuePriority, maxQueueCount, __queueFamilies->computeQueueFamilyIndices, &__computeQueue);
         // Present queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.presentQueueCount, &__settings.presentQueuePriority, maxQueueCount, __queueFamilies->presentQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.presentQueueCount, &__settings.presentQueuePriority, maxQueueCount, __queueFamilies->presentQueueFamilyIndices, &__presentQueue);
         // Transfer queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.transferQueueCount, &__settings.transferQueuePriority, maxQueueCount, __queueFamilies->transferQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.transferQueueCount, &__settings.transferQueuePriority, maxQueueCount, __queueFamilies->transferQueueFamilyIndices, &__transferQueue);
         // Sparse binding queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.sparseBindingQueueCount, &__settings.sparseBindingQueuePriority, maxQueueCount, __queueFamilies->sparseBindingQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.sparseBindingQueueCount, &__settings.sparseBindingQueuePriority, maxQueueCount, __queueFamilies->sparseBindingQueueFamilyIndices, &__sparseBindingQueue);
         // Protected queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.protectedQueueCount, &__settings.protectedQueuePriority, maxQueueCount, __queueFamilies->protectedQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.protectedQueueCount, &__settings.protectedQueuePriority, maxQueueCount, __queueFamilies->protectedQueueFamilyIndices, &__protectedQueue);
         // Video decode queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.videoDecodeQueueCount, &__settings.videoDecodeQueuePriority, maxQueueCount, __queueFamilies->videoDecodeQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.videoDecodeQueueCount, &__settings.videoDecodeQueuePriority, maxQueueCount, __queueFamilies->videoDecodeQueueFamilyIndices, &__videoDecodeQueue);
         // Video encode queues
-        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.videoEncodeQueueCount, &__settings.videoEncodeQueuePriority, maxQueueCount, __queueFamilies->videoEncodeQueueFamilyIndices);
+        __TryAddQueueCreateInfo(&__queueCreateInfos[i], &__queuePriorities[i], i, &__settings.videoEncodeQueueCount, &__settings.videoEncodeQueuePriority, maxQueueCount, __queueFamilies->videoEncodeQueueFamilyIndices, &__videoEncodeQueue);
 
         // Queue priorities
         __queueCreateInfos[i].pQueuePriorities = __queuePriorities[i].data();
@@ -159,9 +163,26 @@ const Queue & QueueManager::GetPresentQueue()
     return s_queueManager->__presentQueue;
 }
 
+const std::vector<VkDeviceQueueCreateInfo>& QueueManager::GetQueueCreateInfos()
+{
+    venom_assert(s_queueManager != nullptr, "QueueManager has not been initialized");
+    return s_queueManager->__queueCreateInfos;
+}
+
+std::vector<uint32_t> QueueManager::GetActiveQueueFamilyIndices()
+{
+    venom_assert(s_queueManager != nullptr, "QueueManager has not been initialized");
+    std::vector<uint32_t> indices;
+    indices.reserve(s_queueManager->__queueCreateInfos.size());
+    for (const auto& createInfo : s_queueManager->__queueCreateInfos) {
+        indices.emplace_back(createInfo.queueFamilyIndex);
+    }
+    return indices;
+}
+
 vc::Error QueueManager::__TryAddQueueCreateInfo(VkDeviceQueueCreateInfo* createInfo, std::vector<float> * queuePriorities,
-    uint32_t queueFamilyIndex, uint32_t * queueCount, const float * queuePriority,
-    size_t maxQueueCount, const QueueFamilyIndices& queueFamilyIndices)
+                                                uint32_t queueFamilyIndex, uint32_t * queueCount, const float * queuePriority,
+                                                size_t maxQueueCount, const QueueFamilyIndices & queueFamilyIndices, Queue * queue)
 {
     venom_assert(*queueCount <= 1, "More than 1 queue per feature is not supported yet");
     if (*queueCount == 0) return vc::Error::Success;
@@ -175,6 +196,9 @@ vc::Error QueueManager::__TryAddQueueCreateInfo(VkDeviceQueueCreateInfo* createI
         for (uint32_t i = 0; i < possibleQueues; ++i) {
             queuePriorities->push_back(*queuePriority);
         }
+        // Works only for 1 queue here
+        queue->SetQueueIndex(createInfo->queueCount - possibleQueues);
+        queue->SetQueueFamilyIndex(queueFamilyIndex);
     }
     return vc::Error::Success;
 }

@@ -75,10 +75,13 @@ public:
     static const Queue & GetVideoDecodeQueue();
     static const Queue & GetVideoEncodeQueue();
     static const Queue & GetPresentQueue();
+    static const std::vector<VkDeviceQueueCreateInfo> & GetQueueCreateInfos();
+    static std::vector<uint32_t> GetActiveQueueFamilyIndices();
 
 private:
     vc::Error __TryAddQueueCreateInfo(VkDeviceQueueCreateInfo * createInfo, std::vector<float> * queuePriorities, uint32_t queueFamilyIndex,
-        uint32_t * queueCount, const float * queuePriority, size_t maxQueueCount, const QueueFamilyIndices & queueFamilyIndices);
+        uint32_t * queueCount, const float * queuePriority, size_t maxQueueCount,
+        const QueueFamilyIndices & queueFamilyIndices, Queue * queue);
 
 private:
     const MappedQueueFamilies * __queueFamilies;

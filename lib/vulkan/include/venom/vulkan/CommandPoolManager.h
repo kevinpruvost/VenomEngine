@@ -10,6 +10,8 @@
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/CommandPool.h>
 
+#include <unordered_map>
+
 namespace venom
 {
 namespace vulkan
@@ -25,11 +27,12 @@ public:
     CommandPoolManager(CommandPoolManager && other) = delete;
     CommandPoolManager & operator=(CommandPoolManager && other) = delete;
 
-    vc::Error Init(const MappedQueueFamilies & queueFamilies);
+    vc::Error Init();
 
     static CommandPool * GetGraphicsCommandPool();
     static CommandPool * GetComputeCommandPool();
     static CommandPool * GetTransferCommandPool();
+    static CommandPool * GetPresentCommandPool();
     static CommandPool * GetSparseBindingCommandPool();
     static CommandPool * GetProtectedCommandPool();
     static CommandPool * GetVideoDecodeCommandPool();
@@ -38,9 +41,17 @@ public:
 private:
     static CommandPool * GetCommandPool(const QueueFamilyIndices & queueFamilyIndices);
 
+    CommandPool * __graphicsPool;
+    CommandPool * __computePool;
+    CommandPool * __transferPool;
+    CommandPool * __presentPool;
+    CommandPool * __sparseBindingPool;
+    CommandPool * __protectedPool;
+    CommandPool * __videoDecodePool;
+    CommandPool * __videoEncodePool;
+
 private:
-    std::vector<CommandPool> __commandPools;
-    const MappedQueueFamilies * __queueFamilies;
+    std::unordered_map<uint32_t, CommandPool> __commandPools;
 };
 }
 }

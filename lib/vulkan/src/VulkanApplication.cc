@@ -328,7 +328,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Init Command Pool Manager (inits 1 pool per queue family)
-    if (err = __commandPoolManager.Init(__queueFamilies); err != vc::Error::Success)
+    if (err = __commandPoolManager.Init(); err != vc::Error::Success)
         return err;
 
     // Init Queue Manager
