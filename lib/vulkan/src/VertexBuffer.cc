@@ -32,30 +32,31 @@ VertexBuffer::VertexBuffer(VertexBuffer&& other)
 VertexBuffer& VertexBuffer::operator=(VertexBuffer && other)
 {
     if (this == &other) return *this;
-    __buffer = std::move(__buffer);
+    __buffer = std::move(other.__buffer);
     return *this;
 }
 
-vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
-                             const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void* data)
+vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags, const void* data)
 {
     Buffer stagingBuffer;
     stagingBuffer.CreateBuffer(vertexCount * vertexSize,
         VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-        VK_SHARING_MODE_EXCLUSIVE,
+        QueueManager::GetGraphicsTransferSharingMode(),
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
     );
     stagingBuffer.WriteBuffer(data);
 
     __buffer.CreateBuffer(vertexCount * vertexSize,
         VK_BUFFER_USAGE_TRANSFER_DST_BIT | flags,
-        sharingMode,
-        memoryProperties
+        QueueManager::GetGraphicsTransferSharingMode(),
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT
     );
 
     if (auto err = CopyBuffer(stagingBuffer, __buffer, vertexCount * vertexSize); err != vc::Error::Success)
         return err;
 
+    __vertexCount = vertexCount;
+    __vertexSize = vertexSize;
     return vc::Error::Success;
 }
 
@@ -86,6 +87,21 @@ vc::Error VertexBuffer::CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuf
     commandBuffer->SubmitToQueue();
     commandBuffer->WaitForQueue();
     return vc::Error::Success;
+}
+
+uint32_t VertexBuffer::GetVertexCount() const
+{
+    return __vertexCount;
+}
+
+uint32_t VertexBuffer::GetVertexSize() const
+{
+    return __vertexSize;
+}
+
+uint32_t VertexBuffer::GetTotalSize() const
+{
+    return __vertexCount * __vertexSize;
 }
 }
 }

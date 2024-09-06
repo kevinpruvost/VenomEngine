@@ -24,13 +24,18 @@ public:
     VertexBuffer(VertexBuffer&&);
     VertexBuffer& operator=(VertexBuffer&&);
 
-    vc::Error Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
-        const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data);
+    vc::Error Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags, const void *data);
     VkBuffer GetVkBuffer() const;
     static vc::Error CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer, const VkDeviceSize size);
+    uint32_t GetVertexCount() const;
+    uint32_t GetVertexSize() const;
+    uint32_t GetTotalSize() const;
 
 private:
     Buffer __buffer;
+    uint32_t __vertexCount;
+    uint32_t __vertexSize;
 };
+typedef VertexBuffer IndexBuffer;
 }
 }

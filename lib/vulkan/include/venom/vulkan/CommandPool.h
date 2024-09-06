@@ -8,6 +8,7 @@
 #pragma once
 
 #include <venom/vulkan/QueueFamily.h>
+#include <venom/vulkan/plugin/graphics/Mesh.h>
 
 #include <memory>
 
@@ -69,6 +70,7 @@ public:
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
+    void DrawMesh(const VulkanMesh& vulkanMesh) const;
 
     void SubmitToQueue(VkFence fence = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitStage = 0,
         VkSemaphore signalSemaphore = VK_NULL_HANDLE);

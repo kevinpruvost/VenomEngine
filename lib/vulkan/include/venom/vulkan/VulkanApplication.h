@@ -81,15 +81,21 @@ private:
     int __currentFrame;
     bool __framebufferChanged;
     VulkanMesh __mesh;
-    vc::Vec3 __verticesPos[3] = {
-        {0, -0.5f, 0},
+    vc::Vec3 __verticesPos[4] = {
+        {-0.5f, -0.5f, 0.0f},
+        {0.5f, -0.5f, 0.0f},
         {0.5f, 0.5f, 0},
         {-0.5f, 0.5f, 0}
     };
-    vc::Vec3 __verticesColor[3] = {
-        {1, 1, 0},
+    vc::Vec3 __verticesColor[4] = {
+        {1, 0, 0},
         {0, 1, 0},
-        {0, 0, 1}
+        {0, 0, 1},
+        {1, 1, 1}
+    };
+    uint32_t __indices[6] = {
+        0, 1, 2,
+        2, 3, 0
     };
 };
 }

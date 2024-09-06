@@ -23,12 +23,18 @@ public:
     ~VulkanMesh();
     void Draw() override;
 
-    vc::Error AddVertexBuffer(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags,
-    const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties, const void *data);
+    vc::Error AddVertexBuffer(const void* data, const uint32_t vertexCount, const uint32_t vertexSize);
+    vc::Error AddIndexBuffer(const void* data, const uint32_t indexCount, const uint32_t indexSize);
     const VkBuffer * GetVkVertexBuffers() const;
+    VkBuffer GetVkIndexBuffer() const;
+    const IndexBuffer & GetIndexBuffer() const;
+    uint32_t GetBindingCount() const;
+    uint32_t GetVertexCount() const;
+
 private:
     std::vector<VertexBuffer> __vertexBuffers;
     std::vector<VkBuffer> __vkVertexBuffers;
+    IndexBuffer __indexBuffer;
 };
 }
 }

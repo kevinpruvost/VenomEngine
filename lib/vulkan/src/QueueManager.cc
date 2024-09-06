@@ -52,6 +52,9 @@ QueueManager::QueueManager()
     , __videoEncodeQueue{}
     , __presentQueue{}
     , __queueCreateInfos{}
+    , __graphicsComputeSharingMode(VK_SHARING_MODE_EXCLUSIVE)
+    , __graphicsComputeTransferSharingMode(VK_SHARING_MODE_EXCLUSIVE)
+    , __graphicsTransferSharingMode(VK_SHARING_MODE_EXCLUSIVE)
 {
     s_queueManager = this;
 }
@@ -86,6 +89,16 @@ vc::Error QueueManager::Init()
         CommandPoolManager::GetVideoDecodeCommandPool()->SetQueue(&__videoDecodeQueue);
     if (CommandPoolManager::GetVideoEncodeCommandPool() != nullptr)
         CommandPoolManager::GetVideoEncodeCommandPool()->SetQueue(&__videoEncodeQueue);
+
+    // Check for sharing mode
+    if (__graphicsQueue.GetQueueFamilyIndex() != __computeQueue.GetQueueFamilyIndex())
+    {
+        __graphicsComputeSharingMode = VK_SHARING_MODE_CONCURRENT;
+        if (__graphicsQueue.GetQueueFamilyIndex() != __transferQueue.GetQueueFamilyIndex())
+            __graphicsComputeTransferSharingMode = VK_SHARING_MODE_CONCURRENT;
+    }
+    if (__graphicsQueue.GetQueueFamilyIndex() != __transferQueue.GetQueueFamilyIndex())
+        __graphicsTransferSharingMode = VK_SHARING_MODE_CONCURRENT;
     return vc::Error::Success;
 }
 
@@ -200,6 +213,21 @@ std::vector<uint32_t> QueueManager::GetActiveQueueFamilyIndices()
         indices.emplace_back(createInfo.queueFamilyIndex);
     }
     return indices;
+}
+
+VkSharingMode QueueManager::GetGraphicsTransferSharingMode()
+{
+    return s_queueManager->__graphicsTransferSharingMode;
+}
+
+VkSharingMode QueueManager::GetGraphicsComputeTransferSharingMode()
+{
+    return s_queueManager->__graphicsComputeTransferSharingMode;
+}
+
+VkSharingMode QueueManager::GetGraphicsComputeSharingMode()
+{
+    return s_queueManager->__graphicsComputeSharingMode;
 }
 
 vc::Error QueueManager::__TryAddQueueCreateInfo(VkDeviceQueueCreateInfo* createInfo, std::vector<float> * queuePriorities,

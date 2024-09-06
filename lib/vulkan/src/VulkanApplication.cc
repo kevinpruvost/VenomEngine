@@ -68,14 +68,9 @@ vc::Error VulkanApplication::Run()
     // Test
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vc::Vec3), 0, 0, 0);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vc::Vec3), 1, 1, 0);
-    __mesh.AddVertexBuffer(3, sizeof(vc::Vec3), VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
-        VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
-        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-        __verticesPos);
-    __mesh.AddVertexBuffer(3, sizeof(vc::Vec3), VkBufferUsageFlagBits::VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
-        VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
-        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-        __verticesColor);
+    __mesh.AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vc::Vec3), sizeof(vc::Vec3));
+    __mesh.AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vc::Vec3), sizeof(vc::Vec3));
+    __mesh.AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader.ps",
         "shader.vs"
@@ -141,9 +136,7 @@ vc::Error VulkanApplication::__DrawFrame()
         __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
-        VkDeviceSize offsets[] = {0, 0};
-        vkCmdBindVertexBuffers(__commandBuffers[__currentFrame]->GetVkCommandBuffer(), 0, 2, __mesh.GetVkVertexBuffers(), offsets);
-        __commandBuffers[__currentFrame]->Draw(3, 1, 0, 0);
+        __commandBuffers[__currentFrame]->DrawMesh(__mesh);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
     if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != vc::Error::Success)

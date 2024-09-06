@@ -100,8 +100,23 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(__commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
+void CommandBuffer::DrawMesh(const VulkanMesh& vulkanMesh) const
+{
+    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    const IndexBuffer & indexBuffer = vulkanMesh.GetIndexBuffer();
+    const VkBuffer * vertexBuffers = vulkanMesh.GetVkVertexBuffers();
+    VkDeviceSize offsets[] = {0, 0};
+    vkCmdBindVertexBuffers(__commandBuffer, 0, vulkanMesh.GetBindingCount(), vertexBuffers, offsets);
+    if (indexBuffer.GetVkBuffer() != VK_NULL_HANDLE) {
+        vkCmdBindIndexBuffer(__commandBuffer, indexBuffer.GetVkBuffer(), 0, VK_INDEX_TYPE_UINT32);
+        vkCmdDrawIndexed(__commandBuffer, indexBuffer.GetVertexCount(), 1, 0, 0, 0);
+    } else {
+        vkCmdDraw(__commandBuffer, vulkanMesh.GetVertexCount(), 1, 0, 0);
+    }
+}
+
 void CommandBuffer::SubmitToQueue(VkFence fence, VkSemaphore waitSemaphore, VkPipelineStageFlags waitStage,
-    VkSemaphore signalSemaphore)
+                                  VkSemaphore signalSemaphore)
 {
     VkSubmitInfo submitInfo {
         .sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,

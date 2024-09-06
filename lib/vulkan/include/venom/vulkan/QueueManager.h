@@ -78,6 +78,11 @@ public:
     static const std::vector<VkDeviceQueueCreateInfo> & GetQueueCreateInfos();
     static std::vector<uint32_t> GetActiveQueueFamilyIndices();
 
+    // Sharing mode
+    static VkSharingMode GetGraphicsTransferSharingMode();
+    static VkSharingMode GetGraphicsComputeTransferSharingMode();
+    static VkSharingMode GetGraphicsComputeSharingMode();
+
 private:
     vc::Error __TryAddQueueCreateInfo(VkDeviceQueueCreateInfo * createInfo, std::vector<float> * queuePriorities, uint32_t queueFamilyIndex,
         uint32_t * queueCount, const float * queuePriority, size_t maxQueueCount,
@@ -96,6 +101,10 @@ private:
     Queue __protectedQueue;
     Queue __videoDecodeQueue;
     Queue __videoEncodeQueue;
+
+    VkSharingMode __graphicsTransferSharingMode;
+    VkSharingMode __graphicsComputeTransferSharingMode;
+    VkSharingMode __graphicsComputeSharingMode;
 };
 }
 }
