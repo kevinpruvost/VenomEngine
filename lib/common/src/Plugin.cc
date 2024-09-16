@@ -45,6 +45,11 @@ void Plugin::CleanPluginObjects()
 
 Plugin::~Plugin()
 {
+    // Cleaning objects in reverse order
+    // Very important as some objects might depend on others (first object for instance will surely be the Application)
+    for (auto ite = __objects.rbegin(); ite != __objects.rend(); ++ite) {
+        ite->reset();
+    }
 }
 
 const PluginType Plugin::GetType() const

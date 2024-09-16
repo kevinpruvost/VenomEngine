@@ -207,13 +207,27 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
     dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
     dynamicState.pDynamicStates = dynamicStates.data();
 
+    // Descriptor Set Layout
+    __descriptorSetLayout.AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
+    if (__descriptorSetLayout.Create() != vc::Error::Success) {
+        vc::Log::Error("Failed to create descriptor set layout");
+        return vc::Error::Failure;
+    }
+    VkDescriptorSetLayout descriptorSetLayout = __descriptorSetLayout.GetLayout();
+
+    // Push constants
+    VkPushConstantRange pushConstantRange{};
+    pushConstantRange.offset = 0;
+    pushConstantRange.size = 2 * sizeof(vcm::Mat4); // View and Projection matrices
+    pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+
     // Pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount = 0; // Optional
-    //pipelineLayoutInfo.pSetLayouts = nullptr; // Optional
-    pipelineLayoutInfo.pushConstantRangeCount = 0; // Optional
-    //pipelineLayoutInfo.pPushConstantRanges = nullptr; // Optional
+    pipelineLayoutInfo.setLayoutCount = 1; // Optional
+    pipelineLayoutInfo.pSetLayouts = &descriptorSetLayout; // Optional
+    pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
+    pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
 
     if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &__pipelineLayout) != VK_SUCCESS)
     {
@@ -265,5 +279,15 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
 VkPipeline ShaderPipeline::GetPipeline() const
 {
     return __graphicsPipeline;
+}
+
+VkPipelineLayout ShaderPipeline::GetPipelineLayout() const
+{
+    return __pipelineLayout;
+}
+
+const VkDescriptorSetLayout& ShaderPipeline::GetDescriptorSetLayout() const
+{
+    return __descriptorSetLayout.GetLayout();
 }
 }

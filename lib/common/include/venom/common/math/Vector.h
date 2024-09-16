@@ -14,7 +14,8 @@ namespace venom
 {
 namespace common
 {
-
+namespace math
+{
 #if defined(VENOM_MATH_DXMATH)
 typedef DirectX::XMFLOAT4 Vec4;
 typedef DirectX::XMFLOAT3 Vec3;
@@ -44,6 +45,6 @@ typedef Vec3 VertexBitangent;
 
 /// @brief Vertex Index (used for indexing in element buffers)
 typedef uint32_t VertexIndex;
-
+}
 }
 }

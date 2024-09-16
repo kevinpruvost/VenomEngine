@@ -26,6 +26,7 @@ public:
     vc::Error CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties);
     vc::Error WriteBuffer(const void* data);
     VkBuffer GetVkBuffer() const;
+    const VkDeviceMemory & GetVkDeviceMemory() const;
 
 private:
     vc::Error __BindBufferMemory();

@@ -34,6 +34,7 @@ cc_shared_library(
     ],
     exports_filter = [
         "//lib/common:VenomCommon",
+        "//lib/external:glm_library",
     ],
     visibility = ["//visibility:public"],
     deps = [

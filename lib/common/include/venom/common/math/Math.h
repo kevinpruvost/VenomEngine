@@ -21,6 +21,7 @@
 #elif defined(__ARM_NEON)  // Check if NEON is supported on ARM
 #define GLM_FORCE_NEON
 #endif
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #endif
 
@@ -28,6 +29,9 @@ namespace venom
 {
 namespace common
 {
-
+namespace math
+{
 }
 }
+}
+namespace vcm = venom::common::math;

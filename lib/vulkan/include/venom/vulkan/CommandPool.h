@@ -18,6 +18,7 @@ namespace vulkan
 {
 class RenderPass;
 class CommandBuffer;
+class ShaderPipeline;
 class Queue;
 
 class CommandPool
@@ -71,6 +72,10 @@ public:
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
     void DrawMesh(const VulkanMesh& vulkanMesh) const;
+    void PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
+
+    void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
+        uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors);
 
     void SubmitToQueue(VkFence fence = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitStage = 0,
         VkSemaphore signalSemaphore = VK_NULL_HANDLE);

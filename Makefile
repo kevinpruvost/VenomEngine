@@ -71,7 +71,7 @@ compile_shaders_debug: check_ruby
 validate_shaders:
 	@echo "Validating all SPIR-V shaders..."
 	@echo "If no output is shown, the shaders are valid."
-	@for spv in ./assets/shaders/compiled/*.spv; do \
+	@for spv in ./resources/shaders/compiled/*.spv; do \
 		spirv-val $$spv; \
 	done
 

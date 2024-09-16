@@ -65,17 +65,6 @@ vc::Error VulkanApplication::Run()
         return vc::Error::InitializationFailed;
     }
 
-    // Test
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vc::Vec3), 0, 0, 0);
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vc::Vec3), 1, 1, 0);
-    __mesh.AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vc::Vec3), sizeof(vc::Vec3));
-    __mesh.AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vc::Vec3), sizeof(vc::Vec3));
-    __mesh.AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
-    __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
-        "shader.ps",
-        "shader.vs"
-    });
-
     if (res = __Loop(); res != vc::Error::Success)
     {
         vc::Log::Error("Failed to run loop: %d", res);
@@ -106,6 +95,23 @@ vc::Error VulkanApplication::__Loop()
     return vc::Error::Success;
 }
 
+void VulkanApplication::__UpdateUniformBuffers()
+{
+    static vc::Timer timer_uni;
+    float time = timer_uni.GetMilliSeconds();
+
+    vcm::Mat4 model;
+    vcm::RotateMatrix(model, {0.0f, 0.0f, 1.0f}, time / 1000.0f);
+    vcm::Mat4 viewAndProj[2];
+    viewAndProj[0] = vcm::LookAtRH({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f});
+    viewAndProj[1] = vcm::PerspectiveRH(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
+
+    // Uniform buffers (view and projection)
+    memcpy(__uniformBuffers[__currentFrame].GetMappedData(), viewAndProj, sizeof(vcm::Mat4) * 2);
+    // Push Constants (model)
+    __commandBuffers[__currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
+}
+
 vc::Error VulkanApplication::__DrawFrame()
 {
     // Draw image
@@ -132,11 +138,15 @@ vc::Error VulkanApplication::__DrawFrame()
     if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
+        // Update Uniform Buffers
+        __UpdateUniformBuffers();
+
         __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[__currentFrame], imageIndex);
         __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
-        __commandBuffers[__currentFrame]->DrawMesh(__mesh);
+        __commandBuffers[__currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, __shaderPipeline.GetPipelineLayout(), 0, 1, __descriptorSets[__currentFrame].GetVkDescriptorSet());
+        __commandBuffers[__currentFrame]->DrawMesh(*__mesh);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
     if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
@@ -364,6 +374,34 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         if (err =__inFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
     }
+
+    // Create Uniform Buffers
+    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+        if (err = __uniformBuffers[i].Init(sizeof(vcm::Mat4) * 2); err != vc::Error::Success)
+            return err;
+    }
+
+    // Test
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0);
+    __mesh = reinterpret_cast<VulkanMesh*>(vc::Mesh::Create());
+    __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3));
+    __mesh->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec3), sizeof(vcm::Vec3));
+    __mesh->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
+    __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
+        "shader.ps",
+        "shader.vs"
+    });
+
+    // Create Descriptor Pool
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, MAX_FRAMES_IN_FLIGHT);
+    if (err = __descriptorPool.Create(0, MAX_FRAMES_IN_FLIGHT); err != vc::Error::Success)
+        return err;
+
+    // Create Descriptor Sets
+    __descriptorSets = __descriptorPool.AllocateSets(__shaderPipeline.GetDescriptorSetLayout(), MAX_FRAMES_IN_FLIGHT);
+    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i)
+        __descriptorSets[i].Update(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 2, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
     return vc::Error::Success;
 }

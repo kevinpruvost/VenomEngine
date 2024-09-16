@@ -29,10 +29,10 @@ public:
     virtual void Draw() = 0;
 
 protected:
-    std::vector<vc::VertexPos> __positions;
-    std::vector<vc::VertexNormal> __normals;
-    std::vector<vc::VertexColor> __colors;
-    std::vector<vc::VertexUV> __uvs;
+    std::vector<vcm::VertexPos> __positions;
+    std::vector<vcm::VertexNormal> __normals;
+    std::vector<vcm::VertexColor> __colors;
+    std::vector<vcm::VertexUV> __uvs;
     std::vector<uint32_t> __indices;
 };
 

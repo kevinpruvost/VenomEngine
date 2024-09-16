@@ -205,7 +205,7 @@ cc_library(
         "glm/glm/simd/**/*.hpp",
         "glm/glm/simd/**/*.h",
     ]),
-    strip_include_prefix = ".",
+    strip_include_prefix = "./glm",
     visibility = ["//visibility:public"],
     deps = [":glm_header_only"],
 )
@@ -215,4 +215,12 @@ alias(
     name = "glm",
     actual = ":glm_library",
     visibility = ["//visibility:public"],
+)
+
+# VulkanMemoryAllocator
+
+cc_library(
+    name = "VulkanMemoryAllocator",
+    includes = ["VulkanMemoryAllocator/include"],
+    deps = [],
 )

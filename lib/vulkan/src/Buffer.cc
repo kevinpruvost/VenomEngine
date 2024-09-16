@@ -120,5 +120,10 @@ VkBuffer Buffer::GetVkBuffer() const
 {
     return __buffer;
 }
+
+const VkDeviceMemory & Buffer::GetVkDeviceMemory() const
+{
+    return __memory;
+}
 }
 }

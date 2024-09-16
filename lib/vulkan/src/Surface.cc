@@ -11,12 +11,14 @@
 namespace venom::vulkan
 {
 Surface::Surface()
+    : surface(VK_NULL_HANDLE)
 {
 }
 
 Surface::~Surface()
 {
-    vkDestroySurfaceKHR(Instance::GetVkInstance(), surface, Allocator::GetVKAllocationCallbacks());
+    if (surface != VK_NULL_HANDLE)
+        vkDestroySurfaceKHR(Instance::GetVkInstance(), surface, Allocator::GetVKAllocationCallbacks());
 }
 
 vc::Error Surface::CreateSurface(vc::Context* context)

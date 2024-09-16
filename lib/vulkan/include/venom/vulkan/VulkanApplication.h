@@ -21,6 +21,8 @@
 #include <venom/vulkan/plugin/graphics/Mesh.h>
 #include <venom/vulkan/CommandPoolManager.h>
 #include <venom/vulkan/QueueManager.h>
+#include <venom/vulkan/UniformBuffer.h>
+#include <venom/vulkan/DescriptorPool.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
@@ -43,6 +45,7 @@ public:
 
 private:
     vc::Error __Loop();
+    void __UpdateUniformBuffers();
     vc::Error __DrawFrame();
     vc::Error __InitVulkan();
 
@@ -70,6 +73,9 @@ private:
 
     Queue __graphicsQueue, __presentQueue;
 
+    DescriptorPool __descriptorPool;
+    std::vector<DescriptorSet> __descriptorSets;
+
 private:
     // For test
     ShaderPipeline __shaderPipeline;
@@ -80,14 +86,15 @@ private:
     std::vector<Fence> __inFlightFences;
     int __currentFrame;
     bool __framebufferChanged;
-    VulkanMesh __mesh;
-    vc::Vec3 __verticesPos[4] = {
+    VulkanMesh * __mesh;
+    UniformBuffer __uniformBuffers[2];
+    vcm::Vec3 __verticesPos[4] = {
         {-0.5f, -0.5f, 0.0f},
         {0.5f, -0.5f, 0.0f},
         {0.5f, 0.5f, 0},
         {-0.5f, 0.5f, 0}
     };
-    vc::Vec3 __verticesColor[4] = {
+    vcm::Vec3 __verticesColor[4] = {
         {1, 0, 0},
         {0, 1, 0},
         {0, 0, 1},

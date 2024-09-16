@@ -11,6 +11,9 @@
 #include <venom/vulkan/SwapChain.h>
 #include <venom/vulkan/RenderPass.h>
 #include <venom/vulkan/VertexBuffer.h>
+#include <venom/vulkan/DescriptorSetLayout.h>
+
+#include <venom/common/math/Matrix.h>
 
 #include "tools/cpp/runfiles/runfiles.h"
 
@@ -29,6 +32,8 @@ public:
     vc::Error AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset);
     vc::Error LoadShaders(const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
     VkPipeline GetPipeline() const;
+    VkPipelineLayout GetPipelineLayout() const;
+    const VkDescriptorSetLayout & GetDescriptorSetLayout() const;
 
 private:
     vc::Error LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
@@ -36,6 +41,7 @@ private:
 private:
     VkPipeline __graphicsPipeline;
     VkPipelineLayout __pipelineLayout;
+    DescriptorSetLayout __descriptorSetLayout;
     std::vector<std::unique_ptr<VertexBuffer>> __vertexBuffers;
 
     std::vector<VkVertexInputBindingDescription> __bindingDescriptions;

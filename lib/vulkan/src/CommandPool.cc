@@ -9,6 +9,7 @@
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/QueueManager.h>
+#include <venom/vulkan/Shader.h>
 
 namespace venom::vulkan
 {
@@ -113,6 +114,18 @@ void CommandBuffer::DrawMesh(const VulkanMesh& vulkanMesh) const
     } else {
         vkCmdDraw(__commandBuffer, vulkanMesh.GetVertexCount(), 1, 0, 0);
     }
+}
+
+void CommandBuffer::PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
+    uint32_t size, const void* pValues) const
+{
+    vkCmdPushConstants(__commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
+}
+
+void CommandBuffer::BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
+    uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors)
+{
+    vkCmdBindDescriptorSets(__commandBuffer, vkPipelineBindPoint, vkPipelineLayout, firstSet, descriptSetCount, &vkDescriptors, 0, nullptr);
 }
 
 void CommandBuffer::SubmitToQueue(VkFence fence, VkSemaphore waitSemaphore, VkPipelineStageFlags waitStage,
