@@ -7,6 +7,11 @@
 ///
 #pragma once
 
+// Coordinate System (default is right hand because Vulkan, Metal & OpenGL use it)
+#if not defined(VENOM_COORDINATE_LEFT_HAND)
+#define VENOM_COORDINATE_RIGHT_HAND
+#endif
+
 // If on windows and FORCE_GLM is not defined, then use DirectXMath
 #if defined(_WIN32) && !defined(FORCE_GLM)
 #define VENOM_MATH_DXMATH
@@ -23,6 +28,7 @@
 #endif
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #endif
 
 namespace venom

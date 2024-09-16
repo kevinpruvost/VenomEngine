@@ -148,7 +148,7 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
     // Cull mode determines the type of face culling, back bit means to cull back faces
     rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
     // Front face is the vertex order that is considered front facing
-    rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
+    rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     // Depth bias is just adding a constant value or a value proportional to the slope of the polygon
     // Can be used for shadow mapping
     // https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias

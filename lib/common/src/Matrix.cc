@@ -13,6 +13,15 @@ namespace common
 {
 namespace math
 {
+Mat4 Identity()
+{
+#if defined(VENOM_MATH_DXMATH)
+    return DirectX::XMMatrixIdentity();
+#elif defined(VENOM_MATH_GLM)
+    return glm::mat4(1.0f);
+#endif
+}
+
 void RotateMatrix(Mat4& matrix, const Vec3& axis, const float angle)
 {
 #if defined(VENOM_MATH_DXMATH)

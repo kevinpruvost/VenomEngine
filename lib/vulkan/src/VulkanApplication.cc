@@ -100,11 +100,11 @@ void VulkanApplication::__UpdateUniformBuffers()
     static vc::Timer timer_uni;
     float time = timer_uni.GetMilliSeconds();
 
-    vcm::Mat4 model;
+    vcm::Mat4 model = vcm::Identity();
     vcm::RotateMatrix(model, {0.0f, 0.0f, 1.0f}, time / 1000.0f);
     vcm::Mat4 viewAndProj[2];
-    viewAndProj[0] = vcm::LookAtRH({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f});
-    viewAndProj[1] = vcm::PerspectiveRH(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
+    viewAndProj[0] = vcm::LookAt({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f});
+    viewAndProj[1] = vcm::Perspective(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
 
     // Uniform buffers (view and projection)
     memcpy(__uniformBuffers[__currentFrame].GetMappedData(), viewAndProj, sizeof(vcm::Mat4) * 2);
