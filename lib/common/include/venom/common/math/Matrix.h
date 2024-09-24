@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file Matrix.h
 /// @date Sep, 15 2024
 /// @brief 
@@ -48,6 +48,7 @@ inline Mat4 Perspective(const float fov, const float aspect, const float nearPla
 #elif defined (VENOM_COORDINATE_RIGHT_HAND)
     return PerspectiveRH(fov, aspect, nearPlane, farPlane);
 #endif
+}
 }
 }
 }

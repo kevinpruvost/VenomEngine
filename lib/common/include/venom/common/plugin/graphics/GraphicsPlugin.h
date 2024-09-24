@@ -16,6 +16,7 @@ namespace common
 
 class GraphicsApplication;
 class Mesh;
+class Texture;
 
 class VENOM_COMMON_API GraphicsPluginObject : public PluginObject
 {
@@ -42,6 +43,7 @@ public:
 
     virtual GraphicsApplication * CreateGraphicsApplication() = 0;
     virtual Mesh * CreateMesh() = 0;
+    virtual Texture * CreateTexture() = 0;
 };
 
 }

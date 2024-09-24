@@ -9,6 +9,7 @@
 
 #include <venom/vulkan/VulkanApplication.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
+#include <venom/vulkan/plugin/graphics/Texture.h>
 
 namespace venom
 {
@@ -22,6 +23,11 @@ vc::GraphicsApplication* VulkanGraphicsPlugin::CreateGraphicsApplication()
 vc::Mesh* VulkanGraphicsPlugin::CreateMesh()
 {
     return new VulkanMesh();
+}
+
+vc::Texture* VulkanGraphicsPlugin::CreateTexture()
+{
+    return new VulkanTexture();
 }
 }
 }

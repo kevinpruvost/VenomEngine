@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file Buffer.cc
 /// @date Aug, 31 2024
 /// @brief 
@@ -48,6 +48,19 @@ Buffer& Buffer::operator=(Buffer&& other)
     return *this;
 }
 
+uint32_t Buffer::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties)
+{
+    VkPhysicalDeviceMemoryProperties memProperties;
+    vkGetPhysicalDeviceMemoryProperties(PhysicalDevice::GetUsedPhysicalDevice(), &memProperties);
+
+    for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i) {
+        if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
+            return i;
+        }
+    }
+    return -1;
+};
+
 vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode,
                                const VkMemoryPropertyFlags memoryProperties)
 {
@@ -66,21 +79,10 @@ vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(LogicalDevice::GetVkDevice(), __buffer, &memRequirements);
 
-    VkPhysicalDeviceMemoryProperties memProperties;
-    vkGetPhysicalDeviceMemoryProperties(PhysicalDevice::GetUsedPhysicalDevice(), &memProperties);
-
     VkMemoryAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     allocInfo.allocationSize = memRequirements.size;
-    const auto findMemoryType = [&](uint32_t typeFilter, VkMemoryPropertyFlags properties) -> uint32_t {
-        for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i) {
-            if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-                return i;
-            }
-        }
-        return -1;
-    };
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, memoryProperties);
+    allocInfo.memoryTypeIndex = FindMemoryType(memRequirements.memoryTypeBits, memoryProperties);
 
     if (vkAllocateMemory(LogicalDevice::GetVkDevice(), &allocInfo, Allocator::GetVKAllocationCallbacks(), &__memory) != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate vertex buffer memory");

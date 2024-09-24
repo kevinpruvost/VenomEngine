@@ -221,6 +221,20 @@ alias(
 
 cc_library(
     name = "VulkanMemoryAllocator",
+    srcs = [],
+    hdrs = glob(["VulkanMemoryAllocator/include/*.h"]),
     includes = ["VulkanMemoryAllocator/include"],
+    visibility = ["//visibility:public"],
+    deps = [],
+)
+
+# stb_image
+
+cc_library(
+    name = "stb_image",
+    srcs = ["stb_image/stb_vorbis.c"],
+    hdrs = glob(["stb_image/*.h"]),
+    includes = ["stb_image/"],
+    visibility = ["//visibility:public"],
     deps = [],
 )

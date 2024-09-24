@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file Buffer.h
 /// @date Aug, 31 2024
 /// @brief 
@@ -22,6 +22,7 @@ public:
     Buffer& operator=(const Buffer&) = delete;
     Buffer(Buffer&& other);
     Buffer& operator=(Buffer&& other);
+    static uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
     vc::Error CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode, const VkMemoryPropertyFlags memoryProperties);
     vc::Error WriteBuffer(const void* data);

@@ -13,6 +13,7 @@ cc_library(
     deps = [
         "//lib/external:glfw_static",
         "//lib/external:glm",
+        "//lib/external:stb_image",
         "@bazel_tools//tools/cpp/runfiles",
     ],
 )

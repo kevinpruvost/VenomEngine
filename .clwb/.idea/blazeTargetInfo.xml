@@ -17,6 +17,9 @@
       <entry key="//lib/external:glm_library">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:glm_library" />
       </entry>
+      <entry key="//lib/external:stb_image">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:stb_image" />
+      </entry>
       <entry key="//lib/vulkan:venom_vulkan_static">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/vulkan:venom_vulkan_static" />
       </entry>
