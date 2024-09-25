@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$/../../..">
       <sourceFolder url="file://$MODULE_DIR$/../../.." isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../.." />
-      <excludeFolder url="file://$MODULE_DIR$/../../../bazel-Bazel_Vulkan_Metal" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../bazel-VenomEngine" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bazel-bin" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bazel-genfiles" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bazel-out" />
@@ -14,7 +14,7 @@
       <excludePattern pattern="bazel-genfiles" />
       <excludePattern pattern="bazel-out" />
       <excludePattern pattern="bazel-testlogs" />
-      <excludePattern pattern="bazel-Bazel_Vulkan_Metal" />
+      <excludePattern pattern="bazel-VenomEngine" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
