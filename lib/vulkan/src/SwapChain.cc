@@ -50,17 +50,18 @@ SwapChain::SwapChain(SwapChain&& other)
 
 SwapChain& SwapChain::operator=(SwapChain&& other)
 {
-    if (this == &other) return *this;
-    swapChain = other.swapChain;
-    swapChainImageHandles = std::move(other.swapChainImageHandles);
-    __swapChainImageViews = std::move(other.__swapChainImageViews);
-    capabilities = other.capabilities;
-    surfaceFormats = std::move(other.surfaceFormats);
-    presentModes = std::move(other.presentModes);
-    activeSurfaceFormat = other.activeSurfaceFormat;
-    activePresentMode = other.activePresentMode;
-    extent = other.extent;
-    other.swapChain = VK_NULL_HANDLE;
+    if (this != &other) {
+        swapChain = other.swapChain;
+        swapChainImageHandles = std::move(other.swapChainImageHandles);
+        __swapChainImageViews = std::move(other.__swapChainImageViews);
+        capabilities = other.capabilities;
+        surfaceFormats = std::move(other.surfaceFormats);
+        presentModes = std::move(other.presentModes);
+        activeSurfaceFormat = other.activeSurfaceFormat;
+        activePresentMode = other.activePresentMode;
+        extent = other.extent;
+        other.swapChain = VK_NULL_HANDLE;
+    }
     return *this;
 }
 
@@ -87,7 +88,7 @@ void SwapChain::CleanSwapChain()
 vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface, const vc::Context* context)
 {
     // Get surface capabilities
-    if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->physicalDevice, surface->surface, &capabilities); err != VK_SUCCESS)
+    if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &capabilities); err != VK_SUCCESS)
     {
         vc::Log::Error("Failed to get physical device surface capabilities: %d", err);
         return vc::Error::InitializationFailed;
@@ -95,20 +96,20 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
 
     // Get surface formats
     uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->physicalDevice, surface->surface, &formatCount, nullptr);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &formatCount, nullptr);
 
     if (formatCount != 0) {
         surfaceFormats.resize(formatCount);
-        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->physicalDevice, surface->surface, &formatCount, surfaceFormats.data());
+        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &formatCount, surfaceFormats.data());
     }
 
     // Get present modes
     uint32_t presentModeCount;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->physicalDevice, surface->surface, &presentModeCount, nullptr);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &presentModeCount, nullptr);
 
     if (presentModeCount != 0) {
         presentModes.resize(presentModeCount);
-        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->physicalDevice, surface->surface, &presentModeCount, presentModes.data());
+        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &presentModeCount, presentModes.data());
     }
 
     // Default active settings
@@ -169,7 +170,7 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
 
     VkSwapchainCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    createInfo.surface = surface->surface;
+    createInfo.surface = surface->GetVkSurface();
     createInfo.minImageCount = imageCount;
     createInfo.imageFormat = activeSurfaceFormat.format;
     createInfo.imageColorSpace = activeSurfaceFormat.colorSpace;

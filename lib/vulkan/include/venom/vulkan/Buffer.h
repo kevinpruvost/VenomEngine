@@ -28,6 +28,7 @@ public:
     vc::Error WriteBuffer(const void* data);
     VkBuffer GetVkBuffer() const;
     const VkDeviceMemory & GetVkDeviceMemory() const;
+    VkDeviceSize GetSize() const;
 
 private:
     vc::Error __BindBufferMemory();

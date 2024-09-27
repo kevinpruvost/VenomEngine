@@ -31,8 +31,9 @@ VertexBuffer::VertexBuffer(VertexBuffer&& other)
 
 VertexBuffer& VertexBuffer::operator=(VertexBuffer && other)
 {
-    if (this == &other) return *this;
-    __buffer = std::move(other.__buffer);
+    if (this != &other) {
+        __buffer = std::move(other.__buffer);
+    }
     return *this;
 }
 

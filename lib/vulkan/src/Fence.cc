@@ -31,9 +31,10 @@ Fence::Fence(Fence&& other)
 
 Fence& Fence::operator=(Fence&& other)
 {
-    if (this == &other) return *this;
-    __fence = other.__fence;
-    other.__fence = VK_NULL_HANDLE;
+    if (this != &other) {
+        __fence = other.__fence;
+        other.__fence = VK_NULL_HANDLE;
+    }
     return *this;
 }
 

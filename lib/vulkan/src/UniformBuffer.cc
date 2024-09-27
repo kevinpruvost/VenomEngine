@@ -32,9 +32,10 @@ UniformBuffer::UniformBuffer(UniformBuffer&& other)
 
 UniformBuffer& UniformBuffer::operator=(UniformBuffer&& other)
 {
-    if (this == &other) return *this;
-    __buffer = std::move(other.__buffer);
-    __mappedData = other.__mappedData;
+    if (this != &other) {
+        __buffer = std::move(other.__buffer);
+        __mappedData = other.__mappedData;
+    }
     return *this;
 }
 

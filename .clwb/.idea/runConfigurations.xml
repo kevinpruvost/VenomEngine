@@ -3,6 +3,11 @@
   <component name="RunConfigurationProducerService">
     <option name="ignoredProducers">
       <set>
+        <option value="com.intellij.javascript.jest.JestRunConfigurationProducer" />
+        <option value="com.intellij.javascript.protractor.ProtractorRunConfigurationProducer" />
+        <option value="com.intellij.lang.javascript.buildTools.grunt.rc.GruntRunConfigurationProducer" />
+        <option value="com.intellij.lang.javascript.buildTools.gulp.rc.GulpRunConfigurationProducer" />
+        <option value="com.intellij.lang.javascript.buildTools.npm.rc.NpmRunConfigurationProducer" />
         <option value="com.jetbrains.cidr.cpp.execution.CMakeTargetRunConfigurationProducer" />
         <option value="com.jetbrains.cidr.cpp.execution.debugger.CMakeRunConfigurationProducer" />
         <option value="com.jetbrains.cidr.cpp.execution.testing.boost.CMakeBoostTestRunConfigurationProducer" />

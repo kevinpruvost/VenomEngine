@@ -10,6 +10,7 @@
 #include <venom/common/plugin/graphics/Texture.h>
 
 #include <venom/vulkan/Buffer.h>
+#include <venom/vulkan/Image.h>
 
 namespace venom
 {
@@ -24,8 +25,7 @@ public:
 
     vc::Error __LoadImage(unsigned char * pixels, int width, int height, int channels) override;
 private:
-    VkImage __image;
-    VkDeviceMemory __imageMemory;
+    Image __image;
 };
 
 }

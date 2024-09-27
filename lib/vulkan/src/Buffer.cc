@@ -39,12 +39,13 @@ Buffer::Buffer(Buffer&& other)
 
 Buffer& Buffer::operator=(Buffer&& other)
 {
-    if (this == &other) return *this;
-    __buffer = other.__buffer;
-    __memory = other.__memory;
-    __bufferCreateInfo = other.__bufferCreateInfo;
-    other.__buffer = VK_NULL_HANDLE;
-    other.__memory = VK_NULL_HANDLE;
+    if (this != &other) {
+        __buffer = other.__buffer;
+        __memory = other.__memory;
+        __bufferCreateInfo = other.__bufferCreateInfo;
+        other.__buffer = VK_NULL_HANDLE;
+        other.__memory = VK_NULL_HANDLE;
+    }
     return *this;
 }
 
@@ -126,6 +127,11 @@ VkBuffer Buffer::GetVkBuffer() const
 const VkDeviceMemory & Buffer::GetVkDeviceMemory() const
 {
     return __memory;
+}
+
+VkDeviceSize Buffer::GetSize() const
+{
+    return __bufferCreateInfo.size;
 }
 }
 }

@@ -35,9 +35,10 @@ LogicalDevice::LogicalDevice(LogicalDevice&& other)
 
 LogicalDevice& LogicalDevice::operator=(LogicalDevice&& other)
 {
-    if (this == &other) return *this;
-    __device = other.__device;
-    other.__device = VK_NULL_HANDLE;
+    if (this != &other) {
+        __device = other.__device;
+        other.__device = VK_NULL_HANDLE;
+    }
     return *this;
 }
 

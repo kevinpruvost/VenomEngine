@@ -30,9 +30,10 @@ RenderPass::RenderPass(RenderPass&& other)
 
 RenderPass& RenderPass::operator=(RenderPass&& other)
 {
-    if (this == &other) return *this;
-    __renderPass = other.__renderPass;
-    other.__renderPass = VK_NULL_HANDLE;
+    if (this != &other) {
+        __renderPass = other.__renderPass;
+        other.__renderPass = VK_NULL_HANDLE;
+    }
     return *this;
 }
 
@@ -108,13 +109,13 @@ vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain,
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
 
-    vkCmdBeginRenderPass(commandBuffer->__commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdBeginRenderPass(commandBuffer->_commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
     return vc::Error::Success;
 }
 
 vc::Error RenderPass::EndRenderPass(CommandBuffer* commandBuffer)
 {
-    vkCmdEndRenderPass(commandBuffer->__commandBuffer);
+    vkCmdEndRenderPass(commandBuffer->_commandBuffer);
     return vc::Error::Success;
 }
 

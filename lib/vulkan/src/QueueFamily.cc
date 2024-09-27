@@ -65,7 +65,7 @@ vc::Error MappedQueueFamilies::SetPresentQueueFamilyIndices(const PhysicalDevice
 {
     for (int i = 0; i < __queueFamilies.size(); ++i) {
         VkBool32 presentSupport = false;
-        if (auto err = vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.physicalDevice, i, surface.surface, &presentSupport); err != VK_SUCCESS) {
+        if (auto err = vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.physicalDevice, i, surface.GetVkSurface(), &presentSupport); err != VK_SUCCESS) {
             vc::Log::Error("Failed to get physical device surface support, error code: %d", err);
             return vc::Error::InitializationFailed;
         }

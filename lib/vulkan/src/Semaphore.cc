@@ -29,9 +29,10 @@ Semaphore::Semaphore(Semaphore&& other)
 
 Semaphore& Semaphore::operator=(Semaphore&& other)
 {
-    if (this == &other) return *this;
-    __semaphore = other.__semaphore;
-    other.__semaphore = VK_NULL_HANDLE;
+    if (this != &other) {
+        __semaphore = other.__semaphore;
+        other.__semaphore = VK_NULL_HANDLE;
+    }
     return *this;
 }
 

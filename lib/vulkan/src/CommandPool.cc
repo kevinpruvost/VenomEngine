@@ -14,7 +14,9 @@
 namespace venom::vulkan
 {
 CommandBuffer::CommandBuffer()
-    : __commandBuffer(VK_NULL_HANDLE)
+    : _commandBuffer(VK_NULL_HANDLE)
+    , _queue(nullptr)
+    , _isActive(false)
 {
 }
 
@@ -23,109 +25,188 @@ CommandBuffer::~CommandBuffer()
 }
 
 CommandBuffer::CommandBuffer(CommandBuffer&& other)
-    : __commandBuffer(other.__commandBuffer)
+    : _commandBuffer(other._commandBuffer)
 {
-    other.__commandBuffer = VK_NULL_HANDLE;
+    other._commandBuffer = VK_NULL_HANDLE;
 }
 
 CommandBuffer& CommandBuffer::operator=(CommandBuffer&& other)
 {
-    if (this == &other) return *this;
-    __commandBuffer = other.__commandBuffer;
-    other.__commandBuffer = VK_NULL_HANDLE;
+    if (this != &other) {
+        _commandBuffer = other._commandBuffer;
+        other._commandBuffer = VK_NULL_HANDLE;
+    }
     return *this;
 }
 
 VkCommandBuffer CommandBuffer::GetVkCommandBuffer() const
 {
-    return __commandBuffer;
+    return _commandBuffer;
 }
 
 CommandBuffer::operator VkCommandBuffer() const
 {
-    return __commandBuffer;
+    return _commandBuffer;
 }
 
-vc::Error CommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags) const
+vc::Error CommandBuffer::BeginCommandBuffer(VkCommandBufferUsageFlags flags)
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    venom_assert(_isActive == false, "BeginCommandBuffer() called while already begun");
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     beginInfo.flags = flags; // Optional
     beginInfo.pInheritanceInfo = nullptr; // Optional
 
-    if (vkBeginCommandBuffer(__commandBuffer, &beginInfo) != VK_SUCCESS) {
+    if (vkBeginCommandBuffer(_commandBuffer, &beginInfo) != VK_SUCCESS) {
         vc::Log::Error("Failed to begin recording command buffer");
         return vc::Error::Failure;
     }
+    _isActive = true;
     return vc::Error::Success;
 }
 
-vc::Error CommandBuffer::EndCommandBuffer() const
+vc::Error CommandBuffer::EndCommandBuffer()
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    if (vkEndCommandBuffer(__commandBuffer) != VK_SUCCESS) {
+    venom_assert(_isActive == true, "EndCommandBuffer() called before BeginCommandBuffer()");
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    if (vkEndCommandBuffer(_commandBuffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to record command buffer");
         return vc::Error::Failure;
     }
+    _isActive = false;
     return vc::Error::Success;
 }
 
 void CommandBuffer::Reset(VkCommandBufferResetFlags flags)
 {
-    vkResetCommandBuffer(__commandBuffer, flags);
+    vkResetCommandBuffer(_commandBuffer, flags);
 }
 
 void CommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    vkCmdBindPipeline(__commandBuffer, bindPoint, pipeline);
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    vkCmdBindPipeline(_commandBuffer, bindPoint, pipeline);
 }
 
 void CommandBuffer::SetViewport(const VkViewport& viewport) const
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    vkCmdSetViewport(__commandBuffer, 0, 1, &viewport);
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    vkCmdSetViewport(_commandBuffer, 0, 1, &viewport);
 }
 
 void CommandBuffer::SetScissor(const VkRect2D& scissor) const
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    vkCmdSetScissor(__commandBuffer, 0, 1, &scissor);
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    vkCmdSetScissor(_commandBuffer, 0, 1, &scissor);
 }
 
 void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     uint32_t firstVertex, uint32_t firstInstance) const
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    vkCmdDraw(__commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
 void CommandBuffer::DrawMesh(const VulkanMesh& vulkanMesh) const
 {
-    venom_assert(__commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     const IndexBuffer & indexBuffer = vulkanMesh.GetIndexBuffer();
     const VkBuffer * vertexBuffers = vulkanMesh.GetVkVertexBuffers();
     VkDeviceSize offsets[] = {0, 0};
-    vkCmdBindVertexBuffers(__commandBuffer, 0, vulkanMesh.GetBindingCount(), vertexBuffers, offsets);
+    vkCmdBindVertexBuffers(_commandBuffer, 0, vulkanMesh.GetBindingCount(), vertexBuffers, offsets);
     if (indexBuffer.GetVkBuffer() != VK_NULL_HANDLE) {
-        vkCmdBindIndexBuffer(__commandBuffer, indexBuffer.GetVkBuffer(), 0, VK_INDEX_TYPE_UINT32);
-        vkCmdDrawIndexed(__commandBuffer, indexBuffer.GetVertexCount(), 1, 0, 0, 0);
+        vkCmdBindIndexBuffer(_commandBuffer, indexBuffer.GetVkBuffer(), 0, VK_INDEX_TYPE_UINT32);
+        vkCmdDrawIndexed(_commandBuffer, indexBuffer.GetVertexCount(), 1, 0, 0, 0);
     } else {
-        vkCmdDraw(__commandBuffer, vulkanMesh.GetVertexCount(), 1, 0, 0);
+        vkCmdDraw(_commandBuffer, vulkanMesh.GetVertexCount(), 1, 0, 0);
     }
 }
 
 void CommandBuffer::PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
     uint32_t size, const void* pValues) const
 {
-    vkCmdPushConstants(__commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
+    vkCmdPushConstants(_commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
+}
+
+void CommandBuffer::CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer)
+{
+    VkBufferCopy copyRegion{
+        .srcOffset = 0,
+        .dstOffset = 0,
+        .size = srcBuffer.GetSize()
+    };
+    vkCmdCopyBuffer(_commandBuffer, srcBuffer.GetVkBuffer(), dstBuffer.GetVkBuffer(), 1, &copyRegion);
+}
+
+void CommandBuffer::CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage)
+{
+    VkBufferImageCopy region {
+        .bufferOffset = 0,
+        .bufferRowLength = 0,
+        .bufferImageHeight = 0,
+        .imageSubresource = {
+            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .mipLevel = 0,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        },
+        .imageOffset = {0, 0, 0},
+        .imageExtent = {
+            .width = dstImage.GetWidth(),
+            .height = dstImage.GetHeight(),
+            .depth = 1
+        }
+    };
+    vkCmdCopyBufferToImage(_commandBuffer, srcBuffer.GetVkBuffer(), dstImage.GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+}
+
+void CommandBuffer::TransitionImageLayout(const Image& image, VkImageLayout oldLayout, VkImageLayout newLayout)
+{
+    VkImageMemoryBarrier barrier {
+        .sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,
+        .pNext = nullptr,
+        .srcAccessMask = 0,
+        .dstAccessMask = 0,
+        .oldLayout = oldLayout,
+        .newLayout = newLayout,
+        .srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
+        .dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
+        .image = image.GetVkImage(),
+        .subresourceRange = {
+            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .baseMipLevel = 0,
+            .levelCount = 1,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        },
+    };
+
+    VkPipelineStageFlags sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+    VkPipelineStageFlags destinationStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+
+    if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
+        // barrier.srcAccessMask = 0;
+        barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+
+        // sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+        destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+    } else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
+        barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+        barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+
+        sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+        destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+    } else {
+    }
+
+    vkCmdPipelineBarrier(_commandBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
 }
 
 void CommandBuffer::BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
-    uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors)
+                                       uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors)
 {
-    vkCmdBindDescriptorSets(__commandBuffer, vkPipelineBindPoint, vkPipelineLayout, firstSet, descriptSetCount, &vkDescriptors, 0, nullptr);
+    vkCmdBindDescriptorSets(_commandBuffer, vkPipelineBindPoint, vkPipelineLayout, firstSet, descriptSetCount, &vkDescriptors, 0, nullptr);
 }
 
 void CommandBuffer::SubmitToQueue(VkFence fence, VkSemaphore waitSemaphore, VkPipelineStageFlags waitStage,
@@ -138,16 +219,50 @@ void CommandBuffer::SubmitToQueue(VkFence fence, VkSemaphore waitSemaphore, VkPi
         .pWaitSemaphores = &waitSemaphore,
         .pWaitDstStageMask = &waitStage,
         .commandBufferCount = 1,
-        .pCommandBuffers = &__commandBuffer,
+        .pCommandBuffers = &_commandBuffer,
         .signalSemaphoreCount = static_cast<uint32_t>(signalSemaphore != VK_NULL_HANDLE ? 1 : 0),
         .pSignalSemaphores = &signalSemaphore
     };
-    vkQueueSubmit(__queue->GetVkQueue(), 1, &submitInfo, fence);
+    vkQueueSubmit(_queue->GetVkQueue(), 1, &submitInfo, fence);
 }
 
 void CommandBuffer::WaitForQueue() const
 {
-    vkQueueWaitIdle(__queue->GetVkQueue());
+    vkQueueWaitIdle(_queue->GetVkQueue());
+}
+
+SingleTimeCommandBuffer::SingleTimeCommandBuffer()
+    : CommandBuffer()
+    , __commandPool(VK_NULL_HANDLE)
+{
+}
+
+SingleTimeCommandBuffer::~SingleTimeCommandBuffer()
+{
+    if (_commandBuffer != VK_NULL_HANDLE) {
+        if (_isActive) {
+            EndCommandBuffer();
+            SubmitToQueue();
+            WaitForQueue();
+        }
+        // Free
+        vkFreeCommandBuffers(LogicalDevice::GetVkDevice(), __commandPool, 1, &_commandBuffer);
+    }
+}
+
+SingleTimeCommandBuffer::SingleTimeCommandBuffer(SingleTimeCommandBuffer&& other)
+    : CommandBuffer(std::move(other))
+    , __commandPool(other.__commandPool)
+{
+}
+
+SingleTimeCommandBuffer& SingleTimeCommandBuffer::operator=(SingleTimeCommandBuffer&& other)
+{
+    if (this != &other) {
+        CommandBuffer::operator=(std::move(other));
+        __commandPool = other.__commandPool;
+    }
+    return *this;
 }
 
 CommandPool::CommandPool()
@@ -160,7 +275,7 @@ CommandPool::~CommandPool()
     if (__commandBuffers.size() != 0) {
         std::vector<VkCommandBuffer> commandBuffers(__commandBuffers.size());
         for (size_t i = 0; i < __commandBuffers.size(); ++i) {
-            commandBuffers[i] = __commandBuffers[i]->__commandBuffer;
+            commandBuffers[i] = __commandBuffers[i]->_commandBuffer;
         }
         vkFreeCommandBuffers(LogicalDevice::GetVkDevice(), __commandPool,
             static_cast<uint32_t>(__commandBuffers.size()),
@@ -219,12 +334,30 @@ vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkComm
     allocInfo.commandBufferCount = 1;
 
     std::unique_ptr<CommandBuffer> & newCommandBuffer = __commandBuffers.emplace_back(new CommandBuffer());
-    if (vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->__commandBuffer) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->_commandBuffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate command buffer");
         return vc::Error::Failure;
     }
-    newCommandBuffer->__queue = __queue;
+    newCommandBuffer->_queue = __queue;
     *commandBuffer = newCommandBuffer.get();
+    return vc::Error::Success;
+}
+
+vc::Error CommandPool::CreateSingleTimeCommandBuffer(SingleTimeCommandBuffer & commandBuffer)
+{
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool = __commandPool;
+    allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandBufferCount = 1;
+
+    if (vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &commandBuffer._commandBuffer) != VK_SUCCESS) {
+        vc::Log::Error("Failed to allocate command buffer");
+        return vc::Error::Failure;
+    }
+    commandBuffer._queue = __queue;
+    commandBuffer.__commandPool = __commandPool;
+    commandBuffer.BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
     return vc::Error::Success;
 }
 }

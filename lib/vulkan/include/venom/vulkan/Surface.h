@@ -20,11 +20,16 @@ class Surface
 public:
     Surface();
     ~Surface();
+    Surface(const Surface& surface) = delete;
+    Surface& operator=(const Surface& surface) = delete;
+    Surface(Surface&& surface) noexcept;
+    Surface& operator=(Surface&& surface) noexcept;
 
     vc::Error CreateSurface(vc::Context * context);
+    VkSurfaceKHR GetVkSurface() const;
 
-public:
-    VkSurfaceKHR surface;
+private:
+    VkSurfaceKHR __surface;
 };
 }
 }

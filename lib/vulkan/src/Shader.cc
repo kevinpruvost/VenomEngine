@@ -32,6 +32,25 @@ ShaderPipeline::~ShaderPipeline()
         vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
 
+ShaderPipeline::ShaderPipeline(ShaderPipeline&& other) noexcept
+    : __graphicsPipeline(other.__graphicsPipeline)
+    , __pipelineLayout(other.__pipelineLayout)
+{
+    other.__graphicsPipeline = VK_NULL_HANDLE;
+    other.__pipelineLayout = VK_NULL_HANDLE;
+}
+
+ShaderPipeline& ShaderPipeline::operator=(ShaderPipeline&& other) noexcept
+{
+    if (this != &other) {
+        __graphicsPipeline = other.__graphicsPipeline;
+        __pipelineLayout = other.__pipelineLayout;
+        other.__graphicsPipeline = VK_NULL_HANDLE;
+        other.__pipelineLayout = VK_NULL_HANDLE;
+    }
+    return *this;
+}
+
 vc::Error ShaderPipeline::AddVertexBufferToLayout( const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset)
 {
     __bindingDescriptions.push_back({

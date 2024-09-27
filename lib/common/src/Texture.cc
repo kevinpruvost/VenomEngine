@@ -7,6 +7,7 @@
 ///
 #include <venom/common/plugin/graphics/Texture.h>
 #include <venom/common/Log.h>
+#include <venom/common/Resources.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -31,8 +32,10 @@ Texture* Texture::Create()
 
 vc::Error Texture::LoadImageFromFile(const char* path)
 {
+    auto textureFolderPath = std::string("textures/") + path;
+    auto resPath = vc::Resources::GetResourcePath(textureFolderPath);
     int width, height, channels;
-    unsigned char * pixels = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);
+    unsigned char * pixels = stbi_load(resPath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
     if (!pixels) {
         vc::Log::Error("Failed to load image from file: %s", path);
         return vc::Error::Failure;

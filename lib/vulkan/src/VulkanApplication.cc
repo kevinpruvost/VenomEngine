@@ -15,6 +15,8 @@
 
 #include <venom/common/FpsCounter.h>
 
+#include <venom/vulkan/plugin/graphics/Texture.h>
+
 namespace venom::vulkan
 {
 /// @brief Device extensions to use
@@ -78,6 +80,9 @@ vc::Error VulkanApplication::__Loop()
     vc::Error err;
     vc::FpsCounter fps;
     vc::Timer timer;
+
+    vc::Texture * texture = vc::Texture::Create();
+    texture->LoadImageFromFile("hank_happy.png");
     while (!__context.ShouldClose())
     {
         __context.PollEvents();

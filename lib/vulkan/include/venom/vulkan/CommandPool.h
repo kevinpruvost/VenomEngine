@@ -9,6 +9,8 @@
 
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
+#include <venom/vulkan/Buffer.h>
+#include <venom/vulkan/Image.h>
 
 #include <memory>
 
@@ -18,6 +20,7 @@ namespace vulkan
 {
 class RenderPass;
 class CommandBuffer;
+class SingleTimeCommandBuffer;
 class ShaderPipeline;
 class Queue;
 
@@ -35,6 +38,7 @@ public:
 
     vc::Error Init(QueueFamilyIndex queueFamilyIndex);
     vc::Error CreateCommandBuffer(CommandBuffer ** commandBuffer, VkCommandBufferLevel level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY);
+    vc::Error CreateSingleTimeCommandBuffer(SingleTimeCommandBuffer & commandBuffer);
 
 private:
     VkCommandPool __commandPool;
@@ -48,7 +52,7 @@ private:
 /// own them.
 class CommandBuffer
 {
-private:
+protected:
     CommandBuffer();
 public:
     ~CommandBuffer();
@@ -63,8 +67,8 @@ public:
     operator VkCommandBuffer() const;
 
 public:
-    vc::Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0) const;
-    vc::Error EndCommandBuffer() const;
+    vc::Error BeginCommandBuffer(VkCommandBufferUsageFlags flags = 0);
+    vc::Error EndCommandBuffer();
 public:
     void Reset(VkCommandBufferResetFlags flags);
     void BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const;
@@ -73,6 +77,9 @@ public:
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
     void DrawMesh(const VulkanMesh& vulkanMesh) const;
     void PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
+    void CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer);
+    void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
+    void TransitionImageLayout(const Image& image, VkImageLayout oldLayout, VkImageLayout newLayout);
 
     void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
         uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors);
@@ -80,9 +87,25 @@ public:
     void SubmitToQueue(VkFence fence = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitStage = 0,
         VkSemaphore signalSemaphore = VK_NULL_HANDLE);
     void WaitForQueue() const;
+protected:
+    VkCommandBuffer _commandBuffer;
+    const Queue * _queue;
+    bool _isActive;
+};
+
+class SingleTimeCommandBuffer : public CommandBuffer
+{
+public:
+    friend class CommandPool;
+    SingleTimeCommandBuffer();
+    ~SingleTimeCommandBuffer();
+    SingleTimeCommandBuffer(const SingleTimeCommandBuffer&) = delete;
+    SingleTimeCommandBuffer& operator=(const SingleTimeCommandBuffer&) = delete;
+    SingleTimeCommandBuffer(SingleTimeCommandBuffer&& other);
+    SingleTimeCommandBuffer& operator=(SingleTimeCommandBuffer&& other);
+
 private:
-    VkCommandBuffer __commandBuffer;
-    const Queue * __queue;
+    VkCommandPool __commandPool;
 };
 }
 }

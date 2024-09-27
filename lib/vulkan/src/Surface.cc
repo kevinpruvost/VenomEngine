@@ -11,14 +11,29 @@
 namespace venom::vulkan
 {
 Surface::Surface()
-    : surface(VK_NULL_HANDLE)
+    : __surface(VK_NULL_HANDLE)
 {
 }
 
 Surface::~Surface()
 {
-    if (surface != VK_NULL_HANDLE)
-        vkDestroySurfaceKHR(Instance::GetVkInstance(), surface, Allocator::GetVKAllocationCallbacks());
+    if (__surface != VK_NULL_HANDLE)
+        vkDestroySurfaceKHR(Instance::GetVkInstance(), __surface, Allocator::GetVKAllocationCallbacks());
+}
+
+Surface::Surface(Surface&& surface) noexcept
+    : __surface(surface.__surface)
+{
+    surface.__surface = VK_NULL_HANDLE;
+}
+
+Surface& Surface::operator=(Surface&& surface) noexcept
+{
+    if (this != &surface) {
+        __surface = surface.__surface;
+        surface.__surface =  VK_NULL_HANDLE;
+    }
+    return *this;
 }
 
 vc::Error Surface::CreateSurface(vc::Context* context)
@@ -28,7 +43,7 @@ vc::Error Surface::CreateSurface(vc::Context* context)
     createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
     createInfo.hwnd = glfwGetWin32Window(context->GetWindow());
     createInfo.hinstance = GetModuleHandle(nullptr);
-    if (auto res = vkCreateWin32SurfaceKHR(Instance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &surface); res != VK_SUCCESS) {
+    if (auto res = vkCreateWin32SurfaceKHR(Instance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &__surface); res != VK_SUCCESS) {
         vc::Log::Error("Failed to create Win32 surface: %d", res);
         return vc::Error::InitializationFailed;
     }
@@ -62,5 +77,10 @@ vc::Error Surface::CreateSurface(vc::Context* context)
 #endif
 #endif
     return vc::Error::Success;
+}
+
+VkSurfaceKHR Surface::GetVkSurface() const
+{
+    return __surface;
 }
 }

@@ -28,6 +28,8 @@ public:
     ~ShaderPipeline();
     ShaderPipeline(const ShaderPipeline&) = delete;
     ShaderPipeline& operator=(const ShaderPipeline&) = delete;
+    ShaderPipeline(ShaderPipeline&& other) noexcept;
+    ShaderPipeline& operator=(ShaderPipeline&& other) noexcept;
 
     vc::Error AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset);
     vc::Error LoadShaders(const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
