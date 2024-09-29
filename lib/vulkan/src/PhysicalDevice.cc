@@ -11,10 +11,10 @@
 namespace venom::vulkan
 {
 PhysicalDevice::PhysicalDevice()
-    : physicalDevice(VK_NULL_HANDLE)
-    , properties()
-    , features()
-    , memoryProperties()
+    : __physicalDevice(VK_NULL_HANDLE)
+    , __properties()
+    , __features()
+    , __memoryProperties()
 {
 }
 
@@ -25,9 +25,9 @@ PhysicalDevice::~PhysicalDevice()
 uint64_t PhysicalDevice::GetDeviceLocalVRAMAmount() const
 {
     uint64_t totalVRAM = 0;
-    for (uint32_t i = 0; i < memoryProperties.memoryHeapCount; i++) {
-        if (memoryProperties.memoryHeaps[i].flags & VK_MEMORY_HEAP_DEVICE_LOCAL_BIT) {
-            totalVRAM += memoryProperties.memoryHeaps[i].size;
+    for (uint32_t i = 0; i < __memoryProperties.memoryHeapCount; i++) {
+        if (__memoryProperties.memoryHeaps[i].flags & VK_MEMORY_HEAP_DEVICE_LOCAL_BIT) {
+            totalVRAM += __memoryProperties.memoryHeaps[i].size;
         }
     }
     return totalVRAM;
@@ -38,14 +38,19 @@ void PhysicalDevice::GetDeviceQueue(VkQueue* queuePtr, uint32_t queueFamilyIndex
     vkGetDeviceQueue(LogicalDevice::GetVkDevice(), queueFamilyIndex, queueIndex, queuePtr);
 }
 
-static const VkPhysicalDevice * s_usedPhysicalDevice = nullptr;
-const VkPhysicalDevice PhysicalDevice::GetUsedPhysicalDevice()
+static const PhysicalDevice * s_usedPhysicalDevice = nullptr;
+VkPhysicalDevice PhysicalDevice::GetUsedVkPhysicalDevice()
 {
     venom_assert(s_usedPhysicalDevice != VK_NULL_HANDLE, "No physical device has been set");
+    return s_usedPhysicalDevice->__physicalDevice;
+}
+
+const PhysicalDevice & PhysicalDevice::GetUsedPhysicalDevice()
+{
     return *s_usedPhysicalDevice;
 }
 
-void PhysicalDevice::SetUsedPhysicalDevice(const VkPhysicalDevice * device)
+void PhysicalDevice::SetUsedPhysicalDevice(const PhysicalDevice * device)
 {
     s_usedPhysicalDevice = device;
 }
@@ -67,11 +72,31 @@ std::vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
     vkEnumeratePhysicalDevices(Instance::GetVkInstance(), &deviceCount, vkPhysicalDevices.data());
     for (uint32_t i = 0; i < deviceCount; i++)
     {
-        physicalDevices[i].physicalDevice = vkPhysicalDevices[i];
-        vkGetPhysicalDeviceProperties(vkPhysicalDevices[i], &physicalDevices[i].properties);
-        vkGetPhysicalDeviceFeatures(vkPhysicalDevices[i], &physicalDevices[i].features);
-        vkGetPhysicalDeviceMemoryProperties(vkPhysicalDevices[i], &physicalDevices[i].memoryProperties);
+        physicalDevices[i].__physicalDevice = vkPhysicalDevices[i];
+        vkGetPhysicalDeviceProperties(vkPhysicalDevices[i], &physicalDevices[i].__properties);
+        vkGetPhysicalDeviceFeatures(vkPhysicalDevices[i], &physicalDevices[i].__features);
+        vkGetPhysicalDeviceMemoryProperties(vkPhysicalDevices[i], &physicalDevices[i].__memoryProperties);
     }
     return physicalDevices;
+}
+
+const VkPhysicalDevice & PhysicalDevice::GetVkPhysicalDevice() const
+{
+    return __physicalDevice;
+}
+
+const VkPhysicalDeviceProperties& PhysicalDevice::GetProperties() const
+{
+    return __properties;
+}
+
+const VkPhysicalDeviceFeatures& PhysicalDevice::GetFeatures() const
+{
+    return __features;
+}
+
+const VkPhysicalDeviceMemoryProperties& PhysicalDevice::GetMemoryProperties() const
+{
+    return __memoryProperties;
 }
 }

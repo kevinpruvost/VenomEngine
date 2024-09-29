@@ -26,6 +26,8 @@ public:
     vc::Error Load(unsigned char* pixels, int width, int height, int channels,
         VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
     VkImage GetVkImage() const;
+    explicit operator VkImage() const;
+
     uint32_t GetWidth() const;
     uint32_t GetHeight() const;
 

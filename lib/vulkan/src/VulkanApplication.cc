@@ -105,16 +105,16 @@ void VulkanApplication::__UpdateUniformBuffers()
     static vc::Timer timer_uni;
     float time = timer_uni.GetMilliSeconds();
 
-    vcm::Mat4 model = vcm::Identity();
-    vcm::RotateMatrix(model, {0.0f, 0.0f, 1.0f}, time / 1000.0f);
-    vcm::Mat4 viewAndProj[2];
-    viewAndProj[0] = vcm::LookAt({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f});
-    viewAndProj[1] = vcm::Perspective(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
+    vcm::Mat4 modelViewAndProj[3];
+    modelViewAndProj[0] = vcm::Identity();
+    vcm::RotateMatrix(modelViewAndProj[0], {0.0f, 0.0f, 1.0f}, time / 1000.0f);
+    modelViewAndProj[1] = vcm::LookAt({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f});
+    modelViewAndProj[2] = vcm::Perspective(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
 
     // Uniform buffers (view and projection)
-    memcpy(__uniformBuffers[__currentFrame].GetMappedData(), viewAndProj, sizeof(vcm::Mat4) * 2);
+    memcpy(__uniformBuffers[__currentFrame].GetMappedData(), modelViewAndProj, sizeof(modelViewAndProj));
     // Push Constants (model)
-    __commandBuffers[__currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
+    // __commandBuffers[__currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
 }
 
 vc::Error VulkanApplication::__DrawFrame()
@@ -241,32 +241,32 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     DEBUG_LOG("Physical Devices:");
     for (int i = 0; i < physicalDevices.size(); ++i) {
-        DEBUG_LOG("-%s:", physicalDevices[i].properties.deviceName);
-        DEBUG_LOG("\tType: %s", physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU ? "Discrete" : physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU ? "Integrated" : "Other Type of GPU");
-        DEBUG_LOG("\tAPI Version: %u", physicalDevices[i].properties.apiVersion);
-        DEBUG_LOG("\tDriver Version: %u", physicalDevices[i].properties.driverVersion);
-        DEBUG_LOG("\tVendor ID: %u", physicalDevices[i].properties.vendorID);
-        DEBUG_LOG("\tDevice ID: %u", physicalDevices[i].properties.deviceID);
-        DEBUG_LOG("\tGeometry Shader: %s", physicalDevices[i].features.geometryShader ? "Yes" : "No");
-        DEBUG_LOG("\tTesselation Shader: %s", physicalDevices[i].features.tessellationShader ? "Yes" : "No");
-        for (int j = 0; j < physicalDevices[i].memoryProperties.memoryHeapCount; ++j) {
-            DEBUG_LOG("\tHeap %d: %luMB", j, physicalDevices[i].memoryProperties.memoryHeaps[j].size / (1024 * 1024));
+        DEBUG_LOG("-%s:", physicalDevices[i].GetProperties().deviceName);
+        DEBUG_LOG("\tType: %s", physicalDevices[i].GetProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU ? "Discrete" : physicalDevices[i].GetProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU ? "Integrated" : "Other Type of GPU");
+        DEBUG_LOG("\tAPI Version: %u", physicalDevices[i].GetProperties().apiVersion);
+        DEBUG_LOG("\tDriver Version: %u", physicalDevices[i].GetProperties().driverVersion);
+        DEBUG_LOG("\tVendor ID: %u", physicalDevices[i].GetProperties().vendorID);
+        DEBUG_LOG("\tDevice ID: %u", physicalDevices[i].GetProperties().deviceID);
+        DEBUG_LOG("\tGeometry Shader: %s", physicalDevices[i].GetFeatures().geometryShader ? "Yes" : "No");
+        DEBUG_LOG("\tTesselation Shader: %s", physicalDevices[i].GetFeatures().tessellationShader ? "Yes" : "No");
+        for (int j = 0; j < physicalDevices[i].GetMemoryProperties().memoryHeapCount; ++j) {
+            DEBUG_LOG("\tHeap %d: %luMB", j, physicalDevices[i].GetMemoryProperties().memoryHeaps[j].size / (1024 * 1024));
         }
         // Select GPU
-        if (physicalDevices[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
-         && physicalDevices[i].features.geometryShader
-         && physicalDevices[i].features.tessellationShader) {
-            if (__physicalDevice.physicalDevice == VK_NULL_HANDLE || __physicalDevice.GetDeviceLocalVRAMAmount() < physicalDevices[i].GetDeviceLocalVRAMAmount()) {
+        if (physicalDevices[i].GetProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
+         && physicalDevices[i].GetFeatures().geometryShader
+         && physicalDevices[i].GetFeatures().tessellationShader) {
+            if (__physicalDevice.GetVkPhysicalDevice() == VK_NULL_HANDLE || __physicalDevice.GetDeviceLocalVRAMAmount() < physicalDevices[i].GetDeviceLocalVRAMAmount()) {
                 __physicalDevice = physicalDevices[i];
             }
         }
     }
     DEBUG_LOG("Chosen phyiscal device:");
-    DEBUG_LOG("-%s:", __physicalDevice.properties.deviceName);
+    DEBUG_LOG("-%s:", __physicalDevice.GetProperties().deviceName);
     DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAMAmount() / (1024 * 1024));
 
     // Set global physical device
-    PhysicalDevice::SetUsedPhysicalDevice(&__physicalDevice.physicalDevice);
+    PhysicalDevice::SetUsedPhysicalDevice(&__physicalDevice);
 
     // Get Queue Families
     __queueFamilies = getVulkanQueueFamilies(__physicalDevice);
@@ -308,6 +308,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     VkPhysicalDeviceFeatures deviceFeatures{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pEnabledFeatures = &deviceFeatures;
+
+    // Chose features
+    deviceFeatures.samplerAnisotropy = VK_TRUE;
+    //deviceFeatures.textureCompressionBC = VK_TRUE;
 
     // Extensions
     createInfo.enabledExtensionCount = s_deviceExtensions.size();
@@ -382,7 +386,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create Uniform Buffers
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __uniformBuffers[i].Init(sizeof(vcm::Mat4) * 2); err != vc::Error::Success)
+        if (err = __uniformBuffers[i].Init(sizeof(vcm::Mat4) * 3); err != vc::Error::Success)
             return err;
     }
 
@@ -400,13 +404,17 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create Descriptor Pool
     __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, MAX_FRAMES_IN_FLIGHT);
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_SAMPLER, MAX_FRAMES_IN_FLIGHT);
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, MAX_FRAMES_IN_FLIGHT);
+    //__descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, MAX_FRAMES_IN_FLIGHT);
     if (err = __descriptorPool.Create(0, MAX_FRAMES_IN_FLIGHT); err != vc::Error::Success)
         return err;
 
     // Create Descriptor Sets
     __descriptorSets = __descriptorPool.AllocateSets(__shaderPipeline.GetDescriptorSetLayout(), MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i)
-        __descriptorSets[i].Update(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 2, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+        // Model, View, Projection
+        __descriptorSets[i].Update(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 3, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
     return vc::Error::Success;
 }
@@ -415,9 +423,9 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
 {
     // Check if the device supports the extensions
     uint32_t extensionCount;
-    vkEnumerateDeviceExtensionProperties(__physicalDevice.physicalDevice, nullptr, &extensionCount, nullptr);
+    vkEnumerateDeviceExtensionProperties(__physicalDevice.GetVkPhysicalDevice(), nullptr, &extensionCount, nullptr);
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
-    vkEnumerateDeviceExtensionProperties(__physicalDevice.physicalDevice, nullptr, &extensionCount, availableExtensions.data());
+    vkEnumerateDeviceExtensionProperties(__physicalDevice.GetVkPhysicalDevice(), nullptr, &extensionCount, availableExtensions.data());
 
     std::set<std::string> requiredExtensions(createInfo->ppEnabledExtensionNames, createInfo->ppEnabledExtensionNames + createInfo->enabledExtensionCount);
     for (const auto& extension : availableExtensions) {
@@ -434,6 +442,12 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
     // Check if the device's swap chain is ok
     if (__swapChain.presentModes.empty() || __swapChain.surfaceFormats.empty()) {
         vc::Log::Error("Failed to get surface formats or present modes for swap chain");
+        return false;
+    }
+
+    // Check if the device supports anisotropy
+    if (createInfo->pEnabledFeatures->samplerAnisotropy != VK_TRUE) {
+        vc::Log::Error("Device does not support anisotropy");
         return false;
     }
     return true;

@@ -22,15 +22,21 @@ public:
     uint64_t GetDeviceLocalVRAMAmount() const;
 
     void GetDeviceQueue(VkQueue * queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const;
-    static const VkPhysicalDevice GetUsedPhysicalDevice();
-    static void SetUsedPhysicalDevice(const VkPhysicalDevice * device);
+    static VkPhysicalDevice GetUsedVkPhysicalDevice();
+    static const PhysicalDevice & GetUsedPhysicalDevice();
+    static void SetUsedPhysicalDevice(const PhysicalDevice * device);
     static std::vector<PhysicalDevice> GetVulkanPhysicalDevices();
 
-public:
-    VkPhysicalDevice physicalDevice;
-    VkPhysicalDeviceProperties properties;
-    VkPhysicalDeviceFeatures features;
-    VkPhysicalDeviceMemoryProperties memoryProperties;
+    const VkPhysicalDevice & GetVkPhysicalDevice() const;
+    const VkPhysicalDeviceProperties & GetProperties() const;
+    const VkPhysicalDeviceFeatures & GetFeatures() const;
+    const VkPhysicalDeviceMemoryProperties & GetMemoryProperties() const;
+
+private:
+    VkPhysicalDevice __physicalDevice;
+    VkPhysicalDeviceProperties __properties;
+    VkPhysicalDeviceFeatures __features;
+    VkPhysicalDeviceMemoryProperties __memoryProperties;
 };
 
 }

@@ -10,6 +10,7 @@
 #include <venom/vulkan/PhysicalDevice.h>
 #include <venom/vulkan/Surface.h>
 #include <venom/vulkan/QueueFamily.h>
+#include <venom/vulkan/ImageView.h>
 
 #include <venom/common/Context.h>
 
@@ -54,7 +55,7 @@ public:
     std::vector<VkImage> swapChainImageHandles;
 
 private:
-    std::vector<VkImageView> __swapChainImageViews;
+    std::vector<ImageView> __swapChainImageViews;
     std::vector<VkFramebuffer> __swapChainFramebuffers;
 
     friend class RenderPass;

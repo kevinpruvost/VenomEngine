@@ -117,6 +117,11 @@ VkImage Image::GetVkImage() const
     return __image;
 }
 
+Image::operator VkImage() const
+{
+    return __image;
+}
+
 uint32_t Image::GetWidth() const
 {
     return __width;

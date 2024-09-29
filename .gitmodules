@@ -19,3 +19,6 @@
 [submodule "lib/external/stb_image"]
 	path = lib/external/stb_image
 	url = git@github.com:nothings/stb.git
+[submodule "lib/external/SPIRV-Reflect"]
+	path = lib/external/SPIRV-Reflect
+	url = git@github.com:KhronosGroup/SPIRV-Reflect.git

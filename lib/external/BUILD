@@ -238,3 +238,16 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [],
 )
+
+# SPIRV-Reflect
+
+cc_library(
+    name = "SPIRVReflect",
+    srcs = [
+        "SPIRV-Reflect/spirv_reflect.cpp",
+    ],
+    hdrs = glob(["SPIRV-Reflect/*.h"]),
+    includes = ["SPIRV-Reflect/"],
+    visibility = ["//visibility:public"],
+    deps = [],
+)

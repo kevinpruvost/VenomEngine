@@ -73,10 +73,6 @@ void SwapChain::CleanSwapChain()
     }
     __swapChainFramebuffers.clear();
 
-    for (auto & imageView : __swapChainImageViews) {
-        if (imageView != VK_NULL_HANDLE)
-            vkDestroyImageView(LogicalDevice::GetVkDevice(), imageView, Allocator::GetVKAllocationCallbacks());
-    }
     __swapChainImageViews.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
@@ -88,7 +84,7 @@ void SwapChain::CleanSwapChain()
 vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface, const vc::Context* context)
 {
     // Get surface capabilities
-    if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &capabilities); err != VK_SUCCESS)
+    if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &capabilities); err != VK_SUCCESS)
     {
         vc::Log::Error("Failed to get physical device surface capabilities: %d", err);
         return vc::Error::InitializationFailed;
@@ -96,20 +92,20 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
 
     // Get surface formats
     uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &formatCount, nullptr);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &formatCount, nullptr);
 
     if (formatCount != 0) {
         surfaceFormats.resize(formatCount);
-        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &formatCount, surfaceFormats.data());
+        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &formatCount, surfaceFormats.data());
     }
 
     // Get present modes
     uint32_t presentModeCount;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &presentModeCount, nullptr);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &presentModeCount, nullptr);
 
     if (presentModeCount != 0) {
         presentModes.resize(presentModeCount);
-        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->physicalDevice, surface->GetVkSurface(), &presentModeCount, presentModes.data());
+        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &presentModeCount, presentModes.data());
     }
 
     // Default active settings
@@ -217,25 +213,8 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
     // Create ImageViews
     __swapChainImageViews.resize(imageCount);
     for (size_t i = 0; i < imageCount; ++i) {
-        VkImageViewCreateInfo imageViewCreateInfo = {};
-        imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-        imageViewCreateInfo.image = swapChainImageHandles[i];
-        imageViewCreateInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-        imageViewCreateInfo.format = activeSurfaceFormat.format;
-        // No swizzling, swizzling means changing the order of components
-        imageViewCreateInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
-        imageViewCreateInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
-        imageViewCreateInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
-        imageViewCreateInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
-
-        imageViewCreateInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-        imageViewCreateInfo.subresourceRange.baseMipLevel = 0;
-        imageViewCreateInfo.subresourceRange.levelCount = 1;
-        imageViewCreateInfo.subresourceRange.baseArrayLayer = 0;
-        imageViewCreateInfo.subresourceRange.layerCount = 1;
-
-        if (vkCreateImageView(LogicalDevice::GetVkDevice(), &imageViewCreateInfo, Allocator::GetVKAllocationCallbacks(), &__swapChainImageViews[i]) != VK_SUCCESS) {
-            vc::Log::Error("Failed to create image views");
+        if (__swapChainImageViews[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
+            vc::Log::Error("Failed to create image view");
             return vc::Error::InitializationFailed;
         }
     }
@@ -247,7 +226,7 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
     __swapChainFramebuffers.resize(__swapChainImageViews.size());
     for (int i = 0; i < __swapChainImageViews.size(); ++i) {
         VkImageView attachments[] = {
-            __swapChainImageViews[i]
+            __swapChainImageViews[i].GetVkImageView()
         };
 
         VkFramebufferCreateInfo framebufferInfo = {};

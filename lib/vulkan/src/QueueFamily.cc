@@ -65,7 +65,7 @@ vc::Error MappedQueueFamilies::SetPresentQueueFamilyIndices(const PhysicalDevice
 {
     for (int i = 0; i < __queueFamilies.size(); ++i) {
         VkBool32 presentSupport = false;
-        if (auto err = vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.physicalDevice, i, surface.GetVkSurface(), &presentSupport); err != VK_SUCCESS) {
+        if (auto err = vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice.GetVkPhysicalDevice(), i, surface.GetVkSurface(), &presentSupport); err != VK_SUCCESS) {
             vc::Log::Error("Failed to get physical device surface support, error code: %d", err);
             return vc::Error::InitializationFailed;
         }
@@ -79,9 +79,9 @@ vc::Error MappedQueueFamilies::SetPresentQueueFamilyIndices(const PhysicalDevice
 MappedQueueFamilies getVulkanQueueFamilies(const PhysicalDevice& physicalDevice)
 {
     uint32_t queueFamilyCount = 0;
-    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice.physicalDevice, &queueFamilyCount, nullptr);
+    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice.GetVkPhysicalDevice(), &queueFamilyCount, nullptr);
     std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
-    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice.physicalDevice, &queueFamilyCount, queueFamilies.data());
+    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice.GetVkPhysicalDevice(), &queueFamilyCount, queueFamilies.data());
 
     std::vector<QueueFamily> families(queueFamilyCount);
     for (size_t i = 0; i < queueFamilyCount; i++) {

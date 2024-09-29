@@ -15,6 +15,8 @@
 #include <venom/common/math/Vector.h>
 #include <venom/vulkan/LogicalDevice.h>
 
+#include <spirv_reflect.h>
+
 namespace venom::vulkan
 {
 
@@ -84,6 +86,47 @@ vc::Error ShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineSh
     file.seekg(0);
     file.read(buffer.data(), fileSize);
     file.close();
+
+    // Reflecting shader
+    {
+        SpvReflectShaderModule module;
+        SpvReflectResult result = spvReflectCreateShaderModule(buffer.size(), buffer.data(), &module);
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+
+        // Enumerate and extract shader's input variables
+        uint32_t varCount = 0;
+        result = spvReflectEnumerateInputVariables(&module, &varCount, NULL);
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+        // Get input variables
+        std::vector<SpvReflectInterfaceVariable*> inputVars(varCount, nullptr);
+        result = spvReflectEnumerateInputVariables(&module, &varCount, inputVars.data());
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+
+        // Get descriptor bindings
+        result = spvReflectEnumerateDescriptorBindings(&module, &varCount, NULL);
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+        std::vector<SpvReflectDescriptorBinding*> bindings(varCount, nullptr);
+        result = spvReflectEnumerateDescriptorBindings(&module, &varCount, bindings.data());
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+
+        // Get descriptor sets
+        result = spvReflectEnumerateDescriptorSets(&module, &varCount, NULL);
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+        std::vector<SpvReflectDescriptorSet*> descriptorSets(varCount, nullptr);
+        result = spvReflectEnumerateDescriptorSets(&module, &varCount, descriptorSets.data());
+
+        // Get push constants
+        result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, NULL);
+        assert(result == SPV_REFLECT_RESULT_SUCCESS);
+        std::vector<SpvReflectBlockVariable*> pushConstants(varCount, nullptr);
+        result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, pushConstants.data());
+
+        // Output variables, descriptor bindings, descriptor sets, and push constants
+        // can be enumerated and extracted using a similar mechanism.
+
+        // Destroy the reflection data when no longer required.
+        spvReflectDestroyShaderModule(&module);
+    }
 
     VkShaderModuleCreateInfo shaderModuleCreateInfo = {};
     shaderModuleCreateInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -228,25 +271,32 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
 
     // Descriptor Set Layout
     __descriptorSetLayout.AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
+    // Separate sampler binding
+    __descriptorSetLayout.AddBinding(1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    __descriptorSetLayout.AddBinding(2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    // Combined image sampler
+    // __descriptorSetLayout.AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
     if (__descriptorSetLayout.Create() != vc::Error::Success) {
         vc::Log::Error("Failed to create descriptor set layout");
         return vc::Error::Failure;
     }
+
+
     VkDescriptorSetLayout descriptorSetLayout = __descriptorSetLayout.GetLayout();
 
     // Push constants
     VkPushConstantRange pushConstantRange{};
     pushConstantRange.offset = 0;
-    pushConstantRange.size = 2 * sizeof(vcm::Mat4); // View and Projection matrices
-    pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+    //pushConstantRange.size = 2 * sizeof(vcm::Mat4); // View and Projection matrices
+    //pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
     // Pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     pipelineLayoutInfo.setLayoutCount = 1; // Optional
     pipelineLayoutInfo.pSetLayouts = &descriptorSetLayout; // Optional
-    pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
-    pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
+    //pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
+    //pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
 
     if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &__pipelineLayout) != VK_SUCCESS)
     {

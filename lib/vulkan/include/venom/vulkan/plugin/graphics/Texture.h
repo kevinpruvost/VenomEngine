@@ -11,6 +11,8 @@
 
 #include <venom/vulkan/Buffer.h>
 #include <venom/vulkan/Image.h>
+#include <venom/vulkan/ImageView.h>
+#include <venom/vulkan/Sampler.h>
 
 namespace venom
 {
@@ -26,6 +28,8 @@ public:
     vc::Error __LoadImage(unsigned char * pixels, int width, int height, int channels) override;
 private:
     Image __image;
+    ImageView __imageView;
+    Sampler __sampler;
 };
 
 }
