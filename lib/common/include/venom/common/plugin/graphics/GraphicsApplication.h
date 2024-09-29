@@ -29,7 +29,9 @@ protected:
 public:
     static GraphicsApplication * Create();
     ~GraphicsApplication() override;
-    virtual Error Run() = 0;
+    virtual Error Init() = 0;
+    virtual Error Loop() = 0;
+    virtual bool ShouldClose() = 0;
 };
 }
 }

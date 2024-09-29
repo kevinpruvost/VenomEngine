@@ -56,8 +56,13 @@ Error VenomEngine::RunEngine(char** argv)
     s_instance.reset(new VenomEngine());
     vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
 
-    if (err = app->Run(); err != vc::Error::Success) {
-        printf("Failed to run application: %d\n", static_cast<int>(err));
+    if (err = app->Init(); err != vc::Error::Success) {
+        printf("Failed to init application: %d\n", static_cast<int>(err));
+    }
+    while (!app->ShouldClose())
+    {
+        app->Loop();
+        s_instance->pluginManager->CleanPluginsObjets();
     }
     s_instance.reset();
     vc::Resources::FreeFilesystem();

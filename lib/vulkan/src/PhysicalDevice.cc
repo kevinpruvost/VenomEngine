@@ -38,6 +38,33 @@ void PhysicalDevice::GetDeviceQueue(VkQueue* queuePtr, uint32_t queueFamilyIndex
     vkGetDeviceQueue(LogicalDevice::GetVkDevice(), queueFamilyIndex, queueIndex, queuePtr);
 }
 
+VkFormat PhysicalDevice::FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling,
+    VkFormatFeatureFlags features)
+{
+    for (VkFormat format : candidates)
+    {
+        VkFormatProperties formatProperties;
+        vkGetPhysicalDeviceFormatProperties(GetUsedVkPhysicalDevice(), format, &formatProperties);
+        const VkFormatFeatureFlags & tilingFeatures = tiling == VK_IMAGE_TILING_LINEAR ?
+            formatProperties.linearTilingFeatures : formatProperties.optimalTilingFeatures;
+        if (tilingFeatures & features) {
+            return format;
+        }
+    }
+    return VK_FORMAT_UNDEFINED;
+}
+
+VkFormat PhysicalDevice::FindDepthFormat()
+{
+    VkFormat format = FindSupportedFormat(
+        { VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT },
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT
+    );
+    venom_assert(format != VK_FORMAT_UNDEFINED, "Failed to find depth format");
+    return format;
+}
+
 static const PhysicalDevice * s_usedPhysicalDevice = nullptr;
 VkPhysicalDevice PhysicalDevice::GetUsedVkPhysicalDevice()
 {

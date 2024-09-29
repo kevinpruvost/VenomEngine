@@ -68,27 +68,43 @@ vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels
         return err;
     stagingBuffer.WriteBuffer(pixels);
 
+    if (err = Create(format, tiling, usage | VK_IMAGE_USAGE_TRANSFER_DST_BIT, properties, width, height); err != vc::Error::Success)
+        return err;
+
+    SingleTimeCommandBuffer commandBuffer;
+    if (err = CommandPoolManager::GetGraphicsCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer); err != vc::Error::Success)
+        return err;
+    commandBuffer.TransitionImageLayout(*this, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    commandBuffer.CopyBufferToImage(stagingBuffer, *this);
+    commandBuffer.TransitionImageLayout(*this, format, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    __layout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    return vc::Error::Success;
+}
+
+vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
+    VkMemoryPropertyFlags properties, uint32_t width, uint32_t height)
+{
     // Image
-    VkImageCreateInfo imageInfo = {};
-    imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-    imageInfo.imageType = VK_IMAGE_TYPE_2D;
-    imageInfo.extent.width = static_cast<uint32_t>(width);
-    imageInfo.extent.height = static_cast<uint32_t>(height);
-    imageInfo.extent.depth = 1;
-    imageInfo.mipLevels = 1;
-    imageInfo.arrayLayers = 1;
-    imageInfo.format = format;
-    imageInfo.tiling = tiling;
-    imageInfo.initialLayout = __layout = VK_IMAGE_LAYOUT_UNDEFINED;
+    __imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+    __imageInfo.imageType = VK_IMAGE_TYPE_2D;
+    __imageInfo.pNext = nullptr;
+    __imageInfo.extent.width = static_cast<uint32_t>(width);
+    __imageInfo.extent.height = static_cast<uint32_t>(height);
+    __imageInfo.extent.depth = 1;
+    __imageInfo.mipLevels = 1;
+    __imageInfo.arrayLayers = 1;
+    __imageInfo.format = format;
+    __imageInfo.tiling = tiling;
+    __imageInfo.initialLayout = __layout = VK_IMAGE_LAYOUT_UNDEFINED;
     // VK_IMAGE_USAGE_TRANSFER_DST_BIT: Image will be used as a destination for a transfer operation
     // VK_IMAGE_USAGE_SAMPLED_BIT: Image will be used to create a VkImageView suitable for occupying a texture unit
     // and be usable as a sampled image in a shader
-    imageInfo.usage = usage;
-    imageInfo.sharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
-    imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-    imageInfo.flags = 0;
+    __imageInfo.usage = usage;
+    __imageInfo.sharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
+    __imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+    __imageInfo.flags = 0;
 
-    if (VkResult vkErr = vkCreateImage(LogicalDevice::GetVkDevice(), &imageInfo, Allocator::GetVKAllocationCallbacks(), &__image); vkErr != VK_SUCCESS) {
+    if (VkResult vkErr = vkCreateImage(LogicalDevice::GetVkDevice(), &__imageInfo, Allocator::GetVKAllocationCallbacks(), &__image); vkErr != VK_SUCCESS) {
         vc::Log::Error("Failed to create image: %d", vkErr);
         return vc::Error::Failure;
     }
@@ -109,14 +125,17 @@ vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels
     vkBindImageMemory(LogicalDevice::GetVkDevice(), __image, __imageMemory, 0);
     __width  = static_cast<uint32_t>(width);
     __height = static_cast<uint32_t>(height);
-
-    SingleTimeCommandBuffer commandBuffer;
-    if (err = CommandPoolManager::GetGraphicsCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer); err != vc::Error::Success)
-        return err;
-    commandBuffer.TransitionImageLayout(*this, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-    commandBuffer.CopyBufferToImage(stagingBuffer, *this);
-    commandBuffer.TransitionImageLayout(*this, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     return vc::Error::Success;
+}
+
+void Image::SetImageLayout(VkImageLayout layout)
+{
+    SingleTimeCommandBuffer commandBuffer;
+    if (CommandPoolManager::GetGraphicsCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer) != vc::Error::Success) {
+        return;
+    }
+    commandBuffer.TransitionImageLayout(*this, __imageInfo.format, __layout, layout);
+    __layout = layout;
 }
 
 VkImage Image::GetVkImage() const

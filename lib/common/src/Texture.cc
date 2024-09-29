@@ -47,5 +47,10 @@ vc::Error Texture::LoadImageFromFile(const char* path)
     stbi_image_free(pixels);
     return vc::Error::Success;
 }
+
+vc::Error Texture::InitDepthBuffer(int width, int height)
+{
+    return __InitDepthBuffer(width, height);
+}
 }
 }

@@ -26,6 +26,7 @@ SwapChain::SwapChain()
     , swapChain(VK_NULL_HANDLE)
     , viewport{}
     , scissor{}
+    , __depthTexture(nullptr)
 {
 }
 
@@ -44,6 +45,7 @@ SwapChain::SwapChain(SwapChain&& other)
     , activeSurfaceFormat(other.activeSurfaceFormat)
     , activePresentMode(other.activePresentMode)
     , extent(other.extent)
+    , __depthTexture(other.__depthTexture)
 {
     other.swapChain = VK_NULL_HANDLE;
 }
@@ -60,6 +62,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
         activeSurfaceFormat = other.activeSurfaceFormat;
         activePresentMode = other.activePresentMode;
         extent = other.extent;
+        __depthTexture = other.__depthTexture;
         other.swapChain = VK_NULL_HANDLE;
     }
     return *this;
@@ -223,16 +226,24 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
 
 vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
 {
+    // Create Depth Texture
+    if (__depthTexture) {
+        __depthTexture->Destroy();
+    }
+    __depthTexture = reinterpret_cast<VulkanTexture*>(vc::Texture::Create());
+    __depthTexture->InitDepthBuffer(extent.width, extent.height);
+
     __swapChainFramebuffers.resize(__swapChainImageViews.size());
     for (int i = 0; i < __swapChainImageViews.size(); ++i) {
         VkImageView attachments[] = {
-            __swapChainImageViews[i].GetVkImageView()
+            __swapChainImageViews[i].GetVkImageView(),
+            __depthTexture->GetImageView().GetVkImageView()
         };
 
         VkFramebufferCreateInfo framebufferInfo = {};
         framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
         framebufferInfo.renderPass = renderPass->GetRenderPass();
-        framebufferInfo.attachmentCount = 1;
+        framebufferInfo.attachmentCount = sizeof(attachments) / sizeof(attachments[0]);
         framebufferInfo.pAttachments = attachments;
         framebufferInfo.width = extent.width;
         framebufferInfo.height = extent.height;

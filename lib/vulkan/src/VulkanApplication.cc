@@ -30,6 +30,7 @@ VulkanApplication::VulkanApplication()
     , __context()
     , __currentFrame(0)
     , __framebufferChanged(false)
+    , __shouldClose(false)
 {
     Allocator::SetVKAllocationCallbacks();
 }
@@ -48,7 +49,7 @@ VulkanApplication::~VulkanApplication()
     vc::Log::Print("Vulkan app succesfully destroyed.");
 }
 
-vc::Error VulkanApplication::Run()
+vc::Error VulkanApplication::Init()
 {
     vc::Error res;
 
@@ -67,42 +68,43 @@ vc::Error VulkanApplication::Run()
         return vc::Error::InitializationFailed;
     }
 
-    if (res = __Loop(); res != vc::Error::Success)
-    {
-        vc::Log::Error("Failed to run loop: %d", res);
-        return vc::Error::Failure;
-    }
-    return vc::Error::Success;
-}
-
-vc::Error VulkanApplication::__Loop()
-{
-    vc::Error err;
-    vc::FpsCounter fps;
-    vc::Timer timer;
-
     vc::Texture * texture = vc::Texture::Create();
     texture->LoadImageFromFile("hank_happy.png");
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
-        __descriptorSets[i].UpdateSampler(reinterpret_cast<VulkanTexture*>(texture)->GetSampler(), 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+        __descriptorSets[i].UpdateSampler(__sampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
         __descriptorSets[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
     }
-    while (!__context.ShouldClose())
-    {
-        __context.PollEvents();
-        if (err = __DrawFrame(); err != vc::Error::Success)
-            return err;
-        fps.RegisterFrame();
-        auto duration = timer.GetMilliSeconds();
-        if (duration >= 1000) {
-            vc::Log::Print("FPS: %d", fps.GetFps());
-            timer.Reset();
-        }
-    }
-
-    vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
     return vc::Error::Success;
+}
+
+vc::Error VulkanApplication::Loop()
+{
+    return __Loop();
+}
+
+bool VulkanApplication::ShouldClose() { return __shouldClose; }
+
+vc::Error VulkanApplication::__Loop()
+{
+    vc::Error err;
+    static vc::FpsCounter fps;
+    static vc::Timer timer;
+
+    __context.PollEvents();
+    if (err = __DrawFrame(); err != vc::Error::Success)
+        return err;
+    fps.RegisterFrame();
+    auto duration = timer.GetMilliSeconds();
+    if (duration >= 1000) {
+        vc::Log::Print("FPS: %d", fps.GetFps());
+        timer.Reset();
+    }
+    __shouldClose = __context.ShouldClose();
+    if (__shouldClose) {
+        vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+    }
+    return err;
 }
 
 void VulkanApplication::__UpdateUniformBuffers()
@@ -113,7 +115,7 @@ void VulkanApplication::__UpdateUniformBuffers()
     vcm::Mat4 modelViewAndProj[3];
     modelViewAndProj[0] = vcm::Identity();
     vcm::RotateMatrix(modelViewAndProj[0], {0.0f, 0.0f, 1.0f}, time / 1000.0f);
-    modelViewAndProj[1] = vcm::LookAt({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f});
+    modelViewAndProj[1] = vcm::LookAt({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f});
     modelViewAndProj[2] = vcm::Perspective(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
 
     // Uniform buffers (view and projection)
@@ -362,10 +364,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
         return err;
 
-    // Init Render Pass Framebuffers
-    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
-        return err;
-
     // Create Graphics Command Pool
     CommandPool * graphicsCommandPool = __commandPoolManager.GetGraphicsCommandPool();
 
@@ -395,6 +393,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
             return err;
     }
 
+    // Init Render Pass Framebuffers
+    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
+        return err;
+
     // Test
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0, VK_FORMAT_R32G32B32_SFLOAT);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
@@ -423,6 +425,30 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         // Model, View, Projection
         __descriptorSets[i].UpdateBuffer(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 3, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
     }
+
+    // Create Sampler
+    __sampler.SetCreateInfo({
+        .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
+        .pNext = nullptr,
+        .flags = 0,
+        .magFilter = VK_FILTER_LINEAR,
+        .minFilter = VK_FILTER_LINEAR,
+        .mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR,
+        .addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT,
+        .addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT,
+        .addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT,
+        .mipLodBias = 0.0f,
+        .anisotropyEnable = VK_TRUE,
+        .maxAnisotropy = PhysicalDevice::GetUsedPhysicalDevice().GetProperties().limits.maxSamplerAnisotropy,
+        .compareEnable = VK_FALSE,
+        .compareOp = VK_COMPARE_OP_ALWAYS,
+        .minLod = 0.0f,
+        .maxLod = 0.0f,
+        .borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK,
+        .unnormalizedCoordinates = VK_FALSE
+    });
+    if (err = __sampler.Create(); err != vc::Error::Success)
+        return err;
 
     return vc::Error::Success;
 }

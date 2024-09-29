@@ -41,7 +41,9 @@ class VulkanApplication
 public:
     VulkanApplication();
     ~VulkanApplication() override;
-    vc::Error Run() override;
+    vc::Error Init() override;
+    vc::Error Loop() override;
+    bool ShouldClose() override;
 
 private:
     vc::Error __Loop();
@@ -76,8 +78,11 @@ private:
     DescriptorPool __descriptorPool;
     std::vector<DescriptorSet> __descriptorSets;
 
+    bool __shouldClose;
+
 private:
     // For test
+    Sampler __sampler;
     ShaderPipeline __shaderPipeline;
     static constexpr const int MAX_FRAMES_IN_FLIGHT = 2;
     std::vector<CommandBuffer *> __commandBuffers;
@@ -88,27 +93,44 @@ private:
     bool __framebufferChanged;
     VulkanMesh * __mesh;
     UniformBuffer __uniformBuffers[2];
-    vcm::Vec3 __verticesPos[4] = {
+    vcm::Vec3 __verticesPos[8] = {
         {-0.5f, -0.5f, 0.0f},
         {0.5f, -0.5f, 0.0f},
-        {0.5f, 0.5f, 0},
-        {-0.5f, 0.5f, 0}
+        {0.5f, 0.5f, 0.0f},
+        {-0.5f, 0.5f, 0.0f},
+        {-0.5f, -0.5f, -0.5f},
+        {0.5f, -0.5f, -0.5f},
+        {0.5f, 0.5f, -0.5f},
+        {-0.5f, 0.5f, -0.5f}
     };
-    vcm::Vec3 __verticesColor[4] = {
+
+    vcm::Vec3 __verticesColor[8] = {
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1},
+        {1, 1, 1},
         {1, 0, 0},
         {0, 1, 0},
         {0, 0, 1},
         {1, 1, 1}
     };
-    vcm::Vec2 __verticesUV[4] = {
+
+    vcm::Vec2 __verticesUV[8] = {
+        {0, 0},
+        {1, 0},
+        {1, 1},
+        {0, 1},
         {0, 0},
         {1, 0},
         {1, 1},
         {0, 1}
     };
-    uint32_t __indices[6] = {
+
+    uint32_t __indices[12] = {
         0, 1, 2,
-        2, 3, 0
+        2, 3, 0,
+        4, 5, 6,
+        6, 7, 4
     };
 };
 }

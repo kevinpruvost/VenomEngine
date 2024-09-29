@@ -24,8 +24,10 @@ public:
     static Texture * Create();
 
     vc::Error LoadImageFromFile(const char * path);
+    vc::Error InitDepthBuffer(int width, int height);
 
     virtual vc::Error __LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
+    virtual vc::Error __InitDepthBuffer(int width, int height) = 0;
 protected:
 
 };
