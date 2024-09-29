@@ -25,8 +25,8 @@ public:
 
     void AddPoolSize(VkDescriptorType type, uint32_t count);
     vc::Error Create(VkDescriptorPoolCreateFlags flags, uint32_t maxSets);
-    std::vector<DescriptorSet> AllocateSets(const VkDescriptorSetLayout &layout, uint32_t count);
-    std::vector<DescriptorSet> AllocateSets(const std::vector<VkDescriptorSetLayout> &layouts);
+    std::vector<DescriptorSet> AllocateSets(const VkDescriptorSetLayout &layout, uint32_t count) const;
+    std::vector<DescriptorSet> AllocateSets(const std::vector<VkDescriptorSetLayout> &layouts) const;
 
 private:
     std::vector<VkDescriptorPoolSize> __poolSizes;

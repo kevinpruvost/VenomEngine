@@ -9,7 +9,8 @@
 
 #include <venom/vulkan/Debug.h>
 
-#include "UniformBuffer.h"
+#include <venom/vulkan/UniformBuffer.h>
+#include <venom/vulkan/plugin/graphics/Texture.h>
 
 namespace venom
 {
@@ -27,11 +28,14 @@ public:
     DescriptorSet &operator=(DescriptorSet &&other) noexcept = default;
 
     void Update(const VkWriteDescriptorSet &write);
-    void Update(UniformBuffer & buffer, uint32_t bufferOffset, uint32_t bufferRange, uint32_t binding,
+    void UpdateBuffer(UniformBuffer & buffer, uint32_t bufferOffset, uint32_t bufferRange, uint32_t binding,
         VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
+    void UpdateTexture(const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
+    void UpdateSampler(const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
 
     const VkDescriptorSet & GetVkDescriptorSet() const;
 private:
+    friend class DescriptorPool;
     VkDescriptorSet __set;
 };
 }

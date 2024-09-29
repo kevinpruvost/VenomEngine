@@ -64,5 +64,20 @@ vc::Error VulkanTexture::__LoadImage(unsigned char* pixels, int width, int heigh
         return vc::Error::Failure;
     return vc::Error::Success;
 }
+
+const Image& VulkanTexture::GetImage() const
+{
+    return __image;
+}
+
+const ImageView& VulkanTexture::GetImageView() const
+{
+    return __imageView;
+}
+
+const Sampler& VulkanTexture::GetSampler() const
+{
+    return __sampler;
+}
 }
 }

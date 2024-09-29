@@ -41,7 +41,7 @@ public:
     void SetCreateInfo(const VkSamplerCreateInfo& createInfo);
     vc::Error Create();
 
-    VkSampler GetSampler() const;
+    VkSampler GetVkSampler() const;
     explicit operator VkSampler() const;
 private:
     VkSampler __sampler;

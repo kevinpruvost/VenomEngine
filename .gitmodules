@@ -22,3 +22,6 @@
 [submodule "lib/external/SPIRV-Reflect"]
 	path = lib/external/SPIRV-Reflect
 	url = git@github.com:KhronosGroup/SPIRV-Reflect.git
+[submodule "lib/external/SPIRV-Cross"]
+	path = lib/external/SPIRV-Cross
+	url = git@github.com:KhronosGroup/SPIRV-Cross.git

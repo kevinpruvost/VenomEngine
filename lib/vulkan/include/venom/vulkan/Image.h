@@ -13,6 +13,7 @@ namespace venom
 {
 namespace vulkan
 {
+class CommandBuffer;
 class Image
 {
 public:
@@ -30,9 +31,12 @@ public:
 
     uint32_t GetWidth() const;
     uint32_t GetHeight() const;
+    VkImageLayout GetLayout() const;
 
+    friend class CommandBuffer;
 private:
     VkImage __image;
+    VkImageLayout __layout;
     VkDeviceMemory __imageMemory;
     uint32_t __width, __height;
 };

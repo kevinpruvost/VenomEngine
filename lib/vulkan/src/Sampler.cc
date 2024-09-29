@@ -154,7 +154,7 @@ vc::Error Sampler::Create()
     return vc::Error::Success;
 }
 
-VkSampler Sampler::GetSampler() const
+VkSampler Sampler::GetVkSampler() const
 {
     return __sampler;
 }

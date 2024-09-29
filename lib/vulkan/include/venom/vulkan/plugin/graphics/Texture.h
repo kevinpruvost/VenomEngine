@@ -26,6 +26,9 @@ public:
     ~VulkanTexture();
 
     vc::Error __LoadImage(unsigned char * pixels, int width, int height, int channels) override;
+    const Image & GetImage() const;
+    const ImageView & GetImageView() const;
+    const Sampler & GetSampler() const;
 private:
     Image __image;
     ImageView __imageView;

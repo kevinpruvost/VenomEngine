@@ -161,7 +161,7 @@ void CommandBuffer::CopyBufferToImage(const Buffer& srcBuffer, const Image& dstI
     vkCmdCopyBufferToImage(_commandBuffer, srcBuffer.GetVkBuffer(), dstImage.GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 }
 
-void CommandBuffer::TransitionImageLayout(const Image& image, VkImageLayout oldLayout, VkImageLayout newLayout)
+void CommandBuffer::TransitionImageLayout(Image& image, VkImageLayout oldLayout, VkImageLayout newLayout)
 {
     VkImageMemoryBarrier barrier {
         .sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,
@@ -201,6 +201,7 @@ void CommandBuffer::TransitionImageLayout(const Image& image, VkImageLayout oldL
     }
 
     vkCmdPipelineBarrier(_commandBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+    image.__layout = newLayout;
 }
 
 void CommandBuffer::BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,

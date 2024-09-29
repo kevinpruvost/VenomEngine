@@ -53,7 +53,8 @@ ShaderPipeline& ShaderPipeline::operator=(ShaderPipeline&& other) noexcept
     return *this;
 }
 
-vc::Error ShaderPipeline::AddVertexBufferToLayout( const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset)
+vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding,
+    const uint32_t location, const uint32_t offset, const VkFormat format)
 {
     __bindingDescriptions.push_back({
         .binding = binding,
@@ -63,7 +64,7 @@ vc::Error ShaderPipeline::AddVertexBufferToLayout( const uint32_t vertexSize, co
     __attributeDescriptions.push_back({
         .location = location,
         .binding = binding,
-        .format = VK_FORMAT_R32G32B32_SFLOAT,
+        .format = format,
         .offset = offset
     });
     return vc::Error::Success;
@@ -87,46 +88,43 @@ vc::Error ShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineSh
     file.read(buffer.data(), fileSize);
     file.close();
 
-    // Reflecting shader
-    {
-        SpvReflectShaderModule module;
-        SpvReflectResult result = spvReflectCreateShaderModule(buffer.size(), buffer.data(), &module);
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-
-        // Enumerate and extract shader's input variables
-        uint32_t varCount = 0;
-        result = spvReflectEnumerateInputVariables(&module, &varCount, NULL);
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-        // Get input variables
-        std::vector<SpvReflectInterfaceVariable*> inputVars(varCount, nullptr);
-        result = spvReflectEnumerateInputVariables(&module, &varCount, inputVars.data());
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-
-        // Get descriptor bindings
-        result = spvReflectEnumerateDescriptorBindings(&module, &varCount, NULL);
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-        std::vector<SpvReflectDescriptorBinding*> bindings(varCount, nullptr);
-        result = spvReflectEnumerateDescriptorBindings(&module, &varCount, bindings.data());
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-
-        // Get descriptor sets
-        result = spvReflectEnumerateDescriptorSets(&module, &varCount, NULL);
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-        std::vector<SpvReflectDescriptorSet*> descriptorSets(varCount, nullptr);
-        result = spvReflectEnumerateDescriptorSets(&module, &varCount, descriptorSets.data());
-
-        // Get push constants
-        result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, NULL);
-        assert(result == SPV_REFLECT_RESULT_SUCCESS);
-        std::vector<SpvReflectBlockVariable*> pushConstants(varCount, nullptr);
-        result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, pushConstants.data());
-
-        // Output variables, descriptor bindings, descriptor sets, and push constants
-        // can be enumerated and extracted using a similar mechanism.
-
-        // Destroy the reflection data when no longer required.
-        spvReflectDestroyShaderModule(&module);
-    }
+    // // Reflecting shader, we'd better use that when doing a common shader
+    // {
+    //     SpvReflectShaderModule module;
+    //     SpvReflectResult result = spvReflectCreateShaderModule(buffer.size(), buffer.data(), &module);
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //
+    //     // Enumerate and extract shader's input variables
+    //     uint32_t varCount = 0;
+    //     result = spvReflectEnumerateInputVariables(&module, &varCount, nullptr);
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //     // Get input variables
+    //     std::vector<SpvReflectInterfaceVariable*> inputVars(varCount, nullptr);
+    //     result = spvReflectEnumerateInputVariables(&module, &varCount, inputVars.data());
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //
+    //     // Get descriptor bindings
+    //     result = spvReflectEnumerateDescriptorBindings(&module, &varCount, nullptr);
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //     std::vector<SpvReflectDescriptorBinding*> bindings(varCount, nullptr);
+    //     result = spvReflectEnumerateDescriptorBindings(&module, &varCount, bindings.data());
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //
+    //     // Get descriptor sets
+    //     result = spvReflectEnumerateDescriptorSets(&module, &varCount, nullptr);
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //     std::vector<SpvReflectDescriptorSet*> descriptorSets(varCount, nullptr);
+    //     result = spvReflectEnumerateDescriptorSets(&module, &varCount, descriptorSets.data());
+    //
+    //     // Get push constants
+    //     result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, nullptr);
+    //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
+    //     std::vector<SpvReflectBlockVariable*> pushConstants(varCount, nullptr);
+    //     result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, pushConstants.data());
+    //
+    //     // Destroy the reflection data when no longer required.
+    //     spvReflectDestroyShaderModule(&module);
+    // }
 
     VkShaderModuleCreateInfo shaderModuleCreateInfo = {};
     shaderModuleCreateInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;

@@ -20,6 +20,7 @@ Image::Image()
     : __image(VK_NULL_HANDLE)
     , __imageMemory(VK_NULL_HANDLE)
     , __width(0), __height(0)
+    , __layout(VK_IMAGE_LAYOUT_UNDEFINED)
 {
 }
 
@@ -34,6 +35,8 @@ Image::~Image()
 Image::Image(Image&& image) noexcept
     : __image(image.__image)
     , __imageMemory(image.__imageMemory)
+    , __width(image.__width), __height(image.__height)
+    , __layout(image.__layout)
 {
     image.__image = VK_NULL_HANDLE;
     image.__imageMemory = VK_NULL_HANDLE;
@@ -46,6 +49,9 @@ Image& Image::operator=(Image&& image) noexcept
         __imageMemory = image.__imageMemory;
         image.__image = VK_NULL_HANDLE;
         image.__imageMemory = VK_NULL_HANDLE;
+        __width = image.__width;
+        __height = image.__height;
+        __layout = image.__layout;
     }
     return *this;
 }
@@ -73,7 +79,7 @@ vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels
     imageInfo.arrayLayers = 1;
     imageInfo.format = format;
     imageInfo.tiling = tiling;
-    imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    imageInfo.initialLayout = __layout = VK_IMAGE_LAYOUT_UNDEFINED;
     // VK_IMAGE_USAGE_TRANSFER_DST_BIT: Image will be used as a destination for a transfer operation
     // VK_IMAGE_USAGE_SAMPLED_BIT: Image will be used to create a VkImageView suitable for occupying a texture unit
     // and be usable as a sampled image in a shader
@@ -109,6 +115,7 @@ vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels
         return err;
     commandBuffer.TransitionImageLayout(*this, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
     commandBuffer.CopyBufferToImage(stagingBuffer, *this);
+    commandBuffer.TransitionImageLayout(*this, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     return vc::Error::Success;
 }
 
@@ -130,6 +137,11 @@ uint32_t Image::GetWidth() const
 uint32_t Image::GetHeight() const
 {
     return __height;
+}
+
+VkImageLayout Image::GetLayout() const
+{
+    return __layout;
 }
 }
 }

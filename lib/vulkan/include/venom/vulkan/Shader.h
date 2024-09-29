@@ -31,7 +31,7 @@ public:
     ShaderPipeline(ShaderPipeline&& other) noexcept;
     ShaderPipeline& operator=(ShaderPipeline&& other) noexcept;
 
-    vc::Error AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset);
+    vc::Error AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const VkFormat format);
     vc::Error LoadShaders(const SwapChain * swapChain, const RenderPass * renderPass, const std::vector<std::string>& shaderPaths);
     VkPipeline GetPipeline() const;
     VkPipelineLayout GetPipelineLayout() const;

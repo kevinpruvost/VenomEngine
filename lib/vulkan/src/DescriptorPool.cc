@@ -46,10 +46,11 @@ vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t max
     return vc::Error::Success;
 }
 
-std::vector<DescriptorSet> DescriptorPool::AllocateSets(const VkDescriptorSetLayout& layout, uint32_t count) { return AllocateSets({count, layout}); }
-std::vector<DescriptorSet> DescriptorPool::AllocateSets(const std::vector<VkDescriptorSetLayout>& layouts)
+std::vector<DescriptorSet> DescriptorPool::AllocateSets(const VkDescriptorSetLayout& layout, uint32_t count) const { return AllocateSets({count, layout}); }
+std::vector<DescriptorSet> DescriptorPool::AllocateSets(const std::vector<VkDescriptorSetLayout>& layouts) const
 {
     std::vector<DescriptorSet> sets(layouts.size());
+    std::vector<VkDescriptorSet> vkSets(layouts.size());
 
     VkDescriptorSetAllocateInfo allocInfo = {};
     allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
@@ -57,10 +58,11 @@ std::vector<DescriptorSet> DescriptorPool::AllocateSets(const std::vector<VkDesc
     allocInfo.descriptorSetCount = layouts.size();
     allocInfo.pSetLayouts = layouts.data();
 
-    if (auto err = vkAllocateDescriptorSets(LogicalDevice::GetVkDevice(), &allocInfo, reinterpret_cast<VkDescriptorSet*>(sets.data())); err != VK_SUCCESS) {
+    if (auto err = vkAllocateDescriptorSets(LogicalDevice::GetVkDevice(), &allocInfo, reinterpret_cast<VkDescriptorSet*>(vkSets.data())); err != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate descriptor sets: %d", err);
         return sets;
     }
+    for (size_t i = 0; i < sets.size(); ++i) { sets[i].__set = vkSets[i]; }
     return sets;
 }
 }

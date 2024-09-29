@@ -83,6 +83,11 @@ vc::Error VulkanApplication::__Loop()
 
     vc::Texture * texture = vc::Texture::Create();
     texture->LoadImageFromFile("hank_happy.png");
+    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+        // Separate Sampled Image & Sampler
+        __descriptorSets[i].UpdateSampler(reinterpret_cast<VulkanTexture*>(texture)->GetSampler(), 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+        __descriptorSets[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+    }
     while (!__context.ShouldClose())
     {
         __context.PollEvents();
@@ -391,11 +396,13 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     }
 
     // Test
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0);
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0, VK_FORMAT_R32G32B32_SFLOAT);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 2, 2, 0, VK_FORMAT_R32G32_SFLOAT);
     __mesh = reinterpret_cast<VulkanMesh*>(vc::Mesh::Create());
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3));
     __mesh->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec3), sizeof(vcm::Vec3));
+    __mesh->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2));
     __mesh->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader.ps",
@@ -412,9 +419,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create Descriptor Sets
     __descriptorSets = __descriptorPool.AllocateSets(__shaderPipeline.GetDescriptorSetLayout(), MAX_FRAMES_IN_FLIGHT);
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i)
+    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
         // Model, View, Projection
-        __descriptorSets[i].Update(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 3, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+        __descriptorSets[i].UpdateBuffer(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 3, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+    }
 
     return vc::Error::Success;
 }
