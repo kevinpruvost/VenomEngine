@@ -1,4 +1,5 @@
 build --enable_platform_specific_config
+common --enable_bzlmod
 
 build:linux --cxxopt=-std=c++20
 build:linux --host_cxxopt=-std=c++20

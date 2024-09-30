@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../bazel-out" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bazel-testlogs" />
       <excludeFolder url="file://$MODULE_DIR$/../../../lib/external/DirectXShaderCompiler" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../lib/external/assimp/contrib/googletest" />
       <excludePattern pattern="bazel-bin" />
       <excludePattern pattern="bazel-genfiles" />
       <excludePattern pattern="bazel-out" />

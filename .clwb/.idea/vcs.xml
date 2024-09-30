@@ -4,7 +4,10 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../docs/doxygen-awesome" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/external/SPIRV-Cross" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/external/SPIRV-Reflect" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/external/VulkanMemoryAllocator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../lib/external/assimp/assimp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/external/glaze" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/external/glfw" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../lib/external/glm" vcs="Git" />

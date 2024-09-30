@@ -11,6 +11,9 @@
       <entry key="//lib/external:SPIRVReflect">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:SPIRVReflect" />
       </entry>
+      <entry key="//lib/external:assimp">
+        <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:assimp" />
+      </entry>
       <entry key="//lib/external:glfw_platform">
         <TargetInfo compilerVersion="Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33522 for x64" configurationId="//lib/external:glfw_platform" />
       </entry>
