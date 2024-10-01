@@ -30,10 +30,5 @@ void PluginObject::Destroy()
 {
     VenomEngine::GetInstance()->pluginManager->RemovePluginObject(__type, this);
 }
-
-void PluginObject::operator delete(void * ptr)
-{
-    free(ptr);
-}
 }
 }

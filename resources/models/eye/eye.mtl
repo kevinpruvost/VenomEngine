@@ -1,0 +1,26 @@
+# Blender MTL File: 'eye.blend'
+# Material Count: 2
+
+newmtl eye
+Ns 179.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 0.000000
+d 1.000000
+illum 1
+map_Bump -bm 0.500000 Textures\\eye_Normal.png
+map_Kd Textures\\eye_Diffuse.png
+map_Ns Textures\\eye_Roughness.png
+refl Textures\\eye_Metallic.png
+
+newmtl glass
+Ns 179.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.000000
+d 1.000000
+illum 2

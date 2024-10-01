@@ -34,11 +34,14 @@ typedef Vec3 VertexPos;
 /// @brief Vertex Normal (3 floats)
 typedef Vec3 VertexNormal;
 
-/// @brief Vertex Color (3 floats)
-typedef Vec3 VertexColor;
+/// @brief Vertex Color (4 floats) RGBA
+typedef Vec4 VertexColor;
 
 /// @brief Vertex Texture Coordinates (2 floats)
 typedef Vec2 VertexUV;
+
+/// @brief Vertex Tangents (3 floats)
+typedef Vec3 VertexTangent;
 
 /// @brief Vertex Bitangent (3 floats)
 typedef Vec3 VertexBitangent;

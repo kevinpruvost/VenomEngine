@@ -29,13 +29,23 @@ public:
 
     virtual void Draw() = 0;
 
+private:
+    /**
+     * @brief Loads Mesh into the Graphics API from the current data
+     * So it is expected that vertices, faces, ... are loaded in the Mesh beforehand
+     * @return vc::Error::Failure if the loading failed, vc::Error::Success otherwise
+     */
+    virtual vc::Error __LoadMeshFromCurrentData() = 0;
+
 protected:
     friend class Model;
     std::vector<vcm::VertexPos> __positions;
     std::vector<vcm::VertexNormal> __normals;
-    std::vector<vcm::VertexColor> __colors;
-    std::vector<vcm::VertexUV> __uvs;
+    std::vector<vcm::VertexColor> __colors[8];
+    std::vector<vcm::VertexUV> __uvs[8];
     std::vector<uint32_t> __indices;
+    std::vector<vcm::VertexTangent> __tangents;
+    std::vector<vcm::VertexBitangent> __bitangents;
 };
 
 

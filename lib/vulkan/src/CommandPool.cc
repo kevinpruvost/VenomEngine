@@ -108,23 +108,33 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void CommandBuffer::DrawMesh(const VulkanMesh& vulkanMesh) const
+void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    const IndexBuffer & indexBuffer = vulkanMesh.GetIndexBuffer();
-    const VkBuffer * vertexBuffers = vulkanMesh.GetVkVertexBuffers();
-    VkDeviceSize offsets[] = {0, 0};
-    vkCmdBindVertexBuffers(_commandBuffer, 0, vulkanMesh.GetBindingCount(), vertexBuffers, offsets);
+    const IndexBuffer & indexBuffer = vulkanMesh->GetIndexBuffer();
+    const auto vertexBuffers = vulkanMesh->GetVkVertexBuffers();
+    const VkDeviceSize * offsets = vulkanMesh->GetOffsets();
+    for (const auto & vertexBuffer : vertexBuffers) {
+        vkCmdBindVertexBuffers(_commandBuffer, vertexBuffer.binding, 1, &vertexBuffer.buffer, offsets);
+    }
     if (indexBuffer.GetVkBuffer() != VK_NULL_HANDLE) {
         vkCmdBindIndexBuffer(_commandBuffer, indexBuffer.GetVkBuffer(), 0, VK_INDEX_TYPE_UINT32);
         vkCmdDrawIndexed(_commandBuffer, indexBuffer.GetVertexCount(), 1, 0, 0, 0);
     } else {
-        vkCmdDraw(_commandBuffer, vulkanMesh.GetVertexCount(), 1, 0, 0);
+        vkCmdDraw(_commandBuffer, vulkanMesh->GetVertexCount(), 1, 0, 0);
+    }
+}
+
+void CommandBuffer::DrawModel(const VulkanModel * vulkanModel) const
+{
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    for (const vc::Mesh * mesh : vulkanModel->GetMeshes()) {
+        DrawMesh(mesh->As<VulkanMesh>());
     }
 }
 
 void CommandBuffer::PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
-    uint32_t size, const void* pValues) const
+                                  uint32_t size, const void* pValues) const
 {
     vkCmdPushConstants(_commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
 }

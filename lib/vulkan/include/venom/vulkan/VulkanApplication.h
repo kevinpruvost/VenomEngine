@@ -91,6 +91,7 @@ private:
     std::vector<Fence> __inFlightFences;
     int __currentFrame;
     bool __framebufferChanged;
+    VulkanModel * __model;
     VulkanMesh * __mesh;
     UniformBuffer __uniformBuffers[2];
     vcm::Vec3 __verticesPos[8] = {
@@ -104,15 +105,15 @@ private:
         {-0.5f, 0.5f, -0.5f}
     };
 
-    vcm::Vec3 __verticesColor[8] = {
-        {1, 0, 0},
-        {0, 1, 0},
-        {0, 0, 1},
-        {1, 1, 1},
-        {1, 0, 0},
-        {0, 1, 0},
-        {0, 0, 1},
-        {1, 1, 1}
+    vcm::Vec4 __verticesColor[8] = {
+        {1, 0, 0, 1},
+        {0, 1, 0, 1},
+        {0, 0, 1, 1},
+        {1, 1, 1, 1},
+        {1, 0, 0, 1},
+        {0, 1, 0, 1},
+        {0, 0, 1, 1},
+        {1, 1, 1, 1}
     };
 
     vcm::Vec2 __verticesUV[8] = {

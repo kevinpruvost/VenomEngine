@@ -4,6 +4,12 @@ DOC_FOLDER = docs
 DOXYFILE = Doxyfile
 EXTERNAL_LIBS = lib/external
 DIRECTXSHADERCOMPILER = $(EXTERNAL_LIBS)/DirectXShaderCompiler
+# Detect the platform
+ifeq ($(OS),Windows_NT)
+    MKDIR_CMD = cmd /c mkdir
+else
+    MKDIR_CMD = mkdir -p
+endif
 
 all: fast_run
 
@@ -30,7 +36,7 @@ docs:
 	cd $(DOC_FOLDER) && $(DOXYGEN) $(DOXYFILE)
 
 dxc:
-	-mkdir -p cmake_build
+	$(MKDIR_CMD) cmake_build
 	# You can ignore the generator flag if you want to use the default one
 	cd cmake_build && \
 	cmake ../$(DIRECTXSHADERCOMPILER) -C ../$(DIRECTXSHADERCOMPILER)/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v" && \

@@ -1,5 +1,5 @@
 struct PSInput {
-    [[vk::location(0)]] float3 color : COLOR;
+    [[vk::location(0)]] float4 color : COLOR;
     [[vk::location(1)]] float2 texCoord : TEXCOORD;
 };
 

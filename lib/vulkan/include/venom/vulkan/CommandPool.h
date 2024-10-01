@@ -9,6 +9,7 @@
 
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
+#include <venom/vulkan/plugin/graphics/Model.h>
 #include <venom/vulkan/Buffer.h>
 #include <venom/vulkan/Image.h>
 
@@ -75,7 +76,9 @@ public:
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
-    void DrawMesh(const VulkanMesh& vulkanMesh) const;
+    void DrawMesh(const VulkanMesh * vulkanMesh) const;
+    void DrawModel(const VulkanModel * vulkanModel) const;
+
     void PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
     void CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer);
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);

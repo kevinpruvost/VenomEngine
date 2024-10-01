@@ -30,6 +30,8 @@ public:
     vc::Error ImportModel(const std::string & path);
     //virtual vc::Error __ImportMesh() = 0;
 
+    const std::vector<vc::Mesh *> & GetMeshes() const;
+
 protected:
     std::vector<vc::Mesh *> __meshes;
 };

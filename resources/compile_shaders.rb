@@ -4,7 +4,8 @@ require 'fileutils'
 hlsl_dir = './resources/shaders/hlsl'
 glsl_dir = './resources/shaders/glsl'
 compiled_dir = './resources/shaders/compiled'
-dxc_path = './cmake_build/Release/bin/dxc'
+dxc_folder_path = './cmake_build/Release/bin'
+dxc_path = "#{dxc_folder_path}/dxc"
 
 # Ensure the compiled directory exists
 FileUtils.mkdir_p(compiled_dir)
@@ -16,6 +17,12 @@ glsl_files = Dir.glob("#{glsl_dir}/*.glsl")
 def output_file_create_name(file, compiled_dir)
     filename_parts = File.basename(file).split('.')
     "#{compiled_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+end
+
+# Check if dxc path folder exists
+if !File.exist?(dxc_folder_path)
+    puts "DXC path does not exist at #{dxc_folder_path}. Please ensure DXC is built (by using 'make dxc')."
+    exit
 end
 
 # Function to determine shader type based on filename
@@ -46,7 +53,7 @@ elsif ARGV[0] == 'compile'
         output_file = output_file_create_name(file, compiled_dir)
         type = shader_type(file)
         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file}"
-        puts "Compiling #{file} to #{output_file}..."
+        puts "Compiling #{file} to #{output_file} with command[#{cmd}]..."
         system(cmd)
     end
 elsif ARGV[0] == 'compile_debug'

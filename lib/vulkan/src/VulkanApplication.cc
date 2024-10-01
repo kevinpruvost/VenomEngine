@@ -158,7 +158,8 @@ vc::Error VulkanApplication::__DrawFrame()
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
         __commandBuffers[__currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, __shaderPipeline.GetPipelineLayout(), 0, 1, __descriptorSets[__currentFrame].GetVkDescriptorSet());
-        __commandBuffers[__currentFrame]->DrawMesh(*__mesh);
+        __commandBuffers[__currentFrame]->DrawMesh(__mesh);
+        __commandBuffers[__currentFrame]->DrawModel(__model);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
     if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
@@ -400,11 +401,15 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Test
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0, VK_FORMAT_R32G32B32_SFLOAT);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 2, 2, 0, VK_FORMAT_R32G32_SFLOAT);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
+    __model = reinterpret_cast<VulkanModel*>(vc::Model::Create());
+    __model->ImportModel("eye/eye.obj");
     __mesh = reinterpret_cast<VulkanMesh*>(vc::Mesh::Create());
-    __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3));
-    __mesh->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec3), sizeof(vcm::Vec3));
-    __mesh->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2));
+    __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
+    __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);
+    __mesh->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec4), sizeof(vcm::Vec4), 2);
+    __mesh->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2), 3);
     __mesh->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader.ps",
