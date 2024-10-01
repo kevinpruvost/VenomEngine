@@ -1,5 +1,5 @@
 \doxysection{Vector.\+h}
-\hypertarget{_vector_8h_source}{}\label{_vector_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/math/Vector.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/math/Vector.h}}
+\hypertarget{_vector_8h_source}{}\label{_vector_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h}}
 \mbox{\hyperlink{_vector_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -12,32 +12,33 @@
 \DoxyCodeLine{00014\ \{}
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ defined(VENOM\_MATH\_DXMATH)}}
-\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT4\ Vec4;}
-\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT3\ Vec3;}
-\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT2\ Vec2;}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#elif\ defined(VENOM\_MATH\_GLM)}}
-\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ glm::vec4\ Vec4;}
-\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ glm::vec3\ Vec3;}
-\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ glm::vec2\ Vec2;}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{comment}{//\ We\ want\ vertices\ to\ be\ used\ separate\ and\ not\ packed\ (non-\/interleaved\ and\ not\ interleaved)}}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{namespacevenom_1_1common_a0f19c987f3d388f9c1e3275fe3f433ee}{VertexPos}};}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{namespacevenom_1_1common_af5dea3e0c33e7f9fa8a70316511e3e18}{VertexNormal}};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{namespacevenom_1_1common_ad86d88b160aab29b665181932349b5e7}{VertexColor}};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ Vec2\ \mbox{\hyperlink{namespacevenom_1_1common_a5801dca444d1280b4aeae918a1ba2771}{VertexUV}};}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{namespacevenom_1_1common_aa9df425bc83943263aed8723682338ee}{VertexBitangent}};}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{namespacevenom_1_1common_ad51135be0a3e83e6ec8179802f8737ce}{VertexIndex}};}
-\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }math}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ defined(VENOM\_MATH\_DXMATH)}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT4\ Vec4;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT3\ Vec3;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT2\ Vec2;}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#elif\ defined(VENOM\_MATH\_GLM)}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ glm::vec4\ Vec4;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ glm::vec3\ Vec3;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ glm::vec2\ Vec2;}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ We\ want\ vertices\ to\ be\ used\ separate\ and\ not\ packed\ (non-\/interleaved\ and\ not\ interleaved)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{VertexPos}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{VertexNormal}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a75214a8ebd3c53e1cf6fa2c997a64efb}{VertexColor}};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ Vec2\ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{VertexUV}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd}{VertexBitangent}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{_vector_8h_a36b6a61f40d61b43b3c4bf534f0769ca}{VertexIndex}};}
 \DoxyCodeLine{00048\ \}}
 \DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ \}}
 
 \end{DoxyCode}

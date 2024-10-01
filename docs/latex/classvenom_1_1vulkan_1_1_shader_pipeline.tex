@@ -3,18 +3,36 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a6d4801a5caf1e31a0f98109abeaf4783}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a6d4801a5caf1e31a0f98109abeaf4783} 
-Vk\+Pipeline\+Vertex\+Input\+State\+Create\+Info {\bfseries Setup\+Vertex\+Input} ()
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a336c254c9be8d6d5c80065fbafd19304}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a336c254c9be8d6d5c80065fbafd19304} 
+{\bfseries Shader\+Pipeline} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&)=delete
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a834d7bc4408609138e5d45f1c211baac}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a834d7bc4408609138e5d45f1c211baac} 
-vc\+::\+Error {\bfseries Load\+Shaders} (const Vk\+Device logical\+Device, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*}swap\+Chain, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*}render\+Pass, const std\+::vector$<$ std\+::string $>$ \&shader\+Paths)
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_aaa6778a5cfd17b2c878573e6f364d94c}\label{classvenom_1_1vulkan_1_1_shader_pipeline_aaa6778a5cfd17b2c878573e6f364d94c} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_acdec2cced8bf9cc1c5edbdd206dacb4e}\label{classvenom_1_1vulkan_1_1_shader_pipeline_acdec2cced8bf9cc1c5edbdd206dacb4e} 
+{\bfseries Shader\+Pipeline} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a41d893b1c29b003e0b727645fce19750}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a41d893b1c29b003e0b727645fce19750} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a291fa4388fdc76c722ca021394668913}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a291fa4388fdc76c722ca021394668913} 
+vc\+::\+Error {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const uint32\+\_\+t vertex\+Size, const uint32\+\_\+t binding, const uint32\+\_\+t location, const uint32\+\_\+t offset, const Vk\+Format format)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_ac3f2ee99e5f7f7ee18ee3e41929a77ae}\label{classvenom_1_1vulkan_1_1_shader_pipeline_ac3f2ee99e5f7f7ee18ee3e41929a77ae} 
+vc\+::\+Error {\bfseries Load\+Shaders} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*}swap\+Chain, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*}render\+Pass, const std\+::vector$<$ std\+::string $>$ \&shader\+Paths)
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a12fa20164530abf904837eacb9c55628}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a12fa20164530abf904837eacb9c55628} 
 Vk\+Pipeline {\bfseries Get\+Pipeline} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a350c0b91b8a7c61c464cef6733c0b6bb}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a350c0b91b8a7c61c464cef6733c0b6bb} 
+Vk\+Pipeline\+Layout {\bfseries Get\+Pipeline\+Layout} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_shader_pipeline_a733460c65af02fd40d1cb344d50fce06}\label{classvenom_1_1vulkan_1_1_shader_pipeline_a733460c65af02fd40d1cb344d50fce06} 
+const Vk\+Descriptor\+Set\+Layout \& {\bfseries Get\+Descriptor\+Set\+Layout} () const
 \end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_shader_8h}{Shader.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/src/\mbox{\hyperlink{_shader_8cc}{Shader.\+cc}}\end{DoxyCompactItemize}
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_shader_8h}{Shader.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_shader_8cc}{Shader.\+cc}}\end{DoxyCompactItemize}

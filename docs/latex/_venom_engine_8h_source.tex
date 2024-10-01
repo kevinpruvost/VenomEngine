@@ -1,5 +1,5 @@
 \doxysection{Venom\+Engine.\+h}
-\hypertarget{_venom_engine_8h_source}{}\label{_venom_engine_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/VenomEngine.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/VenomEngine.h}}
+\hypertarget{_venom_engine_8h_source}{}\label{_venom_engine_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h}}
 \mbox{\hyperlink{_venom_engine_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -18,11 +18,15 @@
 \DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{\string~VenomEngine}}();}
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}\ *\ GetInstance();}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{PluginManager}}\ pluginManager;}
-\DoxyCodeLine{00026\ \};}
-\DoxyCodeLine{00027\ \}}
-\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ Error\ RunEngine(\textcolor{keywordtype}{char}\ **\ argv);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ std::unique\_ptr<PluginManager>\ pluginManager;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ std::unique\_ptr<DLL\_Cache>\ \_\_dllCache;}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ \}}
 
 \end{DoxyCode}

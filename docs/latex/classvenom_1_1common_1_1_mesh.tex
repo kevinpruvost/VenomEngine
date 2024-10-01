@@ -20,12 +20,15 @@ Inheritance diagram for venom\+::common\+::Mesh\+:\begin{figure}[H]
 \item 
 \Hypertarget{classvenom_1_1common_1_1_mesh_af0ccf0a316a2954ac111624f6af38a03}\label{classvenom_1_1common_1_1_mesh_af0ccf0a316a2954ac111624f6af38a03} 
 virtual void {\bfseries Draw} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_mesh_a80d7629224b4ca19cb8b469723d96fa5}\label{classvenom_1_1common_1_1_mesh_a80d7629224b4ca19cb8b469723d96fa5} 
+vc\+::\+Error {\bfseries Import\+Model} (const std\+::string \&path)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Plugin\+Object} (const Plugin\+::\+Plugin\+Type type)
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
 \item 
 void {\bfseries Destroy} ()
 \begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -38,25 +41,20 @@ static \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}} \texorpdfstring{$\
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a573d8b90f44e54b8ba4745bd9ce003f6}\label{classvenom_1_1common_1_1_mesh_a573d8b90f44e54b8ba4745bd9ce003f6} 
-std\+::vector$<$ \mbox{\hyperlink{namespacevenom_1_1common_a0f19c987f3d388f9c1e3275fe3f433ee}{vc\+::\+Vertex\+Pos}} $>$ {\bfseries \+\_\+\+\_\+positions}
+\Hypertarget{classvenom_1_1common_1_1_mesh_a23fa0d8b5001321ebb31ca7c82c6bf76}\label{classvenom_1_1common_1_1_mesh_a23fa0d8b5001321ebb31ca7c82c6bf76} 
+std\+::vector$<$ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{vcm\+::\+Vertex\+Pos}} $>$ {\bfseries \+\_\+\+\_\+positions}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_aca2a77aaaeef8f5987badcef4e460478}\label{classvenom_1_1common_1_1_mesh_aca2a77aaaeef8f5987badcef4e460478} 
-std\+::vector$<$ \mbox{\hyperlink{namespacevenom_1_1common_af5dea3e0c33e7f9fa8a70316511e3e18}{vc\+::\+Vertex\+Normal}} $>$ {\bfseries \+\_\+\+\_\+normals}
+\Hypertarget{classvenom_1_1common_1_1_mesh_aabbb03c166b0b4527020ceb784653a69}\label{classvenom_1_1common_1_1_mesh_aabbb03c166b0b4527020ceb784653a69} 
+std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{vcm\+::\+Vertex\+Normal}} $>$ {\bfseries \+\_\+\+\_\+normals}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_ad294c7b33cb571405ac80ab4dc626e03}\label{classvenom_1_1common_1_1_mesh_ad294c7b33cb571405ac80ab4dc626e03} 
-std\+::vector$<$ \mbox{\hyperlink{namespacevenom_1_1common_ad86d88b160aab29b665181932349b5e7}{vc\+::\+Vertex\+Color}} $>$ {\bfseries \+\_\+\+\_\+colors}
+\Hypertarget{classvenom_1_1common_1_1_mesh_a7a10ddc5233257c988e25c799fd21ad1}\label{classvenom_1_1common_1_1_mesh_a7a10ddc5233257c988e25c799fd21ad1} 
+std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a75214a8ebd3c53e1cf6fa2c997a64efb}{vcm\+::\+Vertex\+Color}} $>$ {\bfseries \+\_\+\+\_\+colors}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a65243a022e09a172dfca8d1ce64b3261}\label{classvenom_1_1common_1_1_mesh_a65243a022e09a172dfca8d1ce64b3261} 
-std\+::vector$<$ \mbox{\hyperlink{namespacevenom_1_1common_a5801dca444d1280b4aeae918a1ba2771}{vc\+::\+Vertex\+UV}} $>$ {\bfseries \+\_\+\+\_\+uvs}
+\Hypertarget{classvenom_1_1common_1_1_mesh_ac5d2eee5a8a8830dfa2176ba91af5289}\label{classvenom_1_1common_1_1_mesh_ac5d2eee5a8a8830dfa2176ba91af5289} 
+std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{vcm\+::\+Vertex\+UV}} $>$ {\bfseries \+\_\+\+\_\+uvs}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_mesh_a2b5ed07fcd045a400bdd213854755ffb}\label{classvenom_1_1common_1_1_mesh_a2b5ed07fcd045a400bdd213854755ffb} 
 std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries \+\_\+\+\_\+indices}
-\end{DoxyCompactItemize}
-\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
-\begin{DoxyCompactItemize}
-\item 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} $>$ {\bfseries \+\_\+impl}
 \end{DoxyCompactItemize}
 
 
@@ -65,5 +63,5 @@ Contains all the mesh\textquotesingle{}s data and is the main high-\/level inter
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h}{Mesh.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/src/\mbox{\hyperlink{common_2src_2_mesh_8cc}{Mesh.\+cc}}\end{DoxyCompactItemize}
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h}{Mesh.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_mesh_8cc}{Mesh.\+cc}}\end{DoxyCompactItemize}

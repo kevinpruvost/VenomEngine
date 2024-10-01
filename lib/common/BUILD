@@ -11,6 +11,7 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
+        "//lib/external:assimp",
         "//lib/external:glfw_static",
         "//lib/external:glm",
         "//lib/external:stb_image",
@@ -22,6 +23,7 @@ cc_shared_library(
     name = "VenomCommon",
     dynamic_deps = [
         "//lib/external:glfw",
+        "//lib/external:assimp_shared",
     ],
     exports_filter = [
         "//lib/external:glfw",

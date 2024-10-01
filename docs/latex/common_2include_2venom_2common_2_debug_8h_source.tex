@@ -1,43 +1,40 @@
 \doxysection{Debug.\+h}
-\hypertarget{common_2include_2venom_2common_2_debug_8h_source}{}\label{common_2include_2venom_2common_2_debug_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/Debug.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/Debug.h}}
+\hypertarget{common_2include_2venom_2common_2_debug_8h_source}{}\label{common_2include_2venom_2common_2_debug_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Debug.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Debug.h}}
 \mbox{\hyperlink{common_2include_2venom_2common_2_debug_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#if\ defined(\_DEBUG)\ ||\ defined(DEBUG)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#if\ defined(\_DEBUG)\ ||\ defined(DEBUG)\ ||\ (!defined(NDEBUG)\ \&\&\ defined(\_\_GNUC\_\_))}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ VENOM\_DEBUG}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ !defined(NDEBUG)\ \&\&\ defined(\_\_GNUC\_\_)}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ VENOM\_DEBUG}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ DEBUG\_PRINT(str,\ ...)\ vc::Log::Print(str,\ \_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ DEBUG\_LOG(str,\ ...)\ vc::Log::LogToFile(str,\ \_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ DEBUG\_CODE(code)\ code}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ venom\_assert(condition,\ ...)\ \(\backslash\)}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ if\ (!(condition))\ \(\backslash\)}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \{\ \(\backslash\)}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT("{}Assertion\ failed:\ \%s\(\backslash\)n"{},\ \#condition);\ \(\backslash\)}}
-\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT("{}File:\ \%s,\ Line:\ \%d\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}}
-\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT(\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
-\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT("{}\(\backslash\)n"{});\ \(\backslash\)}}
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG("{}Assertion\ failed:\ \%s\(\backslash\)n"{},\ \#condition);\ \(\backslash\)}}
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG("{}File:\ \%s,\ Line:\ \%d\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}}
-\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG(\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
-\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG("{}\(\backslash\)n"{});\ \(\backslash\)}}
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ abort();\ \(\backslash\)}}
-\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ \}}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ DEBUG\_PRINT(str,\ ...)}}
-\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ DEBUG\_LOG(str,\ ...)}}
-\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ DEBUG\_CODE(code)}}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ venom\_assert(condition,\ ...)}}
-\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ \_ANALYSIS}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ DEBUG\_PRINT(str,\ ...)\ vc::Log::Print(str,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ DEBUG\_LOG(str,\ ...)\ vc::Log::LogToFile(str,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ DEBUG\_CODE(code)\ code}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ venom\_assert(condition,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ if\ (!(condition))\ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT("{}Assertion\ failed:\ \%s\(\backslash\)n"{},\ \#condition);\ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT("{}File:\ \%s,\ Line:\ \%d\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT(\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_PRINT("{}\(\backslash\)n"{});\ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG("{}Assertion\ failed:\ \%s\(\backslash\)n"{},\ \#condition);\ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG("{}File:\ \%s,\ Line:\ \%d\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG(\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ DEBUG\_LOG("{}\(\backslash\)n"{});\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ abort();\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ DEBUG\_PRINT(str,\ ...)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ DEBUG\_LOG(str,\ ...)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ DEBUG\_CODE(code)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ venom\_assert(condition,\ ...)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

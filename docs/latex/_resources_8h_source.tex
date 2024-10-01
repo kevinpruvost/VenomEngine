@@ -1,5 +1,5 @@
 \doxysection{Resources.\+h}
-\hypertarget{_resources_8h_source}{}\label{_resources_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/Resources.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/Resources.h}}
+\hypertarget{_resources_8h_source}{}\label{_resources_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Resources.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Resources.h}}
 \mbox{\hyperlink{_resources_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -16,9 +16,13 @@
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00020\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ InitializeFilesystem(\textcolor{keywordtype}{char}\ **\ argv);}
-\DoxyCodeLine{00021\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
-\DoxyCodeLine{00022\ \};}
-\DoxyCodeLine{00023\ \}}
-\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FreeFilesystem();}
+\DoxyCodeLine{00022\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00023\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetTexturesResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00024\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetShadersResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00025\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetModelsResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ \}}
 
 \end{DoxyCode}

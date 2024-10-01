@@ -1,5 +1,5 @@
 \doxysection{Plugin\+Manager.\+h}
-\hypertarget{_plugin_manager_8h_source}{}\label{_plugin_manager_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/PluginManager.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/PluginManager.h}}
+\hypertarget{_plugin_manager_8h_source}{}\label{_plugin_manager_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/PluginManager.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/PluginManager.h}}
 \mbox{\hyperlink{_plugin_manager_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -28,21 +28,22 @@
 \DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ *\ GetGraphicsPlugin();}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\textcolor{keyword}{const}\ Plugin::PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\textcolor{keyword}{const}\ Plugin::PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{PluginManager}}();}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ Error\ LoadAllPlugins();}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ Error\ LoadGraphicsPlugin();}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginsObjets();}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ std::unique\_ptr<GraphicsPlugin>\ \_\_graphicsPlugin;}
-\DoxyCodeLine{00045\ \};}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\textcolor{keyword}{const}\ PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\textcolor{keyword}{const}\ PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadPlugins();}
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{PluginManager}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ Error\ LoadAllPlugins();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ Error\ LoadGraphicsPlugin();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginsObjets();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ std::unique\_ptr<GraphicsPlugin>\ \_\_graphicsPlugin;}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ \}}
 
 \end{DoxyCode}

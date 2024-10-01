@@ -1,0 +1,44 @@
+\doxysection{venom\+::vulkan\+::Descriptor\+Set Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_descriptor_set}{}\label{classvenom_1_1vulkan_1_1_descriptor_set}\index{venom::vulkan::DescriptorSet@{venom::vulkan::DescriptorSet}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_ad37d4142115e5659cedc35c360b6cddd}\label{classvenom_1_1vulkan_1_1_descriptor_set_ad37d4142115e5659cedc35c360b6cddd} 
+{\bfseries Descriptor\+Set} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \&other)=default
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a7a0068c707c70a56027f89d879111e12}\label{classvenom_1_1vulkan_1_1_descriptor_set_a7a0068c707c70a56027f89d879111e12} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \&other)=default
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a8d90dad65b0c5eb30815997d81e65c36}\label{classvenom_1_1vulkan_1_1_descriptor_set_a8d90dad65b0c5eb30815997d81e65c36} 
+{\bfseries Descriptor\+Set} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \&\&other) noexcept=default
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_aa178284247aa835c5029f011156567f0}\label{classvenom_1_1vulkan_1_1_descriptor_set_aa178284247aa835c5029f011156567f0} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \&\&other) noexcept=default
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a8589c2dee130e9e4c43f7f9ba250ca43}\label{classvenom_1_1vulkan_1_1_descriptor_set_a8589c2dee130e9e4c43f7f9ba250ca43} 
+void {\bfseries Update} (const Vk\+Write\+Descriptor\+Set \&write)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a0982fff3e1380472f385c94b53641adc}\label{classvenom_1_1vulkan_1_1_descriptor_set_a0982fff3e1380472f385c94b53641adc} 
+void {\bfseries Update\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{Uniform\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t buffer\+Range, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a09f95f7c77f50960ef471a0eeb70de4c}\label{classvenom_1_1vulkan_1_1_descriptor_set_a09f95f7c77f50960ef471a0eeb70de4c} 
+void {\bfseries Update\+Texture} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}} \texorpdfstring{$\ast$}{*}texture, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a2bab1ce087ec32a7f32d80eef2a65ecb}\label{classvenom_1_1vulkan_1_1_descriptor_set_a2bab1ce087ec32a7f32d80eef2a65ecb} 
+void {\bfseries Update\+Sampler} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}} \&sampler, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a6a062d4063732d8e2532c6400025d486}\label{classvenom_1_1vulkan_1_1_descriptor_set_a6a062d4063732d8e2532c6400025d486} 
+const Vk\+Descriptor\+Set \& {\bfseries Get\+Vk\+Descriptor\+Set} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_a580b2e7743fb5db76d84a307272a3cec}\label{classvenom_1_1vulkan_1_1_descriptor_set_a580b2e7743fb5db76d84a307272a3cec} 
+class {\bfseries Descriptor\+Pool}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_descriptor_set_8h}{Descriptor\+Set.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_descriptor_set_8cc}{Descriptor\+Set.\+cc}}\end{DoxyCompactItemize}

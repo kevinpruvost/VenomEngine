@@ -1,0 +1,74 @@
+\doxysection{venom\+::vulkan\+::Queue\+Manager Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_queue_manager}{}\label{classvenom_1_1vulkan_1_1_queue_manager}\index{venom::vulkan::QueueManager@{venom::vulkan::QueueManager}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_ad035bea612bdc8f7e9d0b0afb2dce21d}\label{classvenom_1_1vulkan_1_1_queue_manager_ad035bea612bdc8f7e9d0b0afb2dce21d} 
+{\bfseries Queue\+Manager} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}} \&other)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_aca2fa3ade203029697bd1e0cc59dab68}\label{classvenom_1_1vulkan_1_1_queue_manager_aca2fa3ade203029697bd1e0cc59dab68} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}} \&other)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a73967f87214d808734fb759c07de7d75}\label{classvenom_1_1vulkan_1_1_queue_manager_a73967f87214d808734fb759c07de7d75} 
+{\bfseries Queue\+Manager} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}} \&\&other)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_ad9bde91f52dc53c6729fccd213185c8a}\label{classvenom_1_1vulkan_1_1_queue_manager_ad9bde91f52dc53c6729fccd213185c8a} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}} \&\&other)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_afb1917eda3f956b555fe4f436faf2f52}\label{classvenom_1_1vulkan_1_1_queue_manager_afb1917eda3f956b555fe4f436faf2f52} 
+vc\+::\+Error {\bfseries Init} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a60726d220bb5f33d35a044e4477d5324}\label{classvenom_1_1vulkan_1_1_queue_manager_a60726d220bb5f33d35a044e4477d5324} 
+void {\bfseries Set\+Queue\+Manager\+Settings} (const \mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{Queue\+Manager\+Settings}} \&settings)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_ad34a87407394db182f1fc6da552a680c}\label{classvenom_1_1vulkan_1_1_queue_manager_ad34a87407394db182f1fc6da552a680c} 
+vc\+::\+Error {\bfseries Set\+Logical\+Device\+Queue\+Create\+Infos} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}} \&queue\+Families, Vk\+Device\+Create\+Info \texorpdfstring{$\ast$}{*}create\+Info)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a55e26f0b0ea973cd8820063467dde53e}\label{classvenom_1_1vulkan_1_1_queue_manager_a55e26f0b0ea973cd8820063467dde53e} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Graphics\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a0c9571679836bb4c83a762e540637192}\label{classvenom_1_1vulkan_1_1_queue_manager_a0c9571679836bb4c83a762e540637192} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Compute\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a48ad4e4b9f2270805a97442dfd6dd223}\label{classvenom_1_1vulkan_1_1_queue_manager_a48ad4e4b9f2270805a97442dfd6dd223} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Transfer\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_abc0ea9136832f785705f1b8aedc667b9}\label{classvenom_1_1vulkan_1_1_queue_manager_abc0ea9136832f785705f1b8aedc667b9} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Sparse\+Binding\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a5149cc9209e50083ac37b77ef244ace6}\label{classvenom_1_1vulkan_1_1_queue_manager_a5149cc9209e50083ac37b77ef244ace6} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Protected\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_acfc4191691b924aaea9d55a36964779d}\label{classvenom_1_1vulkan_1_1_queue_manager_acfc4191691b924aaea9d55a36964779d} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Video\+Decode\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a06f3b94e7cf8e201bf8a07607f5b4200}\label{classvenom_1_1vulkan_1_1_queue_manager_a06f3b94e7cf8e201bf8a07607f5b4200} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Video\+Encode\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a5dfd55a14afafd682af4728c15d6722a}\label{classvenom_1_1vulkan_1_1_queue_manager_a5dfd55a14afafd682af4728c15d6722a} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \& {\bfseries Get\+Present\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_ab4057ad8a98a37f3247c0e5cfcdbfe86}\label{classvenom_1_1vulkan_1_1_queue_manager_ab4057ad8a98a37f3247c0e5cfcdbfe86} 
+static const std\+::vector$<$ Vk\+Device\+Queue\+Create\+Info $>$ \& {\bfseries Get\+Queue\+Create\+Infos} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a0dbbad9e276540997159ad7b12028375}\label{classvenom_1_1vulkan_1_1_queue_manager_a0dbbad9e276540997159ad7b12028375} 
+static std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries Get\+Active\+Queue\+Family\+Indices} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_a4bfdb85ccdb1f2033856d796d8b9b245}\label{classvenom_1_1vulkan_1_1_queue_manager_a4bfdb85ccdb1f2033856d796d8b9b245} 
+static Vk\+Sharing\+Mode {\bfseries Get\+Graphics\+Transfer\+Sharing\+Mode} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_ab15b06639cb0e457dfa9290c6f2ce46c}\label{classvenom_1_1vulkan_1_1_queue_manager_ab15b06639cb0e457dfa9290c6f2ce46c} 
+static Vk\+Sharing\+Mode {\bfseries Get\+Graphics\+Compute\+Transfer\+Sharing\+Mode} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_queue_manager_ab4cfc9ced0214cfd7fe2a9c20f437bb6}\label{classvenom_1_1vulkan_1_1_queue_manager_ab4cfc9ced0214cfd7fe2a9c20f437bb6} 
+static Vk\+Sharing\+Mode {\bfseries Get\+Graphics\+Compute\+Sharing\+Mode} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_queue_manager_8h}{Queue\+Manager.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_queue_manager_8cc}{Queue\+Manager.\+cc}}\end{DoxyCompactItemize}

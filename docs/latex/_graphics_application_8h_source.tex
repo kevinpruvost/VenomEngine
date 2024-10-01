@@ -1,28 +1,32 @@
 \doxysection{Graphics\+Application.\+h}
-\hypertarget{_graphics_application_8h_source}{}\label{_graphics_application_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/graphics/GraphicsApplication.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/graphics/GraphicsApplication.h}}
+\hypertarget{_graphics_application_8h_source}{}\label{_graphics_application_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsApplication.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsApplication.h}}
 \mbox{\hyperlink{_graphics_application_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_error_8h}{venom/common/Error.h}}>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}tools/cpp/runfiles/runfiles.h"{}}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}tools/cpp/runfiles/runfiles.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }common}
 \DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}();}
-\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ Create();}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{\string~GraphicsApplication}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ Run()\ =\ 0;}
-\DoxyCodeLine{00031\ \};}
-\DoxyCodeLine{00032\ \}}
-\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}();}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ Create();}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{\string~GraphicsApplication}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ Init()\ =\ 0;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ Loop()\ =\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ ShouldClose()\ =\ 0;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ \}}
 
 \end{DoxyCode}

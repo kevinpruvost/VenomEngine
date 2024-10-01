@@ -8,8 +8,11 @@ var dir_0b493514b1cad3961d82ee5798442dca =
     [ "DLL.h", "_d_l_l_8h.html", "_d_l_l_8h" ],
     [ "Error.h", "_error_8h.html", null ],
     [ "Export.h", "_export_8h.html", null ],
+    [ "FpsCounter.h", "_fps_counter_8h.html", "_fps_counter_8h" ],
     [ "Log.h", "_log_8h.html", "_log_8h" ],
+    [ "MemoryPool.h", "_memory_pool_8h.html", "_memory_pool_8h" ],
     [ "Resources.h", "_resources_8h.html", "_resources_8h" ],
     [ "String.h", "_string_8h.html", null ],
+    [ "Timer.h", "_timer_8h.html", "_timer_8h" ],
     [ "VenomEngine.h", "_venom_engine_8h.html", "_venom_engine_8h" ]
 ];

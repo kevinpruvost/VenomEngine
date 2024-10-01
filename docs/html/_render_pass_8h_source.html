@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Doxygen Awesome" />
     <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
     <!-- END twitter metadata -->
-    <title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/include/venom/vulkan/RenderPass.h Source File</title>
+    <title>VenomEngine: D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/RenderPass.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
     <script type="text/javascript" src="jquery.js"></script>
@@ -147,23 +147,22 @@ $(function(){initNavTree('_render_pass_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>&amp;&amp; other);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>&amp; operator=(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>&amp;&amp; other);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    vc::Error InitRenderPass(<span class="keyword">const</span> VkDevice logicalDevice, <span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    vc::Error InitRenderPass(<span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    vc::Error BeginRenderPass(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> * swapChain, <a class="code hl_class" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> * commandBuffer, <span class="keywordtype">int</span> framebufferIndex);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    vc::Error EndRenderPass(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> * commandBuffer);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    VkRenderPass GetRenderPass() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    VkRenderPass __renderPass;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    VkDevice __logicalDevice;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
 </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
 <div class="ttc" id="a_command_pool_8h_html"><div class="ttname"><a href="_command_pool_8h.html">CommandPool.h</a></div></div>
 <div class="ttc" id="a_swap_chain_8h_html"><div class="ttname"><a href="_swap_chain_8h.html">SwapChain.h</a></div></div>
-<div class="ttc" id="aclassvenom_1_1vulkan_1_1_command_buffer_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_command_buffer.html">venom::vulkan::CommandBuffer</a></div><div class="ttdoc">Command Buffer class, only instanciable by VulkanCommandPool. To use them, you need to create a Vulka...</div><div class="ttdef"><b>Definition</b> CommandPool.h:45</div></div>
+<div class="ttc" id="aclassvenom_1_1vulkan_1_1_command_buffer_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_command_buffer.html">venom::vulkan::CommandBuffer</a></div><div class="ttdoc">Command Buffer class, only instanciable by VulkanCommandPool. To use them, you need to create a Vulka...</div><div class="ttdef"><b>Definition</b> CommandPool.h:54</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_render_pass_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_render_pass.html">venom::vulkan::RenderPass</a></div><div class="ttdef"><b>Definition</b> RenderPass.h:18</div></div>
-<div class="ttc" id="aclassvenom_1_1vulkan_1_1_swap_chain_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_swap_chain.html">venom::vulkan::SwapChain</a></div><div class="ttdef"><b>Definition</b> SwapChain.h:22</div></div>
+<div class="ttc" id="aclassvenom_1_1vulkan_1_1_swap_chain_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_swap_chain.html">venom::vulkan::SwapChain</a></div><div class="ttdef"><b>Definition</b> SwapChain.h:25</div></div>
 <div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

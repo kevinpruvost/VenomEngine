@@ -1,5 +1,5 @@
 \doxysection{Graphics\+Plugin.\+h}
-\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/graphics/GraphicsPlugin.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/graphics/GraphicsPlugin.h}}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsPlugin.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsPlugin.h}}
 \mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -14,35 +14,37 @@
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{keyword}{class\ }GraphicsApplication;}
 \DoxyCodeLine{00018\ \textcolor{keyword}{class\ }Mesh;}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}}
-\DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}();}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{\string~GraphicsPluginObject}}();}
-\DoxyCodeLine{00025\ \};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}}
-\DoxyCodeLine{00028\ \{}
-\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{enum\ class}\ GraphicsPluginType}
-\DoxyCodeLine{00031\ \ \ \ \ \{}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Vulkan,}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Metal,}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ DirectX12}
-\DoxyCodeLine{00035\ \ \ \ \ \};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}();}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{\string~GraphicsPlugin}}();}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ *\ Get();}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ CreateGraphicsApplication()\ =\ 0;}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}}\ *\ CreateMesh()\ =\ 0;}
-\DoxyCodeLine{00045\ \};}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \}}
-\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }Texture;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{\string~GraphicsPluginObject}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{enum\ class}\ GraphicsPluginType}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Vulkan,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ Metal,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ DirectX12}
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{\string~GraphicsPlugin}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ *\ Get();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ CreateGraphicsApplication()\ =\ 0;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}}\ *\ CreateMesh()\ =\ 0;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ *\ CreateTexture()\ =\ 0;}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ \}}
 
 \end{DoxyCode}

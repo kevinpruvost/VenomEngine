@@ -15,6 +15,7 @@ namespace common
 {
 
 class GraphicsApplication;
+class Model;
 class Mesh;
 class Texture;
 
@@ -42,6 +43,7 @@ public:
     static GraphicsPlugin * Get();
 
     virtual GraphicsApplication * CreateGraphicsApplication() = 0;
+    virtual Model * CreateModel() = 0;
     virtual Mesh * CreateMesh() = 0;
     virtual Texture * CreateTexture() = 0;
 };

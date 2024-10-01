@@ -8,7 +8,7 @@
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Log.h>
-#include <venom/common/plugin/graphics/Mesh.h>
+#include <venom/common/plugin/graphics/Model.h>
 
 #if defined(_WIN32) && defined(_ANALYSIS)
 #define _DEBUG
@@ -38,15 +38,28 @@ int main(int argc, char** argv)
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     _CrtSetReportHook(ReportHook);
     _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+
+    // Mark the beginning of the memory check block
+    _CrtMemState memStateStart, memStateEnd, memStateDiff;
+    _CrtMemCheckpoint(&memStateStart);
 #endif
 
     // Run the engine
     const vc::Error error = vc::VenomEngine::RunEngine(argv);
 
 #if defined(_WIN32) && defined(_ANALYSIS)
-    // Dump memory leaks to output (typically the Output window in Visual Studio)
-    int memoryLeaks = _CrtDumpMemoryLeaks();
-    vc::Log::Print("CRT_FINAL_REPORT: Memory leaks: [%s]", memoryLeaks == 1 ? "Yes" : "No");
+    // Mark the end of the memory check block
+    _CrtMemCheckpoint(&memStateEnd);
+    if (_CrtMemDifference(&memStateDiff, &memStateStart, &memStateEnd)) {
+        // Report any memory leaks between the start and end checkpoints
+        _CrtMemDumpStatistics(&memStateDiff);
+        vc::Log::Print("CRT_FINAL_REPORT: Memory leaks detected.");
+    } else {
+        vc::Log::Print("CRT_FINAL_REPORT: No memory leaks detected.");
+    }
+
+    // Disable the leak check flag before program exits to avoid confusion with static variables
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 #endif
     return static_cast<int>(error);
 }

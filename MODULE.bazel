@@ -6,7 +6,9 @@
 ###############################################################################
 
 bazel_dep(name = "bzlws", version = "0.2.0")
+
 bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+
 bazel_dep(name = "protobuf", version = "3.19.6", repo_name = "com_google_protobuf")
 bazel_dep(name = "zlib", version = "1.3.1.bcr.3")
 bazel_dep(name = "platforms", version = "0.0.10")
@@ -14,6 +16,9 @@ bazel_dep(name = "bazel_skylib", version = "1.7.1")
 
 # If the Gazelle plugin is needed:
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
+
+# configure_file from CMake
+bazel_dep(name = "cmake_configure_file", version = "0.1.0")
 
 git_override(
     module_name = "hedron_compile_commands",

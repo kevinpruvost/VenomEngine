@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Doxygen Awesome" />
     <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
     <!-- END twitter metadata -->
-    <title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/math/Vector.h Source File</title>
+    <title>VenomEngine: D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
     <script type="text/javascript" src="jquery.js"></script>
@@ -136,41 +136,42 @@ $(function(){initNavTree('_vector_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>common</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#if defined(VENOM_MATH_DXMATH)</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">typedef</span> DirectX::XMFLOAT4 Vec4;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">typedef</span> DirectX::XMFLOAT3 Vec3;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">typedef</span> DirectX::XMFLOAT2 Vec2;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#elif defined(VENOM_MATH_GLM)</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">typedef</span> glm::vec4 Vec4;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">typedef</span> glm::vec3 Vec3;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">typedef</span> glm::vec2 Vec2;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// We want vertices to be used separate and not packed (non-interleaved and not interleaved)</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacevenom_1_1common.html#a0f19c987f3d388f9c1e3275fe3f433ee">   31</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="namespacevenom_1_1common.html#a0f19c987f3d388f9c1e3275fe3f433ee">VertexPos</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacevenom_1_1common.html#af5dea3e0c33e7f9fa8a70316511e3e18">   34</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="namespacevenom_1_1common.html#af5dea3e0c33e7f9fa8a70316511e3e18">VertexNormal</a>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespacevenom_1_1common.html#ad86d88b160aab29b665181932349b5e7">   37</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="namespacevenom_1_1common.html#ad86d88b160aab29b665181932349b5e7">VertexColor</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespacevenom_1_1common.html#a5801dca444d1280b4aeae918a1ba2771">   40</a></span><span class="keyword">typedef</span> Vec2 <a class="code hl_typedef" href="namespacevenom_1_1common.html#a5801dca444d1280b4aeae918a1ba2771">VertexUV</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacevenom_1_1common.html#aa9df425bc83943263aed8723682338ee">   43</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="namespacevenom_1_1common.html#aa9df425bc83943263aed8723682338ee">VertexBitangent</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="namespacevenom_1_1common.html#ad51135be0a3e83e6ec8179802f8737ce">   46</a></span><span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="namespacevenom_1_1common.html#ad51135be0a3e83e6ec8179802f8737ce">VertexIndex</a>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>math</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#if defined(VENOM_MATH_DXMATH)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">typedef</span> DirectX::XMFLOAT4 Vec4;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">typedef</span> DirectX::XMFLOAT3 Vec3;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">typedef</span> DirectX::XMFLOAT2 Vec2;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#elif defined(VENOM_MATH_GLM)</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">typedef</span> glm::vec4 Vec4;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">typedef</span> glm::vec3 Vec3;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">typedef</span> glm::vec2 Vec2;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// We want vertices to be used separate and not packed (non-interleaved and not interleaved)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="_vector_8h.html#ab5f1413c72f61eb16544845586928afc">   32</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="_vector_8h.html#ab5f1413c72f61eb16544845586928afc">VertexPos</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="_vector_8h.html#a289048b896761b00897eeb561b2ce5dc">   35</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="_vector_8h.html#a289048b896761b00897eeb561b2ce5dc">VertexNormal</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="_vector_8h.html#a75214a8ebd3c53e1cf6fa2c997a64efb">   38</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="_vector_8h.html#a75214a8ebd3c53e1cf6fa2c997a64efb">VertexColor</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="_vector_8h.html#a5b93343a45cc172573e1f2ceb9676cc4">   41</a></span><span class="keyword">typedef</span> Vec2 <a class="code hl_typedef" href="_vector_8h.html#a5b93343a45cc172573e1f2ceb9676cc4">VertexUV</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="_vector_8h.html#a505c9eb2ade587114c3c2bcc7ae2b5dd">   44</a></span><span class="keyword">typedef</span> Vec3 <a class="code hl_typedef" href="_vector_8h.html#a505c9eb2ade587114c3c2bcc7ae2b5dd">VertexBitangent</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="_vector_8h.html#a36b6a61f40d61b43b3c4bf534f0769ca">   47</a></span><span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="_vector_8h.html#a36b6a61f40d61b43b3c4bf534f0769ca">VertexIndex</a>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 <div class="ttc" id="a_error_8h_html"><div class="ttname"><a href="_error_8h.html">Error.h</a></div></div>
 <div class="ttc" id="a_math_8h_html"><div class="ttname"><a href="_math_8h.html">Math.h</a></div></div>
-<div class="ttc" id="anamespacevenom_1_1common_html_a0f19c987f3d388f9c1e3275fe3f433ee"><div class="ttname"><a href="namespacevenom_1_1common.html#a0f19c987f3d388f9c1e3275fe3f433ee">venom::common::VertexPos</a></div><div class="ttdeci">Vec3 VertexPos</div><div class="ttdoc">Vertex Position (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:31</div></div>
-<div class="ttc" id="anamespacevenom_1_1common_html_a5801dca444d1280b4aeae918a1ba2771"><div class="ttname"><a href="namespacevenom_1_1common.html#a5801dca444d1280b4aeae918a1ba2771">venom::common::VertexUV</a></div><div class="ttdeci">Vec2 VertexUV</div><div class="ttdoc">Vertex Texture Coordinates (2 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:40</div></div>
-<div class="ttc" id="anamespacevenom_1_1common_html_aa9df425bc83943263aed8723682338ee"><div class="ttname"><a href="namespacevenom_1_1common.html#aa9df425bc83943263aed8723682338ee">venom::common::VertexBitangent</a></div><div class="ttdeci">Vec3 VertexBitangent</div><div class="ttdoc">Vertex Bitangent (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:43</div></div>
-<div class="ttc" id="anamespacevenom_1_1common_html_ad51135be0a3e83e6ec8179802f8737ce"><div class="ttname"><a href="namespacevenom_1_1common.html#ad51135be0a3e83e6ec8179802f8737ce">venom::common::VertexIndex</a></div><div class="ttdeci">uint32_t VertexIndex</div><div class="ttdoc">Vertex Index (used for indexing in element buffers)</div><div class="ttdef"><b>Definition</b> Vector.h:46</div></div>
-<div class="ttc" id="anamespacevenom_1_1common_html_ad86d88b160aab29b665181932349b5e7"><div class="ttname"><a href="namespacevenom_1_1common.html#ad86d88b160aab29b665181932349b5e7">venom::common::VertexColor</a></div><div class="ttdeci">Vec3 VertexColor</div><div class="ttdoc">Vertex Color (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:37</div></div>
-<div class="ttc" id="anamespacevenom_1_1common_html_af5dea3e0c33e7f9fa8a70316511e3e18"><div class="ttname"><a href="namespacevenom_1_1common.html#af5dea3e0c33e7f9fa8a70316511e3e18">venom::common::VertexNormal</a></div><div class="ttdeci">Vec3 VertexNormal</div><div class="ttdoc">Vertex Normal (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:34</div></div>
+<div class="ttc" id="a_vector_8h_html_a289048b896761b00897eeb561b2ce5dc"><div class="ttname"><a href="_vector_8h.html#a289048b896761b00897eeb561b2ce5dc">venom::common::math::VertexNormal</a></div><div class="ttdeci">Vec3 VertexNormal</div><div class="ttdoc">Vertex Normal (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:35</div></div>
+<div class="ttc" id="a_vector_8h_html_a36b6a61f40d61b43b3c4bf534f0769ca"><div class="ttname"><a href="_vector_8h.html#a36b6a61f40d61b43b3c4bf534f0769ca">venom::common::math::VertexIndex</a></div><div class="ttdeci">uint32_t VertexIndex</div><div class="ttdoc">Vertex Index (used for indexing in element buffers)</div><div class="ttdef"><b>Definition</b> Vector.h:47</div></div>
+<div class="ttc" id="a_vector_8h_html_a505c9eb2ade587114c3c2bcc7ae2b5dd"><div class="ttname"><a href="_vector_8h.html#a505c9eb2ade587114c3c2bcc7ae2b5dd">venom::common::math::VertexBitangent</a></div><div class="ttdeci">Vec3 VertexBitangent</div><div class="ttdoc">Vertex Bitangent (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:44</div></div>
+<div class="ttc" id="a_vector_8h_html_a5b93343a45cc172573e1f2ceb9676cc4"><div class="ttname"><a href="_vector_8h.html#a5b93343a45cc172573e1f2ceb9676cc4">venom::common::math::VertexUV</a></div><div class="ttdeci">Vec2 VertexUV</div><div class="ttdoc">Vertex Texture Coordinates (2 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:41</div></div>
+<div class="ttc" id="a_vector_8h_html_a75214a8ebd3c53e1cf6fa2c997a64efb"><div class="ttname"><a href="_vector_8h.html#a75214a8ebd3c53e1cf6fa2c997a64efb">venom::common::math::VertexColor</a></div><div class="ttdeci">Vec3 VertexColor</div><div class="ttdoc">Vertex Color (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:38</div></div>
+<div class="ttc" id="a_vector_8h_html_ab5f1413c72f61eb16544845586928afc"><div class="ttname"><a href="_vector_8h.html#ab5f1413c72f61eb16544845586928afc">venom::common::math::VertexPos</a></div><div class="ttdeci">Vec3 VertexPos</div><div class="ttdoc">Vertex Position (3 floats)</div><div class="ttdef"><b>Definition</b> Vector.h:32</div></div>
 <div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

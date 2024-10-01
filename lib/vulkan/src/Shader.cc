@@ -72,8 +72,8 @@ vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexSize, con
 
 vc::Error ShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
-    const auto folder_shaderPath = std::string("shaders/compiled/") + shaderPath + ".spv";
-    const std::string path = vc::Resources::GetResourcePath(folder_shaderPath);
+    const auto folder_shaderPath = std::string("compiled/") + shaderPath + ".spv";
+    const std::string path = vc::Resources::GetShadersResourcePath(folder_shaderPath);
     std::ifstream file(path, std::ios::ate | std::ios::binary);
 
     if (!file.is_open())

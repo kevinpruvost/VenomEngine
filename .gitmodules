@@ -26,5 +26,5 @@
 	path = lib/external/SPIRV-Cross
 	url = git@github.com:KhronosGroup/SPIRV-Cross.git
 [submodule "lib/external/assimp"]
-	path = lib/external/assimp/assimp
+	path = lib/external/assimp
 	url = git@github.com:assimp/assimp.git

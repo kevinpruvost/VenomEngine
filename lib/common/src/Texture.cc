@@ -32,8 +32,8 @@ Texture* Texture::Create()
 
 vc::Error Texture::LoadImageFromFile(const char* path)
 {
-    auto textureFolderPath = std::string("textures/") + path;
-    auto resPath = vc::Resources::GetResourcePath(textureFolderPath);
+    auto resPath = vc::Resources::GetTexturesResourcePath(path);
+
     int width, height, channels;
     unsigned char * pixels = stbi_load(resPath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
     if (!pixels) {

@@ -1,5 +1,5 @@
 \doxysection{Shader.\+h}
-\hypertarget{_shader_8h_source}{}\label{_shader_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/Shader.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/Shader.h}}
+\hypertarget{_shader_8h_source}{}\label{_shader_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/Shader.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/Shader.h}}
 \mbox{\hyperlink{_shader_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -8,32 +8,47 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_physical_device_8h}{venom/vulkan/PhysicalDevice.h}}>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_swap_chain_8h}{venom/vulkan/SwapChain.h}}>}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_render_pass_8h}{venom/vulkan/RenderPass.h}}>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}tools/cpp/runfiles/runfiles.h"{}}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }vulkan}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}();}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{\string~ShaderPipeline}}();}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ VkPipelineVertexInputStateCreateInfo\ SetupVertexInput();}
-\DoxyCodeLine{00026\ \ \ \ \ vc::Error\ LoadShaders(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ *\ swapChain,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ *\ renderPass,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ shaderPaths);}
-\DoxyCodeLine{00027\ \ \ \ \ VkPipeline\ GetPipeline()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00030\ \ \ \ \ vc::Error\ LoadShader(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ std::string\&\ shaderPath,\ VkPipelineShaderStageCreateInfo\ *\ pipelineCreateInfo);}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00033\ \ \ \ \ VkPipeline\ \_\_graphicsPipeline;}
-\DoxyCodeLine{00034\ \ \ \ \ VkPipelineLayout\ \_\_pipelineLayout;}
-\DoxyCodeLine{00035\ \ \ \ \ VkDevice\ \_\_logicalDevice;}
-\DoxyCodeLine{00036\ \};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \}}
-\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_vertex_buffer_8h}{venom/vulkan/VertexBuffer.h}}>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_descriptor_set_layout_8h}{venom/vulkan/DescriptorSetLayout.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_matrix_8h}{venom/common/math/Matrix.h}}>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}tools/cpp/runfiles/runfiles.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}();}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{\string~ShaderPipeline}}();}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ vc::Error\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ uint32\_t\ vertexSize,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset,\ \textcolor{keyword}{const}\ VkFormat\ format);}
+\DoxyCodeLine{00035\ \ \ \ \ vc::Error\ LoadShaders(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ *\ swapChain,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ *\ renderPass,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ shaderPaths);}
+\DoxyCodeLine{00036\ \ \ \ \ VkPipeline\ GetPipeline()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ VkPipelineLayout\ GetPipelineLayout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSetLayout\ \&\ GetDescriptorSetLayout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ LoadShader(\textcolor{keyword}{const}\ std::string\&\ shaderPath,\ VkPipelineShaderStageCreateInfo\ *\ pipelineCreateInfo);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \ \ VkPipeline\ \_\_graphicsPipeline;}
+\DoxyCodeLine{00045\ \ \ \ \ VkPipelineLayout\ \_\_pipelineLayout;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\ \_\_descriptorSetLayout;}
+\DoxyCodeLine{00047\ \ \ \ \ std::vector<std::unique\_ptr<VertexBuffer>>\ \_\_vertexBuffers;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ std::vector<VkVertexInputBindingDescription>\ \_\_bindingDescriptions;}
+\DoxyCodeLine{00050\ \ \ \ \ std::vector<VkVertexInputAttributeDescription>\ \_\_attributeDescriptions;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \}}
 
 \end{DoxyCode}

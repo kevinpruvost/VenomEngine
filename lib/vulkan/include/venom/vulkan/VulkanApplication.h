@@ -18,7 +18,7 @@
 #include <venom/vulkan/Semaphore.h>
 #include <venom/vulkan/Fence.h>
 #include <venom/vulkan/LogicalDevice.h>
-#include <venom/vulkan/plugin/graphics/Mesh.h>
+#include <venom/vulkan/plugin/graphics/Model.h>
 #include <venom/vulkan/CommandPoolManager.h>
 #include <venom/vulkan/QueueManager.h>
 #include <venom/vulkan/UniformBuffer.h>

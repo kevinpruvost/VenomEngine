@@ -1,5 +1,5 @@
 \doxysection{Vulkan\+Application.\+h}
-\hypertarget{_vulkan_application_8h_source}{}\label{_vulkan_application_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/VulkanApplication.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/VulkanApplication.h}}
+\hypertarget{_vulkan_application_8h_source}{}\label{_vulkan_application_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/VulkanApplication.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/VulkanApplication.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -15,76 +15,122 @@
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_command_pool_8h}{venom/vulkan/CommandPool.h}}>}}
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_semaphore_8h}{venom/vulkan/Semaphore.h}}>}}
 \DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_fence_8h}{venom/vulkan/Fence.h}}>}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_application_8h}{venom/common/plugin/graphics/GraphicsApplication.h}}>}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_vector_8h}{venom/common/math/Vector.h}}"{}}}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00027\ \{}
-\DoxyCodeLine{00029\ \textcolor{keyword}{namespace\ }vulkan}
-\DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{VulkanApplication}}}
-\DoxyCodeLine{00032\ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{vc::GraphicsApplication}}}
-\DoxyCodeLine{00033\ \ \ \ \ ,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{DebugApplication}}}
-\DoxyCodeLine{00034\ \{}
-\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{VulkanApplication}}();}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{\string~VulkanApplication}}();}
-\DoxyCodeLine{00038\ \ \ \ \ vc::Error\ Run()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ \_\_Loop();}
-\DoxyCodeLine{00042\ \ \ \ \ vc::Error\ \_\_DrawFrame();}
-\DoxyCodeLine{00043\ \ \ \ \ vc::Error\ \_\_InitVulkan();}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetGLFWCallbacks();}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ vc::Error\ \_\_InitPhysicalDevices();}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_IsDeviceSuitable(\textcolor{keyword}{const}\ VkDeviceCreateInfo\ *\ createInfo);}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ vc::Error\ \_\_CreateInstance();}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_Instance\_GetRequiredExtensions(VkInstanceCreateInfo\ *\ createInfo);}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_RecreateSwapChain();}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00056\ \ \ \ \ std::vector<const\ char\ *>\ \_\_instanceExtensions;}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{vc::Context}}\ \_\_context;}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ \_\_physicalDevice;}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ \_\_queueFamilies;}
-\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ \_\_surface;}
-\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ \_\_swapChain;}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ \_\_renderPass;}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\ \_\_commandPool;}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ VkQueue\ \_\_graphicsQueue,\ \_\_presentQueue;}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ For\ test}}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\ \_\_shaderPipeline;}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MAX\_FRAMES\_IN\_FLIGHT\ =\ 2;}
-\DoxyCodeLine{00071\ \ \ \ \ std::vector<CommandBuffer\ *>\ \_\_commandBuffers;}
-\DoxyCodeLine{00072\ \ \ \ \ std::vector<Semaphore>\ \_\_imageAvailableSemaphores;}
-\DoxyCodeLine{00073\ \ \ \ \ std::vector<Semaphore>\ \_\_renderFinishedSemaphores;}
-\DoxyCodeLine{00074\ \ \ \ \ std::vector<Fence>\ \_\_inFlightFences;}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_currentFrame;}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_framebufferChanged;}
-\DoxyCodeLine{00077\ \ \ \ \ std::vector<VkBuffer>\ \_\_vertexBuffers;}
-\DoxyCodeLine{00078\ \ \ \ \ std::vector<VkDeviceMemory>\ \_\_vertexBuffersMemory;}
-\DoxyCodeLine{00079\ \ \ \ \ vc::Vec3\ \_\_verticesPos[3]\ =\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{0,\ -\/0.5f,\ 0\},}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \{0.5f,\ 0.5f,\ 0\},}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \{-\/0.5f,\ 0.5f,\ 0\}}
-\DoxyCodeLine{00083\ \ \ \ \ \};}
-\DoxyCodeLine{00084\ \ \ \ \ vc::Vec3\ \_\_verticesColor[3]\ =\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \{1,\ 1,\ 0\},}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \{0,\ 1,\ 0\},}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{0,\ 0,\ 1\}}
-\DoxyCodeLine{00088\ \ \ \ \ \};}
-\DoxyCodeLine{00089\ \};}
-\DoxyCodeLine{00090\ \}}
-\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_logical_device_8h}{venom/vulkan/LogicalDevice.h}}>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h}{venom/vulkan/plugin/graphics/Mesh.h}}>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_command_pool_manager_8h}{venom/vulkan/CommandPoolManager.h}}>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_queue_manager_8h}{venom/vulkan/QueueManager.h}}>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_uniform_buffer_8h}{venom/vulkan/UniformBuffer.h}}>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_descriptor_pool_8h}{venom/vulkan/DescriptorPool.h}}>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_application_8h}{venom/common/plugin/graphics/GraphicsApplication.h}}>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_vector_8h}{venom/common/math/Vector.h}}"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{VulkanApplication}}}
+\DoxyCodeLine{00038\ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{vc::GraphicsApplication}}}
+\DoxyCodeLine{00039\ \ \ \ \ ,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{DebugApplication}}}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{VulkanApplication}}();}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{\string~VulkanApplication}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ \ \ \ \ vc::Error\ Init()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \ \ vc::Error\ Loop()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ ShouldClose()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ \ \ \ \ vc::Error\ \_\_Loop();}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_UpdateUniformBuffers();}
+\DoxyCodeLine{00051\ \ \ \ \ vc::Error\ \_\_DrawFrame();}
+\DoxyCodeLine{00052\ \ \ \ \ vc::Error\ \_\_InitVulkan();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetGLFWCallbacks();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ vc::Error\ \_\_InitRenderingPipeline();}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_IsDeviceSuitable(\textcolor{keyword}{const}\ VkDeviceCreateInfo\ *\ createInfo);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ vc::Error\ \_\_CreateInstance();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_RecreateSwapChain();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_instance}{Instance}}\ \_\_instance;}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_logical_device}{LogicalDevice}}\ \_\_logicalDevice;}
+\DoxyCodeLine{00066\ \ \ \ \ std::vector<const\ char\ *>\ \_\_instanceExtensions;}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{vc::Context}}\ \_\_context;}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ \_\_physicalDevice;}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ \_\_queueFamilies;}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ \_\_surface;}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ \_\_swapChain;}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ \_\_renderPass;}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \_\_commandPoolManager;}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \_\_queueManager;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_graphicsQueue,\ \_\_presentQueue;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \_\_descriptorPool;}
+\DoxyCodeLine{00079\ \ \ \ \ std::vector<DescriptorSet>\ \_\_descriptorSets;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_shouldClose;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ For\ test}}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\ \_\_sampler;}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\ \_\_shaderPipeline;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MAX\_FRAMES\_IN\_FLIGHT\ =\ 2;}
+\DoxyCodeLine{00088\ \ \ \ \ std::vector<CommandBuffer\ *>\ \_\_commandBuffers;}
+\DoxyCodeLine{00089\ \ \ \ \ std::vector<Semaphore>\ \_\_imageAvailableSemaphores;}
+\DoxyCodeLine{00090\ \ \ \ \ std::vector<Semaphore>\ \_\_renderFinishedSemaphores;}
+\DoxyCodeLine{00091\ \ \ \ \ std::vector<Fence>\ \_\_inFlightFences;}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_currentFrame;}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_framebufferChanged;}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{VulkanMesh}}\ *\ \_\_mesh;}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \_\_uniformBuffers[2];}
+\DoxyCodeLine{00096\ \ \ \ \ vcm::Vec3\ \_\_verticesPos[8]\ =\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \{-\/0.5f,\ -\/0.5f,\ 0.0f\},}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \{0.5f,\ -\/0.5f,\ 0.0f\},}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \{0.5f,\ 0.5f,\ 0.0f\},}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \{-\/0.5f,\ 0.5f,\ 0.0f\},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \{-\/0.5f,\ -\/0.5f,\ -\/0.5f\},}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{0.5f,\ -\/0.5f,\ -\/0.5f\},}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{0.5f,\ 0.5f,\ -\/0.5f\},}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{-\/0.5f,\ 0.5f,\ -\/0.5f\}}
+\DoxyCodeLine{00105\ \ \ \ \ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ vcm::Vec3\ \_\_verticesColor[8]\ =\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{1,\ 0,\ 0\},}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{0,\ 1,\ 0\},}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \{0,\ 0,\ 1\},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \{1,\ 1,\ 1\},}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \{1,\ 0,\ 0\},}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \{0,\ 1,\ 0\},}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \{0,\ 0,\ 1\},}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \{1,\ 1,\ 1\}}
+\DoxyCodeLine{00116\ \ \ \ \ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ vcm::Vec2\ \_\_verticesUV[8]\ =\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \{0,\ 0\},}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \{1,\ 0\},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{1,\ 1\},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \{0,\ 1\},}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \{0,\ 0\},}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \{1,\ 0\},}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \{1,\ 1\},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \{0,\ 1\}}
+\DoxyCodeLine{00127\ \ \ \ \ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ uint32\_t\ \_\_indices[12]\ =\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ 0,\ 1,\ 2,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ 2,\ 3,\ 0,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ 4,\ 5,\ 6,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ 6,\ 7,\ 4}
+\DoxyCodeLine{00134\ \ \ \ \ \};}
+\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ \}}
 
 \end{DoxyCode}

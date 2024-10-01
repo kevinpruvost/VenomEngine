@@ -1,5 +1,5 @@
 workspace(
-    name = "BazelVulkanMetalWorkspace",
+    name = "VenomEngineWorkspace",
 )
 
 # Load platforms

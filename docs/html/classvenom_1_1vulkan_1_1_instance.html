@@ -130,18 +130,6 @@ $(function(){initNavTree('classvenom_1_1vulkan_1_1_instance.html',''); initResiz
   <div class="headertitle"><div class="title">venom::vulkan::Instance Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for venom::vulkan::Instance:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="classvenom_1_1vulkan_1_1_instance.png" usemap="#venom::vulkan::Instance_map" alt=""/>
-  <map id="venom::vulkan::Instance_map" name="venom::vulkan::Instance_map">
-<area href="classvenom_1_1vulkan_1_1_debug_application.html" alt="venom::vulkan::DebugApplication" shape="rect" coords="0,56,200,80"/>
-<area href="classvenom_1_1vulkan_1_1_vulkan_application.html" alt="venom::vulkan::VulkanApplication" shape="rect" coords="0,112,200,136"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -157,16 +145,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3437d7bd008a97a91d59587c0d7dbabf" id="r_a3437d7bd008a97a91d59587c0d7dbabf"><td class="memItemLeft" align="right" valign="top"><a id="a3437d7bd008a97a91d59587c0d7dbabf" name="a3437d7bd008a97a91d59587c0d7dbabf"></a>
 <a class="el" href="classvenom_1_1vulkan_1_1_instance.html">Instance</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvenom_1_1vulkan_1_1_instance.html">Instance</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:a3437d7bd008a97a91d59587c0d7dbabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceb84cff46b70ea7f2ef185af811bf35" id="r_aceb84cff46b70ea7f2ef185af811bf35"><td class="memItemLeft" align="right" valign="top"><a id="aceb84cff46b70ea7f2ef185af811bf35" name="aceb84cff46b70ea7f2ef185af811bf35"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__Instance_GetRequiredExtensions</b> (VkInstanceCreateInfo *create_info)</td></tr>
+<tr class="separator:aceb84cff46b70ea7f2ef185af811bf35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d0da74b57584968815703f7744eb098" id="r_a0d0da74b57584968815703f7744eb098"><td class="memItemLeft" align="right" valign="top"><a id="a0d0da74b57584968815703f7744eb098" name="a0d0da74b57584968815703f7744eb098"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__SetInstanceCreateInfoValidationLayers</b> (VkInstanceCreateInfo *create_info)</td></tr>
+<tr class="separator:a0d0da74b57584968815703f7744eb098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a67853035d8cc07579c62e74819bb3ecf" id="r_a67853035d8cc07579c62e74819bb3ecf"><td class="memItemLeft" align="right" valign="top"><a id="a67853035d8cc07579c62e74819bb3ecf" name="a67853035d8cc07579c62e74819bb3ecf"></a>
-static VkInstance &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetInstance</b> ()</td></tr>
-<tr class="separator:a67853035d8cc07579c62e74819bb3ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d952506f30d5d5fae9c33b2f272ca4d" id="r_a5d952506f30d5d5fae9c33b2f272ca4d"><td class="memItemLeft" align="right" valign="top"><a id="a5d952506f30d5d5fae9c33b2f272ca4d" name="a5d952506f30d5d5fae9c33b2f272ca4d"></a>
+static vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>CreateInstance</b> (<a class="el" href="classvenom_1_1vulkan_1_1_instance.html">Instance</a> *instance)</td></tr>
+<tr class="separator:a5d952506f30d5d5fae9c33b2f272ca4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e600e0b2e538616de6d0aff20b8258" id="r_ae3e600e0b2e538616de6d0aff20b8258"><td class="memItemLeft" align="right" valign="top"><a id="ae3e600e0b2e538616de6d0aff20b8258" name="ae3e600e0b2e538616de6d0aff20b8258"></a>
+static const VkInstance &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkInstance</b> ()</td></tr>
+<tr class="separator:ae3e600e0b2e538616de6d0aff20b8258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4641e27e5f4ad92d23bbbd148859dded" id="r_a4641e27e5f4ad92d23bbbd148859dded"><td class="memItemLeft" align="right" valign="top"><a id="a4641e27e5f4ad92d23bbbd148859dded" name="a4641e27e5f4ad92d23bbbd148859dded"></a>
+static const <a class="el" href="classvenom_1_1vulkan_1_1_instance.html">Instance</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetInstance</b> ()</td></tr>
+<tr class="separator:a4641e27e5f4ad92d23bbbd148859dded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/include/venom/vulkan/<a class="el" href="_instance_8h_source.html">Instance.h</a></li>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/src/<b>Instance.cc</b></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_instance_8h_source.html">Instance.h</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/src/<b>Instance.cc</b></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

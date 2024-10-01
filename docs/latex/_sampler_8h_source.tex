@@ -1,0 +1,51 @@
+\doxysection{Sampler.\+h}
+\hypertarget{_sampler_8h_source}{}\label{_sampler_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/Sampler.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/Sampler.h}}
+\mbox{\hyperlink{_sampler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2_debug_8h}{venom/vulkan/Debug.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}();}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{\string~Sampler}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\&\&\ other);}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\&\&\ other);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMagFilter(VkFilter\ magFilter);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMinFilter(VkFilter\ minFilter);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMipmapMode(VkSamplerMipmapMode\ mipmapMode);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAddressModeU(VkSamplerAddressMode\ addressModeU);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAddressModeV(VkSamplerAddressMode\ addressModeV);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAddressModeW(VkSamplerAddressMode\ addressModeW);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMipLodBias(\textcolor{keywordtype}{float}\ mipLodBias);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAnisotropyEnable(VkBool32\ anisotropyEnable);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMaxAnisotropy(\textcolor{keywordtype}{float}\ maxAnisotropy);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCompareEnable(VkBool32\ compareEnable);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCompareOp(VkCompareOp\ compareOp);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMinLod(\textcolor{keywordtype}{float}\ minLod);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMaxLod(\textcolor{keywordtype}{float}\ maxLod);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ SetBorderColor(VkBorderColor\ borderColor);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUnnormalizedCoordinates(VkBool32\ unnormalizedCoordinates);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCreateInfo(\textcolor{keyword}{const}\ VkSamplerCreateInfo\&\ createInfo);}
+\DoxyCodeLine{00042\ \ \ \ \ vc::Error\ Create();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ VkSampler\ GetVkSampler()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ VkSampler()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ VkSampler\ \_\_sampler;}
+\DoxyCodeLine{00048\ \ \ \ \ VkSamplerCreateInfo\ \_\_createInfo;}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ \}}
+
+\end{DoxyCode}

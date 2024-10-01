@@ -1,0 +1,42 @@
+\doxysection{Buffer.\+h}
+\hypertarget{_buffer_8h_source}{}\label{_buffer_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/Buffer.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/Buffer.h}}
+\mbox{\hyperlink{_buffer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2_debug_8h}{venom/vulkan/Debug.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}();}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{\string~Buffer}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\&\ other);}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\&\ other);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ uint32\_t\ FindMemoryType(uint32\_t\ typeFilter,\ VkMemoryPropertyFlags\ properties);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ CreateBuffer(\textcolor{keyword}{const}\ VkDeviceSize\ size,\ \textcolor{keyword}{const}\ VkBufferUsageFlags\ flags,\ \textcolor{keyword}{const}\ VkSharingMode\ sharingMode,\ \textcolor{keyword}{const}\ VkMemoryPropertyFlags\ memoryProperties);}
+\DoxyCodeLine{00028\ \ \ \ \ vc::Error\ WriteBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data);}
+\DoxyCodeLine{00029\ \ \ \ \ VkBuffer\ GetVkBuffer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ VkDeviceMemory\ \&\ GetVkDeviceMemory()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ VkDeviceSize\ GetSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \ \ vc::Error\ \_\_BindBufferMemory();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ VkBufferCreateInfo\ \_\_bufferCreateInfo;}
+\DoxyCodeLine{00038\ \ \ \ \ VkBuffer\ \_\_buffer;}
+\DoxyCodeLine{00039\ \ \ \ \ VkDeviceMemory\ \_\_memory;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}

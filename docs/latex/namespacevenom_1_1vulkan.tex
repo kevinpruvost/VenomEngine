@@ -8,37 +8,71 @@ Encapsulation of Vulkan for the front end of Venom\+Engine.
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_allocator}{Allocator}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}}
-\begin{DoxyCompactList}\small\item\em Command Buffer class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Command \doxylink{classvenom_1_1vulkan_1_1_buffer}{Buffer} class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{Command\+Pool}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{Command\+Pool\+Manager}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{Debug\+Application}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{Descriptor\+Pool}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_fence}{Fence}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{Image\+View}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_instance}{Instance}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_logical_device}{Logical\+Device}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_family}{Queue\+Family}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{Queue\+Manager}}
+\item 
+struct \mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{Queue\+Manager\+Settings}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{Uniform\+Buffer}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{Vertex\+Buffer}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{Vulkan\+Application}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin}{Vulkan\+Graphics\+Plugin}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -48,12 +82,12 @@ typedef uint32\+\_\+t {\bfseries Queue\+Family\+Index}
 \item 
 \Hypertarget{namespacevenom_1_1vulkan_a52c443d43d401da1bb229042d34bc9d6}\label{namespacevenom_1_1vulkan_a52c443d43d401da1bb229042d34bc9d6} 
 typedef std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries Queue\+Family\+Indices}
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_a7ef46e5684b5fd57ce6f132876a73b38}\label{namespacevenom_1_1vulkan_a7ef46e5684b5fd57ce6f132876a73b38} 
+typedef \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{Vertex\+Buffer}} {\bfseries Index\+Buffer}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
-\item 
-\Hypertarget{namespacevenom_1_1vulkan_ac0a2a2145aa9478f18a6d13b2f7216e1}\label{namespacevenom_1_1vulkan_ac0a2a2145aa9478f18a6d13b2f7216e1} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} $>$ {\bfseries Get\+Vulkan\+Physical\+Devices} ()
 \item 
 \Hypertarget{namespacevenom_1_1vulkan_a425819e2f03f966cd161d2af3eaf9409}\label{namespacevenom_1_1vulkan_a425819e2f03f966cd161d2af3eaf9409} 
 \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}} {\bfseries get\+Vulkan\+Queue\+Families} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \&physical\+Device)

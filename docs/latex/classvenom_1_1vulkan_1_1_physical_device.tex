@@ -8,28 +8,46 @@ uint64\+\_\+t {\bfseries Get\+Device\+Local\+VRAMAmount} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_physical_device_afab1658a307ce679ad004a4408b9e6a6}\label{classvenom_1_1vulkan_1_1_physical_device_afab1658a307ce679ad004a4408b9e6a6} 
 void {\bfseries Get\+Device\+Queue} (Vk\+Queue \texorpdfstring{$\ast$}{*}queue\+Ptr, uint32\+\_\+t queue\+Family\+Index, uint32\+\_\+t queue\+Index) const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a7299d539968824fc4ccecc2773f37ee8}\label{classvenom_1_1vulkan_1_1_physical_device_a7299d539968824fc4ccecc2773f37ee8} 
+const Vk\+Physical\+Device \& {\bfseries Get\+Vk\+Physical\+Device} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_abfbcce849d0d9cd599370b792b447858}\label{classvenom_1_1vulkan_1_1_physical_device_abfbcce849d0d9cd599370b792b447858} 
+const Vk\+Physical\+Device\+Properties \& {\bfseries Get\+Properties} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_ad396d131e7fce48d62f34e295985653e}\label{classvenom_1_1vulkan_1_1_physical_device_ad396d131e7fce48d62f34e295985653e} 
+const Vk\+Physical\+Device\+Features \& {\bfseries Get\+Features} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_accfdcf951086c90384136bb2dc9f80a9}\label{classvenom_1_1vulkan_1_1_physical_device_accfdcf951086c90384136bb2dc9f80a9} 
+const Vk\+Physical\+Device\+Memory\+Properties \& {\bfseries Get\+Memory\+Properties} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a7b95cb75fc9252b51cfaf19cf31939ba}\label{classvenom_1_1vulkan_1_1_physical_device_a7b95cb75fc9252b51cfaf19cf31939ba} 
+const Vk\+Format\+Properties \& {\bfseries Get\+Format\+Properties} () const
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes}
+\doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_adc1cbe2e8e1184530027230377bf4b7d}\label{classvenom_1_1vulkan_1_1_physical_device_adc1cbe2e8e1184530027230377bf4b7d} 
-Vk\+Physical\+Device {\bfseries physical\+Device}
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a37081c805b4d861bd55fbf9120867b71}\label{classvenom_1_1vulkan_1_1_physical_device_a37081c805b4d861bd55fbf9120867b71} 
+static Vk\+Format {\bfseries Find\+Supported\+Format} (const std\+::vector$<$ Vk\+Format $>$ \&candidates, Vk\+Image\+Tiling tiling, Vk\+Format\+Feature\+Flags features)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_ab08550e641b3c3a27fbb3b92cc22e8a4}\label{classvenom_1_1vulkan_1_1_physical_device_ab08550e641b3c3a27fbb3b92cc22e8a4} 
-Vk\+Physical\+Device\+Properties {\bfseries properties}
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a25e8277b478b72fe7d44d0306ffa3a2e}\label{classvenom_1_1vulkan_1_1_physical_device_a25e8277b478b72fe7d44d0306ffa3a2e} 
+static Vk\+Format {\bfseries Find\+Depth\+Format} ()
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_afb9b3b22bbe12d5ffbcdb0fbdd2f03e3}\label{classvenom_1_1vulkan_1_1_physical_device_afb9b3b22bbe12d5ffbcdb0fbdd2f03e3} 
-Vk\+Physical\+Device\+Features {\bfseries features}
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a9f7d0691935313b0b6f67db16d02fe13}\label{classvenom_1_1vulkan_1_1_physical_device_a9f7d0691935313b0b6f67db16d02fe13} 
+static Vk\+Physical\+Device {\bfseries Get\+Used\+Vk\+Physical\+Device} ()
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a86e1c7626a5352a255e410dedcae805c}\label{classvenom_1_1vulkan_1_1_physical_device_a86e1c7626a5352a255e410dedcae805c} 
-Vk\+Physical\+Device\+Memory\+Properties {\bfseries memory\+Properties}
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a71ea3c9d80778568d8597b08e691841d}\label{classvenom_1_1vulkan_1_1_physical_device_a71ea3c9d80778568d8597b08e691841d} 
+static const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \& {\bfseries Get\+Used\+Physical\+Device} ()
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a89a0441137714d18fb85ec8667d0c58e}\label{classvenom_1_1vulkan_1_1_physical_device_a89a0441137714d18fb85ec8667d0c58e} 
-Vk\+Device {\bfseries logical\+Device}
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a111327716ac7d8396107faf6ed5faf8e}\label{classvenom_1_1vulkan_1_1_physical_device_a111327716ac7d8396107faf6ed5faf8e} 
+static void {\bfseries Set\+Used\+Physical\+Device} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \texorpdfstring{$\ast$}{*}device)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_physical_device_a2b01dceae05d8ccdefcb02d5dbe756be}\label{classvenom_1_1vulkan_1_1_physical_device_a2b01dceae05d8ccdefcb02d5dbe756be} 
+static std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} $>$ {\bfseries Get\+Vulkan\+Physical\+Devices} ()
 \end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_physical_device_8h}{Physical\+Device.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/vulkan/src/Physical\+Device.\+cc\end{DoxyCompactItemize}
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_physical_device_8h}{Physical\+Device.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/Physical\+Device.\+cc\end{DoxyCompactItemize}

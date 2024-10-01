@@ -1,5 +1,5 @@
 \doxysection{Render\+Pass.\+h}
-\hypertarget{_render_pass_8h_source}{}\label{_render_pass_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/RenderPass.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/RenderPass.h}}
+\hypertarget{_render_pass_8h_source}{}\label{_render_pass_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/RenderPass.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/RenderPass.h}}
 \mbox{\hyperlink{_render_pass_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -22,16 +22,15 @@
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\&\&\ other);}
 \DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\&\&\ other);}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ InitRenderPass(\textcolor{keyword}{const}\ VkDevice\ logicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ *\ swapChain);}
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ InitRenderPass(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ *\ swapChain);}
 \DoxyCodeLine{00028\ \ \ \ \ vc::Error\ BeginRenderPass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\ *\ swapChain,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer,\ \textcolor{keywordtype}{int}\ framebufferIndex);}
 \DoxyCodeLine{00029\ \ \ \ \ vc::Error\ EndRenderPass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer);}
 \DoxyCodeLine{00030\ \ \ \ \ VkRenderPass\ GetRenderPass()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00031\ }
 \DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00033\ \ \ \ \ VkRenderPass\ \_\_renderPass;}
-\DoxyCodeLine{00034\ \ \ \ \ VkDevice\ \_\_logicalDevice;}
-\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ \}}
 \DoxyCodeLine{00036\ \}}
-\DoxyCodeLine{00037\ \}}
 
 \end{DoxyCode}

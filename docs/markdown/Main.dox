@@ -22,4 +22,7 @@
  * | Bazel Build System                      | Done         |
  * | HLSL to SPIR-V Compilation              | Done         |
  * | Ruby for Running Build Tasks            | Done         |
+ *
+ * @subsection Links
+ * [Project Notion To-Do List](https://kevinpruvost.notion.site/VenomEngine-11202c3f6fa7801f8f14ca530d3e6854?pvs=4)
  */

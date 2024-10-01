@@ -2,7 +2,7 @@
 \hypertarget{classvenom_1_1common_1_1_d_l_l___cache}{}\label{classvenom_1_1common_1_1_d_l_l___cache}\index{venom::common::DLL\_Cache@{venom::common::DLL\_Cache}}
 
 
-Holds all DLLs loaded in memory unless explicitly unloaded/deleted.  
+Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one.  
 
 
 
@@ -24,15 +24,24 @@ void {\bfseries Unload\+From\+Cache} (const std\+::string \&name)
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a98ac17e29a95d8450e78f42ec858d80d}\label{classvenom_1_1common_1_1_d_l_l___cache_a98ac17e29a95d8450e78f42ec858d80d} 
-static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\+\_\+\+Cache}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Instance} ()
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_aedf3165f2def1908d29d40b52bd79e81}\label{classvenom_1_1common_1_1_d_l_l___cache_aedf3165f2def1908d29d40b52bd79e81} 
+static void {\bfseries Set\+Cache} (\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\+\_\+\+Cache}} \texorpdfstring{$\ast$}{*}cache)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a81d2b514f4f684f84c59647a722a98f6}\label{classvenom_1_1common_1_1_d_l_l___cache_a81d2b514f4f684f84c59647a722a98f6} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\+\_\+\+Cache}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Cache} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_d_l_l___cache_a77d9d332e86b34ac64ecdd5562ab6b4e}\label{classvenom_1_1common_1_1_d_l_l___cache_a77d9d332e86b34ac64ecdd5562ab6b4e} 
+class {\bfseries Venom\+Engine}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Holds all DLLs loaded in memory unless explicitly unloaded/deleted. 
+Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/venom/common/\mbox{\hyperlink{_d_l_l_8h}{DLL.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/src/\mbox{\hyperlink{_d_l_l_8cc}{DLL.\+cc}}\end{DoxyCompactItemize}
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\mbox{\hyperlink{_d_l_l_8h}{DLL.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_d_l_l_8cc}{DLL.\+cc}}\end{DoxyCompactItemize}

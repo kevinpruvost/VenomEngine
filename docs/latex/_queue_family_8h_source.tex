@@ -1,5 +1,5 @@
 \doxysection{Queue\+Family.\+h}
-\hypertarget{_queue_family_8h_source}{}\label{_queue_family_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/QueueFamily.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/vulkan/include/venom/vulkan/QueueFamily.h}}
+\hypertarget{_queue_family_8h_source}{}\label{_queue_family_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/QueueFamily.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/QueueFamily.h}}
 \mbox{\hyperlink{_queue_family_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -33,7 +33,7 @@
 \DoxyCodeLine{00035\ }
 \DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}(std::vector<QueueFamily>\&\ queueFamilies);}
 \DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\&\&\ other)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<QueueFamily>\ GetQueueFamilies()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<QueueFamily>\ \&\ GetQueueFamilies()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00039\ \ \ \ \ vc::Error\ SetPresentQueueFamilyIndices(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\&\ physicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ \&\ surface);}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \textcolor{keyword}{public}:}

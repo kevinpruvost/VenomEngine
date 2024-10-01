@@ -125,7 +125,7 @@ $(function(){initNavTree('classvenom_1_1vulkan_1_1_physical_device.html',''); in
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classvenom_1_1vulkan_1_1_physical_device-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::vulkan::PhysicalDevice Class Reference</div></div>
 </div><!--header-->
@@ -139,28 +139,46 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetDeviceLocalVRA
 <tr class="memitem:afab1658a307ce679ad004a4408b9e6a6" id="r_afab1658a307ce679ad004a4408b9e6a6"><td class="memItemLeft" align="right" valign="top"><a id="afab1658a307ce679ad004a4408b9e6a6" name="afab1658a307ce679ad004a4408b9e6a6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>GetDeviceQueue</b> (VkQueue *queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const</td></tr>
 <tr class="separator:afab1658a307ce679ad004a4408b9e6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7299d539968824fc4ccecc2773f37ee8" id="r_a7299d539968824fc4ccecc2773f37ee8"><td class="memItemLeft" align="right" valign="top"><a id="a7299d539968824fc4ccecc2773f37ee8" name="a7299d539968824fc4ccecc2773f37ee8"></a>
+const VkPhysicalDevice &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkPhysicalDevice</b> () const</td></tr>
+<tr class="separator:a7299d539968824fc4ccecc2773f37ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfbcce849d0d9cd599370b792b447858" id="r_abfbcce849d0d9cd599370b792b447858"><td class="memItemLeft" align="right" valign="top"><a id="abfbcce849d0d9cd599370b792b447858" name="abfbcce849d0d9cd599370b792b447858"></a>
+const VkPhysicalDeviceProperties &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetProperties</b> () const</td></tr>
+<tr class="separator:abfbcce849d0d9cd599370b792b447858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad396d131e7fce48d62f34e295985653e" id="r_ad396d131e7fce48d62f34e295985653e"><td class="memItemLeft" align="right" valign="top"><a id="ad396d131e7fce48d62f34e295985653e" name="ad396d131e7fce48d62f34e295985653e"></a>
+const VkPhysicalDeviceFeatures &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFeatures</b> () const</td></tr>
+<tr class="separator:ad396d131e7fce48d62f34e295985653e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accfdcf951086c90384136bb2dc9f80a9" id="r_accfdcf951086c90384136bb2dc9f80a9"><td class="memItemLeft" align="right" valign="top"><a id="accfdcf951086c90384136bb2dc9f80a9" name="accfdcf951086c90384136bb2dc9f80a9"></a>
+const VkPhysicalDeviceMemoryProperties &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMemoryProperties</b> () const</td></tr>
+<tr class="separator:accfdcf951086c90384136bb2dc9f80a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b95cb75fc9252b51cfaf19cf31939ba" id="r_a7b95cb75fc9252b51cfaf19cf31939ba"><td class="memItemLeft" align="right" valign="top"><a id="a7b95cb75fc9252b51cfaf19cf31939ba" name="a7b95cb75fc9252b51cfaf19cf31939ba"></a>
+const VkFormatProperties &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFormatProperties</b> () const</td></tr>
+<tr class="separator:a7b95cb75fc9252b51cfaf19cf31939ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:adc1cbe2e8e1184530027230377bf4b7d" id="r_adc1cbe2e8e1184530027230377bf4b7d"><td class="memItemLeft" align="right" valign="top"><a id="adc1cbe2e8e1184530027230377bf4b7d" name="adc1cbe2e8e1184530027230377bf4b7d"></a>
-VkPhysicalDevice&#160;</td><td class="memItemRight" valign="bottom"><b>physicalDevice</b></td></tr>
-<tr class="separator:adc1cbe2e8e1184530027230377bf4b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab08550e641b3c3a27fbb3b92cc22e8a4" id="r_ab08550e641b3c3a27fbb3b92cc22e8a4"><td class="memItemLeft" align="right" valign="top"><a id="ab08550e641b3c3a27fbb3b92cc22e8a4" name="ab08550e641b3c3a27fbb3b92cc22e8a4"></a>
-VkPhysicalDeviceProperties&#160;</td><td class="memItemRight" valign="bottom"><b>properties</b></td></tr>
-<tr class="separator:ab08550e641b3c3a27fbb3b92cc22e8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb9b3b22bbe12d5ffbcdb0fbdd2f03e3" id="r_afb9b3b22bbe12d5ffbcdb0fbdd2f03e3"><td class="memItemLeft" align="right" valign="top"><a id="afb9b3b22bbe12d5ffbcdb0fbdd2f03e3" name="afb9b3b22bbe12d5ffbcdb0fbdd2f03e3"></a>
-VkPhysicalDeviceFeatures&#160;</td><td class="memItemRight" valign="bottom"><b>features</b></td></tr>
-<tr class="separator:afb9b3b22bbe12d5ffbcdb0fbdd2f03e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86e1c7626a5352a255e410dedcae805c" id="r_a86e1c7626a5352a255e410dedcae805c"><td class="memItemLeft" align="right" valign="top"><a id="a86e1c7626a5352a255e410dedcae805c" name="a86e1c7626a5352a255e410dedcae805c"></a>
-VkPhysicalDeviceMemoryProperties&#160;</td><td class="memItemRight" valign="bottom"><b>memoryProperties</b></td></tr>
-<tr class="separator:a86e1c7626a5352a255e410dedcae805c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89a0441137714d18fb85ec8667d0c58e" id="r_a89a0441137714d18fb85ec8667d0c58e"><td class="memItemLeft" align="right" valign="top"><a id="a89a0441137714d18fb85ec8667d0c58e" name="a89a0441137714d18fb85ec8667d0c58e"></a>
-VkDevice&#160;</td><td class="memItemRight" valign="bottom"><b>logicalDevice</b></td></tr>
-<tr class="separator:a89a0441137714d18fb85ec8667d0c58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a37081c805b4d861bd55fbf9120867b71" id="r_a37081c805b4d861bd55fbf9120867b71"><td class="memItemLeft" align="right" valign="top"><a id="a37081c805b4d861bd55fbf9120867b71" name="a37081c805b4d861bd55fbf9120867b71"></a>
+static VkFormat&#160;</td><td class="memItemRight" valign="bottom"><b>FindSupportedFormat</b> (const std::vector&lt; VkFormat &gt; &amp;candidates, VkImageTiling tiling, VkFormatFeatureFlags features)</td></tr>
+<tr class="separator:a37081c805b4d861bd55fbf9120867b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e8277b478b72fe7d44d0306ffa3a2e" id="r_a25e8277b478b72fe7d44d0306ffa3a2e"><td class="memItemLeft" align="right" valign="top"><a id="a25e8277b478b72fe7d44d0306ffa3a2e" name="a25e8277b478b72fe7d44d0306ffa3a2e"></a>
+static VkFormat&#160;</td><td class="memItemRight" valign="bottom"><b>FindDepthFormat</b> ()</td></tr>
+<tr class="separator:a25e8277b478b72fe7d44d0306ffa3a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f7d0691935313b0b6f67db16d02fe13" id="r_a9f7d0691935313b0b6f67db16d02fe13"><td class="memItemLeft" align="right" valign="top"><a id="a9f7d0691935313b0b6f67db16d02fe13" name="a9f7d0691935313b0b6f67db16d02fe13"></a>
+static VkPhysicalDevice&#160;</td><td class="memItemRight" valign="bottom"><b>GetUsedVkPhysicalDevice</b> ()</td></tr>
+<tr class="separator:a9f7d0691935313b0b6f67db16d02fe13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71ea3c9d80778568d8597b08e691841d" id="r_a71ea3c9d80778568d8597b08e691841d"><td class="memItemLeft" align="right" valign="top"><a id="a71ea3c9d80778568d8597b08e691841d" name="a71ea3c9d80778568d8597b08e691841d"></a>
+static const <a class="el" href="classvenom_1_1vulkan_1_1_physical_device.html">PhysicalDevice</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetUsedPhysicalDevice</b> ()</td></tr>
+<tr class="separator:a71ea3c9d80778568d8597b08e691841d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a111327716ac7d8396107faf6ed5faf8e" id="r_a111327716ac7d8396107faf6ed5faf8e"><td class="memItemLeft" align="right" valign="top"><a id="a111327716ac7d8396107faf6ed5faf8e" name="a111327716ac7d8396107faf6ed5faf8e"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetUsedPhysicalDevice</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_physical_device.html">PhysicalDevice</a> *device)</td></tr>
+<tr class="separator:a111327716ac7d8396107faf6ed5faf8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b01dceae05d8ccdefcb02d5dbe756be" id="r_a2b01dceae05d8ccdefcb02d5dbe756be"><td class="memItemLeft" align="right" valign="top"><a id="a2b01dceae05d8ccdefcb02d5dbe756be" name="a2b01dceae05d8ccdefcb02d5dbe756be"></a>
+static std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_physical_device.html">PhysicalDevice</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVulkanPhysicalDevices</b> ()</td></tr>
+<tr class="separator:a2b01dceae05d8ccdefcb02d5dbe756be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/include/venom/vulkan/<a class="el" href="_physical_device_8h_source.html">PhysicalDevice.h</a></li>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/src/<b>PhysicalDevice.cc</b></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_physical_device_8h_source.html">PhysicalDevice.h</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/src/<b>PhysicalDevice.cc</b></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

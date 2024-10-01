@@ -1,0 +1,69 @@
+\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/math/\+Matrix.h File Reference}
+\hypertarget{_matrix_8h}{}\label{_matrix_8h}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Matrix.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Matrix.h}}
+{\ttfamily \#include $<$venom/common/math/\+Vector.\+h$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom}{venom}}
+\begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_matrix_8h_a054c5ce3cd9d37e42b7ff6f120c924e2}\label{_matrix_8h_a054c5ce3cd9d37e42b7ff6f120c924e2} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Identity} ()
+\item 
+VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_a735760df331b9182683aa35446de1d42}{venom\+::common\+::math\+::\+Rotate\+Matrix}} (Mat4 \&matrix, const Vec3 \&axis, const float angle)
+\begin{DoxyCompactList}\small\item\em Rotate matrix. \end{DoxyCompactList}\item 
+\Hypertarget{_matrix_8h_a96eac85e97d05c5c91878d0f22e2523b}\label{_matrix_8h_a96eac85e97d05c5c91878d0f22e2523b} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Look\+At\+LH} (const Vec3 \&eye, const Vec3 \&center, const Vec3 \&up)
+\item 
+\Hypertarget{_matrix_8h_aa112bfb8840862c84fc0d77388358cf8}\label{_matrix_8h_aa112bfb8840862c84fc0d77388358cf8} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Look\+At\+RH} (const Vec3 \&eye, const Vec3 \&center, const Vec3 \&up)
+\item 
+\Hypertarget{_matrix_8h_a2bd4f29e57ddfb227b27deef5a44bc9d}\label{_matrix_8h_a2bd4f29e57ddfb227b27deef5a44bc9d} 
+Mat4 {\bfseries venom\+::common\+::math\+::\+Look\+At} (const Vec3 \&eye, const Vec3 \&center, const Vec3 \&up)
+\item 
+\Hypertarget{_matrix_8h_afd2c83d3740c508942fb9dc3edc04e2a}\label{_matrix_8h_afd2c83d3740c508942fb9dc3edc04e2a} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Perspective\+LH} (const float fov, const float aspect, const float near\+Plane, const float far\+Plane)
+\item 
+\Hypertarget{_matrix_8h_ac121745daff8d83faa181130cc852194}\label{_matrix_8h_ac121745daff8d83faa181130cc852194} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Perspective\+RH} (const float fov, const float aspect, const float near\+Plane, const float far\+Plane)
+\item 
+\Hypertarget{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f}\label{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f} 
+Mat4 {\bfseries venom\+::common\+::math\+::\+Perspective} (const float fov, const float aspect, const float near\+Plane, const float far\+Plane)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Venom\+Engine
+
+\begin{DoxyDate}{Date}
+Sep, 15 2024 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_matrix_8h_a735760df331b9182683aa35446de1d42}\index{Matrix.h@{Matrix.h}!RotateMatrix@{RotateMatrix}}
+\index{RotateMatrix@{RotateMatrix}!Matrix.h@{Matrix.h}}
+\doxysubsubsection{\texorpdfstring{RotateMatrix()}{RotateMatrix()}}
+{\footnotesize\ttfamily \label{_matrix_8h_a735760df331b9182683aa35446de1d42} 
+void venom\+::common\+::math\+::\+Rotate\+Matrix (\begin{DoxyParamCaption}\item[{Mat4 \&}]{matrix}{, }\item[{const Vec3 \&}]{axis}{, }\item[{const float}]{angle}{}\end{DoxyParamCaption})}
+
+
+
+Rotate matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & to rotate \\
+\hline
+{\em axis} & normalized \\
+\hline
+{\em angle} & in radians \\
+\hline
+\end{DoxyParams}

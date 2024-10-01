@@ -29,11 +29,7 @@ var NAVTREE =
     [ "Notes", "md_markdown_2_notes.html", null ],
     [ "User Guide", "userguide.html", "userguide" ],
     [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ]
-      ] ]
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -53,7 +49,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_command_pool_8cc.html"
+"_allocator_8cc.html",
+"compilation.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

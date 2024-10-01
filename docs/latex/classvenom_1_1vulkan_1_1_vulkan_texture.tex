@@ -1,0 +1,72 @@
+\doxysection{venom\+::vulkan\+::Vulkan\+Texture Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture}{}\label{classvenom_1_1vulkan_1_1_vulkan_texture}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+Inheritance diagram for venom\+::vulkan\+::Vulkan\+Texture\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classvenom_1_1vulkan_1_1_vulkan_texture}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_af44c151abb1fe4457b199a13bf9a5d92}{\+\_\+\+\_\+\+Load\+Image}} (unsigned char \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_a5f7394756af504d5747dc21115b6bd99}{\+\_\+\+\_\+\+Init\+Depth\+Buffer}} (int width, int height) override
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a5e540bfa5bdffc6e39bb33b8a301bb39}\label{classvenom_1_1vulkan_1_1_vulkan_texture_a5e540bfa5bdffc6e39bb33b8a301bb39} 
+const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \& {\bfseries Get\+Image} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a88288540eda68834141e1c5d82e3981f}\label{classvenom_1_1vulkan_1_1_vulkan_texture_a88288540eda68834141e1c5d82e3981f} 
+const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{Image\+View}} \& {\bfseries Get\+Image\+View} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}}}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+Error {\bfseries Load\+Image\+From\+File} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+vc\+::\+Error {\bfseries Init\+Depth\+Buffer} (int width, int height)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+void {\bfseries Destroy} ()
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstring{$\ast$}{*} {\bfseries Create} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}}}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a5f7394756af504d5747dc21115b6bd99}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!\_\_InitDepthBuffer@{\_\_InitDepthBuffer}}
+\index{\_\_InitDepthBuffer@{\_\_InitDepthBuffer}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+\doxysubsubsection{\texorpdfstring{\_\_InitDepthBuffer()}{\_\_InitDepthBuffer()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_a5f7394756af504d5747dc21115b6bd99} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+\_\+\+\_\+\+Init\+Depth\+Buffer (\begin{DoxyParamCaption}\item[{int}]{width}{, }\item[{int}]{height}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_af44c151abb1fe4457b199a13bf9a5d92}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!\_\_LoadImage@{\_\_LoadImage}}
+\index{\_\_LoadImage@{\_\_LoadImage}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+\doxysubsubsection{\texorpdfstring{\_\_LoadImage()}{\_\_LoadImage()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_af44c151abb1fe4457b199a13bf9a5d92} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+\_\+\+\_\+\+Load\+Image (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{pixels}{, }\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{channels}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h}{Texture.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{vulkan_2src_2_texture_8cc}{Texture.\+cc}}\end{DoxyCompactItemize}

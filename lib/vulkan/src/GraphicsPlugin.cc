@@ -8,6 +8,7 @@
 #include <venom/vulkan/plugin/graphics/GraphicsPlugin.h>
 
 #include <venom/vulkan/VulkanApplication.h>
+#include <venom/vulkan/plugin/graphics/Model.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
@@ -20,7 +21,12 @@ vc::GraphicsApplication* VulkanGraphicsPlugin::CreateGraphicsApplication()
     return new VulkanApplication();
 }
 
-vc::Mesh* VulkanGraphicsPlugin::CreateMesh()
+vc::Model* VulkanGraphicsPlugin::CreateModel()
+{
+    return new VulkanModel();
+}
+
+vc::Mesh * VulkanGraphicsPlugin::CreateMesh()
 {
     return new VulkanMesh();
 }

@@ -18,6 +18,7 @@ class VulkanGraphicsPlugin : public vc::GraphicsPlugin
 public:
     vc::GraphicsApplication * CreateGraphicsApplication();
 
+    vc::Model * CreateModel() override;
     vc::Mesh * CreateMesh() override;
     vc::Texture * CreateTexture() override;
 };

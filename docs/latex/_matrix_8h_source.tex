@@ -1,0 +1,50 @@
+\doxysection{Matrix.\+h}
+\hypertarget{_matrix_8h_source}{}\label{_matrix_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Matrix.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Matrix.h}}
+\mbox{\hyperlink{_matrix_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_vector_8h}{venom/common/math/Vector.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }math}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ defined(VENOM\_MATH\_DXMATH)}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ DirectX::XMMATRIX\ Mat4;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT3X3\ Mat3;}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#elif\ defined(VENOM\_MATH\_GLM)}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ glm::mat4\ Mat4;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ glm::mat3\ Mat3;}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ VENOM\_COMMON\_API\ Mat4\ Identity();}
+\DoxyCodeLine{00031\ VENOM\_COMMON\_API\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_matrix_8h_a735760df331b9182683aa35446de1d42}{RotateMatrix}}(Mat4\&\ matrix,\ \textcolor{keyword}{const}\ Vec3\&\ axis,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle);}
+\DoxyCodeLine{00032\ VENOM\_COMMON\_API\ Mat4\ LookAtLH(\textcolor{keyword}{const}\ Vec3\&\ eye,\ \textcolor{keyword}{const}\ Vec3\&\ center,\ \textcolor{keyword}{const}\ Vec3\&\ up);}
+\DoxyCodeLine{00033\ VENOM\_COMMON\_API\ Mat4\ LookAtRH(\textcolor{keyword}{const}\ Vec3\&\ eye,\ \textcolor{keyword}{const}\ Vec3\&\ center,\ \textcolor{keyword}{const}\ Vec3\&\ up);}
+\DoxyCodeLine{00034\ \textcolor{keyword}{inline}\ Mat4\ LookAt(\textcolor{keyword}{const}\ Vec3\&\ eye,\ \textcolor{keyword}{const}\ Vec3\&\ center,\ \textcolor{keyword}{const}\ Vec3\&\ up)}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#if\ defined(VENOM\_COORDINATE\_LEFT\_HAND)}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ LookAtLH(eye,\ center,\ up);}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#elif\ defined(VENOM\_COORDINATE\_RIGHT\_HAND)}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ LookAtRH(eye,\ center,\ up);}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ VENOM\_COMMON\_API\ Mat4\ PerspectiveLH(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fov,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ aspect,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ nearPlane,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ farPlane);}
+\DoxyCodeLine{00043\ VENOM\_COMMON\_API\ Mat4\ PerspectiveRH(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fov,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ aspect,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ nearPlane,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ farPlane);}
+\DoxyCodeLine{00044\ \textcolor{keyword}{inline}\ Mat4\ Perspective(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fov,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ aspect,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ nearPlane,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ farPlane)}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#if\ defined\ (VENOM\_COORDINATE\_LEFT\_HAND)}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ PerspectiveLH(fov,\ aspect,\ nearPlane,\ farPlane);}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#elif\ defined\ (VENOM\_COORDINATE\_RIGHT\_HAND)}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ PerspectiveRH(fov,\ aspect,\ nearPlane,\ farPlane);}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \}}
+
+\end{DoxyCode}

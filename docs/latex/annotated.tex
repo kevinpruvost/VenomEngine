@@ -1,34 +1,54 @@
 \doxysection{Class List}
 Here are the classes, structs, unions and interfaces with brief descriptions\+:\begin{DoxyCompactList}
-\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}} \\*Command Buffer class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them }{\pageref{classvenom_1_1vulkan_1_1_command_buffer}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_allocator}{venom\+::vulkan\+::\+Allocator}} }{\pageref{classvenom_1_1vulkan_1_1_allocator}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{venom\+::vulkan\+::\+Buffer}} }{\pageref{classvenom_1_1vulkan_1_1_buffer}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}} \\*Command \doxylink{classvenom_1_1vulkan_1_1_buffer}{Buffer} class, only instanciable by Vulkan\+Command\+Pool. To use them, you need to create a Vulkan\+Command\+Pool and then create/access them via Vulkan\+Command\+Pool. To make sure destruction and memory is handled in a correct way for command buffers, only Vulkan\+Command\+Pool should own them }{\pageref{classvenom_1_1vulkan_1_1_command_buffer}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{venom\+::vulkan\+::\+Command\+Pool}} }{\pageref{classvenom_1_1vulkan_1_1_command_pool}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{venom\+::vulkan\+::\+Command\+Pool\+Manager}} }{\pageref{classvenom_1_1vulkan_1_1_command_pool_manager}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_config}{venom\+::common\+::\+Config}} }{\pageref{classvenom_1_1common_1_1_config}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_context}{venom\+::common\+::\+Context}} }{\pageref{classvenom_1_1common_1_1_context}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{venom\+::vulkan\+::\+Debug\+Application}} }{\pageref{classvenom_1_1vulkan_1_1_debug_application}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{venom\+::vulkan\+::\+Descriptor\+Pool}} }{\pageref{classvenom_1_1vulkan_1_1_descriptor_pool}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{venom\+::vulkan\+::\+Descriptor\+Set}} }{\pageref{classvenom_1_1vulkan_1_1_descriptor_set}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{venom\+::vulkan\+::\+Descriptor\+Set\+Layout}} }{\pageref{classvenom_1_1vulkan_1_1_descriptor_set_layout}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{venom\+::common\+::\+DLL}} \\*Contains a shared library handle and provides a way to get symbols from it, can only be created through \doxylink{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}{DLL\+::\+Create()} }{\pageref{classvenom_1_1common_1_1_d_l_l}}{}
-\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{venom\+::common\+::\+DLL\+\_\+\+Cache}} \\*Holds all DLLs loaded in memory unless explicitly unloaded/deleted }{\pageref{classvenom_1_1common_1_1_d_l_l___cache}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{venom\+::common\+::\+DLL\+\_\+\+Cache}} \\*Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one }{\pageref{classvenom_1_1common_1_1_d_l_l___cache}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_fence}{venom\+::vulkan\+::\+Fence}} }{\pageref{classvenom_1_1vulkan_1_1_fence}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_fps_counter}{venom\+::common\+::\+Fps\+Counter}} }{\pageref{classvenom_1_1common_1_1_fps_counter}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}} }{\pageref{classvenom_1_1common_1_1_graphics_application}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}} }{\pageref{classvenom_1_1common_1_1_graphics_plugin}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}} }{\pageref{classvenom_1_1common_1_1_graphics_plugin_object}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{venom\+::vulkan\+::\+Image}} }{\pageref{classvenom_1_1vulkan_1_1_image}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{venom\+::vulkan\+::\+Image\+View}} }{\pageref{classvenom_1_1vulkan_1_1_image_view}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_instance}{venom\+::vulkan\+::\+Instance}} }{\pageref{classvenom_1_1vulkan_1_1_instance}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_log}{venom\+::common\+::\+Log}} }{\pageref{classvenom_1_1common_1_1_log}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_logical_device}{venom\+::vulkan\+::\+Logical\+Device}} }{\pageref{classvenom_1_1vulkan_1_1_logical_device}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{venom\+::vulkan\+::\+Mapped\+Queue\+Families}} }{\pageref{classvenom_1_1vulkan_1_1_mapped_queue_families}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_memory_pool}{venom\+::common\+::\+Memory\+Pool}} \\*\doxylink{classvenom_1_1common_1_1_memory_pool}{Memory\+Pool} class to manage memory allocation and deallocation. For now, it\textquotesingle{}s just a wrapper around memory C functions }{\pageref{classvenom_1_1common_1_1_memory_pool}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{venom\+::common\+::\+Mesh}} \\*Contains all the mesh\textquotesingle{}s data and is the main high-\/level interface for the user }{\pageref{classvenom_1_1common_1_1_mesh}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{venom\+::vulkan\+::\+Physical\+Device}} }{\pageref{classvenom_1_1vulkan_1_1_physical_device}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}} }{\pageref{classvenom_1_1common_1_1_plugin}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{venom\+::common\+::\+Plugin\+Manager}} }{\pageref{classvenom_1_1common_1_1_plugin_manager}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}} }{\pageref{classvenom_1_1common_1_1_plugin_object}}{}
-\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}} }{\pageref{classvenom_1_1common_1_1_plugin_object_impl}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{venom\+::vulkan\+::\+Queue}} }{\pageref{classvenom_1_1vulkan_1_1_queue}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_family}{venom\+::vulkan\+::\+Queue\+Family}} }{\pageref{classvenom_1_1vulkan_1_1_queue_family}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{venom\+::vulkan\+::\+Queue\+Manager}} }{\pageref{classvenom_1_1vulkan_1_1_queue_manager}}{}
+\item\contentsline{section}{\mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{venom\+::vulkan\+::\+Queue\+Manager\+Settings}} }{\pageref{structvenom_1_1vulkan_1_1_queue_manager_settings}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{venom\+::vulkan\+::\+Render\+Pass}} }{\pageref{classvenom_1_1vulkan_1_1_render_pass}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_resources}{venom\+::common\+::\+Resources}} }{\pageref{classvenom_1_1common_1_1_resources}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{venom\+::vulkan\+::\+Sampler}} }{\pageref{classvenom_1_1vulkan_1_1_sampler}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{venom\+::vulkan\+::\+Semaphore}} }{\pageref{classvenom_1_1vulkan_1_1_semaphore}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{venom\+::vulkan\+::\+Shader\+Pipeline}} }{\pageref{classvenom_1_1vulkan_1_1_shader_pipeline}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{venom\+::vulkan\+::\+Single\+Time\+Command\+Buffer}} }{\pageref{classvenom_1_1vulkan_1_1_single_time_command_buffer}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{venom\+::vulkan\+::\+Surface}} }{\pageref{classvenom_1_1vulkan_1_1_surface}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{venom\+::vulkan\+::\+Swap\+Chain}} }{\pageref{classvenom_1_1vulkan_1_1_swap_chain}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}} }{\pageref{classvenom_1_1common_1_1_texture}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_timer}{venom\+::common\+::\+Timer}} }{\pageref{classvenom_1_1common_1_1_timer}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{venom\+::vulkan\+::\+Uniform\+Buffer}} }{\pageref{classvenom_1_1vulkan_1_1_uniform_buffer}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{venom\+::common\+::\+Venom\+Engine}} }{\pageref{classvenom_1_1common_1_1_venom_engine}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{venom\+::vulkan\+::\+Vertex\+Buffer}} }{\pageref{classvenom_1_1vulkan_1_1_vertex_buffer}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{venom\+::vulkan\+::\+Vulkan\+Application}} }{\pageref{classvenom_1_1vulkan_1_1_vulkan_application}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin}{venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin}} }{\pageref{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin}}{}
 \item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{venom\+::vulkan\+::\+Vulkan\+Mesh}} }{\pageref{classvenom_1_1vulkan_1_1_vulkan_mesh}}{}
+\item\contentsline{section}{\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{venom\+::vulkan\+::\+Vulkan\+Texture}} }{\pageref{classvenom_1_1vulkan_1_1_vulkan_texture}}{}
 \end{DoxyCompactList}

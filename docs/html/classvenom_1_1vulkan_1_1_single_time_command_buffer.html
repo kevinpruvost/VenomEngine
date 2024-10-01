@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="generator" content="Doxygen 1.12.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- BEGIN opengraph metadata -->
+    <meta property="og:title" content="Doxygen Awesome" />
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+    <meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+    <meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+    <!-- END opengraph metadata -->
+    <!-- BEGIN twitter metadata -->
+    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+    <meta name="twitter:title" content="Doxygen Awesome" />
+    <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+    <!-- END twitter metadata -->
+    <title>VenomEngine: venom::vulkan::SingleTimeCommandBuffer Class Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeInteractiveToc.init()
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="venom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+    <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="height: 56px;">
+                <td id="projectlogo"><img alt="Logo" src="VenomEngineLogo_VerySmall.png"/></td>
+                <td id="projectalign" style="padding-left: 0.5em;">
+                    <div id="projectname">VenomEngine
+                    </div>
+                    <div id="projectbrief">Cross-Platform Modern Graphics Engine</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end header part -->
+<!-- Generated by Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classvenom_1_1vulkan_1_1_single_time_command_buffer.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="classvenom_1_1vulkan_1_1_single_time_command_buffer-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">venom::vulkan::SingleTimeCommandBuffer Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for venom::vulkan::SingleTimeCommandBuffer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="classvenom_1_1vulkan_1_1_single_time_command_buffer.png" usemap="#venom::vulkan::SingleTimeCommandBuffer_map" alt=""/>
+  <map id="venom::vulkan::SingleTimeCommandBuffer_map" name="venom::vulkan::SingleTimeCommandBuffer_map">
+<area href="classvenom_1_1vulkan_1_1_command_buffer.html" title="Command Buffer class, only instanciable by VulkanCommandPool. To use them, you need to create a Vulka..." alt="venom::vulkan::CommandBuffer" shape="rect" coords="0,0,249,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a87ee1f7395356aaf3a8710ea31388adc" id="r_a87ee1f7395356aaf3a8710ea31388adc"><td class="memItemLeft" align="right" valign="top"><a id="a87ee1f7395356aaf3a8710ea31388adc" name="a87ee1f7395356aaf3a8710ea31388adc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SingleTimeCommandBuffer</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;)=delete</td></tr>
+<tr class="separator:a87ee1f7395356aaf3a8710ea31388adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08021612cc3c0b0a53c6114d026ed24d" id="r_a08021612cc3c0b0a53c6114d026ed24d"><td class="memItemLeft" align="right" valign="top"><a id="a08021612cc3c0b0a53c6114d026ed24d" name="a08021612cc3c0b0a53c6114d026ed24d"></a>
+<a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;)=delete</td></tr>
+<tr class="separator:a08021612cc3c0b0a53c6114d026ed24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af263be1f47f9374524037e63a2445207" id="r_af263be1f47f9374524037e63a2445207"><td class="memItemLeft" align="right" valign="top"><a id="af263be1f47f9374524037e63a2445207" name="af263be1f47f9374524037e63a2445207"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SingleTimeCommandBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;&amp;other)</td></tr>
+<tr class="separator:af263be1f47f9374524037e63a2445207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a397fdd677959819ff183eccf63a8f68d" id="r_a397fdd677959819ff183eccf63a8f68d"><td class="memItemLeft" align="right" valign="top"><a id="a397fdd677959819ff183eccf63a8f68d" name="a397fdd677959819ff183eccf63a8f68d"></a>
+<a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;&amp;other)</td></tr>
+<tr class="separator:a397fdd677959819ff183eccf63a8f68d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1vulkan_1_1_command_buffer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">venom::vulkan::CommandBuffer</a></td></tr>
+<tr class="memitem:a22494672083a27dbeea1a550e5be9ea2 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a22494672083a27dbeea1a550e5be9ea2"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>CommandBuffer</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;)=delete</td></tr>
+<tr class="separator:a22494672083a27dbeea1a550e5be9ea2 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76603baedc7763980745823dc6f5780 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_ad76603baedc7763980745823dc6f5780"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;)=delete</td></tr>
+<tr class="separator:ad76603baedc7763980745823dc6f5780 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d89e55d643c9bafdd8af6d1b49fdd6b inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a5d89e55d643c9bafdd8af6d1b49fdd6b"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>CommandBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;&amp;other)</td></tr>
+<tr class="separator:a5d89e55d643c9bafdd8af6d1b49fdd6b inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6545cfb6e91750506aaf4da1002341cf inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a6545cfb6e91750506aaf4da1002341cf"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;&amp;other)</td></tr>
+<tr class="separator:a6545cfb6e91750506aaf4da1002341cf inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a3c017a6d3cb3aad30544b3ee531c37 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a1a3c017a6d3cb3aad30544b3ee531c37"><td class="memItemLeft" align="right" valign="top">
+VkCommandBuffer&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkCommandBuffer</b> () const</td></tr>
+<tr class="separator:a1a3c017a6d3cb3aad30544b3ee531c37 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ed911f19ecedb947db6c8e9b1b251ba inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a7ed911f19ecedb947db6c8e9b1b251ba"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>operator VkCommandBuffer</b> () const</td></tr>
+<tr class="separator:a7ed911f19ecedb947db6c8e9b1b251ba inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e67deadccae85733fba9779c9694033 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a6e67deadccae85733fba9779c9694033"><td class="memItemLeft" align="right" valign="top">
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>BeginCommandBuffer</b> (VkCommandBufferUsageFlags flags=0)</td></tr>
+<tr class="separator:a6e67deadccae85733fba9779c9694033 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343b17efa921d2e03283e7f44677870d inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a343b17efa921d2e03283e7f44677870d"><td class="memItemLeft" align="right" valign="top">
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>EndCommandBuffer</b> ()</td></tr>
+<tr class="separator:a343b17efa921d2e03283e7f44677870d inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3fb03ed79c4470270c7fac3fdcd337f inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_ac3fb03ed79c4470270c7fac3fdcd337f"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> (VkCommandBufferResetFlags flags)</td></tr>
+<tr class="separator:ac3fb03ed79c4470270c7fac3fdcd337f inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa9d531cd169726c3b7e153a831ff76 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_abaa9d531cd169726c3b7e153a831ff76"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>BindPipeline</b> (VkPipeline pipeline, VkPipelineBindPoint bindPoint) const</td></tr>
+<tr class="separator:abaa9d531cd169726c3b7e153a831ff76 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80ee2ce2e7527cd48426eec25511feae inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a80ee2ce2e7527cd48426eec25511feae"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetViewport</b> (const VkViewport &amp;viewport) const</td></tr>
+<tr class="separator:a80ee2ce2e7527cd48426eec25511feae inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9cb86367a4acb8ad5105075b99c9271 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_ad9cb86367a4acb8ad5105075b99c9271"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetScissor</b> (const VkRect2D &amp;scissor) const</td></tr>
+<tr class="separator:ad9cb86367a4acb8ad5105075b99c9271 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae408ebdb45af81e84a77dc27fe579ee6 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_ae408ebdb45af81e84a77dc27fe579ee6"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> (uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const</td></tr>
+<tr class="separator:ae408ebdb45af81e84a77dc27fe579ee6 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a4eaf4bff62f21615cc8202aa56edea inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a6a4eaf4bff62f21615cc8202aa56edea"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawMesh</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_mesh.html">VulkanMesh</a> &amp;vulkanMesh) const</td></tr>
+<tr class="separator:a6a4eaf4bff62f21615cc8202aa56edea inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4960d56504403e8ea1ebd86a7f6059a5 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a4960d56504403e8ea1ebd86a7f6059a5"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PushConstants</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> *shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void *pValues) const</td></tr>
+<tr class="separator:a4960d56504403e8ea1ebd86a7f6059a5 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a3884c9d1d33ec36a54e5cc80b44a06 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a3a3884c9d1d33ec36a54e5cc80b44a06"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CopyBuffer</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_buffer.html">Buffer</a> &amp;srcBuffer, const <a class="el" href="classvenom_1_1vulkan_1_1_buffer.html">Buffer</a> &amp;dstBuffer)</td></tr>
+<tr class="separator:a3a3884c9d1d33ec36a54e5cc80b44a06 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6948ddcc08c1b263490a63560a3f5d7f inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a6948ddcc08c1b263490a63560a3f5d7f"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CopyBufferToImage</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_buffer.html">Buffer</a> &amp;srcBuffer, const <a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;dstImage)</td></tr>
+<tr class="separator:a6948ddcc08c1b263490a63560a3f5d7f inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a543ed40a05de90ae67cad8fcb0d986f3 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a543ed40a05de90ae67cad8fcb0d986f3"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>TransitionImageLayout</b> (<a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout)</td></tr>
+<tr class="separator:a543ed40a05de90ae67cad8fcb0d986f3 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39eff9e7efb9ab54f74e224813d0df5b inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_a39eff9e7efb9ab54f74e224813d0df5b"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>BindDescriptorSets</b> (VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout, uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors)</td></tr>
+<tr class="separator:a39eff9e7efb9ab54f74e224813d0df5b inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee858ea6c8075d005d0dcd0f91284fcd inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_aee858ea6c8075d005d0dcd0f91284fcd"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitToQueue</b> (VkFence fence=VK_NULL_HANDLE, VkSemaphore waitSemaphore=VK_NULL_HANDLE, VkPipelineStageFlags waitStage=0, VkSemaphore signalSemaphore=VK_NULL_HANDLE)</td></tr>
+<tr class="separator:aee858ea6c8075d005d0dcd0f91284fcd inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac59b272e24c4b509d27f1b832d4d3215 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer" id="r_ac59b272e24c4b509d27f1b832d4d3215"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>WaitForQueue</b> () const</td></tr>
+<tr class="separator:ac59b272e24c4b509d27f1b832d4d3215 inherit pub_methods_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a7a92bbad605726aca732f86118a128e4" id="r_a7a92bbad605726aca732f86118a128e4"><td class="memItemLeft" align="right" valign="top"><a id="a7a92bbad605726aca732f86118a128e4" name="a7a92bbad605726aca732f86118a128e4"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>CommandPool</b></td></tr>
+<tr class="separator:a7a92bbad605726aca732f86118a128e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classvenom_1_1vulkan_1_1_command_buffer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classvenom_1_1vulkan_1_1_command_buffer')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">venom::vulkan::CommandBuffer</a></td></tr>
+<tr class="inherit_header pro_attribs_classvenom_1_1vulkan_1_1_command_buffer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classvenom_1_1vulkan_1_1_command_buffer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">venom::vulkan::CommandBuffer</a></td></tr>
+<tr class="memitem:a964b3bc063cc89dbab4efdcf2188b4f6 inherit pro_attribs_classvenom_1_1vulkan_1_1_command_buffer" id="r_a964b3bc063cc89dbab4efdcf2188b4f6"><td class="memItemLeft" align="right" valign="top">
+VkCommandBuffer&#160;</td><td class="memItemRight" valign="bottom"><b>_commandBuffer</b></td></tr>
+<tr class="separator:a964b3bc063cc89dbab4efdcf2188b4f6 inherit pro_attribs_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a112b302055b8ac2b6a27494d59e46ed4 inherit pro_attribs_classvenom_1_1vulkan_1_1_command_buffer" id="r_a112b302055b8ac2b6a27494d59e46ed4"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="classvenom_1_1vulkan_1_1_queue.html">Queue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_queue</b></td></tr>
+<tr class="separator:a112b302055b8ac2b6a27494d59e46ed4 inherit pro_attribs_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1306bb26d43a99d816ebd07a8a13fb0a inherit pro_attribs_classvenom_1_1vulkan_1_1_command_buffer" id="r_a1306bb26d43a99d816ebd07a8a13fb0a"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_isActive</b></td></tr>
+<tr class="separator:a1306bb26d43a99d816ebd07a8a13fb0a inherit pro_attribs_classvenom_1_1vulkan_1_1_command_buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_command_pool_8h_source.html">CommandPool.h</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_command_pool_8cc.html">CommandPool.cc</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacevenom.html">venom</a></li><li class="navelem"><a class="el" href="namespacevenom_1_1vulkan.html">vulkan</a></li><li class="navelem"><a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

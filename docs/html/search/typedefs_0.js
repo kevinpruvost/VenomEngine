@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['vertexbitangent_0',['VertexBitangent',['../namespacevenom_1_1common.html#aa9df425bc83943263aed8723682338ee',1,'venom::common']]],
-  ['vertexcolor_1',['VertexColor',['../namespacevenom_1_1common.html#ad86d88b160aab29b665181932349b5e7',1,'venom::common']]],
-  ['vertexindex_2',['VertexIndex',['../namespacevenom_1_1common.html#ad51135be0a3e83e6ec8179802f8737ce',1,'venom::common']]],
-  ['vertexnormal_3',['VertexNormal',['../namespacevenom_1_1common.html#af5dea3e0c33e7f9fa8a70316511e3e18',1,'venom::common']]],
-  ['vertexpos_4',['VertexPos',['../namespacevenom_1_1common.html#a0f19c987f3d388f9c1e3275fe3f433ee',1,'venom::common']]],
-  ['vertexuv_5',['VertexUV',['../namespacevenom_1_1common.html#a5801dca444d1280b4aeae918a1ba2771',1,'venom::common']]]
+  ['vertexbitangent_0',['VertexBitangent',['../_vector_8h.html#a505c9eb2ade587114c3c2bcc7ae2b5dd',1,'venom::common::math']]],
+  ['vertexcolor_1',['VertexColor',['../_vector_8h.html#a75214a8ebd3c53e1cf6fa2c997a64efb',1,'venom::common::math']]],
+  ['vertexindex_2',['VertexIndex',['../_vector_8h.html#a36b6a61f40d61b43b3c4bf534f0769ca',1,'venom::common::math']]],
+  ['vertexnormal_3',['VertexNormal',['../_vector_8h.html#a289048b896761b00897eeb561b2ce5dc',1,'venom::common::math']]],
+  ['vertexpos_4',['VertexPos',['../_vector_8h.html#ab5f1413c72f61eb16544845586928afc',1,'venom::common::math']]],
+  ['vertexuv_5',['VertexUV',['../_vector_8h.html#a5b93343a45cc172573e1f2ceb9676cc4',1,'venom::common::math']]]
 ];

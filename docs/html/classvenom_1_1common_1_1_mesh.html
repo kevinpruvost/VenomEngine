@@ -155,11 +155,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af0ccf0a316a2954ac111624f6af38a03" id="r_af0ccf0a316a2954ac111624f6af38a03"><td class="memItemLeft" align="right" valign="top"><a id="af0ccf0a316a2954ac111624f6af38a03" name="af0ccf0a316a2954ac111624f6af38a03"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> ()=0</td></tr>
 <tr class="separator:af0ccf0a316a2954ac111624f6af38a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d7629224b4ca19cb8b469723d96fa5" id="r_a80d7629224b4ca19cb8b469723d96fa5"><td class="memItemLeft" align="right" valign="top"><a id="a80d7629224b4ca19cb8b469723d96fa5" name="a80d7629224b4ca19cb8b469723d96fa5"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>ImportModel</b> (const std::string &amp;path)</td></tr>
+<tr class="separator:a80d7629224b4ca19cb8b469723d96fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_graphics_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></td></tr>
 <tr class="inherit_header pub_methods_classvenom_1_1common_1_1_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_plugin_object.html">venom::common::PluginObject</a></td></tr>
-<tr class="memitem:a1c9f66a4acbe03a8b295e441d2582c8c inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a1c9f66a4acbe03a8b295e441d2582c8c"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObject</b> (const Plugin::PluginType type)</td></tr>
-<tr class="separator:a1c9f66a4acbe03a8b295e441d2582c8c inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f4890d211f95df28cb812021c6d6a4 inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a25f4890d211f95df28cb812021c6d6a4"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObject</b> (const PluginType type)</td></tr>
+<tr class="separator:a25f4890d211f95df28cb812021c6d6a4 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59339c9ff38ee2b81dcf8adc3b17e847 inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a59339c9ff38ee2b81dcf8adc3b17e847"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Destroy</b> ()</td></tr>
 <tr class="memdesc:a59339c9ff38ee2b81dcf8adc3b17e847 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE <code>delete</code> <br /></td></tr>
@@ -173,31 +176,27 @@ static <a class="el" href="classvenom_1_1common_1_1_mesh.html">Mesh</a> *&#160;<
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a573d8b90f44e54b8ba4745bd9ce003f6" id="r_a573d8b90f44e54b8ba4745bd9ce003f6"><td class="memItemLeft" align="right" valign="top"><a id="a573d8b90f44e54b8ba4745bd9ce003f6" name="a573d8b90f44e54b8ba4745bd9ce003f6"></a>
-std::vector&lt; <a class="el" href="namespacevenom_1_1common.html#a0f19c987f3d388f9c1e3275fe3f433ee">vc::VertexPos</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__positions</b></td></tr>
-<tr class="separator:a573d8b90f44e54b8ba4745bd9ce003f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca2a77aaaeef8f5987badcef4e460478" id="r_aca2a77aaaeef8f5987badcef4e460478"><td class="memItemLeft" align="right" valign="top"><a id="aca2a77aaaeef8f5987badcef4e460478" name="aca2a77aaaeef8f5987badcef4e460478"></a>
-std::vector&lt; <a class="el" href="namespacevenom_1_1common.html#af5dea3e0c33e7f9fa8a70316511e3e18">vc::VertexNormal</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__normals</b></td></tr>
-<tr class="separator:aca2a77aaaeef8f5987badcef4e460478"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad294c7b33cb571405ac80ab4dc626e03" id="r_ad294c7b33cb571405ac80ab4dc626e03"><td class="memItemLeft" align="right" valign="top"><a id="ad294c7b33cb571405ac80ab4dc626e03" name="ad294c7b33cb571405ac80ab4dc626e03"></a>
-std::vector&lt; <a class="el" href="namespacevenom_1_1common.html#ad86d88b160aab29b665181932349b5e7">vc::VertexColor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__colors</b></td></tr>
-<tr class="separator:ad294c7b33cb571405ac80ab4dc626e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65243a022e09a172dfca8d1ce64b3261" id="r_a65243a022e09a172dfca8d1ce64b3261"><td class="memItemLeft" align="right" valign="top"><a id="a65243a022e09a172dfca8d1ce64b3261" name="a65243a022e09a172dfca8d1ce64b3261"></a>
-std::vector&lt; <a class="el" href="namespacevenom_1_1common.html#a5801dca444d1280b4aeae918a1ba2771">vc::VertexUV</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__uvs</b></td></tr>
-<tr class="separator:a65243a022e09a172dfca8d1ce64b3261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23fa0d8b5001321ebb31ca7c82c6bf76" id="r_a23fa0d8b5001321ebb31ca7c82c6bf76"><td class="memItemLeft" align="right" valign="top"><a id="a23fa0d8b5001321ebb31ca7c82c6bf76" name="a23fa0d8b5001321ebb31ca7c82c6bf76"></a>
+std::vector&lt; <a class="el" href="_vector_8h.html#ab5f1413c72f61eb16544845586928afc">vcm::VertexPos</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__positions</b></td></tr>
+<tr class="separator:a23fa0d8b5001321ebb31ca7c82c6bf76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbb03c166b0b4527020ceb784653a69" id="r_aabbb03c166b0b4527020ceb784653a69"><td class="memItemLeft" align="right" valign="top"><a id="aabbb03c166b0b4527020ceb784653a69" name="aabbb03c166b0b4527020ceb784653a69"></a>
+std::vector&lt; <a class="el" href="_vector_8h.html#a289048b896761b00897eeb561b2ce5dc">vcm::VertexNormal</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__normals</b></td></tr>
+<tr class="separator:aabbb03c166b0b4527020ceb784653a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a10ddc5233257c988e25c799fd21ad1" id="r_a7a10ddc5233257c988e25c799fd21ad1"><td class="memItemLeft" align="right" valign="top"><a id="a7a10ddc5233257c988e25c799fd21ad1" name="a7a10ddc5233257c988e25c799fd21ad1"></a>
+std::vector&lt; <a class="el" href="_vector_8h.html#a75214a8ebd3c53e1cf6fa2c997a64efb">vcm::VertexColor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__colors</b></td></tr>
+<tr class="separator:a7a10ddc5233257c988e25c799fd21ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d2eee5a8a8830dfa2176ba91af5289" id="r_ac5d2eee5a8a8830dfa2176ba91af5289"><td class="memItemLeft" align="right" valign="top"><a id="ac5d2eee5a8a8830dfa2176ba91af5289" name="ac5d2eee5a8a8830dfa2176ba91af5289"></a>
+std::vector&lt; <a class="el" href="_vector_8h.html#a5b93343a45cc172573e1f2ceb9676cc4">vcm::VertexUV</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__uvs</b></td></tr>
+<tr class="separator:ac5d2eee5a8a8830dfa2176ba91af5289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b5ed07fcd045a400bdd213854755ffb" id="r_a2b5ed07fcd045a400bdd213854755ffb"><td class="memItemLeft" align="right" valign="top"><a id="a2b5ed07fcd045a400bdd213854755ffb" name="a2b5ed07fcd045a400bdd213854755ffb"></a>
 std::vector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__indices</b></td></tr>
 <tr class="separator:a2b5ed07fcd045a400bdd213854755ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classvenom_1_1common_1_1_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classvenom_1_1common_1_1_plugin_object')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classvenom_1_1common_1_1_plugin_object.html">venom::common::PluginObject</a></td></tr>
-<tr class="memitem:a7f8de056e98a082b9a00fe8293f260a6 inherit pro_attribs_classvenom_1_1common_1_1_plugin_object" id="r_a7f8de056e98a082b9a00fe8293f260a6"><td class="memItemLeft" align="right" valign="top">
-std::unique_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_impl</b></td></tr>
-<tr class="separator:a7f8de056e98a082b9a00fe8293f260a6 inherit pro_attribs_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains all the mesh's data and is the main high-level interface for the user. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/plugin/graphics/<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source.html">Mesh.h</a></li>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/src/<a class="el" href="common_2src_2_mesh_8cc.html">Mesh.cc</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source.html">Mesh.h</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/common/src/<a class="el" href="common_2src_2_mesh_8cc.html">Mesh.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

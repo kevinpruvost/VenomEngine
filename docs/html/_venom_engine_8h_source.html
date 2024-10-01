@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Doxygen Awesome" />
     <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
     <!-- END twitter metadata -->
-    <title>VenomEngine: D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/VenomEngine.h Source File</title>
+    <title>VenomEngine: D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
     <script type="text/javascript" src="jquery.js"></script>
@@ -143,15 +143,18 @@ $(function(){initNavTree('_venom_engine_8h_source.html',''); initResizable(true)
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_venom_engine.html">~VenomEngine</a>();</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">static</span> <a class="code hl_class" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> * GetInstance();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_plugin_manager.html">PluginManager</a> pluginManager;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">static</span> Error RunEngine(<span class="keywordtype">char</span> ** argv);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    std::unique_ptr&lt;PluginManager&gt; pluginManager;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::unique_ptr&lt;DLL_Cache&gt; __dllCache;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
 </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
 <div class="ttc" id="a_plugin_manager_8h_html"><div class="ttname"><a href="_plugin_manager_8h.html">PluginManager.h</a></div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_plugin_manager_html"><div class="ttname"><a href="classvenom_1_1common_1_1_plugin_manager.html">venom::common::PluginManager</a></div><div class="ttdef"><b>Definition</b> PluginManager.h:26</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_venom_engine_html"><div class="ttname"><a href="classvenom_1_1common_1_1_venom_engine.html">venom::common::VenomEngine</a></div><div class="ttdef"><b>Definition</b> VenomEngine.h:17</div></div>
 <div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -15,7 +15,9 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}}
 class \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}
 \begin{DoxyCompactList}\small\item\em Contains a shared library handle and provides a way to get symbols from it, can only be created through \doxylink{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}{DLL\+::\+Create()} \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\+\_\+\+Cache}}
-\begin{DoxyCompactList}\small\item\em Holds all DLLs loaded in memory unless explicitly unloaded/deleted. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_fps_counter}{Fps\+Counter}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{Graphics\+Plugin}}
@@ -24,6 +26,8 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{Graphics
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_log}{Log}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_memory_pool}{Memory\+Pool}}
+\begin{DoxyCompactList}\small\item\em \doxylink{classvenom_1_1common_1_1_memory_pool}{Memory\+Pool} class to manage memory allocation and deallocation. For now, it\textquotesingle{}s just a wrapper around memory C functions. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}}
 \begin{DoxyCompactList}\small\item\em Contains all the mesh\textquotesingle{}s data and is the main high-\/level interface for the user. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}
@@ -32,38 +36,30 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{Plugin\+Manager}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object}}
 \item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}}
-\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_resources}{Resources}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_timer}{Timer}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{namespacevenom_1_1common_a0f19c987f3d388f9c1e3275fe3f433ee}\label{namespacevenom_1_1common_a0f19c987f3d388f9c1e3275fe3f433ee} 
-typedef Vec3 {\bfseries Vertex\+Pos}
-\begin{DoxyCompactList}\small\item\em Vertex Position (3 floats) \end{DoxyCompactList}\item 
-\Hypertarget{namespacevenom_1_1common_af5dea3e0c33e7f9fa8a70316511e3e18}\label{namespacevenom_1_1common_af5dea3e0c33e7f9fa8a70316511e3e18} 
-typedef Vec3 {\bfseries Vertex\+Normal}
-\begin{DoxyCompactList}\small\item\em Vertex Normal (3 floats) \end{DoxyCompactList}\item 
-\Hypertarget{namespacevenom_1_1common_ad86d88b160aab29b665181932349b5e7}\label{namespacevenom_1_1common_ad86d88b160aab29b665181932349b5e7} 
-typedef Vec3 {\bfseries Vertex\+Color}
-\begin{DoxyCompactList}\small\item\em Vertex Color (3 floats) \end{DoxyCompactList}\item 
-\Hypertarget{namespacevenom_1_1common_a5801dca444d1280b4aeae918a1ba2771}\label{namespacevenom_1_1common_a5801dca444d1280b4aeae918a1ba2771} 
-typedef Vec2 {\bfseries Vertex\+UV}
-\begin{DoxyCompactList}\small\item\em Vertex Texture Coordinates (2 floats) \end{DoxyCompactList}\item 
-\Hypertarget{namespacevenom_1_1common_aa9df425bc83943263aed8723682338ee}\label{namespacevenom_1_1common_aa9df425bc83943263aed8723682338ee} 
-typedef Vec3 {\bfseries Vertex\+Bitangent}
-\begin{DoxyCompactList}\small\item\em Vertex Bitangent (3 floats) \end{DoxyCompactList}\item 
-\Hypertarget{namespacevenom_1_1common_ad51135be0a3e83e6ec8179802f8737ce}\label{namespacevenom_1_1common_ad51135be0a3e83e6ec8179802f8737ce} 
-typedef uint32\+\_\+t {\bfseries Vertex\+Index}
-\begin{DoxyCompactList}\small\item\em Vertex Index (used for indexing in element buffers) \end{DoxyCompactList}\item 
 \Hypertarget{namespacevenom_1_1common_a90741080148150d7bd6816520f32b60c}\label{namespacevenom_1_1common_a90741080148150d7bd6816520f32b60c} 
 using {\bfseries String} = std\+::string
 \item 
 \Hypertarget{namespacevenom_1_1common_a80ccda757db61d2acd0ce573746f1278}\label{namespacevenom_1_1common_a80ccda757db61d2acd0ce573746f1278} 
 typedef bazel\+::tools\+::cpp\+::runfiles\+::\+Runfiles {\bfseries Runfiles}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ae063fd539e2f3cf66eb23f77cf93e0f9}\label{namespacevenom_1_1common_ae063fd539e2f3cf66eb23f77cf93e0f9} 
+enum class {\bfseries Plugin\+Type} \{ {\bfseries Graphics} = 0
+, {\bfseries Total\+Count}
+ \}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}

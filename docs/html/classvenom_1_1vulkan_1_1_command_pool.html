@@ -132,6 +132,12 @@ $(function(){initNavTree('classvenom_1_1vulkan_1_1_command_pool.html',''); initR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ab87a9ae9358d7b4e63c3b818924f43f6" id="r_ab87a9ae9358d7b4e63c3b818924f43f6"><td class="memItemLeft" align="right" valign="top"><a id="ab87a9ae9358d7b4e63c3b818924f43f6" name="ab87a9ae9358d7b4e63c3b818924f43f6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsReady</b> () const</td></tr>
+<tr class="separator:ab87a9ae9358d7b4e63c3b818924f43f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ed5418422a86aeabc889588c563ac06" id="r_a6ed5418422a86aeabc889588c563ac06"><td class="memItemLeft" align="right" valign="top"><a id="a6ed5418422a86aeabc889588c563ac06" name="a6ed5418422a86aeabc889588c563ac06"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetQueue</b> (<a class="el" href="classvenom_1_1vulkan_1_1_queue.html">Queue</a> *queue)</td></tr>
+<tr class="separator:a6ed5418422a86aeabc889588c563ac06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48f66cc846cd5ca9a1516ecce1ff64ab" id="r_a48f66cc846cd5ca9a1516ecce1ff64ab"><td class="memItemLeft" align="right" valign="top"><a id="a48f66cc846cd5ca9a1516ecce1ff64ab" name="a48f66cc846cd5ca9a1516ecce1ff64ab"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>CommandPool</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_command_pool.html">CommandPool</a> &amp;)=delete</td></tr>
 <tr class="separator:a48f66cc846cd5ca9a1516ecce1ff64ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,16 +150,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9347c970c785be820d1ddffc374d4c2a" id="r_a9347c970c785be820d1ddffc374d4c2a"><td class="memItemLeft" align="right" valign="top"><a id="a9347c970c785be820d1ddffc374d4c2a" name="a9347c970c785be820d1ddffc374d4c2a"></a>
 <a class="el" href="classvenom_1_1vulkan_1_1_command_pool.html">CommandPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvenom_1_1vulkan_1_1_command_pool.html">CommandPool</a> &amp;&amp;other)</td></tr>
 <tr class="separator:a9347c970c785be820d1ddffc374d4c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04e53e255bf5120267dba333d0f5f95d" id="r_a04e53e255bf5120267dba333d0f5f95d"><td class="memItemLeft" align="right" valign="top"><a id="a04e53e255bf5120267dba333d0f5f95d" name="a04e53e255bf5120267dba333d0f5f95d"></a>
-vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>InitCommandPool</b> (const VkDevice logicalDevice, QueueFamilyIndex queueFamilyIndex)</td></tr>
-<tr class="separator:a04e53e255bf5120267dba333d0f5f95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39bd9a42d0e98a82b05f671812f1322" id="r_ac39bd9a42d0e98a82b05f671812f1322"><td class="memItemLeft" align="right" valign="top"><a id="ac39bd9a42d0e98a82b05f671812f1322" name="ac39bd9a42d0e98a82b05f671812f1322"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> (QueueFamilyIndex queueFamilyIndex)</td></tr>
+<tr class="separator:ac39bd9a42d0e98a82b05f671812f1322"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeee8c0a1977cefeda1db258966547799" id="r_aeee8c0a1977cefeda1db258966547799"><td class="memItemLeft" align="right" valign="top"><a id="aeee8c0a1977cefeda1db258966547799" name="aeee8c0a1977cefeda1db258966547799"></a>
 vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>CreateCommandBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> **commandBuffer, VkCommandBufferLevel level=VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY)</td></tr>
 <tr class="separator:aeee8c0a1977cefeda1db258966547799"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a26422b6d38a5d323daf7689cf9774" id="r_ab7a26422b6d38a5d323daf7689cf9774"><td class="memItemLeft" align="right" valign="top"><a id="ab7a26422b6d38a5d323daf7689cf9774" name="ab7a26422b6d38a5d323daf7689cf9774"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>CreateSingleTimeCommandBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a> &amp;commandBuffer)</td></tr>
+<tr class="separator:ab7a26422b6d38a5d323daf7689cf9774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/include/venom/vulkan/<a class="el" href="_command_pool_8h_source.html">CommandPool.h</a></li>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/vulkan/src/<a class="el" href="_command_pool_8cc.html">CommandPool.cc</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_command_pool_8h_source.html">CommandPool.h</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_command_pool_8cc.html">CommandPool.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

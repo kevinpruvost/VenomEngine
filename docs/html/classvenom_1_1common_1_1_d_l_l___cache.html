@@ -126,12 +126,13 @@ $(function(){initNavTree('classvenom_1_1common_1_1_d_l_l___cache.html',''); init
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classvenom_1_1common_1_1_d_l_l___cache-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::common::DLL_Cache Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Holds all DLLs loaded in memory unless explicitly unloaded/deleted.  
+<p>Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_d_l_l_8h_source.html">DLL.h</a>&gt;</code></p>
@@ -150,15 +151,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UnloadFromCache</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a98ac17e29a95d8450e78f42ec858d80d" id="r_a98ac17e29a95d8450e78f42ec858d80d"><td class="memItemLeft" align="right" valign="top"><a id="a98ac17e29a95d8450e78f42ec858d80d" name="a98ac17e29a95d8450e78f42ec858d80d"></a>
-static <a class="el" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetInstance</b> ()</td></tr>
-<tr class="separator:a98ac17e29a95d8450e78f42ec858d80d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedf3165f2def1908d29d40b52bd79e81" id="r_aedf3165f2def1908d29d40b52bd79e81"><td class="memItemLeft" align="right" valign="top"><a id="aedf3165f2def1908d29d40b52bd79e81" name="aedf3165f2def1908d29d40b52bd79e81"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCache</b> (<a class="el" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a> *cache)</td></tr>
+<tr class="separator:aedf3165f2def1908d29d40b52bd79e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81d2b514f4f684f84c59647a722a98f6" id="r_a81d2b514f4f684f84c59647a722a98f6"><td class="memItemLeft" align="right" valign="top"><a id="a81d2b514f4f684f84c59647a722a98f6" name="a81d2b514f4f684f84c59647a722a98f6"></a>
+static <a class="el" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetCache</b> ()</td></tr>
+<tr class="separator:a81d2b514f4f684f84c59647a722a98f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a77d9d332e86b34ac64ecdd5562ab6b4e" id="r_a77d9d332e86b34ac64ecdd5562ab6b4e"><td class="memItemLeft" align="right" valign="top"><a id="a77d9d332e86b34ac64ecdd5562ab6b4e" name="a77d9d332e86b34ac64ecdd5562ab6b4e"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>VenomEngine</b></td></tr>
+<tr class="separator:a77d9d332e86b34ac64ecdd5562ab6b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Holds all DLLs loaded in memory unless explicitly unloaded/deleted. </p>
+<div class="textblock"><p>Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/include/venom/common/<a class="el" href="_d_l_l_8h_source.html">DLL.h</a></li>
-<li>D:/Repositories/Perso/Bazel_Vulkan_Metal/lib/common/src/<a class="el" href="_d_l_l_8cc.html">DLL.cc</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/<a class="el" href="_d_l_l_8h_source.html">DLL.h</a></li>
+<li>D:/Repositories/Perso/VenomEngine/lib/common/src/<a class="el" href="_d_l_l_8cc.html">DLL.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

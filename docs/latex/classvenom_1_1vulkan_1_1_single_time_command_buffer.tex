@@ -1,0 +1,91 @@
+\doxysection{venom\+::vulkan\+::Single\+Time\+Command\+Buffer Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_single_time_command_buffer}{}\label{classvenom_1_1vulkan_1_1_single_time_command_buffer}\index{venom::vulkan::SingleTimeCommandBuffer@{venom::vulkan::SingleTimeCommandBuffer}}
+Inheritance diagram for venom\+::vulkan\+::Single\+Time\+Command\+Buffer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classvenom_1_1vulkan_1_1_single_time_command_buffer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_single_time_command_buffer_a87ee1f7395356aaf3a8710ea31388adc}\label{classvenom_1_1vulkan_1_1_single_time_command_buffer_a87ee1f7395356aaf3a8710ea31388adc} 
+{\bfseries Single\+Time\+Command\+Buffer} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_single_time_command_buffer_a08021612cc3c0b0a53c6114d026ed24d}\label{classvenom_1_1vulkan_1_1_single_time_command_buffer_a08021612cc3c0b0a53c6114d026ed24d} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_single_time_command_buffer_af263be1f47f9374524037e63a2445207}\label{classvenom_1_1vulkan_1_1_single_time_command_buffer_af263be1f47f9374524037e63a2445207} 
+{\bfseries Single\+Time\+Command\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_single_time_command_buffer_a397fdd677959819ff183eccf63a8f68d}\label{classvenom_1_1vulkan_1_1_single_time_command_buffer_a397fdd677959819ff183eccf63a8f68d} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}} \&\&other)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Command\+Buffer} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&)=delete
+\item 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&)=delete
+\item 
+{\bfseries Command\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&\&other)
+\item 
+Vk\+Command\+Buffer {\bfseries Get\+Vk\+Command\+Buffer} () const
+\item 
+{\bfseries operator Vk\+Command\+Buffer} () const
+\item 
+vc\+::\+Error {\bfseries Begin\+Command\+Buffer} (Vk\+Command\+Buffer\+Usage\+Flags flags=0)
+\item 
+vc\+::\+Error {\bfseries End\+Command\+Buffer} ()
+\item 
+void {\bfseries Reset} (Vk\+Command\+Buffer\+Reset\+Flags flags)
+\item 
+void {\bfseries Bind\+Pipeline} (Vk\+Pipeline pipeline, Vk\+Pipeline\+Bind\+Point bind\+Point) const
+\item 
+void {\bfseries Set\+Viewport} (const Vk\+Viewport \&viewport) const
+\item 
+void {\bfseries Set\+Scissor} (const Vk\+Rect2D \&scissor) const
+\item 
+void {\bfseries Draw} (uint32\+\_\+t vertex\+Count, uint32\+\_\+t instance\+Count, uint32\+\_\+t first\+Vertex, uint32\+\_\+t first\+Instance) const
+\item 
+void {\bfseries Draw\+Mesh} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}} \&vulkan\+Mesh) const
+\item 
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, uint32\+\_\+t offset, uint32\+\_\+t size, const void \texorpdfstring{$\ast$}{*}p\+Values) const
+\item 
+void {\bfseries Copy\+Buffer} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&src\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&dst\+Buffer)
+\item 
+void {\bfseries Copy\+Buffer\+To\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&src\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&dst\+Image)
+\item 
+void {\bfseries Transition\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, Vk\+Format format, Vk\+Image\+Layout old\+Layout, Vk\+Image\+Layout new\+Layout)
+\item 
+void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, uint32\+\_\+t descript\+Set\+Count, Vk\+Descriptor\+Set vk\+Descriptors)
+\item 
+void {\bfseries Submit\+To\+Queue} (Vk\+Fence fence=VK\+\_\+\+NULL\+\_\+\+HANDLE, Vk\+Semaphore wait\+Semaphore=VK\+\_\+\+NULL\+\_\+\+HANDLE, Vk\+Pipeline\+Stage\+Flags wait\+Stage=0, Vk\+Semaphore signal\+Semaphore=VK\+\_\+\+NULL\+\_\+\+HANDLE)
+\item 
+void {\bfseries Wait\+For\+Queue} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_single_time_command_buffer_a7a92bbad605726aca732f86118a128e4}\label{classvenom_1_1vulkan_1_1_single_time_command_buffer_a7a92bbad605726aca732f86118a128e4} 
+class {\bfseries Command\+Pool}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}}}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}}}
+\begin{DoxyCompactItemize}
+\item 
+Vk\+Command\+Buffer {\bfseries \+\_\+command\+Buffer}
+\item 
+const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+queue}
+\item 
+bool {\bfseries \+\_\+is\+Active}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_command_pool_8h}{Command\+Pool.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_command_pool_8cc}{Command\+Pool.\+cc}}\end{DoxyCompactItemize}

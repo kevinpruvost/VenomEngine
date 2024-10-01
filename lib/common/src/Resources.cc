@@ -26,7 +26,22 @@ void Resources::FreeFilesystem()
 
 std::string Resources::GetResourcePath(const std::string& resourcePath)
 {
-    const std::string path = "BazelVulkanMetalWorkspace/resources/" + resourcePath;
+    const std::string path = "VenomEngineWorkspace/resources/" + resourcePath;
     return s_runfiles->Rlocation(path);
+}
+
+std::string Resources::GetTexturesResourcePath(const std::string& resourcePath)
+{
+    return GetResourcePath("textures/" + resourcePath);
+}
+
+std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
+{
+    return GetResourcePath("shaders/" + resourcePath);
+}
+
+std::string Resources::GetModelsResourcePath(const std::string& resourcePath)
+{
+    return GetResourcePath("models/" + resourcePath);
 }
 }

@@ -15,14 +15,6 @@ enum class {\bfseries Graphics\+Plugin\+Type} \{ {\bfseries Vulkan}
 , {\bfseries Direct\+X12}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{classvenom_1_1common_1_1_plugin_ab2d78c9e77d72367b1a6685baa51209a}\label{classvenom_1_1common_1_1_plugin_ab2d78c9e77d72367b1a6685baa51209a} 
-enum class {\bfseries Plugin\+Type} \{ {\bfseries Graphics} = 0
-, {\bfseries Total\+Count}
- \}
-\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -31,9 +23,16 @@ virtual \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a39e458dfa45d85c9d7e46485cbd07424}\label{classvenom_1_1common_1_1_graphics_plugin_a39e458dfa45d85c9d7e46485cbd07424} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Mesh} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a19b52426119d683fd0048c83795247c2}\label{classvenom_1_1common_1_1_graphics_plugin_a19b52426119d683fd0048c83795247c2} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Texture} ()=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}}
 \begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}} \&)=delete
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}} \&)=delete
 \item 
 const Plugin\+Type {\bfseries Get\+Type} () const
 \end{DoxyCompactItemize}
@@ -53,5 +52,5 @@ static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{Graphics\+Plug
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Bazel\+\_\+\+Vulkan\+\_\+\+Metal/lib/common/src/\mbox{\hyperlink{common_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
+D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}

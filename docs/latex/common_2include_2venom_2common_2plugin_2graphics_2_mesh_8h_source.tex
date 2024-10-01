@@ -1,5 +1,5 @@
 \doxysection{Mesh.\+h}
-\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/graphics/Mesh.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/plugin/graphics/Mesh.h}}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Mesh.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Mesh.h}}
 \mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -23,17 +23,19 @@
 \DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{\string~Mesh}}();}
 \DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw()\ =\ 0;}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00032\ \ \ \ \ std::vector<vc::VertexPos>\ \_\_positions;}
-\DoxyCodeLine{00033\ \ \ \ \ std::vector<vc::VertexNormal>\ \_\_normals;}
-\DoxyCodeLine{00034\ \ \ \ \ std::vector<vc::VertexColor>\ \_\_colors;}
-\DoxyCodeLine{00035\ \ \ \ \ std::vector<vc::VertexUV>\ \_\_uvs;}
-\DoxyCodeLine{00036\ \ \ \ \ std::vector<uint32\_t>\ \_\_indices;}
-\DoxyCodeLine{00037\ \};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \}}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ vc::Error\ ImportModel(\textcolor{keyword}{const}\ std::string\ \&\ path);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//virtual\ vc::Error\ \_\_ImportMesh()\ =\ 0;}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00034\ \ \ \ \ std::vector<vcm::VertexPos>\ \_\_positions;}
+\DoxyCodeLine{00035\ \ \ \ \ std::vector<vcm::VertexNormal>\ \_\_normals;}
+\DoxyCodeLine{00036\ \ \ \ \ std::vector<vcm::VertexColor>\ \_\_colors;}
+\DoxyCodeLine{00037\ \ \ \ \ std::vector<vcm::VertexUV>\ \_\_uvs;}
+\DoxyCodeLine{00038\ \ \ \ \ std::vector<uint32\_t>\ \_\_indices;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ \}}
 
 \end{DoxyCode}

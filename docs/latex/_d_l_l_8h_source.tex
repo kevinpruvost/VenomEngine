@@ -1,5 +1,5 @@
 \doxysection{DLL.\+h}
-\hypertarget{_d_l_l_8h_source}{}\label{_d_l_l_8h_source}\index{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/DLL.h@{D:/Repositories/Perso/Bazel\_Vulkan\_Metal/lib/common/include/venom/common/DLL.h}}
+\hypertarget{_d_l_l_8h_source}{}\label{_d_l_l_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/DLL.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/DLL.h}}
 \mbox{\hyperlink{_d_l_l_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -47,22 +47,25 @@
 \DoxyCodeLine{00062\ \ \ \ \ std::string\ \_\_path;}
 \DoxyCodeLine{00063\ \};}
 \DoxyCodeLine{00064\ }
-\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}}
-\DoxyCodeLine{00067\ \{}
-\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}();}
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{\string~DLL\_Cache}}();}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ StoreInCache(\textcolor{keyword}{const}\ std::string\ \&\ name,\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ dll);}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadFromCache(\textcolor{keyword}{const}\ std::string\ \&\ name);}
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ GetFromCache(\textcolor{keyword}{const}\ std::string\ \&\ name);}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}\ *\ GetInstance();}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00079\ \ \ \ \ std::unordered\_map<std::string,\ std::shared\_ptr<DLL>>\ \_\_dlls;}
-\DoxyCodeLine{00080\ \};}
-\DoxyCodeLine{00081\ \}}
-\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }VenomEngine;}
+\DoxyCodeLine{00069\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}};}
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}();}
+\DoxyCodeLine{00074\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{\string~DLL\_Cache}}();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ StoreInCache(\textcolor{keyword}{const}\ std::string\ \&\ name,\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ dll);}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadFromCache(\textcolor{keyword}{const}\ std::string\ \&\ name);}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}}\ *\ GetFromCache(\textcolor{keyword}{const}\ std::string\ \&\ name);}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetCache(\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}\ *\ cache);}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\_Cache}}\ *\ GetCache();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \ \ std::unordered\_map<std::string,\ std::shared\_ptr<DLL>>\ \_\_dlls;}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ \}}
 
 \end{DoxyCode}
