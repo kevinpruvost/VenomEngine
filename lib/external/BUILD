@@ -362,6 +362,7 @@ cc_library(
     copts = [
         "-DPUGIXML_SOURCE",
     ],
+    visibility = ["//visibility:public"],
     deps = [],
 )
 
@@ -506,9 +507,9 @@ cc_library(
         "assimp/contrib/clipper/*.cpp",
         "assimp/contrib/Open3DGC/*.cpp",
         "assimp/contrib/poly2tri/**/*.cc",
-        "assimp/contrib/pugixml/src/*.cpp",
+        "assimp/contrib/zlib/*.c",
+        "assimp/contrib/zlib/*.h",
         "assimp/contrib/unzip/*.c",
-        "assimp/contrib/pugixml/*.cpp",
         "assimp/contrib/clipper/*.hpp",
         "assimp/contrib/Open3DGC/*.h",
         "assimp/contrib/Open3DGC/*.inl",
@@ -552,7 +553,6 @@ cc_library(
         "-DASSIMP_BUILD_NO_EXPORT",
         "-DASSIMP_BUILD_DLL_EXPORT",
         "-DOPENDDLPARSER_BUILD",
-        "-DPUGIXML_SOURCE",
         #"-DASSIMP_DOUBLE_PRECISION",
 
         # If you need IFC, USD or C4D or maybe more, you can remove these flags and add src files
