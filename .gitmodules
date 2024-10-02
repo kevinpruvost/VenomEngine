@@ -28,6 +28,3 @@
 [submodule "lib/external/assimp"]
 	path = lib/external/assimp
 	url = git@github.com:assimp/assimp.git
-[submodule "lib/external/zlib"]
-	path = lib/external/zlib
-	url = git@github.com:madler/zlib.git

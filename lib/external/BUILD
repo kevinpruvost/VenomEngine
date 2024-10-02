@@ -284,15 +284,6 @@ cmake_configure_file(
     ],
 )
 
-cc_library(
-    name = "zlib",
-    srcs = glob([
-        "zlib/*.c",
-        "zlib/*.h",
-    ]),
-    deps = [],
-)
-
 cmake_configure_file(
     name = "assimp_zconf",
     src = "assimp/contrib/zlib/zconf.h.in",
@@ -360,7 +351,10 @@ cc_library(
         "assimp/contrib/pugixml/src/pugixml.hpp",
     ],
     copts = [
-        "-DPUGIXML_SOURCE",
+        #"-DPUGIXML_SOURCE",
+    ],
+    includes = [
+        "assimp/contrib/pugixml/src",
     ],
     visibility = ["//visibility:public"],
     deps = [],
@@ -507,8 +501,6 @@ cc_library(
         "assimp/contrib/clipper/*.cpp",
         "assimp/contrib/Open3DGC/*.cpp",
         "assimp/contrib/poly2tri/**/*.cc",
-        "assimp/contrib/zlib/*.c",
-        "assimp/contrib/zlib/*.h",
         "assimp/contrib/unzip/*.c",
         "assimp/contrib/clipper/*.hpp",
         "assimp/contrib/Open3DGC/*.h",
@@ -517,7 +509,7 @@ cc_library(
         "assimp/contrib/openddlparser/include/openddlparser/*.h",
         "assimp/contrib/poly2tri/**/*.h",
         "assimp/contrib/rapidjson/include/rapidjson/**/*.h",
-        "assimp/contrib/pugixml/src/*.h",
+        #"assimp/contrib/pugixml/src/*.hpp",
         "assimp/contrib/utf8cpp/source/*.h",
         "assimp/contrib/utf8cpp/source/utf8/*.h",
         "assimp/contrib/stb/stb_image.h",
@@ -553,6 +545,8 @@ cc_library(
         "-DASSIMP_BUILD_NO_EXPORT",
         "-DASSIMP_BUILD_DLL_EXPORT",
         "-DOPENDDLPARSER_BUILD",
+        #"-DPUGIXML_SOURCE",
+        #"-DPUGIXML_HEADER_ONLY",
         #"-DASSIMP_DOUBLE_PRECISION",
 
         # If you need IFC, USD or C4D or maybe more, you can remove these flags and add src files
@@ -569,17 +563,18 @@ cc_library(
         "assimp/code/AssetLib/AMF/",
         "assimp/contrib/",
         "assimp/contrib/openddlparser/include/",
-        "assimp/contrib/pugixml/src/",
+        #"assimp/contrib/pugixml/src/",
         "assimp/contrib/rapidjson/include/",
         "assimp/contrib/stb/",
         "assimp/contrib/unzip/",
         "assimp/contrib/utf8cpp/source/",
-        "assimp/contrib/zlib/",
+        #"assimp/contrib/zlib/",
         "assimp/include/",
     ],
     visibility = ["//visibility:public"],
     deps = [
-        ":pugixml",
+        "@pugixml",
+        "@zlib",
     ],
 )
 
@@ -587,6 +582,7 @@ cc_shared_library(
     name = "assimp_shared",
     exports_filter = [
         ":assimp",
+        ":pugixml",
     ],
     visibility = ["//visibility:public"],
     deps = [
