@@ -21,7 +21,7 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "//lib/common:venom_common_static",
-        "//lib/external:SPIRVReflect",
+        #"//lib/external:SPIRVReflect",
         "//lib/external:glm",
         "@rules_vulkan//vulkan:vulkan_cc_library",
     ],

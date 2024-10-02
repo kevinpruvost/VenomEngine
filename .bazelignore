@@ -1,2 +1,3 @@
 lib/external/DirectXShaderCompiler
 lib/external/assimp/contrib/googletest
+lib/external/SPIRV-Reflect/third_party

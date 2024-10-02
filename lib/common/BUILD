@@ -1,7 +1,10 @@
 cc_library(
     name = "venom_common_static",
     srcs = glob(["src/*.cc"]),
-    hdrs = glob(["include/venom/common/*.h"]),
+    hdrs = glob([
+        "include/venom/common/*.h",
+        "include/venom/common/**/*.h",
+    ]),
     defines = [
         "VENOM_COMMON_EXPORTS",
     ],

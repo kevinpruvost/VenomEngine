@@ -19,6 +19,7 @@ bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependenc
 
 # configure_file from CMake
 bazel_dep(name = "cmake_configure_file", version = "0.1.0")
+bazel_dep(name = "rules_apple", version = "3.9.2", repo_name = "build_bazel_rules_apple")
 
 git_override(
     module_name = "hedron_compile_commands",
