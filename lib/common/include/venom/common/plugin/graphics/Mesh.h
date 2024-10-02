@@ -10,6 +10,8 @@
 #include <venom/common/math/Vector.h>
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 
+#include <venom/common/plugin/graphics/Material.h>
+
 #include <vector>
 
 namespace venom
@@ -46,6 +48,7 @@ protected:
     std::vector<uint32_t> __indices;
     std::vector<vcm::VertexTangent> __tangents;
     std::vector<vcm::VertexBitangent> __bitangents;
+    Material * __material;
 };
 
 

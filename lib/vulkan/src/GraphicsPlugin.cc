@@ -10,6 +10,7 @@
 #include <venom/vulkan/VulkanApplication.h>
 #include <venom/vulkan/plugin/graphics/Model.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
+#include <venom/vulkan/plugin/graphics/Material.h>
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
 namespace venom
@@ -34,6 +35,11 @@ vc::Mesh * VulkanGraphicsPlugin::CreateMesh()
 vc::Texture* VulkanGraphicsPlugin::CreateTexture()
 {
     return new VulkanTexture();
+}
+
+vc::Material* VulkanGraphicsPlugin::CreateMaterial()
+{
+    return new VulkanMaterial();
 }
 }
 }

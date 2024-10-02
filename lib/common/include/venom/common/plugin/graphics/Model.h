@@ -9,6 +9,7 @@
 
 #include <venom/common/math/Vector.h>
 #include <venom/common/plugin/graphics/Mesh.h>
+#include <venom/common/plugin/graphics/GraphicsPluginObject.h>
 
 #include <vector>
 
@@ -24,7 +25,7 @@ protected:
     Model();
 public:
     static Model * Create();
-    ~Model();
+    ~Model() override;
 
     virtual void Draw() = 0;
     vc::Error ImportModel(const std::string & path);
@@ -34,6 +35,7 @@ public:
 
 protected:
     std::vector<vc::Mesh *> __meshes;
+    std::vector<vc::Material *> __materials;
 };
 
 

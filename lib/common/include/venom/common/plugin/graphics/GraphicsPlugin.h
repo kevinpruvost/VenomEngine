@@ -7,7 +7,9 @@
 ///
 #pragma once
 #include <venom/common/plugin/Plugin.h>
-#include <venom/common/plugin/PluginObject.h>
+#include <venom/common/plugin/graphics/GraphicsPluginObject.h>
+
+#include "Material.h"
 
 namespace venom
 {
@@ -15,16 +17,11 @@ namespace common
 {
 
 class GraphicsApplication;
+
+class Material;
 class Model;
 class Mesh;
 class Texture;
-
-class VENOM_COMMON_API GraphicsPluginObject : public PluginObject
-{
-public:
-    GraphicsPluginObject();
-    ~GraphicsPluginObject() override;
-};
 
 class VENOM_COMMON_API GraphicsPlugin : public Plugin
 {
@@ -43,6 +40,7 @@ public:
     static GraphicsPlugin * Get();
 
     virtual GraphicsApplication * CreateGraphicsApplication() = 0;
+    virtual Material* CreateMaterial() = 0;
     virtual Model * CreateModel() = 0;
     virtual Mesh * CreateMesh() = 0;
     virtual Texture * CreateTexture() = 0;

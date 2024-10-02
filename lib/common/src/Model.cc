@@ -20,6 +20,7 @@ namespace venom
 {
 namespace common
 {
+
 Model::Model()
     : GraphicsPluginObject()
 {
@@ -43,6 +44,22 @@ vc::Error Model::ImportModel(const std::string & path)
     if (!scene) {
         vc::Log::Error("Failed to load model: %s", path.c_str());
         return vc::Error::Failure;
+    }
+
+    // Load every material
+    if (scene->HasMaterials()) {
+        for (uint32_t i = 0; i < scene->mNumMaterials; ++i) {
+            auto material = vc::Material::Create();
+            __materials.push_back(material);
+
+            const aiMaterial* aimaterial = scene->mMaterials[i];
+
+            // Check all properties
+            for (int p = 0; p < aimaterial->mNumProperties; ++p) {
+                aiMaterialProperty *prop = aimaterial->mProperties[p];
+                auto name = std::string(prop->mKey.C_Str());
+            }
+        }
     }
 
     // Load every mesh
@@ -105,7 +122,11 @@ vc::Error Model::ImportModel(const std::string & path)
             vc::Log::Error("Failed to load mesh from current data");
             return err;
         }
+
     }
+
+    // Cache the model
+    _SetInCache(path, this);
     return vc::Error::Success;
 }
 

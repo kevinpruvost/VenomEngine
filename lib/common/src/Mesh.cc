@@ -13,6 +13,7 @@ namespace common
 {
 Mesh::Mesh()
     : GraphicsPluginObject()
+    , __material(nullptr)
 {
 }
 
