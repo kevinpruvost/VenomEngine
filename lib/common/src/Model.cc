@@ -26,9 +26,12 @@ Model::Model()
 {
 }
 
-Model* Model::Create()
+Model* Model::Create(const std::string & path)
 {
-    return GraphicsPlugin::Get()->CreateModel();
+    Model * model = dynamic_cast<Model *>(GetCachedObject(path));
+    model = GraphicsPlugin::Get()->CreateModel();
+    model->ImportModel(path);
+    return model;
 }
 
 Model::~Model()

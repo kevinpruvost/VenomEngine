@@ -15,8 +15,6 @@
 #include <venom/common/math/Vector.h>
 #include <venom/vulkan/LogicalDevice.h>
 
-#include <spirv_reflect.h>
-
 namespace venom::vulkan
 {
 

@@ -24,7 +24,7 @@ class VENOM_COMMON_API Model : public GraphicsPluginObject
 protected:
     Model();
 public:
-    static Model * Create();
+    static Model * Create(const std::string & path);
     ~Model() override;
 
     virtual void Draw() = 0;

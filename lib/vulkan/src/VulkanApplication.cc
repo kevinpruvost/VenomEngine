@@ -403,8 +403,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
-    __model = reinterpret_cast<VulkanModel*>(vc::Model::Create());
-    __model->ImportModel("eye/eye.obj");
+    __model = reinterpret_cast<VulkanModel*>(vc::Model::Create("eye/eye.obj"));
     __mesh = reinterpret_cast<VulkanMesh*>(vc::Mesh::Create());
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);
