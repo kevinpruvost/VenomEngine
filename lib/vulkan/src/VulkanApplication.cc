@@ -24,6 +24,7 @@ static constexpr std::array s_deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
 #ifdef __APPLE__ // Maybe Linux ?
     "VK_KHR_portability_subset",
+    VK_KHR_MAINTENANCE1_EXTENSION_NAME,
 #endif
 };
 
@@ -254,7 +255,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     for (int i = 0; i < physicalDevices.size(); ++i) {
         DEBUG_LOG("-%s:", physicalDevices[i].GetProperties().deviceName);
         DEBUG_LOG("\tType: %s", physicalDevices[i].GetProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU ? "Discrete" : physicalDevices[i].GetProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU ? "Integrated" : "Other Type of GPU");
-        DEBUG_LOG("\tAPI Version: %u", physicalDevices[i].GetProperties().apiVersion);
+        DEBUG_LOG("\tAPI Version: %u.%u.%u", VK_VERSION_MAJOR(physicalDevices[i].GetProperties().apiVersion), VK_VERSION_MINOR(physicalDevices[i].GetProperties().apiVersion), VK_VERSION_PATCH(physicalDevices[i].GetProperties().apiVersion));
         DEBUG_LOG("\tDriver Version: %u", physicalDevices[i].GetProperties().driverVersion);
         DEBUG_LOG("\tVendor ID: %u", physicalDevices[i].GetProperties().vendorID);
         DEBUG_LOG("\tDevice ID: %u", physicalDevices[i].GetProperties().deviceID);
@@ -346,16 +347,16 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     if (err = __logicalDevice.Init(&createInfo); err != vc::Error::Success)
         return err;
 
-    // Create SwapChain
-    if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
-        return err;
-
     // Init Command Pool Manager (inits 1 pool per queue family)
     if (err = __commandPoolManager.Init(); err != vc::Error::Success)
         return err;
 
     // Init Queue Manager
     if (err = __queueManager.Init(); err != vc::Error::Success)
+        return err;
+
+    // Create SwapChain
+    if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
         return err;
 
     // Get Graphics Queue
@@ -406,7 +407,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
-    __model = reinterpret_cast<VulkanModel*>(vc::Model::Create("eye/eye.obj"));
+    __model = reinterpret_cast<VulkanModel*>(vc::Model::Create("eye/eye.fbx"));
     __mesh = reinterpret_cast<VulkanMesh*>(vc::Mesh::Create());
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);

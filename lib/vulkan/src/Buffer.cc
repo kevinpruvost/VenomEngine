@@ -69,7 +69,8 @@ vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags
         .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
         .size = size,
         .usage = flags,
-        .sharingMode = sharingMode
+        .sharingMode = sharingMode,
+        .queueFamilyIndexCount = 0
     };
 
     if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &__bufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {

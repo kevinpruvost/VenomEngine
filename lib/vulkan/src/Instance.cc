@@ -126,6 +126,21 @@ vc::Error Instance::CreateInstance(Instance * instance)
             for (uint32_t i = 0; i < createInfo.enabledExtensionCount; ++i) {
                 vc::Log::Print("\t%s", createInfo.ppEnabledExtensionNames[i]);
             }
+        } else if (res == VK_ERROR_LAYER_NOT_PRESENT) {
+            uint32_t layerCount = 0;
+            vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+            std::vector<VkLayerProperties> layers(layerCount);
+            vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
+            vc::Log::Print("Available Layers:");
+            for (const auto& layer : layers) {
+                vc::Log::Print("\t%s", layer.layerName);
+            }
+            vc::Log::Print("Layers passed:");
+            for (uint32_t i = 0; i < createInfo.enabledLayerCount; ++i) {
+                vc::Log::Print("\t%s", createInfo.ppEnabledLayerNames[i]);
+            }
+        } else {
+            vc::Log::Print("Error code: %d", res);
         }
 #endif
         return vc::Error::InitializationFailed;

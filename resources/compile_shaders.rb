@@ -21,8 +21,13 @@ end
 
 # Check if dxc path folder exists
 if !File.exist?(dxc_folder_path)
-    puts "DXC path does not exist at #{dxc_folder_path}. Please ensure DXC is built (by using 'make dxc')."
-    exit
+    # Also check at ./cmake_build/dxc/bin because of MacOS
+    dxc_folder_path = './cmake_build/dxc/bin'
+    dxc_path = "#{dxc_folder_path}/dxc"
+    if !File.exist?(dxc_folder_path)
+        puts "DXC path does not exist at #{dxc_folder_path}. Please ensure DXC is built (by using 'make dxc')."
+        exit
+    end
 end
 
 # Function to determine shader type based on filename

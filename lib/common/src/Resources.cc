@@ -7,6 +7,10 @@
 ///
 #include <venom/common/Resources.h>
 
+#include <venom/common/Log.h>
+
+#include <filesystem>
+
 namespace venom::common
 {
 // If using bazel
@@ -34,9 +38,20 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
 
 #else
 
+static std::string s_basePath;
 void Resources::InitializeFilesystem(char** argv)
 {
     (void)argv;
+    s_basePath = "./resources/";
+    // Verify if the path exists
+    // If not, test at ../
+    if (!std::filesystem::exists(s_basePath)) {
+        s_basePath = "./../resources/";
+        if (!std::filesystem::exists(s_basePath)) {
+            Log::Error("Failed to find resources folder");
+            exit(1);
+        }
+    }
 }
 
 void Resources::FreeFilesystem()
@@ -45,7 +60,7 @@ void Resources::FreeFilesystem()
 
 std::string Resources::GetResourcePath(const std::string& resourcePath)
 {
-    return "resources/" + resourcePath;
+    return s_basePath + resourcePath;
 }
 
 #endif

@@ -145,6 +145,23 @@ vc::Error QueueManager::SetLogicalDeviceQueueCreateInfos(const MappedQueueFamili
         // Queue priorities
         __queueCreateInfos[i].pQueuePriorities = __queuePriorities[i].data();
     }
+    // Try to merge graphics, compute, transfer and present queues
+    if (__graphicsQueue.GetQueueFamilyIndex() != __computeQueue.GetQueueFamilyIndex()) {
+        __queueCreateInfos[__computeQueue.GetQueueFamilyIndex()].queueCount--;
+        __computeQueue.SetQueueFamilyIndex(__graphicsQueue.GetQueueFamilyIndex());
+        __computeQueue.SetQueueIndex(__graphicsQueue.GetQueueIndex());
+    }
+    if (__graphicsQueue.GetQueueFamilyIndex() != __transferQueue.GetQueueFamilyIndex()) {
+        __queueCreateInfos[__transferQueue.GetQueueFamilyIndex()].queueCount--;
+        __transferQueue.SetQueueFamilyIndex(__graphicsQueue.GetQueueFamilyIndex());
+        __transferQueue.SetQueueIndex(__graphicsQueue.GetQueueIndex());
+    }
+    if (__graphicsQueue.GetQueueFamilyIndex() != __presentQueue.GetQueueFamilyIndex()) {
+        __queueCreateInfos[__presentQueue.GetQueueFamilyIndex()].queueCount--;
+        __presentQueue.SetQueueFamilyIndex(__graphicsQueue.GetQueueFamilyIndex());
+        __presentQueue.SetQueueIndex(__graphicsQueue.GetQueueIndex());
+    }
+    // Remove empty queue create infos
     std::erase_if(__queueCreateInfos, [](const VkDeviceQueueCreateInfo& createInfo) { return createInfo.queueCount == 0; });
     createInfo->pQueueCreateInfos = __queueCreateInfos.data();
     createInfo->queueCreateInfoCount = static_cast<uint32_t>(__queueCreateInfos.size());

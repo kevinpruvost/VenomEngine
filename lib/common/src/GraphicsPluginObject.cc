@@ -11,6 +11,8 @@
 
 #include <unordered_map>
 
+#include <venom/common/Resources.h>
+
 namespace venom
 {
 namespace common
@@ -28,12 +30,14 @@ static std::unordered_map<std::string, GraphicsPluginObject *> s_cache;
 
 GraphicsPluginObject* GraphicsPluginObject::GetCachedObject(const std::string& path)
 {
+    auto realPath = Resources::GetResourcePath(path);
     const auto it = s_cache.find(path);
     return it != s_cache.end() ? it->second : nullptr;
 }
 
 void GraphicsPluginObject::_SetInCache(const std::string& path, GraphicsPluginObject* object)
 {
+    auto realPath = Resources::GetResourcePath(path);
     venom_assert(s_cache.find(path) == s_cache.end(), "Object already in cache");
     s_cache[path] = object;
 }

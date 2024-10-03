@@ -12,6 +12,7 @@
 
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/QueueManager.h>
 
 namespace venom::vulkan
 {
@@ -177,12 +178,19 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
     createInfo.imageArrayLayers = 1; // Always 1 unless stereoscopic 3D
     createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-    if (queueFamilies->graphicsQueueFamilyIndices[0] != queueFamilies->presentQueueFamilyIndices[0]) {
-        createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-        createInfo.queueFamilyIndexCount = 2;
-        createInfo.pQueueFamilyIndices = queueFamilies->graphicsQueueFamilyIndices.data();
+    createInfo.imageSharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
+    std::vector<uint32_t> queueFamilyIndices;
+    if (createInfo.imageSharingMode == VK_SHARING_MODE_CONCURRENT) {
+        queueFamilyIndices.reserve(4);
+        std::set<uint32_t> queueFamilyIndicesSet;
+        queueFamilyIndicesSet.insert(QueueManager::GetGraphicsQueue().GetQueueFamilyIndex());
+        queueFamilyIndicesSet.insert(QueueManager::GetComputeQueue().GetQueueFamilyIndex());
+        queueFamilyIndicesSet.insert(QueueManager::GetTransferQueue().GetQueueFamilyIndex());
+        queueFamilyIndicesSet.insert(QueueManager::GetPresentQueue().GetQueueFamilyIndex());
+        createInfo.queueFamilyIndexCount = static_cast<uint32_t>(queueFamilyIndicesSet.size());
+        queueFamilyIndices.insert(queueFamilyIndices.end(), queueFamilyIndicesSet.begin(), queueFamilyIndicesSet.end());
+        createInfo.pQueueFamilyIndices = queueFamilyIndices.data();
     } else {
-        createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
         createInfo.queueFamilyIndexCount = 0;
         createInfo.pQueueFamilyIndices = nullptr;
     }
