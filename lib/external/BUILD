@@ -68,17 +68,26 @@ cc_library(
 objc_library(
     name = "glfw_platform_macos",
     srcs = [
+        "glfw/include/GLFW/glfw3.h",
+        "glfw/include/GLFW/glfw3native.h",
         "glfw/src/cocoa_init.m",
         "glfw/src/cocoa_joystick.h",
         "glfw/src/cocoa_joystick.m",
         "glfw/src/cocoa_monitor.m",
         "glfw/src/cocoa_platform.h",
+        "glfw/src/cocoa_time.h",
         "glfw/src/cocoa_window.m",
+        "glfw/src/internal.h",
         "glfw/src/nsgl_context.m",
+        "glfw/src/null_joystick.h",
+        "glfw/src/null_platform.h",
+        "glfw/src/platform.h",
+        "glfw/src/posix_thread.h",
     ],
     copts = [
         "-D_GLFW_COCOA",
         "-D_GLFW_BUILD_DLL",
+        "-fno-objc-arc",
     ],
     target_compatible_with = select({
         "@platforms//os:macos": ["@platforms//os:macos"],
@@ -86,6 +95,7 @@ objc_library(
     visibility = ["//visibility:public"],
     deps = [
     ],
+    alwayslink = 1,
 )
 
 cc_library(
@@ -179,10 +189,13 @@ cc_library(
         "@platforms//os:macos": ["@platforms//os:macos"],
     }),
     visibility = ["//visibility:public"],
-    deps = select({
-        "@platforms//os:macos": [":glfw_platform_macos"],
-        "//conditions:default": [],
-    }),
+    deps = [
+        ":glfw_platform_macos",
+    ],
+    #    deps = select({
+    #        "@platforms//os:macos": [":glfw_platform_macos"],
+    #        "//conditions:default": [],
+    #    }),
 )
 
 ##

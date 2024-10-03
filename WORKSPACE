@@ -62,6 +62,9 @@ git_repository(
 
 load("@rules_vulkan//vulkan:repositories.bzl", "vulkan_repositories")
 
+# Print environment variables for debugging
+# print("DEBUG: BAZEL_VERSION = " + PATH)
+
 vulkan_repositories()
 
 # Bazel Skylib
