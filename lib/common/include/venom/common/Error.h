@@ -9,11 +9,10 @@
 
 #include <venom/common/Export.h>
 #include <venom/common/Debug.h>
+#include <venom/common/String.h>
 
 #include <cstdint>
 #include <cstring>
-
-#include "String.h"
 
 namespace vc = venom::common;
 namespace venom

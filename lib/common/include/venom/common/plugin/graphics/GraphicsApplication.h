@@ -10,7 +10,6 @@
 #include <venom/common/Error.h>
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
-#include "tools/cpp/runfiles/runfiles.h"
 
 
 /// @brief Contains the entirety of the code of the VenomEngine project.

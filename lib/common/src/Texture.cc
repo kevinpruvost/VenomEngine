@@ -5,12 +5,12 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include <venom/common/plugin/graphics/Texture.h>
 #include <venom/common/Log.h>
 #include <venom/common/Resources.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 namespace venom
 {

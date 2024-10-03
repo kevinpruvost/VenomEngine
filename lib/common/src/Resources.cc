@@ -7,10 +7,12 @@
 ///
 #include <venom/common/Resources.h>
 
-#include "tools/cpp/runfiles/runfiles.h"
-
 namespace venom::common
 {
+// If using bazel
+#ifdef __BAZEL__
+#include "tools/cpp/runfiles/runfiles.h"
+
 typedef bazel::tools::cpp::runfiles::Runfiles Runfiles;
 
 static std::unique_ptr<Runfiles> s_runfiles;
@@ -30,6 +32,24 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
     return s_runfiles->Rlocation(path);
 }
 
+#else
+
+void Resources::InitializeFilesystem(char** argv)
+{
+    (void)argv;
+}
+
+void Resources::FreeFilesystem()
+{
+}
+
+std::string Resources::GetResourcePath(const std::string& resourcePath)
+{
+    return "resources/" + resourcePath;
+}
+
+#endif
+
 std::string Resources::GetTexturesResourcePath(const std::string& resourcePath)
 {
     return GetResourcePath("textures/" + resourcePath);
@@ -44,4 +64,5 @@ std::string Resources::GetModelsResourcePath(const std::string& resourcePath)
 {
     return GetResourcePath("models/" + resourcePath);
 }
+
 }

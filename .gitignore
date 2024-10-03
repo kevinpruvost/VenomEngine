@@ -2,7 +2,16 @@ bazel-*
 MODULE.bazel.lock
 logs
 
+# VS
+.vs
+
+# CMake
+out
+CMakeSettings.json
+
+# CLion
 .clwb
+.idea
 
 CMakeFiles
 

@@ -15,8 +15,6 @@
 
 #include <venom/common/math/Matrix.h>
 
-#include "tools/cpp/runfiles/runfiles.h"
-
 namespace venom
 {
 namespace vulkan

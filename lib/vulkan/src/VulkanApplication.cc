@@ -472,7 +472,7 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
     if (!requiredExtensions.empty()) {
         vc::Log::Error("Missing required extensions:");
         for (const auto& extension : requiredExtensions) {
-            vc::Log::Error("\t%s", extension);
+            vc::Log::Error("\t%s", extension.c_str());
         }
         return false;
     }

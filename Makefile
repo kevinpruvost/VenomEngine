@@ -36,17 +36,11 @@ docs:
 	cd $(DOC_FOLDER) && $(DOXYGEN) $(DOXYFILE)
 
 dxc:
-	$(MKDIR_CMD) cmake_build
+	-$(MKDIR_CMD) cmake_build/dxc
 	# You can ignore the generator flag if you want to use the default one
-	cd cmake_build && \
+	cd cmake_build/dxc && \
 	cmake ../$(DIRECTXSHADERCOMPILER) -C ../$(DIRECTXSHADERCOMPILER)/cmake/caches/PredefinedParams.cmake -DCMAKE_BUILD_TYPE=Release -DDXC_USE_LIT=On -DLLVM_ENABLE_ASSERTIONS=On -DLLVM_LIT_ARGS="-v" && \
 	cmake --build . --target dxc --config Release
-
-glfw:
-	$(MKDIR_CMD) cmake_build_glfw
-	cd cmake_build_glfw && \
-	cmake ../$(EXTERNAL_LIBS)/glfw -DCMAKE_BUILD_TYPE=Release -DGLFW_BUILD_DOCS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON && \
-	cmake --build . --config Release
 
 check_ruby:
 	@echo "Checking Ruby..."
