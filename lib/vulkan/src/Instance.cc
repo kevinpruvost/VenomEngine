@@ -39,6 +39,8 @@ void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfo
 #ifdef __APPLE__
     // Might have a bug with MoltenVK
     __instanceExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+    __instanceExtensions.emplace_back(VK_MVK_MACOS_SURFACE_EXTENSION_NAME);
+    __instanceExtensions.emplace_back(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
     createInfos->flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 #endif
 

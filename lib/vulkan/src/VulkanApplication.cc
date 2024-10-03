@@ -21,7 +21,10 @@ namespace venom::vulkan
 {
 /// @brief Device extensions to use
 static constexpr std::array s_deviceExtensions = {
-    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+#ifdef __APPLE__ // Maybe Linux ?
+    "VK_KHR_portability_subset",
+#endif
 };
 
 VulkanApplication::VulkanApplication()
@@ -261,9 +264,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
             DEBUG_LOG("\tHeap %d: %luMB", j, physicalDevices[i].GetMemoryProperties().memoryHeaps[j].size / (1024 * 1024));
         }
         // Select GPU
-        if (physicalDevices[i].GetProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
-         && physicalDevices[i].GetFeatures().geometryShader
-         && physicalDevices[i].GetFeatures().tessellationShader) {
+        if (physicalDevices[i].GetFeatures().tessellationShader) {
+         //   int vram1 = physicalDevices[i].GetDeviceLocalVRAMAmount();
+       //     int vram2 = PhysicalDevice::GetUsedPhysicalDevice().GetDeviceLocalVRAMAmount();
             if (__physicalDevice.GetVkPhysicalDevice() == VK_NULL_HANDLE || __physicalDevice.GetDeviceLocalVRAMAmount() < physicalDevices[i].GetDeviceLocalVRAMAmount()) {
                 __physicalDevice = physicalDevices[i];
             }
@@ -467,6 +470,9 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
 
     std::set<std::string> requiredExtensions(createInfo->ppEnabledExtensionNames, createInfo->ppEnabledExtensionNames + createInfo->enabledExtensionCount);
     for (const auto& extension : availableExtensions) {
+#ifdef VENOM_DEBUG
+        vc::Log::LogToFile("Available extension: %s", extension.extensionName);
+#endif
         requiredExtensions.erase(extension.extensionName);
     }
     if (!requiredExtensions.empty()) {

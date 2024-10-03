@@ -34,9 +34,9 @@ DLL::~DLL()
 #ifdef _WIN32
         FreeLibrary((HMODULE)__handle);
 #elif __APPLE__
-        dlclose(m_handle);
+        dlclose(__handle);
 #else // Linux
-        dlclose(m_handle);
+        dlclose(__handle);
 #endif
     }
 }
@@ -47,9 +47,9 @@ void * DLL::GetFunction(const char * name)
 #ifdef _WIN32
     return (void*)GetProcAddress((HMODULE)__handle, (LPCSTR)name);
 #elif __APPLE__
-    return dlsym(m_handle, name);
+    return dlsym(__handle, name);
 #else // Linux
-    return dlsym(m_handle, name);
+    return dlsym(__handle, name);
 #endif
 }
 
@@ -69,10 +69,10 @@ Error DLL::LoadDLL(const char* path)
     __handle = LoadLibrary(realPath);
 #elif __APPLE__
     ".dylib");
-    m_handle = dlopen(realPath, RTLD_LAZY);
+    __handle = dlopen(realPath, RTLD_LAZY);
 #else // Linux
     ".so");
-    m_handle = dlopen(realPath, RTLD_LAZY);
+    __handle = dlopen(realPath, RTLD_LAZY);
 #endif
     if (!__handle) {
         Log::Error("Failed to load DLL: %s\n", realPath);

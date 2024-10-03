@@ -6,6 +6,8 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Surface.h>
+
+#include <venom/vulkan/Instance.h>
 #include <venom/vulkan/Allocator.h>
 
 namespace venom::vulkan
@@ -48,11 +50,8 @@ vc::Error Surface::CreateSurface(vc::Context* context)
         return vc::Error::InitializationFailed;
     }
 #elif defined(__APPLE__)
-    VkMacOSSurfaceCreateInfoMVK createInfo{};
-    createInfo.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK;
-    createInfo.pView = glfwGetCocoaWindow(context->GetWindow());
-    if (auto res = vkCreateMacOSSurfaceMVK(VulkanInstance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &surface); res != VK_SUCCESS) {
-        vc::Log::Error("Failed to create MacOS surface: %d", res);
+    if (auto res = glfwCreateWindowSurface(Instance::GetVkInstance(), context->GetWindow(), Allocator::GetVKAllocationCallbacks(), &__surface); res != VK_SUCCESS) {
+        vc::Log::Error("Failed to create MacOS surface: %x", res);
         return vc::Error::InitializationFailed;
     }
 #elif defined(__linux__)
@@ -61,7 +60,7 @@ vc::Error Surface::CreateSurface(vc::Context* context)
     createInfo.sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR;
     createInfo.dpy = glfwGetX11Display();
     createInfo.window = glfwGetX11Window(context->GetWindow());
-    if (auto res = vkCreateXlibSurfaceKHR(VulkanInstance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &surface); res != VK_SUCCESS) {
+    if (auto res = vkCreateXlibSurfaceKHR(Instance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &__surface); res != VK_SUCCESS) {
         vc::Log::Error("Failed to create Xlib surface: %d", res);
         return vc::Error::InitializationFailed;
     }
@@ -70,7 +69,7 @@ vc::Error Surface::CreateSurface(vc::Context* context)
     createInfo.sType = VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR;
     createInfo.display = glfwGetWaylandDisplay();
     createInfo.surface = glfwGetWaylandWindow(context->GetWindow());
-    if (auto res = vkCreateWaylandSurfaceKHR(VulkanInstance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &surface); res != VK_SUCCESS) {
+    if (auto res = vkCreateWaylandSurfaceKHR(Instance::GetVkInstance(), &createInfo, Allocator::GetVKAllocationCallbacks(), &__surface); res != VK_SUCCESS) {
         vc::Log::Error("Failed to create Wayland surface: %d", res);
         return vc::Error::InitializationFailed;
     }

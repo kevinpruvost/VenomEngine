@@ -26,9 +26,10 @@ file(GLOB_RECURSE venom_vulkan_hdrs include/venom/vulkan/**/**/**/*.h)
 
 # Create the static library target
 add_library(${PROJECT_NAME} SHARED ${venom_vulkan_srcs} ${venom_vulkan_hdrs})
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 # Find Vulkan
-find_package(Vulkan REQUIRED FATAL_ERROR) # error
+find_package(Vulkan REQUIRED) # error
 
 # Link dependencies to the static library
 target_link_libraries(${PROJECT_NAME}

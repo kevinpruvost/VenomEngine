@@ -1,6 +1,7 @@
 bazel-*
 MODULE.bazel.lock
 logs
+cmake-build-*
 
 # VS
 .vs

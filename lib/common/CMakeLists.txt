@@ -11,6 +11,7 @@ file(GLOB_RECURSE venom_common_hdrs
 )
 
 add_library(${PROJECT_NAME} SHARED ${venom_common_srcs} ${venom_common_hdrs})
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 target_link_libraries(${PROJECT_NAME}
     assimp

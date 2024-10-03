@@ -24,7 +24,7 @@
 #elif defined(__AVX__)
 #define GLM_FORCE_AVX
 #elif defined(__ARM_NEON)  // Check if NEON is supported on ARM
-#define GLM_FORCE_NEON
+//#define GLM_FORCE_NEON
 #endif
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE

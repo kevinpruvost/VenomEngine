@@ -66,6 +66,7 @@ QueueManager::~QueueManager()
 
 vc::Error QueueManager::Init()
 {
+    // TODO: Rewrite Queues assignement because MacBook M3 Pro has max 1 queue per family
     __graphicsQueue.InitVkQueue();
     __computeQueue.InitVkQueue();
     __transferQueue.InitVkQueue();

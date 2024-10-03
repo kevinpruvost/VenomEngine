@@ -49,8 +49,8 @@ public:
 }
 
 #ifdef VENOM_DEBUG
-#define DEBUG_PRINT(str, ...) vc::Log::Print(str, __VA_ARGS__)
-#define DEBUG_LOG(str, ...) vc::Log::LogToFile(str, __VA_ARGS__)
+#define DEBUG_PRINT(...) vc::Log::Print(__VA_ARGS__)
+#define DEBUG_LOG(...) vc::Log::LogToFile(__VA_ARGS__)
 
 #define venom_assert(condition, ...) \
 if (!(condition)) \

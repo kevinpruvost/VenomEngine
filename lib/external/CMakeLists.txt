@@ -8,6 +8,9 @@ target_compile_options(assimp PRIVATE
     -Wno-error=unreachable-code-break
     -Wno-error=shorten-64-to-32
 )
+set_target_properties(assimp PROPERTIES
+    FOLDER "ExternalLibraries"
+)
 
 # DirectXShadercompiler
 # Set options by default
@@ -22,15 +25,29 @@ add_subdirectory("glaze")
 
 # glfw
 add_subdirectory("glfw")
+set_target_properties(glfw PROPERTIES
+    FOLDER "ExternalLibraries"
+)
 
 # glm
 add_subdirectory("glm")
+set_target_properties(glm PROPERTIES
+    FOLDER "ExternalLibraries"
+)
 
 # SPIRV-Cross
 add_subdirectory("SPIRV-Cross")
+set_target_properties(spirv-cross spirv-cross-c spirv-cross-core spirv-cross-glsl spirv-cross-hlsl spirv-cross-msl spirv-cross-reflect spirv-cross-util
+    PROPERTIES
+    FOLDER "ExternalLibraries"
+)
 
 # SPIRV-Reflect
-add_subdirectory("SPIRV-Reflect")
+#add_subdirectory("SPIRV-Reflect")
+#set_target_properties(spirv-reflect spirv-reflect-pp
+#    PROPERTIES
+#    FOLDER "ExternalLibraries"
+#)
 
 # stb_image
     file(GLOB_RECURSE stb_image_hdrs stb_image/*.h)
@@ -41,5 +58,12 @@ add_subdirectory("SPIRV-Reflect")
 
     target_include_directories(stb_image PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/stb_image)
 
+    set_target_properties(stb_image PROPERTIES
+        FOLDER "ExternalLibraries"
+    )
+
 # VulkanMemoryAllocator
 add_subdirectory("VulkanMemoryAllocator")
+set_target_properties(VulkanMemoryAllocator PROPERTIES
+    FOLDER "ExternalLibraries"
+)

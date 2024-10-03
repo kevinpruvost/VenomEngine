@@ -18,6 +18,9 @@ set(GRAPHICS_DLL_PROPS_PATH ${CMAKE_SOURCE_DIR}/GraphicsDLLProps.cmake)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -29,12 +32,30 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE} "/O3")
 
+# Only apply this for macOS and Linux platforms
+if(APPLE OR UNIX)
+    set(CMAKE_SHARED_LIBRARY_PREFIX "")
+    set(CMAKE_STATIC_LIBRARY_PREFIX "")
+endif()
+
 # Libraries
 add_subdirectory(${LIBS_PATH})
 
 # Resources
 set(SOURCE_RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
-set(DEST_RESOURCES_DIR "${CMAKE_BINARY_DIR}/resources")
+# Depends on current config
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(DEST_RESOURCES_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG}/resources")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(DEST_RESOURCES_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE}/resources")
+elseif (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(DEST_RESOURCES_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO}/resources")
+elseif (CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+    set(DEST_RESOURCES_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL}/resources")
+else()
+    set(DEST_RESOURCES_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/resources")
+endif()
+message(STATUS "Resources directory: ${DEST_RESOURCES_DIR}")
 
 # Though we need admin privilege on windows to make that work, so fallback on copying resources
 if(WIN32)
