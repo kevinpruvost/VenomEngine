@@ -30,8 +30,6 @@ endif()
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE} "/O3")
-
 # Only apply this for macOS and Linux platforms
 if(APPLE OR UNIX)
     set(CMAKE_SHARED_LIBRARY_PREFIX "")
