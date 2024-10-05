@@ -3,6 +3,11 @@ MODULE.bazel.lock
 logs
 cmake-build-*
 
+# MacOS
+**/.DS_Store
+**/.AppleDouble
+
+
 # VS
 .vs
 

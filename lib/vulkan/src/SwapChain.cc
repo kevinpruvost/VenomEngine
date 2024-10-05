@@ -113,7 +113,7 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
     }
 
     // Default active settings
-    // SRGB format because it's the most discernable to the human eye
+    // SRGB format because it's the most discernible to the human eye
     for (const auto& format : surfaceFormats) {
         if (format.format == VK_FORMAT_B8G8R8A8_SRGB && format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
             activeSurfaceFormat = format;
@@ -124,7 +124,7 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
     for (const auto& presentMode : presentModes) {
         if (presentMode == VK_PRESENT_MODE_FIFO_KHR)
             activePresentMode = presentMode;
-        else if (presentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
+        if (presentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
             activePresentMode = presentMode;
             break;
         }

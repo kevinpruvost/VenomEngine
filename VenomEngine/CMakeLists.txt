@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(VenomEngine)
+# Do not name same name as folder, it can generate problems with linking (e.g. VenomEngine/ folder in build/
+# but VenomEngine target is also named VenomEngine)
+project(VenomEngineExe)
 
 # Source files
 set(VenomEngine_Srcs
