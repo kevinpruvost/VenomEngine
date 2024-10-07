@@ -100,7 +100,7 @@ vc::Error VulkanApplication::__Loop()
     fps.RegisterFrame();
     auto duration = timer.GetMilliSeconds();
     if (duration >= 1000) {
-        vc::Log::Print("FPS: %d", fps.GetFps());
+        vc::Log::Print("FPS: %u", fps.GetFps());
         timer.Reset();
     }
     __shouldClose = __context.ShouldClose();

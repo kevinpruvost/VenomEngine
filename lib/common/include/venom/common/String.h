@@ -19,7 +19,7 @@ String format(const char* fmt, Args&&... args)
 {
     const int length = snprintf(nullptr, 0, fmt, args...);
     String message(length, 0);
-    snprintf(const_cast<char *>(message.c_str()), length, fmt, args...);
+    snprintf(const_cast<char *>(message.c_str()), length+1, fmt, args...);
     return message;
 }
 }

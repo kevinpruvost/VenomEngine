@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/FpsCounter.h>
+#include <venom/common/Log.h>
 
 namespace venom
 {
