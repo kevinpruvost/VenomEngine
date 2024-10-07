@@ -72,8 +72,7 @@ vc::Error VulkanApplication::Init()
         return vc::Error::InitializationFailed;
     }
 
-    vc::Texture * texture = vc::Texture::Create();
-    texture->LoadImageFromFile("hank_happy.png");
+    vc::Texture * texture = vc::Texture::Create("hank_happy.png");
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
         __descriptorSets[i].UpdateSampler(__sampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);

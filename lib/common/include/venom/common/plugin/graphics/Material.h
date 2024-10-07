@@ -7,7 +7,8 @@
 ///
 #pragma once
 
-#include <venom/common/plugin/graphics/GraphicsPlugin.h>
+#include <venom/common/plugin/graphics/GraphicsPluginObject.h>
+#include <venom/common/plugin/graphics/MaterialComponent.h>
 
 #include <venom/common/math/Matrix.h>
 
@@ -25,16 +26,17 @@ public:
     ~Material();
 
     static Material * Create();
-
 public:
-    // Material properties
-    vcm::Vec3 ambientColor;   // Ka
-    vcm::Vec3 diffuseColor;   // Kd
-    vcm::Vec3 specularColor;  // Ks
-    vcm::Vec3 emissiveColor;  // Ke
-    float shininess;          // Ns (Specular exponent)
-    float opacity;            // d (Alpha value)
-    float refractionIndex;    // Ni
+    void SetComponent(const MaterialComponentType type, const vcm::Vec3& value);
+    void SetComponent(const MaterialComponentType type, const vcm::Vec4& value);
+    void SetComponent(const MaterialComponentType type, const float value);
+    void SetComponent(const MaterialComponentType type, const Texture* texture);
+    const MaterialComponent & GetComponent(const MaterialComponentType type) const;
+    const std::string & GetName() const;
+    void SetName(const std::string & name);
+private:
+    MaterialComponent __components[MaterialComponentType::MAX_COMPONENT];
+    std::string __name;
 };
 
 }

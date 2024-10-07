@@ -4,13 +4,15 @@ cmake_minimum_required(VERSION 3.25)
 project(VenomCommon VERSION 1.0)
 
 # Define the static library target
-file(GLOB_RECURSE venom_common_srcs src/*.cc)
+file(GLOB_RECURSE venom_common_srcs
+    "src/*.cc")
 file(GLOB_RECURSE venom_common_hdrs 
     "include/venom/common/*.h"
     "include/venom/common/**/*.h"
 )
 
-add_library(${PROJECT_NAME} SHARED ${venom_common_srcs} ${venom_common_hdrs})
+add_library(${PROJECT_NAME} SHARED ${venom_common_srcs} ${venom_common_hdrs}
+        include/venom/common/plugin/graphics/MaterialComponent.h)
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 target_link_libraries(${PROJECT_NAME}

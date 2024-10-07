@@ -16,6 +16,10 @@
 #include <assimp/postprocess.h>
 #include <assimp/cimport.h>
 
+#include <iostream>
+#include <assimp/DefaultLogger.hpp>
+#include <filesystem>
+
 namespace venom
 {
 namespace common
@@ -28,9 +32,16 @@ Model::Model()
 
 Model* Model::Create(const std::string & path)
 {
-    Model * model = dynamic_cast<Model *>(GetCachedObject(path));
-    model = GraphicsPlugin::Get()->CreateModel();
-    model->ImportModel(path);
+    auto realPath = Resources::GetModelsResourcePath(path);
+    Model * model = dynamic_cast<Model *>(GetCachedObject(realPath));
+    if (!model) {
+        model = GraphicsPlugin::Get()->CreateModel();
+        if (Error err = model->ImportModel(realPath); err != Error::Success) {
+            model->Destroy();
+            return nullptr;
+        }
+        _SetInCache(realPath, model);
+    }
     return model;
 }
 
@@ -38,12 +49,72 @@ Model::~Model()
 {
 }
 
+static MaterialComponentType GetMaterialComponentTypeFromAiTextureType(const aiTextureType type)
+{
+    switch (type)
+    {
+        case aiTextureType_DIFFUSE: return MaterialComponentType::DIFFUSE;
+        case aiTextureType_SPECULAR: return MaterialComponentType::SPECULAR;
+        case aiTextureType_AMBIENT: return MaterialComponentType::AMBIENT;
+        case aiTextureType_EMISSIVE: return MaterialComponentType::EMISSIVE;
+        case aiTextureType_HEIGHT: return MaterialComponentType::HEIGHT;
+        case aiTextureType_NORMALS: return MaterialComponentType::NORMAL;
+        case aiTextureType_SHININESS: return MaterialComponentType::SHININESS;
+        case aiTextureType_OPACITY: return MaterialComponentType::OPACITY;
+        case aiTextureType_REFLECTION: return MaterialComponentType::REFLECTION;
+        case aiTextureType_BASE_COLOR: return MaterialComponentType::BASE_COLOR;
+        case aiTextureType_METALNESS: return MaterialComponentType::METALLIC;
+        case aiTextureType_DIFFUSE_ROUGHNESS: return MaterialComponentType::ROUGHNESS;
+        case aiTextureType_AMBIENT_OCCLUSION: return MaterialComponentType::AMBIENT_OCCLUSION;
+        case aiTextureType_EMISSION_COLOR: return MaterialComponentType::EMISSION_COLOR;
+        case aiTextureType_TRANSMISSION: return MaterialComponentType::TRANSMISSION;
+        case aiTextureType_SHEEN: return MaterialComponentType::SHEEN;
+        case aiTextureType_CLEARCOAT: return MaterialComponentType::CLEARCOAT;
+        default: return MaterialComponentType::MAX_COMPONENT;
+    }
+}
+
+static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::string & name, const int semantic, const int index, const int dataLength, MaterialComponentValueType & type)
+{
+    // If name starts with "$mat." it's a value, "$clr." is a color, "$tex.file" is a texture
+    if (strncmp(name.c_str(), "$mat.", 4) == 0) {
+        type = MaterialComponentValueType::VALUE;
+    } else if (strncmp(name.c_str(), "$clr.", 4) == 0) {
+        type = MaterialComponentValueType::COLOR3D;
+        if (dataLength == sizeof(float) * 4) type = MaterialComponentValueType::COLOR4D;
+    } else if (strncmp(name.c_str(), "$tex.file", 9) == 0) {
+        type = MaterialComponentValueType::TEXTURE;
+        return GetMaterialComponentTypeFromAiTextureType(static_cast<aiTextureType>(semantic));
+    } else {
+        type = MaterialComponentValueType::NONE;
+    }
+
+    if (name == "$clr.diffuse") return MaterialComponentType::DIFFUSE;
+    if (name == "$clr.ambient") return MaterialComponentType::AMBIENT;
+    if (name == "$clr.specular") return MaterialComponentType::SPECULAR;
+    if (name == "$clr.emissive") return MaterialComponentType::EMISSIVE;
+    if (name == "$mat.shininess") return MaterialComponentType::SHININESS;
+    if (name == "$mat.opacity") return MaterialComponentType::OPACITY;
+    if (name == "$mat.anisotropyFactor") return MaterialComponentType::ANISOTROPY;
+    if (name == "$clr.transparent") return MaterialComponentType::TRANSPARENT;
+    if (name == "$clr.reflective") return MaterialComponentType::REFLECTION;
+    if (name == "$mat.refracti") return MaterialComponentType::REFRACTION;
+    if (name == "$mat.reflectivity") return MaterialComponentType::REFLECTIVITY;
+
+
+    return MaterialComponentType::MAX_COMPONENT;
+}
+
 vc::Error Model::ImportModel(const std::string & path)
 {
-    auto resPath = vc::Resources::GetModelsResourcePath(path);
+    // Get Parent folder for relative paths when we will load textures
+    auto parentFolder = std::filesystem::path(path).parent_path();
 
+    // Create Logger
+    if (Assimp::DefaultLogger::isNullLogger())
+        Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(resPath.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
+    const aiScene* scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
     if (!scene) {
         vc::Log::Error("Failed to load model: %s", path.c_str());
         return vc::Error::Failure;
@@ -57,10 +128,106 @@ vc::Error Model::ImportModel(const std::string & path)
 
             const aiMaterial* aimaterial = scene->mMaterials[i];
 
-            // Check all properties
-            for (int p = 0; p < aimaterial->mNumProperties; ++p) {
-                aiMaterialProperty *prop = aimaterial->mProperties[p];
-                auto name = std::string(prop->mKey.C_Str());
+            // Iterate over all properties of the material
+            for (unsigned int p = 0; p < aimaterial->mNumProperties; ++p) {
+                aiMaterialProperty* property = aimaterial->mProperties[p];
+
+                // Property Key (name) and Type
+                auto propName = property->mKey.C_Str();
+                auto propType = property->mType;
+                auto propIndex = property->mIndex;
+                auto propSemantic = property->mSemantic;
+
+                // If propName is "?mat.name", it's the material name
+                if (strncmp(propName, "?mat.name", 9) == 0) {
+                    aiString value;
+                    memcpy(&value, property->mData, property->mDataLength);
+                    material->SetName(value.C_Str());
+                    continue;
+                }
+
+                MaterialComponentValueType valueType;
+                MaterialComponentType matCompType = GetMaterialComponentTypeFromProperty(property->mKey.C_Str(), property->mSemantic, property->mIndex, property->mDataLength, valueType);
+
+                if (matCompType == MaterialComponentType::MAX_COMPONENT) {
+                    vc::Log::Error("Unknown material component type: %s", property->mKey.C_Str());
+                    continue;
+                }
+
+                switch (valueType) {
+                    case MaterialComponentValueType::VALUE: {
+                        float value;
+                        memcpy(&value, property->mData, sizeof(float));
+                        material->SetComponent(matCompType, value);
+                        break;
+                    }
+                    case MaterialComponentValueType::COLOR3D: {
+                        aiColor3D value;
+                        memcpy(&value, property->mData, sizeof(aiColor3D));
+                        material->SetComponent(matCompType, vcm::Vec3(value.r, value.g, value.b));
+                        break;
+                    }
+                    case MaterialComponentValueType::COLOR4D: {
+                        aiColor4D value;
+                        memcpy(&value, property->mData, sizeof(aiColor4D));
+                        material->SetComponent(matCompType, vcm::Vec4(value.r, value.g, value.b, value.a));
+                        break;
+                    }
+                    case MaterialComponentValueType::TEXTURE: {
+                        aiString value;
+                        memcpy(&value, property->mData, property->mDataLength);
+                        // Tries to load from cache or path
+                        std::string texturePath = parentFolder / value.C_Str();
+                        Texture * texture = Texture::Create(texturePath.c_str());
+                        material->SetComponent(matCompType, texture);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
+#ifdef VENOM_DEBUG
+                Log::LogToFile("Property Name: %s", property->mKey.C_Str());
+                Log::LogToFile("Property Semantic: %d", property->mSemantic);
+                Log::LogToFile("Property Index: %d", property->mIndex);
+                Log::LogToFile("Property Data Length: %d", property->mDataLength);
+                Log::LogToFile("Property Type: %d", property->mType);
+
+                // Check property type
+                switch (property->mType) {
+                case aiPTI_Float:
+                        Log::LogToFile("Float\n");
+                        break;
+                case aiPTI_Integer:
+                        Log::LogToFile("Integer\n");
+                        break;
+                case aiPTI_String:
+                        Log::LogToFile("String\n");
+                        break;
+                case aiPTI_Buffer:
+                        Log::LogToFile("Buffer\n");
+                        break;
+                default:
+                        Log::LogToFile("Unknown\n");
+                }
+
+                // Handle different property types
+                if (property->mType == aiPTI_Float && property->mDataLength == sizeof(float)) {
+                    float value;
+                    memcpy(&value, property->mData, sizeof(float));
+                    Log::LogToFile("Float Value: %f\n", value);
+                } else if (property->mType == aiPTI_Integer && property->mDataLength == sizeof(int)) {
+                    int value;
+                    memcpy(&value, property->mData, sizeof(int));
+                    Log::LogToFile("Integer Value: %d\n", value);
+                } else if (property->mType == aiPTI_String) {
+                    aiString value;
+                    memcpy(&value, property->mData, property->mDataLength);
+                    Log::LogToFile("String Value: %s\n", value.C_Str());
+                }
+
+                Log::LogToFile("--------------------------------------------\n");
+#endif
             }
         }
     }
@@ -71,6 +238,9 @@ vc::Error Model::ImportModel(const std::string & path)
         __meshes.push_back(mesh);
 
         const aiMesh* aimesh = scene->mMeshes[i];
+
+        // Assign material
+        mesh->SetMaterial(__materials[aimesh->mMaterialIndex]);
 
         // Vertices & normals
         mesh->__positions.reserve(aimesh->mNumVertices);
@@ -125,11 +295,7 @@ vc::Error Model::ImportModel(const std::string & path)
             vc::Log::Error("Failed to load mesh from current data");
             return err;
         }
-
     }
-
-    // Cache the model
-    _SetInCache(path, this);
     return vc::Error::Success;
 }
 

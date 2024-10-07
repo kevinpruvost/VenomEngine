@@ -238,7 +238,7 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
     if (__depthTexture) {
         __depthTexture->Destroy();
     }
-    __depthTexture = reinterpret_cast<VulkanTexture*>(vc::Texture::Create());
+    __depthTexture = reinterpret_cast<VulkanTexture*>(vc::Texture::CreateRawTexture());
     __depthTexture->InitDepthBuffer(extent.width, extent.height);
 
     __swapChainFramebuffers.resize(__swapChainImageViews.size());

@@ -21,7 +21,8 @@ protected:
 public:
     ~Texture();
 
-    static Texture * Create();
+    static Texture * CreateRawTexture();
+    static Texture * Create(const std::string & path);
 
     vc::Error LoadImageFromFile(const char * path);
     vc::Error InitDepthBuffer(int width, int height);

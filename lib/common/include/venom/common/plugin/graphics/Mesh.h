@@ -31,6 +31,12 @@ public:
 
     virtual void Draw() = 0;
 
+    /**
+     * @brief Assigns Material to mesh
+     * @param material
+     */
+    void SetMaterial(Material * material);
+
 private:
     /**
      * @brief Loads Mesh into the Graphics API from the current data

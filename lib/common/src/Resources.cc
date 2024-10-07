@@ -58,6 +58,23 @@ void Resources::FreeFilesystem()
 {
 }
 
+static bool validPath(const std::string& path, std::string & res)
+{
+    std::error_code ec;
+    auto realPath = std::filesystem::canonical(path, ec);
+    if (realPath.empty() || ec) {
+        Log::LogToFile("Failed to find canonical path when looking cache for: %s", path.c_str());
+        return false;
+    }
+    realPath = std::filesystem::relative(realPath, ec);
+    if (realPath.empty() || ec) {
+        Log::LogToFile("Failed to find relative path when looking cache for: %s", path.c_str());
+        return false;
+    }
+    res = realPath;
+    return true;
+}
+
 std::string Resources::GetResourcePath(const std::string& resourcePath)
 {
     return s_basePath + resourcePath;
@@ -67,17 +84,25 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
 
 std::string Resources::GetTexturesResourcePath(const std::string& resourcePath)
 {
-    return GetResourcePath("textures/" + resourcePath);
+    // If resource path already points to a valid pathm then returns it
+    return __GetResourcePath(resourcePath, GetResourcePath("textures/"));
 }
 
 std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
 {
-    return GetResourcePath("shaders/" + resourcePath);
+    return __GetResourcePath(resourcePath, GetResourcePath("shaders/"));
 }
 
 std::string Resources::GetModelsResourcePath(const std::string& resourcePath)
 {
-    return GetResourcePath("models/" + resourcePath);
+    return __GetResourcePath(resourcePath, GetResourcePath("models/"));
 }
 
+std::string Resources::__GetResourcePath(const std::string& resourcePath, const std::string& folder)
+{
+    std::string res;
+    if (!validPath(resourcePath, res) && !validPath(folder + resourcePath, res))
+        return "";
+    return res;
+}
 }

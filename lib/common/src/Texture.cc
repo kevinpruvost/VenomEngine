@@ -25,17 +25,30 @@ Texture::~Texture()
 {
 }
 
-Texture* Texture::Create()
+Texture* Texture::CreateRawTexture()
 {
     return GraphicsPlugin::Get()->CreateTexture();
 }
 
+Texture* Texture::Create(const std::string & path)
+{
+    auto realPath = Resources::GetTexturesResourcePath(path);
+    Texture * texture = dynamic_cast<Texture *>(GetCachedObject(realPath));
+    if (!texture) {
+        texture = GraphicsPlugin::Get()->CreateTexture();
+        if (Error err = texture->LoadImageFromFile(realPath.c_str()); err != Error::Success) {
+            texture->Destroy();
+            return nullptr;
+        }
+        _SetInCache(realPath, texture);
+    }
+    return texture;
+}
+
 vc::Error Texture::LoadImageFromFile(const char* path)
 {
-    auto resPath = vc::Resources::GetTexturesResourcePath(path);
-
     int width, height, channels;
-    unsigned char * pixels = stbi_load(resPath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+    unsigned char * pixels = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);
     if (!pixels) {
         vc::Log::Error("Failed to load image from file: %s", path);
         return vc::Error::Failure;

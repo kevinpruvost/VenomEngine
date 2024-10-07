@@ -21,6 +21,7 @@ public:
     GraphicsPluginObject();
     ~GraphicsPluginObject() override;
 
+    virtual void Destroy() override;
 
     /**
      * @brief Gets a cached object from the graphics cache

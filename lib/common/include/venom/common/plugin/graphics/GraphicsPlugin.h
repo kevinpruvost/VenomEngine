@@ -9,8 +9,6 @@
 #include <venom/common/plugin/Plugin.h>
 #include <venom/common/plugin/graphics/GraphicsPluginObject.h>
 
-#include "Material.h"
-
 namespace venom
 {
 namespace common

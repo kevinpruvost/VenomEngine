@@ -25,5 +25,10 @@ Mesh* Mesh::Create()
 Mesh::~Mesh()
 {
 }
+
+void Mesh::SetMaterial(Material* material)
+{
+    __material = material;
+}
 }
 }

@@ -21,7 +21,7 @@ public:
     PluginObject(const PluginType type);
     virtual ~PluginObject();
     /// @brief /!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE `delete`
-    void Destroy();
+    virtual void Destroy();
 
     template<class T> T * As() { return dynamic_cast<T *>(this); }
     template<class T> const T * As() const { return dynamic_cast<const T *>(this); }
