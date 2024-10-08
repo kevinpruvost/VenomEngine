@@ -11,25 +11,16 @@ else
     MKDIR_CMD = mkdir -p
 endif
 
-all: fast_run
+# all: something
 
-debug:
-	bazel build //:$(TARGET) --compilation_mode=dbg
-
-release:
-	bazel build //:$(TARGET) --compilation_mode=opt
-
-debug_run: debug
-	bazel run //:$(TARGET) --compilation_mode=dbg
-
-release_run: release
-	bazel run //:$(TARGET) --compilation_mode=opt
-
-fast:
-	bazel build //:$(TARGET) --compilation_mode=fastbuild
-
-fast_run: fast
-	bazel run //:$(TARGET) --compilation_mode=fastbuild
+package:
+	# if on macOS, cmake build
+	if [ "$(shell uname)" = "Darwin" ]; then \
+		mkdir -p build_release;\
+		cd build_release && cmake .. -DCMAKE_BUILD_TYPE=Release;\
+		cmake --build . --config Release -j 8;\
+		cpack -G DragNDrop -C Release --config ./CPackConfig.cmake;\
+	fi
 
 # Generates and open doc for visualization
 docs:
@@ -85,8 +76,7 @@ clean_shaders:
 	@ruby ./resources/compile_shaders.rb clean
 
 clean:
-	@echo "Cleaning bazel solution..."
-	bazel clean
+	@echo "Cleaning solution..."
 	make clean_shaders
 
-.PHONY: debug release debug_run release_run fast fast_run clean docs
+.PHONY: clean docs

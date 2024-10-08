@@ -69,13 +69,13 @@ Error DLL::LoadDLL(const char* path)
     __handle = LoadLibrary(realPath);
 #elif __APPLE__
     ".dylib");
-    __handle = dlopen(realPath, RTLD_LAZY);
+    __handle = dlopen(realPath, RTLD_FIRST);
 #else // Linux
     ".so");
-    __handle = dlopen(realPath, RTLD_LAZY);
+    __handle = dlopen(realPath, RTLD_FIRST);
 #endif
     if (!__handle) {
-        Log::Error("Failed to load DLL: %s\n", realPath);
+        Log::Error("Failed to load DLL[%s]: %s\n", path, dlerror());
         return Error::Failure;
     }
     __path = path;

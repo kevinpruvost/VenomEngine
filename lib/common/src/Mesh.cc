@@ -30,5 +30,10 @@ void Mesh::SetMaterial(Material* material)
 {
     __material = material;
 }
+
+const Material* Mesh::GetMaterial() const
+{
+    return __material;
+}
 }
 }

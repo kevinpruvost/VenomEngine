@@ -40,5 +40,10 @@ void MaterialComponent::SetValue(const Texture* texture)
     __valueType = MaterialComponentValueType::TEXTURE;
     __texture = texture;
 }
+
+const Texture* MaterialComponent::GetTexture() const
+{
+    return __texture;
+}
 }
 }

@@ -5,7 +5,6 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-
 #include <memory>
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Config.h>
@@ -13,6 +12,8 @@
 #include <venom/common/MemoryPool.h>
 #include <venom/common/Resources.h>
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
+
+#include <filesystem>
 
 namespace venom
 {
@@ -25,6 +26,7 @@ VenomEngine::VenomEngine()
     venom_assert(__dllCache, "VenomEngine::VenomEngine() : __dllCache is nullptr");
     DLL_Cache::SetCache(__dllCache.get());
     Error err;
+    vc::Log::Print("Current working directory: %s", std::filesystem::current_path().string().c_str());
     if (err = pluginManager->LoadAllPlugins(); err != Error::Success) {
         Log::Error("VenomEngine::VenomEngine() : Failed to load all plugins");
         abort();

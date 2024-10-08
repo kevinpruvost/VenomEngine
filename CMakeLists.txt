@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.25)
 
-project("VenomEngine")
+project("VenomEngineWorkspace")
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -21,6 +21,35 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# Only with .hlsl, .glsl, .spv, .icns, .png, .jpg, .jpeg, .fbx, .obj, .mtl, .tiff
+file(GLOB_RECURSE RESOURCE_FILES
+    "${CMAKE_SOURCE_DIR}/resources/**/*.hlsl"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.glsl"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.spv"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.png"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.png"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.jpg"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.jpeg"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.fbx"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.obj"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.mtl"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.tiff"
+)
+
+if (APPLE)
+    file(GLOB_RECURSE RESOURCE_FILES_APPLE
+        "${CMAKE_SOURCE_DIR}/resources/**/*.icns"
+        "${CMAKE_SOURCE_DIR}/resources/*.icns"
+    )
+    list(APPEND RESOURCE_FILES ${RESOURCE_FILES_APPLE})
+endif()
+
+message(STATUS "Resource files: ${RESOURCE_FILES}")
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -77,8 +106,6 @@ else()
         COMMENT "Linking resources folder to build directory"
     )
 endif()
-
-
 
 # Executable
 add_subdirectory(${PROJECT_PATH}/VenomEngine)

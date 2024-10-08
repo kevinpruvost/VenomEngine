@@ -84,7 +84,7 @@ private:
     // For test
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
-    static constexpr const int MAX_FRAMES_IN_FLIGHT = 2;
+    static constexpr const int MAX_FRAMES_IN_FLIGHT = 3;
     std::vector<CommandBuffer *> __commandBuffers;
     std::vector<Semaphore> __imageAvailableSemaphores;
     std::vector<Semaphore> __renderFinishedSemaphores;
@@ -93,7 +93,7 @@ private:
     bool __framebufferChanged;
     VulkanModel * __model;
     VulkanMesh * __mesh;
-    UniformBuffer __uniformBuffers[2];
+    UniformBuffer __uniformBuffers[MAX_FRAMES_IN_FLIGHT];
     vcm::Vec3 __verticesPos[8] = {
         {-0.5f, -0.5f, 0.0f},
         {0.5f, -0.5f, 0.0f},
@@ -104,6 +104,7 @@ private:
         {0.5f, 0.5f, -0.5f},
         {-0.5f, 0.5f, -0.5f}
     };
+    vc::Texture * __texture;
 
     vcm::Vec4 __verticesColor[8] = {
         {1, 0, 0, 1},

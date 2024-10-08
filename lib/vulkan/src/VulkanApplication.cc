@@ -72,11 +72,11 @@ vc::Error VulkanApplication::Init()
         return vc::Error::InitializationFailed;
     }
 
-    vc::Texture * texture = vc::Texture::Create("hank_happy.png");
+    __texture = vc::Texture::Create("hank_happy.png");
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
         __descriptorSets[i].UpdateSampler(__sampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
-        __descriptorSets[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+        __descriptorSets[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
     }
     return vc::Error::Success;
 }
@@ -94,13 +94,16 @@ vc::Error VulkanApplication::__Loop()
     static vc::FpsCounter fps;
     static vc::Timer timer;
 
+    vc::Timer pollP;
     __context.PollEvents();
+    //vc::Log::Print("Poll time: %lu", pollP.GetMicroSeconds());
     if (err = __DrawFrame(); err != vc::Error::Success)
         return err;
     fps.RegisterFrame();
     auto duration = timer.GetMilliSeconds();
     if (duration >= 1000) {
-        vc::Log::Print("FPS: %u", fps.GetFps());
+        int fpsCount = fps.GetFps();
+            vc::Log::Print("FPS: %u, Theoretical FPS: %.2f", fpsCount, _GetTheoreticalFPS(fpsCount));
         timer.Reset();
     }
     __shouldClose = __context.ShouldClose();
@@ -160,8 +163,11 @@ vc::Error VulkanApplication::__DrawFrame()
         __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
+        //__descriptorSets[__currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
         __commandBuffers[__currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, __shaderPipeline.GetPipelineLayout(), 0, 1, __descriptorSets[__currentFrame].GetVkDescriptorSet());
         __commandBuffers[__currentFrame]->DrawMesh(__mesh);
+        // TODO: Create Descriptor Set for each mesh
+        // __descriptorSets[__currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__model->GetMeshes()[0]->GetMaterial()->GetComponent(vc::MaterialComponentType::DIFFUSE).GetTexture()), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
         __commandBuffers[__currentFrame]->DrawModel(__model);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
@@ -184,6 +190,7 @@ vc::Error VulkanApplication::__DrawFrame()
     submitInfo.signalSemaphoreCount = 1;
     submitInfo.pSignalSemaphores = signalSemaphores;
 
+    vc::Timer theoreticalFpsCounter;
     if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__inFlightFences[__currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
         __framebufferChanged = false;
         __RecreateSwapChain();
@@ -192,6 +199,7 @@ vc::Error VulkanApplication::__DrawFrame()
         vc::Log::Error("Failed to submit draw command buffer");
         return vc::Error::Failure;
     }
+    _UpdateTheoreticalFPS(theoreticalFpsCounter.GetMicroSeconds());
 
     VkPresentInfoKHR presentInfo{};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;

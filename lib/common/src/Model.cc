@@ -114,6 +114,7 @@ vc::Error Model::ImportModel(const std::string & path)
     if (Assimp::DefaultLogger::isNullLogger())
         Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
     Assimp::Importer importer;
+    // Print cwd
     const aiScene* scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
     if (!scene) {
         vc::Log::Error("Failed to load model: %s", path.c_str());

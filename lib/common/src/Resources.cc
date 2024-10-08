@@ -38,18 +38,44 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
 
 #else
 
+#ifdef __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 static std::string s_basePath;
 void Resources::InitializeFilesystem(char** argv)
 {
     (void)argv;
+
     s_basePath = "./resources/";
     // Verify if the path exists
     // If not, test at ../
     if (!std::filesystem::exists(s_basePath)) {
         s_basePath = "./../resources/";
         if (!std::filesystem::exists(s_basePath)) {
-            Log::Error("Failed to find resources folder");
-            exit(1);
+#ifdef __APPLE__
+            // Get the main bundle for the application
+            CFBundleRef mainBundle = CFBundleGetMainBundle();
+
+            // Get the URL to the Resources directory
+            CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+
+            // Convert the CFURLRef to a C-style path
+            char path[PATH_MAX];
+            bool found = false;
+            if (found = CFURLGetFileSystemRepresentation(resourcesURL, true, (UInt8 *)path, PATH_MAX); found) {
+                s_basePath = path;  // Return the path as a std::string
+                if (s_basePath.back() != '/') {
+                    s_basePath += '/';
+                }
+            }
+            CFRelease(resourcesURL);
+            if (!found)
+#endif
+            {
+                Log::Error("Failed to find resources folder");
+                exit(1);
+            }
         }
     }
 }
@@ -101,7 +127,8 @@ std::string Resources::GetModelsResourcePath(const std::string& resourcePath)
 std::string Resources::__GetResourcePath(const std::string& resourcePath, const std::string& folder)
 {
     std::string res;
-    if (!validPath(resourcePath, res) && !validPath(folder + resourcePath, res))
+    if (!validPath(resourcePath, res)
+        && !validPath(folder + resourcePath, res))
         return "";
     return res;
 }

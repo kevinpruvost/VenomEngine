@@ -12,6 +12,11 @@
 #include <venom/common/Log.h>
 #include <venom/common/Config.h>
 
+#ifdef __APPLE__
+// Include CoreFramework for loading from bundle
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 namespace venom
 {
 namespace common
@@ -49,7 +54,19 @@ T * LoadPluginFromNameAndType(const std::string & libName, const char * function
     DLL * dll = DLL::GetFromCache(libName);
     if (!dll) {
         dll = DLL::Create();
-        if (const Error err = dll->LoadDLL(libName.c_str()); err != Error::Success)
+        Error err = dll->LoadDLL(libName.c_str());
+#ifdef __APPLE__
+        if (err != Error::Success) {
+            // Try to load from the bundle (/Framworks)
+            auto frameworkPath = CFBundleCopyResourcesDirectoryURL(CFBundleGetMainBundle());
+            auto bundlePath = CFURLCopyFileSystemPath(frameworkPath, kCFURLPOSIXPathStyle);
+            CFRelease(frameworkPath);
+            std::string bundlePathStr = CFStringGetCStringPtr((CFStringRef)bundlePath, kCFStringEncodingUTF8);
+            std::string newLibPath = bundlePathStr + "/../Frameworks/" + libName;
+            err = dll->LoadDLL(newLibPath.c_str());
+        }
+#endif
+        if (err != Error::Success)
         {
             Log::Error("Failed to load %s", libName.c_str());
             return nullptr;

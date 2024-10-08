@@ -37,6 +37,9 @@ public:
      */
     void SetMaterial(Material * material);
 
+
+    const Material * GetMaterial() const;
+
 private:
     /**
      * @brief Loads Mesh into the Graphics API from the current data

@@ -41,3 +41,13 @@ target_link_libraries(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${VULKAN_INCLUDE_DIRS}
 )
+
+# Installation
+if (APPLE)
+    install(TARGETS ${PROJECT_NAME}
+            LIBRARY DESTINATION VenomEngine.app/Contents/Frameworks # No need actually
+            ARCHIVE DESTINATION lib # No need actually
+            RUNTIME DESTINATION bin # No need actually
+            FILE_SET HEADERS DESTINATION include # Key need actually
+    )
+endif()

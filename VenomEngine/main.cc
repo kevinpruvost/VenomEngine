@@ -33,6 +33,8 @@ int main(int argc, char** argv)
 {
     int errorCode = EXIT_SUCCESS;
 
+    printf("hello1\n");
+
 #if defined(_WIN32) && defined(_ANALYSIS)
     // Enable memory leak detection
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

@@ -91,6 +91,8 @@ public:
      * @param value can be a color3D/4D, a value or a texture
      */
     void SetValue(const Texture * texture);
+
+    const Texture * GetTexture() const;
 private:
     const MaterialComponentType __type;
     MaterialComponentValueType __valueType;

@@ -118,6 +118,22 @@ PFN_vkDebugUtilsMessengerCallbackEXT DebugApplication::_GetDebugCallback()
     return debugCallback;
 }
 
+double DebugApplication::_GetTheoreticalFPS(double fps)
+{
+    // Average time waited on VSync per frame
+    uint64_t timePassed = __fpsTimer.GetMicroSeconds();
+    __fpsTimer.Reset();
+    uint64_t averageProcessingTimePerFrame = (timePassed - __microsecondsWaitedOnVSync) / fps;
+    //printf("Time passed: %lu, Micros; %lu, Average Processing Time Per Frame: %lu\n", timePassed, __microsecondsWaitedOnVSync, averageProcessingTimePerFrame);
+    __microsecondsWaitedOnVSync = 0;
+    return static_cast<double>(timePassed / averageProcessingTimePerFrame);
+}
+
+void DebugApplication::_UpdateTheoreticalFPS(uint32_t microsecondsWaitedOnVSync)
+{
+    __microsecondsWaitedOnVSync += microsecondsWaitedOnVSync;
+}
+
 vc::Error DebugApplication::__InitValidationLayers()
 {
 #ifdef VENOM_DEBUG

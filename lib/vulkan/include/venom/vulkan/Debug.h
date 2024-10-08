@@ -7,6 +7,8 @@
 ///
 #pragma once
 
+#include <venom/common/Timer.h>
+
 #include <vector>
 #include <set>
 
@@ -56,6 +58,11 @@ protected:
     vc::Error _PostInstance_SetDebugParameters();
     PFN_vkDebugUtilsMessengerCallbackEXT _GetDebugCallback();
 
+    double _GetTheoreticalFPS(double fps);
+    void _UpdateTheoreticalFPS(uint32_t microsecondsWaitedOnVSync);
+
+protected:
+
 private:
     vc::Error __InitValidationLayers();
 
@@ -66,6 +73,9 @@ private:
     VkDebugUtilsMessengerEXT __debugMessenger;
     VkDebugUtilsMessengerCreateInfoEXT __debugMessengerCreateInfo;
 #endif
+private:
+    uint64_t __microsecondsWaitedOnVSync;
+    vc::Timer __fpsTimer;
 };
 
 }
