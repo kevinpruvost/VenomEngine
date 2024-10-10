@@ -5,7 +5,7 @@ cmake_minimum_required (VERSION 3.25)
 
 project("VenomEngineWorkspace")
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
@@ -23,7 +23,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}")
+# XCode chqnges binary dir depending on the configuration
+set(CMAKE_INSTALL_RPATH "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}" "${CMAKE_BINARY_DIR}/Debug")
+message(STATUS "RPATH: ${CMAKE_INSTALL_RPATH}")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # Only with .hlsl, .glsl, .spv, .icns, .png, .jpg, .jpeg, .fbx, .obj, .mtl, .tiff
@@ -42,11 +44,37 @@ file(GLOB_RECURSE RESOURCE_FILES
 )
 
 if (APPLE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
     file(GLOB_RECURSE RESOURCE_FILES_APPLE
         "${CMAKE_SOURCE_DIR}/resources/**/*.icns"
         "${CMAKE_SOURCE_DIR}/resources/*.icns"
     )
     list(APPEND RESOURCE_FILES ${RESOURCE_FILES_APPLE})
+
+    # Path to the code signing identity file
+    set(CODESIGN_IDENTITY_FILE "${PROJECT_SOURCE_DIR}/Apple/codesign_identity.txt")
+
+    # Configure the code signing identity file from a template only if it does not exist
+    if (NOT EXISTS ${CODESIGN_IDENTITY_FILE})
+        configure_file(${CODESIGN_IDENTITY_FILE}.in ${CODESIGN_IDENTITY_FILE} @ONLY)
+    endif()
+
+    # Read the code signing identity from the file
+    file(READ ${CODESIGN_IDENTITY_FILE} CODESIGN_IDENTITY_CONTENTS)
+    string(REGEX MATCH "CODE_SIGN_IDENTITY=(.*)$" _unused "${CODESIGN_IDENTITY_CONTENTS}")
+    set(CODESIGN_IDENTITY "${CMAKE_MATCH_1}")
+
+    # Ensure the codesign identity is found
+    if(NOT CODESIGN_IDENTITY OR CODESIGN_IDENTITY STREQUAL "@CODE_SIGN_IDENTITY@")
+        message(FATAL_ERROR "Code signing identity not specified. Please update Apple/codesign_identity.txt")
+    else()
+        message(STATUS "Code signing identity: ${CODESIGN_IDENTITY}")
+    endif()
+
+    # Get codesign location
+    find_program(CODESIGN_EXECUTABLE codesign)
+    # Define code-signing command
+    set(CODESIGN_COMMAND ${CODESIGN_EXECUTABLE} --force --verify --verbose --sign ${CODESIGN_IDENTITY})
 endif()
 
 message(STATUS "Resource files: ${RESOURCE_FILES}")

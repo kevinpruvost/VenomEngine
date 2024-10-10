@@ -10,6 +10,10 @@
 #include <venom/common/Export.h>
 #include <string>
 
+#ifdef __APPLE__
+std::string getResourcePath();
+#endif
+
 namespace venom
 {
 namespace common

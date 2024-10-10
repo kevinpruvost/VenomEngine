@@ -14,6 +14,8 @@
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 
 #include <filesystem>
+#include <thread>
+#include <chrono>
 
 namespace venom
 {

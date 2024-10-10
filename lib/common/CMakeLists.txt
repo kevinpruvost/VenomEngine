@@ -42,9 +42,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 if (APPLE)
     find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
     find_library(CORESERVICES_FRAMEWORK CoreServices)
+    find_library(FOUNDATION_FRAMEWORK Foundation)
 
     target_link_libraries(${PROJECT_NAME} "-framework CoreFoundation")
     target_link_libraries(${PROJECT_NAME} "-framework CoreServices")
+    target_link_libraries(${PROJECT_NAME} "-framework Foundation")
 
     install(TARGETS ${PROJECT_NAME}
             LIBRARY DESTINATION lib # No need actually

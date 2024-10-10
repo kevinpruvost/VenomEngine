@@ -29,6 +29,8 @@ int ReportHook(int reportType, char *message, int * returnValue)
 }
 #endif
 
+#include <thread>
+
 int main(int argc, char** argv)
 {
     int errorCode = EXIT_SUCCESS;

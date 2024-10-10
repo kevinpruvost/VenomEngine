@@ -30,6 +30,7 @@ set_target_properties(glfw PROPERTIES
 )
 
 # glm
+set(GLM_ENABLE_CXX_20 ON)
 add_subdirectory("glm")
 set_target_properties(glm PROPERTIES
     FOLDER "ExternalLibraries"

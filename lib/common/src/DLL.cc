@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include <thread>
+
 namespace venom::common
 {
 
@@ -69,10 +71,10 @@ Error DLL::LoadDLL(const char* path)
     __handle = LoadLibrary(realPath);
 #elif __APPLE__
     ".dylib");
-    __handle = dlopen(realPath, RTLD_FIRST);
+    __handle = dlopen(realPath, RTLD_LAZY);
 #else // Linux
     ".so");
-    __handle = dlopen(realPath, RTLD_FIRST);
+    __handle = dlopen(realPath, RTLD_LAZY);
 #endif
     if (!__handle) {
         Log::Error("Failed to load DLL[%s]: %s\n", path, dlerror());

@@ -25,3 +25,7 @@
 [submodule "lib/external/assimp"]
 	path = lib/external/assimp
 	url = git@github.com:assimp/assimp.git
+[submodule "lib/external/glm"]
+	path = lib/external/glm
+	url = git@github.com:alusch/glm.git
+	branch = neon-compile-error

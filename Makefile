@@ -20,7 +20,10 @@ package:
 		cd build_release && cmake .. -DCMAKE_BUILD_TYPE=Release;\
 		cmake --build . --config Release -j 8;\
 		cpack -G DragNDrop -C Release --config ./CPackConfig.cmake;\
-	fi
+	else
+	  echo "Not supported on this platform";\
+  	fi
+
 
 # Generates and open doc for visualization
 docs:

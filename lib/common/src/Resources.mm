@@ -7,6 +7,8 @@
 ///
 #include <venom/common/Resources.h>
 
+#include <Foundation/Foundation.h>
+
 std::string getResourcePath() {
     // Get the path to the resource directory in the application bundle
     NSBundle *bundle = [NSBundle mainBundle];

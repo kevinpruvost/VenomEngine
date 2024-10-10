@@ -19,6 +19,9 @@ CMakeSettings.json
 .clwb
 .idea
 
+# Ignore the generated code signing identity file
+Apple/codesign_identity.txt
+
 CMakeFiles
 
 cmake_build
