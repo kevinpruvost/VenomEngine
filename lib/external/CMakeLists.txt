@@ -70,4 +70,16 @@ set_target_properties(VulkanMemoryAllocator PROPERTIES
 )
 
 # flecs
+# If building shared libraries, comment out '#define flecs_STATIC'
+if (BUILD_SHARED_LIBS)
+    set(FLECS_HEADER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/flecs/distr/flecs.h")
+    # Read the flecs.h file content
+    file(READ "${FLECS_HEADER_PATH}" FLECS_HEADER_CONTENT)
+
+    # Modify the content to comment out '#define flecs_STATIC'
+    string(REPLACE "#define flecs_STATIC" "//#define flecs_STATIC" FLECS_HEADER_CONTENT_MODIFIED "${FLECS_HEADER_CONTENT}")
+
+    # Write the modified content back to the file
+    file(WRITE "${FLECS_HEADER_PATH}" "${FLECS_HEADER_CONTENT_MODIFIED}")
+endif()
 add_subdirectory("flecs")
