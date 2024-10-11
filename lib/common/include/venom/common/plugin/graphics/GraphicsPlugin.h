@@ -20,6 +20,7 @@ class Material;
 class Model;
 class Mesh;
 class Texture;
+class Camera;
 
 class VENOM_COMMON_API GraphicsPlugin : public Plugin
 {
@@ -42,6 +43,7 @@ public:
     virtual Model * CreateModel() = 0;
     virtual Mesh * CreateMesh() = 0;
     virtual Texture * CreateTexture() = 0;
+    virtual Camera * CreateCamera() = 0;
 };
 
 }

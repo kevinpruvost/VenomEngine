@@ -74,7 +74,8 @@ vc::Error VulkanApplication::Init()
         return vc::Error::InitializationFailed;
     }
 
-    __texture = vc::Texture::Create("hank_happy.png");
+    __texture = vc::Texture::Create("random.png");
+    __camera = vc::Camera::Create()->As<VulkanCamera>();
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
         __descriptorSets[i].UpdateSampler(__sampler, 2, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
@@ -123,8 +124,11 @@ void VulkanApplication::__UpdateUniformBuffers()
     vcm::Vec3 cameraPos = {2.0f, 2.0f, 1.0f};
     vcm::Mat4 modelViewAndProj[3];
     modelViewAndProj[0] = vcm::Identity();
-    vcm::RotateMatrix(modelViewAndProj[0], {0.0f, 0.0f, 1.0f}, time / 1000.0f);
-    modelViewAndProj[1] = vcm::LookAt(cameraPos, {0,0,0}, {0.0f, 0.0f, 1.0f});
+    vcm::RotateMatrix(modelViewAndProj[0], {0.0f, 1.0f, 0.0f}, time / 1000.0f);
+    modelViewAndProj[1] = vcm::LookAt(cameraPos, {0,0,0}, {0.0f, 1.0f, 0.0f});
+    __camera->SetPosition(cameraPos);
+    __camera->LookAt({0,0,0});
+    modelViewAndProj[1] = __camera->GetViewMatrix();
     modelViewAndProj[2] = vcm::Perspective(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
 
     // Uniform buffers (view and projection)

@@ -12,6 +12,7 @@
 #include <venom/vulkan/plugin/graphics/Mesh.h>
 #include <venom/vulkan/plugin/graphics/Material.h>
 #include <venom/vulkan/plugin/graphics/Texture.h>
+#include <venom/vulkan/plugin/graphics/Camera.h>
 
 namespace venom
 {
@@ -40,6 +41,11 @@ vc::Texture* VulkanGraphicsPlugin::CreateTexture()
 vc::Material* VulkanGraphicsPlugin::CreateMaterial()
 {
     return new VulkanMaterial();
+}
+
+vc::Camera* VulkanGraphicsPlugin::CreateCamera()
+{
+    return new VulkanCamera();
 }
 }
 }

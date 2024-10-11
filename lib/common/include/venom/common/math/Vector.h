@@ -20,10 +20,20 @@ namespace math
 typedef DirectX::XMFLOAT4 Vec4;
 typedef DirectX::XMFLOAT3 Vec3;
 typedef DirectX::XMFLOAT2 Vec2;
+
+typedef DirectX::XMVECTOR Quat;
+
+typedef DirectX::XMMATRIX Mat4;
+typedef DirectX::XMFLOAT3X3 Mat3;
 #elif defined(VENOM_MATH_GLM)
 typedef glm::vec4 Vec4;
 typedef glm::vec3 Vec3;
 typedef glm::vec2 Vec2;
+
+typedef glm::quat Quat;
+
+typedef glm::mat4 Mat4;
+typedef glm::mat3 Mat3;
 #endif
 
 // We want vertices to be used separate and not packed (non-interleaved and not interleaved)
@@ -48,6 +58,56 @@ typedef Vec3 VertexBitangent;
 
 /// @brief Vertex Index (used for indexing in element buffers)
 typedef uint32_t VertexIndex;
+
+
+/**
+ * @brief Gets Euler Angles From Quaternion
+ * @param quat
+ * @return Euler Angles
+ */
+vcm::Vec3 GetEulerAngles(const vcm::Quat & quat);
+
+/**
+ * @brief Rotate a quaternion
+ * @param quat
+ * @param angle
+ * @param axis
+ */
+void RotateQuat(vcm::Quat & quat, const float angle, const vcm::Vec3 & axis);
+
+/**
+ * @brief Create a quaternion from a view matrix
+ * @param viewMatrix
+ * @return Quaternion
+ */
+vcm::Quat QuatFromViewMatrix(const vcm::Mat4 & viewMatrix);
+
+/**
+ * @brief Get the forward vector from a quaternion
+ * @param quat
+ * @return Forward vector
+ */
+vcm::Vec3 GetForward(const vcm::Quat & quat);
+
+/**
+ * @brief Get the up vector from a quaternion
+ * @param quat
+ * @return up vector
+ */
+vcm::Vec3 GetUp(const vcm::Quat & quat);
+
+/**
+ * @brief Get the right vector from a quaternion
+ * @param quat
+ * @return right vector
+ */
+vcm::Vec3 GetRight(const vcm::Quat & quat);
+
+/**
+ * @brief Get the identity quaternion
+ * @return Identity quaternion
+ */
+vcm::Quat IdentityQuat();
 }
 }
 }

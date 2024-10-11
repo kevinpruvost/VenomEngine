@@ -15,14 +15,6 @@ namespace common
 {
 namespace math
 {
-#if defined(VENOM_MATH_DXMATH)
-typedef DirectX::XMMATRIX Mat4;
-typedef DirectX::XMFLOAT3X3 Mat3;
-#elif defined(VENOM_MATH_GLM)
-typedef glm::mat4 Mat4;
-typedef glm::mat3 Mat3;
-#endif
-
 VENOM_COMMON_API Mat4 Identity();
 /// @brief Rotate matrix
 /// @param matrix to rotate

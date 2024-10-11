@@ -21,7 +21,8 @@ public:
     vc::Model * CreateModel() override;
     vc::Mesh * CreateMesh() override;
     vc::Texture * CreateTexture() override;
-    vc::Material* CreateMaterial() override;
+    vc::Material * CreateMaterial() override;
+    vc::Camera * CreateCamera() override;
 };
 }
 }

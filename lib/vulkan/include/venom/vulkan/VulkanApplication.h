@@ -30,6 +30,8 @@
 #include <venom/common/VenomSettings.h>
 #include <venom/common/math/Vector.h>
 
+#include <venom/vulkan/plugin/graphics/Camera.h>
+
 namespace venom
 {
 /// @brief Encapsulation of Vulkan for the front end of VenomEngine.
@@ -83,6 +85,7 @@ private:
 
 private:
     // For test
+    VulkanCamera * __camera;
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
     CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
