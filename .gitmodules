@@ -29,3 +29,6 @@
 	path = lib/external/glm
 	url = git@github.com:alusch/glm.git
 	branch = neon-compile-error
+[submodule "lib/external/flecs"]
+	path = lib/external/flecs
+	url = git@github.com:SanderMertens/flecs.git

@@ -27,7 +27,8 @@
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
 
-#include "venom/common/math/Vector.h"
+#include <venom/common/VenomSettings.h>
+#include <venom/common/math/Vector.h>
 
 namespace venom
 {
@@ -84,16 +85,16 @@ private:
     // For test
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
-    static constexpr const int MAX_FRAMES_IN_FLIGHT = 3;
-    std::vector<CommandBuffer *> __commandBuffers;
-    std::vector<Semaphore> __imageAvailableSemaphores;
-    std::vector<Semaphore> __renderFinishedSemaphores;
-    std::vector<Fence> __inFlightFences;
+    CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
+    Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
+    Fence __inFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
     int __currentFrame;
     bool __framebufferChanged;
     VulkanModel * __model;
     VulkanMesh * __mesh;
-    UniformBuffer __uniformBuffers[MAX_FRAMES_IN_FLIGHT];
+    UniformBuffer __objectUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     vcm::Vec3 __verticesPos[8] = {
         {-0.5f, -0.5f, 0.0f},
         {0.5f, -0.5f, 0.0f},

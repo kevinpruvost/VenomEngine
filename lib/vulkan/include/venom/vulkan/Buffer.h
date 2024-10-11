@@ -34,7 +34,7 @@ private:
     vc::Error __BindBufferMemory();
 
 private:
-    VkBufferCreateInfo __bufferCreateInfo;
+    uint32_t __size;
     VkBuffer __buffer;
     VkDeviceMemory __memory;
 };

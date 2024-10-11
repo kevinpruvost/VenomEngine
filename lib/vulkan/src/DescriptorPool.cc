@@ -59,7 +59,7 @@ std::vector<DescriptorSet> DescriptorPool::AllocateSets(const std::vector<VkDesc
     allocInfo.pSetLayouts = layouts.data();
 
     if (auto err = vkAllocateDescriptorSets(LogicalDevice::GetVkDevice(), &allocInfo, reinterpret_cast<VkDescriptorSet*>(vkSets.data())); err != VK_SUCCESS) {
-        vc::Log::Error("Failed to allocate descriptor sets: %d", err);
+        vc::Log::Error("Failed to allocate descriptor sets: %x", err);
         return sets;
     }
     for (size_t i = 0; i < sets.size(); ++i) { sets[i].__set = vkSets[i]; }

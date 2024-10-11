@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 #endif
 
     // Run the engine
-    const vc::Error error = vc::VenomEngine::RunEngine(argv);
+    const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 
 #if defined(_WIN32) && defined(_ANALYSIS)
     // Mark the end of the memory check block

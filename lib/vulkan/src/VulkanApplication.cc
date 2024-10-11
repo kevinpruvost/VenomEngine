@@ -17,6 +17,8 @@
 
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
+#include <venom/common/VenomSettings.h>
+
 namespace venom::vulkan
 {
 /// @brief Device extensions to use
@@ -73,10 +75,10 @@ vc::Error VulkanApplication::Init()
     }
 
     __texture = vc::Texture::Create("hank_happy.png");
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
-        __descriptorSets[i].UpdateSampler(__sampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
-        __descriptorSets[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+        __descriptorSets[i].UpdateSampler(__sampler, 2, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+        __descriptorSets[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(__texture), 3, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
     }
     return vc::Error::Success;
 }
@@ -118,14 +120,16 @@ void VulkanApplication::__UpdateUniformBuffers()
     static vc::Timer timer_uni;
     float time = timer_uni.GetMilliSeconds();
 
+    vcm::Vec3 cameraPos = {2.0f, 2.0f, 1.0f};
     vcm::Mat4 modelViewAndProj[3];
     modelViewAndProj[0] = vcm::Identity();
     vcm::RotateMatrix(modelViewAndProj[0], {0.0f, 0.0f, 1.0f}, time / 1000.0f);
-    modelViewAndProj[1] = vcm::LookAt({2.0f, 2.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f});
+    modelViewAndProj[1] = vcm::LookAt(cameraPos, {0,0,0}, {0.0f, 0.0f, 1.0f});
     modelViewAndProj[2] = vcm::Perspective(45.0f, (float)__swapChain.extent.width / (float)__swapChain.extent.height, 0.1f, 10.0f);
 
     // Uniform buffers (view and projection)
-    memcpy(__uniformBuffers[__currentFrame].GetMappedData(), modelViewAndProj, sizeof(modelViewAndProj));
+    memcpy(__objectUniformBuffers[__currentFrame].GetMappedData(), modelViewAndProj, sizeof(vcm::Mat4));
+    memcpy(__cameraUniformBuffers[__currentFrame].GetMappedData(), &modelViewAndProj[1], 2 * sizeof(vcm::Mat4));
     // Push Constants (model)
     // __commandBuffers[__currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
 }
@@ -215,7 +219,7 @@ vc::Error VulkanApplication::__DrawFrame()
 
     vkQueuePresentKHR(__presentQueue.GetVkQueue(), &presentInfo);
 
-    __currentFrame = (__currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
+    __currentFrame = (__currentFrame + 1) % VENOM_MAX_FRAMES_IN_FLIGHT;
     return vc::Error::Success;
 }
 
@@ -380,17 +384,13 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     CommandPool * graphicsCommandPool = __commandPoolManager.GetGraphicsCommandPool();
 
     // Create Command Buffers
-    __commandBuffers.resize(MAX_FRAMES_IN_FLIGHT);
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         if (err = graphicsCommandPool->CreateCommandBuffer(&__commandBuffers[i]); err != vc::Error::Success)
             return err;
     }
 
     // Create Semaphores & Fences
-    __imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
-    __renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
-    __inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         if (err = __imageAvailableSemaphores[i].InitSemaphore(); err != vc::Error::Success)
             return err;
         if (err =__renderFinishedSemaphores[i].InitSemaphore(); err != vc::Error::Success)
@@ -400,8 +400,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     }
 
     // Create Uniform Buffers
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __uniformBuffers[i].Init(sizeof(vcm::Mat4) * 3); err != vc::Error::Success)
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
+        if (err = __objectUniformBuffers[i].Init(sizeof(vcm::Mat4)); err != vc::Error::Success)
+            return err;
+        if (err = __cameraUniformBuffers[i].Init(2 * sizeof(vcm::Mat4)); err != vc::Error::Success)
             return err;
     }
 
@@ -422,23 +424,25 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __mesh->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2), 3);
     __mesh->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
-        "shader.ps",
-        "shader.vs"
+        "shader_mesh.ps",
+        "shader_mesh.vs"
     });
 
     // Create Descriptor Pool
-    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, MAX_FRAMES_IN_FLIGHT);
-    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_SAMPLER, MAX_FRAMES_IN_FLIGHT);
-    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, MAX_FRAMES_IN_FLIGHT);
-    //__descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, MAX_FRAMES_IN_FLIGHT);
-    if (err = __descriptorPool.Create(0, MAX_FRAMES_IN_FLIGHT); err != vc::Error::Success)
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VENOM_MAX_FRAMES_IN_FLIGHT);
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VENOM_MAX_FRAMES_IN_FLIGHT);
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_SAMPLER, VENOM_MAX_FRAMES_IN_FLIGHT);
+    __descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VENOM_MAX_FRAMES_IN_FLIGHT);
+    //__descriptorPool.AddPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VENOM_MAX_FRAMES_IN_FLIGHT);
+    if (err = __descriptorPool.Create(0, VENOM_MAX_FRAMES_IN_FLIGHT); err != vc::Error::Success)
         return err;
 
     // Create Descriptor Sets
-    __descriptorSets = __descriptorPool.AllocateSets(__shaderPipeline.GetDescriptorSetLayout(), MAX_FRAMES_IN_FLIGHT);
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i) {
+    __descriptorSets = __descriptorPool.AllocateSets(__shaderPipeline.GetDescriptorSetLayout(), VENOM_MAX_FRAMES_IN_FLIGHT);
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Model, View, Projection
-        __descriptorSets[i].UpdateBuffer(__uniformBuffers[i], 0, sizeof(vcm::Mat4) * 3, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+        __descriptorSets[i].UpdateBuffer(__objectUniformBuffers[i], 0, sizeof(vcm::Mat4), 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+        __descriptorSets[i].UpdateBuffer(__cameraUniformBuffers[i], 0, 2 * sizeof(vcm::Mat4), 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
     }
 
     // Create Sampler

@@ -12,7 +12,6 @@ if (APPLE)
         "src/*.mm"
         "src/*.m"
     )
-    list(APPEND venom_common_srcs ${venom_common_srcs_apple})
 endif()
 file(GLOB_RECURSE venom_common_hdrs 
     "include/venom/common/*.h"
@@ -29,6 +28,7 @@ target_link_libraries(${PROJECT_NAME}
     glfw
     glm
     stb_image
+    flecs::flecs
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
@@ -44,11 +44,39 @@ if (APPLE)
     find_library(CORESERVICES_FRAMEWORK CoreServices)
     find_library(FOUNDATION_FRAMEWORK Foundation)
 
-    target_link_libraries(${PROJECT_NAME} "-framework CoreFoundation")
-    target_link_libraries(${PROJECT_NAME} "-framework CoreServices")
-    target_link_libraries(${PROJECT_NAME} "-framework Foundation")
+    set(PROJECT_NAME_PACKAGE ${PROJECT_NAME}_Package)
 
-    install(TARGETS ${PROJECT_NAME}
+    add_library(${PROJECT_NAME_PACKAGE} SHARED
+        ${venom_common_srcs}
+        ${venom_common_srcs_apple}
+        ${venom_common_hdrs}
+    )
+
+    set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
+        PREFIX ""
+    )
+
+    target_link_libraries(${PROJECT_NAME_PACKAGE}
+        assimp
+        glfw
+        glm
+        stb_image
+        flecs::flecs
+    )
+
+    target_compile_definitions(${PROJECT_NAME_PACKAGE} PRIVATE
+        VENOM_COMMON_EXPORTS
+    )
+
+    target_include_directories(${PROJECT_NAME_PACKAGE} PUBLIC
+        "include/"
+    )
+
+    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreFoundation")
+    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreServices")
+    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework Foundation")
+
+    install(TARGETS ${PROJECT_NAME_PACKAGE}
             LIBRARY DESTINATION lib # No need actually
             ARCHIVE DESTINATION lib # No need actually
             RUNTIME DESTINATION bin # No need actually

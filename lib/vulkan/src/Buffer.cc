@@ -16,7 +16,6 @@ namespace vulkan
 Buffer::Buffer()
     : __buffer(VK_NULL_HANDLE)
     , __memory(VK_NULL_HANDLE)
-    , __bufferCreateInfo{}
 {
 }
 
@@ -31,7 +30,6 @@ Buffer::~Buffer()
 Buffer::Buffer(Buffer&& other)
     : __buffer(other.__buffer)
     , __memory(other.__memory)
-    , __bufferCreateInfo(other.__bufferCreateInfo)
 {
     other.__buffer = VK_NULL_HANDLE;
     other.__memory = VK_NULL_HANDLE;
@@ -42,7 +40,6 @@ Buffer& Buffer::operator=(Buffer&& other)
     if (this != &other) {
         __buffer = other.__buffer;
         __memory = other.__memory;
-        __bufferCreateInfo = other.__bufferCreateInfo;
         other.__buffer = VK_NULL_HANDLE;
         other.__memory = VK_NULL_HANDLE;
     }
@@ -65,15 +62,15 @@ uint32_t Buffer::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags prope
 vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode,
                                const VkMemoryPropertyFlags memoryProperties)
 {
-    __bufferCreateInfo = {
+    VkBufferCreateInfo bufferCreateInfo = {
         .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
-        .size = size,
+        .size = __size = size,
         .usage = flags,
         .sharingMode = sharingMode,
         .queueFamilyIndexCount = 0
     };
 
-    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &__bufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
+    if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to create vertex buffer");
         return vc::Error::Failure;
     }
@@ -111,11 +108,11 @@ vc::Error Buffer::__BindBufferMemory()
 vc::Error Buffer::WriteBuffer(const void* data)
 {
     void* dataMap;
-    if (auto vkErr = vkMapMemory(LogicalDevice::GetVkDevice(), __memory, 0, __bufferCreateInfo.size, 0, &dataMap); vkErr != VK_SUCCESS) {
+    if (auto vkErr = vkMapMemory(LogicalDevice::GetVkDevice(), __memory, 0, __size, 0, &dataMap); vkErr != VK_SUCCESS) {
         vc::Log::Error("Failed to map buffer memory");
         return vc::Error::Failure;
     }
-    memcpy(dataMap, data, __bufferCreateInfo.size);
+    memcpy(dataMap, data, __size);
     vkUnmapMemory(LogicalDevice::GetVkDevice(), __memory);
     return vc::Error::Success;
 }
@@ -132,7 +129,7 @@ const VkDeviceMemory & Buffer::GetVkDeviceMemory() const
 
 VkDeviceSize Buffer::GetSize() const
 {
-    return __bufferCreateInfo.size;
+    return static_cast<VkDeviceSize>(__size);
 }
 }
 }

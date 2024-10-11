@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # Do not name same name as folder, it can generate problems with linking (e.g. VenomEngine/ folder in build/
 # but VenomEngine target is also named VenomEngine)
-project(VenomEngine)
+project(VenomEngineLauncher)
 
 # Source files
 set(VenomEngine_Srcs
@@ -31,13 +31,26 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if (APPLE)
-    target_sources(${PROJECT_NAME} PRIVATE
+    set(PROJECT_PACKAGE_NAME ${PROJECT_NAME}_Package)
+
+    add_executable(${PROJECT_PACKAGE_NAME}
+        ${VenomEngine_Srcs}
+    )
+    target_include_directories(${PROJECT_PACKAGE_NAME} PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    target_link_libraries(${PROJECT_PACKAGE_NAME} PUBLIC
+        VenomCommon_Package
+    )
+    add_dependencies(${PROJECT_PACKAGE_NAME} link_resources VenomVulkan)
+
+    target_sources(${PROJECT_PACKAGE_NAME} PRIVATE
         ${RESOURCE_FILES}
     )
 
-    set(BUNDLE_APP_LOCATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app" PARENT_SCOPE)
+    set(BUNDLE_APP_LOCATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_PACKAGE_NAME}.app" PARENT_SCOPE)
 
-    set_target_properties(${PROJECT_NAME} PROPERTIES
+    set_target_properties(${PROJECT_PACKAGE_NAME} PROPERTIES
         MACOSX_BUNDLE YES
         MACOSX_BUNDLE_BUNDLE_NAME "VenomEngine"
         MACOSX_BUNDLE_BUNDLE_VERSION "1.0.0"
@@ -71,7 +84,7 @@ if (APPLE)
     endforeach()
 
     # Installation
-    install(TARGETS ${PROJECT_NAME}
+    install(TARGETS ${PROJECT_PACKAGE_NAME}
             LIBRARY DESTINATION lib
             ARCHIVE DESTINATION lib
             RUNTIME DESTINATION bin
@@ -83,10 +96,11 @@ if (APPLE)
     set(CMAKE_XCODE_ATTRIBUTE_OTHER_CODE_SIGN_FLAGS "-o linker-signed")
     
     install(CODE "set(CODESIGN_COMMAND \"${CODESIGN_COMMAND}\")")
+    install(CODE "set(PROJECT_PACKAGE_NAME \"${PROJECT_PACKAGE_NAME}\")")
     install(CODE [[
         include(BundleUtilities)
         # Note Mac specific extension .app
-        set(APPS ${CMAKE_INSTALL_PREFIX}/VenomEngine.app)
+        set(APPS ${CMAKE_INSTALL_PREFIX}/${PROJECT_PACKAGE_NAME}.app)
 
         # Directories to look for dependencies
         set(DIRS ${CMAKE_INSTALL_PREFIX})

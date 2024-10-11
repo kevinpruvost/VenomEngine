@@ -20,7 +20,7 @@ namespace venom::common
 typedef bazel::tools::cpp::runfiles::Runfiles Runfiles;
 
 static std::unique_ptr<Runfiles> s_runfiles;
-void Resources::InitializeFilesystem(char** argv)
+void Resources::InitializeFilesystem(int argc, char** argv)
 {
     s_runfiles.reset(bazel::tools::cpp::runfiles::Runfiles::Create(argv[0]));
 }
@@ -38,16 +38,17 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
 
 #else
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(VENOM_PACKAGE)
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
 static std::string s_basePath;
-void Resources::InitializeFilesystem(char** argv)
+void Resources::InitializeFilesystem(int argc, char** argv)
 {
+    (void)argc;
     (void)argv;
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(VENOM_PACKAGE)
     std::string bundleResourcePath = getResourcePath();
     if (!bundleResourcePath.empty()) {
         s_basePath = bundleResourcePath;

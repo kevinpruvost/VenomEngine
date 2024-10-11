@@ -52,8 +52,8 @@ T * LoadPluginFromNameAndType(const std::string & libName, const char * function
     if (!dll) {
         dll = DLL::Create();
         Error err;
-#ifdef __APPLE__
-        // Try to load from the bundle (/Framworks)
+#if defined(__APPLE__) && defined(VENOM_PACKAGE)
+        // Try to load from the bundle (/Frameworks)
         std::string newLibPath = Resources::GetResourcePath("../Frameworks/" + libName);
         err = dll->LoadDLL(newLibPath.c_str());
         if (err != Error::Success)

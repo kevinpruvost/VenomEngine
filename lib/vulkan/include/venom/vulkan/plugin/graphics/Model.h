@@ -8,6 +8,7 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/Model.h>
+#include <venom/vulkan/UniformBuffer.h>
 
 namespace venom
 {
@@ -20,6 +21,8 @@ public:
     virtual ~VulkanModel();
 
     void Draw() override;
+private:
+    UniformBuffer __uniformBuffer;
 };
 }
 }

@@ -139,16 +139,6 @@ void CommandBuffer::PushConstants(const ShaderPipeline * shaderPipeline, VkShade
     vkCmdPushConstants(_commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
 }
 
-void CommandBuffer::CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer)
-{
-    VkBufferCopy copyRegion{
-        .srcOffset = 0,
-        .dstOffset = 0,
-        .size = srcBuffer.GetSize()
-    };
-    vkCmdCopyBuffer(_commandBuffer, srcBuffer.GetVkBuffer(), dstBuffer.GetVkBuffer(), 1, &copyRegion);
-}
-
 void CommandBuffer::CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage)
 {
     VkBufferImageCopy region {

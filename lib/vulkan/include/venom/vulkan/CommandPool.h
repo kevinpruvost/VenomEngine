@@ -80,7 +80,6 @@ public:
     void DrawModel(const VulkanModel * vulkanModel) const;
 
     void PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
-    void CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer);
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
     void TransitionImageLayout(Image& image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 

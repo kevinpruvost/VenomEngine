@@ -68,3 +68,6 @@ add_subdirectory("VulkanMemoryAllocator")
 set_target_properties(VulkanMemoryAllocator PROPERTIES
     FOLDER "ExternalLibraries"
 )
+
+# flecs
+add_subdirectory("flecs")

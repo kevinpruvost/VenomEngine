@@ -10,7 +10,7 @@
 #include <venom/common/Export.h>
 #include <string>
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(VENOM_PACKAGE)
 std::string getResourcePath();
 #endif
 
@@ -21,7 +21,7 @@ namespace common
 class Resources
 {
 public:
-    VENOM_COMMON_API static void InitializeFilesystem(char ** argv);
+    VENOM_COMMON_API static void InitializeFilesystem(int argc, char ** argv);
     VENOM_COMMON_API static void FreeFilesystem();
     VENOM_COMMON_API static std::string GetResourcePath(const std::string & resourcePath);
     VENOM_COMMON_API static std::string GetTexturesResourcePath(const std::string & resourcePath);

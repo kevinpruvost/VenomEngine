@@ -2,6 +2,9 @@
 
 cbuffer UniformBufferObject : register(b0) {
     float4x4 model;
+};
+
+cbuffer UniformBufferCamera : register(b1) {
     float4x4 view;
     float4x4 proj;
 };
@@ -16,13 +19,14 @@ cbuffer UniformBufferObject : register(b0) {
 
 struct VSInput {
     [[vk::location(0)]] float3 inPosition : POSITION;
-    [[vk::location(1)]] float3 inColor : NORMAL;
-    [[vk::location(2)]] float2 inTexCoord : TEXCOORD;
+    [[vk::location(1)]] float3 inNormal : NORMAL;
+    [[vk::location(2)]] float4 inColor : COLOR;
+    [[vk::location(3)]] float2 inTexCoord : TEXCOORD;
 };
 
 struct VSOutput {
     float4 outPosition : SV_POSITION; // Equivalent to gl_Position in GLSL
-    [[vk::location(0)]] float3 fragColor : TEXCOORD0;     // Equivalent to layout(location = 0) out in GLSL
+    [[vk::location(0)]] float4 fragColor : TEXCOORD0;     // Equivalent to layout(location = 0) out in GLSL
     [[vk::location(1)]] float2 fragTexCoord : TEXCOORD1;  // Equivalent to layout(location = 1) out in GLSL
 };
 

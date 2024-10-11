@@ -24,6 +24,7 @@ namespace common
 VenomEngine::VenomEngine()
     : pluginManager(new PluginManager())
     , __dllCache(new DLL_Cache())
+    , __ecs(new ECS())
 {
     venom_assert(__dllCache, "VenomEngine::VenomEngine() : __dllCache is nullptr");
     DLL_Cache::SetCache(__dllCache.get());
@@ -41,7 +42,9 @@ VenomEngine::VenomEngine()
 
 VenomEngine::~VenomEngine()
 {
+    // Order of destruction is important
     pluginManager.reset();
+    __ecs.reset();
     __dllCache.reset();
 }
 
@@ -51,11 +54,11 @@ VenomEngine* VenomEngine::GetInstance()
     return s_instance.get();
 }
 
-Error VenomEngine::RunEngine(char** argv)
+Error VenomEngine::RunEngine(int argc, char** argv)
 {
     vc::Error err = Error::Success;
 
-    vc::Resources::InitializeFilesystem(argv);
+    vc::Resources::InitializeFilesystem(argc, argv);
 
     s_instance.reset(new VenomEngine());
     vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
