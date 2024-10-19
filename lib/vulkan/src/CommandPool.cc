@@ -108,28 +108,38 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh) const
+void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     const IndexBuffer & indexBuffer = vulkanMesh->GetIndexBuffer();
     const auto vertexBuffers = vulkanMesh->GetVkVertexBuffers();
     const VkDeviceSize * offsets = vulkanMesh->GetOffsets();
+
+    // Material
+    const vc::Material * material = vulkanMesh->GetMaterial();
+    if (material) {
+        const auto & diffuseComponent = material->GetComponent(vc::MaterialComponentType::DIFFUSE);
+        if (diffuseComponent.GetTexture()) {
+
+        }
+    }
+
     for (const auto & vertexBuffer : vertexBuffers) {
         vkCmdBindVertexBuffers(_commandBuffer, vertexBuffer.binding, 1, &vertexBuffer.buffer, offsets);
     }
     if (indexBuffer.GetVkBuffer() != VK_NULL_HANDLE) {
         vkCmdBindIndexBuffer(_commandBuffer, indexBuffer.GetVkBuffer(), 0, VK_INDEX_TYPE_UINT32);
-        vkCmdDrawIndexed(_commandBuffer, indexBuffer.GetVertexCount(), 1, 0, 0, 0);
+        vkCmdDrawIndexed(_commandBuffer, indexBuffer.GetVertexCount(), 1, 0, 0, firstInstance);
     } else {
-        vkCmdDraw(_commandBuffer, vulkanMesh->GetVertexCount(), 1, 0, 0);
+        vkCmdDraw(_commandBuffer, vulkanMesh->GetVertexCount(), 1, 0, firstInstance);
     }
 }
 
-void CommandBuffer::DrawModel(const VulkanModel * vulkanModel) const
+void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     for (const vc::Mesh * mesh : vulkanModel->GetMeshes()) {
-        DrawMesh(mesh->As<VulkanMesh>());
+        DrawMesh(mesh->As<VulkanMesh>(), firstInstance);
     }
 }
 

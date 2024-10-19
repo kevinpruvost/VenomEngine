@@ -1,27 +1,26 @@
 ///
-/// Project: VenomEngine
-/// @file UniformBuffer.h
-/// @date Sep, 15 2024
+/// Project: VenomEngineWorkspace
+/// @file StorageBuffer.h
+/// @date Oct, 16 2024
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
-
 #include <venom/vulkan/Buffer.h>
 
 namespace venom
 {
 namespace vulkan
 {
-class UniformBuffer
+class StorageBuffer
 {
 public:
-    UniformBuffer();
-    ~UniformBuffer();
-    UniformBuffer(const UniformBuffer&) = delete;
-    UniformBuffer& operator=(const UniformBuffer&) = delete;
-    UniformBuffer(UniformBuffer&& other);
-    UniformBuffer& operator=(UniformBuffer&& other);
+    StorageBuffer();
+    ~StorageBuffer();
+    StorageBuffer(const StorageBuffer&) = delete;
+    StorageBuffer& operator=(const StorageBuffer&) = delete;
+    StorageBuffer(StorageBuffer&& other);
+    StorageBuffer& operator=(StorageBuffer&& other);
 
     vc::Error Init(const VkDeviceSize size);
     const VkDeviceMemory & GetVkDeviceMemory() const;

@@ -15,6 +15,10 @@
 #include <venom/common/math/Vector.h>
 #include <venom/vulkan/LogicalDevice.h>
 
+#include <venom/common/VenomSettings.h>
+
+#include <venom/vulkan/VulkanApplication.h>
+
 namespace venom::vulkan
 {
 
@@ -66,6 +70,15 @@ vc::Error ShaderPipeline::AddVertexBufferToLayout(const uint32_t vertexSize, con
         .offset = offset
     });
     return vc::Error::Success;
+}
+
+void ShaderPipeline::AddDescriptorSetLayoutBinding(const uint32_t desciptorSetIndex, const uint32_t binding,
+    const VkDescriptorType type, const uint32_t count, const VkShaderStageFlags stageFlags)
+{
+    while (__descriptorSetLayouts.size() <= desciptorSetIndex)
+        __descriptorSetLayouts.emplace_back();
+    __descriptorSetLayouts[desciptorSetIndex].AddBinding(binding, type, count, stageFlags);
+    __descriptorPool.AddPoolSize(type, VENOM_MAX_FRAMES_IN_FLIGHT);
 }
 
 vc::Error ShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
@@ -272,21 +285,18 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
     dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
     dynamicState.pDynamicStates = dynamicStates.data();
 
-    // Descriptor Set Layout
-    __descriptorSetLayout.AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
-    __descriptorSetLayout.AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
-    // Separate sampler binding
-    __descriptorSetLayout.AddBinding(2, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    __descriptorSetLayout.AddBinding(3, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    // Combined image sampler
-    // __descriptorSetLayout.AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    if (__descriptorSetLayout.Create() != vc::Error::Success) {
-        vc::Log::Error("Failed to create descriptor set layout");
-        return vc::Error::Failure;
+    std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
+    descriptorSetLayouts.reserve(__descriptorSetLayouts.size());
+
+    for (auto& descriptorSetLayout : __descriptorSetLayouts)
+    {
+        if (descriptorSetLayout.Create() != vc::Error::Success)
+        {
+            vc::Log::Error("Failed to create descriptor set layout");
+            return vc::Error::Failure;
+        }
+        descriptorSetLayouts.emplace_back(descriptorSetLayout.GetLayout());
     }
-
-
-    VkDescriptorSetLayout descriptorSetLayout = __descriptorSetLayout.GetLayout();
 
     // Push constants
     VkPushConstantRange pushConstantRange{};
@@ -297,8 +307,8 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
     // Pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount = 1; // Optional
-    pipelineLayoutInfo.pSetLayouts = &descriptorSetLayout; // Optional
+    pipelineLayoutInfo.setLayoutCount = descriptorSetLayouts.size(); // Optional
+    pipelineLayoutInfo.pSetLayouts = descriptorSetLayouts.data(); // Optional
     //pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
     //pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
 
@@ -306,6 +316,17 @@ vc::Error ShaderPipeline::LoadShaders(const SwapChain* swapChain, const RenderPa
     {
         vc::Log::Error("Failed to create pipeline layout");
         return vc::Error::Failure;
+    }
+
+    if (vc::Error err = __descriptorPool.Create(0, VENOM_MAX_FRAMES_IN_FLIGHT); err != vc::Error::Success)
+    {
+        vc::Log::Error("Failed to create descriptor pool, error: %d", err);
+        return vc::Error::Failure;
+    }
+
+    __descriptorSets.resize(__descriptorSetLayouts.size());
+    for (int i = 0; i < __descriptorSetLayouts.size(); ++i) {
+        __descriptorSets[i] = __descriptorPool.AllocateSets(__descriptorSetLayouts[i].GetLayout(), VENOM_MAX_FRAMES_IN_FLIGHT);
     }
 
     // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
@@ -359,8 +380,43 @@ VkPipelineLayout ShaderPipeline::GetPipelineLayout() const
     return __pipelineLayout;
 }
 
-const VkDescriptorSetLayout& ShaderPipeline::GetDescriptorSetLayout() const
+std::vector<DescriptorSet>& ShaderPipeline::GetDescriptorSets(const uint32_t index)
 {
-    return __descriptorSetLayout.GetLayout();
+    venom_assert(index < __descriptorSets.size(), "Index out of range");
+    return __descriptorSets[index];
+}
+
+uint32_t ShaderPipeline::GetDescriptorSetCount() const
+{
+    return static_cast<uint32_t>(__descriptorSetLayouts.size());
+}
+
+void ShaderPipeline::BindDescriptorSets(const CommandBuffer& commandBuffer, const VkPipelineBindPoint bindPoint)
+{
+    const int currentFrame = VulkanApplication::GetCurrentFrame();
+    std::vector<VkDescriptorSet> descriptorSets;
+    descriptorSets.reserve(__descriptorSets.size());
+    for (int i = 0; i < __descriptorSets.size(); ++i) {
+        descriptorSets.emplace_back(__descriptorSets[i][currentFrame].GetVkDescriptorSet());
+    }
+    vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
+        __pipelineLayout, 0, descriptorSets.size(),
+        descriptorSets.data(),
+        0, nullptr);
+}
+
+void ShaderPipeline::BindDescriptorSets(const CommandBuffer& commandBuffer, const VkPipelineBindPoint bindPoint,
+    const std::vector<uint32_t>& dynamicOffsets)
+{
+    const int currentFrame = VulkanApplication::GetCurrentFrame();
+    std::vector<VkDescriptorSet> descriptorSets;
+    descriptorSets.reserve(__descriptorSets.size());
+    for (int i = 0; i < __descriptorSets.size(); ++i) {
+        descriptorSets.emplace_back(__descriptorSets[i][currentFrame].GetVkDescriptorSet());
+    }
+    vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
+        __pipelineLayout, 0, descriptorSets.size(),
+        descriptorSets.data(),
+        dynamicOffsets.size(), dynamicOffsets.data());
 }
 }

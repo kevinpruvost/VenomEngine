@@ -28,8 +28,25 @@ DescriptorSetLayout::~DescriptorSetLayout()
     }
 }
 
+DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) noexcept
+    : __layout(std::move(other.__layout))
+    , __descriptorSetLayoutInfo(std::move(other.__descriptorSetLayoutInfo))
+    , __bindings(std::move(other.__bindings))
+{
+}
+
+DescriptorSetLayout& DescriptorSetLayout::operator=(DescriptorSetLayout&& other) noexcept
+{
+    if (this != &other) {
+        __layout = std::move(other.__layout);
+        __descriptorSetLayoutInfo = std::move(other.__descriptorSetLayoutInfo);
+        __bindings = std::move(other.__bindings);
+    }
+    return *this;
+}
+
 void DescriptorSetLayout::AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count,
-    VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers)
+                                     VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers)
 {
     __bindings.push_back({ binding, type, count, stageFlags, immutableSamplers });
     __descriptorSetLayoutInfo.bindingCount = __bindings.size();

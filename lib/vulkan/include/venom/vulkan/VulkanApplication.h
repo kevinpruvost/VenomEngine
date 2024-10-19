@@ -23,6 +23,7 @@
 #include <venom/vulkan/QueueManager.h>
 #include <venom/vulkan/UniformBuffer.h>
 #include <venom/vulkan/DescriptorPool.h>
+#include <venom/vulkan/StorageBuffer.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
@@ -47,6 +48,7 @@ public:
     vc::Error Init() override;
     vc::Error Loop() override;
     bool ShouldClose() override;
+    static int GetCurrentFrame();
 
 private:
     vc::Error __Loop();
@@ -79,12 +81,12 @@ private:
     Queue __graphicsQueue, __presentQueue;
 
     DescriptorPool __descriptorPool;
-    std::vector<DescriptorSet> __descriptorSets;
 
     bool __shouldClose;
 
 private:
     // For test
+    static int __currentFrame;
     VulkanCamera * __camera;
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
@@ -92,11 +94,10 @@ private:
     Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Fence __inFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
-    int __currentFrame;
     bool __framebufferChanged;
     VulkanModel * __model;
     VulkanMesh * __mesh;
-    UniformBuffer __objectUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     vcm::Vec3 __verticesPos[8] = {
         {-0.5f, -0.5f, 0.0f},

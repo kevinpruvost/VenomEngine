@@ -1,10 +1,10 @@
 // HLSL Vertex Shader for Vulkan using DXC
 
-cbuffer UniformBufferObject : register(b0) {
-    float4x4 model;
+cbuffer UniformBufferObject : register(b0, space0) {
+    StructuredBuffer<float4x4> models;
 };
 
-cbuffer UniformBufferCamera : register(b1) {
+cbuffer UniformBufferCamera : register(b0, space1) {
     float4x4 view;
     float4x4 proj;
 };
@@ -22,6 +22,7 @@ struct VSInput {
     [[vk::location(1)]] float3 inNormal : NORMAL;
     [[vk::location(2)]] float4 inColor : COLOR;
     [[vk::location(3)]] float2 inTexCoord : TEXCOORD;
+    uint instanceID : SV_InstanceID;
 };
 
 struct VSOutput {
@@ -30,10 +31,11 @@ struct VSOutput {
     [[vk::location(1)]] float2 fragTexCoord : TEXCOORD1;  // Equivalent to layout(location = 1) out in GLSL
 };
 
-VSOutput main(VSInput input) {
+VSOutput main(VSInput input)
+{
     VSOutput output;
     output.outPosition = float4(input.inPosition, 1.0); // Set the position
-    output.outPosition = mul(model, output.outPosition); // Apply the model matrix
+    output.outPosition = mul(models[input.instanceID], output.outPosition); // Apply the model matrix
     output.outPosition = mul(view, output.outPosition);  // Apply the view matrix
     output.outPosition = mul(proj, output.outPosition);  // Apply the projection matrix
     output.fragColor = input.inColor;                        // Pass the color to the fragment shader

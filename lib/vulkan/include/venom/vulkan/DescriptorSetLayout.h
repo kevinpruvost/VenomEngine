@@ -19,9 +19,9 @@ public:
     DescriptorSetLayout();
     ~DescriptorSetLayout();
     DescriptorSetLayout(const DescriptorSetLayout& other) = delete;
-    DescriptorSetLayout(DescriptorSetLayout&& other) noexcept = delete;
     DescriptorSetLayout& operator=(const DescriptorSetLayout& other) = delete;
-    DescriptorSetLayout& operator=(DescriptorSetLayout&& other) noexcept = delete;
+    DescriptorSetLayout(DescriptorSetLayout&& other) noexcept;
+    DescriptorSetLayout& operator=(DescriptorSetLayout&& other) noexcept;
 
     void AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count, VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers = nullptr);
     vc::Error Create(VkDescriptorSetLayoutCreateFlags flags = 0);

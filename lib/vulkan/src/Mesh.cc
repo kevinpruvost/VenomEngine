@@ -50,6 +50,14 @@ vc::Error VulkanMesh::__LoadMeshFromCurrentData()
     // Indices
     if (!__indices.empty() && AddIndexBuffer(__indices.data(), static_cast<uint32_t>(__indices.size()), sizeof(uint32_t)) != vc::Error::Success)
         return vc::Error::Failure;
+
+    // Materials
+    if (__material) {
+        const auto * texture = __material->GetComponent(vc::MaterialComponentType::DIFFUSE).GetTexture();
+        if (texture) {
+
+        }
+    }
     return vc::Error::Success;
 }
 

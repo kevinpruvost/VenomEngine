@@ -34,7 +34,6 @@ file(GLOB_RECURSE RESOURCE_FILES
     "${CMAKE_SOURCE_DIR}/resources/**/*.glsl"
     "${CMAKE_SOURCE_DIR}/resources/**/*.spv"
     "${CMAKE_SOURCE_DIR}/resources/**/*.png"
-    "${CMAKE_SOURCE_DIR}/resources/**/*.png"
     "${CMAKE_SOURCE_DIR}/resources/**/*.jpg"
     "${CMAKE_SOURCE_DIR}/resources/**/*.jpeg"
     "${CMAKE_SOURCE_DIR}/resources/**/*.fbx"
@@ -44,7 +43,8 @@ file(GLOB_RECURSE RESOURCE_FILES
 )
 
 if (APPLE)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "13")
+    set(XCODE_VERSION "16.0")
     file(GLOB_RECURSE RESOURCE_FILES_APPLE
         "${CMAKE_SOURCE_DIR}/resources/**/*.icns"
         "${CMAKE_SOURCE_DIR}/resources/*.icns"

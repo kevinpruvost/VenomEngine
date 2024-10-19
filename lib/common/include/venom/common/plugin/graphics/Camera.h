@@ -16,6 +16,10 @@ namespace venom
 {
 namespace common
 {
+/**
+ * @brief Camera class
+ * Classic layout with position, rotation and projection matrices
+ */
 class Camera : public GraphicsPluginObject
 {
 protected:

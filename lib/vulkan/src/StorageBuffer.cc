@@ -1,11 +1,11 @@
 ///
-/// Project: VenomEngine
-/// @file UniformBuffer.cc
-/// @date Sep, 15 2024
+/// Project: VenomEngineWorkspace
+/// @file StorageBuffer.cc
+/// @date Oct, 16 2024
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/UniformBuffer.h>
+#include <venom/vulkan/StorageBuffer.h>
 
 #include <venom/vulkan/QueueManager.h>
 #include <venom/vulkan/LogicalDevice.h>
@@ -14,23 +14,22 @@ namespace venom
 {
 namespace vulkan
 {
-UniformBuffer::UniformBuffer()
-    : __buffer()
-    , __mappedData(nullptr)
+StorageBuffer::StorageBuffer()
+    : __mappedData(nullptr)
 {
 }
 
-UniformBuffer::~UniformBuffer()
+StorageBuffer::~StorageBuffer()
 {
 }
 
-UniformBuffer::UniformBuffer(UniformBuffer&& other)
+StorageBuffer::StorageBuffer(StorageBuffer&& other)
     : __buffer(std::move(other.__buffer))
     , __mappedData(std::move(other.__mappedData))
 {
 }
 
-UniformBuffer& UniformBuffer::operator=(UniformBuffer&& other)
+StorageBuffer& StorageBuffer::operator=(StorageBuffer&& other)
 {
     if (this != &other) {
         __buffer = std::move(other.__buffer);
@@ -39,9 +38,9 @@ UniformBuffer& UniformBuffer::operator=(UniformBuffer&& other)
     return *this;
 }
 
-vc::Error UniformBuffer::Init(const VkDeviceSize size)
+vc::Error StorageBuffer::Init(const VkDeviceSize size)
 {
-    vc::Error err = __buffer.CreateBuffer(size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+    vc::Error err = __buffer.CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
         QueueManager::GetGraphicsTransferSharingMode(),
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
     );
@@ -53,22 +52,22 @@ vc::Error UniformBuffer::Init(const VkDeviceSize size)
     return err;
 }
 
-const VkDeviceMemory & UniformBuffer::GetVkDeviceMemory() const
+const VkDeviceMemory& StorageBuffer::GetVkDeviceMemory() const
 {
     return __buffer.GetVkDeviceMemory();
 }
 
-void* UniformBuffer::GetMappedData() const
+void* StorageBuffer::GetMappedData() const
 {
     return __mappedData;
 }
 
-VkBuffer UniformBuffer::GetVkBuffer() const
+VkBuffer StorageBuffer::GetVkBuffer() const
 {
     return __buffer.GetVkBuffer();
 }
 
-VkDeviceSize UniformBuffer::GetSize() const
+VkDeviceSize StorageBuffer::GetSize() const
 {
     return __buffer.GetSize();
 }

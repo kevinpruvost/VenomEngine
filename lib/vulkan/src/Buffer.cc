@@ -57,7 +57,7 @@ uint32_t Buffer::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags prope
         }
     }
     return -1;
-};
+}
 
 vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode,
                                const VkMemoryPropertyFlags memoryProperties)

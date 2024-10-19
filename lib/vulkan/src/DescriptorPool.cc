@@ -38,7 +38,7 @@ void DescriptorPool::AddPoolSize(VkDescriptorType type, uint32_t count)
 vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t maxSets)
 {
     __poolInfo.flags = flags;
-    __poolInfo.maxSets = maxSets;
+    __poolInfo.maxSets = maxSets * __poolSizes.size();
     if (auto err = vkCreateDescriptorPool(LogicalDevice::GetVkDevice(), &__poolInfo, Allocator::GetVKAllocationCallbacks(), &__pool); err != VK_SUCCESS) {
         vc::Log::Error("Failed to create descriptor pool: %d", err);
         return vc::Error::Failure;
