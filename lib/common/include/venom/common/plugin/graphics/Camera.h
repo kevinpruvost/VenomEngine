@@ -27,6 +27,8 @@ protected:
 public:
     ~Camera();
     static Camera * Create();
+    static void SetMainCamera(Camera * camera);
+    static Camera * GetMainCamera();
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera

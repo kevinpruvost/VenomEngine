@@ -14,7 +14,7 @@ namespace venom
 namespace vulkan
 {
 
-class VulkanMaterial : public vc::Material
+class VulkanMaterial : public vc::MaterialImpl
 {
 public:
     VulkanMaterial();

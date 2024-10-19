@@ -17,6 +17,22 @@ namespace venom
 {
 namespace common
 {
+class VENOM_COMMON_API ModelImpl : public PluginObjectImpl
+{
+public:
+    ModelImpl();
+    virtual ~ModelImpl() = default;
+
+    vc::Error ImportModel(const std::string & path);
+    virtual void Draw() = 0;
+
+    const std::vector<vc::Mesh *> & GetMeshes() const;
+
+protected:
+    std::vector<vc::Mesh *> __meshes;
+    std::vector<vc::Material *> __materials;
+};
+
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
 class VENOM_COMMON_API Model : public GraphicsPluginObject
@@ -27,15 +43,9 @@ public:
     static Model * Create(const std::string & path);
     ~Model() override;
 
-    virtual void Draw() = 0;
-    vc::Error ImportModel(const std::string & path);
-    //virtual vc::Error __ImportMesh() = 0;
-
-    const std::vector<vc::Mesh *> & GetMeshes() const;
-
-protected:
-    std::vector<vc::Mesh *> __meshes;
-    std::vector<vc::Material *> __materials;
+    void Draw() { _impl->As<ModelImpl>()->Draw(); }
+    inline vc::Error ImportModel(const std::string & path) { return _impl->As<ModelImpl>()->ImportModel(path); }
+    inline const std::vector<vc::Mesh *> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }
 };
 
 

@@ -13,27 +13,33 @@ namespace common
 {
 Mesh::Mesh()
     : GraphicsPluginObject()
-    , __material(nullptr)
 {
 }
 
-Mesh* Mesh::Create()
+Mesh * Mesh::Create()
 {
-    return GraphicsPlugin::Get()->CreateMesh();
+    Mesh * mesh = new Mesh();
+    mesh->_impl = GraphicsPlugin::Get()->CreateMesh();
+    return mesh;
 }
 
 Mesh::~Mesh()
 {
 }
 
-void Mesh::SetMaterial(Material* material)
+MeshImpl::MeshImpl()
+    : _material(nullptr)
 {
-    __material = material;
 }
 
-const Material* Mesh::GetMaterial() const
+void MeshImpl::SetMaterial(Material* material)
 {
-    return __material;
+    _material = material;
+}
+
+const Material* MeshImpl::GetMaterial() const
+{
+    return _material;
 }
 }
 }

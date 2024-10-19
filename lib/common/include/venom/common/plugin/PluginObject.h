@@ -15,6 +15,13 @@ namespace venom
 namespace common
 {
 
+class VENOM_COMMON_API PluginObjectImpl
+{
+public:
+    template<class T> inline T * As() { return static_cast<T *>(this); }
+    template<class T> inline const T * As() const { return static_cast<const T *>(this); }
+};
+
 class VENOM_COMMON_API PluginObject
 {
 public:
@@ -23,8 +30,12 @@ public:
     /// @brief /!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE `delete`
     virtual void Destroy();
 
-    template<class T> T * As() { return dynamic_cast<T *>(this); }
-    template<class T> const T * As() const { return dynamic_cast<const T *>(this); }
+    template<class T> inline T * As() { return dynamic_cast<T *>(this); }
+    template<class T> inline const T * As() const { return dynamic_cast<const T *>(this); }
+    PluginObjectImpl * GetImpl();
+    const PluginObjectImpl * GetImpl() const;
+protected:
+    PluginObjectImpl * _impl;
 private:
     const PluginType __type;
 };

@@ -18,17 +18,29 @@ namespace common
 {
 PluginObject::PluginObject(const PluginType type)
     : __type(type)
+    , _impl(nullptr)
 {
     VenomEngine::GetInstance()->pluginManager->AddPluginObject(__type, this);
 }
 
 PluginObject::~PluginObject()
 {
+    if (_impl) delete _impl;
 }
 
 void PluginObject::Destroy()
 {
     VenomEngine::GetInstance()->pluginManager->RemovePluginObject(__type, this);
+}
+
+PluginObjectImpl* PluginObject::GetImpl()
+{
+    return _impl;
+}
+
+const PluginObjectImpl* PluginObject::GetImpl() const
+{
+    return _impl;
 }
 }
 }

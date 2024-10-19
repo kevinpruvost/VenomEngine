@@ -13,6 +13,9 @@
 #include <venom/common/Resources.h>
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 
+#include <venom/common/plugin/graphics/Mesh.h>
+#include <venom/common/plugin/graphics/Model.h>
+
 #include <filesystem>
 #include <thread>
 #include <chrono>
@@ -21,6 +24,8 @@ namespace venom
 {
 namespace common
 {
+static SceneCallback s_sceneCallback = nullptr;
+
 VenomEngine::VenomEngine()
     : pluginManager(new PluginManager())
     , __dllCache(new DLL_Cache())
@@ -38,6 +43,7 @@ VenomEngine::VenomEngine()
         Log::Error("VenomEngine::VenomEngine() : Failed to create memory pool");
         abort();
     }
+    __LoadECS();
 }
 
 VenomEngine::~VenomEngine()
@@ -58,22 +64,46 @@ Error VenomEngine::RunEngine(int argc, char** argv)
 {
     vc::Error err = Error::Success;
 
+    // Check if scene is set
+    if (!s_sceneCallback) {
+        Log::Error("VenomEngine::RunEngine() : No scene set");
+        return Error::Failure;
+    }
+
     vc::Resources::InitializeFilesystem(argc, argv);
 
     s_instance.reset(new VenomEngine());
     vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
 
     if (err = app->Init(); err != vc::Error::Success) {
-        printf("Failed to init application: %d\n", static_cast<int>(err));
-    }
-    while (!app->ShouldClose())
-    {
-        app->Loop();
-        s_instance->pluginManager->CleanPluginsObjets();
+        vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
+    } else {
+        s_sceneCallback();
+        while (!app->ShouldClose())
+        {
+            app->Loop();
+            s_instance->pluginManager->CleanPluginsObjets();
+        }
     }
     s_instance.reset();
     vc::Resources::FreeFilesystem();
     return err;
+}
+
+Error VenomEngine::SetScene(const String& scenefileName)
+{
+    // TODO:
+    return vc::Error::Failure;
+}
+
+Error VenomEngine::SetScene(const SceneCallback& sceneCallback)
+{
+    s_sceneCallback = sceneCallback;
+}
+
+void VenomEngine::__LoadECS()
+{
+    __ecs->RegisterComponent<Model>();
 }
 }
 }

@@ -24,6 +24,9 @@ namespace venom
 {
 namespace common
 {
+ModelImpl::ModelImpl()
+{
+}
 
 Model::Model()
     : GraphicsPluginObject()
@@ -35,7 +38,8 @@ Model* Model::Create(const std::string & path)
     auto realPath = Resources::GetModelsResourcePath(path);
     Model * model = dynamic_cast<Model *>(GetCachedObject(realPath));
     if (!model) {
-        model = GraphicsPlugin::Get()->CreateModel();
+        model = new Model();
+        model->_impl = GraphicsPlugin::Get()->CreateModel();
         if (Error err = model->ImportModel(realPath); err != Error::Success) {
             model->Destroy();
             return nullptr;
@@ -105,7 +109,7 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
     return MaterialComponentType::MAX_COMPONENT;
 }
 
-vc::Error Model::ImportModel(const std::string & path)
+vc::Error ModelImpl::ImportModel(const std::string & path)
 {
     // Get Parent folder for relative paths when we will load textures
     auto parentFolder = std::filesystem::path(path).parent_path();
@@ -244,20 +248,20 @@ vc::Error Model::ImportModel(const std::string & path)
         mesh->SetMaterial(__materials[aimesh->mMaterialIndex]);
 
         // Vertices & normals
-        mesh->__positions.reserve(aimesh->mNumVertices);
-        mesh->__normals.reserve(aimesh->mNumVertices);
+        mesh->_impl->As<MeshImpl>()->_positions.reserve(aimesh->mNumVertices);
+        mesh->_impl->As<MeshImpl>()->_normals.reserve(aimesh->mNumVertices);
         for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-            mesh->__positions.emplace_back(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
-            mesh->__normals.emplace_back(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
+            mesh->_impl->As<MeshImpl>()->_positions.emplace_back(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
+            mesh->_impl->As<MeshImpl>()->_normals.emplace_back(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
         }
 
         // Color sets
         for (int c = 0; c < AI_MAX_NUMBER_OF_COLOR_SETS; ++c) {
             if (!aimesh->HasVertexColors(c)) break;
 
-            mesh->__colors[c].reserve(aimesh->mNumVertices);
+            mesh->_impl->As<MeshImpl>()->_colors[c].reserve(aimesh->mNumVertices);
             for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh->__colors[c].emplace_back(aimesh->mColors[c][x].r, aimesh->mColors[c][x].g, aimesh->mColors[c][x].b, aimesh->mColors[c][x].a);
+                mesh->_impl->As<MeshImpl>()->_colors[c].emplace_back(aimesh->mColors[c][x].r, aimesh->mColors[c][x].g, aimesh->mColors[c][x].b, aimesh->mColors[c][x].a);
             }
         }
 
@@ -265,34 +269,34 @@ vc::Error Model::ImportModel(const std::string & path)
         for (int c = 0; c < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++c) {
             if (!aimesh->HasTextureCoords(c)) break;
 
-            mesh->__uvs[c].reserve(aimesh->mNumVertices);
+            mesh->_impl->As<MeshImpl>()->_uvs[c].reserve(aimesh->mNumVertices);
             for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh->__uvs[c].emplace_back(aimesh->mTextureCoords[c][x].x, aimesh->mTextureCoords[c][x].y);
+                mesh->_impl->As<MeshImpl>()->_uvs[c].emplace_back(aimesh->mTextureCoords[c][x].x, aimesh->mTextureCoords[c][x].y);
             }
         }
 
         // Tangents & Bitangents
         if (aimesh->HasTangentsAndBitangents()) {
-            mesh->__tangents.reserve(aimesh->mNumVertices);
-            mesh->__bitangents.reserve(aimesh->mNumVertices);
+            mesh->_impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
+            mesh->_impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
             for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh->__tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
-                mesh->__bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
+                mesh->_impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
+                mesh->_impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
             }
         }
 
         // Faces
         if (aimesh->HasFaces()) {
-            mesh->__indices.reserve(aimesh->mNumFaces * 3);
+            mesh->_impl->As<MeshImpl>()->_indices.reserve(aimesh->mNumFaces * 3);
             for (uint32_t x = 0; x < aimesh->mNumFaces; ++x) {
-                mesh->__indices.push_back(aimesh->mFaces[x].mIndices[0]);
-                mesh->__indices.push_back(aimesh->mFaces[x].mIndices[1]);
-                mesh->__indices.push_back(aimesh->mFaces[x].mIndices[2]);
+                mesh->_impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[0]);
+                mesh->_impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[1]);
+                mesh->_impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[2]);
             }
         }
 
         // Load mesh into Graphics API
-        if (auto err = mesh->__LoadMeshFromCurrentData(); err != vc::Error::Success) {
+        if (auto err = mesh->_impl->As<MeshImpl>()->__LoadMeshFromCurrentData(); err != vc::Error::Success) {
             vc::Log::Error("Failed to load mesh from current data");
             return err;
         }
@@ -300,7 +304,7 @@ vc::Error Model::ImportModel(const std::string & path)
     return vc::Error::Success;
 }
 
-const std::vector<vc::Mesh*>& Model::GetMeshes() const
+const std::vector<vc::Mesh*>& ModelImpl::GetMeshes() const
 {
     return __meshes;
 }

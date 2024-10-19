@@ -16,10 +16,10 @@ namespace common
 
 class GraphicsApplication;
 
-class Material;
-class Model;
-class Mesh;
-class Texture;
+class MaterialImpl;
+class ModelImpl;
+class MeshImpl;
+class TextureImpl;
 class Camera;
 
 class VENOM_COMMON_API GraphicsPlugin : public Plugin
@@ -39,10 +39,10 @@ public:
     static GraphicsPlugin * Get();
 
     virtual GraphicsApplication * CreateGraphicsApplication() = 0;
-    virtual Material* CreateMaterial() = 0;
-    virtual Model * CreateModel() = 0;
-    virtual Mesh * CreateMesh() = 0;
-    virtual Texture * CreateTexture() = 0;
+    virtual MaterialImpl * CreateMaterial() = 0;
+    virtual ModelImpl * CreateModel() = 0;
+    virtual MeshImpl * CreateMesh() = 0;
+    virtual TextureImpl * CreateTexture() = 0;
     virtual Camera * CreateCamera() = 0;
 };
 

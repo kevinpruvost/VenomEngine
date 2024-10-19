@@ -14,6 +14,13 @@ namespace venom
 {
 namespace common
 {
+typedef flecs::entity Entity;
+
+template <typename T>
+using Component = flecs::component<T>;
+
+typedef flecs::system System;
+
 /**
  * @brief Entity Component System
  * Will mainly encapsulate the fabulous flecs library (https://github.com/SanderMertens/flecs.git)
@@ -25,8 +32,38 @@ public:
     ECS();
     ~ECS();
 
+    template <typename T>
+    void RegisterComponent() {
+        __world.component<T>();
+    }
+
+    template<typename T>
+    inline Component<T> GetComponent() {
+        return __world.component<T>();
+    }
+
+    Entity CreateEntity(const char * name);
+
+    template <typename... Comps, typename... Args>
+    System CreateSystem(const char * name) {
+        return __world.system<Comps...>(name);
+    }
+
+    static ECS * GetECS();
+
+private:
+    static ECS * s_ecs;
+
 private:
     flecs::world __world;
 };
+
+Entity CreateEntity(const char * name);
+
+template<typename T>
+inline Component<T> GetComponent() {
+    return ECS::GetECS()->GetComponent<T>();
+}
+
 }
 }

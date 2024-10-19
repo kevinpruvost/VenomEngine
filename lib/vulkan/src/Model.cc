@@ -12,7 +12,7 @@ namespace venom
 namespace vulkan
 {
 VulkanModel::VulkanModel()
-    : vc::Model()
+    : vc::ModelImpl()
 {
 }
 

@@ -15,6 +15,10 @@ namespace venom
 {
 namespace common
 {
+// Scenes are callbacks that will be called by the engine to load a scene
+// Can either be a file or a function
+typedef void (*SceneCallback)();
+
 /**
  * @brief Main class of the engine
  * This class will be the main entry point of the engine.
@@ -41,6 +45,23 @@ public:
      * @return error if any, refer to Error enum for more information
      */
     static Error RunEngine(int argc, char ** argv);
+
+    /**
+     * @brief Loads a scene from a file
+     * @param scenefileName
+     * @return error
+     */
+    static Error SetScene(const String & scenefileName);
+
+    /**
+     * @brief Loads a scene from a callback
+     * @param sceneCallback
+     * @return error
+     */
+    static Error SetScene(const SceneCallback & sceneCallback);
+
+private:
+    void __LoadECS();
 
 public:
     std::unique_ptr<PluginManager> pluginManager;

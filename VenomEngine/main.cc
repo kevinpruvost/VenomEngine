@@ -31,6 +31,8 @@ int ReportHook(int reportType, char *message, int * returnValue)
 
 #include <thread>
 
+#include "venom/common/plugin/graphics/Camera.h"
+
 int main(int argc, char** argv)
 {
     int errorCode = EXIT_SUCCESS;
@@ -49,6 +51,14 @@ int main(int argc, char** argv)
 #endif
 
     // Run the engine
+    vc::VenomEngine::SetScene([]()
+    {
+        //vc::Entity balls = vc::CreateEntity("balls_hd")
+        //    .emplace<>(vc::Model::Create("eye/eye.obj"));
+
+        vc::Camera * camera = vc::Camera::Create();
+        camera->SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
+    });
     const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 
 #if defined(_WIN32) && defined(_ANALYSIS)

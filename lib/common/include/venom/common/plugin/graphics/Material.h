@@ -18,6 +18,25 @@ namespace common
 {
 class Model;
 
+class VENOM_COMMON_API MaterialImpl : public PluginObjectImpl
+{
+public:
+    MaterialImpl();
+    virtual ~MaterialImpl() = default;
+
+    void SetComponent(const MaterialComponentType type, const vcm::Vec3& value);
+    void SetComponent(const MaterialComponentType type, const vcm::Vec4& value);
+    void SetComponent(const MaterialComponentType type, const float value);
+    void SetComponent(const MaterialComponentType type, const Texture* texture);
+    const MaterialComponent & GetComponent(const MaterialComponentType type) const;
+    const std::string & GetName() const;
+    void SetName(const std::string & name);
+
+private:
+    MaterialComponent __components[MaterialComponentType::MAX_COMPONENT];
+    std::string __name;
+};
+
 class VENOM_COMMON_API Material : public GraphicsPluginObject
 {
 protected:
@@ -27,16 +46,27 @@ public:
 
     static Material * Create();
 public:
-    void SetComponent(const MaterialComponentType type, const vcm::Vec3& value);
-    void SetComponent(const MaterialComponentType type, const vcm::Vec4& value);
-    void SetComponent(const MaterialComponentType type, const float value);
-    void SetComponent(const MaterialComponentType type, const Texture* texture);
-    const MaterialComponent & GetComponent(const MaterialComponentType type) const;
-    const std::string & GetName() const;
-    void SetName(const std::string & name);
-private:
-    MaterialComponent __components[MaterialComponentType::MAX_COMPONENT];
-    std::string __name;
+    inline void SetComponent(const MaterialComponentType type, const vcm::Vec3& value) {
+        _impl->As<MaterialImpl>()->SetComponent(type, value);
+    }
+    inline void SetComponent(const MaterialComponentType type, const vcm::Vec4& value) {
+        _impl->As<MaterialImpl>()->SetComponent(type, value);
+    }
+    inline void SetComponent(const MaterialComponentType type, const float value) {
+        _impl->As<MaterialImpl>()->SetComponent(type, value);
+    }
+    inline void SetComponent(const MaterialComponentType type, const Texture* texture) {
+        _impl->As<MaterialImpl>()->SetComponent(type, texture);
+    }
+    inline const MaterialComponent & GetComponent(const MaterialComponentType type) const {
+        return _impl->As<MaterialImpl>()->GetComponent(type);
+    }
+    inline const std::string & GetName() const {
+        return _impl->As<MaterialImpl>()->GetName();
+    }
+    inline void SetName(const std::string & name) {
+        _impl->As<MaterialImpl>()->SetName(name);
+    }
 };
 
 }

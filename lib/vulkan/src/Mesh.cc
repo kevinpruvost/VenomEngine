@@ -30,30 +30,30 @@ void VulkanMesh::Draw()
 vc::Error VulkanMesh::__LoadMeshFromCurrentData()
 {
     // Positions
-    if (!__positions.empty() && AddVertexBuffer(__positions.data(), static_cast<uint32_t>(__positions.size()), sizeof(vcm::VertexPos), 0) != vc::Error::Success)
+    if (!_positions.empty() && AddVertexBuffer(_positions.data(), static_cast<uint32_t>(_positions.size()), sizeof(vcm::VertexPos), 0) != vc::Error::Success)
         return vc::Error::Failure;
     // Normals
-    if (!__normals.empty() && AddVertexBuffer(__normals.data(), static_cast<uint32_t>(__normals.size()), sizeof(vcm::VertexNormal), 1) != vc::Error::Success)
+    if (!_normals.empty() && AddVertexBuffer(_normals.data(), static_cast<uint32_t>(_normals.size()), sizeof(vcm::VertexNormal), 1) != vc::Error::Success)
         return vc::Error::Failure;
     // Colors
-    if (!__colors[0].empty() && AddVertexBuffer(__colors[0].data(), static_cast<uint32_t>(__colors[0].size()), sizeof(vcm::VertexColor), 2) != vc::Error::Success)
+    if (!_colors[0].empty() && AddVertexBuffer(_colors[0].data(), static_cast<uint32_t>(_colors[0].size()), sizeof(vcm::VertexColor), 2) != vc::Error::Success)
         return vc::Error::Failure;
     // UVs
-    if (!__uvs[0].empty() && AddVertexBuffer(__uvs[0].data(), static_cast<uint32_t>(__uvs[0].size()), sizeof(vcm::VertexUV), 3) != vc::Error::Success)
+    if (!_uvs[0].empty() && AddVertexBuffer(_uvs[0].data(), static_cast<uint32_t>(_uvs[0].size()), sizeof(vcm::VertexUV), 3) != vc::Error::Success)
         return vc::Error::Failure;
     // Tangents
-    if (!__tangents.empty() && AddVertexBuffer(__tangents.data(), static_cast<uint32_t>(__tangents.size()), sizeof(vcm::VertexTangent), 4) != vc::Error::Success)
+    if (!_tangents.empty() && AddVertexBuffer(_tangents.data(), static_cast<uint32_t>(_tangents.size()), sizeof(vcm::VertexTangent), 4) != vc::Error::Success)
         return vc::Error::Failure;
     // Bitangents
-    if (!__bitangents.empty() && AddVertexBuffer(__bitangents.data(), static_cast<uint32_t>(__bitangents.size()), sizeof(vcm::VertexBitangent), 5) != vc::Error::Success)
+    if (!_bitangents.empty() && AddVertexBuffer(_bitangents.data(), static_cast<uint32_t>(_bitangents.size()), sizeof(vcm::VertexBitangent), 5) != vc::Error::Success)
         return vc::Error::Failure;
     // Indices
-    if (!__indices.empty() && AddIndexBuffer(__indices.data(), static_cast<uint32_t>(__indices.size()), sizeof(uint32_t)) != vc::Error::Success)
+    if (!_indices.empty() && AddIndexBuffer(_indices.data(), static_cast<uint32_t>(_indices.size()), sizeof(uint32_t)) != vc::Error::Success)
         return vc::Error::Failure;
 
     // Materials
-    if (__material) {
-        const auto * texture = __material->GetComponent(vc::MaterialComponentType::DIFFUSE).GetTexture();
+    if (_material) {
+        const auto * texture = _material->GetComponent(vc::MaterialComponentType::DIFFUSE).GetTexture();
         if (texture) {
 
         }

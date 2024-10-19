@@ -18,27 +18,27 @@ namespace venom
 {
 namespace vulkan
 {
-vc::GraphicsApplication* VulkanGraphicsPlugin::CreateGraphicsApplication()
+vc::GraphicsApplication * VulkanGraphicsPlugin::CreateGraphicsApplication()
 {
     return new VulkanApplication();
 }
 
-vc::Model* VulkanGraphicsPlugin::CreateModel()
+vc::ModelImpl * VulkanGraphicsPlugin::CreateModel()
 {
     return new VulkanModel();
 }
 
-vc::Mesh * VulkanGraphicsPlugin::CreateMesh()
+vc::MeshImpl * VulkanGraphicsPlugin::CreateMesh()
 {
     return new VulkanMesh();
 }
 
-vc::Texture* VulkanGraphicsPlugin::CreateTexture()
+vc::TextureImpl * VulkanGraphicsPlugin::CreateTexture()
 {
     return new VulkanTexture();
 }
 
-vc::Material* VulkanGraphicsPlugin::CreateMaterial()
+vc::MaterialImpl * VulkanGraphicsPlugin::CreateMaterial()
 {
     return new VulkanMaterial();
 }

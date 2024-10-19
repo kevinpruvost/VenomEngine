@@ -13,7 +13,7 @@ namespace venom
 {
 namespace common
 {
-static ECS * s_ecs = nullptr;
+ECS * ECS::s_ecs = nullptr;
 
 ECS::ECS()
     : __world()
@@ -25,6 +25,21 @@ ECS::ECS()
 ECS::~ECS()
 {
     s_ecs = nullptr;
+}
+
+Entity ECS::CreateEntity(const char* name)
+{
+    return __world.entity(name);
+}
+
+ECS* ECS::GetECS()
+{
+    return s_ecs;
+}
+
+Entity CreateEntity(const char* name)
+{
+    return ECS::GetECS()->CreateEntity(name);
 }
 }
 }

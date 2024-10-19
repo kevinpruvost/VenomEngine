@@ -19,7 +19,7 @@ namespace venom
 namespace vulkan
 {
 
-class VulkanTexture : public vc::Texture
+class VulkanTexture : public vc::TextureImpl
 {
 public:
     VulkanTexture();

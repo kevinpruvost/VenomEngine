@@ -16,7 +16,7 @@ namespace venom
 {
 namespace vulkan
 {
-class VulkanMesh : public vc::Mesh
+class VulkanMesh : public vc::MeshImpl
 {
 public:
     VulkanMesh();

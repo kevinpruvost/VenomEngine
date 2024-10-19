@@ -18,27 +18,16 @@ namespace venom
 {
 namespace common
 {
-class Model;
-/// @brief Contains all the mesh's data and is the
-/// main high-level interface for the user
-class VENOM_COMMON_API Mesh : public GraphicsPluginObject
+class ModelImpl;
+class VENOM_COMMON_API MeshImpl : public PluginObjectImpl
 {
-protected:
-    Mesh();
 public:
-    static Mesh * Create();
-    ~Mesh();
+    MeshImpl();
+    virtual ~MeshImpl() = default;
 
-    virtual void Draw() = 0;
-
-    /**
-     * @brief Assigns Material to mesh
-     * @param material
-     */
     void SetMaterial(Material * material);
-
-
     const Material * GetMaterial() const;
+    virtual void Draw() = 0;
 
 private:
     /**
@@ -49,15 +38,52 @@ private:
     virtual vc::Error __LoadMeshFromCurrentData() = 0;
 
 protected:
-    friend class Model;
-    std::vector<vcm::VertexPos> __positions;
-    std::vector<vcm::VertexNormal> __normals;
-    std::vector<vcm::VertexColor> __colors[8];
-    std::vector<vcm::VertexUV> __uvs[8];
-    std::vector<uint32_t> __indices;
-    std::vector<vcm::VertexTangent> __tangents;
-    std::vector<vcm::VertexBitangent> __bitangents;
-    Material * __material;
+    friend class ModelImpl;
+    std::vector<vcm::VertexPos> _positions;
+    std::vector<vcm::VertexNormal> _normals;
+    std::vector<vcm::VertexColor> _colors[8];
+    std::vector<vcm::VertexUV> _uvs[8];
+    std::vector<uint32_t> _indices;
+    std::vector<vcm::VertexTangent> _tangents;
+    std::vector<vcm::VertexBitangent> _bitangents;
+    Material * _material;
+};
+
+/// @brief Contains all the mesh's data and is the
+/// main high-level interface for the user
+class VENOM_COMMON_API Mesh : public GraphicsPluginObject
+{
+protected:
+    Mesh();
+public:
+    static Mesh * Create();
+    ~Mesh();
+
+    /**
+     * @brief Assigns Material to mesh
+     * @param material
+     */
+    inline void SetMaterial(Material * material) {
+        _impl->As<MeshImpl>()->SetMaterial(material);
+    }
+
+    /**
+     * @brief Returns the Material assigned to the mesh
+     * @return Material
+     */
+    inline const Material * GetMaterial() const {
+        return _impl->As<MeshImpl>()->GetMaterial();
+    }
+
+    /**
+     * @brief Draws the mesh
+    */
+    inline void Draw() const {
+        _impl->As<MeshImpl>()->Draw();
+    }
+
+private:
+    friend class ModelImpl;
 };
 
 

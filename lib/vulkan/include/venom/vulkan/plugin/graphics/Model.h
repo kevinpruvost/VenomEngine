@@ -14,7 +14,7 @@ namespace venom
 {
 namespace vulkan
 {
-class VulkanModel : public vc::Model
+class VulkanModel : public vc::ModelImpl
 {
 public:
     VulkanModel();

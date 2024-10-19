@@ -27,7 +27,9 @@ Texture::~Texture()
 
 Texture* Texture::CreateRawTexture()
 {
-    return GraphicsPlugin::Get()->CreateTexture();
+    Texture * texture = new Texture();
+    texture->_impl = GraphicsPlugin::Get()->CreateTexture();
+    return texture;
 }
 
 Texture* Texture::Create(const std::string & path)
@@ -35,7 +37,8 @@ Texture* Texture::Create(const std::string & path)
     auto realPath = Resources::GetTexturesResourcePath(path);
     Texture * texture = dynamic_cast<Texture *>(GetCachedObject(realPath));
     if (!texture) {
-        texture = GraphicsPlugin::Get()->CreateTexture();
+        texture = new Texture();
+        texture->_impl = GraphicsPlugin::Get()->CreateTexture();
         if (Error err = texture->LoadImageFromFile(realPath.c_str()); err != Error::Success) {
             texture->Destroy();
             return nullptr;
@@ -45,7 +48,11 @@ Texture* Texture::Create(const std::string & path)
     return texture;
 }
 
-vc::Error Texture::LoadImageFromFile(const char* path)
+TextureImpl::TextureImpl()
+{
+}
+
+vc::Error TextureImpl::LoadImageFromFile(const char* path)
 {
     int width, height, channels;
     unsigned char * pixels = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);
@@ -61,7 +68,7 @@ vc::Error Texture::LoadImageFromFile(const char* path)
     return vc::Error::Success;
 }
 
-vc::Error Texture::InitDepthBuffer(int width, int height)
+vc::Error TextureImpl::InitDepthBuffer(int width, int height)
 {
     return __InitDepthBuffer(width, height);
 }

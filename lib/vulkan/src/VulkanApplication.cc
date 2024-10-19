@@ -80,7 +80,7 @@ vc::Error VulkanApplication::Init()
     __camera = vc::Camera::Create()->As<VulkanCamera>();
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
-        __shaderPipeline.GetDescriptorSets(2)[i].UpdateTexture(reinterpret_cast<VulkanTexture*>(__texture), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+        __shaderPipeline.GetDescriptorSets(2)[i].UpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
         __shaderPipeline.GetDescriptorSets(3)[i].UpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     }
     return vc::Error::Success;
@@ -440,8 +440,8 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __shaderPipeline.AddDescriptorSetLayoutBinding(1, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
     __shaderPipeline.AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
     __shaderPipeline.AddDescriptorSetLayoutBinding(3, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    __model = reinterpret_cast<VulkanModel*>(vc::Model::Create("eye/eye.obj"));
-    __mesh = reinterpret_cast<VulkanMesh*>(vc::Mesh::Create());
+    __model = vc::Model::Create("eye/eye.obj")->GetImpl()->As<VulkanModel>();
+    __mesh = vc::Mesh::Create()->GetImpl()->As<VulkanMesh>();
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
     __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);
     __mesh->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec4), sizeof(vcm::Vec4), 2);

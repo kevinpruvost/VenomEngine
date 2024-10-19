@@ -13,6 +13,7 @@ namespace venom
 {
 namespace common
 {
+static Camera * s_mainCamera = nullptr;
 Camera::Camera()
     : GraphicsPluginObject()
     , __position(0.0f, 0.0f, 0.0f)
@@ -24,15 +25,29 @@ Camera::Camera()
     , __viewMatrixDirty(true)
     , __projectionMatrixDirty(true)
 {
+    if (s_mainCamera == nullptr)
+        s_mainCamera = this;
 }
 
 Camera::~Camera()
 {
+    if (s_mainCamera == this)
+        s_mainCamera = nullptr;
 }
 
 Camera* Camera::Create()
 {
     return GraphicsPlugin::Get()->CreateCamera();
+}
+
+void Camera::SetMainCamera(Camera* camera)
+{
+    s_mainCamera = camera;
+}
+
+Camera* Camera::GetMainCamera()
+{
+    return s_mainCamera;
 }
 
 void Camera::SetPosition(const vcm::Vec3& position)

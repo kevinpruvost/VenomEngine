@@ -238,14 +238,14 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
     if (__depthTexture) {
         __depthTexture->Destroy();
     }
-    __depthTexture = reinterpret_cast<VulkanTexture*>(vc::Texture::CreateRawTexture());
+    __depthTexture = vc::Texture::CreateRawTexture();
     __depthTexture->InitDepthBuffer(extent.width, extent.height);
 
     __swapChainFramebuffers.resize(__swapChainImageViews.size());
     for (int i = 0; i < __swapChainImageViews.size(); ++i) {
         VkImageView attachments[] = {
             __swapChainImageViews[i].GetVkImageView(),
-            __depthTexture->GetImageView().GetVkImageView()
+            __depthTexture->GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView()
         };
 
         VkFramebufferCreateInfo framebufferInfo = {};
