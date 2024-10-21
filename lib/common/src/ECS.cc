@@ -27,6 +27,11 @@ ECS::~ECS()
     s_ecs = nullptr;
 }
 
+Entity ECS::CreateEntity()
+{
+    return __world.entity();
+}
+
 Entity ECS::CreateEntity(const char* name)
 {
     return __world.entity(name);
@@ -40,6 +45,11 @@ ECS* ECS::GetECS()
 Entity CreateEntity(const char* name)
 {
     return ECS::GetECS()->CreateEntity(name);
+}
+
+Entity CreateEntity()
+{
+    return ECS::GetECS()->CreateEntity();
 }
 }
 }

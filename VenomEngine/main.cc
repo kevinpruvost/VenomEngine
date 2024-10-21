@@ -37,8 +37,6 @@ int main(int argc, char** argv)
 {
     int errorCode = EXIT_SUCCESS;
 
-    printf("hello1\n");
-
 #if defined(_WIN32) && defined(_ANALYSIS)
     // Enable memory leak detection
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -53,11 +51,12 @@ int main(int argc, char** argv)
     // Run the engine
     vc::VenomEngine::SetScene([]()
     {
-        //vc::Entity balls = vc::CreateEntity("balls_hd")
-        //    .emplace<>(vc::Model("eye/eye.obj"));
+        vc::CreateEntity("balls_hd")
+            .emplace<vc::Model>("eye/eye.obj");
 
-        vc::Camera camera = vc::Camera();
-        camera.SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
+        vc::Entity camera = vc::CreateEntity("camera")
+            .emplace<vc::Camera>();
+        camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
     });
     const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 

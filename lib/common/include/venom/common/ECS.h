@@ -42,6 +42,7 @@ public:
         return __world.component<T>();
     }
 
+    Entity CreateEntity();
     Entity CreateEntity(const char * name);
 
     template <typename... Comps, typename... Args>
@@ -59,6 +60,7 @@ private:
 };
 
 Entity CreateEntity(const char * name);
+Entity CreateEntity();
 
 template<typename T>
 inline Component<T> GetComponent() {

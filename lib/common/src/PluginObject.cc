@@ -92,9 +92,13 @@ void PluginObjectImpl::IncRefCount()
 
 void PluginObjectImpl::DecRefCount()
 {
-    --__refCount;
-    if (__refCount == 0) {
-        VenomEngine::GetInstance()->pluginManager->RemovePluginObject(GetType(), this);
+    // If the ref count is 0, we need to remove the object from the plugin manager
+    // If the engine is terminating, it will free everything anyway
+    if (VenomEngine::GetInstance()) {
+        --__refCount;
+        if (__refCount == 0) {
+            VenomEngine::GetInstance()->pluginManager->RemovePluginObject(GetType(), this);
+        }
     }
 }
 
@@ -110,6 +114,7 @@ PluginObject::~PluginObject()
 
 void PluginObject::Destroy()
 {
+    // Not checking for GetInstance as it is a manually called method
     VenomEngine::GetInstance()->pluginManager->RemovePluginObject(__type, this);
 }
 

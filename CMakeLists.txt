@@ -43,6 +43,13 @@ file(GLOB_RECURSE RESOURCE_FILES
 )
 
 if (APPLE)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        # AddressSanitizer for macOS
+        message(STATUS "Enabling AddressSanitizer on macOS in Debug mode")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
+        set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
+    endif()
+
     set(CMAKE_OSX_DEPLOYMENT_TARGET "13")
     set(XCODE_VERSION "16.0")
     file(GLOB_RECURSE RESOURCE_FILES_APPLE

@@ -17,13 +17,10 @@ static std::unique_ptr<Camera> s_mainCamera = nullptr;
 
 CameraImpl::CameraImpl()
     : GraphicsPluginObject()
-    , __position(0.0f, 0.0f, 0.0f)
-    , __rotation(vcm::IdentityQuat())
     , __fov(45.0f)
     , __aspect(16.0f / 9.0f)
     , __near(0.1f)
     , __far(100.0f)
-    , __viewMatrixDirty(true)
     , __projectionMatrixDirty(true)
 {
 }
@@ -55,58 +52,10 @@ Camera & Camera::GetMainCamera()
     return *s_mainCamera.get();
 }
 
-void CameraImpl::SetPosition(const vcm::Vec3& position)
-{
-    __position = position;
-    __viewMatrixDirty = true;
-}
-
-void CameraImpl::Move(const vcm::Vec3& delta)
-{
-    __position += delta;
-    __viewMatrixDirty = true;
-}
-
-const vcm::Vec3 & CameraImpl::GetPosition() const
-{
-    return __position;
-}
-
-void CameraImpl::SetRotation(const vcm::Quat& rotation)
-{
-    __rotation = rotation;
-    __3DrotationViewDirty = true;
-    __viewMatrixDirty = true;
-}
-
-void CameraImpl::Rotate(const vcm::Vec3& axis, float angle)
-{
-    vcm::RotateQuat(__rotation, angle, axis);
-    __3DrotationViewDirty = true;
-    __viewMatrixDirty = true;
-}
-
-const vcm::Quat & CameraImpl::GetRotationQuat() const
-{
-    return __rotation;
-}
-
-const vcm::Vec3& CameraImpl::GetRotation()
-{
-    if (__3DrotationViewDirty)
-    {
-        __3DrotationView = vcm::GetEulerAngles(__rotation);
-        __3DrotationViewDirty = false;
-    }
-    return __3DrotationView;
-}
-
 const vcm::Mat4& CameraImpl::GetViewMatrix()
 {
-    if (__viewMatrixDirty)
-    {
-        __viewMatrix = vcm::LookAt(__position, __position + GetForwardVector(), GetUpVector());
-        __viewMatrixDirty = false;
+    if (HasPositionChanged()) {
+        __viewMatrix = vcm::LookAt(_position, _position + GetForwardVector(), GetUpVector());
     }
     return __viewMatrix;
 }
@@ -178,25 +127,9 @@ float CameraImpl::GetFarPlane() const
 void CameraImpl::LookAt(const vcm::Vec3& target)
 {
     auto upVector = GetUpVector();
-    __viewMatrix = vcm::LookAt(__position, target, GetUpVector());
-    __viewMatrixDirty = false;
+    __viewMatrix = vcm::LookAt(_position, target, GetUpVector());
 
-    __rotation = vcm::QuatFromViewMatrix(__viewMatrix);
-}
-
-vcm::Vec3 CameraImpl::GetForwardVector() const
-{
-    return vcm::GetForward(__rotation);
-}
-
-vcm::Vec3 CameraImpl::GetUpVector() const
-{
-    return vcm::GetUp(__rotation);
-}
-
-vcm::Vec3 CameraImpl::GetRightVector() const
-{
-    return vcm::GetRight(__rotation);
+    _rotation = vcm::QuatFromViewMatrix(__viewMatrix);
 }
 }
 }

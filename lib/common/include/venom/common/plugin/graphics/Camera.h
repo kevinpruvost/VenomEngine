@@ -10,28 +10,19 @@
 #include <venom/common/plugin/graphics/GraphicsPluginObject.h>
 #include <venom/common/Error.h>
 
+#include <venom/common/Transform3D.h>
+
 #include <venom/common/math/Matrix.h>
 
 namespace venom
 {
 namespace common
 {
-class CameraImpl : public PluginObjectImpl, public GraphicsPluginObject
+class CameraImpl : public PluginObjectImpl, public GraphicsPluginObject, public Transform3D
 {
 public:
     CameraImpl();
     virtual ~CameraImpl();
-
-    // Basic movement
-    void SetPosition(const vcm::Vec3& position);  // Set position of the camera
-    void Move(const vcm::Vec3& delta);            // Move camera by delta
-    const vcm::Vec3 & GetPosition() const;                // Get current camera position
-
-    // Rotation and orientation
-    void SetRotation(const vcm::Quat& rotation);  // Set camera orientation with quaternion
-    void Rotate(const vcm::Vec3& axis, float angle); // Rotate camera around axis by angle
-    const vcm::Quat & GetRotationQuat() const;                // Get current camera rotation
-    const vcm::Vec3 & GetRotation();                // Get current camera rotation
 
     // View matrix generation
     const vcm::Mat4 & GetViewMatrix();              // Generate and return the view matrix
@@ -54,14 +45,8 @@ public:
     float GetFarPlane() const;                    // Get far clipping plane
 
     void LookAt(const vcm::Vec3& target);  // Point camera towards a specific target
-    vcm::Vec3 GetForwardVector() const;    // Get camera's forward direction
-    vcm::Vec3 GetUpVector() const;         // Get camera's up direction
-    vcm::Vec3 GetRightVector() const;      // Get camera's right direction
 
 private:
-    vcm::Vec3 __position;
-    vcm::Quat __rotation;
-    vcm::Vec3 __3DrotationView;
     vcm::Mat4 __viewMatrix;
     vcm::Mat4 __projectionMatrix;
 
@@ -72,7 +57,6 @@ private:
     float __far;
 
     // Internal state
-    bool __viewMatrixDirty;
     bool __projectionMatrixDirty;
     bool __3DrotationViewDirty;
 

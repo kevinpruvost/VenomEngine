@@ -49,8 +49,8 @@ VenomEngine::VenomEngine()
 VenomEngine::~VenomEngine()
 {
     // Order of destruction is important
-    pluginManager.reset();
     __ecs.reset();
+    pluginManager.reset();
     __dllCache.reset();
 }
 
