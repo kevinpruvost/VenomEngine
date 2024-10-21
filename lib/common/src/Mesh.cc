@@ -6,21 +6,15 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/plugin/graphics/Mesh.h>
+#include <venom/common/Log.h>
 
 namespace venom
 {
 namespace common
 {
 Mesh::Mesh()
-    : GraphicsPluginObject()
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateMesh())
 {
-}
-
-Mesh * Mesh::Create()
-{
-    Mesh * mesh = new Mesh();
-    mesh->_impl = GraphicsPlugin::Get()->CreateMesh();
-    return mesh;
 }
 
 Mesh::~Mesh()
@@ -28,18 +22,24 @@ Mesh::~Mesh()
 }
 
 MeshImpl::MeshImpl()
-    : _material(nullptr)
+    : _material()
 {
 }
 
-void MeshImpl::SetMaterial(Material* material)
+void MeshImpl::SetMaterial(const Material & material)
 {
-    _material = material;
+    _material.emplace(material);
 }
 
-const Material* MeshImpl::GetMaterial() const
+bool MeshImpl::HasMaterial() const
 {
-    return _material;
+    return _material.has_value();
+}
+
+const Material & MeshImpl::GetMaterial() const
+{
+    venom_assert(HasMaterial(), "MeshImpl::GetMaterial() : _material does not have value, call HasMaterial() before to check if there is a material to get");
+    return _material.value();
 }
 }
 }

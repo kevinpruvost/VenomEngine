@@ -95,7 +95,6 @@ Error PluginManager::LoadGraphicsPlugin()
     default:
         Log::Error("Unknown GraphicsPluginType");
         return Error::Failure;
-        break;
     }
     __graphicsPlugin.reset(LoadPluginFromNameAndType<GraphicsPlugin>(libName, "createGraphicsPlugin"));
     if (!__graphicsPlugin)
@@ -106,7 +105,7 @@ Error PluginManager::LoadGraphicsPlugin()
     return Error::Success;
 }
 
-void PluginManager::AddPluginObject(const PluginType type, PluginObject* object)
+void PluginManager::AddPluginObject(const PluginType type, IPluginObject* object)
 {
     switch (type)
     {
@@ -119,7 +118,7 @@ void PluginManager::AddPluginObject(const PluginType type, PluginObject* object)
     }
 }
 
-void PluginManager::RemovePluginObject(const PluginType type, PluginObject* object)
+void PluginManager::RemovePluginObject(const PluginType type, IPluginObject* object)
 {
     switch (type)
     {

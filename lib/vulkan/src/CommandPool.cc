@@ -116,12 +116,9 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
     const VkDeviceSize * offsets = vulkanMesh->GetOffsets();
 
     // Material
-    const vc::Material * material = vulkanMesh->GetMaterial();
-    if (material) {
-        const auto & diffuseComponent = material->GetComponent(vc::MaterialComponentType::DIFFUSE);
-        if (diffuseComponent.GetTexture()) {
-
-        }
+    if (vulkanMesh->HasMaterial()) {
+        const vc::Material & material = vulkanMesh->GetMaterial();
+        const auto & diffuseComponent = material.GetComponent(vc::MaterialComponentType::DIFFUSE);
     }
 
     for (const auto & vertexBuffer : vertexBuffers) {
@@ -138,8 +135,8 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
 void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
-    for (const vc::Mesh * mesh : vulkanModel->GetMeshes()) {
-        DrawMesh(mesh->GetImpl()->As<VulkanMesh>(), firstInstance);
+    for (const vc::Mesh & mesh : vulkanModel->GetMeshes()) {
+        DrawMesh(mesh.GetImpl()->As<VulkanMesh>(), firstInstance);
     }
 }
 

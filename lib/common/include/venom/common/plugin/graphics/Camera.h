@@ -16,19 +16,11 @@ namespace venom
 {
 namespace common
 {
-/**
- * @brief Camera class
- * Classic layout with position, rotation and projection matrices
- */
-class Camera : public GraphicsPluginObject
+class CameraImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
-protected:
-    Camera();
 public:
-    ~Camera();
-    static Camera * Create();
-    static void SetMainCamera(Camera * camera);
-    static Camera * GetMainCamera();
+    CameraImpl();
+    virtual ~CameraImpl();
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera
@@ -86,6 +78,49 @@ private:
 
     void __UpdateViewMatrix();
     void __UpdateProjectionMatrix();
+};
+
+/**
+ * @brief Camera class
+ * Classic layout with position, rotation and projection matrices
+ */
+class Camera : public PluginObjectImplWrapper
+{
+public:
+    Camera();
+    ~Camera();
+    static void SetMainCamera(const Camera & camera);
+    static Camera & GetMainCamera();
+
+    inline void SetPosition(const vcm::Vec3& position) { _impl->As<CameraImpl>()->SetPosition(position); }
+    inline void Move(const vcm::Vec3& delta) { _impl->As<CameraImpl>()->Move(delta); }
+    inline const vcm::Vec3 & GetPosition() const { return _impl->As<CameraImpl>()->GetPosition(); }
+
+    inline void SetRotation(const vcm::Quat& rotation) { _impl->As<CameraImpl>()->SetRotation(rotation); }
+    inline void Rotate(const vcm::Vec3& axis, float angle) { _impl->As<CameraImpl>()->Rotate(axis, angle); }
+    inline const vcm::Quat & GetRotationQuat() const { return _impl->As<CameraImpl>()->GetRotationQuat(); }
+    inline const vcm::Vec3 & GetRotation() const { return _impl->As<CameraImpl>()->GetRotation(); }
+
+    inline const vcm::Mat4 & GetViewMatrix() { return _impl->As<CameraImpl>()->GetViewMatrix(); }
+    inline void SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane) { _impl->As<CameraImpl>()->SetPerspective(fovY, aspectRatio, nearPlane, farPlane); }
+    inline const vcm::Mat4 & GetProjectionMatrix() { return _impl->As<CameraImpl>()->GetProjectionMatrix(); }
+
+    inline void SetFieldOfView(float fovY) { _impl->As<CameraImpl>()->SetFieldOfView(fovY); }
+    inline float GetFieldOfView() const { return _impl->As<CameraImpl>()->GetFieldOfView(); }
+
+    inline void SetAspectRatio(float aspectRatio) { _impl->As<CameraImpl>()->SetAspectRatio(aspectRatio); }
+    inline float GetAspectRatio() const { return _impl->As<CameraImpl>()->GetAspectRatio(); }
+
+    inline void SetNearPlane(float nearPlane) { _impl->As<CameraImpl>()->SetNearPlane(nearPlane); }
+    inline float GetNearPlane() const { return _impl->As<CameraImpl>()->GetNearPlane(); }
+
+    inline void SetFarPlane(float farPlane) { _impl->As<CameraImpl>()->SetFarPlane(farPlane); }
+    inline float GetFarPlane() const { return _impl->As<CameraImpl>()->GetFarPlane(); }
+
+    inline void LookAt(const vcm::Vec3& target) { _impl->As<CameraImpl>()->LookAt(target); }
+    inline vcm::Vec3 GetForwardVector() const { return _impl->As<CameraImpl>()->GetForwardVector(); }
+    inline vcm::Vec3 GetUpVector() const { return _impl->As<CameraImpl>()->GetUpVector(); }
+    inline vcm::Vec3 GetRightVector() const { return _impl->As<CameraImpl>()->GetRightVector(); }
 };
 }
 }

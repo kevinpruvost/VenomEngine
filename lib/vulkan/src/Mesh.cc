@@ -53,8 +53,9 @@ vc::Error VulkanMesh::__LoadMeshFromCurrentData()
 
     // Materials
     if (_material) {
-        const auto * texture = _material->GetComponent(vc::MaterialComponentType::DIFFUSE).GetTexture();
-        if (texture) {
+        const auto & material = _material->GetComponent(vc::MaterialComponentType::DIFFUSE);
+        if (material.GetValueType() == vc::MaterialComponentValueType::TEXTURE) {
+            const auto & texture = _material->GetComponent(vc::MaterialComponentType::DIFFUSE).GetTexture();
 
         }
     }

@@ -33,14 +33,14 @@ protected:
     Plugin(const PluginType type);
 
 private:
-    void AddPluginObject(PluginObject * object);
-    void RemovePluginObject(PluginObject * object);
+    void AddPluginObject(IPluginObject * object);
+    void RemovePluginObject(IPluginObject * object);
     void CleanPluginObjects();
 
 private:
     const PluginType __type;
-    std::vector<std::unique_ptr<PluginObject>> __objects;
-    std::vector<std::unique_ptr<PluginObject>> __objectsToRemove;
+    std::vector<std::unique_ptr<IPluginObject>> __objects;
+    std::vector<std::unique_ptr<IPluginObject>> __objectsToRemove;
 };
 }
 }

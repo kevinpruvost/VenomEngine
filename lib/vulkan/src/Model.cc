@@ -14,6 +14,7 @@ namespace vulkan
 VulkanModel::VulkanModel()
     : vc::ModelImpl()
 {
+    _resource.reset(new VulkanModelResource());
 }
 
 VulkanModel::~VulkanModel()

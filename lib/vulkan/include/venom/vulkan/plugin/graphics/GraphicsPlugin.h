@@ -22,7 +22,7 @@ public:
     vc::MeshImpl * CreateMesh() override;
     vc::TextureImpl * CreateTexture() override;
     vc::MaterialImpl * CreateMaterial() override;
-    vc::Camera * CreateCamera() override;
+    vc::CameraImpl * CreateCamera() override;
 };
 }
 }

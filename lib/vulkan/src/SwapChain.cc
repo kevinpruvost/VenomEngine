@@ -27,7 +27,7 @@ SwapChain::SwapChain()
     , swapChain(VK_NULL_HANDLE)
     , viewport{}
     , scissor{}
-    , __depthTexture(nullptr)
+    , __depthTexture()
 {
 }
 
@@ -235,17 +235,16 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
 vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
 {
     // Create Depth Texture
-    if (__depthTexture) {
-        __depthTexture->Destroy();
+    if (__depthTexture.HasTexture()) {
+        __depthTexture = vc::Texture();
     }
-    __depthTexture = vc::Texture::CreateRawTexture();
-    __depthTexture->InitDepthBuffer(extent.width, extent.height);
+    __depthTexture.InitDepthBuffer(extent.width, extent.height);
 
     __swapChainFramebuffers.resize(__swapChainImageViews.size());
     for (int i = 0; i < __swapChainImageViews.size(); ++i) {
-        VkImageView attachments[] = {
+        const VkImageView attachments[] = {
             __swapChainImageViews[i].GetVkImageView(),
-            __depthTexture->GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView()
+            __depthTexture.GetConstImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView()
         };
 
         VkFramebufferCreateInfo framebufferInfo = {};

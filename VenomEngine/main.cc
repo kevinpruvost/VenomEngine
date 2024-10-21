@@ -54,10 +54,10 @@ int main(int argc, char** argv)
     vc::VenomEngine::SetScene([]()
     {
         //vc::Entity balls = vc::CreateEntity("balls_hd")
-        //    .emplace<>(vc::Model::Create("eye/eye.obj"));
+        //    .emplace<>(vc::Model("eye/eye.obj"));
 
-        vc::Camera * camera = vc::Camera::Create();
-        camera->SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
+        vc::Camera camera = vc::Camera();
+        camera.SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
     });
     const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 

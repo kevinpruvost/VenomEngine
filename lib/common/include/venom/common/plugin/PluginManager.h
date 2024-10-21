@@ -30,8 +30,8 @@ public:
 
     GraphicsPlugin * GetGraphicsPlugin();
 
-    void AddPluginObject(const PluginType type, PluginObject * object);
-    void RemovePluginObject(const PluginType type, PluginObject * object);
+    void AddPluginObject(const PluginType type, IPluginObject * object);
+    void RemovePluginObject(const PluginType type, IPluginObject * object);
     void UnloadPlugins();
 private:
     PluginManager();

@@ -13,7 +13,7 @@ namespace venom
 {
 namespace vulkan
 {
-class VulkanCamera : public vc::Camera
+class VulkanCamera : public vc::CameraImpl
 {
 public:
     VulkanCamera();

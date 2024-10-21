@@ -19,20 +19,30 @@ namespace venom
 namespace vulkan
 {
 
+class VulkanTextureResource : public vc::TextureResource
+{
+public:
+    VulkanTextureResource();
+
+    Image image;
+    ImageView imageView;
+};
+
 class VulkanTexture : public vc::TextureImpl
 {
 public:
     VulkanTexture();
     ~VulkanTexture();
 
-    vc::Error __LoadImage(unsigned char * pixels, int width, int height, int channels) override;
-    vc::Error __InitDepthBuffer(int width, int height) override;
+    vc::Error _LoadImage(unsigned char * pixels, int width, int height, int channels) override;
+    vc::Error _InitDepthBuffer(int width, int height) override;
+    inline bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }
 
-    const Image & GetImage() const;
-    const ImageView & GetImageView() const;
+    inline const Image & GetImage() const { return _resource->As<VulkanTextureResource>()->image; }
+    inline const ImageView & GetImageView() const { return _resource->As<VulkanTextureResource>()->imageView; }
 private:
-    Image __image;
-    ImageView __imageView;
+    inline Image & GetImage() { return _resource->As<VulkanTextureResource>()->image; }
+    inline ImageView & GetImageView() { return _resource->As<VulkanTextureResource>()->imageView; }
 };
 
 }

@@ -99,6 +99,7 @@ Error VenomEngine::SetScene(const String& scenefileName)
 Error VenomEngine::SetScene(const SceneCallback& sceneCallback)
 {
     s_sceneCallback = sceneCallback;
+    return vc::Error::Success;
 }
 
 void VenomEngine::__LoadECS()

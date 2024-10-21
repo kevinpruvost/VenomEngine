@@ -19,14 +19,15 @@ namespace venom
 namespace common
 {
 class ModelImpl;
-class VENOM_COMMON_API MeshImpl : public PluginObjectImpl
+class VENOM_COMMON_API MeshImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
     MeshImpl();
     virtual ~MeshImpl() = default;
 
-    void SetMaterial(Material * material);
-    const Material * GetMaterial() const;
+    void SetMaterial(const Material & material);
+    bool HasMaterial() const;
+    const Material & GetMaterial() const;
     virtual void Draw() = 0;
 
 private:
@@ -46,32 +47,38 @@ protected:
     std::vector<uint32_t> _indices;
     std::vector<vcm::VertexTangent> _tangents;
     std::vector<vcm::VertexBitangent> _bitangents;
-    Material * _material;
+    PluginObjectContainer<Material> _material;
 };
 
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
-class VENOM_COMMON_API Mesh : public GraphicsPluginObject
+class VENOM_COMMON_API Mesh : public PluginObjectImplWrapper
 {
-protected:
-    Mesh();
 public:
-    static Mesh * Create();
+    Mesh();
     ~Mesh();
 
     /**
      * @brief Assigns Material to mesh
      * @param material
      */
-    inline void SetMaterial(Material * material) {
+    inline void SetMaterial(const Material & material) {
         _impl->As<MeshImpl>()->SetMaterial(material);
+    }
+
+    /**
+     * @brief Checks if the mesh has a Material assigned
+     * @return true if a Material is assigned, false otherwise
+     */
+    inline bool HasMaterial() const {
+        return _impl->As<MeshImpl>()->HasMaterial();
     }
 
     /**
      * @brief Returns the Material assigned to the mesh
      * @return Material
      */
-    inline const Material * GetMaterial() const {
+    inline const Material & GetMaterial() const {
         return _impl->As<MeshImpl>()->GetMaterial();
     }
 

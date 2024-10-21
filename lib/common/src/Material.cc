@@ -40,19 +40,17 @@ MaterialImpl::MaterialImpl()
 {
 }
 
+MaterialImpl::~MaterialImpl()
+{
+}
+
 Material::Material()
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateMaterial())
 {
 }
 
 Material::~Material()
 {
-}
-
-Material* Material::Create()
-{
-    Material * material = new Material();
-    material->_impl = GraphicsPlugin::Get()->CreateMaterial();
-    return material;
 }
 
 void MaterialImpl::SetComponent(const MaterialComponentType type, const vcm::Vec3& value)
@@ -70,7 +68,7 @@ void MaterialImpl::SetComponent(const MaterialComponentType type, const float va
     __components[type].SetValue(value);
 }
 
-void MaterialImpl::SetComponent(const MaterialComponentType type, const Texture* texture)
+void MaterialImpl::SetComponent(const MaterialComponentType type, const Texture & texture)
 {
     __components[type].SetValue(texture);
 }

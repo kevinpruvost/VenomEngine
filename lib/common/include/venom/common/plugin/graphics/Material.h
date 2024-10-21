@@ -18,16 +18,16 @@ namespace common
 {
 class Model;
 
-class VENOM_COMMON_API MaterialImpl : public PluginObjectImpl
+class VENOM_COMMON_API MaterialImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
     MaterialImpl();
-    virtual ~MaterialImpl() = default;
+    virtual ~MaterialImpl();
 
     void SetComponent(const MaterialComponentType type, const vcm::Vec3& value);
     void SetComponent(const MaterialComponentType type, const vcm::Vec4& value);
     void SetComponent(const MaterialComponentType type, const float value);
-    void SetComponent(const MaterialComponentType type, const Texture* texture);
+    void SetComponent(const MaterialComponentType type, const Texture & texture);
     const MaterialComponent & GetComponent(const MaterialComponentType type) const;
     const std::string & GetName() const;
     void SetName(const std::string & name);
@@ -37,14 +37,11 @@ private:
     std::string __name;
 };
 
-class VENOM_COMMON_API Material : public GraphicsPluginObject
+class VENOM_COMMON_API Material : public PluginObjectImplWrapper
 {
-protected:
-    Material();
 public:
+    Material();
     ~Material();
-
-    static Material * Create();
 public:
     inline void SetComponent(const MaterialComponentType type, const vcm::Vec3& value) {
         _impl->As<MaterialImpl>()->SetComponent(type, value);
@@ -55,7 +52,7 @@ public:
     inline void SetComponent(const MaterialComponentType type, const float value) {
         _impl->As<MaterialImpl>()->SetComponent(type, value);
     }
-    inline void SetComponent(const MaterialComponentType type, const Texture* texture) {
+    inline void SetComponent(const MaterialComponentType type, const Texture & texture) {
         _impl->As<MaterialImpl>()->SetComponent(type, texture);
     }
     inline const MaterialComponent & GetComponent(const MaterialComponentType type) const {

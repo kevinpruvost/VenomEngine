@@ -25,28 +25,22 @@ namespace venom
 namespace common
 {
 ModelImpl::ModelImpl()
+    : GraphicsPluginObject()
+    , PluginObjectImpl()
 {
 }
 
 Model::Model()
-    : GraphicsPluginObject()
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateModel())
 {
 }
 
-Model* Model::Create(const std::string & path)
+Model::Model(const char * path)
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateModel())
 {
-    auto realPath = Resources::GetModelsResourcePath(path);
-    Model * model = dynamic_cast<Model *>(GetCachedObject(realPath));
-    if (!model) {
-        model = new Model();
-        model->_impl = GraphicsPlugin::Get()->CreateModel();
-        if (Error err = model->ImportModel(realPath); err != Error::Success) {
-            model->Destroy();
-            return nullptr;
-        }
-        _SetInCache(realPath, model);
+    if (Error err = ImportModel(path); err != Error::Success) {
+        _impl->As<ModelImpl>()->Destroy();
     }
-    return model;
 }
 
 Model::~Model()
@@ -109,27 +103,38 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
     return MaterialComponentType::MAX_COMPONENT;
 }
 
-vc::Error ModelImpl::ImportModel(const std::string & path)
+vc::Error ModelImpl::ImportModel(const char * path)
 {
+    auto realPath = Resources::GetModelsResourcePath(path);
+
+    {
+        // Load from cache if already loaded
+        std::shared_ptr<GraphicsCachedResource> cachedModel = GraphicsPluginObject::GetCachedObject(realPath);
+        if (cachedModel) {
+            _LoadFromCache(cachedModel);
+            return vc::Error::Success;
+        }
+    }
+
     // Get Parent folder for relative paths when we will load textures
-    auto parentFolder = std::filesystem::path(path).parent_path();
+    auto parentFolder = std::filesystem::path(realPath).parent_path();
 
     // Create Logger
     if (Assimp::DefaultLogger::isNullLogger())
         Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
     Assimp::Importer importer;
     // Print cwd
-    const aiScene* scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
+    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
     if (!scene) {
-        vc::Log::Error("Failed to load model: %s", path.c_str());
+        vc::Log::Error("Failed to load model: %s", realPath.c_str());
         return vc::Error::Failure;
     }
 
     // Load every material
     if (scene->HasMaterials()) {
+        _resource->As<ModelResource>()->materials.reserve(scene->mNumMaterials);
         for (uint32_t i = 0; i < scene->mNumMaterials; ++i) {
-            auto material = vc::Material::Create();
-            __materials.push_back(material);
+            vc::Material & material = _resource->As<ModelResource>()->materials.emplace_back();
 
             const aiMaterial* aimaterial = scene->mMaterials[i];
 
@@ -147,7 +152,7 @@ vc::Error ModelImpl::ImportModel(const std::string & path)
                 if (strncmp(propName, "?mat.name", 9) == 0) {
                     aiString value;
                     memcpy(&value, property->mData, property->mDataLength);
-                    material->SetName(value.C_Str());
+                    material.SetName(value.C_Str());
                     continue;
                 }
 
@@ -163,19 +168,19 @@ vc::Error ModelImpl::ImportModel(const std::string & path)
                     case MaterialComponentValueType::VALUE: {
                         float value;
                         memcpy(&value, property->mData, sizeof(float));
-                        material->SetComponent(matCompType, value);
+                        material.SetComponent(matCompType, value);
                         break;
                     }
                     case MaterialComponentValueType::COLOR3D: {
                         aiColor3D value;
                         memcpy(&value, property->mData, sizeof(aiColor3D));
-                        material->SetComponent(matCompType, vcm::Vec3(value.r, value.g, value.b));
+                        material.SetComponent(matCompType, vcm::Vec3(value.r, value.g, value.b));
                         break;
                     }
                     case MaterialComponentValueType::COLOR4D: {
                         aiColor4D value;
                         memcpy(&value, property->mData, sizeof(aiColor4D));
-                        material->SetComponent(matCompType, vcm::Vec4(value.r, value.g, value.b, value.a));
+                        material.SetComponent(matCompType, vcm::Vec4(value.r, value.g, value.b, value.a));
                         break;
                     }
                     case MaterialComponentValueType::TEXTURE: {
@@ -183,8 +188,8 @@ vc::Error ModelImpl::ImportModel(const std::string & path)
                         memcpy(&value, property->mData, property->mDataLength);
                         // Tries to load from cache or path
                         std::string texturePath = parentFolder / value.C_Str();
-                        Texture * texture = Texture::Create(texturePath.c_str());
-                        material->SetComponent(matCompType, texture);
+                        Texture texture(texturePath.c_str());
+                        material.SetComponent(matCompType, texture);
                         break;
                     }
                     default:
@@ -238,30 +243,30 @@ vc::Error ModelImpl::ImportModel(const std::string & path)
     }
 
     // Load every mesh
+    _resource->As<ModelResource>()->meshes.reserve(scene->mNumMeshes);
     for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
-        auto mesh = vc::Mesh::Create();
-        __meshes.push_back(mesh);
+        vc::Mesh & mesh = _resource->As<ModelResource>()->meshes.emplace_back();
 
         const aiMesh* aimesh = scene->mMeshes[i];
 
         // Assign material
-        mesh->SetMaterial(__materials[aimesh->mMaterialIndex]);
+        mesh.SetMaterial(_resource->As<ModelResource>()->materials[aimesh->mMaterialIndex]);
 
         // Vertices & normals
-        mesh->_impl->As<MeshImpl>()->_positions.reserve(aimesh->mNumVertices);
-        mesh->_impl->As<MeshImpl>()->_normals.reserve(aimesh->mNumVertices);
+        mesh._impl->As<MeshImpl>()->_positions.reserve(aimesh->mNumVertices);
+        mesh._impl->As<MeshImpl>()->_normals.reserve(aimesh->mNumVertices);
         for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-            mesh->_impl->As<MeshImpl>()->_positions.emplace_back(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
-            mesh->_impl->As<MeshImpl>()->_normals.emplace_back(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
+            mesh._impl->As<MeshImpl>()->_positions.emplace_back(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
+            mesh._impl->As<MeshImpl>()->_normals.emplace_back(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
         }
 
         // Color sets
         for (int c = 0; c < AI_MAX_NUMBER_OF_COLOR_SETS; ++c) {
             if (!aimesh->HasVertexColors(c)) break;
 
-            mesh->_impl->As<MeshImpl>()->_colors[c].reserve(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_colors[c].reserve(aimesh->mNumVertices);
             for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh->_impl->As<MeshImpl>()->_colors[c].emplace_back(aimesh->mColors[c][x].r, aimesh->mColors[c][x].g, aimesh->mColors[c][x].b, aimesh->mColors[c][x].a);
+                mesh._impl->As<MeshImpl>()->_colors[c].emplace_back(aimesh->mColors[c][x].r, aimesh->mColors[c][x].g, aimesh->mColors[c][x].b, aimesh->mColors[c][x].a);
             }
         }
 
@@ -269,44 +274,45 @@ vc::Error ModelImpl::ImportModel(const std::string & path)
         for (int c = 0; c < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++c) {
             if (!aimesh->HasTextureCoords(c)) break;
 
-            mesh->_impl->As<MeshImpl>()->_uvs[c].reserve(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_uvs[c].reserve(aimesh->mNumVertices);
             for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh->_impl->As<MeshImpl>()->_uvs[c].emplace_back(aimesh->mTextureCoords[c][x].x, aimesh->mTextureCoords[c][x].y);
+                mesh._impl->As<MeshImpl>()->_uvs[c].emplace_back(aimesh->mTextureCoords[c][x].x, aimesh->mTextureCoords[c][x].y);
             }
         }
 
         // Tangents & Bitangents
         if (aimesh->HasTangentsAndBitangents()) {
-            mesh->_impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
-            mesh->_impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
             for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh->_impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
-                mesh->_impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
+                mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
+                mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
             }
         }
 
         // Faces
         if (aimesh->HasFaces()) {
-            mesh->_impl->As<MeshImpl>()->_indices.reserve(aimesh->mNumFaces * 3);
+            mesh._impl->As<MeshImpl>()->_indices.reserve(aimesh->mNumFaces * 3);
             for (uint32_t x = 0; x < aimesh->mNumFaces; ++x) {
-                mesh->_impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[0]);
-                mesh->_impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[1]);
-                mesh->_impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[2]);
+                mesh._impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[0]);
+                mesh._impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[1]);
+                mesh._impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[2]);
             }
         }
 
         // Load mesh into Graphics API
-        if (auto err = mesh->_impl->As<MeshImpl>()->__LoadMeshFromCurrentData(); err != vc::Error::Success) {
+        if (auto err = mesh._impl->As<MeshImpl>()->__LoadMeshFromCurrentData(); err != vc::Error::Success) {
             vc::Log::Error("Failed to load mesh from current data");
             return err;
         }
     }
+    _SetInCache(realPath, _resource);
     return vc::Error::Success;
 }
 
-const std::vector<vc::Mesh*>& ModelImpl::GetMeshes() const
+const std::vector<vc::Mesh> & ModelImpl::GetMeshes() const
 {
-    return __meshes;
+    return _resource->As<ModelResource>()->meshes;
 }
 }
 }

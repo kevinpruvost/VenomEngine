@@ -43,7 +43,7 @@ vc::MaterialImpl * VulkanGraphicsPlugin::CreateMaterial()
     return new VulkanMaterial();
 }
 
-vc::Camera* VulkanGraphicsPlugin::CreateCamera()
+vc::CameraImpl * VulkanGraphicsPlugin::CreateCamera()
 {
     return new VulkanCamera();
 }

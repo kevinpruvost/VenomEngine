@@ -18,6 +18,26 @@ namespace venom
 {
 namespace common
 {
+static std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> s_cache;
+
+GraphicsCachedResource::~GraphicsCachedResource()
+{
+}
+
+void GraphicsCachedResource::ReleaseFromCache()
+{
+    for (auto it = s_cache.begin(); it != s_cache.end(); ++it) {
+        if (it->second.get() == this) {
+            s_cache.erase(it);
+            break;
+        }
+    }
+}
+
+GraphicsCachedResourceHolder::GraphicsCachedResourceHolder()
+{
+}
+
 GraphicsPluginObject::GraphicsPluginObject()
     : PluginObject(PluginType::Graphics)
 {
@@ -27,17 +47,16 @@ GraphicsPluginObject::~GraphicsPluginObject()
 {
 }
 
-static std::unordered_map<std::string, GraphicsPluginObject *> s_cache;
 void GraphicsPluginObject::Destroy()
 {
-    // Remove from cache
-    // TODO: Optimize destroying process
-    for (auto it = s_cache.begin(); it != s_cache.end(); ++it) {
-        if (it->second == this) {
-            s_cache.erase(it);
-            break;
-        }
-    }
+    // // Remove from cache
+    // // TODO: Optimize destroying process
+    // for (auto it = s_cache.begin(); it != s_cache.end(); ++it) {
+    //     if (it->second.get() == this) {
+    //         s_cache.erase(it);
+    //         break;
+    //     }
+    // }
     PluginObject::Destroy();
 }
 
@@ -58,16 +77,24 @@ static bool validPath(const std::string& path, std::string & res)
     return true;
 }
 
-GraphicsPluginObject* GraphicsPluginObject::GetCachedObject(const std::string& path)
+bool GraphicsPluginObject::HasCachedObject(const std::string& path)
+{
+    std::string realPath;
+    if (!validPath(path, realPath))
+        return false;
+    return s_cache.find(realPath) != s_cache.end();
+}
+
+std::shared_ptr<GraphicsCachedResource> GraphicsPluginObject::GetCachedObject(const std::string& path)
 {
     std::string realPath;
     if (!validPath(path, realPath))
         return nullptr;
     const auto it = s_cache.find(realPath);
-    return it != s_cache.end() ? it->second : nullptr;
+    return it != s_cache.end() ? it->second : std::shared_ptr<GraphicsCachedResource>();
 }
 
-void GraphicsPluginObject::_SetInCache(const std::string& path, GraphicsPluginObject* object)
+void GraphicsPluginObject::_SetInCache(const std::string& path, const std::shared_ptr<GraphicsCachedResource> & object)
 {
     // Get Relative path to working dir
     std::string realPath;

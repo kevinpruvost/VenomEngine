@@ -17,35 +17,21 @@ namespace venom
 namespace common
 {
 Texture::Texture()
-    : GraphicsPluginObject()
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
 {
+}
+
+Texture::Texture(const char * path)
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
+{
+    if (Error err = LoadImageFromFile(path); err != Error::Success) {
+        Destroy();
+        return;
+    }
 }
 
 Texture::~Texture()
 {
-}
-
-Texture* Texture::CreateRawTexture()
-{
-    Texture * texture = new Texture();
-    texture->_impl = GraphicsPlugin::Get()->CreateTexture();
-    return texture;
-}
-
-Texture* Texture::Create(const std::string & path)
-{
-    auto realPath = Resources::GetTexturesResourcePath(path);
-    Texture * texture = dynamic_cast<Texture *>(GetCachedObject(realPath));
-    if (!texture) {
-        texture = new Texture();
-        texture->_impl = GraphicsPlugin::Get()->CreateTexture();
-        if (Error err = texture->LoadImageFromFile(realPath.c_str()); err != Error::Success) {
-            texture->Destroy();
-            return nullptr;
-        }
-        _SetInCache(realPath, texture);
-    }
-    return texture;
 }
 
 TextureImpl::TextureImpl()
@@ -54,23 +40,37 @@ TextureImpl::TextureImpl()
 
 vc::Error TextureImpl::LoadImageFromFile(const char* path)
 {
+    auto realPath = Resources::GetTexturesResourcePath(path);
+
+    {
+        // Load from cache if already loaded
+        std::shared_ptr<GraphicsCachedResource> cachedTexture = GraphicsPluginObject::GetCachedObject(realPath);
+        if (cachedTexture) {
+            _LoadFromCache(cachedTexture);
+            return vc::Error::Success;
+        }
+    }
+
     int width, height, channels;
-    unsigned char * pixels = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);
+    unsigned char * pixels = stbi_load(realPath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
     if (!pixels) {
-        vc::Log::Error("Failed to load image from file: %s", path);
+        vc::Log::Error("Failed to load image from file: %s", realPath.c_str());
         return vc::Error::Failure;
     }
-    if (__LoadImage(pixels, width, height, channels) != vc::Error::Success) {
-        vc::Log::Error("Failed to load image from file: %s", path);
+    if (_LoadImage(pixels, width, height, channels) != vc::Error::Success) {
+        vc::Log::Error("Failed to load image from file: %s", realPath.c_str());
         return vc::Error::Failure;
     }
     stbi_image_free(pixels);
+
+    // Set In Cache
+    _SetInCache(realPath, _GetTextureToCache());
     return vc::Error::Success;
 }
 
 vc::Error TextureImpl::InitDepthBuffer(int width, int height)
 {
-    return __InitDepthBuffer(width, height);
+    return _InitDepthBuffer(width, height);
 }
 }
 }

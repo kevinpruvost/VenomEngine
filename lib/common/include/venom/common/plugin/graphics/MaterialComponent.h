@@ -69,7 +69,7 @@ class VENOM_COMMON_API MaterialComponent
 {
 public:
     MaterialComponent(const MaterialComponentType type);
-    ~MaterialComponent() = default;
+    ~MaterialComponent();
 
     /**
      * @brief Sets Material component value
@@ -90,9 +90,11 @@ public:
      * @brief Sets Material component value
      * @param value can be a color3D/4D, a value or a texture
      */
-    void SetValue(const Texture * texture);
+    void SetValue(const Texture & texture);
 
-    const Texture * GetTexture() const;
+    inline MaterialComponentType GetType() const { return __type; }
+    inline MaterialComponentValueType GetValueType() const { return __valueType; }
+    Texture GetTexture() const;
 private:
     const MaterialComponentType __type;
     MaterialComponentValueType __valueType;
@@ -101,7 +103,7 @@ private:
         vcm::Vec3 __color3D;
         vcm::Vec4 __color4D;
         float __value;
-        const Texture * __texture;
+        PluginObjectContainer<Texture> __texture;
     };
 };
 

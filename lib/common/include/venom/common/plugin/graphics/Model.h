@@ -17,35 +17,41 @@ namespace venom
 {
 namespace common
 {
-class VENOM_COMMON_API ModelImpl : public PluginObjectImpl
+class Model;
+
+class VENOM_COMMON_API ModelResource : public GraphicsCachedResource
+{
+public:
+    std::vector<vc::Mesh> meshes;
+    std::vector<vc::Material> materials;
+};
+
+class VENOM_COMMON_API ModelImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
     ModelImpl();
     virtual ~ModelImpl() = default;
 
-    vc::Error ImportModel(const std::string & path);
+    vc::Error ImportModel(const char * path);
     virtual void Draw() = 0;
 
-    const std::vector<vc::Mesh *> & GetMeshes() const;
-
-protected:
-    std::vector<vc::Mesh *> __meshes;
-    std::vector<vc::Material *> __materials;
+    const std::vector<vc::Mesh> & GetMeshes() const;
+private:
+    friend class Model;
 };
 
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
-class VENOM_COMMON_API Model : public GraphicsPluginObject
+class VENOM_COMMON_API Model : public PluginObjectImplWrapper
 {
-protected:
-    Model();
 public:
-    static Model * Create(const std::string & path);
-    ~Model() override;
+    Model();
+    Model(const char * path);
+    ~Model();
 
-    void Draw() { _impl->As<ModelImpl>()->Draw(); }
-    inline vc::Error ImportModel(const std::string & path) { return _impl->As<ModelImpl>()->ImportModel(path); }
-    inline const std::vector<vc::Mesh *> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }
+    inline void Draw() { _impl->As<ModelImpl>()->Draw(); }
+    inline vc::Error ImportModel(const char * path) { return _impl->As<ModelImpl>()->ImportModel(path); }
+    inline const std::vector<vc::Mesh> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }
 };
 
 

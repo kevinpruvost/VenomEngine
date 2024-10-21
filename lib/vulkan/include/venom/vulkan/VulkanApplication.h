@@ -87,7 +87,7 @@ private:
 private:
     // For test
     static int __currentFrame;
-    VulkanCamera * __camera;
+    vc::Camera __camera;
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
     CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
@@ -95,8 +95,8 @@ private:
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Fence __inFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
     bool __framebufferChanged;
-    VulkanModel * __model;
-    VulkanMesh * __mesh;
+    vc::Model __model;
+    vc::Mesh __mesh;
     StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     vcm::Vec3 __verticesPos[8] = {
@@ -109,7 +109,7 @@ private:
         {0.5f, 0.5f, -0.5f},
         {-0.5f, 0.5f, -0.5f}
     };
-    vc::Texture * __texture;
+    vc::Texture __texture;
 
     vcm::Vec4 __verticesColor[8] = {
         {1, 0, 0, 1},

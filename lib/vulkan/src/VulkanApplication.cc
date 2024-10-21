@@ -76,11 +76,10 @@ vc::Error VulkanApplication::Init()
         return vc::Error::InitializationFailed;
     }
 
-    __texture = vc::Texture::Create("random.png");
-    __camera = vc::Camera::Create()->As<VulkanCamera>();
+    __texture = vc::Texture("random.png");
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Separate Sampled Image & Sampler
-        __shaderPipeline.GetDescriptorSets(2)[i].UpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+        __shaderPipeline.GetDescriptorSets(2)[i].UpdateTexture(__texture.GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
         __shaderPipeline.GetDescriptorSets(3)[i].UpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     }
     return vc::Error::Success;
@@ -136,10 +135,10 @@ void VulkanApplication::__UpdateUniformBuffers()
     // Camera
     vcm::Mat4 viewAndProj[2];
     vcm::Vec3 cameraPos = {2.0f, 2.0f, 1.0f};
-    __camera->SetPosition(cameraPos);
-    __camera->LookAt({0,0,0});
-    viewAndProj[0] = __camera->GetViewMatrix();
-    viewAndProj[1] = __camera->GetProjectionMatrix();
+    __camera.SetPosition(cameraPos);
+    __camera.LookAt({0,0,0});
+    viewAndProj[0] = __camera.GetViewMatrix();
+    viewAndProj[1] = __camera.GetProjectionMatrix();
 
     // Uniform buffers (view and projection)
     memcpy(__objectStorageBuffers[__currentFrame].GetMappedData(), models, sizeof(models));
@@ -184,9 +183,9 @@ vc::Error VulkanApplication::__DrawFrame()
         //__descriptorSets[__currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
         //__commandBuffers[__currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, __shaderPipeline.GetPipelineLayout(), 0, 1, __descriptorSets[__currentFrame].GetVkDescriptorSet());
         __shaderPipeline.BindDescriptorSets(*__commandBuffers[__currentFrame], VK_PIPELINE_BIND_POINT_GRAPHICS);
-        __commandBuffers[__currentFrame]->DrawMesh(__mesh, 0);
+        __commandBuffers[__currentFrame]->DrawMesh(__mesh.GetImpl()->As<VulkanMesh>(), 0);
         // TODO: Create Descriptor Set for each mesh
-        __commandBuffers[__currentFrame]->DrawModel(__model, 1);
+        __commandBuffers[__currentFrame]->DrawModel(__model.GetImpl()->As<VulkanModel>(), 1);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 
     if (auto err = __commandBuffers[__currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
@@ -440,13 +439,12 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __shaderPipeline.AddDescriptorSetLayoutBinding(1, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
     __shaderPipeline.AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
     __shaderPipeline.AddDescriptorSetLayoutBinding(3, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    __model = vc::Model::Create("eye/eye.obj")->GetImpl()->As<VulkanModel>();
-    __mesh = vc::Mesh::Create()->GetImpl()->As<VulkanMesh>();
-    __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
-    __mesh->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);
-    __mesh->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec4), sizeof(vcm::Vec4), 2);
-    __mesh->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2), 3);
-    __mesh->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
+    __model.ImportModel("eye/eye.obj");
+    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
+    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);
+    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec4), sizeof(vcm::Vec4), 2);
+    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2), 3);
+    __mesh.GetImpl()->As<VulkanMesh>()->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader_mesh.ps",
         "shader_mesh.vs"

@@ -13,8 +13,9 @@ namespace venom
 {
 namespace common
 {
-static Camera * s_mainCamera = nullptr;
-Camera::Camera()
+static std::unique_ptr<Camera> s_mainCamera = nullptr;
+
+CameraImpl::CameraImpl()
     : GraphicsPluginObject()
     , __position(0.0f, 0.0f, 0.0f)
     , __rotation(vcm::IdentityQuat())
@@ -25,68 +26,72 @@ Camera::Camera()
     , __viewMatrixDirty(true)
     , __projectionMatrixDirty(true)
 {
+}
+
+CameraImpl::~CameraImpl()
+{
+}
+
+Camera::Camera()
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateCamera())
+{
     if (s_mainCamera == nullptr)
-        s_mainCamera = this;
+        SetMainCamera(*this);
 }
 
 Camera::~Camera()
 {
-    if (s_mainCamera == this)
-        s_mainCamera = nullptr;
+    if (s_mainCamera.get() == this)
+        s_mainCamera.reset();
 }
 
-Camera* Camera::Create()
+void Camera::SetMainCamera(const Camera & camera)
 {
-    return GraphicsPlugin::Get()->CreateCamera();
+    s_mainCamera = std::make_unique<Camera>(camera);
 }
 
-void Camera::SetMainCamera(Camera* camera)
+Camera & Camera::GetMainCamera()
 {
-    s_mainCamera = camera;
+    return *s_mainCamera.get();
 }
 
-Camera* Camera::GetMainCamera()
-{
-    return s_mainCamera;
-}
-
-void Camera::SetPosition(const vcm::Vec3& position)
+void CameraImpl::SetPosition(const vcm::Vec3& position)
 {
     __position = position;
     __viewMatrixDirty = true;
 }
 
-void Camera::Move(const vcm::Vec3& delta)
+void CameraImpl::Move(const vcm::Vec3& delta)
 {
     __position += delta;
     __viewMatrixDirty = true;
 }
 
-const vcm::Vec3 & Camera::GetPosition() const
+const vcm::Vec3 & CameraImpl::GetPosition() const
 {
     return __position;
 }
 
-void Camera::SetRotation(const vcm::Quat& rotation)
+void CameraImpl::SetRotation(const vcm::Quat& rotation)
 {
     __rotation = rotation;
     __3DrotationViewDirty = true;
     __viewMatrixDirty = true;
 }
 
-void Camera::Rotate(const vcm::Vec3& axis, float angle)
+void CameraImpl::Rotate(const vcm::Vec3& axis, float angle)
 {
     vcm::RotateQuat(__rotation, angle, axis);
     __3DrotationViewDirty = true;
     __viewMatrixDirty = true;
 }
 
-const vcm::Quat & Camera::GetRotationQuat() const
+const vcm::Quat & CameraImpl::GetRotationQuat() const
 {
     return __rotation;
 }
 
-const vcm::Vec3& Camera::GetRotation()
+const vcm::Vec3& CameraImpl::GetRotation()
 {
     if (__3DrotationViewDirty)
     {
@@ -96,7 +101,7 @@ const vcm::Vec3& Camera::GetRotation()
     return __3DrotationView;
 }
 
-const vcm::Mat4& Camera::GetViewMatrix()
+const vcm::Mat4& CameraImpl::GetViewMatrix()
 {
     if (__viewMatrixDirty)
     {
@@ -106,7 +111,7 @@ const vcm::Mat4& Camera::GetViewMatrix()
     return __viewMatrix;
 }
 
-void Camera::SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane)
+void CameraImpl::SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane)
 {
     __fov = fovY;
     __aspect = aspectRatio;
@@ -116,7 +121,7 @@ void Camera::SetPerspective(float fovY, float aspectRatio, float nearPlane, floa
     __projectionMatrixDirty = true;
 }
 
-const vcm::Mat4& Camera::GetProjectionMatrix()
+const vcm::Mat4& CameraImpl::GetProjectionMatrix()
 {
     if (__projectionMatrixDirty)
     {
@@ -126,51 +131,51 @@ const vcm::Mat4& Camera::GetProjectionMatrix()
     return __projectionMatrix;
 }
 
-void Camera::SetFieldOfView(float fovY)
+void CameraImpl::SetFieldOfView(float fovY)
 {
     __fov = fovY;
     __projectionMatrixDirty = true;
 }
 
-float Camera::GetFieldOfView() const
+float CameraImpl::GetFieldOfView() const
 {
     return __fov;
 }
 
-void Camera::SetAspectRatio(float aspectRatio)
+void CameraImpl::SetAspectRatio(float aspectRatio)
 {
     __aspect = aspectRatio;
     __projectionMatrixDirty = true;
 }
 
-float Camera::GetAspectRatio() const
+float CameraImpl::GetAspectRatio() const
 {
     return __aspect;
 }
 
-void Camera::SetNearPlane(float nearPlane)
+void CameraImpl::SetNearPlane(float nearPlane)
 {
     __near = nearPlane;
     __projectionMatrixDirty = true;
 }
 
-float Camera::GetNearPlane() const
+float CameraImpl::GetNearPlane() const
 {
     return __near;
 }
 
-void Camera::SetFarPlane(float farPlane)
+void CameraImpl::SetFarPlane(float farPlane)
 {
     __far = farPlane;
     __projectionMatrixDirty = true;
 }
 
-float Camera::GetFarPlane() const
+float CameraImpl::GetFarPlane() const
 {
     return __far;
 }
 
-void Camera::LookAt(const vcm::Vec3& target)
+void CameraImpl::LookAt(const vcm::Vec3& target)
 {
     auto upVector = GetUpVector();
     __viewMatrix = vcm::LookAt(__position, target, GetUpVector());
@@ -179,17 +184,17 @@ void Camera::LookAt(const vcm::Vec3& target)
     __rotation = vcm::QuatFromViewMatrix(__viewMatrix);
 }
 
-vcm::Vec3 Camera::GetForwardVector() const
+vcm::Vec3 CameraImpl::GetForwardVector() const
 {
     return vcm::GetForward(__rotation);
 }
 
-vcm::Vec3 Camera::GetUpVector() const
+vcm::Vec3 CameraImpl::GetUpVector() const
 {
     return vcm::GetUp(__rotation);
 }
 
-vcm::Vec3 Camera::GetRightVector() const
+vcm::Vec3 CameraImpl::GetRightVector() const
 {
     return vcm::GetRight(__rotation);
 }

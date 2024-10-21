@@ -13,7 +13,14 @@ namespace venom
 {
 namespace common
 {
-class VENOM_COMMON_API TextureImpl : public PluginObjectImpl
+class Texture;
+
+class VENOM_COMMON_API TextureResource : public GraphicsCachedResource
+{
+public:
+};
+
+class VENOM_COMMON_API TextureImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
     TextureImpl();
@@ -21,24 +28,24 @@ public:
 
     vc::Error LoadImageFromFile(const char * path);
     vc::Error InitDepthBuffer(int width, int height);
-
+    virtual bool HasTexture() const = 0;
 protected:
-    virtual vc::Error __LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
-    virtual vc::Error __InitDepthBuffer(int width, int height) = 0;
+    virtual vc::Error _LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
+    virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
+private:
+    friend class Texture;
 };
 
-class VENOM_COMMON_API Texture : public GraphicsPluginObject
+class VENOM_COMMON_API Texture : public PluginObjectImplWrapper
 {
-protected:
-    Texture();
 public:
+    Texture();
+    Texture(const char * path);
     ~Texture();
-
-    static Texture * CreateRawTexture();
-    static Texture * Create(const std::string & path);
 
     inline vc::Error LoadImageFromFile(const char * path) { return _impl->As<TextureImpl>()->LoadImageFromFile(path); }
     inline vc::Error InitDepthBuffer(int width, int height) { return _impl->As<TextureImpl>()->InitDepthBuffer(width, height); }
+    inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
 };
 
 }

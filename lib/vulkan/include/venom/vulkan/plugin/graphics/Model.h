@@ -14,6 +14,10 @@ namespace venom
 {
 namespace vulkan
 {
+class VulkanModelResource : public vc::ModelResource
+{
+};
+
 class VulkanModel : public vc::ModelImpl
 {
 public:
@@ -21,8 +25,6 @@ public:
     virtual ~VulkanModel();
 
     void Draw() override;
-private:
-    UniformBuffer __uniformBuffer;
 };
 }
 }
