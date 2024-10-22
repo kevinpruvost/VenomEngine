@@ -12,7 +12,7 @@
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/Surface.h>
 #include <venom/vulkan/SwapChain.h>
-#include <venom/vulkan/Shader.h>
+#include <venom/vulkan/ShaderPipeline.h>
 #include <venom/vulkan/RenderPass.h>
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/Semaphore.h>
@@ -48,7 +48,8 @@ public:
     vc::Error Init() override;
     vc::Error Loop() override;
     bool ShouldClose() override;
-    static int GetCurrentFrame();
+public:
+    inline static int GetCurrentFrame() { return __currentFrame; }
 
 private:
     vc::Error __Loop();
@@ -68,6 +69,7 @@ private:
 private:
     Instance __instance;
     LogicalDevice __logicalDevice;
+    DescriptorPool __descriptorPool;
     std::vector<const char *> __instanceExtensions;
     vc::Context __context;
     PhysicalDevice __physicalDevice;
@@ -79,8 +81,6 @@ private:
     QueueManager __queueManager;
 
     Queue __graphicsQueue, __presentQueue;
-
-    DescriptorPool __descriptorPool;
 
     bool __shouldClose;
 

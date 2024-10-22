@@ -9,7 +9,7 @@
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/QueueManager.h>
-#include <venom/vulkan/Shader.h>
+#include <venom/vulkan/ShaderPipeline.h>
 
 namespace venom::vulkan
 {

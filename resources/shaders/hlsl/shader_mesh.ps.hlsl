@@ -4,8 +4,13 @@ struct PSInput {
 };
 
 SamplerState g_sampler : register(s0, space3);
-Texture2D g_texture : register(t0, space2);
+
+cbuffer UniformBufferTextures : register(b0, space2) {
+    TextureBuffer<Texture2D> textures;
+};
+
+
 
 float4 main(PSInput input) : SV_TARGET {
-    return float4(g_texture.Sample(g_sampler, input.texCoord));
+    return float4(textures[].Sample(g_sampler, input.texCoord));
 }

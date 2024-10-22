@@ -51,10 +51,12 @@ int main(int argc, char** argv)
     // Run the engine
     vc::VenomEngine::SetScene([]()
     {
-        vc::CreateEntity("balls_hd")
+        vc::Entity balls_hd = vc::CreateEntity("balls_hd")
+            .emplace<vc::Transform3D>()
             .emplace<vc::Model>("eye/eye.obj");
 
         vc::Entity camera = vc::CreateEntity("camera")
+            .emplace<vc::Transform3D>()
             .emplace<vc::Camera>();
         camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
     });

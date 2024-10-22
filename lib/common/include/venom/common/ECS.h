@@ -9,6 +9,7 @@
 
 #include <venom/common/DLL.h>
 #include <flecs.h>
+#include <functional>
 
 namespace venom
 {
@@ -48,6 +49,12 @@ public:
     template <typename... Comps, typename... Args>
     System CreateSystem(const char * name) {
         return __world.system<Comps...>(name);
+    }
+
+    template <typename... Args>
+    void ForEach(auto && func) {
+        flecs::query<Args...> q = __world.query<Args...>();
+        q.each(func);
     }
 
     static ECS * GetECS();
