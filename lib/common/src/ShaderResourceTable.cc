@@ -80,5 +80,59 @@ int ShaderResourceTable::GetModelMatrixBufferId(const vcm::Mat4* mat)
 }
 
 #endif
+
+#ifdef VENOM_BINDLESS_TEXTURES
+
+class BindlessTexturesIdManager
+{
+public:
+    BindlessTexturesIdManager()
+    {
+    }
+
+    inline int GetTextureId()
+    {
+        venom_assert(!freeBuffers.empty(), "No more texture buffers available or SetMaxTextures has not been called");
+        const int id = freeBuffers.top();
+        freeBuffers.pop();
+        return id;
+    }
+
+    inline void ReleaseTexture(const int id)
+    {
+        freeBuffers.push(static_cast<int>(id));
+    }
+
+    inline void SetMaxTextures(uint32_t maxTextures)
+    {
+        freeBuffers = std::stack<int>();
+        for (int i = maxTextures - 1; i >= 0; --i) {
+            freeBuffers.push(i);
+        }
+    }
+
+    std::stack<int> freeBuffers;
+};
+static UPtr<BindlessTexturesIdManager> s_bindlessTextureManager(new BindlessTexturesIdManager());
+
+
+int ShaderResourceTable::BindTexture()
+{
+    return s_bindlessTextureManager->GetTextureId();
+}
+
+void ShaderResourceTable::UnbindTexture(int id)
+{
+    s_bindlessTextureManager->ReleaseTexture(id);
+}
+
+int ShaderResourceTable::__maxTextures = 0;
+void ShaderResourceTable::SetMaxTextures(uint32_t maxTextures)
+{
+    s_bindlessTextureManager->SetMaxTextures(maxTextures);
+    __maxTextures = maxTextures;
+}
+
+#endif
 }
 }

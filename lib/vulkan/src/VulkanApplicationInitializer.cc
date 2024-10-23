@@ -15,6 +15,8 @@ namespace vulkan
 static constexpr std::array s_deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
     VK_EXT_ROBUSTNESS_2_EXTENSION_NAME,
+    VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
+    VK_KHR_MAINTENANCE3_EXTENSION_NAME,
 #ifdef __APPLE__ // Maybe Linux ?
     "VK_KHR_portability_subset",
     VK_KHR_MAINTENANCE1_EXTENSION_NAME,
@@ -40,12 +42,10 @@ vc::Error VulkanApplication::Init()
         return vc::Error::InitializationFailed;
     }
 
-    __texture = vc::Texture("random.png");
-    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        // Separate Sampled Image & Sampler
-        DescriptorPool::GetPool()->GetDescriptorSets(2)[i].UpdateTexture(__texture.GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
-        DescriptorPool::GetPool()->GetDescriptorSets(3)[i].UpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
-    }
+    __texture.reset(new vc::Texture("random.png"));
+    // Separate Sampled Image & Sampler
+    DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+    DescriptorPool::GetPool()->GetDescriptorSets(3).GroupUpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     return vc::Error::Success;
 }
 
@@ -69,11 +69,8 @@ vc::Error VulkanApplication::__InitVulkan()
     return res;
 }
 
-VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures()
+VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures(bool & supported, VkPhysicalDeviceDescriptorIndexingFeatures & descriptorIndexingFeatures, VkPhysicalDeviceFeatures2 & features)
 {
-    VkPhysicalDeviceFeatures2 features{};
-    features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
-
     // Features
     features.features.samplerAnisotropy = VK_TRUE;
 
@@ -91,7 +88,15 @@ VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures()
     // Check if the device supports anisotropy
     if (features.features.samplerAnisotropy != VK_TRUE) {
         vc::Log::Error("Device does not support anisotropy");
+        supported = false;
     }
+
+    supported = __bindlessSupported = descriptorIndexingFeatures.descriptorBindingPartiallyBound && descriptorIndexingFeatures.runtimeDescriptorArray;
+    if (!supported) {
+        vc::Log::Error("Device does not support bindless textures");
+        return features;
+    }
+
     return features;
 }
 
@@ -141,6 +146,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     DEBUG_LOG("-%s:", __physicalDevice.GetProperties().deviceName);
     DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAMAmount() / (1024 * 1024));
 
+    // Set max textures
+    vc::ShaderResourceTable::SetMaxTextures(__physicalDevice.GetProperties().limits.maxDescriptorSetSampledImages);
+
     // Set global physical device
     PhysicalDevice::SetUsedPhysicalDevice(&__physicalDevice);
 
@@ -187,8 +195,18 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     createInfo.ppEnabledExtensionNames = s_deviceExtensions.data();
 
     // All Features
-    VkPhysicalDeviceFeatures2 physicalDeviceFeatures2 = __GetPhysicalDeviceFeatures();
+    bool physicalDeviceFeaturesSupported = true;
+    VkPhysicalDeviceDescriptorIndexingFeatures descriptorIndexingFeatures{ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES_EXT, nullptr };
+    VkPhysicalDeviceFeatures2 physicalDeviceFeatures2{
+        .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
+        .pNext = &descriptorIndexingFeatures
+    };
+    __GetPhysicalDeviceFeatures(physicalDeviceFeaturesSupported, descriptorIndexingFeatures, physicalDeviceFeatures2);
     createInfo.pNext = &physicalDeviceFeatures2;
+    if (!physicalDeviceFeaturesSupported) {
+        vc::Log::Error("Physical device does not support all required physical features");
+        return vc::Error::InitializationFailed;
+    }
 
     // Validation Layers
     _SetCreateInfoValidationLayers(&createInfo);
@@ -272,11 +290,15 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
 
     // Descriptor Set Layout
+
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(1, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
-    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, vc::ShaderResourceTable::GetMaxTextures(), VK_SHADER_STAGE_ALL);
+    DescriptorPool::GetPool()->SetDescriptorSetLayoutCreateFlags(2, VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT);
+    DescriptorPool::GetPool()->SetDescriptorSetLayoutBindless(2);
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(3, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    if (DescriptorPool::GetPool()->Create(0) != vc::Error::Success)
+    // Makes the pool able to allocate descriptor sets that can be updated after binding
+    if (DescriptorPool::GetPool()->Create(VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT) != vc::Error::Success)
         return vc::Error::Failure;
     __model.ImportModel("eye/eye.obj");
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {

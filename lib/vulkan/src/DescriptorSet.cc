@@ -74,8 +74,7 @@ void DescriptorSet::UpdateBuffer(StorageBuffer& buffer, uint32_t bufferOffset, u
     Update(write);
 }
 
-void DescriptorSet::UpdateTexture(const VulkanTexture* texture, uint32_t binding, VkDescriptorType descriptorType,
-                                  uint32_t descriptorCount, uint32_t arrayElement)
+void DescriptorSet::UpdateTexture(const VulkanTexture* texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
 {
     VkDescriptorImageInfo imageInfo = {
         .imageView = texture->GetImageView().GetVkImageView(),
@@ -96,8 +95,7 @@ void DescriptorSet::UpdateTexture(const VulkanTexture* texture, uint32_t binding
     Update(write);
 }
 
-void DescriptorSet::UpdateSampler(const Sampler& sampler, uint32_t binding, VkDescriptorType descriptorType,
-    uint32_t descriptorCount, uint32_t arrayElement)
+void DescriptorSet::UpdateSampler(const Sampler& sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
 {
     VkDescriptorImageInfo imageInfo = {
         .sampler = sampler.GetVkSampler()

@@ -31,6 +31,8 @@ class VENOM_COMMON_API GraphicsCachedResource
 public:
     GraphicsCachedResource() {}
     virtual ~GraphicsCachedResource();
+    GraphicsCachedResource(const GraphicsCachedResource &) = delete;
+    GraphicsCachedResource & operator=(const GraphicsCachedResource &) = delete;
     void ReleaseFromCache();
 
     template<typename T> inline T * As() { return static_cast<T *>(this); }
@@ -52,10 +54,11 @@ public:
     virtual ~GraphicsCachedResourceHolder() = default;
 
 protected:
-    inline const std::shared_ptr<GraphicsCachedResource> & _GetTextureToCache() { return _resource; }
-    inline void _LoadFromCache(const std::shared_ptr<GraphicsCachedResource> & cache) { _resource = cache; }
+    inline const SPtr<GraphicsCachedResource> & _GetTextureToCache() const { return _resource; }
+    inline SPtr<GraphicsCachedResource> & _GetTextureToCache() { return _resource; }
+    inline void _LoadFromCache(const SPtr<GraphicsCachedResource> & cache) { _resource = cache; }
 
-    std::shared_ptr<GraphicsCachedResource> _resource;
+    SPtr<GraphicsCachedResource> _resource;
 };
 
 /**
@@ -83,7 +86,7 @@ public:
      * @warning `path` must be the original asset path relative to the `resources` folder
      * @return nullptr if the object is not in cache, the object otherwise
      */
-    static std::shared_ptr<GraphicsCachedResource> GetCachedObject(const std::string & path);
+    static SPtr<GraphicsCachedResource> GetCachedObject(const std::string & path);
 protected:
     /**
      * @brief Sets an object in the cache
@@ -91,7 +94,7 @@ protected:
      * @warning `path` must be the original asset path relative to the `resources` folder
      * @param object
      */
-    static void _SetInCache(const std::string & path, const std::shared_ptr<GraphicsCachedResource> & object);
+    static void _SetInCache(const std::string & path, const SPtr<GraphicsCachedResource> & object);
     /**
      * @brief Adds cache size to avoid unnecessary additional allocations
      * @param size

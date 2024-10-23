@@ -16,6 +16,34 @@ namespace venom
 namespace vulkan
 {
 DescriptorPool * DescriptorPool::s_pool = nullptr;
+
+#define GROUP_UPDATE(func) for (int i = 0; i < this->size(); ++i) { this->operator[](i).func; }
+
+void DescriptorSetGroup::GroupUpdate(const VkWriteDescriptorSet& write)
+{
+    GROUP_UPDATE(Update(write));
+}
+
+void DescriptorSetGroup::GroupUpdateBuffer(UniformBuffer& buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    GROUP_UPDATE(UpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement));
+}
+
+void DescriptorSetGroup::GroupUpdateBuffer(StorageBuffer& buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    GROUP_UPDATE(UpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement));
+}
+
+void DescriptorSetGroup::GroupUpdateTexture(const VulkanTexture* texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    GROUP_UPDATE(UpdateTexture(texture, binding, descriptorType, descriptorCount, arrayElement));
+}
+
+void DescriptorSetGroup::GroupUpdateSampler(const Sampler& sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    GROUP_UPDATE(UpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement));
+}
+
 DescriptorPool::DescriptorPool()
     : __pool(VK_NULL_HANDLE)
     , __poolInfo()
@@ -49,6 +77,18 @@ void DescriptorPool::AddDescriptorSetLayoutBinding(const uint32_t descriptorSetI
     AddPoolSize(type, VENOM_MAX_FRAMES_IN_FLIGHT * count);
 }
 
+void DescriptorPool::SetDescriptorSetLayoutCreateFlags(const uint32_t descriptorSetIndex, const VkDescriptorSetLayoutCreateFlags flags)
+{
+    venom_assert(descriptorSetIndex < __descriptorSetLayouts.size(), "Descriptor set index out of range");
+    __descriptorSetLayouts[descriptorSetIndex].SetFlags(flags);
+}
+
+void DescriptorPool::SetDescriptorSetLayoutBindingSpecifications(const uint32_t descriptorSetIndex, const VkDescriptorBindingFlags flags)
+{
+    venom_assert(descriptorSetIndex < __descriptorSetLayouts.size(), "Descriptor set index out of range");
+    __descriptorSetLayouts[descriptorSetIndex].SetBindingFlags(flags);
+}
+
 vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t maxSets)
 {
     // Create Pool
@@ -77,15 +117,15 @@ vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t max
     // Allocate Descriptor Sets
     __descriptorSets.reserve(__descriptorSetLayouts.size());
     for (int i = 0; i < __descriptorSetLayouts.size(); ++i) {
-        __descriptorSets.emplace_back(AllocateSets(__vkDescriptorSetLayouts[i], maxSets));
+        __descriptorSets.emplace_back(AllocateSets(__vkDescriptorSetLayouts[i], maxSets, __descriptorSetLayouts[i].IsBindless()));
     }
     return vc::Error::Success;
 }
 
-std::vector<DescriptorSet> DescriptorPool::AllocateSets(const VkDescriptorSetLayout& layout, uint32_t count) const { return AllocateSets({count, layout}); }
-std::vector<DescriptorSet> DescriptorPool::AllocateSets(const std::vector<VkDescriptorSetLayout>& layouts) const
+DescriptorSetGroup DescriptorPool::AllocateSets(const VkDescriptorSetLayout& layout, uint32_t count, const bool bindless) const { return AllocateSets({count, layout}, bindless); }
+DescriptorSetGroup DescriptorPool::AllocateSets(const std::vector<VkDescriptorSetLayout>& layouts, const bool bindless) const
 {
-    std::vector<DescriptorSet> sets(layouts.size());
+    DescriptorSetGroup sets(layouts.size());
     std::vector<VkDescriptorSet> vkSets(layouts.size());
 
     VkDescriptorSetAllocateInfo allocInfo = {};
@@ -93,6 +133,15 @@ std::vector<DescriptorSet> DescriptorPool::AllocateSets(const std::vector<VkDesc
     allocInfo.descriptorPool = __pool;
     allocInfo.descriptorSetCount = layouts.size();
     allocInfo.pSetLayouts = layouts.data();
+
+    VkDescriptorSetVariableDescriptorCountAllocateInfoEXT count_info{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO_EXT };
+    std::vector<uint32_t> maxBindings(layouts.size(), vc::ShaderResourceTable::GetMaxTextures());
+    if (bindless) {
+        count_info.descriptorSetCount = layouts.size();
+        // This number is the max allocatable count
+        count_info.pDescriptorCounts = maxBindings.data();
+        allocInfo.pNext = &count_info;
+    }
 
     if (auto err = vkAllocateDescriptorSets(LogicalDevice::GetVkDevice(), &allocInfo, vkSets.data()); err != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate descriptor sets: %x", err);

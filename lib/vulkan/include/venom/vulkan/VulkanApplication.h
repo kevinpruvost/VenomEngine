@@ -50,13 +50,14 @@ public:
     bool ShouldClose() override;
 public:
     inline static int GetCurrentFrame() { return __currentFrame; }
+    inline static bool IsBindlessSupported() { return __bindlessSupported; }
 
 private:
     vc::Error __Loop();
     void __UpdateUniformBuffers();
     vc::Error __DrawFrame();
     vc::Error __InitVulkan();
-    VkPhysicalDeviceFeatures2 __GetPhysicalDeviceFeatures();
+    VkPhysicalDeviceFeatures2 __GetPhysicalDeviceFeatures(bool & supported, VkPhysicalDeviceDescriptorIndexingFeatures & descriptorIndexingFeatures, VkPhysicalDeviceFeatures2 & features);
 
     void __SetGLFWCallbacks();
 
@@ -88,6 +89,7 @@ private:
 private:
     // For test
     static int __currentFrame;
+    static bool __bindlessSupported;
     vc::Camera __camera;
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
@@ -109,7 +111,7 @@ private:
         {0.5f, 0.5f, -0.5f},
         {-0.5f, 0.5f, -0.5f}
     };
-    vc::Texture __texture;
+    UPtr<vc::Texture> __texture;
 
     vcm::Vec4 __verticesColor[8] = {
         {1, 0, 0, 1},

@@ -24,6 +24,7 @@
 namespace venom::vulkan
 {
 int VulkanApplication::__currentFrame = 0;
+bool VulkanApplication::__bindlessSupported = false;
 
 VulkanApplication::VulkanApplication()
     : vc::GraphicsApplication()
@@ -102,7 +103,7 @@ void VulkanApplication::__UpdateUniformBuffers()
 #ifndef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
 #error ("VENOM_EXTERNAL_PACKED_MODEL_MATRIX must be defined for Vulkan")
 #else
-    memcpy(__objectStorageBuffers[__currentFrame].GetMappedData(), vc::ShaderResourceTable::GetAllModelMatrixBuffer(), sizeof(vcm::Mat4) * VENOM_MAX_ENTITIES);
+    memcpy(__objectStorageBuffers[__currentFrame].GetMappedData(), vc::ShaderResourceTable::GetAllModelMatrixBuffer(), vc::ShaderResourceTable::GetAllModelMatrixBytesSize());
 #endif
     // View and Projection
     memcpy(__cameraUniformBuffers[__currentFrame].GetMappedData(), viewAndProj, sizeof(viewAndProj));

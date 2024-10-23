@@ -24,11 +24,16 @@ public:
     DescriptorSetLayout& operator=(DescriptorSetLayout&& other) noexcept;
 
     void AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count, VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers = nullptr);
-    vc::Error Create(VkDescriptorSetLayoutCreateFlags flags = 0);
+    vc::Error Create();
+    inline void SetFlags(VkDescriptorSetLayoutCreateFlags flags) { __descriptorSetLayoutInfo.flags = flags; }
+    inline VkDescriptorSetLayoutCreateFlags GetFlags() { return __descriptorSetLayoutInfo.flags; }
+    bool IsBindless() const;
+    void SetBindingFlags(VkDescriptorBindingFlags flags);
 
     const VkDescriptorSetLayout & GetLayout() const;
 
 private:
+    std::vector<void *> __createInfoPNexts, __createInfoFlags;
     std::vector<VkDescriptorSetLayoutBinding> __bindings;
     VkDescriptorSetLayoutCreateInfo __descriptorSetLayoutInfo;
     VkDescriptorSetLayout __layout;

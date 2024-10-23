@@ -60,7 +60,7 @@ public:
 
 private:
     std::vector<ImageView> __swapChainImageViews;
-    vc::Texture __depthTexture;
+    UPtr<vc::Texture> __depthTexture;
     std::vector<VkFramebuffer> __swapChainFramebuffers;
 
     friend class RenderPass;

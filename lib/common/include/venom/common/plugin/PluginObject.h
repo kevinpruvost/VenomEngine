@@ -9,6 +9,7 @@
 #include <venom/common/plugin/PluginType.h>
 #include <venom/common/Export.h>
 #include <venom/common/Log.h>
+#include <venom/common/Ptr.h>
 
 #include <memory>
 #include <optional>

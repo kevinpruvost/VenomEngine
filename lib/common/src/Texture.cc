@@ -34,6 +34,20 @@ Texture::~Texture()
 {
 }
 
+TextureResource::TextureResource()
+#ifdef VENOM_BINDLESS_TEXTURES
+    : __textureID(ShaderResourceTable::BindTexture())
+#endif
+{
+}
+
+TextureResource::~TextureResource()
+{
+#ifdef VENOM_BINDLESS_TEXTURES
+    ShaderResourceTable::UnbindTexture(__textureID);
+#endif
+}
+
 TextureImpl::TextureImpl()
 {
 }
