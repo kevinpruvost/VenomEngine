@@ -17,6 +17,7 @@ namespace common
 GraphicsPlugin::GraphicsPlugin()
     : Plugin(PluginType::Graphics)
 {
+    __graphicsResourceCache.reset(new std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>>());
 }
 
 GraphicsPlugin::~GraphicsPlugin()

@@ -8,6 +8,7 @@
 #pragma once
 #include <venom/common/plugin/PluginType.h>
 #include <venom/common/Export.h>
+#include <venom/common/Log.h>
 
 #include <memory>
 #include <optional>
@@ -19,6 +20,8 @@ namespace common
 class VENOM_COMMON_API IPluginObject
 {
 public:
+    virtual ~IPluginObject() = default;
+
     virtual void Destroy() = 0;
     virtual PluginType GetType() const = 0;
 };
@@ -77,8 +80,16 @@ public:
     PluginObjectImplWrapper & operator=(PluginObjectImplWrapper && other);
     ~PluginObjectImplWrapper();
 
-    PluginObjectImpl * GetImpl();
-    const PluginObjectImpl * GetImpl() const;
+    inline PluginObjectImpl* GetImpl()
+    {
+        venom_assert(_impl != nullptr, "PluginObjectImplWrapper::GetImpl() : _impl is nullptr");
+        return _impl;
+    }
+    inline const PluginObjectImpl* GetImpl() const
+    {
+        venom_assert(_impl != nullptr, "PluginObjectImplWrapper::GetImpl() : _impl is nullptr");
+        return _impl;
+    }
     inline const PluginObjectImpl * GetConstImpl() const { return GetImpl(); }
     bool IsImplInitialized() const;
     inline void Destroy() { _impl->Destroy(); }

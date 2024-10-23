@@ -63,18 +63,6 @@ PluginObjectImplWrapper::~PluginObjectImplWrapper()
     _impl->DecRefCount();
 }
 
-PluginObjectImpl* PluginObjectImplWrapper::GetImpl()
-{
-    venom_assert(_impl != nullptr, "PluginObjectImplWrapper::GetImpl() : _impl is nullptr");
-    return _impl;
-}
-
-const PluginObjectImpl* PluginObjectImplWrapper::GetImpl() const
-{
-    venom_assert(_impl != nullptr, "PluginObjectImplWrapper::GetImpl() : _impl is nullptr");
-    return _impl;
-}
-
 bool PluginObjectImplWrapper::IsImplInitialized() const
 {
     return _impl != nullptr;

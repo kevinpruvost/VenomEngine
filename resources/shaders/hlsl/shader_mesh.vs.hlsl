@@ -20,7 +20,7 @@ cbuffer UniformBufferCamera : register(b0, space1) {
 struct VSInput {
     [[vk::location(0)]] float3 inPosition : POSITION;
     [[vk::location(1)]] float3 inNormal : NORMAL;
-    [[vk::location(2)]] float4 inColor : COLOR;
+//    [[vk::location(2)]] float4 inColor : COLOR;
     [[vk::location(3)]] float2 inTexCoord : TEXCOORD;
     uint instanceID : SV_InstanceID;
 };
@@ -38,7 +38,7 @@ VSOutput main(VSInput input)
     output.outPosition = mul(models[input.instanceID], output.outPosition); // Apply the model matrix
     output.outPosition = mul(view, output.outPosition);  // Apply the view matrix
     output.outPosition = mul(proj, output.outPosition);  // Apply the projection matrix
-    output.fragColor = input.inColor;                        // Pass the color to the fragment shader
+    output.fragColor = float4(1.0, 1.0, 1.0, 1.0);                        // Pass the color to the fragment shader
     output.fragTexCoord = input.inTexCoord;                  // Pass the texture
     return output;
 }

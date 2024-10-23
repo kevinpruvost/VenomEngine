@@ -56,7 +56,7 @@ uint32_t Buffer::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags prope
             return i;
         }
     }
-    return -1;
+    return std::numeric_limits<uint32_t>::max();
 }
 
 vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags flags, const VkSharingMode sharingMode,
@@ -64,11 +64,12 @@ vc::Error Buffer::CreateBuffer(const VkDeviceSize size, const VkBufferUsageFlags
 {
     VkBufferCreateInfo bufferCreateInfo = {
         .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
-        .size = __size = size,
+        .size = size,
         .usage = flags,
         .sharingMode = sharingMode,
         .queueFamilyIndexCount = 0
     };
+    __size = size;
 
     if (vkCreateBuffer(LogicalDevice::GetVkDevice(), &bufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__buffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to create vertex buffer");

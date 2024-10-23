@@ -14,6 +14,7 @@ namespace vulkan
 /// @brief Device extensions to use
 static constexpr std::array s_deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+    VK_EXT_ROBUSTNESS_2_EXTENSION_NAME,
 #ifdef __APPLE__ // Maybe Linux ?
     "VK_KHR_portability_subset",
     VK_KHR_MAINTENANCE1_EXTENSION_NAME,
@@ -66,6 +67,32 @@ vc::Error VulkanApplication::__InitVulkan()
     if (res = __InitRenderingPipeline(); res != vc::Error::Success) return res;
 
     return res;
+}
+
+VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures()
+{
+    VkPhysicalDeviceFeatures2 features{};
+    features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+
+    // Features
+    features.features.samplerAnisotropy = VK_TRUE;
+
+    // Null Descriptor (enable if possible), don't try, it gives errors for some reason
+    // VkPhysicalDeviceRobustness2FeaturesEXT robustness2Features{};
+    // robustness2Features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT;
+    // robustness2Features.nullDescriptor = VK_TRUE;  // Enable null descriptor feature
+    // features.pNext = &robustness2Features;
+
+    // Query physical device properties and features
+    vkGetPhysicalDeviceFeatures2(__physicalDevice.GetVkPhysicalDevice(), &features);
+
+    // DEBUG_PRINT("Robustness2: NullDescriptor: %s be enabled!", robustness2Features.nullDescriptor ? "Can" : "Cannot");
+
+    // Check if the device supports anisotropy
+    if (features.features.samplerAnisotropy != VK_TRUE) {
+        vc::Log::Error("Device does not support anisotropy");
+    }
+    return features;
 }
 
 void VulkanApplication::__SetGLFWCallbacks()
@@ -129,6 +156,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create Logical device
     VkDeviceCreateInfo createInfo{};
+    createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 
     // Queue Create Infos
     // Create Queue Create Infos
@@ -154,17 +182,13 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     if (err = __queueManager.SetLogicalDeviceQueueCreateInfos(__queueFamilies, &createInfo); err != vc::Error::Success)
         return err;
 
-    VkPhysicalDeviceFeatures deviceFeatures{};
-    createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.pEnabledFeatures = &deviceFeatures;
-
-    // Chose features
-    deviceFeatures.samplerAnisotropy = VK_TRUE;
-    //deviceFeatures.textureCompressionBC = VK_TRUE;
-
     // Extensions
     createInfo.enabledExtensionCount = s_deviceExtensions.size();
     createInfo.ppEnabledExtensionNames = s_deviceExtensions.data();
+
+    // All Features
+    VkPhysicalDeviceFeatures2 physicalDeviceFeatures2 = __GetPhysicalDeviceFeatures();
+    createInfo.pNext = &physicalDeviceFeatures2;
 
     // Validation Layers
     _SetCreateInfoValidationLayers(&createInfo);
@@ -255,11 +279,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     if (DescriptorPool::GetPool()->Create(0) != vc::Error::Success)
         return vc::Error::Failure;
     __model.ImportModel("eye/eye.obj");
-    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 0);
-    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesPos, sizeof(__verticesPos) / sizeof(vcm::Vec3), sizeof(vcm::Vec3), 1);
-    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesColor, sizeof(__verticesColor) / sizeof(vcm::Vec4), sizeof(vcm::Vec4), 2);
-    __mesh.GetImpl()->As<VulkanMesh>()->AddVertexBuffer(__verticesUV, sizeof(__verticesUV) / sizeof(vcm::Vec2), sizeof(vcm::Vec2), 3);
-    __mesh.GetImpl()->As<VulkanMesh>()->AddIndexBuffer(__indices, sizeof(__indices) / sizeof(uint32_t), sizeof(uint32_t));
     __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
         "shader_mesh.ps",
         "shader_mesh.vs"
@@ -328,11 +347,6 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
         return false;
     }
 
-    // Check if the device supports anisotropy
-    if (createInfo->pEnabledFeatures->samplerAnisotropy != VK_TRUE) {
-        vc::Log::Error("Device does not support anisotropy");
-        return false;
-    }
     return true;
 }
 

@@ -44,6 +44,12 @@ public:
     virtual MeshImpl * CreateMesh() = 0;
     virtual TextureImpl * CreateTexture() = 0;
     virtual CameraImpl * CreateCamera() = 0;
+
+private:
+    friend class GraphicsCachedResource;
+    friend class GraphicsPluginObject;
+    static inline std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> * __GetGraphicsResourceCache() { return Get()->__graphicsResourceCache.get(); }
+    std::unique_ptr<std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>>> __graphicsResourceCache;
 };
 
 }

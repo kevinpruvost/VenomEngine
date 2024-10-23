@@ -104,6 +104,9 @@ Error VenomEngine::SetScene(const SceneCallback& sceneCallback)
 
 void VenomEngine::__LoadECS()
 {
+    // Reserve entities
+
+
     __ecs->RegisterComponent<Model>();
 }
 }

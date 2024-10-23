@@ -19,8 +19,8 @@ namespace vulkan
 static QueueManager * s_queueManager = nullptr;
 
 Queue::Queue()
-    : __queueFamilyIndex(UINT32_MAX)
-    , __queueIndex(UINT32_MAX)
+    : __queueFamilyIndex(std::numeric_limits<uint32_t>::max())
+    , __queueIndex(std::numeric_limits<uint32_t>::max())
     , __vkQueue(VK_NULL_HANDLE)
 {
 }
@@ -37,7 +37,7 @@ VkQueue Queue::GetVkQueue() const { return __vkQueue; }
 
 void Queue::InitVkQueue()
 {
-    if (__queueFamilyIndex == UINT32_MAX || __queueIndex == UINT32_MAX) return;
+    if (__queueFamilyIndex == std::numeric_limits<uint32_t>::max() || __queueIndex == std::numeric_limits<uint32_t>::max()) return;
     vkGetDeviceQueue(LogicalDevice::GetVkDevice(), __queueFamilyIndex, __queueIndex, &__vkQueue);
 }
 

@@ -94,17 +94,11 @@ public:
 
     inline MaterialComponentType GetType() const { return __type; }
     inline MaterialComponentValueType GetValueType() const { return __valueType; }
-    Texture GetTexture() const;
+    const Texture & GetTexture() const;
 private:
     const MaterialComponentType __type;
     MaterialComponentValueType __valueType;
-    union
-    {
-        vcm::Vec3 __color3D;
-        vcm::Vec4 __color4D;
-        float __value;
-        PluginObjectContainer<Texture> __texture;
-    };
+    std::variant<vcm::Vec3, vcm::Vec4, float, Texture> __value;
 };
 
 

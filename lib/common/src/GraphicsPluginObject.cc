@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/plugin/graphics/GraphicsPluginObject.h>
+#include <venom/common/plugin/graphics/GraphicsPlugin.h>
 
 #include <venom/common/Log.h>
 
@@ -18,17 +19,15 @@ namespace venom
 {
 namespace common
 {
-static std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> s_cache;
-
 GraphicsCachedResource::~GraphicsCachedResource()
 {
 }
 
 void GraphicsCachedResource::ReleaseFromCache()
 {
-    for (auto it = s_cache.begin(); it != s_cache.end(); ++it) {
+    for (auto it = GraphicsPlugin::__GetGraphicsResourceCache()->begin(); it != GraphicsPlugin::__GetGraphicsResourceCache()->end(); ++it) {
         if (it->second.get() == this) {
-            s_cache.erase(it);
+            GraphicsPlugin::__GetGraphicsResourceCache()->erase(it);
             break;
         }
     }
@@ -82,7 +81,7 @@ bool GraphicsPluginObject::HasCachedObject(const std::string& path)
     std::string realPath;
     if (!validPath(path, realPath))
         return false;
-    return s_cache.find(realPath) != s_cache.end();
+    return GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath) != GraphicsPlugin::__GetGraphicsResourceCache()->end();
 }
 
 std::shared_ptr<GraphicsCachedResource> GraphicsPluginObject::GetCachedObject(const std::string& path)
@@ -90,8 +89,8 @@ std::shared_ptr<GraphicsCachedResource> GraphicsPluginObject::GetCachedObject(co
     std::string realPath;
     if (!validPath(path, realPath))
         return nullptr;
-    const auto it = s_cache.find(realPath);
-    return it != s_cache.end() ? it->second : std::shared_ptr<GraphicsCachedResource>();
+    const auto it = GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath);
+    return it != GraphicsPlugin::__GetGraphicsResourceCache()->end() ? it->second : std::shared_ptr<GraphicsCachedResource>();
 }
 
 void GraphicsPluginObject::_SetInCache(const std::string& path, const std::shared_ptr<GraphicsCachedResource> & object)
@@ -100,18 +99,18 @@ void GraphicsPluginObject::_SetInCache(const std::string& path, const std::share
     std::string realPath;
     if (!validPath(path, realPath))
         return;
-    venom_assert(s_cache.find(realPath) == s_cache.end(), "Object already in cache");
-    s_cache[realPath] = object;
+    venom_assert(GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath) == GraphicsPlugin::__GetGraphicsResourceCache()->end(), "Object already in cache");
+    GraphicsPlugin::__GetGraphicsResourceCache()->operator[](realPath) = object;
 }
 
 void GraphicsPluginObject::_SetCacheSize(size_t size)
 {
-    s_cache.reserve(size);
+    GraphicsPlugin::__GetGraphicsResourceCache()->reserve(size);
 }
 
 void GraphicsPluginObject::_AddCacheSize(size_t size)
 {
-    s_cache.reserve(s_cache.size() + size);
+    GraphicsPlugin::__GetGraphicsResourceCache()->reserve(GraphicsPlugin::__GetGraphicsResourceCache()->size() + size);
 }
 }
 }

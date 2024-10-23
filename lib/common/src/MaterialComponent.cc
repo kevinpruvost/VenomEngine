@@ -24,30 +24,30 @@ MaterialComponent::~MaterialComponent()
 void MaterialComponent::SetValue(const vcm::Vec3& value)
 {
     __valueType = MaterialComponentValueType::COLOR3D;
-    __color3D = value;
+    __value.emplace<vcm::Vec3>(value);
 }
 
 void MaterialComponent::SetValue(const vcm::Vec4& value)
 {
     __valueType = MaterialComponentValueType::COLOR4D;
-    __color4D = value;
+    __value.emplace<vcm::Vec4>(value);
 }
 
 void MaterialComponent::SetValue(const float value)
 {
     __valueType = MaterialComponentValueType::VALUE;
-    __value = value;
+    __value.emplace<float>(value);
 }
 
 void MaterialComponent::SetValue(const Texture & texture)
 {
+    __value.emplace<Texture>(texture);
     __valueType = MaterialComponentValueType::TEXTURE;
-    __texture.emplace(texture);
 }
 
-Texture MaterialComponent::GetTexture() const
+const Texture & MaterialComponent::GetTexture() const
 {
-    return __texture.value();
+    return std::get<Texture>(__value);
 }
 }
 }

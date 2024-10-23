@@ -129,8 +129,8 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
             break;
         }
     }
-    // Extent, if currentExtent is UINT32_MAX, then the extent can vary, else it's the currentExtent
-    if (capabilities.currentExtent.width != UINT32_MAX) {
+    // Extent, if currentExtent is std::numeric_limits<uint32_t>::max(), then the extent can vary, else it's the currentExtent
+    if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
         extent = capabilities.currentExtent;
     } else {
         // Gets the window size in terms of total pixels, not to confuse with screen coordinates
@@ -197,7 +197,7 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
 
     createInfo.preTransform = capabilities.currentTransform;
     createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-    if (capabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR == 0) {
+    if ((capabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR) == 0) {
         vc::Log::Error("Opaque composite alpha not supported");
         return vc::Error::InitializationFailed;
     }

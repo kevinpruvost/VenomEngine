@@ -11,6 +11,7 @@
 
 #define VENOM_MAX_FRAMES_IN_FLIGHT 3
 #define VENOM_MAX_ENTITIES 65536
+#define VENOM_MAX_TEXTURES 4096
 
 namespace venom
 {

@@ -72,7 +72,7 @@ void Instance::__SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* cre
     debugApp->__debugMessengerCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
     debugApp->__debugMessengerCreateInfo.pfnUserCallback = debugApp->_GetDebugCallback();
     debugApp->__debugMessengerCreateInfo.pNext = debugApp->__debugMessengerCreateInfo.pUserData = nullptr;
-    createInfos->pNext = reinterpret_cast<VkDebugUtilsMessengerCreateInfoEXT *>(&debugApp->__debugMessengerCreateInfo);
+    createInfos->pNext = &debugApp->__debugMessengerCreateInfo;
 #else
     createInfos->enabledLayerCount = 0;
     createInfos->ppEnabledLayerNames = nullptr;

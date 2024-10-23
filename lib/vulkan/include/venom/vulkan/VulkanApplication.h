@@ -56,6 +56,7 @@ private:
     void __UpdateUniformBuffers();
     vc::Error __DrawFrame();
     vc::Error __InitVulkan();
+    VkPhysicalDeviceFeatures2 __GetPhysicalDeviceFeatures();
 
     void __SetGLFWCallbacks();
 
@@ -96,7 +97,6 @@ private:
     Fence __inFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
     bool __framebufferChanged;
     vc::Model __model;
-    vc::Mesh __mesh;
     StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     vcm::Vec3 __verticesPos[8] = {

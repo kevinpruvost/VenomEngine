@@ -49,25 +49,25 @@ vc::Error CommandPoolManager::Init()
     uint32_t videoDecodeQueueFamilyIndex = QueueManager::GetVideoDecodeQueue().GetQueueFamilyIndex();
     uint32_t videoEncodeQueueFamilyIndex = QueueManager::GetVideoEncodeQueue().GetQueueFamilyIndex();
 
-    // If the queue family index is UINT32_MAX, it means that the queue family is not active
+    // If the queue family index is std::numeric_limits<uint32_t>::max(), it means that the queue family is not active
     // Not active means that the queue family is not supported by the physical device
     // OR
     // The queue family is not requested by the application or the user
-    if (graphicsQueueFamilyIndex != UINT32_MAX)
+    if (graphicsQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __graphicsPool = &__commandPools[graphicsQueueFamilyIndex];
-    if (computeQueueFamilyIndex != UINT32_MAX)
+    if (computeQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __computePool = &__commandPools[computeQueueFamilyIndex];
-    if (transferQueueFamilyIndex != UINT32_MAX)
+    if (transferQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __transferPool = &__commandPools[transferQueueFamilyIndex];
-    if (presentQueueFamilyIndex != UINT32_MAX)
+    if (presentQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __presentPool = &__commandPools[presentQueueFamilyIndex];
-    if (sparseBindingQueueFamilyIndex != UINT32_MAX)
+    if (sparseBindingQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __sparseBindingPool = &__commandPools[sparseBindingQueueFamilyIndex];
-    if (protectedQueueFamilyIndex != UINT32_MAX)
+    if (protectedQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __protectedPool = &__commandPools[protectedQueueFamilyIndex];
-    if (videoDecodeQueueFamilyIndex != UINT32_MAX)
+    if (videoDecodeQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __videoDecodePool = &__commandPools[videoDecodeQueueFamilyIndex];
-    if (videoEncodeQueueFamilyIndex != UINT32_MAX)
+    if (videoEncodeQueueFamilyIndex != std::numeric_limits<uint32_t>::max())
         __videoEncodePool = &__commandPools[videoEncodeQueueFamilyIndex];
 
     return vc::Error::Success;

@@ -49,6 +49,9 @@ LogicalDevice::operator struct VkDevice_T*() const
 
 vc::Error LogicalDevice::Init(const VkDeviceCreateInfo* createInfo)
 {
+    auto test1 = PhysicalDevice::GetUsedVkPhysicalDevice();
+    auto test2 = Allocator::GetVKAllocationCallbacks();
+    auto test3 = &__device;
     if (VkResult res = vkCreateDevice(PhysicalDevice::GetUsedVkPhysicalDevice(), createInfo, Allocator::GetVKAllocationCallbacks(), &__device); res != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create logical device, error code: %d", res);

@@ -82,26 +82,28 @@ void VulkanApplication::__UpdateUniformBuffers()
     static vc::Timer timer_uni;
     float time = timer_uni.GetMilliSeconds();
 
-    vcm::Mat4 models[VENOM_MAX_ENTITIES];
     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
     {
-
+        transform.SetPosition({8,8,0});
+        transform.Rotate({0,1,0}, time / 1000.0f);
+        transform.UpdateModelMatrix();
     });
-    models[0] = models[1] = vcm::Identity();
-    vcm::RotateMatrix(models[0], {0.0f, 0.0f, 1.0f}, 1.0f);
-    vcm::RotateMatrix(models[0], {0.0f, 1.0f, 0.0f}, time / 1000.0f);
 
     // Camera
     vcm::Mat4 viewAndProj[2];
-    vcm::Vec3 cameraPos = {2.0f, 2.0f, 1.0f};
+    vcm::Vec3 cameraPos = {-2.0f, -2.0f, 1.0f};
     __camera.SetPosition(cameraPos);
-    __camera.LookAt({0,0,0});
+    __camera.LookAt({8,8,0});
     viewAndProj[0] = __camera.GetViewMatrix();
     viewAndProj[1] = __camera.GetProjectionMatrix();
 
     // Uniform buffers
     // Model Matrices
-    memcpy(__objectStorageBuffers[__currentFrame].GetMappedData(), models, sizeof(models));
+#ifndef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#error ("VENOM_EXTERNAL_PACKED_MODEL_MATRIX must be defined for Vulkan")
+#else
+    memcpy(__objectStorageBuffers[__currentFrame].GetMappedData(), vc::ShaderResourceTable::GetAllModelMatrixBuffer(), sizeof(vcm::Mat4) * VENOM_MAX_ENTITIES);
+#endif
     // View and Projection
     memcpy(__cameraUniformBuffers[__currentFrame].GetMappedData(), viewAndProj, sizeof(viewAndProj));
     // Push Constants (model)
@@ -134,18 +136,17 @@ vc::Error VulkanApplication::__DrawFrame()
     if (auto err = __commandBuffers[__currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
-        // Update Uniform Buffers
-        __UpdateUniformBuffers();
-
         __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[__currentFrame], imageIndex);
         __commandBuffers[__currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         __commandBuffers[__currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[__currentFrame]->SetScissor(__swapChain.scissor);
         //__descriptorSets[__currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
         //__commandBuffers[__currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, __shaderPipeline.GetPipelineLayout(), 0, 1, __descriptorSets[__currentFrame].GetVkDescriptorSet());
+
+        // Update Uniform Buffers
+        __UpdateUniformBuffers();
+
         DescriptorPool::GetPool()->BindDescriptorSets(*__commandBuffers[__currentFrame], __shaderPipeline, VK_PIPELINE_BIND_POINT_GRAPHICS);
-        __commandBuffers[__currentFrame]->DrawMesh(__mesh.GetImpl()->As<VulkanMesh>(), 0);
-        // TODO: Create Descriptor Set for each mesh
         __commandBuffers[__currentFrame]->DrawModel(__model.GetImpl()->As<VulkanModel>(), 1);
         __renderPass.EndRenderPass(__commandBuffers[__currentFrame]);
 

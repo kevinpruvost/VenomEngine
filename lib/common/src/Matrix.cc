@@ -32,6 +32,28 @@ void RotateMatrix(Mat4& matrix, const Vec3& axis, const float angle)
 #endif
 }
 
+void RotateMatrix(Mat4& matrix, const Quat & quat)
+{
+#if defined(VENOM_MATH_DXMATH)
+    // Convert the quaternion to a rotation matrix
+    const Mat4 rotationMatrix = DirectX::XMMatrixRotationQuaternion(DirectX::XMLoadFloat4(&quat));
+    // Multiply the current matrix by the rotation matrix
+    matrix = DirectX::XMMatrixMultiply(matrix, rotationMatrix);
+#elif defined(VENOM_MATH_GLM)
+    matrix *= glm::toMat4(quat);
+#endif
+}
+
+void TranslateMatrix(Mat4& matrix, const Vec3& translation)
+{
+#if defined(VENOM_MATH_DXMATH)
+    const Mat4 translationMatrix = DirectX::XMMatrixTranslation(translation.x, translation.y, translation.z);
+    matrix = DirectX::XMMatrixMultiply(matrix, translationMatrix);
+#elif defined(VENOM_MATH_GLM)
+    matrix = glm::translate(matrix, translation);
+#endif
+}
+
 Mat4 LookAtLH(const Vec3& eye, const Vec3& center, const Vec3& up)
 {
 #if defined(VENOM_MATH_DXMATH)

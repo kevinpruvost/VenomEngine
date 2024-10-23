@@ -7,6 +7,7 @@
 ///
 #pragma once
 #include <venom/common/math/Matrix.h>
+#include <venom/common/plugin/graphics/ShaderResourceTable.h>
 
 namespace venom
 {
@@ -16,6 +17,11 @@ class Transform3D
 {
 public:
     Transform3D();
+    virtual ~Transform3D();
+    Transform3D(const Transform3D & other);
+    Transform3D & operator=(const Transform3D & other);
+    Transform3D(Transform3D && other) noexcept;
+    Transform3D & operator=(Transform3D && other) noexcept;
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera
@@ -34,14 +40,42 @@ public:
     inline vcm::Vec3 GetUpVector() const { return vcm::GetUp(_rotation); }           // Get camera's up direction
     inline vcm::Vec3 GetRightVector() const { return vcm::GetRight(_rotation); }     // Get camera's right direction
 
+    void UpdateModelMatrix();
+    const vcm::Mat4 & GetModelMatrix(); // Get the model matrix of the camera
+
+private:
+    /**
+     * @brief Get the model matrix of the camera depending on type
+     * @return
+     */
+    inline vcm::Mat4 & __GetModelMatrix() {
+#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+        return *_modelMatrix;
+#else
+        return _modelMatrix;
+#endif
+    }
+
+#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+    inline int __GetModelMatrixId() {
+        return ShaderResourceTable::GetModelMatrixBufferId(_modelMatrix);
+    }
+#endif
+
 protected:
     vcm::Vec3 _position;
     vcm::Quat _rotation;
     vcm::Vec3 _3DrotationView;
+#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+    vcm::Mat4 * _modelMatrix;
+#else
+    vcm::Mat4 _modelMatrix;
+#endif
 
 private:
     bool __3DrotationViewDirty;
     bool __positionDirty;
+    bool __modelDirty;
 };
 }
 }
