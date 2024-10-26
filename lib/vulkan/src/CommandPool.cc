@@ -150,6 +150,7 @@ void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstIn
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     for (const vc::Mesh & mesh : vulkanModel->GetMeshes()) {
         DrawMesh(mesh.GetImpl()->As<VulkanMesh>(), firstInstance, pipeline);
+        return;
     }
 }
 
