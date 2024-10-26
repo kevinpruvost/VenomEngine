@@ -44,11 +44,41 @@ void DescriptorSetGroup::GroupUpdateSampler(const Sampler& sampler, uint32_t bin
     GROUP_UPDATE(UpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement));
 }
 
+void DescriptorSetGroup::GroupUpdatePerFrame(int frameIndex, const VkWriteDescriptorSet& write)
+{
+    __descriptorSets[frameIndex].Update(write);
+}
+
+void DescriptorSetGroup::GroupUpdateBufferPerFrame(int frameIndex, UniformBuffer& buffer, uint32_t bufferOffset,
+    uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    __descriptorSets[frameIndex].UpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement);
+}
+
+void DescriptorSetGroup::GroupUpdateBufferPerFrame(int frameIndex, StorageBuffer& buffer, uint32_t bufferOffset,
+    uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    __descriptorSets[frameIndex].UpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement);
+}
+
+void DescriptorSetGroup::GroupUpdateTexturePerFrame(int frameIndex, const VulkanTexture* texture, uint32_t binding,
+    VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    __descriptorSets[frameIndex].UpdateTexture(texture, binding, descriptorType, descriptorCount, arrayElement);
+}
+
+void DescriptorSetGroup::GroupUpdateSamplerPerFrame(int frameIndex, const Sampler& sampler, uint32_t binding,
+    VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    __descriptorSets[frameIndex].UpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement);
+}
+
 DescriptorSetGroupAllocator::DescriptorSetGroupAllocator(std::vector<DescriptorSetGroup>&& sets)
     : __descriptorSetGroups(std::move(sets))
 {
-    for (auto& set : __descriptorSetGroups) {
-        __freeSets.push(&set);
+//    for (int i = 0 ; i < __descriptorSetGroups.size(); ++i) {
+    for (int i = __descriptorSetGroups.size() - 1; i >= 0; --i) {
+        __freeSets.push(&__descriptorSetGroups[i]);
     }
 }
 
@@ -179,10 +209,8 @@ std::vector<DescriptorSetGroup> DescriptorPool::AllocateSets(const std::vector<V
         vc::Log::Error("Failed to allocate descriptor sets: %x", err);
         return sets;
     }
-    for (size_t i = 0; i < sets.size(); ++i) {
-        for (size_t j = 0; j < VENOM_MAX_FRAMES_IN_FLIGHT; ++j) {
-            sets[i][j].__set = vkSets[i];
-        }
+    for (size_t i = 0; i < vkSets.size(); ++i) {
+        sets[i / VENOM_MAX_FRAMES_IN_FLIGHT][i % VENOM_MAX_FRAMES_IN_FLIGHT].__set = vkSets[i];
     }
     return sets;
 }

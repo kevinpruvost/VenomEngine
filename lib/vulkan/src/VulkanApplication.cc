@@ -19,6 +19,7 @@
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
 #include <venom/common/VenomSettings.h>
+#include <venom/vulkan/plugin/graphics/Material.h>
 
 #include "venom/common/ECS.h"
 
@@ -104,9 +105,10 @@ void VulkanApplication::__UpdateUniformBuffers()
 #error ("VENOM_EXTERNAL_PACKED_MODEL_MATRIX must be defined for Vulkan")
 #else
     __objectStorageBuffers[_currentFrame].WriteToBuffer(vc::ShaderResourceTable::GetAllModelMatrixBuffer(), vc::ShaderResourceTable::GetAllModelMatrixBytesSize());
+    //__objectStorageBuffers[_currentFrame].WriteToBuffer(&model, sizeof(vcm::Mat4));
 #endif
     // View and Projection
-    __cameraUniformBuffers[_currentFrame].WriteToBuffer(viewAndProj);
+    __cameraUniformBuffers[_currentFrame].WriteToBuffer(viewAndProj, sizeof(viewAndProj));
     // Push Constants (model)
     // __commandBuffers[_currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
 }
@@ -114,7 +116,11 @@ void VulkanApplication::__UpdateUniformBuffers()
 vc::Error VulkanApplication::__DrawFrame()
 {
     // Draw image
-
+    vc::ECS::GetECS()->ForEach<vc::Model>([&](vc::Entity entity, vc::Model & model)
+    {
+        for (auto & mesh : model.GetImpl()->As<VulkanModel>()->GetMeshes())
+            mesh.GetMaterial().GetImpl()->ConstAs<VulkanMaterial>()->GetMaterialDescriptorSet();
+    });
     // Wait for the fence to be signaled
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __inFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 

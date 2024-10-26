@@ -47,10 +47,12 @@ vc::Error VulkanApplication::__Init()
 vc::Error VulkanApplication::__PostInit()
 {
     // Separate Sampled Image & Sampler
-  //  __texture.reset(new vc::Texture("random.png"));
+    __texture.reset(new vc::Texture("random.png"));
     for (int i = 0; i < VENOM_MAX_DYNAMIC_TEXTURES; ++i) {
-        DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(_dummyTexture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
-//        DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+        if (i % 2 == 0)
+            DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(_dummyTexture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+        else
+            DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
     }
     DescriptorPool::GetPool()->GetDescriptorSets(3).GroupUpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     return vc::Error::Success;
@@ -337,9 +339,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Model & PBR info
-        DescriptorPool::GetPool()->GetDescriptorSets(0).GroupUpdateBuffer(__objectStorageBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
+        DescriptorPool::GetPool()->GetDescriptorSets(0).GroupUpdateBufferPerFrame(i, __objectStorageBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
         // View & Projection
-        DescriptorPool::GetPool()->GetDescriptorSets(1).GroupUpdateBuffer(__cameraUniformBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+        DescriptorPool::GetPool()->GetDescriptorSets(1).GroupUpdateBufferPerFrame(i, __cameraUniformBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
     }
 
     // Create Sampler
