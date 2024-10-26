@@ -23,7 +23,7 @@ static constexpr std::array s_deviceExtensions = {
 #endif
 };
 
-vc::Error VulkanApplication::Init()
+vc::Error VulkanApplication::__Init()
 {
     vc::Error res;
 
@@ -41,14 +41,20 @@ vc::Error VulkanApplication::Init()
         vc::Log::Error("Failed to initialize Vulkan: %d", res);
         return vc::Error::InitializationFailed;
     }
-
-    __texture.reset(new vc::Texture("random.png"));
-    // Separate Sampled Image & Sampler
-    DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
-    DescriptorPool::GetPool()->GetDescriptorSets(3).GroupUpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     return vc::Error::Success;
 }
 
+vc::Error VulkanApplication::__PostInit()
+{
+    // Separate Sampled Image & Sampler
+  //  __texture.reset(new vc::Texture("random.png"));
+    for (int i = 0; i < VENOM_MAX_DYNAMIC_TEXTURES; ++i) {
+        DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(_dummyTexture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+//        DescriptorPool::GetPool()->GetDescriptorSets(2).GroupUpdateTexture(__texture->GetImpl()->As<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+    }
+    DescriptorPool::GetPool()->GetDescriptorSets(3).GroupUpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+    return vc::Error::Success;
+}
 
 vc::Error VulkanApplication::__InitVulkan()
 {
@@ -91,11 +97,15 @@ VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures(bool & 
         supported = false;
     }
 
-    supported = __bindlessSupported = descriptorIndexingFeatures.descriptorBindingPartiallyBound && descriptorIndexingFeatures.runtimeDescriptorArray;
-    if (!supported) {
-        vc::Log::Error("Device does not support bindless textures");
-        return features;
+#ifdef VENOM_BINDLESS_TEXTURES
+    if (vc::ShaderResourceTable::UsingBindlessTextures()) {
+        supported = __bindlessSupported = descriptorIndexingFeatures.descriptorBindingPartiallyBound && descriptorIndexingFeatures.runtimeDescriptorArray;
+        if (!supported) {
+            vc::Log::Error("Device does not support bindless textures");
+            return features;
+        }
     }
+#endif
 
     return features;
 }
@@ -146,8 +156,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     DEBUG_LOG("-%s:", __physicalDevice.GetProperties().deviceName);
     DEBUG_LOG("Device Local VRAM: %luMB", __physicalDevice.GetDeviceLocalVRAMAmount() / (1024 * 1024));
 
+#ifdef VENOM_BINDLESS_TEXTURES
     // Set max textures
-    vc::ShaderResourceTable::SetMaxTextures(__physicalDevice.GetProperties().limits.maxDescriptorSetSampledImages);
+    vc::ShaderResourceTable::SetMaxTextures(__physicalDevice.GetProperties().limits.maxPerStageDescriptorSampledImages);
+#endif
 
     // Set global physical device
     PhysicalDevice::SetUsedPhysicalDevice(&__physicalDevice);
@@ -285,7 +297,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     /// Normal
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
     /// Color
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
+    //__shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
     /// UV
     __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
 
@@ -293,10 +305,27 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(1, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
-    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, vc::ShaderResourceTable::GetMaxTextures(), VK_SHADER_STAGE_ALL);
+#ifdef VENOM_BINDLESS_TEXTURES
+    if (__bindlessSupported) {
+        DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, vc::ShaderResourceTable::GetMaxTextures(), VK_SHADER_STAGE_FRAGMENT_BIT);
+        DescriptorPool::GetPool()->SetDescriptorSetLayoutBindless(2);
+        // Using uniform buffer dynamic for texture IDs (4.1)
+        DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(4, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    }
+    else
+#endif
+    {
+        DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VENOM_MAX_DYNAMIC_TEXTURES, VK_SHADER_STAGE_FRAGMENT_BIT);
+        DescriptorPool::GetPool()->SetDescriptorSetLayoutMaxSets(2, VENOM_MAX_ENTITIES);
+    }
+    // Enabling update after bind pool for textures, dynamic or bindless
     DescriptorPool::GetPool()->SetDescriptorSetLayoutCreateFlags(2, VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT);
-    DescriptorPool::GetPool()->SetDescriptorSetLayoutBindless(2);
+    // Sampler
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(3, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    // Material properties (4.0)
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(4, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    DescriptorPool::GetPool()->SetDescriptorSetLayoutMaxSets(4, VENOM_MAX_ENTITIES);
+
     // Makes the pool able to allocate descriptor sets that can be updated after binding
     if (DescriptorPool::GetPool()->Create(VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT) != vc::Error::Success)
         return vc::Error::Failure;
@@ -308,9 +337,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Model & PBR info
-        DescriptorPool::GetPool()->GetDescriptorSets(0)[i].UpdateBuffer(__objectStorageBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
+        DescriptorPool::GetPool()->GetDescriptorSets(0).GroupUpdateBuffer(__objectStorageBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
         // View & Projection
-        DescriptorPool::GetPool()->GetDescriptorSets(1)[i].UpdateBuffer(__cameraUniformBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+        DescriptorPool::GetPool()->GetDescriptorSets(1).GroupUpdateBuffer(__cameraUniformBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
     }
 
     // Create Sampler
@@ -395,7 +424,7 @@ void VulkanApplication::__RecreateSwapChain()
     __swapChain.InitSwapChainFramebuffers(&__renderPass);
 
     // We also need to reset the last used semaphore
-    __imageAvailableSemaphores[__currentFrame].InitSemaphore();
+    __imageAvailableSemaphores[_currentFrame].InitSemaphore();
 }
 }
 }

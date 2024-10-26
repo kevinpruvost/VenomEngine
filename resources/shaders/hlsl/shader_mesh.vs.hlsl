@@ -1,29 +1,6 @@
 // HLSL Vertex Shader for Vulkan using DXC
 
-cbuffer UniformBufferObject : register(b0, space0) {
-    StructuredBuffer<float4x4> models;
-};
-
-cbuffer UniformBufferCamera : register(b0, space1) {
-    float4x4 view;
-    float4x4 proj;
-};
-
-// struct C
-// {
-//     float4x4 model;
-// };
-// Actually not cool, because they are not available on DX12 and Metal
-// [[vk::push_constant]]
-// C cameraPC;
-
-struct VSInput {
-    [[vk::location(0)]] float3 inPosition : POSITION;
-    [[vk::location(1)]] float3 inNormal : NORMAL;
-//    [[vk::location(2)]] float4 inColor : COLOR;
-    [[vk::location(3)]] float2 inTexCoord : TEXCOORD;
-    uint instanceID : SV_InstanceID;
-};
+#include "Resources.vs.hlsl.h"
 
 struct VSOutput {
     float4 outPosition : SV_POSITION; // Equivalent to gl_Position in GLSL
@@ -38,7 +15,12 @@ VSOutput main(VSInput input)
     output.outPosition = mul(models[input.instanceID], output.outPosition); // Apply the model matrix
     output.outPosition = mul(view, output.outPosition);  // Apply the view matrix
     output.outPosition = mul(proj, output.outPosition);  // Apply the projection matrix
-    output.fragColor = float4(1.0, 1.0, 1.0, 1.0);                        // Pass the color to the fragment shader
-    output.fragTexCoord = input.inTexCoord;                  // Pass the texture
+    output.fragColor = float4(1.0, 1.0, 1.0, 1.0);       // Pass the color to the fragment shader
+    output.fragTexCoord = input.inTexCoord;              // Pass the texture
+
+    // Transform position to normalized device coordinates (NDC) for 2D
+    float2 ndcPos = float2(input.inPosition.x / 100 * 2.0 - 1.0,
+                           input.inPosition.y / 100 * 2.0 - 1.0);
+    output.outPosition = float4(ndcPos, 0.0, 1.0);
     return output;
 }

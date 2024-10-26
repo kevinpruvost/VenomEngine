@@ -15,16 +15,38 @@
 // @brief Means that all model matrices will be located in a packed buffer
 #define VENOM_EXTERNAL_PACKED_MODEL_MATRIX
 
-// @brief Means that all textures will be bindless
+// @brief Means that all textures will be bindless, MoltenVk only allows for small amounts of bindless textures
+#ifndef __APPLE__
 #define VENOM_BINDLESS_TEXTURES
+#endif
 
 namespace venom
 {
 namespace common
 {
+
+/**
+ * @brief Equivalent to descriptor sets in Vulkan, but for every API
+ */
+class ShaderResource
+{
+
+};
+
 class ShaderResourceTable : public GraphicsPluginObject
 {
 public:
+    ShaderResourceTable();
+    ~ShaderResourceTable() override;
+
+    enum SetsIndex
+    {
+        SETS_INDEX_MODEL_MATRICES = 0,
+        SETS_INDEX_CAMERA = 1,
+        SETS_INDEX_TEXTURES = 2,
+        SETS_INDEX_SAMPLER = 3,
+        SETS_INDEX_MATERIAL = 4
+    };
 
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     static vcm::Mat4 * GetAllModelMatrixBuffer();
@@ -39,9 +61,11 @@ public:
     static void UnbindTexture(int id);
     static void SetMaxTextures(uint32_t maxTextures);
     static inline int GetMaxTextures() { return __maxTextures; }
-
+    static bool UsingBindlessTextures() { return __maxTextures > 0; }
 private:
     static int __maxTextures;
+#else
+    static bool UsingBindlessTextures() { return false; }
 #endif
 };
 }

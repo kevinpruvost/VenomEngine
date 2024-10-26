@@ -29,6 +29,9 @@ public:
     inline VkDescriptorSetLayoutCreateFlags GetFlags() { return __descriptorSetLayoutInfo.flags; }
     bool IsBindless() const;
     void SetBindingFlags(VkDescriptorBindingFlags flags);
+    void SetMaxSets(uint32_t maxSets);
+    uint32_t GetMaxSets() const;
+    const std::vector<VkDescriptorSetLayoutBinding> & GetBindings() const;
 
     const VkDescriptorSetLayout & GetLayout() const;
 
@@ -37,6 +40,7 @@ private:
     std::vector<VkDescriptorSetLayoutBinding> __bindings;
     VkDescriptorSetLayoutCreateInfo __descriptorSetLayoutInfo;
     VkDescriptorSetLayout __layout;
+    uint32_t __maxSets;
 };
 }
 }

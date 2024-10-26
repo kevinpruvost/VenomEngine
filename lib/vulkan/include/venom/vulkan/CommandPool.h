@@ -76,15 +76,18 @@ public:
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
-    void DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance) const;
-    void DrawModel(const VulkanModel * vulkanModel, const int firstInstance) const;
+    void DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const ShaderPipeline & pipeline) const;
+    void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const ShaderPipeline & pipeline) const;
 
     void PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
     void TransitionImageLayout(Image& image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 
     void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
-        uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors);
+        uint32_t firstSet, VkDescriptorSet vkDescriptors) const;
+    void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
+        uint32_t firstSet, uint32_t descriptSetCount, const VkDescriptorSet * vkDescriptors) const;
+
 
     void SubmitToQueue(VkFence fence = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitStage = 0,
         VkSemaphore signalSemaphore = VK_NULL_HANDLE);

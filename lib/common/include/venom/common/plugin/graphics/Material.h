@@ -32,8 +32,21 @@ public:
     const std::string & GetName() const;
     void SetName(const std::string & name);
 
+    struct VENOM_COMMON_API MaterialComponentResourceTable {
+        MaterialComponentResourceTable();
+        vcm::Vec4 value;
+        int valueType;
+    };
+    struct VENOM_COMMON_API MaterialResourceTable {
+        MaterialComponentResourceTable components[MaterialComponentType::MAX_COMPONENT];
+    };
+protected:
+    const MaterialResourceTable & _GetResourceTable(bool & wasDirty);
+
 private:
     MaterialComponent __components[MaterialComponentType::MAX_COMPONENT];
+    MaterialResourceTable __resourceTable;
+    bool __resourceTableDirty;
     std::string __name;
 };
 

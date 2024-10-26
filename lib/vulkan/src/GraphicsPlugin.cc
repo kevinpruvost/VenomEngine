@@ -13,6 +13,7 @@
 #include <venom/vulkan/plugin/graphics/Material.h>
 #include <venom/vulkan/plugin/graphics/Texture.h>
 #include <venom/vulkan/plugin/graphics/Camera.h>
+#include <venom/vulkan/plugin/graphics/ShaderResourceTable.h>
 
 namespace venom
 {
@@ -46,6 +47,11 @@ vc::MaterialImpl * VulkanGraphicsPlugin::CreateMaterial()
 vc::CameraImpl * VulkanGraphicsPlugin::CreateCamera()
 {
     return new VulkanCamera();
+}
+
+vc::ShaderResourceTable* VulkanGraphicsPlugin::CreateShaderResourceTable()
+{
+    return new VulkanShaderResourceTable();
 }
 }
 }

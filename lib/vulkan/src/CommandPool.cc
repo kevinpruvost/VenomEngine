@@ -10,6 +10,7 @@
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/QueueManager.h>
 #include <venom/vulkan/ShaderPipeline.h>
+#include <venom/vulkan/plugin/graphics/Material.h>
 
 namespace venom::vulkan
 {
@@ -108,7 +109,7 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance) const
+void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const ShaderPipeline & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     const IndexBuffer & indexBuffer = vulkanMesh->GetIndexBuffer();
@@ -117,8 +118,20 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
 
     // Material
     if (vulkanMesh->HasMaterial()) {
-        const vc::Material & material = vulkanMesh->GetMaterial();
-        const auto & diffuseComponent = material.GetComponent(vc::MaterialComponentType::DIFFUSE);
+        VulkanMaterial * material = vulkanMesh->GetMaterial().GetImpl()->ConstAs<VulkanMaterial>();
+
+#ifdef VENOM_BINDLESS_TEXTURES
+        // TODO: Bindless textures
+#endif
+        {
+            // WARNING: Order is important because GetMaterialDescriptorSet() may update the uniform buffer and the textures at the same time
+
+            // Bind material
+            BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL, 1, material->GetMaterialDescriptorSet().GetVkDescriptorSetPtr());
+
+            // Bind textures (when not bindless)
+            BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES, 1, material->GetTextureDescriptorSet().GetVkDescriptorSetPtr());
+        }
     }
 
     for (const auto & vertexBuffer : vertexBuffers) {
@@ -132,11 +145,11 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
     }
 }
 
-void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance) const
+void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const ShaderPipeline & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     for (const vc::Mesh & mesh : vulkanModel->GetMeshes()) {
-        DrawMesh(mesh.GetImpl()->As<VulkanMesh>(), firstInstance);
+        DrawMesh(mesh.GetImpl()->As<VulkanMesh>(), firstInstance, pipeline);
     }
 }
 
@@ -225,9 +238,15 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
 }
 
 void CommandBuffer::BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
-                                       uint32_t firstSet, uint32_t descriptSetCount, VkDescriptorSet vkDescriptors)
+                                       uint32_t firstSet, VkDescriptorSet vkDescriptors) const
 {
-    vkCmdBindDescriptorSets(_commandBuffer, vkPipelineBindPoint, vkPipelineLayout, firstSet, descriptSetCount, &vkDescriptors, 0, nullptr);
+    vkCmdBindDescriptorSets(_commandBuffer, vkPipelineBindPoint, vkPipelineLayout, firstSet, 1, &vkDescriptors, 0, nullptr);
+}
+
+void CommandBuffer::BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,
+                                       uint32_t firstSet, uint32_t descriptSetCount, const VkDescriptorSet * vkDescriptors) const
+{
+    vkCmdBindDescriptorSets(_commandBuffer, vkPipelineBindPoint, vkPipelineLayout, firstSet, descriptSetCount, vkDescriptors, 0, nullptr);
 }
 
 void CommandBuffer::SubmitToQueue(VkFence fence, VkSemaphore waitSemaphore, VkPipelineStageFlags waitStage,

@@ -36,7 +36,8 @@ MaterialImpl::MaterialImpl()
     MaterialComponentType::TRANSMISSION,
     MaterialComponentType::SHEEN,
     MaterialComponentType::CLEARCOAT
-}
+    }
+    , __resourceTableDirty(true)
 {
 }
 
@@ -88,5 +89,38 @@ void MaterialImpl::SetName(const std::string& name)
 {
     __name = name;
 }
+
+MaterialImpl::MaterialComponentResourceTable::MaterialComponentResourceTable()
+    : value(vcm::Vec4(0.0f, 0.0f, 0.0f, 1.0f))
+    , valueType(MaterialComponentValueType::NONE)
+{
+}
+
+const MaterialImpl::MaterialResourceTable& MaterialImpl::_GetResourceTable(bool& wasDirty)
+{
+    wasDirty = __resourceTableDirty;
+    if (__resourceTableDirty)
+    {
+        for (int i = 0; i < MaterialComponentType::MAX_COMPONENT; i++)
+        {
+            __resourceTable.components[i].valueType = static_cast<int16_t>(__components[i].GetValueType());
+            switch (__resourceTable.components[i].valueType) {
+                case MaterialComponentValueType::COLOR3D:
+                    memcpy(&__resourceTable.components[i].value, &__components[i].GetColor3D(), sizeof(vcm::Vec3));
+                    break;
+                case MaterialComponentValueType::COLOR4D:
+                    __resourceTable.components[i].value = __components[i].GetColor4D();
+                    break;
+                case MaterialComponentValueType::VALUE:
+                    float val = __components[i].GetValue();
+                    memcpy(&__resourceTable.components[i].value, &val, sizeof(float));
+                    break;
+            }
+        }
+        __resourceTableDirty = false;
+    }
+    return __resourceTable;
+}
+
 }
 }

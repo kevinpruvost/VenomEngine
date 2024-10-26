@@ -82,6 +82,21 @@ vc::Error TextureImpl::LoadImageFromFile(const char* path)
     return vc::Error::Success;
 }
 
+static TextureImpl * s_dummyTexture = nullptr;
+void TextureImpl::__CreateDummyTexture()
+{
+    venom_assert(s_dummyTexture == nullptr, "Dummy texture already created");
+    unsigned char pixels[4] = { 255, 255, 255, 255 };
+    _LoadImage(pixels, 1, 1, 4);
+    s_dummyTexture = this;
+}
+
+const TextureImpl* TextureImpl::GetDummyTexture()
+{
+    venom_assert(s_dummyTexture != nullptr, "Dummy texture not created");
+    return s_dummyTexture;
+}
+
 vc::Error TextureImpl::InitDepthBuffer(int width, int height)
 {
     return _InitDepthBuffer(width, height);

@@ -35,6 +35,7 @@ public:
     void UpdateSampler(const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
 
     const VkDescriptorSet & GetVkDescriptorSet() const;
+    const VkDescriptorSet * GetVkDescriptorSetPtr() const;
 private:
     friend class DescriptorPool;
     VkDescriptorSet __set;

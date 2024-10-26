@@ -6,6 +6,7 @@ glsl_dir = './resources/shaders/glsl'
 compiled_dir = './resources/shaders/compiled'
 dxc_folder_path = './cmake_build/dxc/Release/bin'
 dxc_path = "#{dxc_folder_path}/dxc"
+macos_flag = RUBY_PLATFORM =~ /darwin/ ? '-DMACOS' : ''
 
 # Ensure the compiled directory exists
 FileUtils.mkdir_p(compiled_dir)
@@ -57,7 +58,7 @@ elsif ARGV[0] == 'compile'
     hlsl_files.each do |file|
         output_file = output_file_create_name(file, compiled_dir)
         type = shader_type(file)
-        cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file}"
+        cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} #{macos_flag}"
         puts "Compiling #{file} to #{output_file} with command[#{cmd}]..."
         system(cmd)
     end
@@ -66,7 +67,7 @@ elsif ARGV[0] == 'compile_debug'
     hlsl_files.each do |file|
         output_file = output_file_create_name(file, compiled_dir)
         type = shader_type(file)
-        cmd = "#{dxc_path} -Zi -T #{type} -spirv #{file} -Fo #{output_file}"
+        cmd = "#{dxc_path} -Zi -T #{type} -spirv #{file} -Fo #{output_file} #{macos_flag} -Fh #{output_file}.pdb"
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)
     end

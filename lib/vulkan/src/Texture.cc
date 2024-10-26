@@ -30,6 +30,17 @@ VulkanTexture::~VulkanTexture()
 {
 }
 
+static VulkanTexture * s_dummyTexture = nullptr;
+VulkanTexture* VulkanTexture::GetDummyTexture()
+{
+    return s_dummyTexture;
+}
+
+void VulkanTexture::SetDummyTexture(VulkanTexture* texture)
+{
+    s_dummyTexture = texture;
+}
+
 vc::Error VulkanTexture::_LoadImage(unsigned char* pixels, int width, int height, int channels)
 {
     // Load Image

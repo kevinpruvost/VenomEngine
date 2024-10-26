@@ -14,6 +14,7 @@ namespace venom
 {
 namespace common
 {
+class GraphicsApplication;
 class Texture;
 
 class VENOM_COMMON_API TextureResource : public GraphicsCachedResource
@@ -37,6 +38,7 @@ public:
 
     vc::Error LoadImageFromFile(const char * path);
     vc::Error InitDepthBuffer(int width, int height);
+    static const TextureImpl * GetDummyTexture();
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _GetTextureToCache()->As<TextureResource>()->GetTextureID(); }
 #endif
@@ -46,6 +48,7 @@ protected:
     virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
 private:
     friend class Texture;
+    void __CreateDummyTexture();
 };
 
 class VENOM_COMMON_API Texture : public PluginObjectImplWrapper
@@ -61,6 +64,9 @@ public:
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif
+private:
+    friend class GraphicsApplication;
+    inline void __CreateDummyTexture() { _impl->As<TextureImpl>()->__CreateDummyTexture(); }
 };
 
 }

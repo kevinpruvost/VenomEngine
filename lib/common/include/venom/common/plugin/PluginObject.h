@@ -57,6 +57,7 @@ public:
     PluginObjectImpl();
     template<class T> inline T * As() { return static_cast<T *>(this); }
     template<class T> inline const T * As() const { return static_cast<const T *>(this); }
+    template<class T> inline T * ConstAs() const { return const_cast<T *>(static_cast<const T *>(this)); }
     template<class T> inline T * RAs() { return reinterpret_cast<T *>(this); }
     template<class T> inline const T * RAs() const { return reinterpret_cast<const T *>(this); }
     void IncRefCount();

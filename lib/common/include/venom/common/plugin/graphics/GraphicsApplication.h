@@ -10,7 +10,7 @@
 #include <venom/common/Error.h>
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
-
+#include <venom/common/plugin/graphics/ShaderResourceTable.h>
 
 /// @brief Contains the entirety of the code of the VenomEngine project.
 namespace venom
@@ -27,10 +27,18 @@ protected:
     GraphicsApplication();
 public:
     static GraphicsApplication * Create();
+    static inline int GetCurrentFrame() { return _currentFrame; }
     ~GraphicsApplication() override;
-    virtual Error Init() = 0;
+    Error Init();
+    virtual Error __Init() = 0;
+    virtual vc::Error __PostInit() = 0;
     virtual Error Loop() = 0;
     virtual bool ShouldClose() = 0;
+
+protected:
+    ShaderResourceTable * _shaderResourceTable;
+    UPtr<vc::Texture> _dummyTexture;
+    static int _currentFrame;
 };
 }
 }

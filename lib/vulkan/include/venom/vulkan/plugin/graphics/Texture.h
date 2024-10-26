@@ -34,6 +34,9 @@ public:
     VulkanTexture();
     ~VulkanTexture();
 
+    static VulkanTexture * GetDummyTexture();
+    static void SetDummyTexture(VulkanTexture * texture);
+
     vc::Error _LoadImage(unsigned char * pixels, int width, int height, int channels) override;
     vc::Error _InitDepthBuffer(int width, int height) override;
     inline bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }

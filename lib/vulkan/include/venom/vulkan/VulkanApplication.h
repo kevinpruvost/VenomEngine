@@ -45,12 +45,12 @@ class VulkanApplication
 public:
     VulkanApplication();
     ~VulkanApplication() override;
-    vc::Error Init() override;
+    vc::Error __Init() override;
+    vc::Error __PostInit() override;
     vc::Error Loop() override;
     bool ShouldClose() override;
 public:
-    inline static int GetCurrentFrame() { return __currentFrame; }
-    inline static bool IsBindlessSupported() { return __bindlessSupported; }
+    inline static int IsBindlessSupported() { return __bindlessSupported; }
 
 private:
     vc::Error __Loop();
@@ -88,9 +88,7 @@ private:
 
 private:
     // For test
-    static int __currentFrame;
-    static bool __bindlessSupported;
-    vc::Camera __camera;
+    static int __bindlessSupported;
     Sampler __sampler;
     ShaderPipeline __shaderPipeline;
     CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
@@ -101,46 +99,7 @@ private:
     vc::Model __model;
     StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    vcm::Vec3 __verticesPos[8] = {
-        {-0.5f, -0.5f, 0.0f},
-        {0.5f, -0.5f, 0.0f},
-        {0.5f, 0.5f, 0.0f},
-        {-0.5f, 0.5f, 0.0f},
-        {-0.5f, -0.5f, -0.5f},
-        {0.5f, -0.5f, -0.5f},
-        {0.5f, 0.5f, -0.5f},
-        {-0.5f, 0.5f, -0.5f}
-    };
     UPtr<vc::Texture> __texture;
-
-    vcm::Vec4 __verticesColor[8] = {
-        {1, 0, 0, 1},
-        {0, 1, 0, 1},
-        {0, 0, 1, 1},
-        {1, 1, 1, 1},
-        {1, 0, 0, 1},
-        {0, 1, 0, 1},
-        {0, 0, 1, 1},
-        {1, 1, 1, 1}
-    };
-
-    vcm::Vec2 __verticesUV[8] = {
-        {0, 0},
-        {1, 0},
-        {1, 1},
-        {0, 1},
-        {0, 0},
-        {1, 0},
-        {1, 1},
-        {0, 1}
-    };
-
-    uint32_t __indices[12] = {
-        0, 1, 2,
-        2, 3, 0,
-        4, 5, 6,
-        6, 7, 4
-    };
 };
 }
 }

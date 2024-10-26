@@ -16,17 +16,40 @@
 namespace venom::common
 {
 
+int GraphicsApplication::_currentFrame = 0;
+
 GraphicsApplication::GraphicsApplication()
+    : _shaderResourceTable(GraphicsPlugin::Get()->CreateShaderResourceTable())
 {
 }
 
 GraphicsApplication* GraphicsApplication::Create()
 {
-    return GraphicsPlugin::Get()->CreateGraphicsApplication();
+    GraphicsApplication * const app = GraphicsPlugin::Get()->CreateGraphicsApplication();
+    if (app->_shaderResourceTable == nullptr)
+    {
+        vc::Log::Print("Shader Resource Table is not set in the Graphics Application.");
+        return nullptr;
+    }
+    return app;
 }
 
 GraphicsApplication::~GraphicsApplication()
 {
     vc::Log::Print("Destroying Graphics Application...");
+}
+
+Error GraphicsApplication::Init()
+{
+    Error err = __Init();
+    if (err != Error::Success) {
+        return err;
+    }
+    if (_dummyTexture == nullptr) {
+        _dummyTexture.reset(new vc::Texture());
+        _dummyTexture->__CreateDummyTexture();
+    }
+    err = __PostInit();
+    return err;
 }
 }

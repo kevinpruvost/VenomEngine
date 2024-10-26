@@ -77,7 +77,7 @@ void DescriptorSet::UpdateBuffer(StorageBuffer& buffer, uint32_t bufferOffset, u
 void DescriptorSet::UpdateTexture(const VulkanTexture* texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
 {
     VkDescriptorImageInfo imageInfo = {
-        .imageView = texture->GetImageView().GetVkImageView(),
+        .imageView = texture ? texture->GetImageView().GetVkImageView() : VK_NULL_HANDLE,
         .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
     };
 
@@ -118,6 +118,11 @@ void DescriptorSet::UpdateSampler(const Sampler& sampler, uint32_t binding, VkDe
 const VkDescriptorSet & DescriptorSet::GetVkDescriptorSet() const
 {
     return __set;
+}
+
+const VkDescriptorSet * DescriptorSet::GetVkDescriptorSetPtr() const
+{
+    return &__set;
 }
 }
 }

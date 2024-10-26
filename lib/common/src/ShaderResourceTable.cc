@@ -15,6 +15,17 @@ namespace venom
 namespace common
 {
 
+static ShaderResourceTable * s_shaderResourceTable = nullptr;
+ShaderResourceTable::ShaderResourceTable()
+{
+    s_shaderResourceTable = this;
+}
+
+ShaderResourceTable::~ShaderResourceTable()
+{
+    s_shaderResourceTable = nullptr;
+}
+
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
 // Model matrix buffers
 
@@ -129,7 +140,11 @@ void ShaderResourceTable::UnbindTexture(int id)
 int ShaderResourceTable::__maxTextures = 0;
 void ShaderResourceTable::SetMaxTextures(uint32_t maxTextures)
 {
-    s_bindlessTextureManager->SetMaxTextures(maxTextures);
+    if (maxTextures < VENOM_MAX_BINDLESS_TEXTURES) {
+        vc::Log::Error("Max textures must be greater than VENOM_MAX_BINDLESS_TEXTURES, VenomEngine hasn't been done to work without bindless textures if the flag is set, disable flag VENOM_BINDLESS_TEXTURES");
+        exit(1);
+    }
+    s_bindlessTextureManager->SetMaxTextures(VENOM_MAX_BINDLESS_TEXTURES);
     __maxTextures = maxTextures;
 }
 

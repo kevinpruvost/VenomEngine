@@ -83,3 +83,8 @@ if (BUILD_SHARED_LIBS)
     file(WRITE "${FLECS_HEADER_PATH}" "${FLECS_HEADER_CONTENT_MODIFIED}")
 endif()
 add_subdirectory("flecs")
+
+# openvdb
+set(OPENVDB_TOOL_USE_ABC ON)
+set(OPENVDB_ENABLE_UNINSTALL OFF)
+add_subdirectory("openvdb")

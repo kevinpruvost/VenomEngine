@@ -17,6 +17,7 @@ namespace vulkan
 DescriptorSetLayout::DescriptorSetLayout()
     : __layout(VK_NULL_HANDLE)
     , __descriptorSetLayoutInfo()
+    , __maxSets(1)
 {
     __descriptorSetLayoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 }
@@ -38,6 +39,9 @@ DescriptorSetLayout::DescriptorSetLayout(DescriptorSetLayout&& other) noexcept
     : __layout(std::move(other.__layout))
     , __descriptorSetLayoutInfo(std::move(other.__descriptorSetLayoutInfo))
     , __bindings(std::move(other.__bindings))
+    , __maxSets(other.__maxSets)
+    , __createInfoPNexts(std::move(other.__createInfoPNexts))
+    , __createInfoFlags(std::move(other.__createInfoFlags))
 {
 }
 
@@ -47,6 +51,9 @@ DescriptorSetLayout& DescriptorSetLayout::operator=(DescriptorSetLayout&& other)
         __layout = std::move(other.__layout);
         __descriptorSetLayoutInfo = std::move(other.__descriptorSetLayoutInfo);
         __bindings = std::move(other.__bindings);
+        __maxSets = other.__maxSets;
+        __createInfoPNexts = std::move(other.__createInfoPNexts);
+        __createInfoFlags = std::move(other.__createInfoFlags);
     }
     return *this;
 }
@@ -92,6 +99,21 @@ void DescriptorSetLayout::SetBindingFlags(VkDescriptorBindingFlags flags)
         exit(1);
     }
     __descriptorSetLayoutInfo.pNext = bindingFlagsCreateInfoExt;
+}
+
+void DescriptorSetLayout::SetMaxSets(uint32_t maxSets)
+{
+    __maxSets = maxSets;
+}
+
+uint32_t DescriptorSetLayout::GetMaxSets() const
+{
+    return __maxSets;
+}
+
+const std::vector<VkDescriptorSetLayoutBinding>& DescriptorSetLayout::GetBindings() const
+{
+    return __bindings;
 }
 
 const VkDescriptorSetLayout & DescriptorSetLayout::GetLayout() const

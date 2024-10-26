@@ -23,6 +23,7 @@ public:
     vc::TextureImpl * CreateTexture() override;
     vc::MaterialImpl * CreateMaterial() override;
     vc::CameraImpl * CreateCamera() override;
+    vc::ShaderResourceTable * CreateShaderResourceTable() override;
 };
 }
 }

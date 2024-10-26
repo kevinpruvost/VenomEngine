@@ -75,28 +75,49 @@ public:
      * @brief Sets Material component value
      * @param value can be a color3D/4D, a value or a texture
      */
-    void SetValue(const vcm::Vec3 & value);
+    inline void SetValue(const vcm::Vec3 & value)
+    {
+        __valueType = MaterialComponentValueType::COLOR3D;
+        __value.emplace<vcm::Vec3>(value);
+    }
     /**
      * @brief Sets Material component value
      * @param value can be a color3D/4D, a value or a texture
      */
-    void SetValue(const vcm::Vec4 & value);
+    inline void SetValue(const vcm::Vec4 & value)
+    {
+        __valueType = MaterialComponentValueType::COLOR4D;
+        __value.emplace<vcm::Vec4>(value);
+    }
     /**
      * @brief Sets Material component value
      * @param value can be a color3D/4D, a value or a texture
      */
-    void SetValue(const float value);
+    inline void SetValue(const float value)
+    {
+        __valueType = MaterialComponentValueType::VALUE;
+        __value.emplace<float>(value);
+    }
     /**
      * @brief Sets Material component value
      * @param value can be a color3D/4D, a value or a texture
      */
-    void SetValue(const Texture & texture);
+    inline void SetValue(const Texture & texture)
+    {
+        __value.emplace<Texture>(texture);
+        __valueType = MaterialComponentValueType::TEXTURE;
+    }
+    /**
+     * @brief Gets the texture value of the material component
+     * @return Texture
+     */
+    inline const Texture & GetTexture() const { return std::get<Texture>(__value); }
+    inline const vcm::Vec4 & GetColor4D() const { return std::get<vcm::Vec4>(__value); }
+    inline const vcm::Vec3 & GetColor3D() const { return std::get<vcm::Vec3>(__value); }
+    inline float GetValue() const { return std::get<float>(__value); }
 
-    inline MaterialComponentType GetType() const { return __type; }
     inline MaterialComponentValueType GetValueType() const { return __valueType; }
-    const Texture & GetTexture() const;
 private:
-    const MaterialComponentType __type;
     MaterialComponentValueType __valueType;
     std::variant<vcm::Vec3, vcm::Vec4, float, Texture> __value;
 };

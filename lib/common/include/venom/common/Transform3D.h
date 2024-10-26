@@ -43,6 +43,12 @@ public:
     void UpdateModelMatrix();
     const vcm::Mat4 & GetModelMatrix(); // Get the model matrix of the camera
 
+#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+    inline int GetModelMatrixId() {
+        return ShaderResourceTable::GetModelMatrixBufferId(_modelMatrix);
+    }
+#endif
+
 private:
     /**
      * @brief Get the model matrix of the camera depending on type
@@ -55,12 +61,6 @@ private:
         return _modelMatrix;
 #endif
     }
-
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
-    inline int __GetModelMatrixId() {
-        return ShaderResourceTable::GetModelMatrixBufferId(_modelMatrix);
-    }
-#endif
 
 protected:
     vcm::Vec3 _position;
