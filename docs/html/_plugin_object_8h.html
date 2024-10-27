@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Doxygen Awesome" />
     <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
     <!-- END twitter metadata -->
-    <title>VenomEngine: D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/PluginObject.h File Reference</title>
+    <title>VenomEngine: /Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/PluginObject.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
     <script type="text/javascript" src="jquery.js"></script>
@@ -129,15 +129,30 @@ $(function(){initNavTree('_plugin_object_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">PluginObject.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;<a class="el" href="_plugin_type_8h_source.html">venom/common/plugin/PluginType.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="_plugin_type_8h_source.html">venom/common/plugin/PluginType.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_export_8h_source.html">venom/common/Export.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_log_8h_source.html">venom/common/Log.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_ptr_8h_source.html">venom/common/Ptr.h</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 </div>
 <p><a href="_plugin_object_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">venom::common::IPluginObject</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object.html">venom::common::PluginObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all the plugin objects Objects that will be loaded from the plugins as their implementations lie there As a user of <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a>, you should not care about that, unless you plan to create your own plugin.  <a href="classvenom_1_1common_1_1_plugin_object.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">venom::common::PluginObjectImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for the <a class="el" href="classvenom_1_1common_1_1_plugin_object.html" title="Base class for all the plugin objects Objects that will be loaded from the plugins as their implement...">PluginObject</a> different implementations.  <a href="classvenom_1_1common_1_1_plugin_object_impl.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">venom::common::PluginObjectImplWrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for the <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html" title="Interface for the PluginObject different implementations.">PluginObjectImpl</a>, inherited by classes like <a class="el" href="classvenom_1_1common_1_1_model.html" title="Contains all the mesh&#39;s data and is the main high-level interface for the user.">Model</a> or <a class="el" href="classvenom_1_1common_1_1_mesh.html" title="Contains all the mesh&#39;s data and is the main high-level interface for the user.">Mesh</a> to make them usable as components (for <a class="el" href="classvenom_1_1common_1_1_e_c_s.html" title="Entity Component System Will mainly encapsulate the fabulous flecs library (https://github....">ECS</a>) and hold the Graphics API specific implementation.  <a href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_container.html">venom::common::PluginObjectContainer&lt; T, typename &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container for the <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html" title="Wrapper for the PluginObjectImpl, inherited by classes like Model or Mesh to make them usable as comp...">PluginObjectImplWrapper</a> Important to avoid it from loading the <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html" title="Interface for the PluginObject different implementations.">PluginObjectImpl</a> if not needed e.g. if the object is optional.  <a href="classvenom_1_1common_1_1_plugin_object_container.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -146,7 +161,7 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacevenom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the entirety of the code of the VenomEngine project. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
-<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
+<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>

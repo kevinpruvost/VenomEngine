@@ -1,0 +1,86 @@
+\doxysection{venom\+::vulkan\+::Vulkan\+Shader\+Resource\+Table Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_table}{}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_table}\index{venom::vulkan::VulkanShaderResourceTable@{venom::vulkan::VulkanShaderResourceTable}}
+Inheritance diagram for venom\+::vulkan\+::Vulkan\+Shader\+Resource\+Table\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classvenom_1_1vulkan_1_1_vulkan_shader_resource_table}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{venom\+::common\+::\+Shader\+Resource\+Table}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_resource_table_aaf1ac49627e7d034dc2ef5ba35972cf2}\label{classvenom_1_1common_1_1_shader_resource_table_aaf1ac49627e7d034dc2ef5ba35972cf2} 
+enum {\bfseries Sets\+Index} \{ \newline
+{\bfseries SETS\+\_\+\+INDEX\+\_\+\+MODEL\+\_\+\+MATRICES} = 0
+, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+CAMERA} = 1
+, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+TEXTURES} = 2
+, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+SAMPLER} = 3
+, \newline
+{\bfseries SETS\+\_\+\+INDEX\+\_\+\+MATERIAL} = 4
+, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+SCENE} = 5
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{venom\+::common\+::\+Shader\+Resource\+Table}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{venom\+::common\+::\+Shader\+Resource\+Table}}}
+\begin{DoxyCompactItemize}
+\item 
+static vcm\+::\+Mat4 \texorpdfstring{$\ast$}{*} {\bfseries Get\+All\+Model\+Matrix\+Buffer} ()
+\item 
+static vcm\+::\+Mat4 \texorpdfstring{$\ast$}{*} {\bfseries Get\+Model\+Matrix\+Buffer} ()
+\item 
+static size\+\_\+t {\bfseries Get\+All\+Model\+Matrix\+Bytes\+Size} ()
+\item 
+static void {\bfseries Release\+Model\+Matrix\+Buffer} (const vcm\+::\+Mat4 \texorpdfstring{$\ast$}{*}mat)
+\item 
+static int {\bfseries Get\+Model\+Matrix\+Buffer\+Id} (const vcm\+::\+Mat4 \texorpdfstring{$\ast$}{*}mat)
+\item 
+static int {\bfseries Bind\+Texture} ()
+\item 
+static void {\bfseries Unbind\+Texture} (int id)
+\item 
+static void {\bfseries Set\+Max\+Textures} (uint32\+\_\+t max\+Textures)
+\item 
+static int {\bfseries Get\+Max\+Textures} ()
+\item 
+static bool {\bfseries Using\+Large\+Bindless\+Textures} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_shader_resource_table_8h}{Shader\+Resource\+Table.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{vulkan_2src_2_shader_resource_table_8cc}{Shader\+Resource\+Table.\+cc}}\end{DoxyCompactItemize}

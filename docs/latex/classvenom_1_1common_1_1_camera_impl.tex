@@ -1,0 +1,154 @@
+\doxysection{venom\+::common\+::Camera\+Impl Class Reference}
+\hypertarget{classvenom_1_1common_1_1_camera_impl}{}\label{classvenom_1_1common_1_1_camera_impl}\index{venom::common::CameraImpl@{venom::common::CameraImpl}}
+Inheritance diagram for venom\+::common\+::Camera\+Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.921569cm]{classvenom_1_1common_1_1_camera_impl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_a78a7058d1a4f42cc3a4b971a70819aa7}\label{classvenom_1_1common_1_1_camera_impl_a78a7058d1a4f42cc3a4b971a70819aa7} 
+const vcm\+::\+Mat4 \& {\bfseries Get\+View\+Matrix} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_ab602abdfa03b977827913f6e25326250}\label{classvenom_1_1common_1_1_camera_impl_ab602abdfa03b977827913f6e25326250} 
+void {\bfseries Set\+Perspective} (float fovY, float aspect\+Ratio, float near\+Plane, float far\+Plane)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_ae8e0894387f8c0d914907756edf0f00b}\label{classvenom_1_1common_1_1_camera_impl_ae8e0894387f8c0d914907756edf0f00b} 
+const vcm\+::\+Mat4 \& {\bfseries Get\+Projection\+Matrix} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_a9c6e90f1994c285c717406b53bf345ab}\label{classvenom_1_1common_1_1_camera_impl_a9c6e90f1994c285c717406b53bf345ab} 
+void {\bfseries Set\+Field\+Of\+View} (float fovY)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_adb1c3f8a6c64e26ca9ed17573fbe845d}\label{classvenom_1_1common_1_1_camera_impl_adb1c3f8a6c64e26ca9ed17573fbe845d} 
+float {\bfseries Get\+Field\+Of\+View} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_a34e8cf557703d8398a2f7308de07192c}\label{classvenom_1_1common_1_1_camera_impl_a34e8cf557703d8398a2f7308de07192c} 
+void {\bfseries Set\+Aspect\+Ratio} (float aspect\+Ratio)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_a1f9e8724adb3cfca85bd6d0986334bc2}\label{classvenom_1_1common_1_1_camera_impl_a1f9e8724adb3cfca85bd6d0986334bc2} 
+float {\bfseries Get\+Aspect\+Ratio} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_aa7ef4c296f671536dd9356f327919b41}\label{classvenom_1_1common_1_1_camera_impl_aa7ef4c296f671536dd9356f327919b41} 
+void {\bfseries Set\+Near\+Plane} (float near\+Plane)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_ad346cee614f432a5dcad2f8e35eb26ea}\label{classvenom_1_1common_1_1_camera_impl_ad346cee614f432a5dcad2f8e35eb26ea} 
+float {\bfseries Get\+Near\+Plane} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_a6f05dc7221747ee01745d24ec5ed79d9}\label{classvenom_1_1common_1_1_camera_impl_a6f05dc7221747ee01745d24ec5ed79d9} 
+void {\bfseries Set\+Far\+Plane} (float far\+Plane)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_a135bdd3ffd94951f667db26eaa100718}\label{classvenom_1_1common_1_1_camera_impl_a135bdd3ffd94951f667db26eaa100718} 
+float {\bfseries Get\+Far\+Plane} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_impl_af437f422f4d6938c27cc5a90669809c7}\label{classvenom_1_1common_1_1_camera_impl_af437f422f4d6938c27cc5a90669809c7} 
+void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Transform3D} (const \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&other)
+\item 
+{\bfseries Transform3D} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&\&other) noexcept
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&\&other) noexcept
+\item 
+void {\bfseries Set\+Position} (const vcm\+::\+Vec3 \&position)
+\item 
+void {\bfseries Move} (const vcm\+::\+Vec3 \&delta)
+\item 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Position} () const
+\item 
+bool {\bfseries Has\+Position\+Changed} ()
+\item 
+void {\bfseries Set\+Rotation} (const vcm\+::\+Quat \&rotation)
+\item 
+void {\bfseries Rotate} (const vcm\+::\+Vec3 \&axis, float angle)
+\item 
+const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
+\item 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Rotation} ()
+\item 
+void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
+\item 
+vcm\+::\+Vec3 {\bfseries Get\+Forward\+Vector} () const
+\item 
+vcm\+::\+Vec3 {\bfseries Get\+Up\+Vector} () const
+\item 
+vcm\+::\+Vec3 {\bfseries Get\+Right\+Vector} () const
+\item 
+void {\bfseries Update\+Model\+Matrix} ()
+\item 
+const vcm\+::\+Mat4 \& {\bfseries Get\+Model\+Matrix} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
+\begin{DoxyCompactItemize}
+\item 
+vcm\+::\+Vec3 {\bfseries \+\_\+position}
+\item 
+vcm\+::\+Quat {\bfseries \+\_\+rotation}
+\item 
+vcm\+::\+Vec3 {\bfseries \+\_\+3\+Drotation\+View}
+\item 
+vcm\+::\+Mat4 {\bfseries \+\_\+model\+Matrix}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_camera_8h}{Camera.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_camera_8cc}{Camera.\+cc}}\end{DoxyCompactItemize}

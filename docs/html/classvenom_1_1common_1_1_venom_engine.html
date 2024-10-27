@@ -130,15 +130,26 @@ $(function(){initNavTree('classvenom_1_1common_1_1_venom_engine.html',''); initR
   <div class="headertitle"><div class="title">venom::common::VenomEngine Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_venom_engine_8h_source.html">VenomEngine.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a0ef26a66954f7362382c721f6d486b6e" id="r_a0ef26a66954f7362382c721f6d486b6e"><td class="memItemLeft" align="right" valign="top"><a id="a0ef26a66954f7362382c721f6d486b6e" name="a0ef26a66954f7362382c721f6d486b6e"></a>
-static <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetInstance</b> ()</td></tr>
+<tr class="memitem:a0ef26a66954f7362382c721f6d486b6e" id="r_a0ef26a66954f7362382c721f6d486b6e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ef26a66954f7362382c721f6d486b6e">GetInstance</a> ()</td></tr>
+<tr class="memdesc:a0ef26a66954f7362382c721f6d486b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets instance of <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a>.  <br /></td></tr>
 <tr class="separator:a0ef26a66954f7362382c721f6d486b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0325538569646e778bfd5fc9d9ecfd93" id="r_a0325538569646e778bfd5fc9d9ecfd93"><td class="memItemLeft" align="right" valign="top"><a id="a0325538569646e778bfd5fc9d9ecfd93" name="a0325538569646e778bfd5fc9d9ecfd93"></a>
-static Error&#160;</td><td class="memItemRight" valign="bottom"><b>RunEngine</b> (char **argv)</td></tr>
-<tr class="separator:a0325538569646e778bfd5fc9d9ecfd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9b55a02d6afe5392ea96a93001707b" id="r_a1d9b55a02d6afe5392ea96a93001707b"><td class="memItemLeft" align="right" valign="top">static Error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d9b55a02d6afe5392ea96a93001707b">RunEngine</a> (int argc, char **argv)</td></tr>
+<tr class="memdesc:a1d9b55a02d6afe5392ea96a93001707b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the engine.  <br /></td></tr>
+<tr class="separator:a1d9b55a02d6afe5392ea96a93001707b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a999cb4238b1acca05ca969269d6e5a06" id="r_a999cb4238b1acca05ca969269d6e5a06"><td class="memItemLeft" align="right" valign="top">static Error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a999cb4238b1acca05ca969269d6e5a06">SetScene</a> (const String &amp;scenefileName)</td></tr>
+<tr class="memdesc:a999cb4238b1acca05ca969269d6e5a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a scene from a file.  <br /></td></tr>
+<tr class="separator:a999cb4238b1acca05ca969269d6e5a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a242ad4d6bf7a0e252ade3de2da17406f" id="r_a242ad4d6bf7a0e252ade3de2da17406f"><td class="memItemLeft" align="right" valign="top">static Error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a242ad4d6bf7a0e252ade3de2da17406f">SetScene</a> (const SceneCallback &amp;sceneCallback)</td></tr>
+<tr class="memdesc:a242ad4d6bf7a0e252ade3de2da17406f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a scene from a callback.  <br /></td></tr>
+<tr class="separator:a242ad4d6bf7a0e252ade3de2da17406f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -146,9 +157,147 @@ Public Attributes</h2></td></tr>
 std::unique_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_plugin_manager.html">PluginManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pluginManager</b></td></tr>
 <tr class="separator:a7960648bb56880422879b4ed96d63a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0ef26a66954f7362382c721f6d486b6e" name="a0ef26a66954f7362382c721f6d486b6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ef26a66954f7362382c721f6d486b6e">&#9670;&#160;</a></span>GetInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> * venom::common::VenomEngine::GetInstance </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets instance of <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> * </dd></dl>
+
+</div>
+</div>
+<a id="a1d9b55a02d6afe5392ea96a93001707b" name="a1d9b55a02d6afe5392ea96a93001707b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9b55a02d6afe5392ea96a93001707b">&#9670;&#160;</a></span>RunEngine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Error venom::common::VenomEngine::RunEngine </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>argc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Runs the engine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td></td></tr>
+    <tr><td class="paramname">argv</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>error if any, refer to Error enum for more information </dd></dl>
+
+</div>
+</div>
+<a id="a242ad4d6bf7a0e252ade3de2da17406f" name="a242ad4d6bf7a0e252ade3de2da17406f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a242ad4d6bf7a0e252ade3de2da17406f">&#9670;&#160;</a></span>SetScene() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Error venom::common::VenomEngine::SetScene </td>
+          <td>(</td>
+          <td class="paramtype">const SceneCallback &amp;</td>          <td class="paramname"><span class="paramname"><em>sceneCallback</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads a scene from a callback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sceneCallback</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>error </dd></dl>
+
+</div>
+</div>
+<a id="a999cb4238b1acca05ca969269d6e5a06" name="a999cb4238b1acca05ca969269d6e5a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a999cb4238b1acca05ca969269d6e5a06">&#9670;&#160;</a></span>SetScene() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Error venom::common::VenomEngine::SetScene </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;</td>          <td class="paramname"><span class="paramname"><em>scenefileName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads a scene from a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scenefileName</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>error </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/<a class="el" href="_venom_engine_8h_source.html">VenomEngine.h</a></li>
-<li>D:/Repositories/Perso/VenomEngine/lib/common/src/<a class="el" href="_venom_engine_8cc.html">VenomEngine.cc</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/<a class="el" href="_venom_engine_8h_source.html">VenomEngine.h</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="_venom_engine_8cc.html">VenomEngine.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

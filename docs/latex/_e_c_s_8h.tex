@@ -1,0 +1,52 @@
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+ECS.h File Reference}
+\hypertarget{_e_c_s_8h}{}\label{_e_c_s_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/ECS.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/ECS.h}}
+{\ttfamily \#include $<$venom/common/\+DLL.\+h$>$}\newline
+{\ttfamily \#include $<$flecs.\+h$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{venom\+::common\+::\+ECS}}
+\begin{DoxyCompactList}\small\item\em Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom}{venom}}
+\begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a0adb5b5907b1898471697a8ae6b621e8}\label{namespacevenom_1_1common_a0adb5b5907b1898471697a8ae6b621e8} 
+typedef flecs\+::entity {\bfseries venom\+::common\+::\+Entity}
+\item 
+\Hypertarget{namespacevenom_1_1common_a7016bd9c06627c8c17994e9f0722c17e}\label{namespacevenom_1_1common_a7016bd9c06627c8c17994e9f0722c17e} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+Component} = flecs\+::component$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a64106511eb000154f288f120e5733286}\label{namespacevenom_1_1common_a64106511eb000154f288f120e5733286} 
+typedef flecs\+::system {\bfseries venom\+::common\+::\+System}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ad0a555c57b2308441e03f6767aec3984}\label{namespacevenom_1_1common_ad0a555c57b2308441e03f6767aec3984} 
+Entity {\bfseries venom\+::common\+::\+Create\+Entity} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
+\Hypertarget{namespacevenom_1_1common_a592d353323501f46084da60b7e389f72}\label{namespacevenom_1_1common_a592d353323501f46084da60b7e389f72} 
+Entity {\bfseries venom\+::common\+::\+Create\+Entity} ()
+\item 
+\Hypertarget{namespacevenom_1_1common_a54f4957db028d38e29894e90317467b5}\label{namespacevenom_1_1common_a54f4957db028d38e29894e90317467b5} 
+{\footnotesize template$<$typename T $>$ }\\Component$<$ T $>$ {\bfseries venom\+::common\+::\+Get\+Component} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Venom\+Engine\+Workspace
+
+\begin{DoxyDate}{Date}
+Oct, 10 2024 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+\end{DoxyAuthor}

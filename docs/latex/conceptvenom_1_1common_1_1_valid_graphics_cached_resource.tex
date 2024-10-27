@@ -1,0 +1,9 @@
+\doxysection{venom\+::common\+::Valid\+Graphics\+Cached\+Resource Concept Reference}
+\hypertarget{conceptvenom_1_1common_1_1_valid_graphics_cached_resource}{}\label{conceptvenom_1_1common_1_1_valid_graphics_cached_resource}\index{venom::common::ValidGraphicsCachedResource@{venom::common::ValidGraphicsCachedResource}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptvenom_1_1common_1_1_valid_graphics_cached_resource}{venom::common::ValidGraphicsCachedResource}}\ =\ \ std::is\_base\_of<GraphicsCachedResource,\ T>::value\ \&\&\ !std::is\_base\_of<GraphicsPluginObject,\ T>::value}
+
+\end{DoxyCode}

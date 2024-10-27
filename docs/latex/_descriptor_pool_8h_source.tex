@@ -1,37 +1,120 @@
 \doxysection{Descriptor\+Pool.\+h}
-\hypertarget{_descriptor_pool_8h_source}{}\label{_descriptor_pool_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h}}
+\hypertarget{_descriptor_pool_8h_source}{}\label{_descriptor_pool_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h}}
 \mbox{\hyperlink{_descriptor_pool_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_descriptor_set_8h}{venom/vulkan/DescriptorSet.h}}>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }vulkan}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_descriptor_set_layout_8h}{venom/vulkan/DescriptorSetLayout.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_shader_pipeline_8h}{venom/vulkan/ShaderPipeline.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_venom_settings_8h}{venom/common/VenomSettings.h}}>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_application_8h}{venom/common/plugin/graphics/GraphicsApplication.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}();}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{\string~DescriptorPool}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&\&other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&\&other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPoolSize(VkDescriptorType\ type,\ uint32\_t\ count);}
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Create(VkDescriptorPoolCreateFlags\ flags,\ uint32\_t\ maxSets);}
-\DoxyCodeLine{00028\ \ \ \ \ std::vector<DescriptorSet>\ AllocateSets(\textcolor{keyword}{const}\ VkDescriptorSetLayout\ \&layout,\ uint32\_t\ count)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00029\ \ \ \ \ std::vector<DescriptorSet>\ AllocateSets(\textcolor{keyword}{const}\ std::vector<VkDescriptorSetLayout>\ \&layouts)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00032\ \ \ \ \ std::vector<VkDescriptorPoolSize>\ \_\_poolSizes;}
-\DoxyCodeLine{00033\ \ \ \ \ VkDescriptorPoolCreateInfo\ \_\_poolInfo;}
-\DoxyCodeLine{00034\ \ \ \ \ VkDescriptorPool\ \_\_pool;}
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ \}}
-\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdate(\textcolor{keyword}{const}\ VkWriteDescriptorSet\ \&write);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateTexture(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateSampler(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\ \&sampler,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdatePerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ VkWriteDescriptorSet\ \&write);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateBufferPerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateBufferPerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateTexturePerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ GroupUpdateSamplerPerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\ \&sampler,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{DescriptorSet}}\ \&\ operator[](\textcolor{keyword}{const}\ uint32\_t\ index)\ \{\ \textcolor{keywordflow}{return}\ \_\_descriptorSets[index];\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{DescriptorSet}}\ \&\ GetCurrentSet()\ \{\ \textcolor{keywordflow}{return}\ \_\_descriptorSets[vc::GraphicsApplication::GetCurrentFrame()];\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \ \ std::array<DescriptorSet,\ VENOM\_MAX\_FRAMES\_IN\_FLIGHT>\ \_\_descriptorSets;}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{DescriptorSetGroupAllocator}}}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{DescriptorSetGroupAllocator}}(std::vector<DescriptorSetGroup>\ \&\&\ sets);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}\ *\ AllocateSet();}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ FreeSet(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}\ *\ set);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ DSGA\_GROUP\_UPDATE(func)\ for\ (int\ i\ =\ 0;\ i\ <\ \_\_descriptorSetGroups.size();\ ++i)\ \{\ \_\_descriptorSetGroups[i].func;\ \}}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdate(\textcolor{keyword}{const}\ VkWriteDescriptorSet\ \&write)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdate(write));\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateBuffer(buffer,\ bufferOffset,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateBuffer(buffer,\ bufferOffset,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateTexture(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateTexture(texture,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateSampler(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\ \&sampler,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateSampler(sampler,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdatePerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ VkWriteDescriptorSet\ \&write)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdatePerFrame(frameIndex,\ write));\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateBufferPerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateBufferPerFrame(frameIndex,\ buffer,\ bufferOffset,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateBufferPerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateBufferPerFrame(frameIndex,\ buffer,\ bufferOffset,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateTexturePerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateTexturePerFrame(frameIndex,\ texture,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GroupUpdateSamplerPerFrame(\textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\ \&sampler,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0)\ \{\ DSGA\_GROUP\_UPDATE(GroupUpdateSamplerPerFrame(frameIndex,\ sampler,\ binding,\ descriptorType,\ descriptorCount,\ arrayElement));\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}\ \&\ operator[](\textcolor{keyword}{const}\ uint32\_t\ index)\ \{\ \textcolor{keywordflow}{return}\ \_\_descriptorSetGroups[index];\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_descriptorSetGroups.size();\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#undef\ DSGA\_GROUP\_UPDATE}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ \ \ std::vector<DescriptorSetGroup>\ \_\_descriptorSetGroups;}
+\DoxyCodeLine{00074\ \ \ \ \ std::stack<DescriptorSetGroup\ *>\ \_\_freeSets;}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}();}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{\string~DescriptorPool}}();}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&\&other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ \&\&other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPoolSize(VkDescriptorType\ type,\ uint32\_t\ count);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_ad4c101d731d55033becf1bc9a985889a}{AddDescriptorSetLayoutBinding}}(\textcolor{keyword}{const}\ uint32\_t\ descriptorSetIndex,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ VkDescriptorType\ type,\ \textcolor{keyword}{const}\ uint32\_t\ descriptorCount,\ \textcolor{keyword}{const}\ VkShaderStageFlags\ stageFlags);}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_ae8ef3c8a096530e74a4b561273effab7}{SetDescriptorSetLayoutCreateFlags}}(\textcolor{keyword}{const}\ uint32\_t\ descriptorSetIndex,\ \textcolor{keyword}{const}\ VkDescriptorSetLayoutCreateFlags\ flags);}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a53aa94dcbd82276ab40faa7a946c5132}{SetDescriptorSetLayoutBindingSpecifications}}(\textcolor{keyword}{const}\ uint32\_t\ descriptorSetIndex,\ \textcolor{keyword}{const}\ VkDescriptorBindingFlags\ flags);}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_ab23080d093624b7e29b287525e21de5d}{SetDescriptorSetLayoutMaxSets}}(\textcolor{keyword}{const}\ uint32\_t\ descriptorSetIndex,\ \textcolor{keyword}{const}\ uint32\_t\ flags);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetDescriptorSetLayoutBindless(\textcolor{keyword}{const}\ uint32\_t\ descriptorSetIndex)\ \{\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a53aa94dcbd82276ab40faa7a946c5132}{SetDescriptorSetLayoutBindingSpecifications}}(descriptorSetIndex,\ VK\_DESCRIPTOR\_BINDING\_PARTIALLY\_BOUND\_BIT\_EXT\ |\ VK\_DESCRIPTOR\_BINDING\_VARIABLE\_DESCRIPTOR\_COUNT\_BIT\ |\ VK\_DESCRIPTOR\_BINDING\_UPDATE\_AFTER\_BIND\_BIT\_EXT);\ \}}
+\DoxyCodeLine{00117\ \ \ \ \ vc::Error\ Create(VkDescriptorPoolCreateFlags\ flags,\ uint32\_t\ maxSets\ =\ VENOM\_MAX\_FRAMES\_IN\_FLIGHT);}
+\DoxyCodeLine{00118\ \ \ \ \ std::vector<DescriptorSetGroup>\ AllocateSets(\textcolor{keyword}{const}\ VkDescriptorSetLayout\ \&layout,\ uint32\_t\ count,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ bindless)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00119\ \ \ \ \ std::vector<DescriptorSetGroup>\ AllocateSets(\textcolor{keyword}{const}\ std::vector<VkDescriptorSetLayout>\ \&layouts,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ bindless)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ *\ GetPool()\ \{\ \textcolor{keywordflow}{return}\ s\_pool;\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{inline}\ std::vector<DescriptorSetGroupAllocator>\ \&\ GetDescriptorSets()\ \{\ \textcolor{keywordflow}{return}\ \_\_descriptorSets;\ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{inline}\ std::vector<DescriptorSetLayout>\ \&\ GetDescriptorSetLayouts()\ \{\ \textcolor{keywordflow}{return}\ \_\_descriptorSetLayouts;\ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{inline}\ std::vector<VkDescriptorSetLayout>\ \&\ GetVkDescriptorSetLayouts()\ \{\ \textcolor{keywordflow}{return}\ \_\_vkDescriptorSetLayouts;\ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{DescriptorSetGroupAllocator}}\ \&\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a3c2aa8faa4b2632e946dace62cfc9a16}{GetDescriptorSets}}(\textcolor{keyword}{const}\ uint32\_t\ index)}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ venom\_assert(index\ <\ \_\_descriptorSets.size(),\ \textcolor{stringliteral}{"{}Index\ out\ of\ range"{}});}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_descriptorSets[index];}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a571bf4c10331e4d55caf661ec8868c90}{BindDescriptorSets}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ descriptorSetIndex,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ \&\ commandBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\ \&\ pipeline,\ \textcolor{keyword}{const}\ VkPipelineBindPoint\ bindPoint);}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a571bf4c10331e4d55caf661ec8868c90}{BindDescriptorSets}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ descriptorSetIndex,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ \&\ commandBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{ShaderPipeline}}\ \&\ pipeline,\ \textcolor{keyword}{const}\ VkPipelineBindPoint\ bindPoint,\ \textcolor{keyword}{const}\ std::vector<uint32\_t>\ \&\ dynamicOffsets);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}}\ *\ s\_pool;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00161\ \ \ \ \ std::vector<VkDescriptorPoolSize>\ \_\_poolSizes;}
+\DoxyCodeLine{00162\ \ \ \ \ std::vector<DescriptorSetLayout>\ \_\_descriptorSetLayouts;}
+\DoxyCodeLine{00163\ \ \ \ \ std::vector<VkDescriptorSetLayout>\ \_\_vkDescriptorSetLayouts;}
+\DoxyCodeLine{00164\ \ \ \ \ std::vector<DescriptorSetGroupAllocator>\ \_\_descriptorSets;}
+\DoxyCodeLine{00165\ \ \ \ \ VkDescriptorPoolCreateInfo\ \_\_poolInfo;}
+\DoxyCodeLine{00166\ \ \ \ \ VkDescriptorPool\ \_\_pool;}
+\DoxyCodeLine{00167\ \};}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ \}}
 
 \end{DoxyCode}

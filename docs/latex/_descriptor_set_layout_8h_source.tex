@@ -1,5 +1,5 @@
 \doxysection{Descriptor\+Set\+Layout.\+h}
-\hypertarget{_descriptor_set_layout_8h_source}{}\label{_descriptor_set_layout_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorSetLayout.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorSetLayout.h}}
+\hypertarget{_descriptor_set_layout_8h_source}{}\label{_descriptor_set_layout_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorSetLayout.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorSetLayout.h}}
 \mbox{\hyperlink{_descriptor_set_layout_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -17,21 +17,30 @@
 \DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}();}
 \DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{\string~DescriptorSetLayout}}();}
 \DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{DescriptorSetLayout}}\&\&\ other)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ AddBinding(uint32\_t\ binding,\ VkDescriptorType\ type,\ uint32\_t\ count,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ VkSampler*\ immutableSamplers\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Create(VkDescriptorSetLayoutCreateFlags\ flags\ =\ 0);}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSetLayout\ \&\ GetLayout()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00032\ \ \ \ \ std::vector<VkDescriptorSetLayoutBinding>\ \_\_bindings;}
-\DoxyCodeLine{00033\ \ \ \ \ VkDescriptorSetLayoutCreateInfo\ \_\_descriptorSetLayoutInfo;}
-\DoxyCodeLine{00034\ \ \ \ \ VkDescriptorSetLayout\ \_\_layout;}
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ \}}
-\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Create();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetFlags(VkDescriptorSetLayoutCreateFlags\ flags)\ \{\ \_\_descriptorSetLayoutInfo.flags\ =\ flags;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{inline}\ VkDescriptorSetLayoutCreateFlags\ GetFlags()\ \{\ \textcolor{keywordflow}{return}\ \_\_descriptorSetLayoutInfo.flags;\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsBindless()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ SetBindingFlags(VkDescriptorBindingFlags\ flags);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMaxSets(uint32\_t\ maxSets);}
+\DoxyCodeLine{00033\ \ \ \ \ uint32\_t\ GetMaxSets()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<VkDescriptorSetLayoutBinding>\ \&\ GetBindings()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSetLayout\ \&\ GetLayout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ std::vector<void\ *>\ \_\_createInfoPNexts,\ \_\_createInfoFlags;}
+\DoxyCodeLine{00040\ \ \ \ \ std::vector<VkDescriptorSetLayoutBinding>\ \_\_bindings;}
+\DoxyCodeLine{00041\ \ \ \ \ VkDescriptorSetLayoutCreateInfo\ \_\_descriptorSetLayoutInfo;}
+\DoxyCodeLine{00042\ \ \ \ \ VkDescriptorSetLayout\ \_\_layout;}
+\DoxyCodeLine{00043\ \ \ \ \ uint32\_t\ \_\_maxSets;}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00046\ \}}
 
 \end{DoxyCode}

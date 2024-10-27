@@ -1,5 +1,5 @@
 \doxysection{Log.\+h}
-\hypertarget{_log_8h_source}{}\label{_log_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Log.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Log.h}}
+\hypertarget{_log_8h_source}{}\label{_log_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Log.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Log.h}}
 \mbox{\hyperlink{_log_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -45,5 +45,26 @@
 \DoxyCodeLine{00047\ \};}
 \DoxyCodeLine{00048\ \}}
 \DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ DEBUG\_PRINT(...)\ vc::Log::Print(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ DEBUG\_LOG(...)\ vc::Log::LogToFile(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ venom\_assert(condition,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{if\ (!(condition))\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{DEBUG\_PRINT("{}Assertion\ failed:\ \%s\(\backslash\)n"{},\ \#condition);\ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{DEBUG\_PRINT("{}File:\ \%s,\ Line:\ \%d\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{DEBUG\_PRINT(\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{DEBUG\_PRINT("{}\(\backslash\)n"{});\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{abort();\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ DEBUG\_PRINT(str,\ ...)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ DEBUG\_LOG(str,\ ...)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ venom\_assert(condition,\ ...)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

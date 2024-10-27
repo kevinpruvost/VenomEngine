@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['destroy_0',['Destroy',['../classvenom_1_1common_1_1_plugin_object.html#a59339c9ff38ee2b81dcf8adc3b17e847',1,'venom::common::PluginObject']]]
+  ['adddescriptorsetlayoutbinding_0',['AddDescriptorSetLayoutBinding',['../classvenom_1_1vulkan_1_1_descriptor_pool.html#ad4c101d731d55033becf1bc9a985889a',1,'venom::vulkan::DescriptorPool']]]
 ];

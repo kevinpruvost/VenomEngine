@@ -21,11 +21,23 @@ enum class {\bfseries Graphics\+Plugin\+Type} \{ {\bfseries Vulkan}
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a992c16a1bcb872c1291aa799a28c8728}\label{classvenom_1_1common_1_1_graphics_plugin_a992c16a1bcb872c1291aa799a28c8728} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Graphics\+Application} ()=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a39e458dfa45d85c9d7e46485cbd07424}\label{classvenom_1_1common_1_1_graphics_plugin_a39e458dfa45d85c9d7e46485cbd07424} 
-virtual \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Mesh} ()=0
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a32a2879cf0fe5935d036341143503456}\label{classvenom_1_1common_1_1_graphics_plugin_a32a2879cf0fe5935d036341143503456} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{Material\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Material} ()=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a19b52426119d683fd0048c83795247c2}\label{classvenom_1_1common_1_1_graphics_plugin_a19b52426119d683fd0048c83795247c2} 
-virtual \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Texture} ()=0
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a96917013c9bae03043a5b5619695415e}\label{classvenom_1_1common_1_1_graphics_plugin_a96917013c9bae03043a5b5619695415e} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{Model\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Model} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_ac516d75ce530720750c313452b8b5640}\label{classvenom_1_1common_1_1_graphics_plugin_ac516d75ce530720750c313452b8b5640} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{Mesh\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Mesh} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a1c7f44d72f285fcebcd3499762d237dd}\label{classvenom_1_1common_1_1_graphics_plugin_a1c7f44d72f285fcebcd3499762d237dd} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{Texture\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Texture} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a0b0403760e1cfc3e2988899336d7a452}\label{classvenom_1_1common_1_1_graphics_plugin_a0b0403760e1cfc3e2988899336d7a452} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{Camera\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Camera} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a48ba08263587e4fa4047405bc9becb29}\label{classvenom_1_1common_1_1_graphics_plugin_a48ba08263587e4fa4047405bc9becb29} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Shader\+Resource\+Table} ()=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}}
 \begin{DoxyCompactItemize}
@@ -42,6 +54,15 @@ const Plugin\+Type {\bfseries Get\+Type} () const
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a90cd0e192853701cb7ecba14d26f55e3}\label{classvenom_1_1common_1_1_graphics_plugin_a90cd0e192853701cb7ecba14d26f55e3} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{Graphics\+Plugin}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a92dff1f8bd045b64adda0c9f1940cd8e}\label{classvenom_1_1common_1_1_graphics_plugin_a92dff1f8bd045b64adda0c9f1940cd8e} 
+class {\bfseries Graphics\+Cached\+Resource}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a45191c6694cd5b1009d78000f9f1f103}\label{classvenom_1_1common_1_1_graphics_plugin_a45191c6694cd5b1009d78000f9f1f103} 
+class {\bfseries Graphics\+Plugin\+Object}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}}
 \begin{DoxyCompactItemize}
@@ -52,5 +73,5 @@ static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{Graphics\+Plug
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}

@@ -1,5 +1,5 @@
 \doxysection{String.\+h}
-\hypertarget{_string_8h_source}{}\label{_string_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/String.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/String.h}}
+\hypertarget{_string_8h_source}{}\label{_string_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/String.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/String.h}}
 \mbox{\hyperlink{_string_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -17,7 +17,7 @@
 \DoxyCodeLine{00019\ \{}
 \DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ length\ =\ snprintf(\textcolor{keyword}{nullptr},\ 0,\ fmt,\ args...);}
 \DoxyCodeLine{00021\ \ \ \ \ String\ message(length,\ 0);}
-\DoxyCodeLine{00022\ \ \ \ \ sprintf(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(message.c\_str()),\ fmt,\ args...);}
+\DoxyCodeLine{00022\ \ \ \ \ snprintf(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(message.c\_str()),\ length+1,\ fmt,\ args...);}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{return}\ message;}
 \DoxyCodeLine{00024\ \}}
 \DoxyCodeLine{00025\ \}}

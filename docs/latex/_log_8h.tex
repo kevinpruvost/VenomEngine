@@ -1,5 +1,5 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Log.h File Reference}
-\hypertarget{_log_8h}{}\label{_log_8h}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Log.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/Log.h}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Log.h File Reference}
+\hypertarget{_log_8h}{}\label{_log_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Log.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Log.h}}
 {\ttfamily \#include $<$venom/common/\+Error.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/\+Export.\+h$>$}\newline
 \doxysubsubsection*{Classes}
@@ -14,6 +14,18 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_log_8h_a3e32f6850bccb23aef14a586351615f9}\label{_log_8h_a3e32f6850bccb23aef14a586351615f9} 
+\#define {\bfseries DEBUG\+\_\+\+PRINT}(str, ...)
+\item 
+\Hypertarget{_log_8h_a0cfaadaf73dc8ba0618d432775cda2d9}\label{_log_8h_a0cfaadaf73dc8ba0618d432775cda2d9} 
+\#define {\bfseries DEBUG\+\_\+\+LOG}(str, ...)
+\item 
+\Hypertarget{_log_8h_acb854d5b93bc6d5e1c41f3dc1745daaf}\label{_log_8h_acb854d5b93bc6d5e1c41f3dc1745daaf} 
+\#define {\bfseries venom\+\_\+assert}(condition, ...)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

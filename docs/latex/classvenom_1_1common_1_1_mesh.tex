@@ -12,56 +12,106 @@ Contains all the mesh\textquotesingle{}s data and is the main high-\/level inter
 Inheritance diagram for venom\+::common\+::Mesh\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=4.000000cm]{classvenom_1_1common_1_1_mesh}
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_mesh}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_af0ccf0a316a2954ac111624f6af38a03}\label{classvenom_1_1common_1_1_mesh_af0ccf0a316a2954ac111624f6af38a03} 
-virtual void {\bfseries Draw} ()=0
-\item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a80d7629224b4ca19cb8b469723d96fa5}\label{classvenom_1_1common_1_1_mesh_a80d7629224b4ca19cb8b469723d96fa5} 
-vc\+::\+Error {\bfseries Import\+Model} (const std\+::string \&path)
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+void \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_ad5376654a682e2574f52462c394253cc}{Set\+Material}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} \&material)
+\begin{DoxyCompactList}\small\item\em Assigns \doxylink{classvenom_1_1common_1_1_material}{Material} to mesh. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a8da72ff386df09186372433697d3396d}{Has\+Material}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the mesh has a \doxylink{classvenom_1_1common_1_1_material}{Material} assigned. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} \& \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_abd470bf2dc6f77329e4d172189f53342}{Get\+Material}} () const
+\begin{DoxyCompactList}\small\item\em Returns the \doxylink{classvenom_1_1common_1_1_material}{Material} assigned to the mesh. \end{DoxyCompactList}\item 
+\Hypertarget{classvenom_1_1common_1_1_mesh_a824ea4a30afad1884761e5bc15f2844f}\label{classvenom_1_1common_1_1_mesh_a824ea4a30afad1884761e5bc15f2844f} 
+void {\bfseries Draw} () const
+\begin{DoxyCompactList}\small\item\em Draws the mesh. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Plugin\+Object} (const Plugin\+Type type)
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+bool {\bfseries Is\+Impl\+Initialized} () const
 \item 
 void {\bfseries Destroy} ()
-\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a37dd2471198b4a21ba7cc3fb9298211c}\label{classvenom_1_1common_1_1_mesh_a37dd2471198b4a21ba7cc3fb9298211c} 
-static \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}} \texorpdfstring{$\ast$}{*} {\bfseries Create} ()
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Protected Attributes}
+\doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a23fa0d8b5001321ebb31ca7c82c6bf76}\label{classvenom_1_1common_1_1_mesh_a23fa0d8b5001321ebb31ca7c82c6bf76} 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{vcm\+::\+Vertex\+Pos}} $>$ {\bfseries \+\_\+\+\_\+positions}
+\Hypertarget{classvenom_1_1common_1_1_mesh_afb81d2077780e342b8fd3654cabc4c19}\label{classvenom_1_1common_1_1_mesh_afb81d2077780e342b8fd3654cabc4c19} 
+class {\bfseries Model\+Impl}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_aabbb03c166b0b4527020ceb784653a69}\label{classvenom_1_1common_1_1_mesh_aabbb03c166b0b4527020ceb784653a69} 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{vcm\+::\+Vertex\+Normal}} $>$ {\bfseries \+\_\+\+\_\+normals}
-\item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a7a10ddc5233257c988e25c799fd21ad1}\label{classvenom_1_1common_1_1_mesh_a7a10ddc5233257c988e25c799fd21ad1} 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a75214a8ebd3c53e1cf6fa2c997a64efb}{vcm\+::\+Vertex\+Color}} $>$ {\bfseries \+\_\+\+\_\+colors}
-\item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_ac5d2eee5a8a8830dfa2176ba91af5289}\label{classvenom_1_1common_1_1_mesh_ac5d2eee5a8a8830dfa2176ba91af5289} 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{vcm\+::\+Vertex\+UV}} $>$ {\bfseries \+\_\+\+\_\+uvs}
-\item 
-\Hypertarget{classvenom_1_1common_1_1_mesh_a2b5ed07fcd045a400bdd213854755ffb}\label{classvenom_1_1common_1_1_mesh_a2b5ed07fcd045a400bdd213854755ffb} 
-std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries \+\_\+\+\_\+indices}
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Contains all the mesh\textquotesingle{}s data and is the main high-\/level interface for the user. 
 
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_mesh_abd470bf2dc6f77329e4d172189f53342}\index{venom::common::Mesh@{venom::common::Mesh}!GetMaterial@{GetMaterial}}
+\index{GetMaterial@{GetMaterial}!venom::common::Mesh@{venom::common::Mesh}}
+\doxysubsubsection{\texorpdfstring{GetMaterial()}{GetMaterial()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_mesh_abd470bf2dc6f77329e4d172189f53342} 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} \& venom\+::common\+::\+Mesh\+::\+Get\+Material (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the \doxylink{classvenom_1_1common_1_1_material}{Material} assigned to the mesh. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{classvenom_1_1common_1_1_material}{Material} 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_mesh_a8da72ff386df09186372433697d3396d}\index{venom::common::Mesh@{venom::common::Mesh}!HasMaterial@{HasMaterial}}
+\index{HasMaterial@{HasMaterial}!venom::common::Mesh@{venom::common::Mesh}}
+\doxysubsubsection{\texorpdfstring{HasMaterial()}{HasMaterial()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_mesh_a8da72ff386df09186372433697d3396d} 
+bool venom\+::common\+::\+Mesh\+::\+Has\+Material (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the mesh has a \doxylink{classvenom_1_1common_1_1_material}{Material} assigned. 
+
+\begin{DoxyReturn}{Returns}
+true if a \doxylink{classvenom_1_1common_1_1_material}{Material} is assigned, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_mesh_ad5376654a682e2574f52462c394253cc}\index{venom::common::Mesh@{venom::common::Mesh}!SetMaterial@{SetMaterial}}
+\index{SetMaterial@{SetMaterial}!venom::common::Mesh@{venom::common::Mesh}}
+\doxysubsubsection{\texorpdfstring{SetMaterial()}{SetMaterial()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_mesh_ad5376654a682e2574f52462c394253cc} 
+void venom\+::common\+::\+Mesh\+::\+Set\+Material (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} \&}]{material}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assigns \doxylink{classvenom_1_1common_1_1_material}{Material} to mesh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em material} & \\
+\hline
+\end{DoxyParams}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h}{Mesh.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_mesh_8cc}{Mesh.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h}{Mesh.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_mesh_8cc}{Mesh.\+cc}}\end{DoxyCompactItemize}

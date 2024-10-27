@@ -125,6 +125,7 @@ $(function(){initNavTree('classvenom_1_1vulkan_1_1_descriptor_pool.html',''); in
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classvenom_1_1vulkan_1_1_descriptor_pool-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::vulkan::DescriptorPool Class Reference</div></div>
 </div><!--header-->
@@ -147,19 +148,315 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a705cfc869a4df96805da3a7d3ce7de70" id="r_a705cfc869a4df96805da3a7d3ce7de70"><td class="memItemLeft" align="right" valign="top"><a id="a705cfc869a4df96805da3a7d3ce7de70" name="a705cfc869a4df96805da3a7d3ce7de70"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AddPoolSize</b> (VkDescriptorType type, uint32_t count)</td></tr>
 <tr class="separator:a705cfc869a4df96805da3a7d3ce7de70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56da81884b1c2d76eb55585781b5635e" id="r_a56da81884b1c2d76eb55585781b5635e"><td class="memItemLeft" align="right" valign="top"><a id="a56da81884b1c2d76eb55585781b5635e" name="a56da81884b1c2d76eb55585781b5635e"></a>
-vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (VkDescriptorPoolCreateFlags flags, uint32_t maxSets)</td></tr>
-<tr class="separator:a56da81884b1c2d76eb55585781b5635e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ef091be476e33590ff6995b31171ef2" id="r_a1ef091be476e33590ff6995b31171ef2"><td class="memItemLeft" align="right" valign="top"><a id="a1ef091be476e33590ff6995b31171ef2" name="a1ef091be476e33590ff6995b31171ef2"></a>
-std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set.html">DescriptorSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>AllocateSets</b> (const VkDescriptorSetLayout &amp;layout, uint32_t count) const</td></tr>
-<tr class="separator:a1ef091be476e33590ff6995b31171ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a561cb9523dbff4e47198a60babe919fd" id="r_a561cb9523dbff4e47198a60babe919fd"><td class="memItemLeft" align="right" valign="top"><a id="a561cb9523dbff4e47198a60babe919fd" name="a561cb9523dbff4e47198a60babe919fd"></a>
-std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set.html">DescriptorSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>AllocateSets</b> (const std::vector&lt; VkDescriptorSetLayout &gt; &amp;layouts) const</td></tr>
-<tr class="separator:a561cb9523dbff4e47198a60babe919fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c101d731d55033becf1bc9a985889a" id="r_ad4c101d731d55033becf1bc9a985889a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4c101d731d55033becf1bc9a985889a">AddDescriptorSetLayoutBinding</a> (const uint32_t descriptorSetIndex, const uint32_t binding, const VkDescriptorType type, const uint32_t descriptorCount, const VkShaderStageFlags stageFlags)</td></tr>
+<tr class="memdesc:ad4c101d731d55033becf1bc9a985889a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a descriptor set layout binding to the pipeline For HLSL shader writing, refer to <a href="https://github.com/microsoft/DirectXShaderCompiler/blob/080aeb7199e66e4b0a2b6383fd26a9f8d2cccbf5/docs/SPIR-V.rst#:~:text=Without%20attribute%20and%20command%2Dline%20option%2C,so%20this%20may%20cause%20overlap">https://github.com/microsoft/DirectXShaderCompiler/blob/080aeb7199e66e4b0a2b6383fd26a9f8d2cccbf5/docs/SPIR-V.rst#:~:text=Without%20attribute%20and%20command%2Dline%20option%2C,so%20this%20may%20cause%20overlap</a>.  <br /></td></tr>
+<tr class="separator:ad4c101d731d55033becf1bc9a985889a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ef3c8a096530e74a4b561273effab7" id="r_ae8ef3c8a096530e74a4b561273effab7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8ef3c8a096530e74a4b561273effab7">SetDescriptorSetLayoutCreateFlags</a> (const uint32_t descriptorSetIndex, const VkDescriptorSetLayoutCreateFlags flags)</td></tr>
+<tr class="memdesc:ae8ef3c8a096530e74a4b561273effab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the descriptor set layout create flags.  <br /></td></tr>
+<tr class="separator:ae8ef3c8a096530e74a4b561273effab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53aa94dcbd82276ab40faa7a946c5132" id="r_a53aa94dcbd82276ab40faa7a946c5132"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53aa94dcbd82276ab40faa7a946c5132">SetDescriptorSetLayoutBindingSpecifications</a> (const uint32_t descriptorSetIndex, const VkDescriptorBindingFlags flags)</td></tr>
+<tr class="memdesc:a53aa94dcbd82276ab40faa7a946c5132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the descriptor set layout binding specifications.  <br /></td></tr>
+<tr class="separator:a53aa94dcbd82276ab40faa7a946c5132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23080d093624b7e29b287525e21de5d" id="r_ab23080d093624b7e29b287525e21de5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab23080d093624b7e29b287525e21de5d">SetDescriptorSetLayoutMaxSets</a> (const uint32_t descriptorSetIndex, const uint32_t flags)</td></tr>
+<tr class="memdesc:ab23080d093624b7e29b287525e21de5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the descriptor set layout max sets.  <br /></td></tr>
+<tr class="separator:ab23080d093624b7e29b287525e21de5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4e8f58bf7004d1066efa87547ab49bc" id="r_ab4e8f58bf7004d1066efa87547ab49bc"><td class="memItemLeft" align="right" valign="top"><a id="ab4e8f58bf7004d1066efa87547ab49bc" name="ab4e8f58bf7004d1066efa87547ab49bc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDescriptorSetLayoutBindless</b> (const uint32_t descriptorSetIndex)</td></tr>
+<tr class="separator:ab4e8f58bf7004d1066efa87547ab49bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17a52531cd5907bb6cf3369317c7937e" id="r_a17a52531cd5907bb6cf3369317c7937e"><td class="memItemLeft" align="right" valign="top"><a id="a17a52531cd5907bb6cf3369317c7937e" name="a17a52531cd5907bb6cf3369317c7937e"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (VkDescriptorPoolCreateFlags flags, uint32_t maxSets=VENOM_MAX_FRAMES_IN_FLIGHT)</td></tr>
+<tr class="separator:a17a52531cd5907bb6cf3369317c7937e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5cfdfd625dc99c0c2a1027b8292cfef" id="r_ac5cfdfd625dc99c0c2a1027b8292cfef"><td class="memItemLeft" align="right" valign="top"><a id="ac5cfdfd625dc99c0c2a1027b8292cfef" name="ac5cfdfd625dc99c0c2a1027b8292cfef"></a>
+std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_group.html">DescriptorSetGroup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>AllocateSets</b> (const VkDescriptorSetLayout &amp;layout, uint32_t count, const bool bindless) const</td></tr>
+<tr class="separator:ac5cfdfd625dc99c0c2a1027b8292cfef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bba180af721b8bacb3360a6292d2049" id="r_a1bba180af721b8bacb3360a6292d2049"><td class="memItemLeft" align="right" valign="top"><a id="a1bba180af721b8bacb3360a6292d2049" name="a1bba180af721b8bacb3360a6292d2049"></a>
+std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_group.html">DescriptorSetGroup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>AllocateSets</b> (const std::vector&lt; VkDescriptorSetLayout &gt; &amp;layouts, const bool bindless) const</td></tr>
+<tr class="separator:a1bba180af721b8bacb3360a6292d2049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2efa8dd453b22075354130c4d2a25182" id="r_a2efa8dd453b22075354130c4d2a25182"><td class="memItemLeft" align="right" valign="top"><a id="a2efa8dd453b22075354130c4d2a25182" name="a2efa8dd453b22075354130c4d2a25182"></a>
+std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_group_allocator.html">DescriptorSetGroupAllocator</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDescriptorSets</b> ()</td></tr>
+<tr class="separator:a2efa8dd453b22075354130c4d2a25182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d319f71d7aabfd63bf528bec1205cc6" id="r_a8d319f71d7aabfd63bf528bec1205cc6"><td class="memItemLeft" align="right" valign="top"><a id="a8d319f71d7aabfd63bf528bec1205cc6" name="a8d319f71d7aabfd63bf528bec1205cc6"></a>
+std::vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_layout.html">DescriptorSetLayout</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDescriptorSetLayouts</b> ()</td></tr>
+<tr class="separator:a8d319f71d7aabfd63bf528bec1205cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad39da22f9a2362be5775a62dc2e2b548" id="r_ad39da22f9a2362be5775a62dc2e2b548"><td class="memItemLeft" align="right" valign="top"><a id="ad39da22f9a2362be5775a62dc2e2b548" name="ad39da22f9a2362be5775a62dc2e2b548"></a>
+std::vector&lt; VkDescriptorSetLayout &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkDescriptorSetLayouts</b> ()</td></tr>
+<tr class="separator:ad39da22f9a2362be5775a62dc2e2b548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c2aa8faa4b2632e946dace62cfc9a16" id="r_a3c2aa8faa4b2632e946dace62cfc9a16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_group_allocator.html">DescriptorSetGroupAllocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c2aa8faa4b2632e946dace62cfc9a16">GetDescriptorSets</a> (const uint32_t index)</td></tr>
+<tr class="memdesc:a3c2aa8faa4b2632e946dace62cfc9a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the descriptor sets from the specified set index returns a vector of size VENOM_MAX_FRAMES_IN_FLIGHT because of the multiple swapchain images to handle.  <br /></td></tr>
+<tr class="separator:a3c2aa8faa4b2632e946dace62cfc9a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a571bf4c10331e4d55caf661ec8868c90" id="r_a571bf4c10331e4d55caf661ec8868c90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a571bf4c10331e4d55caf661ec8868c90">BindDescriptorSets</a> (const int descriptorSetIndex, const <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;commandBuffer, const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> &amp;pipeline, const VkPipelineBindPoint bindPoint)</td></tr>
+<tr class="memdesc:a571bf4c10331e4d55caf661ec8868c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind all descriptor sets to the pipeline for the current image.  <br /></td></tr>
+<tr class="separator:a571bf4c10331e4d55caf661ec8868c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae463239e5fc4cbf0991a0d2fd7f49db9" id="r_ae463239e5fc4cbf0991a0d2fd7f49db9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae463239e5fc4cbf0991a0d2fd7f49db9">BindDescriptorSets</a> (const int descriptorSetIndex, const <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;commandBuffer, const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> &amp;pipeline, const VkPipelineBindPoint bindPoint, const std::vector&lt; uint32_t &gt; &amp;dynamicOffsets)</td></tr>
+<tr class="memdesc:ae463239e5fc4cbf0991a0d2fd7f49db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind all descriptor sets to the pipeline for the current image.  <br /></td></tr>
+<tr class="separator:ae463239e5fc4cbf0991a0d2fd7f49db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a7f08de117bf84b91a1bd5bec3a3054dc" id="r_a7f08de117bf84b91a1bd5bec3a3054dc"><td class="memItemLeft" align="right" valign="top"><a id="a7f08de117bf84b91a1bd5bec3a3054dc" name="a7f08de117bf84b91a1bd5bec3a3054dc"></a>
+static <a class="el" href="classvenom_1_1vulkan_1_1_descriptor_pool.html">DescriptorPool</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetPool</b> ()</td></tr>
+<tr class="separator:a7f08de117bf84b91a1bd5bec3a3054dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad4c101d731d55033becf1bc9a985889a" name="ad4c101d731d55033becf1bc9a985889a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c101d731d55033becf1bc9a985889a">&#9670;&#160;</a></span>AddDescriptorSetLayoutBinding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::DescriptorPool::AddDescriptorSetLayoutBinding </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>descriptorSetIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>binding</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkDescriptorType</td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>descriptorCount</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkShaderStageFlags</td>          <td class="paramname"><span class="paramname"><em>stageFlags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a descriptor set layout binding to the pipeline For HLSL shader writing, refer to <a href="https://github.com/microsoft/DirectXShaderCompiler/blob/080aeb7199e66e4b0a2b6383fd26a9f8d2cccbf5/docs/SPIR-V.rst#:~:text=Without%20attribute%20and%20command%2Dline%20option%2C,so%20this%20may%20cause%20overlap">https://github.com/microsoft/DirectXShaderCompiler/blob/080aeb7199e66e4b0a2b6383fd26a9f8d2cccbf5/docs/SPIR-V.rst#:~:text=Without%20attribute%20and%20command%2Dline%20option%2C,so%20this%20may%20cause%20overlap</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptorSetIndex</td><td></td></tr>
+    <tr><td class="paramname">binding</td><td></td></tr>
+    <tr><td class="paramname">type</td><td></td></tr>
+    <tr><td class="paramname">descriptorCount</td><td></td></tr>
+    <tr><td class="paramname">stageFlags</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a571bf4c10331e4d55caf661ec8868c90" name="a571bf4c10331e4d55caf661ec8868c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a571bf4c10331e4d55caf661ec8868c90">&#9670;&#160;</a></span>BindDescriptorSets() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::DescriptorPool::BindDescriptorSets </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>descriptorSetIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>pipeline</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkPipelineBindPoint</td>          <td class="paramname"><span class="paramname"><em>bindPoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bind all descriptor sets to the pipeline for the current image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptorSetIndex</td><td></td></tr>
+    <tr><td class="paramname">commandBuffer</td><td></td></tr>
+    <tr><td class="paramname">shaderPipeline</td><td>Shader Pipeline we are binding the descriptor sets to </td></tr>
+    <tr><td class="paramname">bindPoint</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae463239e5fc4cbf0991a0d2fd7f49db9" name="ae463239e5fc4cbf0991a0d2fd7f49db9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae463239e5fc4cbf0991a0d2fd7f49db9">&#9670;&#160;</a></span>BindDescriptorSets() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::DescriptorPool::BindDescriptorSets </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>descriptorSetIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>pipeline</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkPipelineBindPoint</td>          <td class="paramname"><span class="paramname"><em>bindPoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; uint32_t &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>dynamicOffsets</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bind all descriptor sets to the pipeline for the current image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptorSetIndex</td><td></td></tr>
+    <tr><td class="paramname">commandBuffer</td><td></td></tr>
+    <tr><td class="paramname">shaderPipeline</td><td>Shader Pipeline we are binding the descriptor sets to </td></tr>
+    <tr><td class="paramname">bindPoint</td><td></td></tr>
+    <tr><td class="paramname">dynamicOffsets</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3c2aa8faa4b2632e946dace62cfc9a16" name="a3c2aa8faa4b2632e946dace62cfc9a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c2aa8faa4b2632e946dace62cfc9a16">&#9670;&#160;</a></span>GetDescriptorSets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_group_allocator.html">DescriptorSetGroupAllocator</a> &amp; venom::vulkan::DescriptorPool::GetDescriptorSets </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the descriptor sets from the specified set index returns a vector of size VENOM_MAX_FRAMES_IN_FLIGHT because of the multiple swapchain images to handle. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;DescriptorSet&gt; &amp; </dd></dl>
+
+</div>
+</div>
+<a id="a53aa94dcbd82276ab40faa7a946c5132" name="a53aa94dcbd82276ab40faa7a946c5132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53aa94dcbd82276ab40faa7a946c5132">&#9670;&#160;</a></span>SetDescriptorSetLayoutBindingSpecifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::DescriptorPool::SetDescriptorSetLayoutBindingSpecifications </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>descriptorSetIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkDescriptorBindingFlags</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the descriptor set layout binding specifications. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptorSetIndex</td><td></td></tr>
+    <tr><td class="paramname">flags</td><td>Binding Flags </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae8ef3c8a096530e74a4b561273effab7" name="ae8ef3c8a096530e74a4b561273effab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ef3c8a096530e74a4b561273effab7">&#9670;&#160;</a></span>SetDescriptorSetLayoutCreateFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::DescriptorPool::SetDescriptorSetLayoutCreateFlags </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>descriptorSetIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkDescriptorSetLayoutCreateFlags</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the descriptor set layout create flags. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptorSetIndex</td><td></td></tr>
+    <tr><td class="paramname">flags</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab23080d093624b7e29b287525e21de5d" name="ab23080d093624b7e29b287525e21de5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab23080d093624b7e29b287525e21de5d">&#9670;&#160;</a></span>SetDescriptorSetLayoutMaxSets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::DescriptorPool::SetDescriptorSetLayoutMaxSets </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>descriptorSetIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the descriptor set layout max sets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptorSetIndex</td><td></td></tr>
+    <tr><td class="paramname">maxSets</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_descriptor_pool_8h_source.html">DescriptorPool.h</a></li>
-<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_descriptor_pool_8cc.html">DescriptorPool.cc</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_descriptor_pool_8h_source.html">DescriptorPool.h</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_descriptor_pool_8cc.html">DescriptorPool.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

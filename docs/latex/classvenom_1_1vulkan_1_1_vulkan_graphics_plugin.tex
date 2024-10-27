@@ -9,11 +9,19 @@ Inheritance diagram for venom\+::vulkan\+::Vulkan\+Graphics\+Plugin\+:\begin{fig
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{vc\+::\+Graphics\+Application}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ad8444923e9ef4173c4fc31f314847ef8}{Create\+Graphics\+Application}} ()
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{vc\+::\+Graphics\+Application}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a2d2755c8272c1bed6736f6d982de8b3d}{Create\+Graphics\+Application}} () override
 \item 
-\mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_aad703c5e655da4a8b8c284ba4af2329a}{Create\+Mesh}} () override
+\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{vc\+::\+Model\+Impl}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_afe6a214051eb56e2cb6d1a5035d2ce09}{Create\+Model}} () override
 \item 
-\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae894feda1b918f8be354cb698f4da906}{Create\+Texture}} () override
+\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{vc\+::\+Mesh\+Impl}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae582502326e0417493e59b5bcbda3b9a}{Create\+Mesh}} () override
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc\+::\+Texture\+Impl}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ac11954aa01b42450e21bb8dffbfc62da}{Create\+Texture}} () override
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{vc\+::\+Material\+Impl}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a68cffd0e1ac111c8819240233bfbb069}{Create\+Material}} () override
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{vc\+::\+Camera\+Impl}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a220cec992f9bd49ad294c83ed6290d77}{Create\+Camera}} () override
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{vc\+::\+Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae0a7e3932d4dcc2c66f2c7d8147022d9}{Create\+Shader\+Resource\+Table}} () override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}}
@@ -48,31 +56,71 @@ static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{Graphics\+Plug
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ad8444923e9ef4173c4fc31f314847ef8}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateGraphicsApplication@{CreateGraphicsApplication}}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a220cec992f9bd49ad294c83ed6290d77}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateCamera@{CreateCamera}}
+\index{CreateCamera@{CreateCamera}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
+\doxysubsubsection{\texorpdfstring{CreateCamera()}{CreateCamera()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a220cec992f9bd49ad294c83ed6290d77} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{vc\+::\+Camera\+Impl}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Camera (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a2d2755c8272c1bed6736f6d982de8b3d}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateGraphicsApplication@{CreateGraphicsApplication}}
 \index{CreateGraphicsApplication@{CreateGraphicsApplication}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
 \doxysubsubsection{\texorpdfstring{CreateGraphicsApplication()}{CreateGraphicsApplication()}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ad8444923e9ef4173c4fc31f314847ef8} 
-\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{vc\+::\+Graphics\+Application}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Graphics\+Application (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a2d2755c8272c1bed6736f6d982de8b3d} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{vc\+::\+Graphics\+Application}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Graphics\+Application (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}.
 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_aad703c5e655da4a8b8c284ba4af2329a}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateMesh@{CreateMesh}}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a68cffd0e1ac111c8819240233bfbb069}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateMaterial@{CreateMaterial}}
+\index{CreateMaterial@{CreateMaterial}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
+\doxysubsubsection{\texorpdfstring{CreateMaterial()}{CreateMaterial()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_a68cffd0e1ac111c8819240233bfbb069} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{vc\+::\+Material\+Impl}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Material (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae582502326e0417493e59b5bcbda3b9a}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateMesh@{CreateMesh}}
 \index{CreateMesh@{CreateMesh}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
 \doxysubsubsection{\texorpdfstring{CreateMesh()}{CreateMesh()}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_aad703c5e655da4a8b8c284ba4af2329a} 
-\mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Mesh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae582502326e0417493e59b5bcbda3b9a} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{vc\+::\+Mesh\+Impl}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Mesh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}.
 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae894feda1b918f8be354cb698f4da906}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateTexture@{CreateTexture}}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_afe6a214051eb56e2cb6d1a5035d2ce09}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateModel@{CreateModel}}
+\index{CreateModel@{CreateModel}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
+\doxysubsubsection{\texorpdfstring{CreateModel()}{CreateModel()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_afe6a214051eb56e2cb6d1a5035d2ce09} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{vc\+::\+Model\+Impl}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae0a7e3932d4dcc2c66f2c7d8147022d9}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateShaderResourceTable@{CreateShaderResourceTable}}
+\index{CreateShaderResourceTable@{CreateShaderResourceTable}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
+\doxysubsubsection{\texorpdfstring{CreateShaderResourceTable()}{CreateShaderResourceTable()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae0a7e3932d4dcc2c66f2c7d8147022d9} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{vc\+::\+Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Shader\+Resource\+Table (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::common\+::\+Graphics\+Plugin}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ac11954aa01b42450e21bb8dffbfc62da}\index{venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}!CreateTexture@{CreateTexture}}
 \index{CreateTexture@{CreateTexture}!venom::vulkan::VulkanGraphicsPlugin@{venom::vulkan::VulkanGraphicsPlugin}}
 \doxysubsubsection{\texorpdfstring{CreateTexture()}{CreateTexture()}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ae894feda1b918f8be354cb698f4da906} 
-\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Texture (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin_ac11954aa01b42450e21bb8dffbfc62da} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc\+::\+Texture\+Impl}} \texorpdfstring{$\ast$}{*} venom\+::vulkan\+::\+Vulkan\+Graphics\+Plugin\+::\+Create\+Texture (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -82,5 +130,5 @@ Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{venom\+::c
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{vulkan_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{vulkan_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}

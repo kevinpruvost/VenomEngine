@@ -1,0 +1,73 @@
+\doxysection{Graphics\+Plugin\+Object.\+h}
+\hypertarget{_graphics_plugin_object_8h_source}{}\label{_graphics_plugin_object_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsPluginObject.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsPluginObject.h}}
+\mbox{\hyperlink{_graphics_plugin_object_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_plugin_object_8h}{venom/common/plugin/PluginObject.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }GraphicsCachedResource;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }GraphicsPluginObject;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Must\ not\ inherit\ GraphicsCachedResource\ and\ GraphicsPluginObject\ at\ the\ same\ time}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00023\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptvenom_1_1common_1_1_valid_graphics_cached_resource}{ValidGraphicsCachedResource}}\ =\ std::is\_base\_of<GraphicsCachedResource,\ T>::value\ \&\&\ !std::is\_base\_of<GraphicsPluginObject,\ T>::value;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}()\ \{\}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{\string~GraphicsCachedResource}}();}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ ReleaseFromCache();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{inline}\ T\ *\ As()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ As()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ Must\ not\ inherit\ GraphicsCachedResource\ and\ GraphicsPluginObject\ at\ the\ same\ time}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00044\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptvenom_1_1common_1_1_valid_graphics_cached_resource_holder}{ValidGraphicsCachedResourceHolder}}\ =\ !std::is\_base\_of<GraphicsCachedResource,\ T>::value\ \&\&\ std::is\_base\_of<GraphicsPluginObject,\ T>::value;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}();}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{\string~GraphicsCachedResourceHolder}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ SPtr<GraphicsCachedResource>\ \&\ \_GetTextureToCache()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource;\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{inline}\ SPtr<GraphicsCachedResource>\ \&\ \_GetTextureToCache()\ \{\ \textcolor{keywordflow}{return}\ \_resource;\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_LoadFromCache(\textcolor{keyword}{const}\ SPtr<GraphicsCachedResource>\ \&\ cache)\ \{\ \_resource\ =\ cache;\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ SPtr<GraphicsCachedResource>\ \_resource;}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{\string~GraphicsPluginObject}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Destroy()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ HasCachedObject(\textcolor{keyword}{const}\ std::string\ \&\ path);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{static}\ SPtr<GraphicsCachedResource>\ GetCachedObject(\textcolor{keyword}{const}\ std::string\ \&\ path);}
+\DoxyCodeLine{00090\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_SetInCache(\textcolor{keyword}{const}\ std::string\ \&\ path,\ \textcolor{keyword}{const}\ SPtr<GraphicsCachedResource>\ \&\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_SetCacheSize(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_AddCacheSize(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ \}}
+
+\end{DoxyCode}

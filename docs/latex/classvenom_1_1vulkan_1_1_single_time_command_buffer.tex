@@ -50,17 +50,19 @@ void {\bfseries Set\+Scissor} (const Vk\+Rect2D \&scissor) const
 \item 
 void {\bfseries Draw} (uint32\+\_\+t vertex\+Count, uint32\+\_\+t instance\+Count, uint32\+\_\+t first\+Vertex, uint32\+\_\+t first\+Instance) const
 \item 
-void {\bfseries Draw\+Mesh} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}} \&vulkan\+Mesh) const
+void {\bfseries Draw\+Mesh} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}} \texorpdfstring{$\ast$}{*}vulkan\+Mesh, const int first\+Instance, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&pipeline) const
+\item 
+void {\bfseries Draw\+Model} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_model}{Vulkan\+Model}} \texorpdfstring{$\ast$}{*}vulkan\+Model, const int first\+Instance, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&pipeline) const
 \item 
 void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, uint32\+\_\+t offset, uint32\+\_\+t size, const void \texorpdfstring{$\ast$}{*}p\+Values) const
-\item 
-void {\bfseries Copy\+Buffer} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&src\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&dst\+Buffer)
 \item 
 void {\bfseries Copy\+Buffer\+To\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&src\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&dst\+Image)
 \item 
 void {\bfseries Transition\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, Vk\+Format format, Vk\+Image\+Layout old\+Layout, Vk\+Image\+Layout new\+Layout)
 \item 
-void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, uint32\+\_\+t descript\+Set\+Count, Vk\+Descriptor\+Set vk\+Descriptors)
+void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, Vk\+Descriptor\+Set vk\+Descriptors) const
+\item 
+void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, uint32\+\_\+t descript\+Set\+Count, const Vk\+Descriptor\+Set \texorpdfstring{$\ast$}{*}vk\+Descriptors) const
 \item 
 void {\bfseries Submit\+To\+Queue} (Vk\+Fence fence=VK\+\_\+\+NULL\+\_\+\+HANDLE, Vk\+Semaphore wait\+Semaphore=VK\+\_\+\+NULL\+\_\+\+HANDLE, Vk\+Pipeline\+Stage\+Flags wait\+Stage=0, Vk\+Semaphore signal\+Semaphore=VK\+\_\+\+NULL\+\_\+\+HANDLE)
 \item 
@@ -87,5 +89,5 @@ bool {\bfseries \+\_\+is\+Active}
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_command_pool_8h}{Command\+Pool.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_command_pool_8cc}{Command\+Pool.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_command_pool_8h}{Command\+Pool.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_command_pool_8cc}{Command\+Pool.\+cc}}\end{DoxyCompactItemize}

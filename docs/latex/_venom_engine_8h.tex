@@ -1,11 +1,13 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Venom\+Engine.h File Reference}
-\hypertarget{_venom_engine_8h}{}\label{_venom_engine_8h}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Venom\+Engine.h File Reference}
+\hypertarget{_venom_engine_8h}{}\label{_venom_engine_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/VenomEngine.h}}
 {\ttfamily \#include $<$venom/common/plugin/\+Plugin\+Manager.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+ECS.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Venom\+Settings.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{venom\+::common\+::\+Venom\+Engine}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,6 +15,12 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a5b519f7b1b4175543bd31666b4daacc2}\label{namespacevenom_1_1common_a5b519f7b1b4175543bd31666b4daacc2} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::\+Scene\+Callback}) ()
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

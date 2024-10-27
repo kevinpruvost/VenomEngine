@@ -1,0 +1,86 @@
+\doxysection{venom\+::common\+::Transform3D Class Reference}
+\hypertarget{classvenom_1_1common_1_1_transform3_d}{}\label{classvenom_1_1common_1_1_transform3_d}\index{venom::common::Transform3D@{venom::common::Transform3D}}
+Inheritance diagram for venom\+::common\+::Transform3D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classvenom_1_1common_1_1_transform3_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_afab181d222b3d5fab787aa757ae72b09}\label{classvenom_1_1common_1_1_transform3_d_afab181d222b3d5fab787aa757ae72b09} 
+{\bfseries Transform3D} (const \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_aba23b7624de6e1d6f13401507f6c514e}\label{classvenom_1_1common_1_1_transform3_d_aba23b7624de6e1d6f13401507f6c514e} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_af89dc61562d5090ab72504873cc0e0d7}\label{classvenom_1_1common_1_1_transform3_d_af89dc61562d5090ab72504873cc0e0d7} 
+{\bfseries Transform3D} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a7aa82cad931e07405ac280415f4e9cb9}\label{classvenom_1_1common_1_1_transform3_d_a7aa82cad931e07405ac280415f4e9cb9} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_ab1311a76e0afa71c8829f41da4d72b08}\label{classvenom_1_1common_1_1_transform3_d_ab1311a76e0afa71c8829f41da4d72b08} 
+void {\bfseries Set\+Position} (const vcm\+::\+Vec3 \&position)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a5400b724ad7494105c668eb607960eef}\label{classvenom_1_1common_1_1_transform3_d_a5400b724ad7494105c668eb607960eef} 
+void {\bfseries Move} (const vcm\+::\+Vec3 \&delta)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a6c1e6699199fb0be9ee05b0146dc4428}\label{classvenom_1_1common_1_1_transform3_d_a6c1e6699199fb0be9ee05b0146dc4428} 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Position} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_aebea3c2fa664ff4f283eaa4ceed84e4a}\label{classvenom_1_1common_1_1_transform3_d_aebea3c2fa664ff4f283eaa4ceed84e4a} 
+bool {\bfseries Has\+Position\+Changed} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a3b5d65b66d1c70cb2fd9b8171ef290ef}\label{classvenom_1_1common_1_1_transform3_d_a3b5d65b66d1c70cb2fd9b8171ef290ef} 
+void {\bfseries Set\+Rotation} (const vcm\+::\+Quat \&rotation)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a0c5ba5a93fd2e1aeb2312d2c9aed8b35}\label{classvenom_1_1common_1_1_transform3_d_a0c5ba5a93fd2e1aeb2312d2c9aed8b35} 
+void {\bfseries Rotate} (const vcm\+::\+Vec3 \&axis, float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a5f2c7002e3c84cf83f64f474b3c991b1}\label{classvenom_1_1common_1_1_transform3_d_a5f2c7002e3c84cf83f64f474b3c991b1} 
+const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a9cc357e34efd2d481c68fe3f7ff20556}\label{classvenom_1_1common_1_1_transform3_d_a9cc357e34efd2d481c68fe3f7ff20556} 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Rotation} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a0621b3e1c1a700a9943c8df854ca1200}\label{classvenom_1_1common_1_1_transform3_d_a0621b3e1c1a700a9943c8df854ca1200} 
+void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a2772d1312f33f534a9619ee95f979652}\label{classvenom_1_1common_1_1_transform3_d_a2772d1312f33f534a9619ee95f979652} 
+vcm\+::\+Vec3 {\bfseries Get\+Forward\+Vector} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a20b72721c4c152a94c30ee6ebdf5ccc0}\label{classvenom_1_1common_1_1_transform3_d_a20b72721c4c152a94c30ee6ebdf5ccc0} 
+vcm\+::\+Vec3 {\bfseries Get\+Up\+Vector} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a8856efd17ac6db8f0370907ed6f5e365}\label{classvenom_1_1common_1_1_transform3_d_a8856efd17ac6db8f0370907ed6f5e365} 
+vcm\+::\+Vec3 {\bfseries Get\+Right\+Vector} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a6ad2db1b06c3ae7a6fe86afb551699ca}\label{classvenom_1_1common_1_1_transform3_d_a6ad2db1b06c3ae7a6fe86afb551699ca} 
+void {\bfseries Update\+Model\+Matrix} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_ab3f045cd7a19778e96a50e05ca8a3db8}\label{classvenom_1_1common_1_1_transform3_d_ab3f045cd7a19778e96a50e05ca8a3db8} 
+const vcm\+::\+Mat4 \& {\bfseries Get\+Model\+Matrix} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a9c83ecca076e892fbe3796c6b958c2ec}\label{classvenom_1_1common_1_1_transform3_d_a9c83ecca076e892fbe3796c6b958c2ec} 
+vcm\+::\+Vec3 {\bfseries \+\_\+position}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_aa3617bc697b69f04b3b91899fa14cce7}\label{classvenom_1_1common_1_1_transform3_d_aa3617bc697b69f04b3b91899fa14cce7} 
+vcm\+::\+Quat {\bfseries \+\_\+rotation}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_aff4e2ca7944f16dd03f20b6d25afa09a}\label{classvenom_1_1common_1_1_transform3_d_aff4e2ca7944f16dd03f20b6d25afa09a} 
+vcm\+::\+Vec3 {\bfseries \+\_\+3\+Drotation\+View}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a1ad514c14f65d1193bacf364677137ac}\label{classvenom_1_1common_1_1_transform3_d_a1ad514c14f65d1193bacf364677137ac} 
+vcm\+::\+Mat4 {\bfseries \+\_\+model\+Matrix}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\mbox{\hyperlink{_transform3_d_8h}{Transform3\+D.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_transform3_d_8cc}{Transform3\+D.\+cc}}\end{DoxyCompactItemize}

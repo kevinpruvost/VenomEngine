@@ -1,0 +1,66 @@
+\doxysection{Shader\+Resource\+Table.\+h}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/ShaderResourceTable.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/ShaderResourceTable.h}}
+\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_plugin_object_8h}{venom/common/plugin/graphics/GraphicsPluginObject.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{venom/common/plugin/graphics/Texture.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_matrix_8h}{venom/common/math/Matrix.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_venom_settings_8h}{venom/common/VenomSettings.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ @brief\ Means\ that\ all\ model\ matrices\ will\ be\ located\ in\ a\ packed\ buffer}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ @brief\ Means\ that\ all\ textures\ will\ be\ bindless,\ MoltenVk\ only\ allows\ for\ small\ amounts\ of\ bindless\ textures}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{ShaderResource}}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{\string~ShaderResourceTable}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{enum}\ SetsIndex}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ SETS\_INDEX\_MODEL\_MATRICES\ =\ 0,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ SETS\_INDEX\_CAMERA\ =\ 1,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ SETS\_INDEX\_TEXTURES\ =\ 2,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ SETS\_INDEX\_SAMPLER\ =\ 3,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ SETS\_INDEX\_MATERIAL\ =\ 4,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ SETS\_INDEX\_SCENE\ =\ 5,}
+\DoxyCodeLine{00050\ \ \ \ \ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetAllModelMatrixBuffer();}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetModelMatrixBuffer();}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ GetAllModelMatrixBytesSize()\ \{\ \textcolor{keywordflow}{return}\ VENOM\_MAX\_ENTITIES\ *\ \textcolor{keyword}{sizeof}(vcm::Mat4);\ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ReleaseModelMatrixBuffer(\textcolor{keyword}{const}\ vcm::Mat4\ *\ mat);}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetModelMatrixBufferId(\textcolor{keyword}{const}\ vcm::Mat4\ *\ mat);}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ BindTexture();}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UnbindTexture(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetMaxTextures(uint32\_t\ maxTextures);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetMaxTextures()\ \{\ \textcolor{keywordflow}{return}\ \_\_maxTextures;\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsingLargeBindlessTextures()\ \{\ \textcolor{keywordflow}{return}\ \_\_maxTextures\ ==\ VENOM\_MAX\_BINDLESS\_TEXTURES;\ \}}
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_maxTextures;}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ \}}
+
+\end{DoxyCode}

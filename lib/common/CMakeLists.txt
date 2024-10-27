@@ -29,6 +29,8 @@ target_link_libraries(${PROJECT_NAME}
     glm
     stb_image
     flecs::flecs
+    OpenEXR::OpenEXR
+    openvdb_static
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE

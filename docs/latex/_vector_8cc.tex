@@ -1,5 +1,5 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\+Vector.cc File Reference}
-\hypertarget{_vector_8cc}{}\label{_vector_8cc}\index{D:/Repositories/Perso/VenomEngine/lib/common/src/Vector.cc@{D:/Repositories/Perso/VenomEngine/lib/common/src/Vector.cc}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\+Vector.cc File Reference}
+\hypertarget{_vector_8cc}{}\label{_vector_8cc}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Vector.cc@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Vector.cc}}
 {\ttfamily \#include $<$venom/common/math/\+Vector.\+h$>$}\newline
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
@@ -8,6 +8,23 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_ad017de705bddff4c8fee33385ac80e86}{venom\+::common\+::math\+::\+Get\+Euler\+Angles}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Gets Euler Angles From Quaternion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}{venom\+::common\+::math\+::\+Rotate\+Quat}} (vcm\+::\+Quat \&quat, const float angle, const vcm\+::\+Vec3 \&axis)
+\begin{DoxyCompactList}\small\item\em Rotate a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Quat \mbox{\hyperlink{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65}{venom\+::common\+::math\+::\+Quat\+From\+View\+Matrix}} (const vcm\+::\+Mat4 \&view\+Matrix)
+\begin{DoxyCompactList}\small\item\em Create a quaternion from a view matrix. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}{venom\+::common\+::math\+::\+Get\+Forward}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Get the forward vector from a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}{venom\+::common\+::math\+::\+Get\+Up}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Get the up vector from a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}{venom\+::common\+::math\+::\+Get\+Right}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Get the right vector from a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Quat \mbox{\hyperlink{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}{venom\+::common\+::math\+::\+Identity\+Quat}} ()
+\begin{DoxyCompactList}\small\item\em Get the identity quaternion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -19,3 +36,128 @@ Aug, 25 2024
 \begin{DoxyAuthor}{Author}
 Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
 \end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_vector_8h_ad017de705bddff4c8fee33385ac80e86}\index{Vector.cc@{Vector.cc}!GetEulerAngles@{GetEulerAngles}}
+\index{GetEulerAngles@{GetEulerAngles}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{GetEulerAngles()}{GetEulerAngles()}}
+{\footnotesize\ttfamily \label{_vector_8h_ad017de705bddff4c8fee33385ac80e86} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Euler\+Angles (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Gets Euler Angles From Quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Euler Angles 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}\index{Vector.cc@{Vector.cc}!GetForward@{GetForward}}
+\index{GetForward@{GetForward}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{GetForward()}{GetForward()}}
+{\footnotesize\ttfamily \label{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Forward (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Get the forward vector from a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Forward vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}\index{Vector.cc@{Vector.cc}!GetRight@{GetRight}}
+\index{GetRight@{GetRight}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{GetRight()}{GetRight()}}
+{\footnotesize\ttfamily \label{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Right (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Get the right vector from a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+right vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}\index{Vector.cc@{Vector.cc}!GetUp@{GetUp}}
+\index{GetUp@{GetUp}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{GetUp()}{GetUp()}}
+{\footnotesize\ttfamily \label{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Up (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Get the up vector from a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+up vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}\index{Vector.cc@{Vector.cc}!IdentityQuat@{IdentityQuat}}
+\index{IdentityQuat@{IdentityQuat}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{IdentityQuat()}{IdentityQuat()}}
+{\footnotesize\ttfamily \label{_vector_8h_a40ed191ee8aa4317568a2f832caf6416} 
+vcm\+::\+Quat venom\+::common\+::math\+::\+Identity\+Quat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the identity quaternion. 
+
+\begin{DoxyReturn}{Returns}
+Identity quaternion 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65}\index{Vector.cc@{Vector.cc}!QuatFromViewMatrix@{QuatFromViewMatrix}}
+\index{QuatFromViewMatrix@{QuatFromViewMatrix}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{QuatFromViewMatrix()}{QuatFromViewMatrix()}}
+{\footnotesize\ttfamily \label{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65} 
+vcm\+::\+Quat venom\+::common\+::math\+::\+Quat\+From\+View\+Matrix (\begin{DoxyParamCaption}\item[{const vcm\+::\+Mat4 \&}]{view\+Matrix}{}\end{DoxyParamCaption})}
+
+
+
+Create a quaternion from a view matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em view\+Matrix} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Quaternion 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}\index{Vector.cc@{Vector.cc}!RotateQuat@{RotateQuat}}
+\index{RotateQuat@{RotateQuat}!Vector.cc@{Vector.cc}}
+\doxysubsubsection{\texorpdfstring{RotateQuat()}{RotateQuat()}}
+{\footnotesize\ttfamily \label{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699} 
+void venom\+::common\+::math\+::\+Rotate\+Quat (\begin{DoxyParamCaption}\item[{vcm\+::\+Quat \&}]{quat}{, }\item[{const float}]{angle}{, }\item[{const vcm\+::\+Vec3 \&}]{axis}{}\end{DoxyParamCaption})}
+
+
+
+Rotate a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+{\em angle} & \\
+\hline
+{\em axis} & \\
+\hline
+\end{DoxyParams}

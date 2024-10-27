@@ -3,11 +3,14 @@
 Inheritance diagram for venom\+::common\+::Texture\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=4.000000cm]{classvenom_1_1common_1_1_texture}
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_texture}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_aeac65010f6a077e2ce0e74c338be30f7}\label{classvenom_1_1common_1_1_texture_aeac65010f6a077e2ce0e74c338be30f7} 
+{\bfseries Texture} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_texture_acab2521e37a752b13aa8267f63e28a35}\label{classvenom_1_1common_1_1_texture_acab2521e37a752b13aa8267f63e28a35} 
 vc\+::\+Error {\bfseries Load\+Image\+From\+File} (const char \texorpdfstring{$\ast$}{*}path)
@@ -15,29 +18,47 @@ vc\+::\+Error {\bfseries Load\+Image\+From\+File} (const char \texorpdfstring{$\
 \Hypertarget{classvenom_1_1common_1_1_texture_a61a11b31bda0c0e10e3d96c757a7b484}\label{classvenom_1_1common_1_1_texture_a61a11b31bda0c0e10e3d96c757a7b484} 
 vc\+::\+Error {\bfseries Init\+Depth\+Buffer} (int width, int height)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_texture_a50037df0091e1e3bd6b173b43e44cd6f}\label{classvenom_1_1common_1_1_texture_a50037df0091e1e3bd6b173b43e44cd6f} 
-virtual vc\+::\+Error {\bfseries \+\_\+\+\_\+\+Load\+Image} (unsigned char \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels)=0
-\item 
-\Hypertarget{classvenom_1_1common_1_1_texture_a07d29b7c9e3b69a36feae0662027b1f0}\label{classvenom_1_1common_1_1_texture_a07d29b7c9e3b69a36feae0662027b1f0} 
-virtual vc\+::\+Error {\bfseries \+\_\+\+\_\+\+Init\+Depth\+Buffer} (int width, int height)=0
+\Hypertarget{classvenom_1_1common_1_1_texture_a16bdc9cbe17379ce14dc5d7ac54f973c}\label{classvenom_1_1common_1_1_texture_a16bdc9cbe17379ce14dc5d7ac54f973c} 
+bool {\bfseries Has\+Texture} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Plugin\+Object} (const Plugin\+Type type)
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+bool {\bfseries Is\+Impl\+Initialized} () const
 \item 
 void {\bfseries Destroy} ()
-\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_texture_a3ec59afa252a4fcdf7ec48ff903175c8}\label{classvenom_1_1common_1_1_texture_a3ec59afa252a4fcdf7ec48ff903175c8} 
-static \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstring{$\ast$}{*} {\bfseries Create} ()
+\Hypertarget{classvenom_1_1common_1_1_texture_a14ca681cbdc4b144bd9f49ff7fe2ee78}\label{classvenom_1_1common_1_1_texture_a14ca681cbdc4b144bd9f49ff7fe2ee78} 
+class {\bfseries Graphics\+Application}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
 \end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{Texture.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_texture_8cc}{Texture.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{Texture.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_texture_8cc}{Texture.\+cc}}\end{DoxyCompactItemize}

@@ -1,0 +1,70 @@
+\doxysection{venom\+::common\+::Model Class Reference}
+\hypertarget{classvenom_1_1common_1_1_model}{}\label{classvenom_1_1common_1_1_model}\index{venom::common::Model@{venom::common::Model}}
+
+
+Contains all the mesh\textquotesingle{}s data and is the main high-\/level interface for the user.  
+
+
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+Inheritance diagram for venom\+::common\+::Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_a7e17adb69fef2878e5f5e2b64cf090e1}\label{classvenom_1_1common_1_1_model_a7e17adb69fef2878e5f5e2b64cf090e1} 
+{\bfseries Model} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_ab116d06a9c63ffdfa310e84f9d451598}\label{classvenom_1_1common_1_1_model_ab116d06a9c63ffdfa310e84f9d451598} 
+void {\bfseries Draw} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_abc392935143d3da4160b2853ce609cc5}\label{classvenom_1_1common_1_1_model_abc392935143d3da4160b2853ce609cc5} 
+vc\+::\+Error {\bfseries Import\+Model} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_a1e15ad5dbe62217604117b1df78670ac}\label{classvenom_1_1common_1_1_model_a1e15ad5dbe62217604117b1df78670ac} 
+const std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} $>$ \& {\bfseries Get\+Meshes} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+bool {\bfseries Is\+Impl\+Initialized} () const
+\item 
+void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains all the mesh\textquotesingle{}s data and is the main high-\/level interface for the user. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/Model.\+h\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/Model.\+cc\end{DoxyCompactItemize}

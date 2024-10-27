@@ -1,5 +1,5 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/math/\+Vector.h File Reference}
-\hypertarget{_vector_8h}{}\label{_vector_8h}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/math/\+Vector.h File Reference}
+\hypertarget{_vector_8h}{}\label{_vector_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/math/Vector.h}}
 {\ttfamily \#include $<$venom/common/math/\+Math.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/\+Error.\+h$>$}\newline
 \doxysubsubsection*{Namespaces}
@@ -18,18 +18,38 @@ typedef Vec3 {\bfseries venom\+::common\+::math\+::\+Vertex\+Pos}
 \Hypertarget{_vector_8h_a289048b896761b00897eeb561b2ce5dc}\label{_vector_8h_a289048b896761b00897eeb561b2ce5dc} 
 typedef Vec3 {\bfseries venom\+::common\+::math\+::\+Vertex\+Normal}
 \begin{DoxyCompactList}\small\item\em Vertex Normal (3 floats) \end{DoxyCompactList}\item 
-\Hypertarget{_vector_8h_a75214a8ebd3c53e1cf6fa2c997a64efb}\label{_vector_8h_a75214a8ebd3c53e1cf6fa2c997a64efb} 
-typedef Vec3 {\bfseries venom\+::common\+::math\+::\+Vertex\+Color}
-\begin{DoxyCompactList}\small\item\em Vertex Color (3 floats) \end{DoxyCompactList}\item 
+\Hypertarget{_vector_8h_a34c20fd280aa09317ad9e948afda1664}\label{_vector_8h_a34c20fd280aa09317ad9e948afda1664} 
+typedef Vec4 {\bfseries venom\+::common\+::math\+::\+Vertex\+Color}
+\begin{DoxyCompactList}\small\item\em Vertex Color (4 floats) RGBA. \end{DoxyCompactList}\item 
 \Hypertarget{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}\label{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4} 
 typedef Vec2 {\bfseries venom\+::common\+::math\+::\+Vertex\+UV}
 \begin{DoxyCompactList}\small\item\em Vertex \doxylink{classvenom_1_1common_1_1_texture}{Texture} Coordinates (2 floats) \end{DoxyCompactList}\item 
+\Hypertarget{_vector_8h_a066a89acef984c6819306a176b693d65}\label{_vector_8h_a066a89acef984c6819306a176b693d65} 
+typedef Vec3 {\bfseries venom\+::common\+::math\+::\+Vertex\+Tangent}
+\begin{DoxyCompactList}\small\item\em Vertex Tangents (3 floats) \end{DoxyCompactList}\item 
 \Hypertarget{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd}\label{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd} 
 typedef Vec3 {\bfseries venom\+::common\+::math\+::\+Vertex\+Bitangent}
 \begin{DoxyCompactList}\small\item\em Vertex Bitangent (3 floats) \end{DoxyCompactList}\item 
 \Hypertarget{_vector_8h_a36b6a61f40d61b43b3c4bf534f0769ca}\label{_vector_8h_a36b6a61f40d61b43b3c4bf534f0769ca} 
 typedef uint32\+\_\+t {\bfseries venom\+::common\+::math\+::\+Vertex\+Index}
 \begin{DoxyCompactList}\small\item\em Vertex Index (used for indexing in element buffers) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_ad017de705bddff4c8fee33385ac80e86}{venom\+::common\+::math\+::\+Get\+Euler\+Angles}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Gets Euler Angles From Quaternion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}{venom\+::common\+::math\+::\+Rotate\+Quat}} (vcm\+::\+Quat \&quat, const float angle, const vcm\+::\+Vec3 \&axis)
+\begin{DoxyCompactList}\small\item\em Rotate a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Quat \mbox{\hyperlink{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65}{venom\+::common\+::math\+::\+Quat\+From\+View\+Matrix}} (const vcm\+::\+Mat4 \&view\+Matrix)
+\begin{DoxyCompactList}\small\item\em Create a quaternion from a view matrix. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}{venom\+::common\+::math\+::\+Get\+Forward}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Get the forward vector from a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}{venom\+::common\+::math\+::\+Get\+Up}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Get the up vector from a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}{venom\+::common\+::math\+::\+Get\+Right}} (const vcm\+::\+Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Get the right vector from a quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Quat \mbox{\hyperlink{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}{venom\+::common\+::math\+::\+Identity\+Quat}} ()
+\begin{DoxyCompactList}\small\item\em Get the identity quaternion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -41,3 +61,128 @@ Aug, 25 2024
 \begin{DoxyAuthor}{Author}
 Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
 \end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_vector_8h_ad017de705bddff4c8fee33385ac80e86}\index{Vector.h@{Vector.h}!GetEulerAngles@{GetEulerAngles}}
+\index{GetEulerAngles@{GetEulerAngles}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{GetEulerAngles()}{GetEulerAngles()}}
+{\footnotesize\ttfamily \label{_vector_8h_ad017de705bddff4c8fee33385ac80e86} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Euler\+Angles (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Gets Euler Angles From Quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Euler Angles 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}\index{Vector.h@{Vector.h}!GetForward@{GetForward}}
+\index{GetForward@{GetForward}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{GetForward()}{GetForward()}}
+{\footnotesize\ttfamily \label{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Forward (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Get the forward vector from a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Forward vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}\index{Vector.h@{Vector.h}!GetRight@{GetRight}}
+\index{GetRight@{GetRight}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{GetRight()}{GetRight()}}
+{\footnotesize\ttfamily \label{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Right (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Get the right vector from a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+right vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}\index{Vector.h@{Vector.h}!GetUp@{GetUp}}
+\index{GetUp@{GetUp}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{GetUp()}{GetUp()}}
+{\footnotesize\ttfamily \label{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Up (\begin{DoxyParamCaption}\item[{const vcm\+::\+Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Get the up vector from a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+up vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}\index{Vector.h@{Vector.h}!IdentityQuat@{IdentityQuat}}
+\index{IdentityQuat@{IdentityQuat}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{IdentityQuat()}{IdentityQuat()}}
+{\footnotesize\ttfamily \label{_vector_8h_a40ed191ee8aa4317568a2f832caf6416} 
+vcm\+::\+Quat venom\+::common\+::math\+::\+Identity\+Quat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the identity quaternion. 
+
+\begin{DoxyReturn}{Returns}
+Identity quaternion 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65}\index{Vector.h@{Vector.h}!QuatFromViewMatrix@{QuatFromViewMatrix}}
+\index{QuatFromViewMatrix@{QuatFromViewMatrix}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{QuatFromViewMatrix()}{QuatFromViewMatrix()}}
+{\footnotesize\ttfamily \label{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65} 
+vcm\+::\+Quat venom\+::common\+::math\+::\+Quat\+From\+View\+Matrix (\begin{DoxyParamCaption}\item[{const vcm\+::\+Mat4 \&}]{view\+Matrix}{}\end{DoxyParamCaption})}
+
+
+
+Create a quaternion from a view matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em view\+Matrix} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Quaternion 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}\index{Vector.h@{Vector.h}!RotateQuat@{RotateQuat}}
+\index{RotateQuat@{RotateQuat}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{RotateQuat()}{RotateQuat()}}
+{\footnotesize\ttfamily \label{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699} 
+void venom\+::common\+::math\+::\+Rotate\+Quat (\begin{DoxyParamCaption}\item[{vcm\+::\+Quat \&}]{quat}{, }\item[{const float}]{angle}{, }\item[{const vcm\+::\+Vec3 \&}]{axis}{}\end{DoxyParamCaption})}
+
+
+
+Rotate a quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em quat} & \\
+\hline
+{\em angle} & \\
+\hline
+{\em axis} & \\
+\hline
+\end{DoxyParams}

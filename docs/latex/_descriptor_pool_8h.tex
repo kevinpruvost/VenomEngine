@@ -1,8 +1,16 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\+Descriptor\+Pool.h File Reference}
-\hypertarget{_descriptor_pool_8h}{}\label{_descriptor_pool_8h}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\+Descriptor\+Pool.h File Reference}
+\hypertarget{_descriptor_pool_8h}{}\label{_descriptor_pool_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/DescriptorPool.h}}
 {\ttfamily \#include $<$venom/vulkan/\+Descriptor\+Set.\+h$>$}\newline
+{\ttfamily \#include $<$venom/vulkan/\+Descriptor\+Set\+Layout.\+h$>$}\newline
+{\ttfamily \#include $<$venom/vulkan/\+Shader\+Pipeline.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Venom\+Settings.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/plugin/graphics/\+Graphics\+Application.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{venom\+::vulkan\+::\+Descriptor\+Set\+Group}}
+\begin{DoxyCompactList}\small\item\em Regroups descriptor sets by frame, so if updates have to be done by group, they will be done on the group directly. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{venom\+::vulkan\+::\+Descriptor\+Set\+Group\+Allocator}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{venom\+::vulkan\+::\+Descriptor\+Pool}}
 \end{DoxyCompactItemize}
@@ -13,6 +21,11 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1vulkan}{venom\+::vulkan}}
 \begin{DoxyCompactList}\small\item\em Encapsulation of Vulkan for the front end of Venom\+Engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_descriptor_pool_8h_a621dc51f69326d6ec7243fb4f1ef48de}{DSGA\+\_\+\+GROUP\+\_\+\+UPDATE}}(func)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -24,3 +37,17 @@ Sep, 16 2024
 \begin{DoxyAuthor}{Author}
 Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
 \end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_descriptor_pool_8h_a621dc51f69326d6ec7243fb4f1ef48de}\index{DescriptorPool.h@{DescriptorPool.h}!DSGA\_GROUP\_UPDATE@{DSGA\_GROUP\_UPDATE}}
+\index{DSGA\_GROUP\_UPDATE@{DSGA\_GROUP\_UPDATE}!DescriptorPool.h@{DescriptorPool.h}}
+\doxysubsubsection{\texorpdfstring{DSGA\_GROUP\_UPDATE}{DSGA\_GROUP\_UPDATE}}
+{\footnotesize\ttfamily \label{_descriptor_pool_8h_a621dc51f69326d6ec7243fb4f1ef48de} 
+\#define DSGA\+\_\+\+GROUP\+\_\+\+UPDATE(\begin{DoxyParamCaption}\item[{}]{func}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \_\_descriptorSetGroups.size();\ ++i)\ \{\ \_\_descriptorSetGroups[i].func;\ \}}
+
+\end{DoxyCode}

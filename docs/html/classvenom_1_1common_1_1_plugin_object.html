@@ -129,6 +129,11 @@ $(function(){initNavTree('classvenom_1_1common_1_1_plugin_object.html',''); init
   <div class="headertitle"><div class="title">venom::common::PluginObject Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for all the plugin objects Objects that will be loaded from the plugins as their implementations lie there As a user of <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a>, you should not care about that, unless you plan to create your own plugin.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_plugin_object_8h_source.html">PluginObject.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for venom::common::PluginObject:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -137,13 +142,16 @@ $(function(){initNavTree('classvenom_1_1common_1_1_plugin_object.html',''); init
  <div class="center">
   <img src="classvenom_1_1common_1_1_plugin_object.png" usemap="#venom::common::PluginObject_map" alt=""/>
   <map id="venom::common::PluginObject_map" name="venom::common::PluginObject_map">
-<area href="classvenom_1_1common_1_1_graphics_plugin_object.html" alt="venom::common::GraphicsPluginObject" shape="rect" coords="240,56,470,80"/>
-<area href="classvenom_1_1common_1_1_graphics_application.html" alt="venom::common::GraphicsApplication" shape="rect" coords="0,112,230,136"/>
-<area href="classvenom_1_1common_1_1_mesh.html" title="Contains all the mesh&#39;s data and is the main high-level interface for the user." alt="venom::common::Mesh" shape="rect" coords="240,112,470,136"/>
-<area href="classvenom_1_1common_1_1_texture.html" alt="venom::common::Texture" shape="rect" coords="480,112,710,136"/>
-<area href="classvenom_1_1vulkan_1_1_vulkan_application.html" alt="venom::vulkan::VulkanApplication" shape="rect" coords="0,168,230,192"/>
-<area href="classvenom_1_1vulkan_1_1_vulkan_mesh.html" alt="venom::vulkan::VulkanMesh" shape="rect" coords="240,168,470,192"/>
-<area href="classvenom_1_1vulkan_1_1_vulkan_texture.html" alt="venom::vulkan::VulkanTexture" shape="rect" coords="480,168,710,192"/>
+<area href="classvenom_1_1common_1_1_i_plugin_object.html" alt="venom::common::IPluginObject" shape="rect" coords="0,0,233,24"/>
+<area href="classvenom_1_1common_1_1_graphics_plugin_object.html" title="Base class for graphics plugin objects." alt="venom::common::GraphicsPluginObject" shape="rect" coords="0,112,233,136"/>
+<area href="classvenom_1_1common_1_1_camera_impl.html" alt="venom::common::CameraImpl" shape="rect" coords="243,168,476,192"/>
+<area href="classvenom_1_1common_1_1_graphics_application.html" alt="venom::common::GraphicsApplication" shape="rect" coords="243,224,476,248"/>
+<area href="classvenom_1_1common_1_1_material_impl.html" alt="venom::common::MaterialImpl" shape="rect" coords="243,280,476,304"/>
+<area href="classvenom_1_1common_1_1_mesh_impl.html" alt="venom::common::MeshImpl" shape="rect" coords="243,336,476,360"/>
+<area href="classvenom_1_1common_1_1_model_impl.html" alt="venom::common::ModelImpl" shape="rect" coords="243,392,476,416"/>
+<area href="classvenom_1_1common_1_1_shader_impl.html" alt="venom::common::ShaderImpl" shape="rect" coords="243,448,476,472"/>
+<area href="classvenom_1_1common_1_1_shader_resource_table.html" alt="venom::common::ShaderResourceTable" shape="rect" coords="243,504,476,528"/>
+<area href="classvenom_1_1common_1_1_texture_impl.html" alt="venom::common::TextureImpl" shape="rect" coords="243,560,476,584"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -152,14 +160,85 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a25f4890d211f95df28cb812021c6d6a4" id="r_a25f4890d211f95df28cb812021c6d6a4"><td class="memItemLeft" align="right" valign="top"><a id="a25f4890d211f95df28cb812021c6d6a4" name="a25f4890d211f95df28cb812021c6d6a4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>PluginObject</b> (const PluginType type)</td></tr>
 <tr class="separator:a25f4890d211f95df28cb812021c6d6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59339c9ff38ee2b81dcf8adc3b17e847" id="r_a59339c9ff38ee2b81dcf8adc3b17e847"><td class="memItemLeft" align="right" valign="top"><a id="a59339c9ff38ee2b81dcf8adc3b17e847" name="a59339c9ff38ee2b81dcf8adc3b17e847"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Destroy</b> ()</td></tr>
-<tr class="memdesc:a59339c9ff38ee2b81dcf8adc3b17e847"><td class="mdescLeft">&#160;</td><td class="mdescRight">/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE <code>delete</code> <br /></td></tr>
-<tr class="separator:a59339c9ff38ee2b81dcf8adc3b17e847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab767caede79983aab03a9c8c99c91171" id="r_ab767caede79983aab03a9c8c99c91171"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab767caede79983aab03a9c8c99c91171">Destroy</a> () override</td></tr>
+<tr class="memdesc:ab767caede79983aab03a9c8c99c91171"><td class="mdescLeft">&#160;</td><td class="mdescRight">/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE <code>delete</code>  <br /></td></tr>
+<tr class="separator:ab767caede79983aab03a9c8c99c91171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e2ddf499f1ab33b83c08f9362947041" id="r_a4e2ddf499f1ab33b83c08f9362947041"><td class="memItemLeft" align="right" valign="top">PluginType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e2ddf499f1ab33b83c08f9362947041">GetType</a> () const override</td></tr>
+<tr class="separator:a4e2ddf499f1ab33b83c08f9362947041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea14174086ef728d7db6af200b6c8eaa" id="r_aea14174086ef728d7db6af200b6c8eaa"><td class="memTemplParams" colspan="2"><a id="aea14174086ef728d7db6af200b6c8eaa" name="aea14174086ef728d7db6af200b6c8eaa"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:aea14174086ef728d7db6af200b6c8eaa"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DAs</b> ()</td></tr>
+<tr class="separator:aea14174086ef728d7db6af200b6c8eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87168b86f727b929a58148d898903baf" id="r_a87168b86f727b929a58148d898903baf"><td class="memTemplParams" colspan="2"><a id="a87168b86f727b929a58148d898903baf" name="a87168b86f727b929a58148d898903baf"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:a87168b86f727b929a58148d898903baf"><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DAs</b> () const</td></tr>
+<tr class="separator:a87168b86f727b929a58148d898903baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_i_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_i_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">venom::common::IPluginObject</a></td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for all the plugin objects Objects that will be loaded from the plugins as their implementations lie there As a user of <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a>, you should not care about that, unless you plan to create your own plugin. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab767caede79983aab03a9c8c99c91171" name="ab767caede79983aab03a9c8c99c91171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab767caede79983aab03a9c8c99c91171">&#9670;&#160;</a></span>Destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::common::PluginObject::Destroy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE <code>delete</code> </p>
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">venom::common::IPluginObject</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#ad9f18777cdaa7ebcbfeff2d3a04ffada">venom::common::GraphicsPluginObject</a>.</p>
+
+</div>
+</div>
+<a id="a4e2ddf499f1ab33b83c08f9362947041" name="a4e2ddf499f1ab33b83c08f9362947041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e2ddf499f1ab33b83c08f9362947041">&#9670;&#160;</a></span>GetType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PluginType venom::common::PluginObject::GetType </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">venom::common::IPluginObject</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/<a class="el" href="_plugin_object_8h_source.html">PluginObject.h</a></li>
-<li>D:/Repositories/Perso/VenomEngine/lib/common/src/<a class="el" href="_plugin_object_8cc.html">PluginObject.cc</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/<a class="el" href="_plugin_object_8h_source.html">PluginObject.h</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="_plugin_object_8cc.html">PluginObject.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

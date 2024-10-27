@@ -125,10 +125,9 @@ $(function(){initNavTree('classvenom_1_1common_1_1_mesh.html',''); initResizable
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classvenom_1_1common_1_1_mesh-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">venom::common::Mesh Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">venom::common::Mesh Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -144,59 +143,165 @@ $(function(){initNavTree('classvenom_1_1common_1_1_mesh.html',''); initResizable
  <div class="center">
   <img src="classvenom_1_1common_1_1_mesh.png" usemap="#venom::common::Mesh_map" alt=""/>
   <map id="venom::common::Mesh_map" name="venom::common::Mesh_map">
-<area href="classvenom_1_1common_1_1_graphics_plugin_object.html" alt="venom::common::GraphicsPluginObject" shape="rect" coords="0,56,230,80"/>
-<area href="classvenom_1_1common_1_1_plugin_object.html" alt="venom::common::PluginObject" shape="rect" coords="0,0,230,24"/>
-<area href="classvenom_1_1vulkan_1_1_vulkan_mesh.html" alt="venom::vulkan::VulkanMesh" shape="rect" coords="0,168,230,192"/>
+<area href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html" title="Wrapper for the PluginObjectImpl, inherited by classes like Model or Mesh to make them usable as comp..." alt="venom::common::PluginObjectImplWrapper" shape="rect" coords="0,0,250,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af0ccf0a316a2954ac111624f6af38a03" id="r_af0ccf0a316a2954ac111624f6af38a03"><td class="memItemLeft" align="right" valign="top"><a id="af0ccf0a316a2954ac111624f6af38a03" name="af0ccf0a316a2954ac111624f6af38a03"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> ()=0</td></tr>
-<tr class="separator:af0ccf0a316a2954ac111624f6af38a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d7629224b4ca19cb8b469723d96fa5" id="r_a80d7629224b4ca19cb8b469723d96fa5"><td class="memItemLeft" align="right" valign="top"><a id="a80d7629224b4ca19cb8b469723d96fa5" name="a80d7629224b4ca19cb8b469723d96fa5"></a>
-vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>ImportModel</b> (const std::string &amp;path)</td></tr>
-<tr class="separator:a80d7629224b4ca19cb8b469723d96fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_graphics_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></td></tr>
-<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_plugin_object.html">venom::common::PluginObject</a></td></tr>
-<tr class="memitem:a25f4890d211f95df28cb812021c6d6a4 inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a25f4890d211f95df28cb812021c6d6a4"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObject</b> (const PluginType type)</td></tr>
-<tr class="separator:a25f4890d211f95df28cb812021c6d6a4 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59339c9ff38ee2b81dcf8adc3b17e847 inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a59339c9ff38ee2b81dcf8adc3b17e847"><td class="memItemLeft" align="right" valign="top">
+<tr class="memitem:ad5376654a682e2574f52462c394253cc" id="r_ad5376654a682e2574f52462c394253cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5376654a682e2574f52462c394253cc">SetMaterial</a> (const <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> &amp;material)</td></tr>
+<tr class="memdesc:ad5376654a682e2574f52462c394253cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> to mesh.  <br /></td></tr>
+<tr class="separator:ad5376654a682e2574f52462c394253cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8da72ff386df09186372433697d3396d" id="r_a8da72ff386df09186372433697d3396d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8da72ff386df09186372433697d3396d">HasMaterial</a> () const</td></tr>
+<tr class="memdesc:a8da72ff386df09186372433697d3396d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the mesh has a <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> assigned.  <br /></td></tr>
+<tr class="separator:a8da72ff386df09186372433697d3396d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd470bf2dc6f77329e4d172189f53342" id="r_abd470bf2dc6f77329e4d172189f53342"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd470bf2dc6f77329e4d172189f53342">GetMaterial</a> () const</td></tr>
+<tr class="memdesc:abd470bf2dc6f77329e4d172189f53342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> assigned to the mesh.  <br /></td></tr>
+<tr class="separator:abd470bf2dc6f77329e4d172189f53342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a824ea4a30afad1884761e5bc15f2844f" id="r_a824ea4a30afad1884761e5bc15f2844f"><td class="memItemLeft" align="right" valign="top"><a id="a824ea4a30afad1884761e5bc15f2844f" name="a824ea4a30afad1884761e5bc15f2844f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> () const</td></tr>
+<tr class="memdesc:a824ea4a30afad1884761e5bc15f2844f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the mesh. <br /></td></tr>
+<tr class="separator:a824ea4a30afad1884761e5bc15f2844f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">venom::common::PluginObjectImplWrapper</a></td></tr>
+<tr class="memitem:a0f03c41319fa5b303360dc717ec965d5 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a0f03c41319fa5b303360dc717ec965d5"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObjectImplWrapper</b> (<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a> *impl)</td></tr>
+<tr class="separator:a0f03c41319fa5b303360dc717ec965d5 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cb1f15a6b183ca1639769c37784b540 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a0cb1f15a6b183ca1639769c37784b540"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObjectImplWrapper</b> (const <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a> &amp;other)</td></tr>
+<tr class="separator:a0cb1f15a6b183ca1639769c37784b540 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556fa0e88065cf85fe5c7228bc6927ff inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a556fa0e88065cf85fe5c7228bc6927ff"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a> &amp;other)</td></tr>
+<tr class="separator:a556fa0e88065cf85fe5c7228bc6927ff inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa391ec00c1db7da53494529388d80ec1 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_aa391ec00c1db7da53494529388d80ec1"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObjectImplWrapper</b> (<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a> &amp;&amp;other)</td></tr>
+<tr class="separator:aa391ec00c1db7da53494529388d80ec1 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6216be4a1c4f6e3ef8cd58ab4ad52b06 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a6216be4a1c4f6e3ef8cd58ab4ad52b06"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a> &amp;&amp;other)</td></tr>
+<tr class="separator:a6216be4a1c4f6e3ef8cd58ab4ad52b06 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa237fe8c3f0d269da4749f943990ddcd inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_aa237fe8c3f0d269da4749f943990ddcd"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetImpl</b> ()</td></tr>
+<tr class="separator:aa237fe8c3f0d269da4749f943990ddcd inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9af35071092c57d2b4549c4098fe73ac inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a9af35071092c57d2b4549c4098fe73ac"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetImpl</b> () const</td></tr>
+<tr class="separator:a9af35071092c57d2b4549c4098fe73ac inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8450ac131d8b4e7c4ff88e0384354b6b inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a8450ac131d8b4e7c4ff88e0384354b6b"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetConstImpl</b> () const</td></tr>
+<tr class="separator:a8450ac131d8b4e7c4ff88e0384354b6b inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dff41073f19248d3d23820b416abdb0 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a8dff41073f19248d3d23820b416abdb0"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsImplInitialized</b> () const</td></tr>
+<tr class="separator:a8dff41073f19248d3d23820b416abdb0 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a503386ee0abcc5832be71836f8a25a70 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_a503386ee0abcc5832be71836f8a25a70"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Destroy</b> ()</td></tr>
-<tr class="memdesc:a59339c9ff38ee2b81dcf8adc3b17e847 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE <code>delete</code> <br /></td></tr>
-<tr class="separator:a59339c9ff38ee2b81dcf8adc3b17e847 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a503386ee0abcc5832be71836f8a25a70 inherit pub_methods_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a37dd2471198b4a21ba7cc3fb9298211c" id="r_a37dd2471198b4a21ba7cc3fb9298211c"><td class="memItemLeft" align="right" valign="top"><a id="a37dd2471198b4a21ba7cc3fb9298211c" name="a37dd2471198b4a21ba7cc3fb9298211c"></a>
-static <a class="el" href="classvenom_1_1common_1_1_mesh.html">Mesh</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> ()</td></tr>
-<tr class="separator:a37dd2471198b4a21ba7cc3fb9298211c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:afb81d2077780e342b8fd3654cabc4c19" id="r_afb81d2077780e342b8fd3654cabc4c19"><td class="memItemLeft" align="right" valign="top"><a id="afb81d2077780e342b8fd3654cabc4c19" name="afb81d2077780e342b8fd3654cabc4c19"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>ModelImpl</b></td></tr>
+<tr class="separator:afb81d2077780e342b8fd3654cabc4c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a23fa0d8b5001321ebb31ca7c82c6bf76" id="r_a23fa0d8b5001321ebb31ca7c82c6bf76"><td class="memItemLeft" align="right" valign="top"><a id="a23fa0d8b5001321ebb31ca7c82c6bf76" name="a23fa0d8b5001321ebb31ca7c82c6bf76"></a>
-std::vector&lt; <a class="el" href="_vector_8h.html#ab5f1413c72f61eb16544845586928afc">vcm::VertexPos</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__positions</b></td></tr>
-<tr class="separator:a23fa0d8b5001321ebb31ca7c82c6bf76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabbb03c166b0b4527020ceb784653a69" id="r_aabbb03c166b0b4527020ceb784653a69"><td class="memItemLeft" align="right" valign="top"><a id="aabbb03c166b0b4527020ceb784653a69" name="aabbb03c166b0b4527020ceb784653a69"></a>
-std::vector&lt; <a class="el" href="_vector_8h.html#a289048b896761b00897eeb561b2ce5dc">vcm::VertexNormal</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__normals</b></td></tr>
-<tr class="separator:aabbb03c166b0b4527020ceb784653a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a10ddc5233257c988e25c799fd21ad1" id="r_a7a10ddc5233257c988e25c799fd21ad1"><td class="memItemLeft" align="right" valign="top"><a id="a7a10ddc5233257c988e25c799fd21ad1" name="a7a10ddc5233257c988e25c799fd21ad1"></a>
-std::vector&lt; <a class="el" href="_vector_8h.html#a75214a8ebd3c53e1cf6fa2c997a64efb">vcm::VertexColor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__colors</b></td></tr>
-<tr class="separator:a7a10ddc5233257c988e25c799fd21ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5d2eee5a8a8830dfa2176ba91af5289" id="r_ac5d2eee5a8a8830dfa2176ba91af5289"><td class="memItemLeft" align="right" valign="top"><a id="ac5d2eee5a8a8830dfa2176ba91af5289" name="ac5d2eee5a8a8830dfa2176ba91af5289"></a>
-std::vector&lt; <a class="el" href="_vector_8h.html#a5b93343a45cc172573e1f2ceb9676cc4">vcm::VertexUV</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__uvs</b></td></tr>
-<tr class="separator:ac5d2eee5a8a8830dfa2176ba91af5289"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b5ed07fcd045a400bdd213854755ffb" id="r_a2b5ed07fcd045a400bdd213854755ffb"><td class="memItemLeft" align="right" valign="top"><a id="a2b5ed07fcd045a400bdd213854755ffb" name="a2b5ed07fcd045a400bdd213854755ffb"></a>
-std::vector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>__indices</b></td></tr>
-<tr class="separator:a2b5ed07fcd045a400bdd213854755ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classvenom_1_1common_1_1_plugin_object_impl_wrapper')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">venom::common::PluginObjectImplWrapper</a></td></tr>
+<tr class="memitem:ad5a9fa86b0ecf0e94a6e93f0d79d0074 inherit pro_attribs_classvenom_1_1common_1_1_plugin_object_impl_wrapper" id="r_ad5a9fa86b0ecf0e94a6e93f0d79d0074"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_impl</b></td></tr>
+<tr class="separator:ad5a9fa86b0ecf0e94a6e93f0d79d0074 inherit pro_attribs_classvenom_1_1common_1_1_plugin_object_impl_wrapper"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains all the mesh's data and is the main high-level interface for the user. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source.html">Mesh.h</a></li>
-<li>D:/Repositories/Perso/VenomEngine/lib/common/src/<a class="el" href="common_2src_2_mesh_8cc.html">Mesh.cc</a></li>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abd470bf2dc6f77329e4d172189f53342" name="abd470bf2dc6f77329e4d172189f53342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd470bf2dc6f77329e4d172189f53342">&#9670;&#160;</a></span>GetMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> &amp; venom::common::Mesh::GetMaterial </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> assigned to the mesh. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8da72ff386df09186372433697d3396d" name="a8da72ff386df09186372433697d3396d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8da72ff386df09186372433697d3396d">&#9670;&#160;</a></span>HasMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::common::Mesh::HasMaterial </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the mesh has a <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> assigned. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if a <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> is assigned, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ad5376654a682e2574f52462c394253cc" name="ad5376654a682e2574f52462c394253cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5376654a682e2574f52462c394253cc">&#9670;&#160;</a></span>SetMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::common::Mesh::SetMaterial </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>material</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns <a class="el" href="classvenom_1_1common_1_1_material.html">Material</a> to mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">material</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_mesh_8h_source.html">Mesh.h</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="common_2src_2_mesh_8cc.html">Mesh.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

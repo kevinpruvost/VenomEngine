@@ -1,5 +1,5 @@
 \doxysection{Texture.\+h}
-\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Texture.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Texture.h}}
+\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Texture.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Texture.h}}
 \mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -17,23 +17,36 @@
 \DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }vulkan}
 \DoxyCodeLine{00020\ \{}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{vc::TextureResource}}}
 \DoxyCodeLine{00023\ \{}
 \DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}();}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{\string~VulkanTexture}}();}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ vc::Error\ \_\_LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ \_\_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ image;}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ imageView;}
+\DoxyCodeLine{00029\ \};}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ GetImage()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ GetImageView()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \_\_image;}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \_\_imageView;}
-\DoxyCodeLine{00036\ \};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \}}
-\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc::TextureImpl}}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{\string~VulkanTexture}}();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ GetDummyTexture();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetDummyTexture(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ vc::Error\ \_LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ \_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \_resource\ \&\&\ GetImage().GetVkImage()\ !=\ VK\_NULL\_HANDLE;\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ GetImage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>image;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ GetImageView()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>imageView;\ \}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ GetImage()\ \{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>image;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ GetImageView()\ \{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>imageView;\ \}}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ \}}
 
 \end{DoxyCode}

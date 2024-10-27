@@ -3,27 +3,42 @@
 Inheritance diagram for venom\+::vulkan\+::Vulkan\+Application\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=4.000000cm]{classvenom_1_1vulkan_1_1_vulkan_application}
+\includegraphics[height=5.000000cm]{classvenom_1_1vulkan_1_1_vulkan_application}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_ab8e2747af459bc28d83212c752c53763}{Init}} () override
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_ae6d82b8a7287a1e4a0e2f8792457c503}{\+\_\+\+\_\+\+Init}} () override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a67c1a8a58ce8fc8cc5c0eaafdc595782}{\+\_\+\+\_\+\+Post\+Init}} () override
 \item 
 vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_ae2945c85b7cd08a0a5ac6f3ceb1505c4}{Loop}} () override
 \item 
 bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_ae355527bae994c60718a28ff97db4fec}{Should\+Close}} () override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
+\begin{DoxyCompactItemize}
+\item 
+Error {\bfseries Init} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries Plugin\+Object} (const Plugin\+Type type)
 \item 
-void {\bfseries Destroy} ()
-\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{venom\+::vulkan\+::\+Debug\+Application}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -33,12 +48,27 @@ void {\bfseries Destroy\+Debug} ()
 \item 
 template$<$$>$ void {\bfseries \+\_\+\+Set\+Create\+Info\+Validation\+Layers} (Vk\+Device\+Create\+Info \texorpdfstring{$\ast$}{*}create\+Infos)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_aebb08cd99620f59042b8e7639f6689d2}\label{classvenom_1_1vulkan_1_1_vulkan_application_aebb08cd99620f59042b8e7639f6689d2} 
+static int {\bfseries Is\+Bindless\+Supported} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create} ()
+\item 
+static int {\bfseries Get\+Current\+Frame} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{venom\+::vulkan\+::\+Debug\+Application}}}
 \begin{DoxyCompactItemize}
@@ -50,15 +80,50 @@ void {\bfseries \+\_\+\+Set\+Instance\+Create\+Info\+Validation\+Layers} (Vk\+In
 vc\+::\+Error {\bfseries \+\_\+\+Post\+Instance\+\_\+\+Set\+Debug\+Parameters} ()
 \item 
 PFN\+\_\+vk\+Debug\+Utils\+Messenger\+Callback\+EXT {\bfseries \+\_\+\+Get\+Debug\+Callback} ()
+\item 
+double {\bfseries \+\_\+\+Get\+Theoretical\+FPS} (double fps)
+\item 
+void {\bfseries \+\_\+\+Update\+Theoretical\+FPS} (uint32\+\_\+t microseconds\+Waited\+On\+VSync)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+shader\+Resource\+Table}
+\item 
+UPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} $>$ {\bfseries \+\_\+dummy\+Texture}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
+\begin{DoxyCompactItemize}
+\item 
+static int {\bfseries \+\_\+current\+Frame} = 0
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_ab8e2747af459bc28d83212c752c53763}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!Init@{Init}}
-\index{Init@{Init}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
-\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_ab8e2747af459bc28d83212c752c53763} 
-vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_ae6d82b8a7287a1e4a0e2f8792457c503}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!\_\_Init@{\_\_Init}}
+\index{\_\_Init@{\_\_Init}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
+\doxysubsubsection{\texorpdfstring{\_\_Init()}{\_\_Init()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_ae6d82b8a7287a1e4a0e2f8792457c503} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+\_\+\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a67c1a8a58ce8fc8cc5c0eaafdc595782}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!\_\_PostInit@{\_\_PostInit}}
+\index{\_\_PostInit@{\_\_PostInit}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
+\doxysubsubsection{\texorpdfstring{\_\_PostInit()}{\_\_PostInit()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_a67c1a8a58ce8fc8cc5c0eaafdc595782} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+\_\+\+Post\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -88,5 +153,7 @@ Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/Vulkan\+Application.\+h\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/Vulkan\+Application.\+cc\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/Vulkan\+Application.\+h\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/Vulkan\+Application.\+cc\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_vulkan_application_initializer_8cc}{Vulkan\+Application\+Initializer.\+cc}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_vulkan_application_sets_initializer_8cc}{Vulkan\+Application\+Sets\+Initializer.\+cc}}\end{DoxyCompactItemize}

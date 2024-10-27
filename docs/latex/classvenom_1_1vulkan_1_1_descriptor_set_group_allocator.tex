@@ -1,0 +1,56 @@
+\doxysection{venom\+::vulkan\+::Descriptor\+Set\+Group\+Allocator Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}\index{venom::vulkan::DescriptorSetGroupAllocator@{venom::vulkan::DescriptorSetGroupAllocator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a424a56a46e508adb5f8a80c2dc6efdbc}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a424a56a46e508adb5f8a80c2dc6efdbc} 
+{\bfseries Descriptor\+Set\+Group\+Allocator} (std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} $>$ \&\&sets)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a7fc01918385f381fd9374289acbd0f3c}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a7fc01918385f381fd9374289acbd0f3c} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} \texorpdfstring{$\ast$}{*} {\bfseries Allocate\+Set} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a2371b33a832af373571cd82984854003}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a2371b33a832af373571cd82984854003} 
+void {\bfseries Free\+Set} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} \texorpdfstring{$\ast$}{*}set)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_af3feec3458694864ca9f333e53727d23}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_af3feec3458694864ca9f333e53727d23} 
+void {\bfseries Group\+Update} (const Vk\+Write\+Descriptor\+Set \&write)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a58e95b6d30d8b29933e5a0780d58f445}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a58e95b6d30d8b29933e5a0780d58f445} 
+void {\bfseries Group\+Update\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{Uniform\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a25b94fa4b3d9ffca66e66e485113f466}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a25b94fa4b3d9ffca66e66e485113f466} 
+void {\bfseries Group\+Update\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{Storage\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a1b4bc0fa8bc60b1681e2fd0989d3466f}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a1b4bc0fa8bc60b1681e2fd0989d3466f} 
+void {\bfseries Group\+Update\+Texture} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}} \texorpdfstring{$\ast$}{*}texture, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a106d3036862baf82ce2d2e1b8ba50339}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a106d3036862baf82ce2d2e1b8ba50339} 
+void {\bfseries Group\+Update\+Sampler} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}} \&sampler, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a0107fdd4eb8740d23cd9e3b354045625}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a0107fdd4eb8740d23cd9e3b354045625} 
+void {\bfseries Group\+Update\+Per\+Frame} (int frame\+Index, const Vk\+Write\+Descriptor\+Set \&write)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a2df2ba97b8c35609532059507b7f02d1}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a2df2ba97b8c35609532059507b7f02d1} 
+void {\bfseries Group\+Update\+Buffer\+Per\+Frame} (int frame\+Index, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{Uniform\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_ae2b991ce64fc90f84a183107fba026ff}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_ae2b991ce64fc90f84a183107fba026ff} 
+void {\bfseries Group\+Update\+Buffer\+Per\+Frame} (int frame\+Index, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{Storage\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a949fc228036607b431e036535522b522}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a949fc228036607b431e036535522b522} 
+void {\bfseries Group\+Update\+Texture\+Per\+Frame} (int frame\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}} \texorpdfstring{$\ast$}{*}texture, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a56912fb8d6d06d5087d12f98602802ee}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a56912fb8d6d06d5087d12f98602802ee} 
+void {\bfseries Group\+Update\+Sampler\+Per\+Frame} (int frame\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}} \&sampler, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_adcf31685c13401b02021a201d0f9c022}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_adcf31685c13401b02021a201d0f9c022} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (const uint32\+\_\+t index)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a2c91886233b0b288eb66ebf3654733bb}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator_a2c91886233b0b288eb66ebf3654733bb} 
+size\+\_\+t {\bfseries size} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_descriptor_pool_8h}{Descriptor\+Pool.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_descriptor_pool_8cc}{Descriptor\+Pool.\+cc}}\end{DoxyCompactItemize}

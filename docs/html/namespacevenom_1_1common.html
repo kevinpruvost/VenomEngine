@@ -125,6 +125,7 @@ $(function(){initNavTree('namespacevenom_1_1common.html',''); initResizable(true
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#concepts">Concepts</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
@@ -133,11 +134,18 @@ $(function(){initNavTree('namespacevenom_1_1common.html',''); initResizable(true
 </div><!--header-->
 <div class="contents">
 
-<p>High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace.  
+<p>High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_bindless_textures_id_manager.html">BindlessTexturesIdManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_camera.html">Camera</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvenom_1_1common_1_1_camera.html" title="Camera class Classic layout with position, rotation and projection matrices.">Camera</a> class Classic layout with position, rotation and projection matrices.  <a href="classvenom_1_1common_1_1_camera.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_camera_impl.html">CameraImpl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_config.html">Config</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_context.html">Context</a></td></tr>
@@ -146,17 +154,36 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a shared library handle and provides a way to get symbols from it, can only be created through <a class="el" href="classvenom_1_1common_1_1_d_l_l.html#ab11a2004d9fc1ff8c3d3379a6fc7d06b" title="Forces user to use dynamic allocation.">DLL::Create()</a>  <a href="classvenom_1_1common_1_1_d_l_l.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_d_l_l___cache.html">DLL_Cache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one.  <a href="classvenom_1_1common_1_1_d_l_l___cache.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one.  <a href="classvenom_1_1common_1_1_d_l_l___cache.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_e_c_s.html">ECS</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entity Component System Will mainly encapsulate the fabulous flecs library (<a href="https://github.com/SanderMertens/flecs.git">https://github.com/SanderMertens/flecs.git</a>) This class will be contained in the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> class.  <a href="classvenom_1_1common_1_1_e_c_s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_fps_counter.html">FpsCounter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for cached resources.  <a href="classvenom_1_1common_1_1_graphics_cached_resource.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource_holder.html">GraphicsCachedResourceHolder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for cached resource holders.  <a href="classvenom_1_1common_1_1_graphics_cached_resource_holder.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">GraphicsPluginObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for graphics plugin objects.  <a href="classvenom_1_1common_1_1_graphics_plugin_object.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">IPluginObject</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_log.html">Log</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_material.html">Material</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_material_component.html">MaterialComponent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvenom_1_1common_1_1_material_component.html" title="MaterialComponent Contains all the data of a material component.">MaterialComponent</a> Contains all the data of a material component.  <a href="classvenom_1_1common_1_1_material_component.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_material_impl.html">MaterialImpl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_memory_pool.html">MemoryPool</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvenom_1_1common_1_1_memory_pool.html" title="MemoryPool class to manage memory allocation and deallocation. For now, it&#39;s just a wrapper around me...">MemoryPool</a> class to manage memory allocation and deallocation. For now, it's just a wrapper around memory C functions.  <a href="classvenom_1_1common_1_1_memory_pool.html#details">More...</a><br /></td></tr>
@@ -164,32 +191,127 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_mesh.html">Mesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all the mesh's data and is the main high-level interface for the user.  <a href="classvenom_1_1common_1_1_mesh.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_mesh_impl.html">MeshImpl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_model.html">Model</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all the mesh's data and is the main high-level interface for the user.  <a href="classvenom_1_1common_1_1_model.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_model_impl.html">ModelImpl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_model_resource.html">ModelResource</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin.html">Plugin</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_manager.html">PluginManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object.html">PluginObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all the plugin objects Objects that will be loaded from the plugins as their implementations lie there As a user of <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a>, you should not care about that, unless you plan to create your own plugin.  <a href="classvenom_1_1common_1_1_plugin_object.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_container.html">PluginObjectContainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container for the <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html" title="Wrapper for the PluginObjectImpl, inherited by classes like Model or Mesh to make them usable as comp...">PluginObjectImplWrapper</a> Important to avoid it from loading the <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html" title="Interface for the PluginObject different implementations.">PluginObjectImpl</a> if not needed e.g. if the object is optional.  <a href="classvenom_1_1common_1_1_plugin_object_container.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html">PluginObjectImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for the <a class="el" href="classvenom_1_1common_1_1_plugin_object.html" title="Base class for all the plugin objects Objects that will be loaded from the plugins as their implement...">PluginObject</a> different implementations.  <a href="classvenom_1_1common_1_1_plugin_object_impl.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html">PluginObjectImplWrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for the <a class="el" href="classvenom_1_1common_1_1_plugin_object_impl.html" title="Interface for the PluginObject different implementations.">PluginObjectImpl</a>, inherited by classes like <a class="el" href="classvenom_1_1common_1_1_model.html" title="Contains all the mesh&#39;s data and is the main high-level interface for the user.">Model</a> or <a class="el" href="classvenom_1_1common_1_1_mesh.html" title="Contains all the mesh&#39;s data and is the main high-level interface for the user.">Mesh</a> to make them usable as components (for <a class="el" href="classvenom_1_1common_1_1_e_c_s.html" title="Entity Component System Will mainly encapsulate the fabulous flecs library (https://github....">ECS</a>) and hold the Graphics API specific implementation.  <a href="classvenom_1_1common_1_1_plugin_object_impl_wrapper.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_resources.html">Resources</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_shader_impl.html">ShaderImpl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_shader_resource.html">ShaderResource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to descriptor sets in Vulkan, but for every API.  <a href="classvenom_1_1common_1_1_shader_resource.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_shader_resource_table.html">ShaderResourceTable</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_texture.html">Texture</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_texture_impl.html">TextureImpl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_texture_resource.html">TextureResource</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_timer.html">Timer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_transform3_d.html">Transform3D</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management.  <a href="classvenom_1_1common_1_1_venom_engine.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_venom_settings.html">VenomSettings</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptvenom_1_1common_1_1_valid_graphics_cached_resource.html">ValidGraphicsCachedResource</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptvenom_1_1common_1_1_valid_graphics_cached_resource_holder.html">ValidGraphicsCachedResourceHolder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a0adb5b5907b1898471697a8ae6b621e8" id="r_a0adb5b5907b1898471697a8ae6b621e8"><td class="memItemLeft" align="right" valign="top"><a id="a0adb5b5907b1898471697a8ae6b621e8" name="a0adb5b5907b1898471697a8ae6b621e8"></a>
+typedef flecs::entity&#160;</td><td class="memItemRight" valign="bottom"><b>Entity</b></td></tr>
+<tr class="separator:a0adb5b5907b1898471697a8ae6b621e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7016bd9c06627c8c17994e9f0722c17e" id="r_a7016bd9c06627c8c17994e9f0722c17e"><td class="memTemplParams" colspan="2"><a id="a7016bd9c06627c8c17994e9f0722c17e" name="a7016bd9c06627c8c17994e9f0722c17e"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a7016bd9c06627c8c17994e9f0722c17e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Component</b> = flecs::component&lt;T&gt;</td></tr>
+<tr class="separator:a7016bd9c06627c8c17994e9f0722c17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64106511eb000154f288f120e5733286" id="r_a64106511eb000154f288f120e5733286"><td class="memItemLeft" align="right" valign="top"><a id="a64106511eb000154f288f120e5733286" name="a64106511eb000154f288f120e5733286"></a>
+typedef flecs::system&#160;</td><td class="memItemRight" valign="bottom"><b>System</b></td></tr>
+<tr class="separator:a64106511eb000154f288f120e5733286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90741080148150d7bd6816520f32b60c" id="r_a90741080148150d7bd6816520f32b60c"><td class="memItemLeft" align="right" valign="top"><a id="a90741080148150d7bd6816520f32b60c" name="a90741080148150d7bd6816520f32b60c"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>String</b> = std::string</td></tr>
 <tr class="separator:a90741080148150d7bd6816520f32b60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80ccda757db61d2acd0ce573746f1278" id="r_a80ccda757db61d2acd0ce573746f1278"><td class="memItemLeft" align="right" valign="top"><a id="a80ccda757db61d2acd0ce573746f1278" name="a80ccda757db61d2acd0ce573746f1278"></a>
-typedef bazel::tools::cpp::runfiles::Runfiles&#160;</td><td class="memItemRight" valign="bottom"><b>Runfiles</b></td></tr>
-<tr class="separator:a80ccda757db61d2acd0ce573746f1278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b519f7b1b4175543bd31666b4daacc2" id="r_a5b519f7b1b4175543bd31666b4daacc2"><td class="memItemLeft" align="right" valign="top"><a id="a5b519f7b1b4175543bd31666b4daacc2" name="a5b519f7b1b4175543bd31666b4daacc2"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>SceneCallback</b>) ()</td></tr>
+<tr class="separator:a5b519f7b1b4175543bd31666b4daacc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a1642b28c7b555a0de1fa5a5b556cba81" id="r_a1642b28c7b555a0de1fa5a5b556cba81"><td class="memItemLeft" align="right" valign="top"><a id="a1642b28c7b555a0de1fa5a5b556cba81" name="a1642b28c7b555a0de1fa5a5b556cba81"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1642b28c7b555a0de1fa5a5b556cba81">MaterialComponentType</a> { <br />
+&#160;&#160;<b>AMBIENT</b>
+, <b>DIFFUSE</b>
+, <b>SPECULAR</b>
+, <b>EMISSIVE</b>
+, <br />
+&#160;&#160;<b>SHININESS</b>
+, <b>OPACITY</b>
+, <b>NORMAL</b>
+, <b>HEIGHT</b>
+, <br />
+&#160;&#160;<b>REFLECTION</b>
+, <b>REFLECTIVITY</b>
+, <b>REFRACTION</b>
+, <b>TRANSPARENT</b>
+, <br />
+&#160;&#160;<b>ANISOTROPY</b>
+, <b>BASE_COLOR</b>
+, <b>METALLIC</b>
+, <b>ROUGHNESS</b>
+, <br />
+&#160;&#160;<b>AMBIENT_OCCLUSION</b>
+, <b>EMISSION_COLOR</b>
+, <b>TRANSMISSION</b>
+, <b>SHEEN</b>
+, <br />
+&#160;&#160;<b>CLEARCOAT</b>
+, <b>MAX_COMPONENT</b>
+<br />
+ }</td></tr>
+<tr class="memdesc:a1642b28c7b555a0de1fa5a5b556cba81"><td class="mdescLeft">&#160;</td><td class="mdescRight">MaterialComponentType Contains all the possible components of a material that VenomEngine can handle. <br /></td></tr>
+<tr class="separator:a1642b28c7b555a0de1fa5a5b556cba81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e9bc99142c58325bf033d6ebaa2d139" id="r_a3e9bc99142c58325bf033d6ebaa2d139"><td class="memItemLeft" align="right" valign="top"><a id="a3e9bc99142c58325bf033d6ebaa2d139" name="a3e9bc99142c58325bf033d6ebaa2d139"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e9bc99142c58325bf033d6ebaa2d139">MaterialComponentValueType</a> { <br />
+&#160;&#160;<b>NONE</b>
+, <b>COLOR3D</b>
+, <b>COLOR4D</b>
+, <b>VALUE</b>
+, <br />
+&#160;&#160;<b>TEXTURE</b>
+<br />
+ }</td></tr>
+<tr class="memdesc:a3e9bc99142c58325bf033d6ebaa2d139"><td class="mdescLeft">&#160;</td><td class="mdescRight">MaterialComponentValueType Contains all the possible value types of a material component. <br /></td></tr>
+<tr class="separator:a3e9bc99142c58325bf033d6ebaa2d139"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae063fd539e2f3cf66eb23f77cf93e0f9" id="r_ae063fd539e2f3cf66eb23f77cf93e0f9"><td class="memItemLeft" align="right" valign="top"><a id="ae063fd539e2f3cf66eb23f77cf93e0f9" name="ae063fd539e2f3cf66eb23f77cf93e0f9"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>PluginType</b> { <b>Graphics</b> = 0
 , <b>TotalCount</b>
  }</td></tr>
@@ -197,6 +319,16 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ad0a555c57b2308441e03f6767aec3984" id="r_ad0a555c57b2308441e03f6767aec3984"><td class="memItemLeft" align="right" valign="top"><a id="ad0a555c57b2308441e03f6767aec3984" name="ad0a555c57b2308441e03f6767aec3984"></a>
+Entity&#160;</td><td class="memItemRight" valign="bottom"><b>CreateEntity</b> (const char *name)</td></tr>
+<tr class="separator:ad0a555c57b2308441e03f6767aec3984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a592d353323501f46084da60b7e389f72" id="r_a592d353323501f46084da60b7e389f72"><td class="memItemLeft" align="right" valign="top"><a id="a592d353323501f46084da60b7e389f72" name="a592d353323501f46084da60b7e389f72"></a>
+Entity&#160;</td><td class="memItemRight" valign="bottom"><b>CreateEntity</b> ()</td></tr>
+<tr class="separator:a592d353323501f46084da60b7e389f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f4957db028d38e29894e90317467b5" id="r_a54f4957db028d38e29894e90317467b5"><td class="memTemplParams" colspan="2"><a id="a54f4957db028d38e29894e90317467b5" name="a54f4957db028d38e29894e90317467b5"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a54f4957db028d38e29894e90317467b5"><td class="memTemplItemLeft" align="right" valign="top">Component&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetComponent</b> ()</td></tr>
+<tr class="separator:a54f4957db028d38e29894e90317467b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d51f2181f799d19919ff6bda18b8cd1" id="r_a6d51f2181f799d19919ff6bda18b8cd1"><td class="memItemLeft" align="right" valign="top"><a id="a6d51f2181f799d19919ff6bda18b8cd1" name="a6d51f2181f799d19919ff6bda18b8cd1"></a>
 VENOM_COMMON_API void&#160;</td><td class="memItemRight" valign="bottom"><b>setErrorString</b> (const char *str)</td></tr>
 <tr class="separator:a6d51f2181f799d19919ff6bda18b8cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,7 +375,7 @@ enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>Inva
 <tr class="separator:a2841f877864bbe896a476e122c83b1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. </p>
+<div class="textblock"><p>High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. </p>
 </div><h2 class="groupheader">Variable Documentation</h2>
 <a id="a2841f877864bbe896a476e122c83b1be" name="a2841f877864bbe896a476e122c83b1be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2841f877864bbe896a476e122c83b1be">&#9670;&#160;</a></span>Unknown</h2>
@@ -256,7 +388,7 @@ enum VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>Inva
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= UINT32_MAX</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= std::numeric_limits&lt;uint32_t&gt;::max()</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

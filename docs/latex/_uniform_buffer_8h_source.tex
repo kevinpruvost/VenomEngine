@@ -1,5 +1,5 @@
 \doxysection{Uniform\+Buffer.\+h}
-\hypertarget{_uniform_buffer_8h_source}{}\label{_uniform_buffer_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/UniformBuffer.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/UniformBuffer.h}}
+\hypertarget{_uniform_buffer_8h_source}{}\label{_uniform_buffer_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/UniformBuffer.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/UniformBuffer.h}}
 \mbox{\hyperlink{_uniform_buffer_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -25,12 +25,17 @@
 \DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{const}\ VkDeviceMemory\ \&\ GetVkDeviceMemory()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ GetMappedData()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00029\ \ \ \ \ VkBuffer\ GetVkBuffer()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_mappedData;}
-\DoxyCodeLine{00034\ \};}
-\DoxyCodeLine{00035\ \}}
-\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ VkDeviceSize\ GetSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data)\ \{\ memcpy(\_\_mappedData,\ data,\ \textcolor{keyword}{sizeof}(T));\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data,\ \textcolor{keywordtype}{size\_t}\ size)\ \{\ memcpy(\_\_mappedData,\ data,\ size);\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_mappedData;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ \}}
 
 \end{DoxyCode}

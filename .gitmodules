@@ -35,3 +35,6 @@
 [submodule "lib/external/openvdb"]
 	path = lib/external/openvdb
 	url = git@github.com:AcademySoftwareFoundation/openvdb.git
+[submodule "lib/external/openexr"]
+	path = lib/external/openexr
+	url = git@github.com:AcademySoftwareFoundation/openexr.git

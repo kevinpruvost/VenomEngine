@@ -29,8 +29,13 @@ var NAVTREE =
     [ "Notes", "md_markdown_2_notes.html", null ],
     [ "User Guide", "userguide.html", "userguide" ],
     [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ]
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
+      ] ]
     ] ],
+    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -50,7 +55,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_allocator_8cc.html",
-"compilation.html"
+"classvenom_1_1common_1_1_plugin_object.html#ab767caede79983aab03a9c8c99c91171",
+"structvenom_1_1vulkan_1_1_queue_manager_settings.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

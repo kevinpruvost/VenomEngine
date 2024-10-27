@@ -1,0 +1,47 @@
+\doxysection{venom\+::common\+::ECS Class Reference}
+\hypertarget{classvenom_1_1common_1_1_e_c_s}{}\label{classvenom_1_1common_1_1_e_c_s}\index{venom::common::ECS@{venom::common::ECS}}
+
+
+Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class.  
+
+
+
+
+{\ttfamily \#include $<$ECS.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_ae52289c4f7ba03a6cfa44fe929101c29}\label{classvenom_1_1common_1_1_e_c_s_ae52289c4f7ba03a6cfa44fe929101c29} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries Register\+Component} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a2debd0252da4b9fef96caef1bda5e9c7}\label{classvenom_1_1common_1_1_e_c_s_a2debd0252da4b9fef96caef1bda5e9c7} 
+{\footnotesize template$<$typename T $>$ }\\Component$<$ T $>$ {\bfseries Get\+Component} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a38a8ecf8ac56c7be3e704e414a3a57ef}\label{classvenom_1_1common_1_1_e_c_s_a38a8ecf8ac56c7be3e704e414a3a57ef} 
+Entity {\bfseries Create\+Entity} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a59c143511472caf13be0e288dbb0bc49}\label{classvenom_1_1common_1_1_e_c_s_a59c143511472caf13be0e288dbb0bc49} 
+Entity {\bfseries Create\+Entity} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_ad1d28cb2bfb62fd8e20946db968347fc}\label{classvenom_1_1common_1_1_e_c_s_ad1d28cb2bfb62fd8e20946db968347fc} 
+{\footnotesize template$<$typename... Comps, typename... Args$>$ }\\System {\bfseries Create\+System} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a912c1a599834020d27cb779aa111efcb}\label{classvenom_1_1common_1_1_e_c_s_a912c1a599834020d27cb779aa111efcb} 
+{\footnotesize template$<$typename... Args$>$ }\\void {\bfseries For\+Each} (auto \&\&func)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a743a62f8b33c81e5e7c243b430f87d4f}\label{classvenom_1_1common_1_1_e_c_s_a743a62f8b33c81e5e7c243b430f87d4f} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+ECS} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\mbox{\hyperlink{_e_c_s_8h}{ECS.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_e_c_s_8cc}{ECS.\+cc}}\end{DoxyCompactItemize}

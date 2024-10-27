@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['renderpass_0',['RenderPass',['../classvenom_1_1vulkan_1_1_render_pass.html',1,'venom::vulkan']]],
-  ['resources_1',['Resources',['../classvenom_1_1common_1_1_resources.html',1,'venom::common']]]
+  ['queue_0',['Queue',['../classvenom_1_1vulkan_1_1_queue.html',1,'venom::vulkan']]],
+  ['queuefamily_1',['QueueFamily',['../classvenom_1_1vulkan_1_1_queue_family.html',1,'venom::vulkan']]],
+  ['queuemanager_2',['QueueManager',['../classvenom_1_1vulkan_1_1_queue_manager.html',1,'venom::vulkan']]],
+  ['queuemanagersettings_3',['QueueManagerSettings',['../structvenom_1_1vulkan_1_1_queue_manager_settings.html',1,'venom::vulkan']]]
 ];

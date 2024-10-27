@@ -1,22 +1,173 @@
 \doxysection{venom\+::common\+::Graphics\+Plugin\+Object Class Reference}
 \hypertarget{classvenom_1_1common_1_1_graphics_plugin_object}{}\label{classvenom_1_1common_1_1_graphics_plugin_object}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+
+
+Base class for graphics plugin objects.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Plugin\+Object.\+h$>$}
+
 Inheritance diagram for venom\+::common\+::Graphics\+Plugin\+Object\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=3.137255cm]{classvenom_1_1common_1_1_graphics_plugin_object}
+\includegraphics[height=11.000000cm]{classvenom_1_1common_1_1_graphics_plugin_object}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Additional Inherited Members}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries Plugin\+Object} (const Plugin\+Type type)
 \item 
-void {\bfseries Destroy} ()
-\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for graphics plugin objects. 
+
+\begin{DoxyWarning}{Warning}
+DO NOT INHERIT with \doxylink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource} 
+\end{DoxyWarning}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!\_AddCacheSize@{\_AddCacheSize}}
+\index{\_AddCacheSize@{\_AddCacheSize}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{\_AddCacheSize()}{\_AddCacheSize()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27} 
+void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+\_\+\+Add\+Cache\+Size (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Adds cache size to avoid unnecessary additional allocations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!\_SetCacheSize@{\_SetCacheSize}}
+\index{\_SetCacheSize@{\_SetCacheSize}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{\_SetCacheSize()}{\_SetCacheSize()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d} 
+void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+\_\+\+Set\+Cache\+Size (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Adds cache size to avoid unnecessary additional allocations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!\_SetInCache@{\_SetInCache}}
+\index{\_SetInCache@{\_SetInCache}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{\_SetInCache()}{\_SetInCache()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed} 
+void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+\_\+\+Set\+In\+Cache (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{, }\item[{const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&}]{object}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Sets an object in the cache. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+{\ttfamily path} must be the original asset path relative to the {\ttfamily resources} folder 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em object} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{Destroy()}{Destroy()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada} 
+void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Destroy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+/!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} 
+
+
+
+Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_ab767caede79983aab03a9c8c99c91171}{venom\+::common\+::\+Plugin\+Object}}.
+
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!GetCachedObject@{GetCachedObject}}
+\index{GetCachedObject@{GetCachedObject}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{GetCachedObject()}{GetCachedObject()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Get\+Cached\+Object (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets a cached object from the graphics cache. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & (to the original asset) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+{\ttfamily path} must be the original asset path relative to the {\ttfamily resources} folder 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+nullptr if the object is not in cache, the object otherwise 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!HasCachedObject@{HasCachedObject}}
+\index{HasCachedObject@{HasCachedObject}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{HasCachedObject()}{HasCachedObject()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b} 
+bool venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Has\+Cached\+Object (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks if an object is in the cache. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & relative path to the asset \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if found in the cache 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{Graphics\+Plugin.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_graphics_plugin_8cc}{Graphics\+Plugin.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{_graphics_plugin_object_8h}{Graphics\+Plugin\+Object.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_graphics_plugin_object_8cc}{Graphics\+Plugin\+Object.\+cc}}\end{DoxyCompactItemize}

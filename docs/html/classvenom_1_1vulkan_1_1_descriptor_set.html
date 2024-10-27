@@ -148,9 +148,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8589c2dee130e9e4c43f7f9ba250ca43" id="r_a8589c2dee130e9e4c43f7f9ba250ca43"><td class="memItemLeft" align="right" valign="top"><a id="a8589c2dee130e9e4c43f7f9ba250ca43" name="a8589c2dee130e9e4c43f7f9ba250ca43"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (const VkWriteDescriptorSet &amp;write)</td></tr>
 <tr class="separator:a8589c2dee130e9e4c43f7f9ba250ca43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0982fff3e1380472f385c94b53641adc" id="r_a0982fff3e1380472f385c94b53641adc"><td class="memItemLeft" align="right" valign="top"><a id="a0982fff3e1380472f385c94b53641adc" name="a0982fff3e1380472f385c94b53641adc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_uniform_buffer.html">UniformBuffer</a> &amp;buffer, uint32_t bufferOffset, uint32_t bufferRange, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement=0)</td></tr>
-<tr class="separator:a0982fff3e1380472f385c94b53641adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc1b5951ca02b97c9ececdc11e5f8258" id="r_abc1b5951ca02b97c9ececdc11e5f8258"><td class="memItemLeft" align="right" valign="top"><a id="abc1b5951ca02b97c9ececdc11e5f8258" name="abc1b5951ca02b97c9ececdc11e5f8258"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_uniform_buffer.html">UniformBuffer</a> &amp;buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement=0)</td></tr>
+<tr class="separator:abc1b5951ca02b97c9ececdc11e5f8258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb4711b3d21fc83870725bc16d826257" id="r_acb4711b3d21fc83870725bc16d826257"><td class="memItemLeft" align="right" valign="top"><a id="acb4711b3d21fc83870725bc16d826257" name="acb4711b3d21fc83870725bc16d826257"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateBuffer</b> (<a class="el" href="classvenom_1_1vulkan_1_1_storage_buffer.html">StorageBuffer</a> &amp;buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement=0)</td></tr>
+<tr class="separator:acb4711b3d21fc83870725bc16d826257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09f95f7c77f50960ef471a0eeb70de4c" id="r_a09f95f7c77f50960ef471a0eeb70de4c"><td class="memItemLeft" align="right" valign="top"><a id="a09f95f7c77f50960ef471a0eeb70de4c" name="a09f95f7c77f50960ef471a0eeb70de4c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTexture</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_texture.html">VulkanTexture</a> *texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement=0)</td></tr>
 <tr class="separator:a09f95f7c77f50960ef471a0eeb70de4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +163,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateSampler</b> (co
 <tr class="memitem:a6a062d4063732d8e2532c6400025d486" id="r_a6a062d4063732d8e2532c6400025d486"><td class="memItemLeft" align="right" valign="top"><a id="a6a062d4063732d8e2532c6400025d486" name="a6a062d4063732d8e2532c6400025d486"></a>
 const VkDescriptorSet &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkDescriptorSet</b> () const</td></tr>
 <tr class="separator:a6a062d4063732d8e2532c6400025d486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa087161ddcd3a5854d6c8b560ba0590b" id="r_aa087161ddcd3a5854d6c8b560ba0590b"><td class="memItemLeft" align="right" valign="top"><a id="aa087161ddcd3a5854d6c8b560ba0590b" name="aa087161ddcd3a5854d6c8b560ba0590b"></a>
+const VkDescriptorSet *&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkDescriptorSetPtr</b> () const</td></tr>
+<tr class="separator:aa087161ddcd3a5854d6c8b560ba0590b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -168,8 +174,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>DescriptorPool</b></
 <tr class="separator:a580b2e7743fb5db76d84a307272a3cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_descriptor_set_8h_source.html">DescriptorSet.h</a></li>
-<li>D:/Repositories/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_descriptor_set_8cc.html">DescriptorSet.cc</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_descriptor_set_8h_source.html">DescriptorSet.h</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_descriptor_set_8cc.html">DescriptorSet.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

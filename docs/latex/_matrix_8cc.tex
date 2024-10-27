@@ -1,5 +1,5 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\+Matrix.cc File Reference}
-\hypertarget{_matrix_8cc}{}\label{_matrix_8cc}\index{D:/Repositories/Perso/VenomEngine/lib/common/src/Matrix.cc@{D:/Repositories/Perso/VenomEngine/lib/common/src/Matrix.cc}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\+Matrix.cc File Reference}
+\hypertarget{_matrix_8cc}{}\label{_matrix_8cc}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Matrix.cc@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Matrix.cc}}
 {\ttfamily \#include $<$venom/common/math/\+Matrix.\+h$>$}\newline
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
@@ -16,6 +16,10 @@ VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Iden
 \item 
 VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_a735760df331b9182683aa35446de1d42}{venom\+::common\+::math\+::\+Rotate\+Matrix}} (Mat4 \&matrix, const Vec3 \&axis, const float angle)
 \begin{DoxyCompactList}\small\item\em Rotate matrix. \end{DoxyCompactList}\item 
+VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_ac7626905f2b15d04f02c88d83776423c}{venom\+::common\+::math\+::\+Rotate\+Matrix}} (Mat4 \&matrix, const Quat \&quat)
+\begin{DoxyCompactList}\small\item\em Rotate matrix. \end{DoxyCompactList}\item 
+VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_a9ce44b2f6789cf515ab7ab50a50bb4c0}{venom\+::common\+::math\+::\+Translate\+Matrix}} (Mat4 \&matrix, const Vec3 \&translation)
+\begin{DoxyCompactList}\small\item\em Translate matrix. \end{DoxyCompactList}\item 
 \Hypertarget{_matrix_8h_a96eac85e97d05c5c91878d0f22e2523b}\label{_matrix_8h_a96eac85e97d05c5c91878d0f22e2523b} 
 VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Look\+At\+LH} (const Vec3 \&eye, const Vec3 \&center, const Vec3 \&up)
 \item 
@@ -42,9 +46,26 @@ Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevi
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{_matrix_8h_ac7626905f2b15d04f02c88d83776423c}\index{Matrix.cc@{Matrix.cc}!RotateMatrix@{RotateMatrix}}
+\index{RotateMatrix@{RotateMatrix}!Matrix.cc@{Matrix.cc}}
+\doxysubsubsection{\texorpdfstring{RotateMatrix()}{RotateMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_matrix_8h_ac7626905f2b15d04f02c88d83776423c} 
+void venom\+::common\+::math\+::\+Rotate\+Matrix (\begin{DoxyParamCaption}\item[{Mat4 \&}]{matrix}{, }\item[{const Quat \&}]{quat}{}\end{DoxyParamCaption})}
+
+
+
+Rotate matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & to rotate \\
+\hline
+{\em quat} & quaternion \\
+\hline
+\end{DoxyParams}
 \Hypertarget{_matrix_8h_a735760df331b9182683aa35446de1d42}\index{Matrix.cc@{Matrix.cc}!RotateMatrix@{RotateMatrix}}
 \index{RotateMatrix@{RotateMatrix}!Matrix.cc@{Matrix.cc}}
-\doxysubsubsection{\texorpdfstring{RotateMatrix()}{RotateMatrix()}}
+\doxysubsubsection{\texorpdfstring{RotateMatrix()}{RotateMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{_matrix_8h_a735760df331b9182683aa35446de1d42} 
 void venom\+::common\+::math\+::\+Rotate\+Matrix (\begin{DoxyParamCaption}\item[{Mat4 \&}]{matrix}{, }\item[{const Vec3 \&}]{axis}{, }\item[{const float}]{angle}{}\end{DoxyParamCaption})}
 
@@ -59,5 +80,22 @@ Rotate matrix.
 {\em axis} & normalized \\
 \hline
 {\em angle} & in radians \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_matrix_8h_a9ce44b2f6789cf515ab7ab50a50bb4c0}\index{Matrix.cc@{Matrix.cc}!TranslateMatrix@{TranslateMatrix}}
+\index{TranslateMatrix@{TranslateMatrix}!Matrix.cc@{Matrix.cc}}
+\doxysubsubsection{\texorpdfstring{TranslateMatrix()}{TranslateMatrix()}}
+{\footnotesize\ttfamily \label{_matrix_8h_a9ce44b2f6789cf515ab7ab50a50bb4c0} 
+void venom\+::common\+::math\+::\+Translate\+Matrix (\begin{DoxyParamCaption}\item[{Mat4 \&}]{matrix}{, }\item[{const Vec3 \&}]{translation}{}\end{DoxyParamCaption})}
+
+
+
+Translate matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & \\
+\hline
+{\em translation} & \\
 \hline
 \end{DoxyParams}

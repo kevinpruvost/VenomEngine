@@ -1,0 +1,65 @@
+\doxysection{venom\+::common\+::Plugin\+Object\+Impl\+Wrapper Class Reference}
+\hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper}\index{venom::common::PluginObjectImplWrapper@{venom::common::PluginObjectImplWrapper}}
+
+
+Wrapper for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation.  
+
+
+
+
+{\ttfamily \#include $<$Plugin\+Object.\+h$>$}
+
+Inheritance diagram for venom\+::common\+::Plugin\+Object\+Impl\+Wrapper\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.868217cm]{classvenom_1_1common_1_1_plugin_object_impl_wrapper}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a0f03c41319fa5b303360dc717ec965d5}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a0f03c41319fa5b303360dc717ec965d5} 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a0cb1f15a6b183ca1639769c37784b540}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a0cb1f15a6b183ca1639769c37784b540} 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a556fa0e88065cf85fe5c7228bc6927ff}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a556fa0e88065cf85fe5c7228bc6927ff} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_aa391ec00c1db7da53494529388d80ec1}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_aa391ec00c1db7da53494529388d80ec1} 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a6216be4a1c4f6e3ef8cd58ab4ad52b06}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a6216be4a1c4f6e3ef8cd58ab4ad52b06} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_aa237fe8c3f0d269da4749f943990ddcd}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_aa237fe8c3f0d269da4749f943990ddcd} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a9af35071092c57d2b4549c4098fe73ac}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a9af35071092c57d2b4549c4098fe73ac} 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a8450ac131d8b4e7c4ff88e0384354b6b}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a8450ac131d8b4e7c4ff88e0384354b6b} 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a8dff41073f19248d3d23820b416abdb0}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a8dff41073f19248d3d23820b416abdb0} 
+bool {\bfseries Is\+Impl\+Initialized} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a503386ee0abcc5832be71836f8a25a70}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_a503386ee0abcc5832be71836f8a25a70} 
+void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_plugin_object_impl_wrapper_ad5a9fa86b0ecf0e94a6e93f0d79d0074}\label{classvenom_1_1common_1_1_plugin_object_impl_wrapper_ad5a9fa86b0ecf0e94a6e93f0d79d0074} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wrapper for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/\mbox{\hyperlink{_plugin_object_8h}{Plugin\+Object.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_plugin_object_8cc}{Plugin\+Object.\+cc}}\end{DoxyCompactItemize}

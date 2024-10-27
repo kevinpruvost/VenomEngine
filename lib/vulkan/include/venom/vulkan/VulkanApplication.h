@@ -67,6 +67,7 @@ private:
     vc::Error __CreateInstance();
 
     void __RecreateSwapChain();
+    vc::Error __InitializeSets();
 
 private:
     Instance __instance;

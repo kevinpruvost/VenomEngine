@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Doxygen Awesome" />
     <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
     <!-- END twitter metadata -->
-    <title>VenomEngine: D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/SwapChain.h Source File</title>
+    <title>VenomEngine: /Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/SwapChain.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
     <script type="text/javascript" src="jquery.js"></script>
@@ -177,7 +177,7 @@ $(function(){initNavTree('_swap_chain_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    std::vector&lt;ImageView&gt; __swapChainImageViews;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_class" href="classvenom_1_1vulkan_1_1_vulkan_texture.html">VulkanTexture</a> * __depthTexture;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    UPtr&lt;vc::Texture&gt; __depthTexture;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::vector&lt;VkFramebuffer&gt; __swapChainFramebuffers;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a>;</div>
@@ -195,9 +195,8 @@ $(function(){initNavTree('_swap_chain_8h_source.html',''); initResizable(true); 
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_render_pass_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_render_pass.html">venom::vulkan::RenderPass</a></div><div class="ttdef"><b>Definition</b> RenderPass.h:18</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_surface_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_surface.html">venom::vulkan::Surface</a></div><div class="ttdef"><b>Definition</b> Surface.h:19</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_swap_chain_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_swap_chain.html">venom::vulkan::SwapChain</a></div><div class="ttdef"><b>Definition</b> SwapChain.h:25</div></div>
-<div class="ttc" id="aclassvenom_1_1vulkan_1_1_swap_chain_html_aa81fd2b81e6f9c2af4cde37d4455874b"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_swap_chain.html#aa81fd2b81e6f9c2af4cde37d4455874b">venom::vulkan::SwapChain::InitSwapChain</a></div><div class="ttdeci">vc::Error InitSwapChain(const Surface *surface, const vc::Context *context, const MappedQueueFamilies *queueFamilies)</div><div class="ttdoc">Inits Swap chain and swap chain image views.</div><div class="ttdef"><b>Definition</b> SwapChain.cc:158</div></div>
-<div class="ttc" id="aclassvenom_1_1vulkan_1_1_vulkan_texture_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_vulkan_texture.html">venom::vulkan::VulkanTexture</a></div><div class="ttdef"><b>Definition</b> Texture.h:23</div></div>
-<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:12</div></div>
+<div class="ttc" id="aclassvenom_1_1vulkan_1_1_swap_chain_html_aa81fd2b81e6f9c2af4cde37d4455874b"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_swap_chain.html#aa81fd2b81e6f9c2af4cde37d4455874b">venom::vulkan::SwapChain::InitSwapChain</a></div><div class="ttdeci">vc::Error InitSwapChain(const Surface *surface, const vc::Context *context, const MappedQueueFamilies *queueFamilies)</div><div class="ttdoc">Inits Swap chain and swap chain image views.</div><div class="ttdef"><b>Definition</b> SwapChain.cc:159</div></div>
+<div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:13</div></div>
 <div class="ttc" id="avulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h_html"><div class="ttname"><a href="vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h.html">Texture.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

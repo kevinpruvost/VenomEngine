@@ -1,8 +1,9 @@
-\doxysection{D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\+Descriptor\+Pool.cc File Reference}
-\hypertarget{_descriptor_pool_8cc}{}\label{_descriptor_pool_8cc}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/src/DescriptorPool.cc@{D:/Repositories/Perso/VenomEngine/lib/vulkan/src/DescriptorPool.cc}}
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\+Descriptor\+Pool.cc File Reference}
+\hypertarget{_descriptor_pool_8cc}{}\label{_descriptor_pool_8cc}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/src/DescriptorPool.cc@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/src/DescriptorPool.cc}}
 {\ttfamily \#include $<$venom/vulkan/\+Descriptor\+Pool.\+h$>$}\newline
 {\ttfamily \#include $<$venom/vulkan/\+Allocator.\+h$>$}\newline
 {\ttfamily \#include $<$venom/vulkan/\+Logical\+Device.\+h$>$}\newline
+{\ttfamily \#include $<$venom/vulkan/\+Vulkan\+Application.\+h$>$}\newline
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -10,6 +11,11 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1vulkan}{venom\+::vulkan}}
 \begin{DoxyCompactList}\small\item\em Encapsulation of Vulkan for the front end of Venom\+Engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_descriptor_pool_8cc_a6c8a2552c3f9a6c5e7ee5cdbf5c10713}{GROUP\+\_\+\+UPDATE}}(func)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -21,3 +27,17 @@ Sep, 16 2024
 \begin{DoxyAuthor}{Author}
 Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
 \end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_descriptor_pool_8cc_a6c8a2552c3f9a6c5e7ee5cdbf5c10713}\index{DescriptorPool.cc@{DescriptorPool.cc}!GROUP\_UPDATE@{GROUP\_UPDATE}}
+\index{GROUP\_UPDATE@{GROUP\_UPDATE}!DescriptorPool.cc@{DescriptorPool.cc}}
+\doxysubsubsection{\texorpdfstring{GROUP\_UPDATE}{GROUP\_UPDATE}}
+{\footnotesize\ttfamily \label{_descriptor_pool_8cc_a6c8a2552c3f9a6c5e7ee5cdbf5c10713} 
+\#define GROUP\+\_\+\+UPDATE(\begin{DoxyParamCaption}\item[{}]{func}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \_\_descriptorSets.size();\ ++i)\ \{\ \_\_descriptorSets[i].func;\ \}}
+
+\end{DoxyCode}

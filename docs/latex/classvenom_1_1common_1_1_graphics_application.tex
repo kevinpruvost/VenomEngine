@@ -3,14 +3,20 @@
 Inheritance diagram for venom\+::common\+::Graphics\+Application\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=4.000000cm]{classvenom_1_1common_1_1_graphics_application}
+\includegraphics[height=5.000000cm]{classvenom_1_1common_1_1_graphics_application}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_graphics_application_a6cdc8776038413a9dabdc2c9a2d31855}\label{classvenom_1_1common_1_1_graphics_application_a6cdc8776038413a9dabdc2c9a2d31855} 
-virtual Error {\bfseries Init} ()=0
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_a7737080e4f3d78d1127442a38fe47d0a}\label{classvenom_1_1common_1_1_graphics_application_a7737080e4f3d78d1127442a38fe47d0a} 
+Error {\bfseries Init} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_adba339d36331b9a6eea73438f8cb7a19}\label{classvenom_1_1common_1_1_graphics_application_adba339d36331b9a6eea73438f8cb7a19} 
+virtual Error {\bfseries \+\_\+\+\_\+\+Init} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_a7b260edf0c90f45cbfa059382544ac67}\label{classvenom_1_1common_1_1_graphics_application_a7b260edf0c90f45cbfa059382544ac67} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+\_\+\+Post\+Init} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_application_aa5ba3883138343e203f8055dd12c56e7}\label{classvenom_1_1common_1_1_graphics_application_aa5ba3883138343e203f8055dd12c56e7} 
 virtual Error {\bfseries Loop} ()=0
@@ -19,22 +25,66 @@ virtual Error {\bfseries Loop} ()=0
 virtual bool {\bfseries Should\+Close} ()=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries Plugin\+Object} (const Plugin\+Type type)
 \item 
-void {\bfseries Destroy} ()
-\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_application_acc35f551c75f87681ffccd8692a2e93b}\label{classvenom_1_1common_1_1_graphics_application_acc35f551c75f87681ffccd8692a2e93b} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_a4586a42eef347b8a78ee63c0e5d5c467}\label{classvenom_1_1common_1_1_graphics_application_a4586a42eef347b8a78ee63c0e5d5c467} 
+static int {\bfseries Get\+Current\+Frame} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_a217967ce588c6c368c2680c8829fa6b0}\label{classvenom_1_1common_1_1_graphics_application_a217967ce588c6c368c2680c8829fa6b0} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+shader\+Resource\+Table}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_ad691b105d9974bd6e33053fb48f79423}\label{classvenom_1_1common_1_1_graphics_application_ad691b105d9974bd6e33053fb48f79423} 
+UPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} $>$ {\bfseries \+\_\+dummy\+Texture}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_application_ab9eb4ababc257c6ccd38d2ccb6b87e63}\label{classvenom_1_1common_1_1_graphics_application_ab9eb4ababc257c6ccd38d2ccb6b87e63} 
+static int {\bfseries \+\_\+current\+Frame} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{_graphics_application_8h}{Graphics\+Application.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_graphics_application_8cc}{Graphics\+Application.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{_graphics_application_8h}{Graphics\+Application.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_graphics_application_8cc}{Graphics\+Application.\+cc}}\end{DoxyCompactItemize}

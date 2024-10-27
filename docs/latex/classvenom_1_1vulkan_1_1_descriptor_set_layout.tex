@@ -6,20 +6,41 @@
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a21a12ce664478087763ac8fa997a2144}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a21a12ce664478087763ac8fa997a2144} 
 {\bfseries Descriptor\+Set\+Layout} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \&other)=delete
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a1a9c41e6c0cd592e7f9e527589d43ea9}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a1a9c41e6c0cd592e7f9e527589d43ea9} 
-{\bfseries Descriptor\+Set\+Layout} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \&\&other) noexcept=delete
-\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7ffc7ce58fdc92723baf80e2d2bd47ac}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7ffc7ce58fdc92723baf80e2d2bd47ac} 
 \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \&other)=delete
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a62b01efd53dd35d9b1dcfb6bd17b33a5}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a62b01efd53dd35d9b1dcfb6bd17b33a5} 
-\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \&\&other) noexcept=delete
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_afa81ef22c13ee48b8e52b11aaecfc6a2}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_afa81ef22c13ee48b8e52b11aaecfc6a2} 
+{\bfseries Descriptor\+Set\+Layout} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_aecb9395b0b357e7503b4fe98697a2866}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_aecb9395b0b357e7503b4fe98697a2866} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \&\&other) noexcept
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7d76cdb948350569ce803634f07bca65}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7d76cdb948350569ce803634f07bca65} 
 void {\bfseries Add\+Binding} (uint32\+\_\+t binding, Vk\+Descriptor\+Type type, uint32\+\_\+t count, Vk\+Shader\+Stage\+Flags stage\+Flags, const Vk\+Sampler \texorpdfstring{$\ast$}{*}immutable\+Samplers=nullptr)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a62704e47fb9c661ab8eb32c1efcae945}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a62704e47fb9c661ab8eb32c1efcae945} 
-vc\+::\+Error {\bfseries Create} (Vk\+Descriptor\+Set\+Layout\+Create\+Flags flags=0)
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_ac19aa3a16b6bb2dd3189c52b11aee2cb}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_ac19aa3a16b6bb2dd3189c52b11aee2cb} 
+vc\+::\+Error {\bfseries Create} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a0ecdec998d667b38b963ddf93e2758a5}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a0ecdec998d667b38b963ddf93e2758a5} 
+void {\bfseries Set\+Flags} (Vk\+Descriptor\+Set\+Layout\+Create\+Flags flags)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_aa2e6c1311655aa8925164697208d0271}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_aa2e6c1311655aa8925164697208d0271} 
+Vk\+Descriptor\+Set\+Layout\+Create\+Flags {\bfseries Get\+Flags} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a18882601e9fd93341dc96b06b5d3b4dc}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a18882601e9fd93341dc96b06b5d3b4dc} 
+bool {\bfseries Is\+Bindless} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a4f43ca93d900a963ebb5f943403bbc41}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a4f43ca93d900a963ebb5f943403bbc41} 
+void {\bfseries Set\+Binding\+Flags} (Vk\+Descriptor\+Binding\+Flags flags)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a3d0d36e1e3ceade0bc13116808d0aa4f}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a3d0d36e1e3ceade0bc13116808d0aa4f} 
+void {\bfseries Set\+Max\+Sets} (uint32\+\_\+t max\+Sets)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7f57fc8cd361c956e33beda96c540d30}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7f57fc8cd361c956e33beda96c540d30} 
+uint32\+\_\+t {\bfseries Get\+Max\+Sets} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7c46a90bb59804c124b8302a4904fd02}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_a7c46a90bb59804c124b8302a4904fd02} 
+const std\+::vector$<$ Vk\+Descriptor\+Set\+Layout\+Binding $>$ \& {\bfseries Get\+Bindings} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_layout_aaf32e6791b4aa36e35f054f2f56bb0d2}\label{classvenom_1_1vulkan_1_1_descriptor_set_layout_aaf32e6791b4aa36e35f054f2f56bb0d2} 
 const Vk\+Descriptor\+Set\+Layout \& {\bfseries Get\+Layout} () const
@@ -28,5 +49,5 @@ const Vk\+Descriptor\+Set\+Layout \& {\bfseries Get\+Layout} () const
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_descriptor_set_layout_8h}{Descriptor\+Set\+Layout.\+h}}\item 
-D\+:/\+Repositories/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_descriptor_set_layout_8cc}{Descriptor\+Set\+Layout.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_descriptor_set_layout_8h}{Descriptor\+Set\+Layout.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_descriptor_set_layout_8cc}{Descriptor\+Set\+Layout.\+cc}}\end{DoxyCompactItemize}

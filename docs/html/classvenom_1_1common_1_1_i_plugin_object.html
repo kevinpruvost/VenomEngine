@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="generator" content="Doxygen 1.12.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- BEGIN opengraph metadata -->
+    <meta property="og:title" content="Doxygen Awesome" />
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+    <meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+    <meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+    <!-- END opengraph metadata -->
+    <!-- BEGIN twitter metadata -->
+    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+    <meta name="twitter:title" content="Doxygen Awesome" />
+    <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+    <!-- END twitter metadata -->
+    <title>VenomEngine: venom::common::IPluginObject Class Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeInteractiveToc.init()
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="venom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+    <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="height: 56px;">
+                <td id="projectlogo"><img alt="Logo" src="VenomEngineLogo_VerySmall.png"/></td>
+                <td id="projectalign" style="padding-left: 0.5em;">
+                    <div id="projectname">VenomEngine
+                    </div>
+                    <div id="projectbrief">Cross-Platform Modern Graphics Engine</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end header part -->
+<!-- Generated by Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classvenom_1_1common_1_1_i_plugin_object.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classvenom_1_1common_1_1_i_plugin_object-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">venom::common::IPluginObject Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for venom::common::IPluginObject:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="classvenom_1_1common_1_1_i_plugin_object.png" usemap="#venom::common::IPluginObject_map" alt=""/>
+  <map id="venom::common::IPluginObject_map" name="venom::common::IPluginObject_map">
+<area href="classvenom_1_1common_1_1_plugin_object.html" title="Base class for all the plugin objects Objects that will be loaded from the plugins as their implement..." alt="venom::common::PluginObject" shape="rect" coords="0,56,233,80"/>
+<area href="classvenom_1_1common_1_1_plugin_object_impl.html" title="Interface for the PluginObject different implementations." alt="venom::common::PluginObjectImpl" shape="rect" coords="1093,56,1326,80"/>
+<area href="classvenom_1_1common_1_1_graphics_plugin_object.html" title="Base class for graphics plugin objects." alt="venom::common::GraphicsPluginObject" shape="rect" coords="0,112,233,136"/>
+<area href="classvenom_1_1common_1_1_camera_impl.html" alt="venom::common::CameraImpl" shape="rect" coords="486,112,719,136"/>
+<area href="classvenom_1_1common_1_1_material_impl.html" alt="venom::common::MaterialImpl" shape="rect" coords="729,112,962,136"/>
+<area href="classvenom_1_1common_1_1_mesh_impl.html" alt="venom::common::MeshImpl" shape="rect" coords="972,112,1205,136"/>
+<area href="classvenom_1_1common_1_1_model_impl.html" alt="venom::common::ModelImpl" shape="rect" coords="1215,112,1448,136"/>
+<area href="classvenom_1_1common_1_1_shader_impl.html" alt="venom::common::ShaderImpl" shape="rect" coords="1458,112,1691,136"/>
+<area href="classvenom_1_1common_1_1_texture_impl.html" alt="venom::common::TextureImpl" shape="rect" coords="1701,112,1934,136"/>
+<area href="classvenom_1_1common_1_1_camera_impl.html" alt="venom::common::CameraImpl" shape="rect" coords="243,168,476,192"/>
+<area href="classvenom_1_1common_1_1_graphics_application.html" alt="venom::common::GraphicsApplication" shape="rect" coords="243,224,476,248"/>
+<area href="classvenom_1_1common_1_1_material_impl.html" alt="venom::common::MaterialImpl" shape="rect" coords="243,280,476,304"/>
+<area href="classvenom_1_1common_1_1_mesh_impl.html" alt="venom::common::MeshImpl" shape="rect" coords="243,336,476,360"/>
+<area href="classvenom_1_1common_1_1_model_impl.html" alt="venom::common::ModelImpl" shape="rect" coords="243,392,476,416"/>
+<area href="classvenom_1_1common_1_1_shader_impl.html" alt="venom::common::ShaderImpl" shape="rect" coords="243,448,476,472"/>
+<area href="classvenom_1_1common_1_1_shader_resource_table.html" alt="venom::common::ShaderResourceTable" shape="rect" coords="243,504,476,528"/>
+<area href="classvenom_1_1common_1_1_texture_impl.html" alt="venom::common::TextureImpl" shape="rect" coords="243,560,476,584"/>
+<area href="classvenom_1_1vulkan_1_1_vulkan_camera.html" alt="venom::vulkan::VulkanCamera" shape="rect" coords="486,168,719,192"/>
+<area href="classvenom_1_1vulkan_1_1_vulkan_material.html" alt="venom::vulkan::VulkanMaterial" shape="rect" coords="729,168,962,192"/>
+<area href="classvenom_1_1vulkan_1_1_vulkan_mesh.html" alt="venom::vulkan::VulkanMesh" shape="rect" coords="972,168,1205,192"/>
+<area href="classvenom_1_1vulkan_1_1_vulkan_model.html" alt="venom::vulkan::VulkanModel" shape="rect" coords="1215,168,1448,192"/>
+<area href="classvenom_1_1vulkan_1_1_vulkan_texture.html" alt="venom::vulkan::VulkanTexture" shape="rect" coords="1701,168,1934,192"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a53ae1b3b9da8bbda78a0cbd8ec56297a" id="r_a53ae1b3b9da8bbda78a0cbd8ec56297a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53ae1b3b9da8bbda78a0cbd8ec56297a">Destroy</a> ()=0</td></tr>
+<tr class="separator:a53ae1b3b9da8bbda78a0cbd8ec56297a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e0955743ea74e03c2a75a5c54bfb729" id="r_a6e0955743ea74e03c2a75a5c54bfb729"><td class="memItemLeft" align="right" valign="top"><a id="a6e0955743ea74e03c2a75a5c54bfb729" name="a6e0955743ea74e03c2a75a5c54bfb729"></a>
+virtual PluginType&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> () const =0</td></tr>
+<tr class="separator:a6e0955743ea74e03c2a75a5c54bfb729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a53ae1b3b9da8bbda78a0cbd8ec56297a" name="a53ae1b3b9da8bbda78a0cbd8ec56297a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ae1b3b9da8bbda78a0cbd8ec56297a">&#9670;&#160;</a></span>Destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void venom::common::IPluginObject::Destroy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#ad9f18777cdaa7ebcbfeff2d3a04ffada">venom::common::GraphicsPluginObject</a>, and <a class="el" href="classvenom_1_1common_1_1_plugin_object.html#ab767caede79983aab03a9c8c99c91171">venom::common::PluginObject</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/<a class="el" href="_plugin_object_8h_source.html">PluginObject.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacevenom.html">venom</a></li><li class="navelem"><a class="el" href="namespacevenom_1_1common.html">common</a></li><li class="navelem"><a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">IPluginObject</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

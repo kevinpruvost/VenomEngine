@@ -88,3 +88,7 @@ add_subdirectory("flecs")
 set(OPENVDB_TOOL_USE_ABC ON)
 set(OPENVDB_ENABLE_UNINSTALL OFF)
 add_subdirectory("openvdb")
+
+# openexr
+add_subdirectory("openexr")
+find_package(OpenEXR REQUIRED)

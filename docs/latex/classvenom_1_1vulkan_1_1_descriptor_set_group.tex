@@ -1,0 +1,59 @@
+\doxysection{venom\+::vulkan\+::Descriptor\+Set\+Group Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group}{}\label{classvenom_1_1vulkan_1_1_descriptor_set_group}\index{venom::vulkan::DescriptorSetGroup@{venom::vulkan::DescriptorSetGroup}}
+
+
+Regroups descriptor sets by frame, so if updates have to be done by group, they will be done on the group directly.  
+
+
+
+
+{\ttfamily \#include $<$Descriptor\+Pool.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a00d6789b887479ed2171235be439cacd}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a00d6789b887479ed2171235be439cacd} 
+void {\bfseries Group\+Update} (const Vk\+Write\+Descriptor\+Set \&write)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a2a8c5b34851f7151caa84713330cb1e0}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a2a8c5b34851f7151caa84713330cb1e0} 
+void {\bfseries Group\+Update\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{Uniform\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a7f61cac926583f11391c3fe00514d380}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a7f61cac926583f11391c3fe00514d380} 
+void {\bfseries Group\+Update\+Buffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{Storage\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a0e6865c579bcd0c1d5696eb61ea54381}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a0e6865c579bcd0c1d5696eb61ea54381} 
+void {\bfseries Group\+Update\+Texture} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}} \texorpdfstring{$\ast$}{*}texture, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a408f505e0efda48c7d1d0d749bc4e175}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a408f505e0efda48c7d1d0d749bc4e175} 
+void {\bfseries Group\+Update\+Sampler} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}} \&sampler, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a4998e6e5d7c92b94b35f782b07f7c97e}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a4998e6e5d7c92b94b35f782b07f7c97e} 
+void {\bfseries Group\+Update\+Per\+Frame} (int frame\+Index, const Vk\+Write\+Descriptor\+Set \&write)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_ae6248bde7eeb3797f198ef580faeacdb}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_ae6248bde7eeb3797f198ef580faeacdb} 
+void {\bfseries Group\+Update\+Buffer\+Per\+Frame} (int frame\+Index, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{Uniform\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a28cb205ccd75cc3387ed4a1ea99f57ba}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a28cb205ccd75cc3387ed4a1ea99f57ba} 
+void {\bfseries Group\+Update\+Buffer\+Per\+Frame} (int frame\+Index, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{Storage\+Buffer}} \&buffer, uint32\+\_\+t buffer\+Offset, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a826c688444673367504cf348f6fedca6}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a826c688444673367504cf348f6fedca6} 
+void {\bfseries Group\+Update\+Texture\+Per\+Frame} (int frame\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}} \texorpdfstring{$\ast$}{*}texture, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_ac29d9b0f445c3029de341f5486920d82}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_ac29d9b0f445c3029de341f5486920d82} 
+void {\bfseries Group\+Update\+Sampler\+Per\+Frame} (int frame\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}} \&sampler, uint32\+\_\+t binding, Vk\+Descriptor\+Type descriptor\+Type, uint32\+\_\+t descriptor\+Count, uint32\+\_\+t array\+Element=0)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_a6c752b1f02c72f03efa0d237d8f36bb7}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_a6c752b1f02c72f03efa0d237d8f36bb7} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (const uint32\+\_\+t index)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_set_group_acfc6fc71f3ccd3ea8b1a44b05335906f}\label{classvenom_1_1vulkan_1_1_descriptor_set_group_acfc6fc71f3ccd3ea8b1a44b05335906f} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \& {\bfseries Get\+Current\+Set} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Regroups descriptor sets by frame, so if updates have to be done by group, they will be done on the group directly. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/\mbox{\hyperlink{_descriptor_pool_8h}{Descriptor\+Pool.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{_descriptor_pool_8cc}{Descriptor\+Pool.\+cc}}\end{DoxyCompactItemize}

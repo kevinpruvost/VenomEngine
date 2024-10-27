@@ -1,5 +1,5 @@
 \doxysection{Mesh.\+h}
-\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Mesh.h@{D:/Repositories/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Mesh.h}}
+\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Mesh.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Mesh.h}}
 \mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -14,27 +14,36 @@
 \DoxyCodeLine{00016\ \{}
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }vulkan}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{VulkanMesh}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc::Mesh}}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{VulkanMesh}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{vc::MeshImpl}}}
 \DoxyCodeLine{00020\ \{}
 \DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{VulkanMesh}}();}
 \DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{\string~VulkanMesh}}();}
 \DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ vc::Error\ AddVertexBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keyword}{const}\ uint32\_t\ vertexCount,\ \textcolor{keyword}{const}\ uint32\_t\ vertexSize);}
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ AddIndexBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keyword}{const}\ uint32\_t\ indexCount,\ \textcolor{keyword}{const}\ uint32\_t\ indexSize);}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{const}\ VkBuffer\ *\ GetVkVertexBuffers()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ \ \ \ \ vc::Error\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh_a31a0e259877d2610d1e60b67fc879fe0}{\_\_LoadMeshFromCurrentData}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ AddVertexBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keyword}{const}\ uint32\_t\ vertexCount,\ \textcolor{keyword}{const}\ uint32\_t\ vertexSize,\ \textcolor{keywordtype}{int}\ binding);}
+\DoxyCodeLine{00028\ \ \ \ \ vc::Error\ AddIndexBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keyword}{const}\ uint32\_t\ indexCount,\ \textcolor{keyword}{const}\ uint32\_t\ indexSize);}
 \DoxyCodeLine{00029\ \ \ \ \ VkBuffer\ GetVkIndexBuffer()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{IndexBuffer}}\ \&\ GetIndexBuffer()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00031\ \ \ \ \ uint32\_t\ GetBindingCount()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00032\ \ \ \ \ uint32\_t\ GetVertexCount()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00035\ \ \ \ \ std::vector<VertexBuffer>\ \_\_vertexBuffers;}
-\DoxyCodeLine{00036\ \ \ \ \ std::vector<VkBuffer>\ \_\_vkVertexBuffers;}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{IndexBuffer}}\ \_\_indexBuffer;}
-\DoxyCodeLine{00038\ \};}
-\DoxyCodeLine{00039\ \}}
-\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ VkDeviceSize\ *\ GetOffsets()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1vulkan_1_1_vulkan_mesh_1_1_bound_vk_buffer}{BoundVkBuffer}}}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ binding;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ VkBuffer\ buffer;}
+\DoxyCodeLine{00039\ \ \ \ \ \};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<BoundVkBuffer>\ \&\ GetVkVertexBuffers()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ std::vector<VertexBuffer>\ \_\_vertexBuffers;}
+\DoxyCodeLine{00044\ \ \ \ \ std::vector<BoundVkBuffer>\ \_\_vkVertexBuffers;}
+\DoxyCodeLine{00045\ \ \ \ \ std::vector<VkDeviceSize>\ \_\_offsets;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{IndexBuffer}}\ \_\_indexBuffer;}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ \}}
 
 \end{DoxyCode}

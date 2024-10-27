@@ -7,5 +7,6 @@ var searchData=
   ['pluginmanager_2eh_4',['PluginManager.h',['../_plugin_manager_8h.html',1,'']]],
   ['pluginobject_2ecc_5',['PluginObject.cc',['../_plugin_object_8cc.html',1,'']]],
   ['pluginobject_2eh_6',['PluginObject.h',['../_plugin_object_8h.html',1,'']]],
-  ['plugintype_2eh_7',['PluginType.h',['../_plugin_type_8h.html',1,'']]]
+  ['plugintype_2eh_7',['PluginType.h',['../_plugin_type_8h.html',1,'']]],
+  ['ptr_2eh_8',['Ptr.h',['../_ptr_8h.html',1,'']]]
 ];

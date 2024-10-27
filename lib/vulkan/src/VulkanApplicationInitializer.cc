@@ -258,73 +258,13 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
             return err;
     }
 
-    // Create Semaphores & Fences
-    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __imageAvailableSemaphores[i].InitSemaphore(); err != vc::Error::Success)
-            return err;
-        if (err =__renderFinishedSemaphores[i].InitSemaphore(); err != vc::Error::Success)
-            return err;
-        if (err =__inFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
-            return err;
-    }
-
-    // Create Uniform Buffers
-    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __objectStorageBuffers[i].Init(VENOM_MAX_ENTITIES * sizeof(vcm::Mat4)); err != vc::Error::Success)
-            return err;
-        if (err = __cameraUniformBuffers[i].Init(2 * sizeof(vcm::Mat4)); err != vc::Error::Success)
-            return err;
-    }
-
     // Init Render Pass Framebuffers
     if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
         return err;
 
-    // VertexBuffer Layout
-    /// Position
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0, VK_FORMAT_R32G32B32_SFLOAT);
-    /// Normal
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
-    /// Color
-    //__shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
-    /// UV
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
-
-    // Descriptor Set Layout
-    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
-    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(1, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT);
-    if (vc::ShaderResourceTable::UsingLargeBindlessTextures()) {
-        DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, vc::ShaderResourceTable::GetMaxTextures(), VK_SHADER_STAGE_FRAGMENT_BIT);
-        DescriptorPool::GetPool()->SetDescriptorSetLayoutBindless(2);
-        // Using uniform buffer dynamic for texture IDs (4.1)
-        DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(5, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    } else {
-        DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(2, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VENOM_MAX_DYNAMIC_TEXTURES, VK_SHADER_STAGE_FRAGMENT_BIT);
-        DescriptorPool::GetPool()->SetDescriptorSetLayoutBindless(2);
-        DescriptorPool::GetPool()->SetDescriptorSetLayoutMaxSets(2, VENOM_MAX_ENTITIES);
-    }
-    // Enabling update after bind pool for textures, dynamic or bindless
-    DescriptorPool::GetPool()->SetDescriptorSetLayoutCreateFlags(2, VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT);
-    // Sampler
-    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(3, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    // Material properties (4.0)
-    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(4, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
-    DescriptorPool::GetPool()->SetDescriptorSetLayoutMaxSets(4, VENOM_MAX_ENTITIES);
-
-    // Makes the pool able to allocate descriptor sets that can be updated after binding
-    if (DescriptorPool::GetPool()->Create(VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT) != vc::Error::Success)
-        return vc::Error::Failure;
-    __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
-        "shader_mesh.ps",
-        "shader_mesh.vs"
-    });
-
-    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        // Model & PBR info
-        DescriptorPool::GetPool()->GetDescriptorSets(0).GroupUpdateBufferPerFrame(i, __objectStorageBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
-        // View & Projection
-        DescriptorPool::GetPool()->GetDescriptorSets(1).GroupUpdateBufferPerFrame(i, __cameraUniformBuffers[i], 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
-    }
+    // Init descriptor sets parameters
+    if (err = __InitializeSets(); err != vc::Error::Success)
+        return err;
 
     // Create Sampler
     __sampler.SetCreateInfo({
@@ -349,6 +289,20 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     });
     if (err = __sampler.Create(); err != vc::Error::Success)
         return err;
+
+    // VertexBuffer Layout
+    /// Position
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0, VK_FORMAT_R32G32B32_SFLOAT);
+    /// Normal
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
+    /// Color
+    //__shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
+    /// UV
+    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
+    __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
+        "shader_mesh.ps",
+        "shader_mesh.vs"
+    });
 
     return vc::Error::Success;
 }

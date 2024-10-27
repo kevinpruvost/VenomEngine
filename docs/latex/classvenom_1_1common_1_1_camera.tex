@@ -1,0 +1,133 @@
+\doxysection{venom\+::common\+::Camera Class Reference}
+\hypertarget{classvenom_1_1common_1_1_camera}{}\label{classvenom_1_1common_1_1_camera}\index{venom::common::Camera@{venom::common::Camera}}
+
+
+\doxylink{classvenom_1_1common_1_1_camera}{Camera} class Classic layout with position, rotation and projection matrices.  
+
+
+
+
+{\ttfamily \#include $<$Camera.\+h$>$}
+
+Inheritance diagram for venom\+::common\+::Camera\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_camera}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a78aef0d5ec8da1b7201f5712d79bf53c}\label{classvenom_1_1common_1_1_camera_a78aef0d5ec8da1b7201f5712d79bf53c} 
+void {\bfseries Set\+Position} (const vcm\+::\+Vec3 \&position)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a6c40201acf22a54853e5c42417220eab}\label{classvenom_1_1common_1_1_camera_a6c40201acf22a54853e5c42417220eab} 
+void {\bfseries Move} (const vcm\+::\+Vec3 \&delta)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_acfc45bb6440cefd6fc09cd6202749d3b}\label{classvenom_1_1common_1_1_camera_acfc45bb6440cefd6fc09cd6202749d3b} 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Position} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_ad01c0454c458d809aaa40dbdc51e62b8}\label{classvenom_1_1common_1_1_camera_ad01c0454c458d809aaa40dbdc51e62b8} 
+void {\bfseries Set\+Rotation} (const vcm\+::\+Quat \&rotation)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a23590861286cc85e3e35a5d2c5d1262b}\label{classvenom_1_1common_1_1_camera_a23590861286cc85e3e35a5d2c5d1262b} 
+void {\bfseries Rotate} (const vcm\+::\+Vec3 \&axis, float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_acf7aee2b0c69de40386c412a8944c04c}\label{classvenom_1_1common_1_1_camera_acf7aee2b0c69de40386c412a8944c04c} 
+const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a3ded53c86a68bbec0d991cc3ae0e18cf}\label{classvenom_1_1common_1_1_camera_a3ded53c86a68bbec0d991cc3ae0e18cf} 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Rotation} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_adc5c1a20e7faf18939396930a21268cb}\label{classvenom_1_1common_1_1_camera_adc5c1a20e7faf18939396930a21268cb} 
+const vcm\+::\+Mat4 \& {\bfseries Get\+View\+Matrix} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a159404107d1385fc3d4816b90c7707c2}\label{classvenom_1_1common_1_1_camera_a159404107d1385fc3d4816b90c7707c2} 
+void {\bfseries Set\+Perspective} (float fovY, float aspect\+Ratio, float near\+Plane, float far\+Plane)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a82b15891262f46b3bc74dcda0a7e7d15}\label{classvenom_1_1common_1_1_camera_a82b15891262f46b3bc74dcda0a7e7d15} 
+const vcm\+::\+Mat4 \& {\bfseries Get\+Projection\+Matrix} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a4a9e88ccee17143968cc9c4aa36f323a}\label{classvenom_1_1common_1_1_camera_a4a9e88ccee17143968cc9c4aa36f323a} 
+void {\bfseries Set\+Field\+Of\+View} (float fovY)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a31b5fd8f66defdec9ef3312106aa0e77}\label{classvenom_1_1common_1_1_camera_a31b5fd8f66defdec9ef3312106aa0e77} 
+float {\bfseries Get\+Field\+Of\+View} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a2fd6a49983158cd06c82ca67caee317a}\label{classvenom_1_1common_1_1_camera_a2fd6a49983158cd06c82ca67caee317a} 
+void {\bfseries Set\+Aspect\+Ratio} (float aspect\+Ratio)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a9150881ad4a85b5f5b69f9a41d591ee3}\label{classvenom_1_1common_1_1_camera_a9150881ad4a85b5f5b69f9a41d591ee3} 
+float {\bfseries Get\+Aspect\+Ratio} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a95f4810fae14fc69f9b6318cb44899ca}\label{classvenom_1_1common_1_1_camera_a95f4810fae14fc69f9b6318cb44899ca} 
+void {\bfseries Set\+Near\+Plane} (float near\+Plane)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a805673ec8d6bf537636253a9fdc0d87a}\label{classvenom_1_1common_1_1_camera_a805673ec8d6bf537636253a9fdc0d87a} 
+float {\bfseries Get\+Near\+Plane} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_aa26f1000ed02d40a2b7ffa1d012e5191}\label{classvenom_1_1common_1_1_camera_aa26f1000ed02d40a2b7ffa1d012e5191} 
+void {\bfseries Set\+Far\+Plane} (float far\+Plane)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_aa6b6efb07bc0a8789fc08e83fb1d8b63}\label{classvenom_1_1common_1_1_camera_aa6b6efb07bc0a8789fc08e83fb1d8b63} 
+float {\bfseries Get\+Far\+Plane} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_aa5f1dd01dd00d2894b4f3d9f1e39ea5b}\label{classvenom_1_1common_1_1_camera_aa5f1dd01dd00d2894b4f3d9f1e39ea5b} 
+void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a11d08e61337abba62e4fe6f597a05c0a}\label{classvenom_1_1common_1_1_camera_a11d08e61337abba62e4fe6f597a05c0a} 
+vcm\+::\+Vec3 {\bfseries Get\+Forward\+Vector} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a58682cda5060a4c43be48a8b1b336cee}\label{classvenom_1_1common_1_1_camera_a58682cda5060a4c43be48a8b1b336cee} 
+vcm\+::\+Vec3 {\bfseries Get\+Up\+Vector} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a1415a584f8dd8ea9faf0fc6f7f17cd7f}\label{classvenom_1_1common_1_1_camera_a1415a584f8dd8ea9faf0fc6f7f17cd7f} 
+vcm\+::\+Vec3 {\bfseries Get\+Right\+Vector} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+bool {\bfseries Is\+Impl\+Initialized} () const
+\item 
+void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a624ca1186bb708e0b898e95f02735d4f}\label{classvenom_1_1common_1_1_camera_a624ca1186bb708e0b898e95f02735d4f} 
+static void {\bfseries Set\+Main\+Camera} (const \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}} \&camera)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_camera_a7e8caa6a049b6d600b59c6aacc66c970}\label{classvenom_1_1common_1_1_camera_a7e8caa6a049b6d600b59c6aacc66c970} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}} \& {\bfseries Get\+Main\+Camera} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classvenom_1_1common_1_1_camera}{Camera} class Classic layout with position, rotation and projection matrices. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_camera_8h}{Camera.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_camera_8cc}{Camera.\+cc}}\end{DoxyCompactItemize}

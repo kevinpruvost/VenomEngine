@@ -1,5 +1,5 @@
 \doxysection{Plugin.\+h}
-\hypertarget{_plugin_8h_source}{}\label{_plugin_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/Plugin.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/Plugin.h}}
+\hypertarget{_plugin_8h_source}{}\label{_plugin_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/Plugin.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/Plugin.h}}
 \mbox{\hyperlink{_plugin_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -31,14 +31,14 @@
 \DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}(\textcolor{keyword}{const}\ PluginType\ type);}
 \DoxyCodeLine{00034\ }
 \DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginObjects();}
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ \_\_type;}
-\DoxyCodeLine{00042\ \ \ \ \ std::vector<std::unique\_ptr<PluginObject>>\ \_\_objects;}
-\DoxyCodeLine{00043\ \ \ \ \ std::vector<std::unique\_ptr<PluginObject>>\ \_\_objectsToRemove;}
+\DoxyCodeLine{00042\ \ \ \ \ std::vector<std::unique\_ptr<IPluginObject>>\ \_\_objects;}
+\DoxyCodeLine{00043\ \ \ \ \ std::vector<std::unique\_ptr<IPluginObject>>\ \_\_objectsToRemove;}
 \DoxyCodeLine{00044\ \};}
 \DoxyCodeLine{00045\ \}}
 \DoxyCodeLine{00046\ \}}

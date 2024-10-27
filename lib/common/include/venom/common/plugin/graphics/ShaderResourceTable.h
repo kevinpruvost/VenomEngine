@@ -45,7 +45,8 @@ public:
         SETS_INDEX_CAMERA = 1,
         SETS_INDEX_TEXTURES = 2,
         SETS_INDEX_SAMPLER = 3,
-        SETS_INDEX_MATERIAL = 4
+        SETS_INDEX_MATERIAL = 4,
+        SETS_INDEX_SCENE = 5,
     };
 
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX

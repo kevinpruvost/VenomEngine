@@ -1,4 +1,8 @@
 var _plugin_object_8h =
 [
-    [ "venom::common::PluginObject", "classvenom_1_1common_1_1_plugin_object.html", "classvenom_1_1common_1_1_plugin_object" ]
+    [ "venom::common::IPluginObject", "classvenom_1_1common_1_1_i_plugin_object.html", null ],
+    [ "venom::common::PluginObject", "classvenom_1_1common_1_1_plugin_object.html", "classvenom_1_1common_1_1_plugin_object" ],
+    [ "venom::common::PluginObjectImpl", "classvenom_1_1common_1_1_plugin_object_impl.html", null ],
+    [ "venom::common::PluginObjectImplWrapper", "classvenom_1_1common_1_1_plugin_object_impl_wrapper.html", null ],
+    [ "venom::common::PluginObjectContainer< T, typename >", "classvenom_1_1common_1_1_plugin_object_container.html", null ]
 ];

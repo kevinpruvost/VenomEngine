@@ -1,0 +1,40 @@
+\doxysection{Storage\+Buffer.\+h}
+\hypertarget{_storage_buffer_8h_source}{}\label{_storage_buffer_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/StorageBuffer.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/StorageBuffer.h}}
+\mbox{\hyperlink{_storage_buffer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_buffer_8h}{venom/vulkan/Buffer.h}}>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}();}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{\string~StorageBuffer}}();}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\&\&\ other);}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\&\&\ other);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ vc::Error\ Init(\textcolor{keyword}{const}\ VkDeviceSize\ size);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{const}\ VkDeviceMemory\ \&\ GetVkDeviceMemory()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ GetMappedData()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ \ \ \ \ VkBuffer\ GetVkBuffer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ \ \ \ \ VkDeviceSize\ GetSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data)\ \{\ memcpy(\_\_mappedData,\ data,\ \textcolor{keyword}{sizeof}(T));\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data,\ \textcolor{keywordtype}{size\_t}\ size)\ \{\ memcpy(\_\_mappedData,\ data,\ size);\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_mappedData;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00040\ \}}
+
+\end{DoxyCode}

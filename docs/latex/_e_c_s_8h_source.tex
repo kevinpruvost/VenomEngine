@@ -1,0 +1,73 @@
+\doxysection{ECS.\+h}
+\hypertarget{_e_c_s_8h_source}{}\label{_e_c_s_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/ECS.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/ECS.h}}
+\mbox{\hyperlink{_e_c_s_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_d_l_l_8h}{venom/common/DLL.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <flecs.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ flecs::entity\ Entity;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ }Component\ =\ flecs::component<T>;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ flecs::system\ System;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}();}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{\string~ECS}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ RegisterComponent()\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \_\_world.component<T>();}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ Component<T>\ GetComponent()\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_world.component<T>();}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ Entity\ CreateEntity();}
+\DoxyCodeLine{00047\ \ \ \ \ Entity\ CreateEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Comps,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00050\ \ \ \ \ System\ CreateSystem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_world.system<Comps...>(name);}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ ForEach(\textcolor{keyword}{auto}\ \&\&\ func)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ flecs::query<Args...>\ q\ =\ \_\_world.query<Args...>();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ q.each(func);}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}\ *\ GetECS();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}\ *\ s\_ecs;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ \ \ \ \ flecs::world\ \_\_world;}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ Entity\ CreateEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
+\DoxyCodeLine{00070\ Entity\ CreateEntity();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00073\ \textcolor{keyword}{inline}\ Component<T>\ GetComponent()\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ ECS::GetECS()-\/>GetComponent<T>();}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \}}
+\DoxyCodeLine{00078\ \}}
+
+\end{DoxyCode}

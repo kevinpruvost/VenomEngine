@@ -1,36 +1,73 @@
 \doxysection{Texture.\+h}
-\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h_source}\index{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Texture.h@{D:/Repositories/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Texture.h}}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Texture.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Texture.h}}
 \mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}();}
-\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{\string~Texture}}();}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ *\ Create();}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h}{venom/common/plugin/graphics/ShaderResourceTable.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }GraphicsApplication;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }Texture;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{\string~TextureResource}}();}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ =\ 0;}
-\DoxyCodeLine{00031\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_textureID;\ \}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_\_textureID;}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ \};}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \}}
-\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{\string~TextureImpl}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00040\ \ \ \ \ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}\ *\ GetDummyTexture();}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_GetTextureToCache()-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}>()-\/>GetTextureID();\ \}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ HasTexture()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00046\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ =\ 0;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_CreateDummyTexture();}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}();}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{\string~Texture}}();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>LoadImageFromFile(path);\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>InitDepthBuffer(width,\ height);\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>HasTexture();\ \}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetTextureID();\ \}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}};}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_\_CreateDummyTexture()\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>\_\_CreateDummyTexture();\ \}}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ \}}
 
 \end{DoxyCode}
