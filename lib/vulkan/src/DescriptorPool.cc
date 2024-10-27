@@ -194,16 +194,14 @@ std::vector<DescriptorSetGroup> DescriptorPool::AllocateSets(const std::vector<V
     allocInfo.descriptorSetCount = layouts.size();
     allocInfo.pSetLayouts = layouts.data();
 
-#ifdef VENOM_BINDLESS_TEXTURES
     VkDescriptorSetVariableDescriptorCountAllocateInfoEXT count_info{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO_EXT };
-    std::vector<uint32_t> maxBindings(layouts.size(), vc::ShaderResourceTable::GetMaxTextures());
+    std::vector<uint32_t> maxBindings(layouts.size(), vc::ShaderResourceTable::UsingLargeBindlessTextures() ? vc::ShaderResourceTable::GetMaxTextures() : VENOM_MAX_DYNAMIC_TEXTURES);
     if (bindless) {
         count_info.descriptorSetCount = layouts.size();
         // This number is the max allocatable count
         count_info.pDescriptorCounts = maxBindings.data();
         allocInfo.pNext = &count_info;
     }
-#endif
 
     if (auto err = vkAllocateDescriptorSets(LogicalDevice::GetVkDevice(), &allocInfo, vkSets.data()); err != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate descriptor sets: %x", err);

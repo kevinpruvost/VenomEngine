@@ -15,7 +15,7 @@ namespace vulkan
 VulkanMaterial::VulkanMaterial()
     : __materialDescriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL).AllocateSet())
     , __textureDescriptorSet(
-        vc::ShaderResourceTable::UsingBindlessTextures() ?
+        vc::ShaderResourceTable::UsingLargeBindlessTextures() ?
         nullptr
         :
         DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES).AllocateSet()

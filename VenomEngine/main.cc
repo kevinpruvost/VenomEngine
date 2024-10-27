@@ -53,7 +53,9 @@ int main(int argc, char** argv)
     {
         vc::Entity balls_hd = vc::CreateEntity("balls_hd")
             .emplace<vc::Transform3D>()
-            .emplace<vc::Model>("eye/eye.obj");
+//            .emplace<vc::Model>("eye/eye.obj");
+//            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx");
+            .emplace<vc::Model>("dead_space_gun/gun.fbx");
 
         vc::Entity camera = vc::CreateEntity("camera")
             .emplace<vc::Transform3D>()

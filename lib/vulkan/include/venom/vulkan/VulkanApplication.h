@@ -96,10 +96,8 @@ private:
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Fence __inFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
     bool __framebufferChanged;
-    vc::Model __model;
     StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    UPtr<vc::Texture> __texture;
 };
 }
 }

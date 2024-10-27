@@ -37,11 +37,11 @@ enum MaterialComponentType
 
 enum MaterialComponentValueType
 {
-    COLOR3D = 0,
-    COLOR4D = 1,
-    VALUE = 2,
-    TEXTURE = 3,
-    NONE = 4,
+    NONE = 0,
+    COLOR3D = 1,
+    COLOR4D = 2,
+    VALUE = 3,
+    TEXTURE = 4,
 };
 
 // Structure for material component
@@ -62,8 +62,10 @@ float4 GetMaterialTexture(int componentType, float2 uv)
     return GetTexture(componentType,uv);
 }
 
+Material material : register(b0, space4);
+
 // Example usage of material in shader
-float4 ComputeMaterialColor(Material material, float2 uv)
+float4 ComputeMaterialColor(float2 uv)
 {
     float4 color = float4(0, 0, 0, 1); // Default color
 
@@ -73,6 +75,7 @@ float4 ComputeMaterialColor(Material material, float2 uv)
         if (material.components[i].valueType == TEXTURE)
         {
             color = GetMaterialTexture(i, uv);
+            return color;
         }
         else if (material.components[i].valueType == COLOR4D)
         {
@@ -89,5 +92,3 @@ float4 ComputeMaterialColor(Material material, float2 uv)
     }
     return color;
 }
-
-Material material : register(b0, space4);

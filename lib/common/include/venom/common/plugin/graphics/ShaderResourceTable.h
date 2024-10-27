@@ -56,17 +56,13 @@ public:
     static int GetModelMatrixBufferId(const vcm::Mat4 * mat);
 #endif
 
-#ifdef VENOM_BINDLESS_TEXTURES
     static int BindTexture();
     static void UnbindTexture(int id);
     static void SetMaxTextures(uint32_t maxTextures);
     static inline int GetMaxTextures() { return __maxTextures; }
-    static bool UsingBindlessTextures() { return __maxTextures > 0; }
+    static bool UsingLargeBindlessTextures() { return __maxTextures == VENOM_MAX_BINDLESS_TEXTURES; }
 private:
     static int __maxTextures;
-#else
-    static bool UsingBindlessTextures() { return false; }
-#endif
 };
 }
 }

@@ -76,14 +76,17 @@ void Resources::FreeFilesystem()
 static bool validPath(const std::string& path, std::string & res)
 {
     std::error_code ec;
-    auto realPath = std::filesystem::canonical(path, ec);
+    // Replace all backslashes with forward slashes
+    std::string realPath = path;
+    std::replace(realPath.begin(), realPath.end(), '\\', '/');
+    realPath = std::filesystem::canonical(realPath, ec);
     if (realPath.empty() || ec) {
-        Log::LogToFile("Failed to find canonical path when looking cache for: %s", path.c_str());
+        Log::LogToFile("Failed to find canonical path when looking cache for: %s | error: %s ", path.c_str(), ec.message().c_str());
         return false;
     }
     realPath = std::filesystem::relative(realPath, ec);
     if (realPath.empty() || ec) {
-        Log::LogToFile("Failed to find relative path when looking cache for: %s", path.c_str());
+        Log::LogToFile("Failed to find relative path when looking cache for: %s | error: %s", path.c_str(), ec.message().c_str());
         return false;
     }
     res = realPath;

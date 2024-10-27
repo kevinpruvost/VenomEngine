@@ -92,8 +92,6 @@ int ShaderResourceTable::GetModelMatrixBufferId(const vcm::Mat4* mat)
 
 #endif
 
-#ifdef VENOM_BINDLESS_TEXTURES
-
 class BindlessTexturesIdManager
 {
 public:
@@ -141,13 +139,11 @@ int ShaderResourceTable::__maxTextures = 0;
 void ShaderResourceTable::SetMaxTextures(uint32_t maxTextures)
 {
     if (maxTextures < VENOM_MAX_BINDLESS_TEXTURES) {
-        vc::Log::Error("Max textures must be greater than VENOM_MAX_BINDLESS_TEXTURES, VenomEngine hasn't been done to work without bindless textures if the flag is set, disable flag VENOM_BINDLESS_TEXTURES");
-        exit(1);
+        vc::Log::Error("Bindless textures will be used but in a dynamic manner, not like the real purpose of bindless textures because the max textures allowed by the physical device is less than VENOM_MAX_BINDLESS_TEXTURES (%u)", maxTextures);
+        return;
     }
     s_bindlessTextureManager->SetMaxTextures(VENOM_MAX_BINDLESS_TEXTURES);
     __maxTextures = maxTextures;
 }
-
-#endif
 }
 }

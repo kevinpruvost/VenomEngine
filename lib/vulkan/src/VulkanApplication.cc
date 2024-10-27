@@ -83,10 +83,11 @@ void VulkanApplication::__UpdateUniformBuffers()
 {
     static vc::Timer timer_uni;
     float time = timer_uni.GetMilliSeconds();
+    timer_uni.Reset();
 
     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
     {
-        transform.SetPosition({8,8,0});
+        transform.SetPosition({4,4,0});
         transform.Rotate({0,1,0}, time / 1000.0f);
         transform.UpdateModelMatrix();
     });
@@ -95,7 +96,7 @@ void VulkanApplication::__UpdateUniformBuffers()
     vcm::Mat4 viewAndProj[2];
     vcm::Vec3 cameraPos = {-2.0f, -2.0f, 1.0f};
     vc::Camera::GetMainCamera().SetPosition(cameraPos);
-    vc::Camera::GetMainCamera().LookAt({8,8,0});
+    vc::Camera::GetMainCamera().LookAt({4,4,0});
     viewAndProj[0] = vc::Camera::GetMainCamera().GetViewMatrix();
     viewAndProj[1] = vc::Camera::GetMainCamera().GetProjectionMatrix();
 

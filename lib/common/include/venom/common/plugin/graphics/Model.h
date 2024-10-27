@@ -36,6 +36,7 @@ public:
     virtual void Draw() = 0;
 
     const std::vector<vc::Mesh> & GetMeshes() const;
+
 private:
     friend class Model;
 };

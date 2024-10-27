@@ -103,6 +103,15 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
     return MaterialComponentType::MAX_COMPONENT;
 }
 
+// static vc::Error ProcessNode(aiNode * node, const aiScene * scene, aiMatrix4x4 transformation, std::vector<vc::Mesh> & meshes, std::vector<vc::Material> & materials)
+// {
+//     int mNumC = node->mNumMeshes;
+//     for (int i = 0; i < node->mNumChildren; ++i) {
+//         ProcessNode(node->mChildren[i], scene, transformation * node->mChildren[i]->mTransformation, meshes, materials);
+//     }
+//     return vc::Error::Success;
+// }
+
 vc::Error ModelImpl::ImportModel(const char * path)
 {
     auto realPath = Resources::GetModelsResourcePath(path);
@@ -124,7 +133,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
         Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
     Assimp::Importer importer;
     // Print cwd
-    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
+    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace | aiProcess_PreTransformVertices);
     if (!scene) {
         vc::Log::Error("Failed to load model: %s", realPath.c_str());
         return vc::Error::Failure;
@@ -242,8 +251,14 @@ vc::Error ModelImpl::ImportModel(const char * path)
         }
     }
 
-    // Load every mesh
     _resource->As<ModelResource>()->meshes.reserve(scene->mNumMeshes);
+    // vc::Error err = ProcessNode(scene->mRootNode, scene, scene->mRootNode->mTransformation, _resource->As<ModelResource>()->meshes, _resource->As<ModelResource>()->materials);
+    // if (err != vc::Error::Success) {
+    //     vc::Log::Error("Failed to process node");
+    //     return err;
+    // }
+
+    // Load every mesh
     for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
         vc::Mesh & mesh = _resource->As<ModelResource>()->meshes.emplace_back();
 
@@ -255,9 +270,32 @@ vc::Error ModelImpl::ImportModel(const char * path)
         // Vertices & normals
         mesh._impl->As<MeshImpl>()->_positions.reserve(aimesh->mNumVertices);
         mesh._impl->As<MeshImpl>()->_normals.reserve(aimesh->mNumVertices);
+
+
+        // Find the bounding box for normalization
+        glm::vec3 minVertex(FLT_MAX);
+        glm::vec3 maxVertex(-FLT_MAX);
+
         for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-            mesh._impl->As<MeshImpl>()->_positions.emplace_back(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
-            mesh._impl->As<MeshImpl>()->_normals.emplace_back(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
+            const auto& vertex = aimesh->mVertices[x];
+            minVertex = glm::min(minVertex, glm::vec3(vertex.x, vertex.y, vertex.z));
+            maxVertex = glm::max(maxVertex, glm::vec3(vertex.x, vertex.y, vertex.z));
+        }
+
+        // Center and scale factor calculation
+        glm::vec3 center = (minVertex + maxVertex) * 0.5f;
+        float maxExtent = glm::length(maxVertex - center) * 0.5f;
+
+        // Normalize vertices & normals
+        for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
+            glm::vec3 position = glm::vec3(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
+            position = (position - center) / maxExtent;
+            mesh._impl->As<MeshImpl>()->_positions.emplace_back(position);
+
+            if (aimesh->HasNormals()) {
+                glm::vec3 normal = glm::vec3(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
+                mesh._impl->As<MeshImpl>()->_normals.emplace_back(glm::normalize(normal));
+            }
         }
 
         // Color sets

@@ -54,11 +54,11 @@ enum MaterialComponentType
  */
 enum MaterialComponentValueType
 {
+    NONE,
     COLOR3D,
     COLOR4D,
     VALUE,
     TEXTURE,
-    NONE
 };
 
 /**
