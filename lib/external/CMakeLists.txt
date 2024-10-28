@@ -90,5 +90,6 @@ set(OPENVDB_ENABLE_UNINSTALL OFF)
 add_subdirectory("openvdb")
 
 # openexr
+set(OPENEXR_FORCE_INTERNAL_IMATH ON)
 add_subdirectory("openexr")
 find_package(OpenEXR REQUIRED)

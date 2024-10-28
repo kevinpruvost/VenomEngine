@@ -111,6 +111,11 @@ std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
     return __GetResourcePath(resourcePath, GetResourcePath("shaders/"));
 }
 
+std::string Resources::GetShadersFolderPath()
+{
+    return GetResourcePath("shaders/");
+}
+
 std::string Resources::GetModelsResourcePath(const std::string& resourcePath)
 {
     return __GetResourcePath(resourcePath, GetResourcePath("models/"));

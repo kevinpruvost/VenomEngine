@@ -22,6 +22,15 @@ Image::Image()
     , __width(0), __height(0)
     , __layout(VK_IMAGE_LAYOUT_UNDEFINED)
 {
+    // Image
+    __imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+    __imageInfo.imageType = VK_IMAGE_TYPE_2D;
+    __imageInfo.pNext = nullptr;
+    __imageInfo.extent.depth = 1;
+    __imageInfo.mipLevels = 1;
+    __imageInfo.arrayLayers = 1;
+    __imageInfo.initialLayout = __layout = VK_IMAGE_LAYOUT_UNDEFINED;
+    __imageInfo.flags = 0;
 }
 
 Image::~Image()
@@ -85,24 +94,15 @@ vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags
     VkMemoryPropertyFlags properties, uint32_t width, uint32_t height)
 {
     // Image
-    __imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-    __imageInfo.imageType = VK_IMAGE_TYPE_2D;
-    __imageInfo.pNext = nullptr;
     __imageInfo.extent.width = static_cast<uint32_t>(width);
     __imageInfo.extent.height = static_cast<uint32_t>(height);
-    __imageInfo.extent.depth = 1;
-    __imageInfo.mipLevels = 1;
-    __imageInfo.arrayLayers = 1;
     __imageInfo.format = format;
     __imageInfo.tiling = tiling;
-    __imageInfo.initialLayout = __layout = VK_IMAGE_LAYOUT_UNDEFINED;
     // VK_IMAGE_USAGE_TRANSFER_DST_BIT: Image will be used as a destination for a transfer operation
     // VK_IMAGE_USAGE_SAMPLED_BIT: Image will be used to create a VkImageView suitable for occupying a texture unit
     // and be usable as a sampled image in a shader
     __imageInfo.usage = usage;
     __imageInfo.sharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
-    __imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-    __imageInfo.flags = 0;
 
     if (VkResult vkErr = vkCreateImage(LogicalDevice::GetVkDevice(), &__imageInfo, Allocator::GetVKAllocationCallbacks(), &__image); vkErr != VK_SUCCESS) {
         vc::Log::Error("Failed to create image: %d", vkErr);
@@ -128,14 +128,22 @@ vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags
     return vc::Error::Success;
 }
 
+void Image::SetSamples(VkSampleCountFlagBits samples)
+{
+    __imageInfo.samples = samples;
+}
+
 void Image::SetImageLayout(VkImageLayout layout)
 {
-    SingleTimeCommandBuffer commandBuffer;
-    if (CommandPoolManager::GetGraphicsCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer) != vc::Error::Success) {
-        return;
+    if (__image == VK_NULL_HANDLE) {
+        __imageInfo.initialLayout = __layout = layout;
+    } else {
+        SingleTimeCommandBuffer commandBuffer;
+        if (CommandPoolManager::GetGraphicsCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer) != vc::Error::Success)
+            return;
+        commandBuffer.TransitionImageLayout(*this, __imageInfo.format, __layout, layout);
+        __layout = layout;
     }
-    commandBuffer.TransitionImageLayout(*this, __imageInfo.format, __layout, layout);
-    __layout = layout;
 }
 
 VkImage Image::GetVkImage() const

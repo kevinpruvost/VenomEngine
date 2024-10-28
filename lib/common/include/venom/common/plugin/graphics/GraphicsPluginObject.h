@@ -9,8 +9,6 @@
 
 #include <venom/common/plugin/PluginObject.h>
 
-#include <string>
-
 namespace venom
 {
 namespace common

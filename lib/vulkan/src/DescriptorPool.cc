@@ -76,8 +76,7 @@ void DescriptorSetGroup::GroupUpdateSamplerPerFrame(int frameIndex, const Sample
 DescriptorSetGroupAllocator::DescriptorSetGroupAllocator(std::vector<DescriptorSetGroup>&& sets)
     : __descriptorSetGroups(std::move(sets))
 {
-//    for (int i = 0 ; i < __descriptorSetGroups.size(); ++i) {
-    for (int i = __descriptorSetGroups.size() - 1; i >= 0; --i) {
+    for (int i = static_cast<int>(__descriptorSetGroups.size()) - 1; i >= 0; --i) {
         __freeSets.push(&__descriptorSetGroups[i]);
     }
 }
@@ -114,7 +113,7 @@ DescriptorPool::~DescriptorPool()
 void DescriptorPool::AddPoolSize(VkDescriptorType type, uint32_t count)
 {
     __poolSizes.emplace_back(type, count);
-    __poolInfo.poolSizeCount = __poolSizes.size();
+    __poolInfo.poolSizeCount = static_cast<uint32_t>(__poolSizes.size());
     __poolInfo.pPoolSizes = __poolSizes.data();
 }
 
@@ -191,13 +190,13 @@ std::vector<DescriptorSetGroup> DescriptorPool::AllocateSets(const std::vector<V
     VkDescriptorSetAllocateInfo allocInfo = {};
     allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     allocInfo.descriptorPool = __pool;
-    allocInfo.descriptorSetCount = layouts.size();
+    allocInfo.descriptorSetCount = static_cast<uint32_t>(layouts.size());
     allocInfo.pSetLayouts = layouts.data();
 
     VkDescriptorSetVariableDescriptorCountAllocateInfoEXT count_info{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO_EXT };
     std::vector<uint32_t> maxBindings(layouts.size(), vc::ShaderResourceTable::UsingLargeBindlessTextures() ? vc::ShaderResourceTable::GetMaxTextures() : VENOM_MAX_DYNAMIC_TEXTURES);
     if (bindless) {
-        count_info.descriptorSetCount = layouts.size();
+        count_info.descriptorSetCount = static_cast<uint32_t>(layouts.size());
         // This number is the max allocatable count
         count_info.pDescriptorCounts = maxBindings.data();
         allocInfo.pNext = &count_info;
@@ -213,7 +212,7 @@ std::vector<DescriptorSetGroup> DescriptorPool::AllocateSets(const std::vector<V
     return sets;
 }
 
-void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const ShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint)
+void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint)
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
@@ -224,7 +223,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
         0, nullptr);
 }
 
-void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const ShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint,
+void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint,
     const std::vector<uint32_t>& dynamicOffsets)
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
@@ -233,7 +232,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
         pipeline.GetPipelineLayout(), descriptorSetIndex, 1,
         __descriptorSets[descriptorSetIndex][0][currentFrame].GetVkDescriptorSetPtr(),
-        dynamicOffsets.size(), dynamicOffsets.data());
+        static_cast<uint32_t>(dynamicOffsets.size()), dynamicOffsets.data());
 }
 
 }

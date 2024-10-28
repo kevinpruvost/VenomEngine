@@ -236,6 +236,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Create SwapChain
+    __swapChain.SetSamples(_samples);
     if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
         return err;
 
@@ -289,21 +290,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     });
     if (err = __sampler.Create(); err != vc::Error::Success)
         return err;
-
-    // VertexBuffer Layout
-    /// Position
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 0, 0, 0, VK_FORMAT_R32G32B32_SFLOAT);
-    /// Normal
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec3), 1, 1, 0, VK_FORMAT_R32G32B32_SFLOAT);
-    /// Color
-    //__shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec4), 2, 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT);
-    /// UV
-    __shaderPipeline.AddVertexBufferToLayout(sizeof(vcm::Vec2), 3, 3, 0, VK_FORMAT_R32G32_SFLOAT);
-    __shaderPipeline.LoadShaders(&__swapChain, &__renderPass, {
-        "shader_mesh.ps",
-        "shader_mesh.vs"
-    });
-
     return vc::Error::Success;
 }
 
@@ -354,15 +340,19 @@ vc::Error VulkanApplication::__CreateInstance()
     return vc::Error::Success;
 }
 
-void VulkanApplication::__RecreateSwapChain()
+vc::Error VulkanApplication::__RecreateSwapChain()
 {
+    vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-    __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context);
-    __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies);
-    __swapChain.InitSwapChainFramebuffers(&__renderPass);
+    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != vc::Error::Success)
+        return err;
+    if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
+        return err;
+    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
+        return err;
 
     // We also need to reset the last used semaphore
-    __imageAvailableSemaphores[_currentFrame].InitSemaphore();
+    return __imageAvailableSemaphores[_currentFrame].InitSemaphore();
 }
 }
 }

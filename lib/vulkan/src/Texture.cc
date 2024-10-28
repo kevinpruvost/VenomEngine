@@ -44,6 +44,7 @@ void VulkanTexture::SetDummyTexture(VulkanTexture* texture)
 vc::Error VulkanTexture::_LoadImage(unsigned char* pixels, int width, int height, int channels)
 {
     // Load Image
+    GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
     if (GetImage().Load(pixels, width, height, channels,
         VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -61,6 +62,7 @@ vc::Error VulkanTexture::_LoadImage(unsigned char* pixels, int width, int height
 vc::Error VulkanTexture::_InitDepthBuffer(int width, int height)
 {
     VkFormat depthFormat = PhysicalDevice::FindDepthFormat();
+    GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
     if (GetImage().Create(depthFormat, VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height) != vc::Error::Success)

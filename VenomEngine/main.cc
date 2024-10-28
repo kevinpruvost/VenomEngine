@@ -9,6 +9,7 @@
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Log.h>
 #include <venom/common/plugin/graphics/Model.h>
+#include <venom/common/plugin/graphics/Shader.h>
 
 #if defined(_WIN32) && defined(_ANALYSIS)
 #define _DEBUG
@@ -51,16 +52,28 @@ int main(int argc, char** argv)
     // Run the engine
     vc::VenomEngine::SetScene([]()
     {
+        vc::Shader shader;
+        shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
+            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
+//            {vc::ShaderVertexFormat::Vec4, 2, 2, 0},
+            {vc::ShaderVertexFormat::Vec2, 3, 3, 0},
+        });
+        shader.LoadShaderFromFile("shader_mesh");
+
         vc::Entity balls_hd = vc::CreateEntity("balls_hd")
             .emplace<vc::Transform3D>()
-//            .emplace<vc::Model>("eye/eye.obj");
-//            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx");
-            .emplace<vc::Model>("dead_space_gun/gun.fbx");
-
+//            .emplace<vc::Model>("eye/eye.obj")
+//            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
+            .emplace<vc::Model>("dead_space_gun/gun.fbx")
+            .emplace<vc::Shader>(shader)
+            ;
         vc::Entity camera = vc::CreateEntity("camera")
             .emplace<vc::Transform3D>()
             .emplace<vc::Camera>();
         camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
+
+        vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
     });
     const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 

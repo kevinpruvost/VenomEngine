@@ -22,7 +22,7 @@ namespace vulkan
 class RenderPass;
 class CommandBuffer;
 class SingleTimeCommandBuffer;
-class ShaderPipeline;
+class VulkanShader;
 class Queue;
 
 class CommandPool
@@ -72,14 +72,20 @@ public:
     vc::Error EndCommandBuffer();
 public:
     void Reset(VkCommandBufferResetFlags flags);
-    void BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const;
+    /**
+    * @brief Bind a pipeline to the command buffer
+    * @param pipeline The pipeline to bind
+    * @param bindPoint The bind point of the pipeline
+    * @return true if the pipeline was already bound, false otherwise
+    */
+    bool BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint);
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
-    void DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const ShaderPipeline & pipeline) const;
-    void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const ShaderPipeline & pipeline) const;
+    void DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShader & pipeline) const;
+    void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShader & pipeline) const;
 
-    void PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
+    void PushConstants(const VulkanShader * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
     void TransitionImageLayout(Image& image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 
@@ -96,6 +102,7 @@ protected:
     VkCommandBuffer _commandBuffer;
     const Queue * _queue;
     bool _isActive;
+    VkPipeline _lastBoundPipeline;
 };
 
 class SingleTimeCommandBuffer : public CommandBuffer

@@ -14,6 +14,7 @@
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
 #include <venom/common/Context.h>
+#include <venom/common/Containers.h>
 
 namespace venom
 {
@@ -36,6 +37,9 @@ public:
     vc::Error InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface,
                                     const vc::Context* context);
 
+    inline int GetSamples() const { return __samples; }
+    inline void SetSamples(const int samples) { __samples = samples; }
+
     /// @brief Inits Swap chain and swap chain image views
     /// @param physicalDevice 
     /// @param surface 
@@ -48,20 +52,24 @@ public:
 
 public:
     VkSurfaceCapabilitiesKHR capabilities;
-    std::vector<VkSurfaceFormatKHR> surfaceFormats;
-    std::vector<VkPresentModeKHR> presentModes;
+    vc::Vector<VkSurfaceFormatKHR> surfaceFormats;
+    vc::Vector<VkPresentModeKHR> presentModes;
     VkSurfaceFormatKHR activeSurfaceFormat;
     VkPresentModeKHR activePresentMode;
     VkExtent2D extent;
     VkViewport viewport;
     VkRect2D scissor;
     VkSwapchainKHR swapChain;
-    std::vector<VkImage> swapChainImageHandles;
+    vc::Vector<VkImage> swapChainImageHandles;
 
 private:
-    std::vector<ImageView> __swapChainImageViews;
-    UPtr<vc::Texture> __depthTexture;
-    std::vector<VkFramebuffer> __swapChainFramebuffers;
+    vc::Vector<Image> __swapChainPresentImages;
+    vc::Vector<ImageView> __swapChainMultisampledImageViews, __swapChainPresentImageViews;
+    vc::Vector<Image> __depthTextures;
+    vc::Vector<ImageView> __depthTextureViews;
+    vc::Vector<VkFramebuffer> __swapChainFramebuffers;
+
+    int __samples;
 
     friend class RenderPass;
 };

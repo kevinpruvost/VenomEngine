@@ -11,6 +11,7 @@
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
+#include <venom/common/plugin/graphics/GraphicsSettings.h>
 
 /// @brief Contains the entirety of the code of the VenomEngine project.
 namespace venom
@@ -21,7 +22,7 @@ namespace venom
 /// Use the alias 'vc' to access the namespace.
 namespace common
 {
-class VENOM_COMMON_API GraphicsApplication : public GraphicsPluginObject
+class VENOM_COMMON_API GraphicsApplication : public GraphicsPluginObject, public GraphicsSettings
 {
 protected:
     GraphicsApplication();

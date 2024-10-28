@@ -27,7 +27,8 @@ SwapChain::SwapChain()
     , swapChain(VK_NULL_HANDLE)
     , viewport{}
     , scissor{}
-    , __depthTexture()
+    , __depthTextures()
+    , __samples(1)
 {
 }
 
@@ -39,14 +40,14 @@ SwapChain::~SwapChain()
 SwapChain::SwapChain(SwapChain&& other)
     : swapChain(other.swapChain)
     , swapChainImageHandles(std::move(other.swapChainImageHandles))
-    , __swapChainImageViews(std::move(other.__swapChainImageViews))
+    , __swapChainMultisampledImageViews(std::move(other.__swapChainMultisampledImageViews))
     , capabilities(other.capabilities)
     , surfaceFormats(std::move(other.surfaceFormats))
     , presentModes(std::move(other.presentModes))
     , activeSurfaceFormat(other.activeSurfaceFormat)
     , activePresentMode(other.activePresentMode)
     , extent(other.extent)
-    , __depthTexture(std::move(other.__depthTexture))
+    , __depthTextures(std::move(other.__depthTextures))
 {
     other.swapChain = VK_NULL_HANDLE;
 }
@@ -56,14 +57,14 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
     if (this != &other) {
         swapChain = other.swapChain;
         swapChainImageHandles = std::move(other.swapChainImageHandles);
-        __swapChainImageViews = std::move(other.__swapChainImageViews);
+        __swapChainMultisampledImageViews = std::move(other.__swapChainMultisampledImageViews);
         capabilities = other.capabilities;
         surfaceFormats = std::move(other.surfaceFormats);
         presentModes = std::move(other.presentModes);
         activeSurfaceFormat = other.activeSurfaceFormat;
         activePresentMode = other.activePresentMode;
         extent = other.extent;
-        __depthTexture = std::move(other.__depthTexture);
+        __depthTextures = std::move(other.__depthTextures);
         other.swapChain = VK_NULL_HANDLE;
     }
     return *this;
@@ -77,7 +78,7 @@ void SwapChain::CleanSwapChain()
     }
     __swapChainFramebuffers.clear();
 
-    __swapChainImageViews.clear();
+    __swapChainMultisampledImageViews.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
         vkDestroySwapchainKHR(LogicalDevice::GetVkDevice(), swapChain, Allocator::GetVKAllocationCallbacks());
@@ -179,7 +180,7 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
     createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
     createInfo.imageSharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
-    std::vector<uint32_t> queueFamilyIndices;
+    vc::Vector<uint32_t> queueFamilyIndices;
     if (createInfo.imageSharingMode == VK_SHARING_MODE_CONCURRENT) {
         queueFamilyIndices.reserve(4);
         std::set<uint32_t> queueFamilyIndicesSet;
@@ -217,14 +218,39 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
     }
 
     // Getting handles of images in the swap chain
+    swapChainImageHandles.clear();
     vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, nullptr);
     swapChainImageHandles.resize(imageCount);
     vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, swapChainImageHandles.data());
+    if (__samples > 1) {
+        // Multisampling
+        // Present Images
+        __swapChainPresentImages.clear();
+        __swapChainPresentImages.resize(imageCount);
+        for (size_t i = 0; i < imageCount; ++i) {
+            __swapChainPresentImages[i].SetSamples(static_cast<VkSampleCountFlagBits>(__samples));
+            if (__swapChainPresentImages[i].Create(activeSurfaceFormat.format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, extent.width, extent.height) != vc::Error::Success) {
+                vc::Log::Error("Failed to create present image");
+                return vc::Error::InitializationFailed;
+            }
+        }
+
+        // Present Image Views
+        __swapChainPresentImageViews.clear();
+        __swapChainPresentImageViews.resize(imageCount);
+        for (size_t i = 0; i < imageCount; ++i) {
+            if (__swapChainPresentImageViews[i].Create(__swapChainPresentImages[i].GetVkImage(), activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
+                vc::Log::Error("Failed to create present image view");
+                return vc::Error::InitializationFailed;
+            }
+        }
+    }
 
     // Create ImageViews
-    __swapChainImageViews.resize(imageCount);
+    __swapChainMultisampledImageViews.clear();
+    __swapChainMultisampledImageViews.resize(imageCount);
     for (size_t i = 0; i < imageCount; ++i) {
-        if (__swapChainImageViews[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
+        if (__swapChainMultisampledImageViews[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
             vc::Log::Error("Failed to create image view");
             return vc::Error::InitializationFailed;
         }
@@ -235,21 +261,42 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
 vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
 {
     // Create Depth Texture
-    __depthTexture.reset(new vc::Texture());
-    __depthTexture->InitDepthBuffer(extent.width, extent.height);
+    __depthTextures.clear();
+    __depthTextures.resize(__swapChainMultisampledImageViews.size());
+    const VkImageUsageFlags usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | (__samples > 1 ? VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT : 0);
+    for (int i = 0; i < __swapChainMultisampledImageViews.size(); ++i) {
+        __depthTextures[i].SetSamples(static_cast<VkSampleCountFlagBits>(__samples));
+        if (__depthTextures[i].Create(VK_FORMAT_D32_SFLOAT, VK_IMAGE_TILING_OPTIMAL, usage, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, extent.width, extent.height) != vc::Error::Success) {
+            vc::Log::Error("Failed to create multisampled image");
+            return vc::Error::InitializationFailed;
+        }
+    }
+    __depthTextureViews.clear();
+    __depthTextureViews.resize(__depthTextures.size());
+    for (int i = 0; i < __depthTextures.size(); ++i) {
+        if (__depthTextureViews[i].Create(__depthTextures[i].GetVkImage(), VK_FORMAT_D32_SFLOAT, VK_IMAGE_ASPECT_DEPTH_BIT) != vc::Error::Success) {
+            vc::Log::Error("Failed to create depth image view");
+            return vc::Error::InitializationFailed;
+        }
+        __depthTextures[i].SetImageLayout(VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+    }
 
-    __swapChainFramebuffers.resize(__swapChainImageViews.size());
-    for (int i = 0; i < __swapChainImageViews.size(); ++i) {
-        const VkImageView attachments[] = {
-            __swapChainImageViews[i].GetVkImageView(),
-            __depthTexture->GetConstImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView()
+    __swapChainFramebuffers.resize(__swapChainMultisampledImageViews.size());
+    for (int i = 0; i < __swapChainMultisampledImageViews.size(); ++i) {
+        vc::Vector<VkImageView> attachments = {
+            __swapChainMultisampledImageViews[i].GetVkImageView(),
+            __depthTextureViews[i].GetVkImageView()
         };
+        if (!__swapChainPresentImageViews.empty()) {
+            attachments.insert(attachments.begin(), __swapChainPresentImageViews[i].GetVkImageView());
+            std::swap(attachments[1], attachments[2]);
+        }
 
         VkFramebufferCreateInfo framebufferInfo = {};
         framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-        framebufferInfo.renderPass = renderPass->GetRenderPass();
-        framebufferInfo.attachmentCount = sizeof(attachments) / sizeof(attachments[0]);
-        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.renderPass = renderPass->GetVkRenderPass();
+        framebufferInfo.attachmentCount = attachments.size();
+        framebufferInfo.pAttachments = attachments.data();
         framebufferInfo.width = extent.width;
         framebufferInfo.height = extent.height;
         framebufferInfo.layers = 1;

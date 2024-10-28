@@ -12,7 +12,7 @@
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/Surface.h>
 #include <venom/vulkan/SwapChain.h>
-#include <venom/vulkan/ShaderPipeline.h>
+#include <venom/vulkan/plugin/graphics/Shader.h>
 #include <venom/vulkan/RenderPass.h>
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/Semaphore.h>
@@ -52,6 +52,11 @@ public:
 public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
 
+protected:
+    vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) override;
+    vc::Error _LoadGfxSettings() override;
+    vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() override;
+
 private:
     vc::Error __Loop();
     void __UpdateUniformBuffers();
@@ -66,7 +71,7 @@ private:
 
     vc::Error __CreateInstance();
 
-    void __RecreateSwapChain();
+    vc::Error __RecreateSwapChain();
     vc::Error __InitializeSets();
 
 private:
@@ -91,7 +96,7 @@ private:
     // For test
     static int __bindlessSupported;
     Sampler __sampler;
-    ShaderPipeline __shaderPipeline;
+    vc::Shader __shaderPipeline;
     CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];

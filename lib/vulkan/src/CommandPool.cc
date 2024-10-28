@@ -9,7 +9,7 @@
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/QueueManager.h>
-#include <venom/vulkan/ShaderPipeline.h>
+#include <venom/vulkan/plugin/graphics/Shader.h>
 #include <venom/vulkan/plugin/graphics/Material.h>
 
 namespace venom::vulkan
@@ -18,6 +18,7 @@ CommandBuffer::CommandBuffer()
     : _commandBuffer(VK_NULL_HANDLE)
     , _queue(nullptr)
     , _isActive(false)
+    , _lastBoundPipeline(VK_NULL_HANDLE)
 {
 }
 
@@ -82,12 +83,16 @@ vc::Error CommandBuffer::EndCommandBuffer()
 void CommandBuffer::Reset(VkCommandBufferResetFlags flags)
 {
     vkResetCommandBuffer(_commandBuffer, flags);
+    _lastBoundPipeline = VK_NULL_HANDLE;
 }
 
-void CommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint) const
+bool CommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint)
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    if (_lastBoundPipeline == pipeline) return true;
     vkCmdBindPipeline(_commandBuffer, bindPoint, pipeline);
+    _lastBoundPipeline = pipeline;
+    return false;
 }
 
 void CommandBuffer::SetViewport(const VkViewport& viewport) const
@@ -109,7 +114,7 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const ShaderPipeline & pipeline) const
+void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShader & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     const IndexBuffer & indexBuffer = vulkanMesh->GetIndexBuffer();
@@ -145,7 +150,7 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
     }
 }
 
-void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const ShaderPipeline & pipeline) const
+void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShader & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     for (const vc::Mesh & mesh : vulkanModel->GetMeshes()) {
@@ -153,7 +158,7 @@ void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstIn
     }
 }
 
-void CommandBuffer::PushConstants(const ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
+void CommandBuffer::PushConstants(const VulkanShader * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
                                   uint32_t size, const void* pValues) const
 {
     vkCmdPushConstants(_commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
@@ -212,24 +217,36 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
     VkPipelineStageFlags sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
     VkPipelineStageFlags destinationStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
 
-    if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
-        // barrier.srcAccessMask = 0;
-        barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-
-        // sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-        destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+    if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED) {
+        if (newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
+            barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+            destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+        } else if (newLayout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) {
+            barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+            destinationStage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+        } else if (newLayout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) {
+            barrier.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+            destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        } else if (newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
+            barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+            destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        } else {
+            goto unsupported_layout;
+        }
     } else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
         barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
         barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
         sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
         destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-    } else if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) {
-        barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+    } else if (oldLayout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
+        barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+        barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
 
-        sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-        destinationStage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+        sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        destinationStage = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
     } else {
+        unsupported_layout:
         venom_assert(false, "Unsupported layout transition");
     }
 

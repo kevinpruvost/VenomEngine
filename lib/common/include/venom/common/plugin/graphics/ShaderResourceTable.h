@@ -25,14 +25,6 @@ namespace venom
 namespace common
 {
 
-/**
- * @brief Equivalent to descriptor sets in Vulkan, but for every API
- */
-class ShaderResource
-{
-
-};
-
 class ShaderResourceTable : public GraphicsPluginObject
 {
 public:

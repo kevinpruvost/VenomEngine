@@ -27,7 +27,9 @@ public:
     vc::Error InitRenderPass(const SwapChain * swapChain);
     vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);
-    VkRenderPass GetRenderPass() const;
+    VkRenderPass GetVkRenderPass() const;
+
+    static RenderPass * MainRenderPass();
 
 private:
     VkRenderPass __renderPass;

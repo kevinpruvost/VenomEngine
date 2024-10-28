@@ -9,7 +9,7 @@
 
 #include <venom/vulkan/DescriptorSet.h>
 #include <venom/vulkan/DescriptorSetLayout.h>
-#include <venom/vulkan/ShaderPipeline.h>
+#include <venom/vulkan/plugin/graphics/Shader.h>
 #include <venom/common/VenomSettings.h>
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 
@@ -143,7 +143,7 @@ public:
     * @param shaderPipeline Shader Pipeline we are binding the descriptor sets to
     * @param bindPoint
     */
-    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const ShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint);
+    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint);
     /**
     * @brief Bind all descriptor sets to the pipeline for the current image
     * @param descriptorSetIndex
@@ -152,7 +152,7 @@ public:
     * @param bindPoint
     * @param dynamicOffsets
     */
-    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const ShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint, const std::vector<uint32_t> & dynamicOffsets);
+    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint, const std::vector<uint32_t> & dynamicOffsets);
 
 private:
     static DescriptorPool * s_pool;

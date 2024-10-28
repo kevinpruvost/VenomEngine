@@ -75,7 +75,6 @@ float4 ComputeMaterialColor(float2 uv)
         if (material.components[i].valueType == TEXTURE)
         {
             color = GetMaterialTexture(i, uv);
-            return color;
         }
         else if (material.components[i].valueType == COLOR4D)
         {

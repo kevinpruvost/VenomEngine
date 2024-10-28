@@ -54,6 +54,66 @@ VulkanApplication::~VulkanApplication()
 vc::Error VulkanApplication::Loop() { return __Loop(); }
 bool VulkanApplication::ShouldClose() { return __shouldClose; }
 
+vc::Error VulkanApplication::_SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)
+{
+    int iSamples = static_cast<int>(samples);
+
+    // Default is MSAA
+    switch (mode) {
+        case MultiSamplingModeOption::None:
+            __swapChain.SetSamples(1);
+            break;
+        case MultiSamplingModeOption::MSAA:
+            __swapChain.SetSamples(iSamples);
+            break;
+        default:
+            venom_assert(false, "Invalid MultiSamplingModeOption");
+            return vc::Error::Failure;
+    };
+    return vc::Error::Success;
+}
+
+vc::Error VulkanApplication::_LoadGfxSettings()
+{
+    vc::Error err;
+
+    // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders
+    if (_multisamplingDirty)
+    {
+        vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+        if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != vc::Error::Success)
+            return err;
+        if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
+            return err;
+        if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
+            return err;
+        if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
+            return err;
+
+        // We also need to reset the last used semaphore
+        err = __imageAvailableSemaphores[_currentFrame].InitSemaphore();
+        if (err != vc::Error::Success)
+            return err;
+
+        vc::ECS::GetECS()->ForEach<vc::Shader>([&](vc::Entity entity, vc::Shader & shader)
+        {
+            shader.GetImpl()->As<VulkanShader>()->SetMultiSamplingCount(_samples);
+            shader.GetImpl()->As<VulkanShader>()->LoadShaders();
+        });
+    }
+    return err;
+}
+
+vc::Vector<vc::GraphicsSettings::MultiSamplingCountOption> VulkanApplication::_GetAvailableMultisamplingOptions()
+{
+    vc::Vector<vc::GraphicsSettings::MultiSamplingCountOption> options;
+
+    const auto & props = PhysicalDevice::GetUsedPhysicalDevice().GetProperties();
+    for (int i = 1; i <= props.limits.framebufferColorSampleCounts; i <<= 1)
+        options.push_back(static_cast<vc::GraphicsSettings::MultiSamplingCountOption>(i));
+    return options;
+}
+
 vc::Error VulkanApplication::__Loop()
 {
     vc::Error err;
@@ -130,8 +190,7 @@ vc::Error VulkanApplication::__DrawFrame()
     if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
         __framebufferChanged = false;
         vc::Log::Print("Recreating swap chain");
-        __RecreateSwapChain();
-        return vc::Error::Success;
+        return __RecreateSwapChain();
     } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
         vc::Log::Error("Failed to acquire swap chain image");
         return vc::Error::Failure;
@@ -145,7 +204,6 @@ vc::Error VulkanApplication::__DrawFrame()
         return err;
 
         __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[_currentFrame], imageIndex);
-        __commandBuffers[_currentFrame]->BindPipeline(__shaderPipeline.GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         __commandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
         //__descriptorSets[_currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
@@ -155,18 +213,24 @@ vc::Error VulkanApplication::__DrawFrame()
         __UpdateUniformBuffers();
 
         // Binding model matrices, view and projection matrices and sampler
-        DescriptorPool::GetPool()->BindDescriptorSets(0, *__commandBuffers[_currentFrame], __shaderPipeline, VK_PIPELINE_BIND_POINT_GRAPHICS);
-        DescriptorPool::GetPool()->BindDescriptorSets(1, *__commandBuffers[_currentFrame], __shaderPipeline, VK_PIPELINE_BIND_POINT_GRAPHICS);
-        DescriptorPool::GetPool()->BindDescriptorSets(3, *__commandBuffers[_currentFrame], __shaderPipeline, VK_PIPELINE_BIND_POINT_GRAPHICS);
+        // __commandBuffers[_currentFrame]->BindPipeline(__shaderPipeline.GetImpl()->As<VulkanShader>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+        // DescriptorPool::GetPool()->BindDescriptorSets(0, *__commandBuffers[_currentFrame], *__shaderPipeline.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+        // DescriptorPool::GetPool()->BindDescriptorSets(1, *__commandBuffers[_currentFrame], *__shaderPipeline.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+        // DescriptorPool::GetPool()->BindDescriptorSets(3, *__commandBuffers[_currentFrame], *__shaderPipeline.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
         //__commandBuffers[_currentFrame]->DrawModel(__model.GetImpl()->As<VulkanModel>(), 0, __shaderPipeline);
 
-        vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
+        vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D, vc::Shader>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform, vc::Shader & shader)
         {
             int index;
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
             index = transform.GetModelMatrixId();
 #endif
-            __commandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, __shaderPipeline);
+            if (!__commandBuffers[_currentFrame]->BindPipeline(shader.GetImpl()->As<VulkanShader>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS)) {
+                DescriptorPool::GetPool()->BindDescriptorSets(0, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+                DescriptorPool::GetPool()->BindDescriptorSets(1, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+                DescriptorPool::GetPool()->BindDescriptorSets(3, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            }
+            __commandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shader.GetImpl()->As<VulkanShader>());
         });
         __renderPass.EndRenderPass(__commandBuffers[_currentFrame]);
 
@@ -183,7 +247,7 @@ vc::Error VulkanApplication::__DrawFrame()
     submitInfo.pWaitSemaphores = waitSemaphores;
     submitInfo.pWaitDstStageMask = waitStages;
     submitInfo.commandBufferCount = 1;
-    VkCommandBuffer commandBuffers[] = {*reinterpret_cast<VkCommandBuffer*>(__commandBuffers[_currentFrame])};
+    VkCommandBuffer commandBuffers[] = {__commandBuffers[_currentFrame]->GetVkCommandBuffer()};
     submitInfo.pCommandBuffers = commandBuffers;
     VkSemaphore signalSemaphores[] = {__renderFinishedSemaphores[_currentFrame].GetSemaphore()};
     submitInfo.signalSemaphoreCount = 1;
@@ -192,8 +256,7 @@ vc::Error VulkanApplication::__DrawFrame()
     vc::Timer theoreticalFpsCounter;
     if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__inFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
         __framebufferChanged = false;
-        __RecreateSwapChain();
-        return vc::Error::Success;
+        return __RecreateSwapChain();
     } else if (result != VK_SUCCESS) {
         vc::Log::Error("Failed to submit draw command buffer");
         return vc::Error::Failure;

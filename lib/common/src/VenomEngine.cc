@@ -15,10 +15,12 @@
 
 #include <venom/common/plugin/graphics/Mesh.h>
 #include <venom/common/plugin/graphics/Model.h>
+#include <venom/common/plugin/graphics/Shader.h>
 
 #include <filesystem>
 #include <thread>
 #include <chrono>
+
 
 namespace venom
 {
@@ -75,9 +77,11 @@ Error VenomEngine::RunEngine(int argc, char** argv)
     s_instance.reset(new VenomEngine());
     vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
 
+
     if (err = app->Init(); err != vc::Error::Success) {
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
     } else {
+        auto test = app->GetAvailableMultisamplingOptions();
         s_sceneCallback();
         while (!app->ShouldClose())
         {
@@ -106,7 +110,7 @@ void VenomEngine::__LoadECS()
 {
     // Reserve entities
 
-
+    __ecs->RegisterComponent<Shader>();
     __ecs->RegisterComponent<Model>();
 }
 }

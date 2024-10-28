@@ -21,19 +21,37 @@ typedef DirectX::XMFLOAT4 Vec4;
 typedef DirectX::XMFLOAT3 Vec3;
 typedef DirectX::XMFLOAT2 Vec2;
 
+typedef DirectX::XMINT2 IVec2;
+typedef DirectX::XMINT3 IVec3;
+typedef DirectX::XMINT4 IVec4;
+
+typedef DirectX::XMUINT2 UVec2;
+typedef DirectX::XMUINT3 UVec3;
+typedef DirectX::XMUINT4 UVec4;
+
 typedef DirectX::XMVECTOR Quat;
 
 typedef DirectX::XMMATRIX Mat4;
 typedef DirectX::XMFLOAT3X3 Mat3;
+typedef DirectX::XMFLOAT2X2 Mat2;
 #elif defined(VENOM_MATH_GLM)
 typedef glm::vec4 Vec4;
 typedef glm::vec3 Vec3;
 typedef glm::vec2 Vec2;
 
+typedef glm::ivec2 IVec2;
+typedef glm::ivec3 IVec3;
+typedef glm::ivec4 IVec4;
+
+typedef glm::uvec2 UVec2;
+typedef glm::uvec3 UVec3;
+typedef glm::uvec4 UVec4;
+
 typedef glm::quat Quat;
 
 typedef glm::mat4 Mat4;
 typedef glm::mat3 Mat3;
+typedef glm::mat2 Mat2;
 #endif
 
 // We want vertices to be used separate and not packed (non-interleaved and not interleaved)
