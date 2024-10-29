@@ -26,6 +26,8 @@ public:
 
     vc::Error Load(unsigned char* pixels, int width, int height, int channels,
         VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
+    vc::Error Load(uint16_t * pixels, int width, int height, int channels,
+        VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
     vc::Error Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t width, uint32_t height);
     void SetSamples(VkSampleCountFlagBits samples);
     void SetImageLayout(VkImageLayout layout);

@@ -22,6 +22,7 @@
 #include <venom/vulkan/plugin/graphics/Material.h>
 
 #include "venom/common/ECS.h"
+#include <venom/vulkan/plugin/graphics/Skybox.h>
 
 namespace venom::vulkan
 {
@@ -212,13 +213,13 @@ vc::Error VulkanApplication::__DrawFrame()
         // Update Uniform Buffers
         __UpdateUniformBuffers();
 
-        // Binding model matrices, view and projection matrices and sampler
-        // __commandBuffers[_currentFrame]->BindPipeline(__shaderPipeline.GetImpl()->As<VulkanShader>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-        // DescriptorPool::GetPool()->BindDescriptorSets(0, *__commandBuffers[_currentFrame], *__shaderPipeline.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-        // DescriptorPool::GetPool()->BindDescriptorSets(1, *__commandBuffers[_currentFrame], *__shaderPipeline.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-        // DescriptorPool::GetPool()->BindDescriptorSets(3, *__commandBuffers[_currentFrame], *__shaderPipeline.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-        //__commandBuffers[_currentFrame]->DrawModel(__model.GetImpl()->As<VulkanModel>(), 0, __shaderPipeline);
+        // Draw Skybox
+        vc::ECS::GetECS()->ForEach<vc::Skybox>([&](vc::Entity entity, vc::Skybox & skybox)
+        {
+            //__commandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>());
+        });
 
+        // Draw Models
         vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D, vc::Shader>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform, vc::Shader & shader)
         {
             int index;

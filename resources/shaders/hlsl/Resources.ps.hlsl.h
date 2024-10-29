@@ -1,6 +1,7 @@
 SamplerState g_sampler : register(s0, space3);
 
 #include "Textures.hlsl.h"
+#include "Scene.hlsl.h"
 
 struct PSInput {
     [[vk::location(0)]] float3 color : COLOR;

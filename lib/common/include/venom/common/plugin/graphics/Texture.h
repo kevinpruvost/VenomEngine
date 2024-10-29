@@ -10,6 +10,8 @@
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
 
+#include <venom/common/Types.h>
+
 namespace venom
 {
 namespace common
@@ -43,8 +45,10 @@ public:
     inline int GetTextureID() const { return _GetTextureToCache()->As<TextureResource>()->GetTextureID(); }
 #endif
     virtual bool HasTexture() const = 0;
+
+    virtual vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
+    virtual vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) = 0;
 protected:
-    virtual vc::Error _LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
     virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
 private:
     friend class Texture;

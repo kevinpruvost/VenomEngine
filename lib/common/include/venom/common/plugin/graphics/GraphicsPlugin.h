@@ -22,6 +22,8 @@ class MeshImpl;
 class TextureImpl;
 class CameraImpl;
 class ShaderImpl;
+class SkyboxImpl;
+
 class ShaderResourceTable;
 
 class VENOM_COMMON_API GraphicsPlugin : public Plugin
@@ -49,6 +51,7 @@ public:
     virtual TextureImpl * CreateTexture() = 0;
     virtual CameraImpl * CreateCamera() = 0;
     virtual ShaderImpl * CreateShader() = 0;
+    virtual SkyboxImpl * CreateSkybox() = 0;
 
     // Global instances
     virtual ShaderResourceTable * CreateShaderResourceTable() = 0;

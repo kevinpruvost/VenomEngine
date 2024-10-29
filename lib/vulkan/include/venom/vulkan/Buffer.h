@@ -29,6 +29,7 @@ public:
     VkBuffer GetVkBuffer() const;
     const VkDeviceMemory & GetVkDeviceMemory() const;
     VkDeviceSize GetSize() const;
+    inline const VkBuffer * GetVkBufferPtr() const { return &__buffer; }
 
 private:
     vc::Error __BindBufferMemory();

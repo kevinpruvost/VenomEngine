@@ -24,6 +24,8 @@ public:
     vc::MaterialImpl * CreateMaterial() override;
     vc::CameraImpl * CreateCamera() override;
     vc::ShaderImpl * CreateShader() override;
+    vc::SkyboxImpl * CreateSkybox() override;
+
     vc::ShaderResourceTable * CreateShaderResourceTable() override;
 };
 }

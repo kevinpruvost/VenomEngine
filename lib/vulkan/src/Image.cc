@@ -70,7 +70,32 @@ vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels
 {
     // Buffer
     Buffer stagingBuffer;
-    vc::Error err = stagingBuffer.CreateBuffer(width * height * 4, VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+    vc::Error err = stagingBuffer.CreateBuffer(width * height * 4 * sizeof(unsigned char), VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+        QueueManager::GetGraphicsComputeTransferSharingMode(),
+        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+    if (err != vc::Error::Success)
+        return err;
+    stagingBuffer.WriteBuffer(pixels);
+
+    if (err = Create(format, tiling, usage | VK_IMAGE_USAGE_TRANSFER_DST_BIT, properties, width, height); err != vc::Error::Success)
+        return err;
+
+    SingleTimeCommandBuffer commandBuffer;
+    if (err = CommandPoolManager::GetGraphicsCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer); err != vc::Error::Success)
+        return err;
+    commandBuffer.TransitionImageLayout(*this, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    commandBuffer.CopyBufferToImage(stagingBuffer, *this);
+    commandBuffer.TransitionImageLayout(*this, format, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    __layout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    return vc::Error::Success;
+}
+
+vc::Error Image::Load(uint16_t* pixels, int width, int height, int channels, VkFormat format, VkImageTiling tiling,
+    VkImageUsageFlags usage, VkMemoryPropertyFlags properties)
+{
+    // Buffer
+    Buffer stagingBuffer;
+    vc::Error err = stagingBuffer.CreateBuffer(width * height * 4 * sizeof(uint16_t), VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
         QueueManager::GetGraphicsComputeTransferSharingMode(),
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
     if (err != vc::Error::Success)
@@ -91,7 +116,7 @@ vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels
 }
 
 vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
-    VkMemoryPropertyFlags properties, uint32_t width, uint32_t height)
+                        VkMemoryPropertyFlags properties, uint32_t width, uint32_t height)
 {
     // Image
     __imageInfo.extent.width = static_cast<uint32_t>(width);

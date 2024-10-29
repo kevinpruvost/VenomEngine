@@ -14,6 +14,8 @@
 #include <venom/vulkan/plugin/graphics/Texture.h>
 #include <venom/vulkan/plugin/graphics/Camera.h>
 #include <venom/vulkan/plugin/graphics/Shader.h>
+#include <venom/vulkan/plugin/graphics/Skybox.h>
+
 #include <venom/vulkan/plugin/graphics/ShaderResourceTable.h>
 
 namespace venom
@@ -53,6 +55,11 @@ vc::CameraImpl * VulkanGraphicsPlugin::CreateCamera()
 vc::ShaderImpl* VulkanGraphicsPlugin::CreateShader()
 {
     return new VulkanShader();
+}
+
+vc::SkyboxImpl* VulkanGraphicsPlugin::CreateSkybox()
+{
+    return new VulkanSkybox();
 }
 
 vc::ShaderResourceTable* VulkanGraphicsPlugin::CreateShaderResourceTable()

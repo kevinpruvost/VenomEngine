@@ -16,11 +16,11 @@
 #include <venom/common/plugin/graphics/Mesh.h>
 #include <venom/common/plugin/graphics/Model.h>
 #include <venom/common/plugin/graphics/Shader.h>
+#include <venom/common/plugin/graphics/Skybox.h>
 
 #include <filesystem>
 #include <thread>
 #include <chrono>
-
 
 namespace venom
 {
@@ -112,6 +112,7 @@ void VenomEngine::__LoadECS()
 
     __ecs->RegisterComponent<Shader>();
     __ecs->RegisterComponent<Model>();
+    __ecs->RegisterComponent<Skybox>();
 }
 }
 }

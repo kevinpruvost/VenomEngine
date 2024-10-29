@@ -33,6 +33,7 @@ int ReportHook(int reportType, char *message, int * returnValue)
 #include <thread>
 
 #include "venom/common/plugin/graphics/Camera.h"
+#include "venom/common/plugin/graphics/Skybox.h"
 
 int main(int argc, char** argv)
 {
@@ -52,6 +53,9 @@ int main(int argc, char** argv)
     // Run the engine
     vc::VenomEngine::SetScene([]()
     {
+        vc::Entity cubemap = vc::CreateEntity("cubemap")
+            .emplace<vc::Skybox>("cubemap/billiard_hall.exr");
+
         vc::Shader shader;
         shader.AddVertexBufferToLayout({
             {vc::ShaderVertexFormat::Vec3, 0, 0, 0},

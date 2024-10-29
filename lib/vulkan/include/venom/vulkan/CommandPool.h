@@ -23,6 +23,7 @@ class RenderPass;
 class CommandBuffer;
 class SingleTimeCommandBuffer;
 class VulkanShader;
+class VulkanSkybox;
 class Queue;
 
 class CommandPool
@@ -84,6 +85,7 @@ public:
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
     void DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShader & pipeline) const;
     void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShader & pipeline) const;
+    void DrawSkybox(const VulkanSkybox * vulkanSkybox);
 
     void PushConstants(const VulkanShader * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);

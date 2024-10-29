@@ -11,7 +11,7 @@
 
 namespace venom
 {
-namespace 
+namespace common
 {
 // Weak pointer alias
 template <typename T> using WPtr = std::weak_ptr<T>;

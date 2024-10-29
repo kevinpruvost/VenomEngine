@@ -26,6 +26,7 @@ public:
 
     vc::Error Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags, const void *data);
     VkBuffer GetVkBuffer() const;
+    inline const VkBuffer * GetVkBufferPtr() const { return __buffer.GetVkBufferPtr(); }
     static vc::Error CopyBuffer(const Buffer& srcBuffer, const Buffer& dstBuffer, const VkDeviceSize size);
     uint32_t GetVertexCount() const;
     uint32_t GetVertexSize() const;

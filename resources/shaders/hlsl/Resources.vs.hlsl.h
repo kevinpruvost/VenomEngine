@@ -1,3 +1,5 @@
+#include "Scene.hlsl.h"
+
 cbuffer UniformBufferObject : register(b0, space0) {
     StructuredBuffer<float4x4> models;
 };

@@ -12,6 +12,9 @@
 #include <venom/vulkan/plugin/graphics/Shader.h>
 #include <venom/vulkan/plugin/graphics/Material.h>
 
+#include <venom/common/plugin/graphics/Camera.h>
+#include <venom/vulkan/plugin/graphics/Skybox.h>
+
 namespace venom::vulkan
 {
 CommandBuffer::CommandBuffer()
@@ -156,6 +159,24 @@ void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstIn
     for (const vc::Mesh & mesh : vulkanModel->GetMeshes()) {
         DrawMesh(mesh.GetImpl()->As<VulkanMesh>(), firstInstance, pipeline);
     }
+}
+
+void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox)
+{
+    const VulkanShader * shader = vulkanSkybox->GetShader().GetImpl()->As<VulkanShader>();
+    // Bind pipeline
+    BindPipeline(shader->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+
+    // Bind camera & sampler
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
+
+    // Bind textures (when not bindless)
+    BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, shader->GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES, 1, vulkanSkybox->GetPanormaDescriptorSet().GetVkDescriptorSetPtr());
+
+    VkDeviceSize offsets[] = {0};
+    vkCmdBindVertexBuffers(_commandBuffer, 0, 1, vulkanSkybox->GetVertexBuffer().GetVkBufferPtr(), offsets);
+    vkCmdDraw(_commandBuffer, 6, 1, 0, 0);
 }
 
 void CommandBuffer::PushConstants(const VulkanShader * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
