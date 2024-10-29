@@ -54,6 +54,9 @@ vc::Error VulkanApplication::__InitializeSets()
     // Scene
     DescriptorPool::GetPool()->SetDescriptorSetLayoutMaxSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL, VENOM_MAX_ENTITIES);
 
+    // Panorama
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+
     // Makes the pool able to allocate descriptor sets that can be updated after binding
     if (DescriptorPool::GetPool()->Create(VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT) != vc::Error::Success)
         return vc::Error::Failure;

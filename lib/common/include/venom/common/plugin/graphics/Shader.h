@@ -76,14 +76,22 @@ public:
      */
     void AddVertexBufferToLayout(const std::vector<VertexBufferLayout> & layouts);
 
-    virtual void SetLineWidth(const float width) = 0;
     virtual void SetMultiSamplingCount(const int samples) = 0;
+    inline vc::Error SetLineWidth(const float width) { _SetLineWidth(width); return _ReloadShader(); }
+    inline vc::Error SetDepthTest(const bool enable) { _SetDepthTest(enable); return _ReloadShader(); }
+    inline vc::Error SetDepthWrite(const bool enable) { _SetDepthWrite(enable); return _ReloadShader(); }
 
 protected:
+    virtual void _SetLineWidth(const float width) = 0;
+    virtual void _SetDepthTest(const bool enable) = 0;
+    virtual void _SetDepthWrite(const bool enable) = 0;
     virtual vc::Error _LoadShader(const std::string & path) = 0;
     virtual void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const ShaderVertexFormat format) = 0;
 
+    virtual vc::Error _ReloadShader() = 0;
+
     Vector<String> _shaderPaths;
+private:
 };
 
 class VENOM_COMMON_API Shader : public PluginObjectImplWrapper
@@ -97,6 +105,9 @@ public:
     inline void AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding, const uint32_t location, const uint32_t offset) { _impl->As<ShaderImpl>()->AddVertexBufferToLayout(format, binding, location, offset); }
     inline void AddVertexBufferToLayout(const ShaderImpl::VertexBufferLayout & layout) { _impl->As<ShaderImpl>()->AddVertexBufferToLayout(layout); }
     inline void AddVertexBufferToLayout(const std::vector<ShaderImpl::VertexBufferLayout> & layouts) { _impl->As<ShaderImpl>()->AddVertexBufferToLayout(layouts); }
+    inline void SetLineWidth(const float width) { _impl->As<ShaderImpl>()->SetLineWidth(width); }
+    inline void SetDepthTest(const bool enable) { _impl->As<ShaderImpl>()->SetDepthTest(enable); }
+    inline void SetDepthWrite(const bool enable) { _impl->As<ShaderImpl>()->SetDepthWrite(enable); }
 };
 }
 }

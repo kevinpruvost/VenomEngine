@@ -214,9 +214,10 @@ vc::Error VulkanApplication::__DrawFrame()
         __UpdateUniformBuffers();
 
         // Draw Skybox
-        vc::ECS::GetECS()->ForEach<vc::Skybox>([&](vc::Entity entity, vc::Skybox & skybox)
+        vc::ECS::GetECS()->ForEach<vc::Skybox, vc::Shader>([&](vc::Entity entity, vc::Skybox & skybox, vc::Shader & shader)
         {
-            //__commandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>());
+            shader.GetImpl()->As<VulkanShader>()->SetDepthWrite(false);
+            __commandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shader.GetImpl()->As<VulkanShader>());
         });
 
         // Draw Models

@@ -33,8 +33,11 @@ public:
     VulkanShader& operator=(VulkanShader&& other) noexcept;
 
     vc::Error _LoadShader(const std::string & path) override;
-    void SetLineWidth(const float width) override;
     void SetMultiSamplingCount(const int samples) override;
+    void _SetLineWidth(const float width) override;
+    void _SetDepthTest(const bool enable) override;
+    void _SetDepthWrite(const bool enable) override;
+    vc::Error _ReloadShader() override;
 
     void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const vc::ShaderVertexFormat format) override;
     vc::Error LoadShaders();
@@ -43,6 +46,8 @@ public:
     const VkDescriptorSetLayout & GetDescriptorSetLayout() const;
 private:
     vc::Error LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
+
+    void __DestroyShaderModules();
 
 private:
     VkPipeline __graphicsPipeline;
@@ -53,6 +58,11 @@ private:
 
     VkPipelineMultisampleStateCreateInfo __multisamplingCreateInfo;
     VkPipelineRasterizationStateCreateInfo __rasterizerCreateInfo;
+    VkPipelineDepthStencilStateCreateInfo __depthStencilCreateInfo;
+
+    std::vector<VkPipelineShaderStageCreateInfo> __shaderStages;
+
+    bool __shaderDirty;
 };
 
 }

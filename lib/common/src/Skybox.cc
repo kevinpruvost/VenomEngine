@@ -25,11 +25,6 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
         vc::Log::Error("Failed to load skybox from file: %s", texturePath);
         return err;
     }
-    __shader.AddVertexBufferToLayout(ShaderVertexFormat::Vec3, 0, 0, 0);
-    if (err = __shader.LoadShaderFromFile("skybox"); err != vc::Error::Success) {
-        vc::Log::Error("Failed to load skybox shader");
-        return err;
-    }
     err = _LoadSkybox(__panorama);
     return err;
 }

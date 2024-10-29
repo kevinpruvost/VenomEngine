@@ -21,13 +21,11 @@ public:
     virtual ~SkyboxImpl() = default;
 
     vc::Error LoadSkybox(const char * texturePath);
-    inline const vc::Shader & GetShader() const { return __shader; }
     inline const vc::Texture & GetPanorama() const { return __panorama; }
 protected:
     virtual vc::Error _LoadSkybox(const Texture & texture) = 0;
 private:
     Texture __panorama;
-    Shader __shader;
 };
 
 class VENOM_COMMON_API Skybox : public PluginObjectImplWrapper

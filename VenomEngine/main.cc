@@ -53,8 +53,13 @@ int main(int argc, char** argv)
     // Run the engine
     vc::VenomEngine::SetScene([]()
     {
+        vc::Shader shader_skybox;
+        shader_skybox.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
+        shader_skybox.SetDepthWrite(false);
+        shader_skybox.LoadShaderFromFile("skybox");
         vc::Entity cubemap = vc::CreateEntity("cubemap")
-            .emplace<vc::Skybox>("cubemap/billiard_hall.exr");
+            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
+            .emplace<vc::Shader>(shader_skybox);
 
         vc::Shader shader;
         shader.AddVertexBufferToLayout({

@@ -39,6 +39,7 @@ public:
         SETS_INDEX_SAMPLER = 3,
         SETS_INDEX_MATERIAL = 4,
         SETS_INDEX_SCENE = 5,
+        SETS_INDEX_PANORAMA = 6,
     };
 
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX

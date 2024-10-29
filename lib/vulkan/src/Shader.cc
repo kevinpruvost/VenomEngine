@@ -27,6 +27,7 @@ VulkanShader::VulkanShader()
     , __pipelineLayout(VK_NULL_HANDLE)
     , __multisamplingCreateInfo{}
     , __rasterizerCreateInfo{}
+    , __shaderDirty(true)
 {
     // MultisamplingOption: on of the ways to do antialiasing
     __multisamplingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
@@ -54,10 +55,25 @@ VulkanShader::VulkanShader()
     //rasterizer.depthBiasConstantFactor = 0.0f;
     //rasterizer.depthBiasClamp = 0.0f;
     //rasterizer.depthBiasSlopeFactor = 0.0f;
+
+    // Stencil & Depth testing
+    __depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    // Depth test determines if a fragment is drawn based on its depth value
+    __depthStencilCreateInfo.depthTestEnable = VK_TRUE;
+    // Depth write determines if the depth value of a fragment is written to the depth buffer
+    __depthStencilCreateInfo.depthWriteEnable = VK_TRUE;
+    __depthStencilCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS;
+    __depthStencilCreateInfo.depthBoundsTestEnable = VK_FALSE;
+    __depthStencilCreateInfo.minDepthBounds = 0.0f; // Optional
+    __depthStencilCreateInfo.maxDepthBounds = 100.0f; // Optional
+    __depthStencilCreateInfo.stencilTestEnable = VK_FALSE;
+    __depthStencilCreateInfo.front = {}; // Optional
+    __depthStencilCreateInfo.back = {}; // Optional
 }
 
 VulkanShader::~VulkanShader()
 {
+    __DestroyShaderModules();
     if (__graphicsPipeline != VK_NULL_HANDLE)
         vkDestroyPipeline(LogicalDevice::GetVkDevice(), __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
     if (__pipelineLayout != VK_NULL_HANDLE)
@@ -109,14 +125,145 @@ vc::Error VulkanShader::_LoadShader(const std::string& path)
     return LoadShaders();
 }
 
-void VulkanShader::SetLineWidth(const float width)
+void VulkanShader::_SetLineWidth(const float width)
 {
+    if (__rasterizerCreateInfo.lineWidth == width) return;
     __rasterizerCreateInfo.lineWidth = width;
+    __shaderDirty = true;
 }
 
 void VulkanShader::SetMultiSamplingCount(const int samples)
 {
+    if (__multisamplingCreateInfo.rasterizationSamples == static_cast<VkSampleCountFlagBits>(samples)) return;
     __multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(samples);
+    __shaderDirty = true;
+}
+
+void VulkanShader::_SetDepthTest(const bool enable)
+{
+    if (__depthStencilCreateInfo.depthTestEnable == enable) return;
+    __depthStencilCreateInfo.depthTestEnable = enable;
+    __shaderDirty = true;
+}
+
+void VulkanShader::_SetDepthWrite(const bool enable)
+{
+    if (__depthStencilCreateInfo.depthWriteEnable == enable) return;
+    __depthStencilCreateInfo.depthWriteEnable = enable;
+    __shaderDirty = true;
+}
+
+vc::Error VulkanShader::_ReloadShader()
+{
+    if (__shaderDirty == false || __shaderStages.empty()) return vc::Error::Success;
+
+    // Input Assembly: Describes how primitives are assembled
+    VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
+    inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+    inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+    // Primitive Restart allows you to break up lines and triangles in the strip topology, to break
+    // up a line strip, you can insert a special index value that tells the GPU to start a new line
+    inputAssembly.primitiveRestartEnable = VK_FALSE;
+
+    VkPipelineViewportStateCreateInfo viewportState{};
+    viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+    viewportState.viewportCount = 1;
+    viewportState.scissorCount = 1;
+
+    // Color blending
+    VkPipelineColorBlendAttachmentState colorBlendAttachment{};
+    colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+    colorBlendAttachment.blendEnable = VK_TRUE;
+    colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+    colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+    colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+    colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+    colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+    colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+
+    VkPipelineColorBlendStateCreateInfo colorBlending{};
+    colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+    colorBlending.logicOpEnable = VK_FALSE;
+    colorBlending.logicOp = VK_LOGIC_OP_COPY; // Optional
+    colorBlending.attachmentCount = 1;
+    colorBlending.pAttachments = &colorBlendAttachment;
+    colorBlending.blendConstants[0] = 0.0f; // Optional
+    colorBlending.blendConstants[1] = 0.0f; // Optional
+    colorBlending.blendConstants[2] = 0.0f; // Optional
+    colorBlending.blendConstants[3] = 0.0f; // Optional
+
+    // Dynamic States are to specify which states can be changed without recreating the pipeline
+    std::vector<VkDynamicState> dynamicStates = {
+        VK_DYNAMIC_STATE_VIEWPORT,
+        VK_DYNAMIC_STATE_SCISSOR
+    };
+    VkPipelineDynamicStateCreateInfo dynamicState{};
+    dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+    dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
+    dynamicState.pDynamicStates = dynamicStates.data();
+
+    // Push constants
+    VkPushConstantRange pushConstantRange{};
+    pushConstantRange.offset = 0;
+    //pushConstantRange.size = 2 * sizeof(vcm::Mat4); // View and Projection matrices
+    //pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+
+    // Pipeline layout
+    VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+    pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+    pipelineLayoutInfo.setLayoutCount = DescriptorPool::GetPool()->GetDescriptorSetLayouts().size(); // Optional
+    pipelineLayoutInfo.pSetLayouts = DescriptorPool::GetPool()->GetVkDescriptorSetLayouts().data(); // Optional
+    //pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
+    //pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
+
+    if (__pipelineLayout != VK_NULL_HANDLE) {
+        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
+        __pipelineLayout = VK_NULL_HANDLE;
+    }
+    if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &__pipelineLayout) != VK_SUCCESS)
+    {
+        vc::Log::Error("Failed to create pipeline layout");
+        return vc::Error::Failure;
+    }
+
+    // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
+    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+    vertexInputInfo.vertexAttributeDescriptionCount = __attributeDescriptions.size();
+    vertexInputInfo.pVertexAttributeDescriptions = __attributeDescriptions.data();
+    vertexInputInfo.vertexBindingDescriptionCount = __bindingDescriptions.size();
+    vertexInputInfo.pVertexBindingDescriptions = __bindingDescriptions.data();
+
+    // Setting up the pipeline
+    VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
+    graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+    graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(__shaderStages.size());
+    graphicsPipelineCreateInfo.pStages = __shaderStages.data();
+    graphicsPipelineCreateInfo.pVertexInputState = &vertexInputInfo;
+    graphicsPipelineCreateInfo.pInputAssemblyState = &inputAssembly;
+    graphicsPipelineCreateInfo.pViewportState = &viewportState;
+    graphicsPipelineCreateInfo.pRasterizationState = &__rasterizerCreateInfo;
+    graphicsPipelineCreateInfo.pMultisampleState = &__multisamplingCreateInfo;
+    graphicsPipelineCreateInfo.pDepthStencilState = &__depthStencilCreateInfo;
+    graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
+    graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
+    graphicsPipelineCreateInfo.layout = __pipelineLayout;
+    graphicsPipelineCreateInfo.renderPass = RenderPass::MainRenderPass()->GetVkRenderPass();
+    graphicsPipelineCreateInfo.subpass = 0; // Index of the subpass in the render pass where this pipeline will be used
+    graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
+    //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
+
+    if (__graphicsPipeline != VK_NULL_HANDLE) {
+        vkDestroyPipeline(LogicalDevice::GetVkDevice(), __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
+        __graphicsPipeline = VK_NULL_HANDLE;
+    }
+    if (VkResult res = vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &__graphicsPipeline); res != VK_SUCCESS)
+    {
+        vc::Log::Error("Failed to create graphics pipeline, error code: %d", res);
+        return vc::Error::Failure;
+    }
+    __shaderDirty = false;
+    return vc::Error::Success;
 }
 
 VkFormat GetVkFormatFromShaderVertexFormat(const vc::ShaderVertexFormat format)
@@ -261,161 +408,44 @@ vc::Error VulkanShader::LoadShader(const std::string& shaderPath, VkPipelineShad
     return vc::Error::Success;
 }
 
+void VulkanShader::__DestroyShaderModules()
+{
+    for (int i = 0; i < __shaderStages.size(); ++i) {
+        vkDestroyShaderModule(LogicalDevice::GetVkDevice(), __shaderStages[i].module, Allocator::GetVKAllocationCallbacks());
+    }
+    __shaderStages.clear();
+}
+
 vc::Error VulkanShader::LoadShaders()
 {
     // Loading every shader
-    std::vector<VkPipelineShaderStageCreateInfo> shaderStages(_shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
+    __DestroyShaderModules();
+    __shaderStages.resize(_shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
     for (int i = 0; i < _shaderPaths.size(); ++i)
     {
-        if (LoadShader(_shaderPaths[i], &shaderStages[i]) != vc::Error::Success)
+        if (LoadShader(_shaderPaths[i], &__shaderStages[i]) != vc::Error::Success)
         {
             vc::Log::Error("Failed to load shader: %s", _shaderPaths[i].c_str());
             return vc::Error::Failure;
         }
     }
     // Check if duplicate stages
-    for (int i = 0; i < shaderStages.size(); ++i)
-    {
-        for (int j = i + 1; j < shaderStages.size(); ++j)
+    for (int i = 0; i < __shaderStages.size(); ++i) {
+        for (int j = i + 1; j < __shaderStages.size(); ++j)
         {
-            if (shaderStages[i].stage == shaderStages[j].stage)
+            if (__shaderStages[i].stage == __shaderStages[j].stage)
             {
                 vc::Log::Error("Duplicate shader stages: [%s] | [%s]", _shaderPaths[i].c_str(), _shaderPaths[j].c_str());
-                for (int k = 0; k < shaderStages.size(); ++k) {
-                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
+                for (int k = 0; k < __shaderStages.size(); ++k) {
+                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), __shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
                 }
                 return vc::Error::Failure;
             }
         }
     }
 
-    // Input Assembly: Describes how primitives are assembled
-    VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
-    inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-    inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-    // Primitive Restart allows you to break up lines and triangles in the strip topology, to break
-    // up a line strip, you can insert a special index value that tells the GPU to start a new line
-    inputAssembly.primitiveRestartEnable = VK_FALSE;
-
-    VkPipelineViewportStateCreateInfo viewportState{};
-    viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-    viewportState.viewportCount = 1;
-    viewportState.scissorCount = 1;
-
-    // Stencil & Depth testing
-    VkPipelineDepthStencilStateCreateInfo depthStencil{};
-    depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-    // Depth test determines if a fragment is drawn based on its depth value
-    depthStencil.depthTestEnable = VK_TRUE;
-    // Depth write determines if the depth value of a fragment is written to the depth buffer
-    depthStencil.depthWriteEnable = VK_TRUE;
-    depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
-    depthStencil.depthBoundsTestEnable = VK_FALSE;
-    depthStencil.minDepthBounds = 0.0f; // Optional
-    depthStencil.maxDepthBounds = 1.0f; // Optional
-    depthStencil.stencilTestEnable = VK_FALSE;
-    depthStencil.front = {}; // Optional
-    depthStencil.back = {}; // Optional
-
-    // Color blending
-    VkPipelineColorBlendAttachmentState colorBlendAttachment{};
-    colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    colorBlendAttachment.blendEnable = VK_FALSE;
-    //colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-    //colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    //colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
-    //colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    //colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    //colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
-
-    VkPipelineColorBlendStateCreateInfo colorBlending{};
-    colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlending.logicOpEnable = VK_FALSE;
-    colorBlending.logicOp = VK_LOGIC_OP_COPY; // Optional
-    colorBlending.attachmentCount = 1;
-    colorBlending.pAttachments = &colorBlendAttachment;
-    colorBlending.blendConstants[0] = 0.0f; // Optional
-    colorBlending.blendConstants[1] = 0.0f; // Optional
-    colorBlending.blendConstants[2] = 0.0f; // Optional
-    colorBlending.blendConstants[3] = 0.0f; // Optional
-
-    // Dynamic States are to specify which states can be changed without recreating the pipeline
-    std::vector<VkDynamicState> dynamicStates = {
-        VK_DYNAMIC_STATE_VIEWPORT,
-        VK_DYNAMIC_STATE_SCISSOR
-    };
-    VkPipelineDynamicStateCreateInfo dynamicState{};
-    dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-    dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
-    dynamicState.pDynamicStates = dynamicStates.data();
-
-    // Push constants
-    VkPushConstantRange pushConstantRange{};
-    pushConstantRange.offset = 0;
-    //pushConstantRange.size = 2 * sizeof(vcm::Mat4); // View and Projection matrices
-    //pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
-
-    // Pipeline layout
-    VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
-    pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount = DescriptorPool::GetPool()->GetDescriptorSetLayouts().size(); // Optional
-    pipelineLayoutInfo.pSetLayouts = DescriptorPool::GetPool()->GetVkDescriptorSetLayouts().data(); // Optional
-    //pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
-    //pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
-
-    if (__pipelineLayout != VK_NULL_HANDLE) {
-        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
-        __pipelineLayout = VK_NULL_HANDLE;
-    }
-    if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &__pipelineLayout) != VK_SUCCESS)
-    {
-        vc::Log::Error("Failed to create pipeline layout");
-        return vc::Error::Failure;
-    }
-
-    // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
-    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
-    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputInfo.vertexAttributeDescriptionCount = __attributeDescriptions.size();
-    vertexInputInfo.pVertexAttributeDescriptions = __attributeDescriptions.data();
-    vertexInputInfo.vertexBindingDescriptionCount = __bindingDescriptions.size();
-    vertexInputInfo.pVertexBindingDescriptions = __bindingDescriptions.data();
-
-    // Setting up the pipeline
-    VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
-    graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(shaderStages.size());
-    graphicsPipelineCreateInfo.pStages = shaderStages.data();
-    graphicsPipelineCreateInfo.pVertexInputState = &vertexInputInfo;
-    graphicsPipelineCreateInfo.pInputAssemblyState = &inputAssembly;
-    graphicsPipelineCreateInfo.pViewportState = &viewportState;
-    graphicsPipelineCreateInfo.pRasterizationState = &__rasterizerCreateInfo;
-    graphicsPipelineCreateInfo.pMultisampleState = &__multisamplingCreateInfo;
-    graphicsPipelineCreateInfo.pDepthStencilState = &depthStencil;
-    graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
-    graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
-    graphicsPipelineCreateInfo.layout = __pipelineLayout;
-    graphicsPipelineCreateInfo.renderPass = RenderPass::MainRenderPass()->GetVkRenderPass();
-    graphicsPipelineCreateInfo.subpass = 0; // Index of the subpass in the render pass where this pipeline will be used
-    graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
-    //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
-
-    if (__graphicsPipeline != VK_NULL_HANDLE) {
-        vkDestroyPipeline(LogicalDevice::GetVkDevice(), __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
-        __graphicsPipeline = VK_NULL_HANDLE;
-    }
-    if (VkResult res = vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &__graphicsPipeline); res != VK_SUCCESS)
-    {
-        vc::Log::Error("Failed to create graphics pipeline, error code: %d", res);
-        return vc::Error::Failure;
-    }
-
-    // Cleaning up shader modules
-    for (int i = 0; i < shaderStages.size(); ++i) {
-        vkDestroyShaderModule(LogicalDevice::GetVkDevice(), shaderStages[i].module, Allocator::GetVKAllocationCallbacks());
-    }
-
-    return vc::Error::Success;
+    __shaderDirty = true;
+    return _ReloadShader();
 }
 
 VkPipeline VulkanShader::GetPipeline() const

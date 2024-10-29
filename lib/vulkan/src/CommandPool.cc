@@ -161,9 +161,8 @@ void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstIn
     }
 }
 
-void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox)
+void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanShader * shader)
 {
-    const VulkanShader * shader = vulkanSkybox->GetShader().GetImpl()->As<VulkanShader>();
     // Bind pipeline
     BindPipeline(shader->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
 
@@ -172,7 +171,7 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox)
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
 
     // Bind textures (when not bindless)
-    BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, shader->GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES, 1, vulkanSkybox->GetPanormaDescriptorSet().GetVkDescriptorSetPtr());
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
 
     VkDeviceSize offsets[] = {0};
     vkCmdBindVertexBuffers(_commandBuffer, 0, 1, vulkanSkybox->GetVertexBuffer().GetVkBufferPtr(), offsets);

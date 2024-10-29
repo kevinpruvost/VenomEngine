@@ -14,3 +14,5 @@ float4 GetTexture(int u, float2 texCoord, SamplerState sampler = g_sampler)
         return dynamicTextures[u].Sample(sampler, texCoord);
 #endif
 }
+
+Texture2D panoramaTexture : register(t0, space6);

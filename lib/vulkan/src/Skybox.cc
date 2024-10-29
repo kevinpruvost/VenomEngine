@@ -12,16 +12,17 @@ namespace venom
 namespace vulkan
 {
 VulkanSkybox::VulkanSkybox()
-    : __descriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES).AllocateSet())
+    : __descriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA).AllocateSet())
 {
     // Init Vertex Buffer
     const vcm::Vec3 vertices[] = {
         vcm::Vec3(-1.0f,  1.0f, 0.0f),
         vcm::Vec3(-1.0f, -1.0f, 0.0f),
         vcm::Vec3( 1.0f, -1.0f, 0.0f),
-        vcm::Vec3( 1.0f, -1.0f, 0.0f),
-        vcm::Vec3(-1.0f,  1.0f, 0.0f),
+
         vcm::Vec3( 1.0f,  1.0f, 0.0f),
+        vcm::Vec3(-1.0f,  1.0f, 0.0f),
+        vcm::Vec3( 1.0f, -1.0f, 0.0f),
     };
     if (__vertexBuffer.Init(6, sizeof(vcm::Vec3), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, vertices) != vc::Error::Success)
     {
