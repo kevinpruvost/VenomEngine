@@ -35,6 +35,15 @@ public:
     inline const vcm::Quat & GetRotationQuat() const { return _rotation; } // Get current camera rotation
     const vcm::Vec3 & GetRotation();                                       // Get current camera rotation
 
+
+    /**
+     * @brief Rotates around the target on the given planeNormal by the given angle
+     * @param target
+     * @param planeNormal
+     * @param angle
+     */
+    void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle); // Rotate camera around target
+
     void LookAt(const vcm::Vec3& target);  // Point camera towards a specific target
     inline vcm::Vec3 GetForwardVector() const { return vcm::GetForward(_rotation); } // Get camera's forward direction
     inline vcm::Vec3 GetUpVector() const { return vcm::GetUp(_rotation); }           // Get camera's up direction

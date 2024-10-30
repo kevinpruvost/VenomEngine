@@ -126,6 +126,38 @@ vcm::Vec3 GetRight(const vcm::Quat & quat);
  * @return Identity quaternion
  */
 vcm::Quat IdentityQuat();
+
+/**
+ * @brief Get the perpendicular vector of a vector
+ * @return Perpendicular vector
+ */
+vcm::Vec3 GetPerpendicularVector(const vcm::Vec3 & vec);
+
+vcm::Vec3 CrossProduct(const vcm::Vec3 & a, const vcm::Vec3 & b);
+
+float DotProduct(const vcm::Vec3 & a, const vcm::Vec3 & b);
+
+/**
+ * @brief Rotates around the target on the given planeNormal by the given angle
+ * @param point
+ * @param target
+ * @param planeNormal
+ * @param angle
+ * @return new point
+ */
+vcm::Vec3 RotateAround(const vcm::Vec3 & point, const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle);
+
+/**
+ * @brief Rotates point around center by angle (degrees)
+ * @param point
+ * @param center
+ * @param angle
+ * @return new point
+ */
+vcm::Vec2 RotateAround(const vcm::Vec2 & point, const vcm::Vec2 & center, const float angle);
+
+VENOM_COMMON_API void Normalize(Vec3& vec);
+
 }
 }
 }

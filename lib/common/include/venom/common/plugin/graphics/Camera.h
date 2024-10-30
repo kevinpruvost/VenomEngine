@@ -105,6 +105,8 @@ public:
     inline vcm::Vec3 GetForwardVector() const { return _impl->As<CameraImpl>()->GetForwardVector(); }
     inline vcm::Vec3 GetUpVector() const { return _impl->As<CameraImpl>()->GetUpVector(); }
     inline vcm::Vec3 GetRightVector() const { return _impl->As<CameraImpl>()->GetRightVector(); }
+
+    inline void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle) { _impl->As<CameraImpl>()->RotateAround(target, planeNormal, angle); }
 };
 }
 }

@@ -121,4 +121,70 @@ vcm::Quat IdentityQuat()
     return glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 #endif
 }
+
+vcm::Vec3 GetPerpendicularVector(const vcm::Vec3& vec)
+{
+    vcm::Vec3 vecNormalized = vec;
+    Normalize(vecNormalized);
+    vcm::Vec3 arbitraryVector = vcm::Vec3(0.0f, 0.0f, 1.0f);
+    if (std::abs(DotProduct(vecNormalized, arbitraryVector)) > 0.99f)
+        arbitraryVector = vcm::Vec3(0.0f, 1.0f, 0.0f);
+    return CrossProduct(arbitraryVector, vecNormalized);
+}
+
+vcm::Vec3 CrossProduct(const vcm::Vec3& a, const vcm::Vec3& b)
+{
+#if defined(VENOM_MATH_DXMATH)
+    vcm::Vec3 result;
+    DirectX::XMVECTOR cross = DirectX::XMVector3Cross(DirectX::XMLoadFloat3(&a), DirectX::XMLoadFloat3(&b));
+    DirectX::XMStoreFloat3(&result, cross);
+    return result;
+#elif defined(VENOM_MATH_GLM)
+    return glm::cross(a, b);
+#endif
+}
+
+float DotProduct(const vcm::Vec3& a, const vcm::Vec3& b)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return DirectX::XMVectorGetX(DirectX::XMVector3Dot(DirectX::XMLoadFloat3(&a), DirectX::XMLoadFloat3(&b)));
+#elif defined(VENOM_MATH_GLM)
+    return glm::dot(a, b);
+#endif
+}
+
+vcm::Vec3 RotateAround(const vcm::Vec3& point, const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle)
+{
+    auto u = planeNormal;
+
+    auto w = vcm::GetPerpendicularVector(u);
+    vcm::Normalize(w);
+    auto v = vcm::CrossProduct(u, w);
+    vcm::Normalize(v);
+
+    auto pc = point - target;
+    vcm::Vec2 position2D = vcm::Vec2(vcm::DotProduct(pc, w), vcm::DotProduct(pc, v));
+    vcm::Vec2 rotatedPosition2D = vcm::RotateAround(position2D, vcm::Vec2(0.0f, 0.0f), angle);
+
+    return target + (w * rotatedPosition2D.x) + (v * rotatedPosition2D.y);
+}
+
+vcm::Vec2 RotateAround(const vcm::Vec2& point, const vcm::Vec2& center, const float angle)
+{
+    float rad = angle * M_PI / 180.0f;
+    return vcm::Vec2(
+        std::cos(rad) * (point.x - center.x) - std::sin(rad) * (point.y - center.y) + center.x,
+        std::sin(rad) * (point.x - center.x) + std::cos(rad) * (point.y - center.y) + center.y
+    );
+}
+
+void Normalize(Vec3& vec)
+{
+#if defined(VENOM_MATH_DXMATH)
+    DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&vec));
+#elif defined(VENOM_MATH_GLM)
+    vec = glm::normalize(vec);
+#endif
+}
+
 }

@@ -77,10 +77,12 @@ int main(int argc, char** argv)
             .emplace<vc::Model>("dead_space_gun/gun.fbx")
             .emplace<vc::Shader>(shader)
             ;
+        balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(4.0f, 4.0f, 0.0f));
+
         vc::Entity camera = vc::CreateEntity("camera")
             .emplace<vc::Transform3D>()
             .emplace<vc::Camera>();
-        camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(0.0f, 0.0f, 0.0f));
+        camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-2.0f, -2.0f, 1.0f));
 
         vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
     });

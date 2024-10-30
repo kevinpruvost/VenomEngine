@@ -146,18 +146,19 @@ void VulkanApplication::__UpdateUniformBuffers()
     float time = timer_uni.GetMilliSeconds();
     timer_uni.Reset();
 
+    vcm::Vec3 cameraInitialPos = {-2, -2, 1};
     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
     {
-        transform.SetPosition({4,4,0});
         transform.Rotate({0,1,0}, time / 1000.0f);
         transform.UpdateModelMatrix();
+        // Make camera rotate around object
+        vcm::Vec3 cameraPos = cameraInitialPos;
+        vc::Camera::GetMainCamera().RotateAround(transform.GetPosition(), {0,1,0}, time * 0.03f);
+        vc::Camera::GetMainCamera().LookAt(transform.GetPosition());
     });
 
     // Camera
     vcm::Mat4 viewAndProj[2];
-    vcm::Vec3 cameraPos = {-2.0f, -2.0f, 1.0f};
-    vc::Camera::GetMainCamera().SetPosition(cameraPos);
-    vc::Camera::GetMainCamera().LookAt({4,4,0});
     viewAndProj[0] = vc::Camera::GetMainCamera().GetViewMatrix();
     viewAndProj[1] = vc::Camera::GetMainCamera().GetProjectionMatrix();
 

@@ -147,6 +147,11 @@ const vcm::Vec3& Transform3D::GetRotation()
     return _3DrotationView;
 }
 
+void Transform3D::RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle)
+{
+    _position = vcm::RotateAround(_position, target, planeNormal, angle);
+}
+
 void Transform3D::UpdateModelMatrix()
 {
     if (__modelDirty)
