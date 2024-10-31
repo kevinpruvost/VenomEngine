@@ -10,21 +10,33 @@
 
 namespace venom::common
 {
-
+static Context * s_context = nullptr;
 Context::Context()
     : __window(nullptr)
+    , __keyboardModifierState(0x0000)
+    , __mousePos{0.0, 0.0}
+    , __mouseLastPos{0.0, 0.0}
 {
+    venom_assert(s_context == nullptr, "Context::Context() : Context already exists");
+    s_context = this;
+    for (int i = 0; i < __keyboardState.size(); ++i) __keyboardState[i] = InputState::Unknown;
+    for (int i = 0; i < __mouseState.size(); ++i) __mouseState[i] = InputState::Unknown;
 }
 
 Context::~Context()
 {
-    if (__window) {
+    if (__window)
         glfwDestroyWindow(__window);
-    }
     glfwTerminate();
+    s_context = nullptr;
 }
 
-Error Context::InitContext()
+Context* Context::Get()
+{
+    return s_context;
+}
+
+vc::Error Context::InitContext()
 {
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -51,31 +63,70 @@ Error Context::InitContext()
 #endif
     // Just take the last video mode by default and take 3/4 of the window size
     __window = glfwCreateWindow(
-        __modes[__modes.size() - 1].width * 3 / 4,
-        __modes[__modes.size() - 1].height * 3 / 4,
+        std::min(activeMode->width * 3 / 4, 1000),
+        std::min(activeMode->height * 3 / 4, 800),
         "Vulkan",
         nullptr,
         nullptr);
-    return Error::Success;
-}
 
-bool Context::ShouldClose()
-{
-    return glfwWindowShouldClose(__window);
+    // Input
+    glfwSetKeyCallback(__window, [](GLFWwindow * window, int key, int scancode, int action, int mods)
+    {
+        Context * context = s_context;
+
+        // Keys
+        if (action == GLFW_PRESS) {
+            context->__keyboardState[context->__ConvertGLFWEnumToKeyboardInput(key)] = InputState::Pressed;
+        } else if (action == GLFW_RELEASE) {
+            context->__keyboardState[context->__ConvertGLFWEnumToKeyboardInput(key)] = InputState::Released;
+            context->__keyReleasedStack.push(context->__ConvertGLFWEnumToKeyboardInput(key));
+        } else if (action == GLFW_REPEAT) {
+            context->__keyboardState[context->__ConvertGLFWEnumToKeyboardInput(key)] = InputState::Repeat;
+        }
+
+        // Mods
+        context->__keyboardModifierState = 0x0000;
+        if (mods & GLFW_MOD_SHIFT) context->__keyboardModifierState |= KeyboardModifier::KeyboardModShift;
+        if (mods & GLFW_MOD_CONTROL) context->__keyboardModifierState |= KeyboardModifier::KeyboardModControl;
+        if (mods & GLFW_MOD_ALT) context->__keyboardModifierState |= KeyboardModifier::KeyboardModAlt;
+        if (mods & GLFW_MOD_SUPER) context->__keyboardModifierState |= KeyboardModifier::KeyboardModSuper;
+    });
+
+    glfwSetMouseButtonCallback(__window, [](GLFWwindow * window, int button, int action, int mods)
+    {
+        Context * context = s_context;
+        if (action == GLFW_PRESS) {
+            context->__mouseState[button] = InputState::Pressed;
+        } else if (action == GLFW_RELEASE) {
+            context->__mouseState[button] = InputState::Released;
+            context->__mouseReleasedStack.push(static_cast<MouseButton>(button));
+        }
+    });
+
+    // Set Initial pos
+    glfwGetCursorPos(__window, &__mousePos[0], &__mousePos[1]);
+    memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
+
+    return Error::Success;
 }
 
 void Context::PollEvents()
 {
+    // Check for released keys in the previous frame
+    while (!__keyReleasedStack.empty()) {
+        __keyboardState[__keyReleasedStack.top()] = InputState::Unknown;
+        __keyReleasedStack.pop();
+    }
+    while (!__mouseReleasedStack.empty()) {
+        __mouseState[__mouseReleasedStack.top()] = InputState::Unknown;
+        __mouseReleasedStack.pop();
+    }
+
     glfwPollEvents();
+
+    // Mouse movement
+    memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
+    glfwGetCursorPos(__window, &__mousePos[0], &__mousePos[1]);
 }
 
-GLFWwindow* Context::GetWindow()
-{
-    return __window;
-}
-
-const GLFWwindow* Context::GetWindow() const
-{
-    return __window;
-}
 }

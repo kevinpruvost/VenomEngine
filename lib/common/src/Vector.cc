@@ -56,7 +56,7 @@ void RotateQuat(vcm::Quat& quat, const float angle, const vcm::Vec3& axis)
     result = DirectX::XMQuaternionMultiply(quat, result);
     DirectX::XMStoreFloat4(&quat, result);
 #elif defined(VENOM_MATH_GLM)
-    quat = glm::rotate(quat, angle, axis);
+    quat = glm::normalize(glm::rotate(quat, angle, axis));
 #endif
 }
 
@@ -187,4 +187,11 @@ void Normalize(Vec3& vec)
 #endif
 }
 
+vcm::Quat FromEulerAngles(const float yaw, const float pitch, const float roll)
+{
+    vcm::Quat yawQuat{ std::cos(yaw / 2), 0.0f, std::sin(yaw / 2), 0.0f };
+    vcm::Quat pitchQuat{ std::cos(pitch / 2), std::sin(pitch / 2), 0.0f, 0.0f };
+    vcm::Quat rollQuat{ std::cos(roll / 2), 0.0f, 0.0f, std::sin(roll / 2) };
+    return yawQuat * pitchQuat * rollQuat;
+}
 }

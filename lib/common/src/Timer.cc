@@ -7,6 +7,9 @@
 ///
 #include <venom/common/Timer.h>
 
+#include <venom/common/Ptr.h>
+#include <venom/common/Log.h>
+
 namespace venom
 {
 namespace common
@@ -58,6 +61,36 @@ uint64_t Timer::GetMilliSeconds() const
 void Timer::Reset()
 {
     __start = std::chrono::steady_clock::now();
+}
+
+static UPtr<Timer> s_loopTimer(nullptr);
+void Timer::ResetLoopTimer()
+{
+    s_loopTimer.reset(new Timer());
+}
+
+uint64_t Timer::GetLambdaMicroseconds()
+{
+    return s_loopTimer->GetMicroSeconds();
+}
+
+uint64_t Timer::GetLambdaMilliseconds()
+{
+    return s_loopTimer->GetMilliSeconds();
+}
+
+double Timer::GetLambdaSeconds()
+{
+    auto testa = static_cast<double>(s_loopTimer->GetMilliSeconds());
+    auto test = testa / 1000.0f;
+    return test;
+    return (double)(s_loopTimer->GetMilliSeconds()) / 1000.0f;
+}
+
+void Timer::__PassFrame()
+{
+    venom_assert(s_loopTimer, "Timer::PassFrame() : Loop Timer is not set.");
+    s_loopTimer->Reset();
 }
 }
 }

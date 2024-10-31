@@ -31,7 +31,6 @@ int VulkanApplication::__bindlessSupported = false;
 VulkanApplication::VulkanApplication()
     : vc::GraphicsApplication()
     , DebugApplication()
-    , __context()
     , __framebufferChanged(false)
     , __shouldClose(false)
 {
@@ -52,7 +51,6 @@ VulkanApplication::~VulkanApplication()
     vc::Log::Print("Vulkan app succesfully destroyed.");
 }
 
-vc::Error VulkanApplication::Loop() { return __Loop(); }
 bool VulkanApplication::ShouldClose() { return __shouldClose; }
 
 vc::Error VulkanApplication::_SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)
@@ -82,9 +80,9 @@ vc::Error VulkanApplication::_LoadGfxSettings()
     if (_multisamplingDirty)
     {
         vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-        if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != vc::Error::Success)
+        if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &_context); err != vc::Error::Success)
             return err;
-        if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
+        if (err = __swapChain.InitSwapChain(&__surface, &_context, &__queueFamilies); err != vc::Error::Success)
             return err;
         if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
             return err;
@@ -122,7 +120,6 @@ vc::Error VulkanApplication::__Loop()
     static vc::Timer timer;
 
     vc::Timer pollP;
-    __context.PollEvents();
     //vc::Log::Print("Poll time: %lu", pollP.GetMicroSeconds());
     if (err = __DrawFrame(); err != vc::Error::Success)
         return err;
@@ -133,7 +130,7 @@ vc::Error VulkanApplication::__Loop()
             vc::Log::Print("FPS: %u, Theoretical FPS: %.2f", fpsCount, _GetTheoreticalFPS(fpsCount));
         timer.Reset();
     }
-    __shouldClose = __context.ShouldClose();
+    __shouldClose = _context.ShouldClose();
     if (__shouldClose) {
         vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
     }
@@ -149,18 +146,18 @@ void VulkanApplication::__UpdateUniformBuffers()
     vcm::Vec3 cameraInitialPos = {-2, -2, 1};
     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
     {
-        transform.Rotate({0,1,0}, time / 1000.0f);
+        transform.RotateYaw(time / 1000.0f);
         transform.UpdateModelMatrix();
         // Make camera rotate around object
         vcm::Vec3 cameraPos = cameraInitialPos;
-        vc::Camera::GetMainCamera().RotateAround(transform.GetPosition(), {0,1,0}, time * 0.03f);
-        vc::Camera::GetMainCamera().LookAt(transform.GetPosition());
+        //vc::Camera::GetMainCamera().RotateAround(transform.GetPosition(), {0,1,0}, time * 0.03f);
+        vc::Camera::GetMainCamera()->LookAt(transform.GetPosition());
     });
 
     // Camera
     vcm::Mat4 viewAndProj[2];
-    viewAndProj[0] = vc::Camera::GetMainCamera().GetViewMatrix();
-    viewAndProj[1] = vc::Camera::GetMainCamera().GetProjectionMatrix();
+    viewAndProj[0] = vc::Camera::GetMainCamera()->GetViewMatrix();
+    viewAndProj[1] = vc::Camera::GetMainCamera()->GetProjectionMatrix();
 
     // Uniform buffers
     // Model Matrices

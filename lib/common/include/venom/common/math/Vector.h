@@ -158,6 +158,8 @@ vcm::Vec2 RotateAround(const vcm::Vec2 & point, const vcm::Vec2 & center, const 
 
 VENOM_COMMON_API void Normalize(Vec3& vec);
 
+vcm::Quat FromEulerAngles(const float yaw, const float pitch, const float roll);
+
 }
 }
 }

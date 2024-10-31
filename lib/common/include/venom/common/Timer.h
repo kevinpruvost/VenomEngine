@@ -15,6 +15,8 @@ namespace venom
 {
 namespace common
 {
+class VenomEngine;
+
 class VENOM_COMMON_API Timer
 {
 public:
@@ -27,8 +29,16 @@ public:
     uint64_t GetMicroSeconds() const;
     uint64_t GetMilliSeconds() const;
     void Reset();
+
+    static void ResetLoopTimer();
+    static uint64_t GetLambdaMicroseconds();
+    static uint64_t GetLambdaMilliseconds();
+    static double GetLambdaSeconds();
 private:
     std::chrono::time_point<std::chrono::steady_clock> __start;
+
+    friend class VenomEngine;
+    static void __PassFrame();
 };
 }
 }

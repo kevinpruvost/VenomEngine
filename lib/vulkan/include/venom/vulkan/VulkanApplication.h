@@ -47,7 +47,7 @@ public:
     ~VulkanApplication() override;
     vc::Error __Init() override;
     vc::Error __PostInit() override;
-    vc::Error Loop() override;
+    vc::Error __Loop() override;
     bool ShouldClose() override;
 public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
@@ -58,7 +58,6 @@ protected:
     vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() override;
 
 private:
-    vc::Error __Loop();
     void __UpdateUniformBuffers();
     vc::Error __DrawFrame();
     vc::Error __InitVulkan();
@@ -79,7 +78,6 @@ private:
     LogicalDevice __logicalDevice;
     DescriptorPool __descriptorPool;
     std::vector<const char *> __instanceExtensions;
-    vc::Context __context;
     PhysicalDevice __physicalDevice;
     MappedQueueFamilies __queueFamilies;
     Surface __surface;

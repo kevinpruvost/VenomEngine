@@ -18,6 +18,7 @@ namespace common
 // Scenes are callbacks that will be called by the engine to load a scene
 // Can either be a file or a function
 typedef void (*SceneCallback)();
+typedef void (*LoopCallback)();
 
 /**
  * @brief Main class of the engine
@@ -59,6 +60,12 @@ public:
      * @return error
      */
     static Error SetScene(const SceneCallback & sceneCallback);
+
+    /**
+     * @brief Adds a loop callback
+     * @param loopCallback
+     */
+    static void AddLoopCallback(const LoopCallback & loopCallback);
 
 private:
     void __LoadECS();

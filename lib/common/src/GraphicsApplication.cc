@@ -20,6 +20,7 @@ int GraphicsApplication::_currentFrame = 0;
 
 GraphicsApplication::GraphicsApplication()
     : _shaderResourceTable(GraphicsPlugin::Get()->CreateShaderResourceTable())
+    , _context()
 {
 }
 
@@ -51,5 +52,11 @@ Error GraphicsApplication::Init()
     }
     err = __PostInit();
     return err;
+}
+
+Error GraphicsApplication::Loop()
+{
+    _context.PollEvents();
+    return __Loop();
 }
 }

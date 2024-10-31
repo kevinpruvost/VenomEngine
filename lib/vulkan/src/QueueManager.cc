@@ -121,7 +121,7 @@ vc::Error QueueManager::SetLogicalDeviceQueueCreateInfos(const MappedQueueFamili
     });
     __queuePriorities.resize(__queueCreateInfos.size());
     // Calculate Queues to create for each queue family
-    for (size_t i = 0; i < __queueFamilies->GetQueueFamilies().size(); ++i)
+    for (uint32_t i = 0; i < static_cast<uint32_t>(__queueFamilies->GetQueueFamilies().size()); ++i)
     {
         __queueCreateInfos[i].queueFamilyIndex = i;
         size_t maxQueueCount = __queueFamilies->GetQueueFamilies()[i].properties.queueCount;

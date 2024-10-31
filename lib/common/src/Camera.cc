@@ -47,9 +47,9 @@ void Camera::SetMainCamera(const Camera & camera)
     s_mainCamera = std::make_unique<Camera>(camera);
 }
 
-Camera & Camera::GetMainCamera()
+Camera * Camera::GetMainCamera()
 {
-    return *s_mainCamera.get();
+    return s_mainCamera.get();
 }
 
 const vcm::Mat4& CameraImpl::GetViewMatrix()
@@ -126,10 +126,12 @@ float CameraImpl::GetFarPlane() const
 
 void CameraImpl::LookAt(const vcm::Vec3& target)
 {
-    auto upVector = GetUpVector();
     __viewMatrix = vcm::LookAt(_position, target, GetUpVector());
 
-    _rotation = vcm::QuatFromViewMatrix(__viewMatrix);
+    _yaw = std::atan2(__viewMatrix[0][2], __viewMatrix[2][2]);
+    _pitch = std::asin(-__viewMatrix[1][2]);
+    _roll = 0.0f;
+    _UpdateRotationQuat();
 }
 }
 }

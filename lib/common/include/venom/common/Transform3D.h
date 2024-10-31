@@ -13,7 +13,7 @@ namespace venom
 {
 namespace common
 {
-class Transform3D
+class VENOM_COMMON_API Transform3D
 {
 public:
     Transform3D();
@@ -26,13 +26,22 @@ public:
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera
     void Move(const vcm::Vec3& delta);            // Move camera by delta
+    inline void MoveForward(const float delta) { Move(GetForwardVector() * delta); } // Move camera forward by delta
+    inline void MoveRight(const float delta) { Move(GetRightVector() * delta); } // Move camera right by delta
+    inline void MoveUp(const float delta) { Move(GetUpVector() * delta); } // Move camera up by delta
     inline const vcm::Vec3 & GetPosition() const { return _position; }  // Get current camera position
     bool HasPositionChanged();
 
     // Rotation and orientation
-    void SetRotation(const vcm::Quat& rotation);  // Set camera orientation with quaternion
-    void Rotate(const vcm::Vec3& axis, float angle); // Rotate camera around axis by angle
-    inline const vcm::Quat & GetRotationQuat() const { return _rotation; } // Get current camera rotation
+    void SetRotation(const vcm::Vec3& rotation);  // Set camera orientation with quaternion
+    void SetYaw(float angle);                     // Set camera yaw
+    void SetPitch(float angle);                   // Set camera pitch
+    void SetRoll(float angle);                    // Set camera roll
+    void RotateYaw(float angle);                  // Rotate camera around Y axis by angle
+    void RotatePitch(float angle);                // Rotate camera around X axis by angle
+    void RotateRoll(float angle);                 // Rotate camera around Z axis by angle
+    void Rotate(const vcm::Vec3 & rotation);     // Rotate camera around X, Y and Z axis by the given angles
+    inline const vcm::Quat & GetRotationQuat() const { return _rotationQuat; } // Get current camera rotation
     const vcm::Vec3 & GetRotation();                                       // Get current camera rotation
 
 
@@ -45,9 +54,9 @@ public:
     void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle); // Rotate camera around target
 
     void LookAt(const vcm::Vec3& target);  // Point camera towards a specific target
-    inline vcm::Vec3 GetForwardVector() const { return vcm::GetForward(_rotation); } // Get camera's forward direction
-    inline vcm::Vec3 GetUpVector() const { return vcm::GetUp(_rotation); }           // Get camera's up direction
-    inline vcm::Vec3 GetRightVector() const { return vcm::GetRight(_rotation); }     // Get camera's right direction
+    inline vcm::Vec3 GetForwardVector() const { return vcm::GetForward(_rotationQuat); } // Get camera's forward direction
+    inline vcm::Vec3 GetUpVector() const { return vcm::GetUp(_rotationQuat); }           // Get camera's up direction
+    inline vcm::Vec3 GetRightVector() const { return vcm::GetRight(_rotationQuat); }     // Get camera's right direction
 
     void UpdateModelMatrix();
     const vcm::Mat4 & GetModelMatrix(); // Get the model matrix of the camera
@@ -72,9 +81,19 @@ private:
     }
 
 protected:
+    void _UpdateRotationQuat();
+
+protected:
     vcm::Vec3 _position;
-    vcm::Quat _rotation;
-    vcm::Vec3 _3DrotationView;
+    vcm::Quat _rotationQuat;
+    union
+    {
+        vcm::Vec3 _3Drotation;
+        struct
+        {
+            float _yaw, _pitch, _roll;
+        };
+    };
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     vcm::Mat4 * _modelMatrix;
 #else

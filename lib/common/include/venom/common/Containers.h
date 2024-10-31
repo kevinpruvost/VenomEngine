@@ -18,5 +18,7 @@ template<typename T>
 using Vector = std::vector<T>;
 template<typename T>
 using Stack = std::stack<T>;
+template<typename T, size_t N>
+using Array = std::array<T, N>;
 }
 }

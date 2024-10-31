@@ -14,10 +14,11 @@ namespace common
 {
 Transform3D::Transform3D()
     : _position(0.0f, 0.0f, 0.0f)
-    , _rotation(vcm::IdentityQuat())
+    , _rotationQuat(vcm::IdentityQuat())
     , __3DrotationViewDirty(true)
     , __positionDirty(true)
     , __modelDirty(true)
+    , _yaw(0), _pitch(0), _roll(0)
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     , _modelMatrix(ShaderResourceTable::GetModelMatrixBuffer())
 #else
@@ -35,11 +36,11 @@ Transform3D::~Transform3D()
 
 Transform3D::Transform3D(const Transform3D& other)
     : _position(other._position)
-    , _rotation(other._rotation)
+    , _rotationQuat(other._rotationQuat)
     , __3DrotationViewDirty(other.__3DrotationViewDirty)
     , __positionDirty(other.__positionDirty)
     , __modelDirty(other.__modelDirty)
-    , _3DrotationView(other._3DrotationView)
+    , _yaw(other._yaw), _pitch(other._pitch), _roll(other._roll)
 #ifndef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     , _modelMatrix(other._modelMatrix)
 #endif
@@ -54,11 +55,14 @@ Transform3D& Transform3D::operator=(const Transform3D& other)
 {
     if (this != &other) {
         _position = other._position;
-        _rotation = other._rotation;
+        _rotationQuat = other._rotationQuat;
         __3DrotationViewDirty = other.__3DrotationViewDirty;
         __positionDirty = other.__positionDirty;
         __modelDirty = other.__modelDirty;
-        _3DrotationView = other._3DrotationView;
+        _3Drotation = other._3Drotation;
+        _yaw = other._yaw;
+        _pitch = other._pitch;
+        _roll = other._roll;
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
         _modelMatrix = ShaderResourceTable::GetModelMatrixBuffer();
         *_modelMatrix = *other._modelMatrix;
@@ -71,12 +75,14 @@ Transform3D& Transform3D::operator=(const Transform3D& other)
 
 Transform3D::Transform3D(Transform3D&& other) noexcept
     : _position(std::move(other._position))
-    , _rotation(std::move(other._rotation))
+    , _rotationQuat(std::move(other._rotationQuat))
     , __3DrotationViewDirty(std::move(other.__3DrotationViewDirty))
     , __positionDirty(std::move(other.__positionDirty))
     , __modelDirty(std::move(other.__modelDirty))
-    , _3DrotationView(std::move(other._3DrotationView))
     , _modelMatrix(std::move(other._modelMatrix))
+    , _yaw(other._yaw)
+    , _pitch(other._pitch)
+    , _roll(other._roll)
 {
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     other._modelMatrix = nullptr;
@@ -87,12 +93,15 @@ Transform3D& Transform3D::operator=(Transform3D&& other) noexcept
 {
     if (this != &other) {
         _position = std::move(other._position);
-        _rotation = std::move(other._rotation);
+        _rotationQuat = std::move(other._rotationQuat);
         __3DrotationViewDirty = std::move(other.__3DrotationViewDirty);
         __positionDirty = std::move(other.__positionDirty);
         __modelDirty = std::move(other.__modelDirty);
-        _3DrotationView = std::move(other._3DrotationView);
+        _3Drotation = std::move(other._3Drotation);
         _modelMatrix = std::move(other._modelMatrix);
+        _yaw = other._yaw;
+        _pitch = other._pitch;
+        _roll = other._roll;
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
         other._modelMatrix = nullptr;
 #endif
@@ -121,30 +130,57 @@ bool Transform3D::HasPositionChanged()
     return ret;
 }
 
-void Transform3D::SetRotation(const vcm::Quat& rotation)
+void Transform3D::SetRotation(const vcm::Vec3& rotation)
 {
-    _rotation = rotation;
-    __3DrotationViewDirty = true;
-    __positionDirty = true;
-    __modelDirty = true;
+    _3Drotation = rotation;
+    _UpdateRotationQuat();
 }
 
-void Transform3D::Rotate(const vcm::Vec3& axis, float angle)
+void Transform3D::SetYaw(float angle)
 {
-    vcm::RotateQuat(_rotation, angle, axis);
-    __3DrotationViewDirty = true;
-    __positionDirty = true;
-    __modelDirty = true;
+    _yaw = angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::SetPitch(float angle)
+{
+    _pitch = angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::SetRoll(float angle)
+{
+    _roll = angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::RotateYaw(float angle)
+{
+    _yaw += angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::RotatePitch(float angle)
+{
+    _pitch += angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::RotateRoll(float angle)
+{
+    _roll += angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::Rotate(const vcm::Vec3& rotation)
+{
+    _3Drotation += rotation;
+    _UpdateRotationQuat();
 }
 
 const vcm::Vec3& Transform3D::GetRotation()
 {
-    if (__3DrotationViewDirty)
-    {
-        _3DrotationView = vcm::GetEulerAngles(_rotation);
-        __3DrotationViewDirty = false;
-    }
-    return _3DrotationView;
+    return _3Drotation;
 }
 
 void Transform3D::RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle)
@@ -158,7 +194,7 @@ void Transform3D::UpdateModelMatrix()
     {
         __GetModelMatrix() = vcm::Identity();
         vcm::TranslateMatrix(__GetModelMatrix(), _position);
-        vcm::RotateMatrix(__GetModelMatrix(), _rotation);
+        vcm::RotateMatrix(__GetModelMatrix(), _rotationQuat);
         __modelDirty = false;
     }
 }
@@ -167,6 +203,14 @@ const vcm::Mat4& Transform3D::GetModelMatrix()
 {
     UpdateModelMatrix();
     return __GetModelMatrix();
+}
+
+void Transform3D::_UpdateRotationQuat()
+{
+    _rotationQuat = vcm::FromEulerAngles(_yaw, _pitch, _roll);
+    __3DrotationViewDirty = true;
+    __positionDirty = true;
+    __modelDirty = true;
 }
 }
 }

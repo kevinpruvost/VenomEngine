@@ -74,14 +74,23 @@ public:
     Camera();
     ~Camera();
     static void SetMainCamera(const Camera & camera);
-    static Camera & GetMainCamera();
+    static Camera * GetMainCamera();
 
     inline void SetPosition(const vcm::Vec3& position) { _impl->As<CameraImpl>()->SetPosition(position); }
     inline void Move(const vcm::Vec3& delta) { _impl->As<CameraImpl>()->Move(delta); }
+    inline void MoveForward(const float delta) { _impl->As<CameraImpl>()->MoveForward(delta); }
+    inline void MoveRight(const float delta) { _impl->As<CameraImpl>()->MoveRight(delta); }
+    inline void MoveUp(const float delta) { _impl->As<CameraImpl>()->MoveUp(delta); }
     inline const vcm::Vec3 & GetPosition() const { return _impl->As<CameraImpl>()->GetPosition(); }
 
-    inline void SetRotation(const vcm::Quat& rotation) { _impl->As<CameraImpl>()->SetRotation(rotation); }
-    inline void Rotate(const vcm::Vec3& axis, float angle) { _impl->As<CameraImpl>()->Rotate(axis, angle); }
+    inline void SetYaw(float angle) { _impl->As<CameraImpl>()->SetYaw(angle); }
+    inline void SetPitch(float angle) { _impl->As<CameraImpl>()->SetPitch(angle); }
+    inline void SetRoll(float angle) { _impl->As<CameraImpl>()->SetRoll(angle); }
+    inline void SetRotation(const vcm::Vec3& rotation) { _impl->As<CameraImpl>()->SetRotation(rotation); }
+    inline void RotateYaw(float angle) { _impl->As<CameraImpl>()->RotateYaw(angle); }
+    inline void RotatePitch(float angle) { _impl->As<CameraImpl>()->RotatePitch(angle); }
+    inline void RotateRoll(float angle) { _impl->As<CameraImpl>()->RotateRoll(angle); }
+    inline void Rotate(const vcm::Vec3 & rotation) { _impl->As<CameraImpl>()->Rotate(rotation); }
     inline const vcm::Quat & GetRotationQuat() const { return _impl->As<CameraImpl>()->GetRotationQuat(); }
     inline const vcm::Vec3 & GetRotation() const { return _impl->As<CameraImpl>()->GetRotation(); }
 

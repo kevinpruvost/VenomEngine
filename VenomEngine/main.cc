@@ -83,6 +83,7 @@ int main(int argc, char** argv)
             .emplace<vc::Transform3D>()
             .emplace<vc::Camera>();
         camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-2.0f, -2.0f, 1.0f));
+        camera.get_mut<vc::Camera>()->LookAt(balls_hd.get<vc::Transform3D>()->GetPosition());
 
         vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
     });

@@ -28,7 +28,7 @@ vc::Error VulkanApplication::__Init()
     vc::Error res;
 
     printf("Hello, Vulkan!\n");
-    if (res = __context.InitContext(); res != vc::Error::Success)
+    if (res = _context.InitContext(); res != vc::Error::Success)
     {
         vc::Log::Error("Failed to initialize context: %d", res);
         return vc::Error::InitializationFailed;
@@ -103,8 +103,8 @@ VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures(bool & 
 
 void VulkanApplication::__SetGLFWCallbacks()
 {
-    glfwSetWindowUserPointer(__context.GetWindow(), this);
-    glfwSetFramebufferSizeCallback(__context.GetWindow(), [](GLFWwindow * window, int width, int height) {
+    glfwSetWindowUserPointer(_context.GetWindow(), this);
+    glfwSetFramebufferSizeCallback(_context.GetWindow(), [](GLFWwindow * window, int width, int height) {
         auto app = reinterpret_cast<VulkanApplication*>(glfwGetWindowUserPointer(window));
         app->__framebufferChanged = true;
     });
@@ -157,7 +157,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __queueFamilies = getVulkanQueueFamilies(__physicalDevice);
 
     // Create Surface
-    __surface.CreateSurface(&__context);
+    __surface.CreateSurface(&_context);
 
     // Check if the device supports the surface for presentation and which queue family supports it
     if (err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != vc::Error::Success)
@@ -213,7 +213,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     _SetCreateInfoValidationLayers(&createInfo);
 
     // Create Swap Chain
-    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &_context); err != vc::Error::Success)
         return err;
 
     // Verify if the device is suitable
@@ -237,7 +237,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create SwapChain
     __swapChain.SetSamples(_samples);
-    if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChain(&__surface, &_context, &__queueFamilies); err != vc::Error::Success)
         return err;
 
     // Get Graphics Queue
@@ -344,9 +344,9 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &__context); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &_context); err != vc::Error::Success)
         return err;
-    if (err = __swapChain.InitSwapChain(&__surface, &__context, &__queueFamilies); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChain(&__surface, &_context, &__queueFamilies); err != vc::Error::Success)
         return err;
     if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
         return err;

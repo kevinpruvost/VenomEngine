@@ -11,8 +11,10 @@
 #include <venom/common/Log.h>
 #include <venom/common/MemoryPool.h>
 #include <venom/common/Resources.h>
-#include <venom/common/plugin/graphics/GraphicsApplication.h>
+#include <venom/common/Timer.h>
 
+#include <venom/common/plugin/graphics/Camera.h>
+#include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/plugin/graphics/Mesh.h>
 #include <venom/common/plugin/graphics/Model.h>
 #include <venom/common/plugin/graphics/Shader.h>
@@ -22,11 +24,14 @@
 #include <thread>
 #include <chrono>
 
+
+
 namespace venom
 {
 namespace common
 {
 static SceneCallback s_sceneCallback = nullptr;
+static vc::Vector<LoopCallback> s_loopCallbacks;
 
 VenomEngine::VenomEngine()
     : pluginManager(new PluginManager())
@@ -83,10 +88,45 @@ Error VenomEngine::RunEngine(int argc, char** argv)
     } else {
         auto test = app->GetAvailableMultisamplingOptions();
         s_sceneCallback();
+        vc::Timer::ResetLoopTimer();
         while (!app->ShouldClose())
         {
             app->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
+
+            // Camera controls
+            const float speed = 5.0f;
+            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardW))
+            {
+                vc::Camera::GetMainCamera()->MoveForward(speed * vc::Timer::GetLambdaSeconds());
+            }
+            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardS))
+            {
+                vc::Camera::GetMainCamera()->MoveForward(-speed * vc::Timer::GetLambdaSeconds());
+            }
+            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardA))
+            {
+                vc::Camera::GetMainCamera()->MoveRight(-speed * vc::Timer::GetLambdaSeconds());
+            }
+            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardD))
+            {
+                vc::Camera::GetMainCamera()->MoveRight(speed * vc::Timer::GetLambdaSeconds());
+            }
+            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardQ))
+            {
+                vc::Camera::GetMainCamera()->MoveUp(-speed * vc::Timer::GetLambdaSeconds());
+            }
+            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardE))
+            {
+                vc::Camera::GetMainCamera()->MoveUp(speed * vc::Timer::GetLambdaSeconds());
+            }
+
+            vcm::Vec2 mouseMov = Context::Get()->GetMouseMove();
+            vc::Camera::GetMainCamera()->RotateYaw( -mouseMov.x * 0.0025f);
+            vc::Camera::GetMainCamera()->RotatePitch(-mouseMov.y * 0.0025f);
+
+            // Reset timer at the end
+            vc::Timer::__PassFrame();
         }
     }
     s_instance.reset();
@@ -104,6 +144,11 @@ Error VenomEngine::SetScene(const SceneCallback& sceneCallback)
 {
     s_sceneCallback = sceneCallback;
     return vc::Error::Success;
+}
+
+void VenomEngine::AddLoopCallback(const LoopCallback& loopCallback)
+{
+    s_loopCallbacks.emplace_back(loopCallback);
 }
 
 void VenomEngine::__LoadECS()

@@ -9,6 +9,7 @@
 
 #include <venom/common/Error.h>
 
+#include <venom/common/Context.h>
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
 #include <venom/common/plugin/graphics/GraphicsSettings.h>
@@ -33,10 +34,13 @@ public:
     Error Init();
     virtual Error __Init() = 0;
     virtual vc::Error __PostInit() = 0;
-    virtual Error Loop() = 0;
+    Error Loop();
+    virtual Error __Loop() = 0;
     virtual bool ShouldClose() = 0;
 
 protected:
+    vc::Context _context;
+
     ShaderResourceTable * _shaderResourceTable;
     UPtr<vc::Texture> _dummyTexture;
     static int _currentFrame;
