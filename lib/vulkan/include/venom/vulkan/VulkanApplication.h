@@ -53,9 +53,12 @@ public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
 
 protected:
-    vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) override;
     vc::Error _LoadGfxSettings() override;
+
+    vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) override;
     vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() override;
+
+    vc::Error _SetHDR(bool enable) override;
 
 private:
     void __UpdateUniformBuffers();
@@ -83,8 +86,11 @@ private:
     Surface __surface;
     SwapChain __swapChain;
     RenderPass __renderPass;
+    vc::UPtr<RenderPass> __hdrRenderPass;
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
+
+    UniformBuffer __targetLuminanceBuffer;
 
     Queue __graphicsQueue, __presentQueue;
 

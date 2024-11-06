@@ -9,6 +9,8 @@
 
 #include <venom/vulkan/Instance.h>
 
+#include "venom/common/Containers.h"
+
 namespace venom
 {
 namespace vulkan
@@ -29,11 +31,11 @@ public:
     static void SetUsedPhysicalDevice(const PhysicalDevice * device);
     static std::vector<PhysicalDevice> GetVulkanPhysicalDevices();
 
-    const VkPhysicalDevice & GetVkPhysicalDevice() const;
-    const VkPhysicalDeviceProperties & GetProperties() const;
-    const VkPhysicalDeviceFeatures & GetFeatures() const;
-    const VkPhysicalDeviceMemoryProperties & GetMemoryProperties() const;
-    const VkFormatProperties & GetFormatProperties() const;
+    const VkPhysicalDevice & GetVkPhysicalDevice() const { return __physicalDevice; }
+    const VkPhysicalDeviceProperties & GetProperties() const { return __properties; }
+    const VkPhysicalDeviceFeatures & GetFeatures() const { return __features; }
+    const VkPhysicalDeviceMemoryProperties & GetMemoryProperties() const { return __memoryProperties; }
+    const VkFormatProperties & GetFormatProperties() const { return __formatProperties; }
 
 private:
     VkFormatProperties __formatProperties;

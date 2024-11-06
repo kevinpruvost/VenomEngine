@@ -170,6 +170,8 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
 
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
+
     // Bind textures (when not bindless)
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
 

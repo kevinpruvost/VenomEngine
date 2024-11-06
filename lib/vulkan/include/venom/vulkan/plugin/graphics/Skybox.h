@@ -26,6 +26,7 @@ public:
     vc::Error _LoadSkybox(const vc::Texture & texture) override;
 private:
     VertexBuffer __vertexBuffer;
+    UniformBuffer __uniformBuffer;
     DescriptorSetGroup * __descriptorSet;
 };
 }

@@ -58,7 +58,8 @@ int main(int argc, char** argv)
         shader_skybox.SetDepthWrite(false);
         shader_skybox.LoadShaderFromFile("skybox");
         vc::Entity cubemap = vc::CreateEntity("cubemap")
-            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
+            .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
+//            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
             .emplace<vc::Shader>(shader_skybox);
 
         vc::Shader shader;

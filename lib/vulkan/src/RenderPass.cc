@@ -161,7 +161,7 @@ vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain, CommandBuffer* comma
     };
     clearColor[0].color = {0.0f, 0.0f, 0.0f, 1.0f};
     clearColor[1].depthStencil = {1.0f, 0};
-    renderPassInfo.clearValueCount = sizeof(clearColor) / sizeof(VkClearValue);
+    renderPassInfo.clearValueCount = std::size(clearColor);
     renderPassInfo.pClearValues = clearColor;
 
     vkCmdBeginRenderPass(commandBuffer->_commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);

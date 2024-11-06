@@ -1,18 +1,16 @@
-#ifndef MACOS
 // Bindless textures
 Texture2D bindlessTextures[] : register(t0, space2);
-#else
-// Dynamically bound textures
-Texture2D dynamicTextures[] : register(t0, space2);
-#endif
+//StructuredBuffer<int> isTextureHDR : register(t1, space2);
 
 float4 GetTexture(int u, float2 texCoord, SamplerState sampler = g_sampler)
 {
-#ifndef MACOS
+    //if (isTextureHDR[u])
         return bindlessTextures[u].Sample(sampler, texCoord);
-#else
-        return dynamicTextures[u].Sample(sampler, texCoord);
-#endif
+    //else
+        return bindlessTextures[u].Sample(sampler, texCoord);
 }
 
 Texture2D panoramaTexture : register(t0, space6);
+cbuffer panoramaProps : register(b1, space6) {
+    float panoramaPeakLuminance;
+};

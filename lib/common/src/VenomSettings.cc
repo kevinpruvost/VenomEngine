@@ -21,8 +21,6 @@ namespace common
 {
 static VenomSettings * s_settings = nullptr;
 
-static constexpr int s_framesInFlight = 3;
-
 VenomSettings::VenomSettings()
     : __isDebug(IS_VENOM_DEBUG)
 {

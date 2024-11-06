@@ -28,6 +28,7 @@ enum class VENOM_COMMON_API Error : uint32_t
     DeviceLost      = 1 << 3,
     InitializationFailed = 1 << 4,
     InvalidUse      = 1 << 5,
+    FeatureNotSupported = 1 << 6,
     Unknown = std::numeric_limits<uint32_t>::max()
 };
 VENOM_COMMON_API void setErrorString(const char * str);

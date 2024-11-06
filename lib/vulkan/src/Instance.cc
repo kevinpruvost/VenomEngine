@@ -36,6 +36,7 @@ void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfo
     const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
     __instanceExtensions = std::vector<const char *>(glfwExtensions, glfwExtensions + glfwExtensionCount);
 
+    __instanceExtensions.emplace_back(VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME);
 #ifdef __APPLE__
     // Might have a bug with MoltenVK
     __instanceExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);

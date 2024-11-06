@@ -53,6 +53,7 @@ TextureResource::~TextureResource()
 }
 
 TextureImpl::TextureImpl()
+    : __luminance(0.0f)
 {
 }
 
@@ -121,11 +122,30 @@ public:
         // Copy pixelData to pixels
         memcpy(__pixels.data(), &pixelData[0][0], width * height * channels * sizeof(uint16_t));
 
-        return impl->LoadImage(__pixels.data(), width, height, channels);
+        vc::Error err = impl->LoadImage(__pixels.data(), width, height, channels);
+        if (err != vc::Error::Success) {
+            vc::Log::Error("Failed to load image from file: %s", path);
+            return err;
+        }
+
+        // Calculate peak luminance
+        float peakLuminance = 0.0f, luminance;
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                const Imf_3_4::Rgba & rgba = pixelData[y][x];
+                luminance = rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722;
+                peakLuminance = std::max(peakLuminance, luminance);
+            }
+        }
+
+        impl->SetTexturePeakLuminance(peakLuminance);
+        return err;
     }
 
 private:
     std::vector<uint16_t> __pixels;
+    float __averageLuminance;
+    float __peakLuminance;
 };
 
 TextureLoader * CreateTextureLoader(const char * path)

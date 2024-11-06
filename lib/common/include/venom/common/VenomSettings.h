@@ -30,7 +30,7 @@ public:
     bool IsDebug() const;
 
 private:
-    bool __isDebug;
+    const bool __isDebug;
 };
 }
 }

@@ -34,26 +34,18 @@ public:
 
     void CleanSwapChain();
 
-    vc::Error InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface,
-                                    const vc::Context* context);
+    vc::Error InitSwapChainSettings(const Surface* surface, const vc::Context* context);
 
     inline int GetSamples() const { return __samples; }
     inline void SetSamples(const int samples) { __samples = samples; }
 
     /// @brief Inits Swap chain and swap chain image views
-    /// @param physicalDevice 
-    /// @param surface 
-    /// @param context
-    /// @param queueFamilies 
     /// @return Error
-    vc::Error InitSwapChain(const Surface* surface, const vc::Context* context,
-                            const MappedQueueFamilies* queueFamilies);
+    vc::Error InitSwapChain();
     vc::Error InitSwapChainFramebuffers(const RenderPass* renderPass);
 
 public:
-    VkSurfaceCapabilitiesKHR capabilities;
-    vc::Vector<VkSurfaceFormatKHR> surfaceFormats;
-    vc::Vector<VkPresentModeKHR> presentModes;
+    const Surface * surface;
     VkSurfaceFormatKHR activeSurfaceFormat;
     VkPresentModeKHR activePresentMode;
     VkExtent2D extent;

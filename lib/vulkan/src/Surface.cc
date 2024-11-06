@@ -9,6 +9,7 @@
 
 #include <venom/vulkan/Instance.h>
 #include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/PhysicalDevice.h>
 
 namespace venom::vulkan
 {
@@ -75,6 +76,30 @@ vc::Error Surface::CreateSurface(vc::Context* context)
     }
 #endif
 #endif
+    // Get surface capabilities
+    if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(PhysicalDevice::GetUsedVkPhysicalDevice(), GetVkSurface(), &__capabilities); err != VK_SUCCESS)
+    {
+        vc::Log::Error("Failed to get physical device surface capabilities: %d", err);
+        return vc::Error::InitializationFailed;
+    }
+
+    // Get surface formats
+    uint32_t formatCount;
+    vkGetPhysicalDeviceSurfaceFormatsKHR(PhysicalDevice::GetUsedVkPhysicalDevice(), GetVkSurface(), &formatCount, nullptr);
+
+    if (formatCount != 0) {
+        __surfaceFormats.resize(formatCount);
+        vkGetPhysicalDeviceSurfaceFormatsKHR(PhysicalDevice::GetUsedVkPhysicalDevice(), GetVkSurface(), &formatCount, __surfaceFormats.data());
+    }
+
+    // Get present modes
+    uint32_t presentModeCount;
+    vkGetPhysicalDeviceSurfacePresentModesKHR(PhysicalDevice::GetUsedVkPhysicalDevice(), GetVkSurface(), &presentModeCount, nullptr);
+
+    if (presentModeCount != 0) {
+        __presentModes.resize(presentModeCount);
+        vkGetPhysicalDeviceSurfacePresentModesKHR(PhysicalDevice::GetUsedVkPhysicalDevice(), GetVkSurface(), &presentModeCount, __presentModes.data());
+    }
     return vc::Error::Success;
 }
 

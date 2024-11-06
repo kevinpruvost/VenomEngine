@@ -14,13 +14,13 @@
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/QueueManager.h>
 
+#include "venom/common/plugin/graphics/GraphicsSettings.h"
+
 namespace venom::vulkan
 {
 
 SwapChain::SwapChain()
-    : capabilities()
-    , surfaceFormats()
-    , presentModes()
+    : surface(nullptr)
     , activeSurfaceFormat{VK_FORMAT_UNDEFINED, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR}
     , activePresentMode(VK_PRESENT_MODE_MAX_ENUM_KHR)
     , extent{0, 0}
@@ -41,9 +41,7 @@ SwapChain::SwapChain(SwapChain&& other)
     : swapChain(other.swapChain)
     , swapChainImageHandles(std::move(other.swapChainImageHandles))
     , __swapChainMultisampledImageViews(std::move(other.__swapChainMultisampledImageViews))
-    , capabilities(other.capabilities)
-    , surfaceFormats(std::move(other.surfaceFormats))
-    , presentModes(std::move(other.presentModes))
+    , surface(std::move(other.surface))
     , activeSurfaceFormat(other.activeSurfaceFormat)
     , activePresentMode(other.activePresentMode)
     , extent(other.extent)
@@ -58,9 +56,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
         swapChain = other.swapChain;
         swapChainImageHandles = std::move(other.swapChainImageHandles);
         __swapChainMultisampledImageViews = std::move(other.__swapChainMultisampledImageViews);
-        capabilities = other.capabilities;
-        surfaceFormats = std::move(other.surfaceFormats);
-        presentModes = std::move(other.presentModes);
+        surface = std::move(other.surface);
         activeSurfaceFormat = other.activeSurfaceFormat;
         activePresentMode = other.activePresentMode;
         extent = other.extent;
@@ -86,37 +82,22 @@ void SwapChain::CleanSwapChain()
     }
 }
 
-vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice, const Surface* surface, const vc::Context* context)
+vc::Error SwapChain::InitSwapChainSettings(const Surface* s, const vc::Context* context)
 {
-    // Get surface capabilities
-    if (auto err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &capabilities); err != VK_SUCCESS)
-    {
-        vc::Log::Error("Failed to get physical device surface capabilities: %d", err);
-        return vc::Error::InitializationFailed;
-    }
-
-    // Get surface formats
-    uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &formatCount, nullptr);
-
-    if (formatCount != 0) {
-        surfaceFormats.resize(formatCount);
-        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &formatCount, surfaceFormats.data());
-    }
-
-    // Get present modes
-    uint32_t presentModeCount;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &presentModeCount, nullptr);
-
-    if (presentModeCount != 0) {
-        presentModes.resize(presentModeCount);
-        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->GetVkPhysicalDevice(), surface->GetVkSurface(), &presentModeCount, presentModes.data());
-    }
+    surface = s;
+    const auto & capabilities = surface->GetCapabilities();
+    const auto & surfaceFormats = surface->GetSurfaceFormats();
+    const auto & presentModes = surface->GetPresentModes();
 
     // Default active settings
     // SRGB format because it's the most discernible to the human eye
     for (const auto& format : surfaceFormats) {
         if (format.format == VK_FORMAT_B8G8R8A8_SRGB && format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
+            activeSurfaceFormat = format;
+            if (!vc::GraphicsSettings::IsHDREnabled()) break;
+        }
+        // TODO: HDR Textures
+        else if (format.format == VK_FORMAT_R16G16B16A16_SFLOAT && format.colorSpace == VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT) {
             activeSurfaceFormat = format;
             break;
         }
@@ -157,8 +138,10 @@ vc::Error SwapChain::InitSwapChainSettings(const PhysicalDevice* physicalDevice,
     return vc::Error::Success;
 }
 
-vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * context, const MappedQueueFamilies * queueFamilies)
+vc::Error SwapChain::InitSwapChain()
 {
+    const auto & capabilities = surface->GetCapabilities();
+
     venom_assert(capabilities.maxImageCount > 0, "Swap chain must have at least 1 image");
 
     // If already created, then clean up first
@@ -216,6 +199,27 @@ vc::Error SwapChain::InitSwapChain(const Surface * surface, const vc::Context * 
         vc::Log::Error("Failed to create swap chain");
         return vc::Error::InitializationFailed;
     }
+
+    // VkHdrMetadataEXT hdrMetadata = {};
+    // hdrMetadata.sType = VK_STRUCTURE_TYPE_HDR_METADATA_EXT;
+    // hdrMetadata.pNext = nullptr;
+    //
+    // hdrMetadata.displayPrimaryRed = { 0.680f, 0.320f };
+    // hdrMetadata.displayPrimaryGreen = { 0.265f, 0.690f };
+    // hdrMetadata.displayPrimaryBlue = { 0.150f, 0.060f };
+    // hdrMetadata.whitePoint = { 0.3127f, 0.3290f };
+    //
+    // // Set luminance values based on Liquid Retina XDR display capabilities
+    // hdrMetadata.maxLuminance = 1600.0f;      // Max peak brightness in nits
+    // hdrMetadata.minLuminance = 0.0001f;      // Minimum luminance
+    // hdrMetadata.maxContentLightLevel = 1600.0f;  // MaxCLL in nits
+    // hdrMetadata.maxFrameAverageLightLevel = 1000.0f;  // MaxFALL in nits
+    //
+    // auto vkSetHdrMetadataEXT = reinterpret_cast<PFN_vkSetHdrMetadataEXT>(
+    //     vkGetDeviceProcAddr(LogicalDevice::GetVkDevice(), "vkSetHdrMetadataEXT")
+    // );
+    //vkSetHdrMetadataEXT(LogicalDevice::GetVkDevice(), 1, &swapChain, &hdrMetadata);
+
 
     // Getting handles of images in the swap chain
     swapChainImageHandles.clear();

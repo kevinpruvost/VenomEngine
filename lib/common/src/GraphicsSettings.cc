@@ -16,6 +16,8 @@ static GraphicsSettings * s_graphicsSettings = nullptr;
 GraphicsSettings::GraphicsSettings()
     : _gfxSettingsChangeState(GfxSettingsChangeState::Ended)
     , _multisamplingDirty(false)
+    , _isHdrSupported(false)
+    , __isHdrEnabled(false)
     , _samples(1)
 {
     venom_assert(s_graphicsSettings == nullptr, "GraphicsSettings is a singleton.");
@@ -37,6 +39,28 @@ vc::Error GraphicsSettings::SetMultiSampling(const MultiSamplingModeOption mode,
     if (s_graphicsSettings->_gfxSettingsChangeState == GfxSettingsChangeState::Ended)
         return LoadGfxSettings();
     return err;
+}
+
+vc::Error GraphicsSettings::SetHDR(bool enable)
+{
+    if (!IsHDRSupported()) return vc::Error::FeatureNotSupported;
+    if (IsHDREnabled() == enable) return vc::Error::Success;
+
+    vc::Error err = s_graphicsSettings->_SetHDR(enable);
+    if (err != vc::Error::Success)
+        return err;
+    s_graphicsSettings->__isHdrEnabled = enable;
+    return err;
+}
+
+bool GraphicsSettings::IsHDREnabled()
+{
+    return s_graphicsSettings->__isHdrEnabled;
+}
+
+bool GraphicsSettings::IsHDRSupported()
+{
+    return s_graphicsSettings->_isHdrSupported;
 }
 
 vc::Error GraphicsSettings::LoadGfxSettings()

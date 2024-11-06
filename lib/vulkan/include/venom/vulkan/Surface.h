@@ -27,9 +27,15 @@ public:
 
     vc::Error CreateSurface(vc::Context * context);
     VkSurfaceKHR GetVkSurface() const;
+    const VkSurfaceCapabilitiesKHR & GetCapabilities() const { return __capabilities; }
+    const vc::Vector<VkSurfaceFormatKHR> & GetSurfaceFormats() const { return __surfaceFormats; }
+    const vc::Vector<VkPresentModeKHR> & GetPresentModes() const { return __presentModes; }
 
 private:
     VkSurfaceKHR __surface;
+    VkSurfaceCapabilitiesKHR __capabilities;
+    vc::Vector<VkSurfaceFormatKHR> __surfaceFormats;
+    vc::Vector<VkPresentModeKHR> __presentModes;
 };
 }
 }

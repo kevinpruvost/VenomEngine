@@ -106,24 +106,4 @@ std::vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
     }
     return physicalDevices;
 }
-
-const VkPhysicalDevice & PhysicalDevice::GetVkPhysicalDevice() const
-{
-    return __physicalDevice;
-}
-
-const VkPhysicalDeviceProperties& PhysicalDevice::GetProperties() const
-{
-    return __properties;
-}
-
-const VkPhysicalDeviceFeatures& PhysicalDevice::GetFeatures() const
-{
-    return __features;
-}
-
-const VkPhysicalDeviceMemoryProperties& PhysicalDevice::GetMemoryProperties() const
-{
-    return __memoryProperties;
-}
 }

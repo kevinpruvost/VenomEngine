@@ -17,6 +17,7 @@ static constexpr std::array s_deviceExtensions = {
     VK_EXT_ROBUSTNESS_2_EXTENSION_NAME,
     VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
     VK_KHR_MAINTENANCE3_EXTENSION_NAME,
+    VK_EXT_HDR_METADATA_EXTENSION_NAME,
 #ifdef __APPLE__ // Maybe Linux ?
     "VK_KHR_portability_subset",
     VK_KHR_MAINTENANCE1_EXTENSION_NAME,
@@ -159,6 +160,17 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Create Surface
     __surface.CreateSurface(&_context);
 
+    // Check if HDR is possible
+    for (const auto& format : __surface.GetSurfaceFormats()) {
+        if (format.format == VK_FORMAT_R16G16B16A16_SFLOAT) {
+            if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
+                _isHdrSupported = true;
+                SetHDR(true);
+                break;
+            }
+        }
+    }
+
     // Check if the device supports the surface for presentation and which queue family supports it
     if (err = __queueFamilies.SetPresentQueueFamilyIndices(__physicalDevice, __surface); err != vc::Error::Success)
         return err;
@@ -213,7 +225,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     _SetCreateInfoValidationLayers(&createInfo);
 
     // Create Swap Chain
-    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &_context); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__surface, &_context); err != vc::Error::Success)
         return err;
 
     // Verify if the device is suitable
@@ -237,7 +249,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create SwapChain
     __swapChain.SetSamples(_samples);
-    if (err = __swapChain.InitSwapChain(&__surface, &_context, &__queueFamilies); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
 
     // Get Graphics Queue
@@ -262,6 +274,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Init Render Pass Framebuffers
     if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
         return err;
+    // if (IsHDREnabled()) {
+    //     if (err = __swapChain.InitSwapChainFramebuffers(__hdrRenderPass.get()); err != vc::Error::Success)
+    //         return err;
+    // }
 
     // Init descriptor sets parameters
     if (err = __InitializeSets(); err != vc::Error::Success)
@@ -317,7 +333,7 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
     }
 
     // Check if the device's swap chain is ok
-    if (__swapChain.presentModes.empty() || __swapChain.surfaceFormats.empty()) {
+    if (__surface.GetPresentModes().empty() || __surface.GetSurfaceFormats().empty()) {
         vc::Log::Error("Failed to get surface formats or present modes for swap chain");
         return false;
     }
@@ -344,12 +360,17 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-    if (err = __swapChain.InitSwapChainSettings(&__physicalDevice, &__surface, &_context); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__surface, &_context); err != vc::Error::Success)
         return err;
-    if (err = __swapChain.InitSwapChain(&__surface, &_context, &__queueFamilies); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
     if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
         return err;
+    // If HDR is on, recreate HDR Render Pass
+//    if (IsHDREnabled()) {
+//        if (err = __swapChain.InitSwapChainFramebuffers(__hdrRenderPass.get()); err != vc::Error::Success)
+//            return err;
+//    }
 
     // We also need to reset the last used semaphore
     return __imageAvailableSemaphores[_currentFrame].InitSemaphore();

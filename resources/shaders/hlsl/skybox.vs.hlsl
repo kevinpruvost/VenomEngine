@@ -16,7 +16,13 @@ VSOutput main(PanoramaInput input)
     VSOutput output;
 
     // Convert NDC position to world space
-    float4 worldspace = mul(inverse(view), mul(inverse(proj), float4(input.inPosition.xy, 1.0, 1.0)));
+    float4x4 invView = view;
+    invView[0][3] = invView[1][3] = invView[2][3] = 0.0;
+    invView = inverse(invView);
+    float4x4 invProj = inverse(proj);
+
+    // Remove position part from view matrix
+    float4 worldspace = mul(invView, mul(invProj, float4(input.inPosition.xy, 1.0, 1.0)));
 
     // Normalize view direction for the fragment shader
     output.position = float4(input.inPosition.xyz, 1.0);
