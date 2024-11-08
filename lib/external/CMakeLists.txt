@@ -93,3 +93,60 @@ add_subdirectory("openvdb")
 set(OPENEXR_FORCE_INTERNAL_IMATH ON)
 add_subdirectory("openexr")
 find_package(OpenEXR REQUIRED)
+
+# imgui
+# Define the list of ImGui source files
+set(IMGUI_DIR_ "${CMAKE_CURRENT_SOURCE_DIR}/imgui")
+set(IMGUI_DIR "${IMGUI_DIR_}" PARENT_SCOPE)
+set(IMGUI_SOURCES
+    "${IMGUI_DIR_}/imgui.cpp"
+    "${IMGUI_DIR_}/imgui_draw.cpp"
+    "${IMGUI_DIR_}/imgui_demo.cpp"
+    "${IMGUI_DIR_}/imgui_tables.cpp"
+    "${IMGUI_DIR_}/imgui_widgets.cpp"
+    "${IMGUI_DIR_}/backends/imgui_impl_glfw.cpp"
+PARENT_SCOPE)
+
+# Vulkan
+#list(APPEND IMGUI_SOURCES
+#        ${IMGUI_DIR_}/backends/imgui_impl_vulkan.cpp
+#)
+set(IMGUI_VULKAN_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_vulkan.cpp PARENT_SCOPE)
+
+#if (WIN32)
+#    # DirectX12
+#    list(APPEND IMGUI_SOURCES
+#            ${IMGUI_DIR_}/backends/imgui_impl_dx12.cpp
+#    )
+#elseif (APPLE)
+#    # Metal
+#    list(APPEND IMGUI_SOURCES
+#            ${IMGUI_DIR_}/backends/imgui_impl_metal.mm
+#    )
+#elseif (UNIX)
+#    list(APPEND IMGUI_SOURCES ${IMGUI_DIR_}/backends/imgui_impl_glfw.cpp)
+#endif ()
+set(IMGUI_DX12_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_dx12.cpp PARENT_SCOPE)
+set(IMGUI_METAL_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_metal.mm PARENT_SCOPE)
+
+# Add the ImGui target as a static library
+#add_library(imgui STATIC ${IMGUI_SOURCES})
+
+# Specify that ImGui should be treated as an "interface" library to enable shared includes.
+set(IMGUI_INCLUDE_DIR ${IMGUI_DIR_} ${IMGUI_DIR_}/backends PARENT_SCOPE)
+#target_include_directories(imgui PUBLIC ${IMGUI_DIR_} ${IMGUI_DIR_}/backends)
+#target_compile_features(imgui PUBLIC cxx_std_11)
+
+#target_compile_definitions(imgui PRIVATE VK_PROTOTYPES)
+#target_link_libraries(imgui glfw)
+
+# Optional: Link to platform-specific libraries if needed
+# TODO: Don't forget to include in Metal
+#if(APPLE)
+#    target_link_libraries(imgui "-framework Metal -framework MetalKit -framework Cocoa -framework IOKit -framework CoreVideo -framework QuartzCore")
+#    target_link_directories(imgui PRIVATE /usr/local/lib /opt/homebrew/lib /opt/local/lib)
+#    target_include_directories(imgui PRIVATE /usr/local/include /opt/homebrew/include /opt/local/include)
+#elseif(UNIX AND NOT APPLE)
+#    find_package(X11 REQUIRED)
+#    target_link_libraries(imgui PRIVATE X11)
+#endif()

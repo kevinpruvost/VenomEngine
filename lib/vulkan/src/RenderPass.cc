@@ -15,15 +15,12 @@ static RenderPass* s_mainRenderPass = nullptr;
 RenderPass::RenderPass()
     : __renderPass(VK_NULL_HANDLE)
 {
-    s_mainRenderPass = this;
+    if (s_mainRenderPass == nullptr) s_mainRenderPass = this;
 }
 
 RenderPass::~RenderPass()
 {
-    if (__renderPass != VK_NULL_HANDLE)
-        vkDestroyRenderPass(LogicalDevice::GetVkDevice(), __renderPass, Allocator::GetVKAllocationCallbacks());
-    if (s_mainRenderPass == this)
-        s_mainRenderPass = nullptr;
+    Destroy();
 }
 
 RenderPass::RenderPass(RenderPass&& other)
@@ -41,8 +38,15 @@ RenderPass& RenderPass::operator=(RenderPass&& other)
     return *this;
 }
 
+void RenderPass::Destroy()
+{
+    if (__renderPass != VK_NULL_HANDLE)
+        vkDestroyRenderPass(LogicalDevice::GetVkDevice(), __renderPass, Allocator::GetVKAllocationCallbacks());
+}
+
 vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
 {
+    Destroy();
     const bool multisampled = swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Render Pass

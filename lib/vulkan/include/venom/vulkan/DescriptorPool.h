@@ -154,6 +154,8 @@ public:
     */
     void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint, const std::vector<uint32_t> & dynamicOffsets);
 
+    inline VkDescriptorPool GetVkDescriptorPool() const { return __pool; }
+
 private:
     static DescriptorPool * s_pool;
 

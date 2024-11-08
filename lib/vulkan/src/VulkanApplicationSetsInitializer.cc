@@ -59,8 +59,11 @@ vc::Error VulkanApplication::__InitializeSets()
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
 
+    // GUI needs VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT & VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER for fonts
+    DescriptorPool::GetPool()->AddPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VENOM_MAX_FRAMES_IN_FLIGHT * 100);
+
     // Makes the pool able to allocate descriptor sets that can be updated after binding
-    if (DescriptorPool::GetPool()->Create(VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT) != vc::Error::Success)
+    if (DescriptorPool::GetPool()->Create(VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT | VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT) != vc::Error::Success)
         return vc::Error::Failure;
 
     // Target Luminance

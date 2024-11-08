@@ -25,6 +25,7 @@ class ShaderImpl;
 class SkyboxImpl;
 
 class ShaderResourceTable;
+class GUI;
 
 class VENOM_COMMON_API GraphicsPlugin : public Plugin
 {
@@ -55,6 +56,7 @@ public:
 
     // Global instances
     virtual ShaderResourceTable * CreateShaderResourceTable() = 0;
+    virtual GUI * CreateGUI() = 0;
 
 private:
     friend class GraphicsCachedResource;

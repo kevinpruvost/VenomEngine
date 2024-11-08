@@ -24,6 +24,8 @@
 #include "venom/common/ECS.h"
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
+#include "venom/common/plugin/graphics/GUI.h"
+
 namespace venom::vulkan
 {
 int VulkanApplication::__bindlessSupported = false;
@@ -70,7 +72,7 @@ vc::Error VulkanApplication::__Loop()
             vc::Log::Print("FPS: %u, Theoretical FPS: %.2f", fpsCount, _GetTheoreticalFPS(fpsCount));
         timer.Reset();
     }
-    __shouldClose = _context.ShouldClose();
+    __shouldClose = vc::Context::Get()->ShouldClose();
     if (__shouldClose) {
         vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
     }
@@ -172,6 +174,10 @@ vc::Error VulkanApplication::__DrawFrame()
             }
             __commandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shader.GetImpl()->As<VulkanShader>());
         });
+
+        // Draw GUI
+        _gui->Render();
+
         __renderPass.EndRenderPass(__commandBuffers[_currentFrame]);
 
     if (auto err = __commandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)

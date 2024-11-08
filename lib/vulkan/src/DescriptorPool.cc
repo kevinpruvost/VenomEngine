@@ -156,6 +156,8 @@ vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t max
             AddPoolSize(binding.descriptorType, VENOM_MAX_FRAMES_IN_FLIGHT * __descriptorSetLayouts[i].GetMaxSets() * binding.descriptorCount);
         }
     }
+    // For GUI
+    __poolInfo.maxSets += VENOM_MAX_FRAMES_IN_FLIGHT;
     if (auto err = vkCreateDescriptorPool(LogicalDevice::GetVkDevice(), &__poolInfo, Allocator::GetVKAllocationCallbacks(), &__pool); err != VK_SUCCESS) {
         vc::Log::Error("Failed to create descriptor pool: %d", err);
         return vc::Error::Failure;

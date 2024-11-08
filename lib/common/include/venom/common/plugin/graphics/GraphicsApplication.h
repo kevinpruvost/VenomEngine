@@ -39,9 +39,8 @@ public:
     virtual bool ShouldClose() = 0;
 
 protected:
-    vc::Context _context;
-
     ShaderResourceTable * _shaderResourceTable;
+    GUI * _gui;
     UPtr<vc::Texture> _dummyTexture;
     static int _currentFrame;
 };

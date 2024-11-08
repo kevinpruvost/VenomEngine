@@ -34,7 +34,7 @@ public:
 
     void CleanSwapChain();
 
-    vc::Error InitSwapChainSettings(const Surface* surface, const vc::Context* context);
+    vc::Error InitSwapChainSettings(const Surface* surface);
 
     inline int GetSamples() const { return __samples; }
     inline void SetSamples(const int samples) { __samples = samples; }

@@ -80,8 +80,16 @@ Error VenomEngine::RunEngine(int argc, char** argv)
     vc::Resources::InitializeFilesystem(argc, argv);
 
     s_instance.reset(new VenomEngine());
-    vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
 
+    // Init Context
+    s_instance->__context.reset(new Context());
+    if (err = s_instance->__context->InitContext(); err != vc::Error::Success)
+    {
+        vc::Log::Error("Failed to initialize context: %d", err);
+        return vc::Error::InitializationFailed;
+    }
+
+    vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
 
     if (err = app->Init(); err != vc::Error::Success) {
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));

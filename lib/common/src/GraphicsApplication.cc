@@ -7,6 +7,7 @@
 ///
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
+#include <venom/common/plugin/graphics/GUI.h>
 #include <venom/common/DLL.h>
 
 #include <iostream>
@@ -20,7 +21,6 @@ int GraphicsApplication::_currentFrame = 0;
 
 GraphicsApplication::GraphicsApplication()
     : _shaderResourceTable(GraphicsPlugin::Get()->CreateShaderResourceTable())
-    , _context()
 {
 }
 
@@ -30,6 +30,7 @@ GraphicsApplication* GraphicsApplication::Create()
     if (app->_shaderResourceTable == nullptr)
     {
         vc::Log::Print("Shader Resource Table is not set in the Graphics Application.");
+        delete app;
         return nullptr;
     }
     return app;
@@ -43,6 +44,15 @@ GraphicsApplication::~GraphicsApplication()
 Error GraphicsApplication::Init()
 {
     Error err = __Init();
+    // GUI Initialization is done after
+    _gui = GraphicsPlugin::Get()->CreateGUI();
+    _gui->SetGraphicsApplication(this);
+    _gui->Initialize();
+    if (_gui == nullptr)
+    {
+        vc::Log::Print("GUI is not set in the Graphics Application.");
+        return vc::Error::Failure;
+    }
     if (err != Error::Success) {
         return err;
     }
@@ -56,7 +66,7 @@ Error GraphicsApplication::Init()
 
 Error GraphicsApplication::Loop()
 {
-    _context.PollEvents();
+    vc::Context::Get()->PollEvents();
     return __Loop();
 }
 }

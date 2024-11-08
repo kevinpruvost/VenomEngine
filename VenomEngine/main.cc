@@ -33,6 +33,7 @@ int ReportHook(int reportType, char *message, int * returnValue)
 #include <thread>
 
 #include "venom/common/plugin/graphics/Camera.h"
+#include "venom/common/plugin/graphics/GUI.h"
 #include "venom/common/plugin/graphics/Skybox.h"
 
 int main(int argc, char** argv)
@@ -88,6 +89,15 @@ int main(int argc, char** argv)
 
         vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
     });
+
+    vc::GUI::SetGUIDrawCallback([]()
+    {
+        vc::GUI::NewFrame();
+        vc::GUI::Begin("Hello, world!");
+        vc::GUI::Text("This is some useful text.");
+        vc::GUI::End();
+    });
+
     const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 
 #if defined(_WIN32) && defined(_ANALYSIS)

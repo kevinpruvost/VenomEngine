@@ -9,6 +9,8 @@
 
 #include <venom/common/ECS.h>
 
+#include "venom/common/plugin/graphics/GUI.h"
+
 namespace venom
 {
 namespace vulkan
@@ -22,7 +24,7 @@ vc::Error VulkanApplication::_LoadGfxSettings()
     if (_multisamplingDirty)
     {
         vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-        if (err = __swapChain.InitSwapChainSettings(&__surface, &_context); err != vc::Error::Success)
+        if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
             return err;
         if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
             return err;
@@ -61,6 +63,7 @@ vc::Error VulkanApplication::_SetMultiSampling(const MultiSamplingModeOption mod
             venom_assert(false, "Invalid MultiSamplingModeOption");
         return vc::Error::Failure;
     };
+    __RecreateSwapChain();
     return vc::Error::Success;
 }
 

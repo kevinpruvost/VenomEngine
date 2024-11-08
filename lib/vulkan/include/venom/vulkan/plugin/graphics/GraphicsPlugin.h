@@ -27,6 +27,7 @@ public:
     vc::SkyboxImpl * CreateSkybox() override;
 
     vc::ShaderResourceTable * CreateShaderResourceTable() override;
+    vc::GUI * CreateGUI() override;
 };
 }
 }

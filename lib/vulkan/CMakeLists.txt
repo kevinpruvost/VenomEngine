@@ -26,7 +26,10 @@ file(GLOB_RECURSE venom_vulkan_hdrs include/venom/vulkan/**/**/**/*.h)
 
 # Create the static library target
 add_library(${PROJECT_NAME} SHARED
-    ${venom_vulkan_srcs} ${venom_vulkan_hdrs})
+    ${venom_vulkan_srcs} ${venom_vulkan_hdrs}
+    ${IMGUI_SOURCES}
+    ${IMGUI_VULKAN_SOURCE}
+)
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 # Find Vulkan
@@ -40,23 +43,19 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${VULKAN_LIBRARY} ${CMAKE_BINARY_DIR}
 )
 
-target_link_libraries(${PROJECT_NAME}
-    VenomCommon   # Assuming venom_common_static is defined elsewhere
-    glm
-    Vulkan::Vulkan
-)
-
 else ()
-# Link dependencies to the static library
-target_link_libraries(${PROJECT_NAME}
-    VenomCommon   # Assuming venom_common_static is defined elsewhere
-    glm
-    Vulkan::Vulkan
-)
+
 endif ()
+
+target_link_libraries(${PROJECT_NAME}
+        VenomCommon   # Assuming venom_common_static is defined elsewhere
+        glm
+        Vulkan::Vulkan
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${VULKAN_INCLUDE_DIRS}
+    ${IMGUI_INCLUDE_DIR}
 )
 
 # Installation

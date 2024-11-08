@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/VulkanApplication.h>
+#include <venom/common/plugin/graphics/GUI.h>
 
 namespace venom
 {
@@ -29,11 +30,6 @@ vc::Error VulkanApplication::__Init()
     vc::Error res;
 
     printf("Hello, Vulkan!\n");
-    if (res = _context.InitContext(); res != vc::Error::Success)
-    {
-        vc::Log::Error("Failed to initialize context: %d", res);
-        return vc::Error::InitializationFailed;
-    }
 
     __SetGLFWCallbacks();
 
@@ -104,8 +100,8 @@ VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures(bool & 
 
 void VulkanApplication::__SetGLFWCallbacks()
 {
-    glfwSetWindowUserPointer(_context.GetWindow(), this);
-    glfwSetFramebufferSizeCallback(_context.GetWindow(), [](GLFWwindow * window, int width, int height) {
+    glfwSetWindowUserPointer(vc::Context::Get()->GetWindow(), this);
+    glfwSetFramebufferSizeCallback(vc::Context::Get()->GetWindow(), [](GLFWwindow * window, int width, int height) {
         auto app = reinterpret_cast<VulkanApplication*>(glfwGetWindowUserPointer(window));
         app->__framebufferChanged = true;
     });
@@ -158,7 +154,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __queueFamilies = getVulkanQueueFamilies(__physicalDevice);
 
     // Create Surface
-    __surface.CreateSurface(&_context);
+    __surface.CreateSurface(vc::Context::Get());
 
     // Check if HDR is possible
     for (const auto& format : __surface.GetSurfaceFormats()) {
@@ -225,7 +221,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     _SetCreateInfoValidationLayers(&createInfo);
 
     // Create Swap Chain
-    if (err = __swapChain.InitSwapChainSettings(&__surface, &_context); err != vc::Error::Success)
+    if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
         return err;
 
     // Verify if the device is suitable
@@ -360,7 +356,10 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-    if (err = __swapChain.InitSwapChainSettings(&__surface, &_context); err != vc::Error::Success)
+    // ReCreate Render Pass
+    if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
+        return err;
+    if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
         return err;
     if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
@@ -371,9 +370,14 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 //        if (err = __swapChain.InitSwapChainFramebuffers(__hdrRenderPass.get()); err != vc::Error::Success)
 //            return err;
 //    }
-
     // We also need to reset the last used semaphore
-    return __imageAvailableSemaphores[_currentFrame].InitSemaphore();
+    if (err = __imageAvailableSemaphores[_currentFrame].InitSemaphore(); err != vc::Error::Success)
+        return err;
+    // GUI
+    if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
+        return err;
+
+    return vc::Error::Success;
 }
 }
 }

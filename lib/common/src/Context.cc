@@ -61,11 +61,12 @@ vc::Error Context::InitContext()
         Log::LogToFile("Mode: %d: %dx%d | Refresh Rate: %d", i, __modes[i].width, __modes[i].height, __modes[i].refreshRate);
     }
 #endif
+    __width = std::min(activeMode->width * 3 / 4, 1000);
+    __height = std::min(activeMode->height * 3 / 4, 800);
     // Just take the last video mode by default and take 3/4 of the window size
     __window = glfwCreateWindow(
-        std::min(activeMode->width * 3 / 4, 1000),
-        std::min(activeMode->height * 3 / 4, 800),
-        "Vulkan",
+        __width, __height,
+        "VenomEngine",
         nullptr,
         nullptr);
 
@@ -101,6 +102,13 @@ vc::Error Context::InitContext()
             context->__mouseState[button] = InputState::Released;
             context->__mouseReleasedStack.push(static_cast<MouseButton>(button));
         }
+    });
+
+    glfwSetWindowSizeCallback(__window, [](GLFWwindow * window, int width, int height)
+    {
+        Context * context = s_context;
+        context->__width = width;
+        context->__height = height;
     });
 
     // Set Initial pos

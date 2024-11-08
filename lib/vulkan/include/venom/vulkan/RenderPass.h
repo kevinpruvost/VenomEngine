@@ -24,6 +24,8 @@ public:
     RenderPass(RenderPass&& other);
     RenderPass& operator=(RenderPass&& other);
 
+    void Destroy();
+
     vc::Error InitRenderPass(const SwapChain * swapChain);
     vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);

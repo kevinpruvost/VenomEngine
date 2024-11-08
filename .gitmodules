@@ -38,3 +38,6 @@
 [submodule "lib/external/openexr"]
 	path = lib/external/openexr
 	url = git@github.com:AcademySoftwareFoundation/openexr.git
+[submodule "lib/external/imgui"]
+	path = lib/external/imgui
+	url = git@github.com:ocornut/imgui.git

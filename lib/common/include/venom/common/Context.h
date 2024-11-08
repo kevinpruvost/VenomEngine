@@ -102,6 +102,8 @@ public:
     inline bool IsKeyPressed(KeyboardInput key) const { return (__keyboardState[key] & (InputState::Pressed | InputState::Repeat)) > 0; }
     inline bool IsKeyReleased(KeyboardInput key) const { return __keyboardState[key] == InputState::Released; }
     inline bool IsKeyRepeat(KeyboardInput key) const { return __keyboardState[key] == InputState::Repeat; }
+    inline int GetWindowWidth() const { return __width; }
+    inline int GetWindowHeight() const { return __height; }
     
     /**
      * @brief Checks if a specified keyboard modifier key is currently pressed.
@@ -128,6 +130,7 @@ private:
 
     double __mousePos[2];
     double __mouseLastPos[2];
+    int __width, __height;
 };
 }
 }

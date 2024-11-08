@@ -13,6 +13,7 @@
 #include <venom/vulkan/plugin/graphics/Material.h>
 #include <venom/vulkan/plugin/graphics/Texture.h>
 #include <venom/vulkan/plugin/graphics/Camera.h>
+#include <venom/vulkan/plugin/graphics/GUI.h>
 #include <venom/vulkan/plugin/graphics/Shader.h>
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
@@ -65,6 +66,11 @@ vc::SkyboxImpl* VulkanGraphicsPlugin::CreateSkybox()
 vc::ShaderResourceTable* VulkanGraphicsPlugin::CreateShaderResourceTable()
 {
     return new VulkanShaderResourceTable();
+}
+
+vc::GUI* VulkanGraphicsPlugin::CreateGUI()
+{
+    return new VulkanGUI();
 }
 }
 }

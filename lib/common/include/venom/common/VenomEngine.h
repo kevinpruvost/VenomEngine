@@ -11,6 +11,8 @@
 #include <venom/common/ECS.h>
 #include <venom/common/VenomSettings.h>
 
+#include "Context.h"
+
 namespace venom
 {
 namespace common
@@ -71,12 +73,13 @@ private:
     void __LoadECS();
 
 public:
-    std::unique_ptr<PluginManager> pluginManager;
+    UPtr<PluginManager> pluginManager;
 
 private:
-    std::unique_ptr<DLL_Cache> __dllCache;
-    std::unique_ptr<ECS> __ecs;
-    std::unique_ptr<VenomSettings> __settings;
+    UPtr<Context> __context;
+    UPtr<DLL_Cache> __dllCache;
+    UPtr<ECS> __ecs;
+    UPtr<VenomSettings> __settings;
 };
 }
 }
