@@ -25,6 +25,7 @@ public:
     Surface(Surface&& surface) noexcept;
     Surface& operator=(Surface&& surface) noexcept;
 
+    void Destroy();
     vc::Error CreateSurface(vc::Context * context);
     VkSurfaceKHR GetVkSurface() const;
     const VkSurfaceCapabilitiesKHR & GetCapabilities() const { return __capabilities; }

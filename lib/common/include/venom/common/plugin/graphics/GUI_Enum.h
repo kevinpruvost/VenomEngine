@@ -12,7 +12,7 @@ namespace venom
 namespace common
 {
 /**
- * Window flags based on GUIWindowFlagsBits_
+ * Window flags based on GUIWindowFlagsBits_ (based on ImGUI 1.91.5)
  */
 enum GUIWindowFlagsBits
 {
@@ -49,6 +49,9 @@ enum GUIWindowFlagsBits
 };
 typedef int GUIWindowFlags;
 
+/**
+ * Color edit flags based on GUIColorEditFlagsBits_ (based on ImGUI 1.91.5)
+ */
 enum GUIColorEditFlagsBits
 {
     GUIColorEditFlags_None            = 0,
@@ -92,5 +95,6 @@ enum GUIColorEditFlagsBits
     //GUIColorEditFlags_RGB = GUIColorEditFlags_DisplayRGB, GUIColorEditFlags_HSV = GUIColorEditFlags_DisplayHSV, GUIColorEditFlags_HEX = GUIColorEditFlags_DisplayHex  // [renamed in 1.69]
 };
 typedef int GUIColorEditFlags;
+
 }
 }

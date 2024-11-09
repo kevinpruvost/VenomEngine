@@ -42,6 +42,13 @@ public:
         SETS_INDEX_PANORAMA = 6,
     };
 
+    class Descriptor
+    {
+    public:
+        Descriptor();
+        ~Descriptor();
+    };
+
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     static vcm::Mat4 * GetAllModelMatrixBuffer();
     static vcm::Mat4 * GetModelMatrixBuffer();
@@ -55,6 +62,9 @@ public:
     static void SetMaxTextures(uint32_t maxTextures);
     static inline int GetMaxTextures() { return __maxTextures; }
     static bool UsingLargeBindlessTextures() { return __maxTextures == VENOM_MAX_BINDLESS_TEXTURES; }
+
+protected:
+
 private:
     static int __maxTextures;
 };

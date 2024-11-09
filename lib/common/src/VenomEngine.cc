@@ -32,6 +32,7 @@ namespace common
 {
 static SceneCallback s_sceneCallback = nullptr;
 static vc::Vector<LoopCallback> s_loopCallbacks;
+static vc::Vector<InputCallback> s_inputCallbacks;
 
 VenomEngine::VenomEngine()
     : pluginManager(new PluginManager())
@@ -102,37 +103,12 @@ Error VenomEngine::RunEngine(int argc, char** argv)
             app->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 
-            // Camera controls
-            const float speed = 5.0f;
-            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardW))
-            {
-                vc::Camera::GetMainCamera()->MoveForward(speed * vc::Timer::GetLambdaSeconds());
+            for (const auto& loopCallback : s_loopCallbacks) {
+                loopCallback();
             }
-            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardS))
-            {
-                vc::Camera::GetMainCamera()->MoveForward(-speed * vc::Timer::GetLambdaSeconds());
+            for (const auto& inputCallback : s_inputCallbacks) {
+                inputCallback(Context::Get());
             }
-            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardA))
-            {
-                vc::Camera::GetMainCamera()->MoveRight(-speed * vc::Timer::GetLambdaSeconds());
-            }
-            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardD))
-            {
-                vc::Camera::GetMainCamera()->MoveRight(speed * vc::Timer::GetLambdaSeconds());
-            }
-            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardQ))
-            {
-                vc::Camera::GetMainCamera()->MoveUp(-speed * vc::Timer::GetLambdaSeconds());
-            }
-            if (Context::Get()->IsKeyPressed(vc::KeyboardInput::KeyboardE))
-            {
-                vc::Camera::GetMainCamera()->MoveUp(speed * vc::Timer::GetLambdaSeconds());
-            }
-
-            vcm::Vec2 mouseMov = Context::Get()->GetMouseMove();
-            vc::Camera::GetMainCamera()->RotateYaw( -mouseMov.x * 0.0025f);
-            vc::Camera::GetMainCamera()->RotatePitch(-mouseMov.y * 0.0025f);
-
             // Reset timer at the end
             vc::Timer::__PassFrame();
         }
@@ -157,6 +133,11 @@ Error VenomEngine::SetScene(const SceneCallback& sceneCallback)
 void VenomEngine::AddLoopCallback(const LoopCallback& loopCallback)
 {
     s_loopCallbacks.emplace_back(loopCallback);
+}
+
+void VenomEngine::AddInputCallback(const InputCallback& inputCallback)
+{
+    s_inputCallbacks.emplace_back(inputCallback);
 }
 
 void VenomEngine::__LoadECS()

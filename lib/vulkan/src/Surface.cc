@@ -20,8 +20,7 @@ Surface::Surface()
 
 Surface::~Surface()
 {
-    if (__surface != VK_NULL_HANDLE)
-        vkDestroySurfaceKHR(Instance::GetVkInstance(), __surface, Allocator::GetVKAllocationCallbacks());
+    Destroy();
 }
 
 Surface::Surface(Surface&& surface) noexcept
@@ -39,8 +38,17 @@ Surface& Surface::operator=(Surface&& surface) noexcept
     return *this;
 }
 
+void Surface::Destroy()
+{
+    if (__surface != VK_NULL_HANDLE) {
+        vkDestroySurfaceKHR(Instance::GetVkInstance(), __surface, Allocator::GetVKAllocationCallbacks());
+        __surface = VK_NULL_HANDLE;
+    }
+}
+
 vc::Error Surface::CreateSurface(vc::Context* context)
 {
+    Destroy();
 #if defined(_WIN32)
     VkWin32SurfaceCreateInfoKHR createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;

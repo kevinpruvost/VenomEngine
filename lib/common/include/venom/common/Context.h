@@ -90,7 +90,7 @@ public:
     Context();
     ~Context();
 public:
-    static Context * Get();
+    static inline Context * Get() { return s_context; }
 
     vc::Error InitContext();
     inline bool ShouldClose() { return glfwWindowShouldClose(__window); }
@@ -131,6 +131,9 @@ private:
     double __mousePos[2];
     double __mouseLastPos[2];
     int __width, __height;
+
+private:
+    static Context * s_context;
 };
 }
 }

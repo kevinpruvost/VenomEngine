@@ -46,6 +46,9 @@ protected:
     void _Render() override;
 
 private:
+    void __SetStyle();
+
+private:
     ImGui_ImplVulkan_InitInfo initInfo;
 };
 }

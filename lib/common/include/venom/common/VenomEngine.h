@@ -21,6 +21,7 @@ namespace common
 // Can either be a file or a function
 typedef void (*SceneCallback)();
 typedef void (*LoopCallback)();
+typedef void (*InputCallback)(Context *);
 
 /**
  * @brief Main class of the engine
@@ -68,6 +69,13 @@ public:
      * @param loopCallback
      */
     static void AddLoopCallback(const LoopCallback & loopCallback);
+
+    /**
+     * @brief Adds a loop callback
+     * @param inputCallback
+     */
+    static void AddInputCallback(const InputCallback & inputCallback);
+
 
 private:
     void __LoadECS();

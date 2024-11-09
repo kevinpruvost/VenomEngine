@@ -5,11 +5,7 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/common/plugin/graphics/GraphicsApplication.h>
-#include <venom/common/VenomEngine.h>
-#include <venom/common/Log.h>
-#include <venom/common/plugin/graphics/Model.h>
-#include <venom/common/plugin/graphics/Shader.h>
+#include "MainScene.h"
 
 #if defined(_WIN32) && defined(_ANALYSIS)
 #define _DEBUG
@@ -30,12 +26,6 @@ int ReportHook(int reportType, char *message, int * returnValue)
 }
 #endif
 
-#include <thread>
-
-#include "venom/common/plugin/graphics/Camera.h"
-#include "venom/common/plugin/graphics/GUI.h"
-#include "venom/common/plugin/graphics/Skybox.h"
-
 int main(int argc, char** argv)
 {
     int errorCode = EXIT_SUCCESS;
@@ -51,52 +41,9 @@ int main(int argc, char** argv)
     _CrtMemCheckpoint(&memStateStart);
 #endif
 
-    // Run the engine
-    vc::VenomEngine::SetScene([]()
-    {
-        vc::Shader shader_skybox;
-        shader_skybox.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
-        shader_skybox.SetDepthWrite(false);
-        shader_skybox.LoadShaderFromFile("skybox");
-        vc::Entity cubemap = vc::CreateEntity("cubemap")
-            .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
-//            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
-            .emplace<vc::Shader>(shader_skybox);
-
-        vc::Shader shader;
-        shader.AddVertexBufferToLayout({
-            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
-            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
-//            {vc::ShaderVertexFormat::Vec4, 2, 2, 0},
-            {vc::ShaderVertexFormat::Vec2, 3, 3, 0},
-        });
-        shader.LoadShaderFromFile("shader_mesh");
-
-        vc::Entity balls_hd = vc::CreateEntity("balls_hd")
-            .emplace<vc::Transform3D>()
-//            .emplace<vc::Model>("eye/eye.obj")
-//            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
-            .emplace<vc::Model>("dead_space_gun/gun.fbx")
-            .emplace<vc::Shader>(shader)
-            ;
-        balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(4.0f, 4.0f, 0.0f));
-
-        vc::Entity camera = vc::CreateEntity("camera")
-            .emplace<vc::Transform3D>()
-            .emplace<vc::Camera>();
-        camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-2.0f, -2.0f, 1.0f));
-        camera.get_mut<vc::Camera>()->LookAt(balls_hd.get<vc::Transform3D>()->GetPosition());
-
-        vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
-    });
-
-    vc::GUI::SetGUIDrawCallback([]()
-    {
-        vc::GUI::NewFrame();
-        vc::GUI::Begin("Hello, world!");
-        vc::GUI::Text("This is some useful text.");
-        vc::GUI::End();
-    });
+    vc::VenomEngine::SetScene(Scene);
+    vc::GUI::SetGUIDrawCallback(SceneGUI);
+    vc::VenomEngine::AddInputCallback(SceneInput);
 
     const vc::Error error = vc::VenomEngine::RunEngine(argc, argv);
 

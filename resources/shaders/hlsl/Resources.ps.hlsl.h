@@ -4,6 +4,7 @@ SamplerState g_sampler : register(s0, space3);
 #include "Scene.hlsl.h"
 
 struct PSInput {
+    float4 position : SV_POSITION;
     [[vk::location(0)]] float3 color : COLOR;
     [[vk::location(1)]] float2 texCoord : TEXCOORD;
 };
@@ -63,12 +64,15 @@ float4 GetMaterialTexture(int componentType, float2 uv)
     return GetTexture(componentType,uv);
 }
 
-Material material : register(b0, space4);
+cbuffer materialProps : register(b0, space4) {
+    Material material;
+};
 
 // Example usage of material in shader
-float4 ComputeMaterialColor(float2 uv)
+float4 ComputeMaterialColor(float2 uv, float4 position)
 {
-    float4 color = float4(0, 0, 0, 1); // Default color
+    float4 color = float4(0.5, 0.5, 0.5, 1); // Default color
+    //return GetTexture(1, uv);
 
     // Example: If the material contains a BASE_COLOR as a texture, sample it
     for (int i = 0; i < MAX_COMPONENT; i++)
@@ -76,6 +80,7 @@ float4 ComputeMaterialColor(float2 uv)
         if (material.components[i].valueType == TEXTURE)
         {
             color = GetMaterialTexture(i, uv);
+            break;
         }
         else if (material.components[i].valueType == COLOR4D)
         {

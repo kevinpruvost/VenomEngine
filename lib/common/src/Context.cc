@@ -10,7 +10,8 @@
 
 namespace venom::common
 {
-static Context * s_context = nullptr;
+Context * Context::s_context = nullptr;
+
 Context::Context()
     : __window(nullptr)
     , __keyboardModifierState(0x0000)
@@ -29,11 +30,6 @@ Context::~Context()
         glfwDestroyWindow(__window);
     glfwTerminate();
     s_context = nullptr;
-}
-
-Context* Context::Get()
-{
-    return s_context;
 }
 
 vc::Error Context::InitContext()

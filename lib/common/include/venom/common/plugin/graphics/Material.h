@@ -32,10 +32,14 @@ public:
     const std::string & GetName() const;
     void SetName(const std::string & name);
 
+    /**
+     * Material Component Resource Table (size: 32 bytes)
+     */
     struct VENOM_COMMON_API MaterialComponentResourceTable {
         MaterialComponentResourceTable();
-        vcm::Vec4 value;
-        int valueType;
+        vcm::Vec4 value; // 16 bytes
+        int valueType; // 4 bytes
+        char padding[12]; // 12 bytes
     };
     struct VENOM_COMMON_API MaterialResourceTable {
         MaterialComponentResourceTable components[MaterialComponentType::MAX_COMPONENT];

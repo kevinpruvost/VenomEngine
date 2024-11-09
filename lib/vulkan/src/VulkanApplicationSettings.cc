@@ -24,6 +24,10 @@ vc::Error VulkanApplication::_LoadGfxSettings()
     if (_multisamplingDirty)
     {
         vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+        __swapChain.CleanSwapChain();
+        // Create Surface
+        __surface.CreateSurface(vc::Context::Get());
+        // ReCreate Render Pass
         if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
             return err;
         if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)

@@ -40,13 +40,14 @@ RenderPass& RenderPass::operator=(RenderPass&& other)
 
 void RenderPass::Destroy()
 {
-    if (__renderPass != VK_NULL_HANDLE)
+    if (__renderPass != VK_NULL_HANDLE) {
         vkDestroyRenderPass(LogicalDevice::GetVkDevice(), __renderPass, Allocator::GetVKAllocationCallbacks());
+        __renderPass = VK_NULL_HANDLE;
+    }
 }
 
 vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
 {
-    Destroy();
     const bool multisampled = swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Render Pass
@@ -138,10 +139,7 @@ vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
     renderPassInfo.pDependencies = dependencies.data();
     renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
 
-    if (__renderPass != VK_NULL_HANDLE) {
-        vkDestroyRenderPass(LogicalDevice::GetVkDevice(), __renderPass, Allocator::GetVKAllocationCallbacks());
-        __renderPass = VK_NULL_HANDLE;
-    }
+    Destroy();
     if (vkCreateRenderPass(LogicalDevice::GetVkDevice(), &renderPassInfo, Allocator::GetVKAllocationCallbacks(), &__renderPass) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create render pass");

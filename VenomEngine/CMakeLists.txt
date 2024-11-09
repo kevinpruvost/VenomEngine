@@ -5,7 +5,12 @@ cmake_minimum_required(VERSION 3.10)
 project(VenomEngineLauncher)
 
 # Source files
+file(GLOB_RECURSE VenomEngine_Srcs
+    "./*.cc"
+)
+
 set(VenomEngine_Srcs
+    ${VenomEngine_Srcs}
     main.cc
 )
 

@@ -356,6 +356,9 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+    __swapChain.CleanSwapChain();
+    // Create Surface
+    __surface.CreateSurface(vc::Context::Get());
     // ReCreate Render Pass
     if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
         return err;
