@@ -9,7 +9,7 @@
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/QueueManager.h>
-#include <venom/vulkan/plugin/graphics/Shader.h>
+#include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
 #include <venom/vulkan/plugin/graphics/Material.h>
 
 #include <venom/common/plugin/graphics/Camera.h>
@@ -117,7 +117,7 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
-void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShader & pipeline) const
+void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShaderPipeline & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     const IndexBuffer & indexBuffer = vulkanMesh->GetIndexBuffer();
@@ -153,7 +153,7 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
     }
 }
 
-void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShader & pipeline) const
+void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShaderPipeline & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
     for (const vc::Mesh & mesh : vulkanModel->GetMeshes()) {
@@ -161,7 +161,7 @@ void CommandBuffer::DrawModel(const VulkanModel * vulkanModel, const int firstIn
     }
 }
 
-void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanShader * shader)
+void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanShaderPipeline * shader)
 {
     // Bind pipeline
     BindPipeline(shader->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
@@ -180,7 +180,7 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
     vkCmdDraw(_commandBuffer, 6, 1, 0, 0);
 }
 
-void CommandBuffer::PushConstants(const VulkanShader * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
+void CommandBuffer::PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
                                   uint32_t size, const void* pValues) const
 {
     vkCmdPushConstants(_commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);

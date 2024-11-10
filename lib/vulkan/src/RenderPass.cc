@@ -158,8 +158,8 @@ vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain, CommandBuffer* comma
     renderPassInfo.renderArea.extent = swapChain->extent;
 
     VkClearValue clearColor[] = {
-        {{0.0f, 0.0f, 0.0f, 1.0f}},
-        {{1.0f, 0}}
+        {{0.0f, 0.0f, 0.0f, 1.0f}}, // color
+        {{1.0f, 0}} // depth
     };
     clearColor[0].color = {0.0f, 0.0f, 0.0f, 1.0f};
     clearColor[1].depthStencil = {1.0f, 0};

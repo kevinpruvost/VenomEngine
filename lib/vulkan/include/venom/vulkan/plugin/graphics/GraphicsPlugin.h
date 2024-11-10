@@ -23,7 +23,8 @@ public:
     vc::TextureImpl * CreateTexture() override;
     vc::MaterialImpl * CreateMaterial() override;
     vc::CameraImpl * CreateCamera() override;
-    vc::ShaderImpl * CreateShader() override;
+    vc::ShaderPipelineImpl * CreateShaderPipeline() override;
+    vc::RenderingPipelineImpl * CreateRenderingPipeline() override;
     vc::SkyboxImpl * CreateSkybox() override;
 
     vc::ShaderResourceTable * CreateShaderResourceTable() override;

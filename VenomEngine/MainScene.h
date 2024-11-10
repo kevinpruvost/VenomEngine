@@ -11,7 +11,7 @@
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Log.h>
 #include <venom/common/plugin/graphics/Model.h>
-#include <venom/common/plugin/graphics/Shader.h>
+#include <venom/common/plugin/graphics/RenderingPipeline.h>
 #include <venom/common/plugin/graphics/Camera.h>
 #include <venom/common/plugin/graphics/GUI.h>
 #include <venom/common/plugin/graphics/Skybox.h>

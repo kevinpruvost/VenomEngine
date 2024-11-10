@@ -25,6 +25,7 @@
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
 #include "venom/common/plugin/graphics/GUI.h"
+#include "venom/common/plugin/graphics/RenderingPipeline.h"
 
 namespace venom::vulkan
 {
@@ -154,25 +155,29 @@ vc::Error VulkanApplication::__DrawFrame()
         __UpdateUniformBuffers();
 
         // Draw Skybox
-        vc::ECS::GetECS()->ForEach<vc::Skybox, vc::Shader>([&](vc::Entity entity, vc::Skybox & skybox, vc::Shader & shader)
+        vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
         {
-            shader.GetImpl()->As<VulkanShader>()->SetDepthWrite(false);
-            __commandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shader.GetImpl()->As<VulkanShader>());
+            const auto & shaders = pipeline.GetRenderingPipelineCache();
+            shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
+            __commandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
         });
 
         // Draw Models
-        vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D, vc::Shader>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform, vc::Shader & shader)
+        vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D, vc::RenderingPipeline>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform, vc::RenderingPipeline & pipeline)
         {
             int index;
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
             index = transform.GetModelMatrixId();
 #endif
-            if (!__commandBuffers[_currentFrame]->BindPipeline(shader.GetImpl()->As<VulkanShader>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS)) {
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MODEL_MATRICES, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShader>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            const auto & shaders = pipeline.GetRenderingPipelineCache();
+            for (const auto & shader : shaders) {
+                if (!__commandBuffers[_currentFrame]->BindPipeline(shader.GetImpl()->As<VulkanShaderPipeline>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS)) {
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MODEL_MATRICES, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+                }
+                __commandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shader.GetImpl()->As<VulkanShaderPipeline>());
             }
-            __commandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shader.GetImpl()->As<VulkanShader>());
         });
 
         // Draw GUI

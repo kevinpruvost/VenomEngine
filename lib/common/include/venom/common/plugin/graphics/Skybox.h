@@ -8,13 +8,13 @@
 #pragma once
 #include <venom/common/plugin/graphics/GraphicsPluginObject.h>
 #include <venom/common/plugin/graphics/Texture.h>
-#include <venom/common/plugin/graphics/Shader.h>
+#include <venom/common/plugin/graphics/ShaderPipeline.h>
 
 namespace venom
 {
 namespace common
 {
-class SkyboxImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API SkyboxImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
     SkyboxImpl();

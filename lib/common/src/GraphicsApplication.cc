@@ -14,6 +14,8 @@
 
 #include <venom/common/Log.h>
 
+#include "venom/common/plugin/graphics/RenderingPipeline.h"
+
 namespace venom::common
 {
 
@@ -44,6 +46,8 @@ GraphicsApplication::~GraphicsApplication()
 Error GraphicsApplication::Init()
 {
     Error err = __Init();
+    if (err != Error::Success) return err;
+
     // GUI Initialization is done after
     _gui = GraphicsPlugin::Get()->CreateGUI();
     _gui->SetGraphicsApplication(this);
@@ -53,13 +57,53 @@ Error GraphicsApplication::Init()
         vc::Log::Print("GUI is not set in the Graphics Application.");
         return vc::Error::Failure;
     }
-    if (err != Error::Success) {
-        return err;
-    }
+
+    // Dummy Texture
     if (_dummyTexture == nullptr) {
         _dummyTexture.reset(new vc::Texture());
         _dummyTexture->__CreateDummyTexture();
     }
+
+    // All default shader pipelines
+    // Loading basic model shaders
+    {
+        ShaderPipelineList basicModelShaders;
+        ShaderPipeline & shader = basicModelShaders.emplace_back();
+        shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
+            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
+        //            {vc::ShaderVertexFormat::Vec4, 2, 2, 0},
+            {vc::ShaderVertexFormat::Vec2, 3, 3, 0},
+        });
+        shader.LoadShaderFromFile("shader_mesh");
+        RenderingPipelineImpl::SetRenderingPipelineCache(basicModelShaders, RenderingPipelineType::BasicModel);
+    }
+
+    // Loading shadow shaders
+    {
+        ShaderPipelineList shadowModelShaders;
+        ShaderPipeline & shader = shadowModelShaders.emplace_back();
+        shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
+            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
+            {vc::ShaderVertexFormat::Vec2, 2, 2, 0},
+        });
+        shader.LoadShaderFromFile("shader_gbuffer");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::ShadowModel);
+    }
+
+    // Loading skybox shaders
+    {
+        ShaderPipelineList skyboxShaders;
+        ShaderPipeline & shader = skyboxShaders.emplace_back();
+        shader.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
+        shader.SetDepthWrite(false);
+        shader.LoadShaderFromFile("skybox");
+        RenderingPipelineImpl::SetRenderingPipelineCache(skyboxShaders, RenderingPipelineType::Skybox);
+    }
+
+    // Post Init
     err = __PostInit();
     return err;
 }

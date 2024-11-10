@@ -1,6 +1,6 @@
 ///
 /// Project: VenomEngineWorkspace
-/// @file Shader.h
+/// @file ShaderPipeline.h
 /// @date Oct, 22 2024
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
@@ -15,6 +15,8 @@ namespace common
 {
 class VENOM_COMMON_API ShaderResource : public GraphicsCachedResource
 {
+public:
+    Vector<String> shaderPaths;
 };
 
 enum class ShaderVertexFormat
@@ -36,11 +38,11 @@ enum class ShaderVertexFormat
     Mat4
 };
 
-class VENOM_COMMON_API ShaderImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
+class VENOM_COMMON_API ShaderPipelineImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
-    ShaderImpl();
-    virtual ~ShaderImpl() = default;
+    ShaderPipelineImpl();
+    virtual ~ShaderPipelineImpl() = default;
 
     /**
      * @brief Load a shader from a base path (e.g. ./shader_mesh to load ./shader_mesh.vert and ./shader_mesh.frag)
@@ -89,25 +91,23 @@ protected:
     virtual void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const ShaderVertexFormat format) = 0;
 
     virtual vc::Error _ReloadShader() = 0;
-
-    Vector<String> _shaderPaths;
 private:
 };
 
-class VENOM_COMMON_API Shader : public PluginObjectImplWrapper
+class VENOM_COMMON_API ShaderPipeline : public PluginObjectImplWrapper
 {
 public:
-    Shader();
-    Shader(const char * path);
-    ~Shader();
+    ShaderPipeline();
+    ShaderPipeline(const char * path);
+    ~ShaderPipeline();
 
-    inline vc::Error LoadShaderFromFile(const char * path) { return _impl->As<ShaderImpl>()->LoadShaderFromFile(path); }
-    inline void AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding, const uint32_t location, const uint32_t offset) { _impl->As<ShaderImpl>()->AddVertexBufferToLayout(format, binding, location, offset); }
-    inline void AddVertexBufferToLayout(const ShaderImpl::VertexBufferLayout & layout) { _impl->As<ShaderImpl>()->AddVertexBufferToLayout(layout); }
-    inline void AddVertexBufferToLayout(const std::vector<ShaderImpl::VertexBufferLayout> & layouts) { _impl->As<ShaderImpl>()->AddVertexBufferToLayout(layouts); }
-    inline void SetLineWidth(const float width) { _impl->As<ShaderImpl>()->SetLineWidth(width); }
-    inline void SetDepthTest(const bool enable) { _impl->As<ShaderImpl>()->SetDepthTest(enable); }
-    inline void SetDepthWrite(const bool enable) { _impl->As<ShaderImpl>()->SetDepthWrite(enable); }
+    inline vc::Error LoadShaderFromFile(const char * path) { return _impl->As<ShaderPipelineImpl>()->LoadShaderFromFile(path); }
+    inline void AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding, const uint32_t location, const uint32_t offset) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(format, binding, location, offset); }
+    inline void AddVertexBufferToLayout(const ShaderPipelineImpl::VertexBufferLayout & layout) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layout); }
+    inline void AddVertexBufferToLayout(const std::vector<ShaderPipelineImpl::VertexBufferLayout> & layouts) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layouts); }
+    inline void SetLineWidth(const float width) { _impl->As<ShaderPipelineImpl>()->SetLineWidth(width); }
+    inline void SetDepthTest(const bool enable) { _impl->As<ShaderPipelineImpl>()->SetDepthTest(enable); }
+    inline void SetDepthWrite(const bool enable) { _impl->As<ShaderPipelineImpl>()->SetDepthWrite(enable); }
 };
 }
 }

@@ -42,11 +42,13 @@ vc::Error VulkanApplication::_LoadGfxSettings()
         if (err != vc::Error::Success)
             return err;
 
-        vc::ECS::GetECS()->ForEach<vc::Shader>([&](vc::Entity entity, vc::Shader & shader)
-        {
-            shader.GetImpl()->As<VulkanShader>()->SetMultiSamplingCount(_samples);
-            shader.GetImpl()->As<VulkanShader>()->LoadShaders();
-        });
+        static vc::ShaderPipeline vkShader;
+        for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
+            if (!shader->IsType<VulkanShaderResource>()) continue;
+            vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetResource(shader);
+            vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
+            vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
+        }
     }
     return err;
 }

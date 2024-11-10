@@ -81,7 +81,7 @@ public:
     PluginObjectImplWrapper & operator=(const PluginObjectImplWrapper & other);
     PluginObjectImplWrapper(PluginObjectImplWrapper && other);
     PluginObjectImplWrapper & operator=(PluginObjectImplWrapper && other);
-    ~PluginObjectImplWrapper();
+    virtual ~PluginObjectImplWrapper();
 
     inline PluginObjectImpl* GetImpl()
     {

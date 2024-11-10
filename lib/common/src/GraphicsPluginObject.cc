@@ -88,9 +88,14 @@ std::shared_ptr<GraphicsCachedResource> GraphicsPluginObject::GetCachedObject(co
 {
     std::string realPath;
     if (!validPath(path, realPath))
-        return nullptr;
+        realPath = path;
     const auto it = GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath);
     return it != GraphicsPlugin::__GetGraphicsResourceCache()->end() ? it->second : std::shared_ptr<GraphicsCachedResource>();
+}
+
+const std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> & GraphicsPluginObject::GetCachedObjects()
+{
+    return *GraphicsPlugin::__GetGraphicsResourceCache();
 }
 
 void GraphicsPluginObject::_SetInCache(const std::string& path, const std::shared_ptr<GraphicsCachedResource> & object)
@@ -98,7 +103,7 @@ void GraphicsPluginObject::_SetInCache(const std::string& path, const std::share
     // Get Relative path to working dir
     std::string realPath;
     if (!validPath(path, realPath))
-        return;
+        realPath = path;
     venom_assert(GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath) == GraphicsPlugin::__GetGraphicsResourceCache()->end(), "Object already in cache");
     GraphicsPlugin::__GetGraphicsResourceCache()->operator[](realPath) = object;
 }

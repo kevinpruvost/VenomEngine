@@ -368,11 +368,6 @@ vc::Error VulkanApplication::__RecreateSwapChain()
         return err;
     if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
         return err;
-    // If HDR is on, recreate HDR Render Pass
-//    if (IsHDREnabled()) {
-//        if (err = __swapChain.InitSwapChainFramebuffers(__hdrRenderPass.get()); err != vc::Error::Success)
-//            return err;
-//    }
     // We also need to reset the last used semaphore
     if (err = __imageAvailableSemaphores[_currentFrame].InitSemaphore(); err != vc::Error::Success)
         return err;

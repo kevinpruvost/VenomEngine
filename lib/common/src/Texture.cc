@@ -183,7 +183,7 @@ vc::Error TextureImpl::LoadImageFromFile(const char* path)
         return vc::Error::Failure;
     }
     // Set In Cache
-    _SetInCache(realPath, _GetTextureToCache());
+    _SetInCache(realPath, _GetResourceToCache());
     return vc::Error::Success;
 }
 

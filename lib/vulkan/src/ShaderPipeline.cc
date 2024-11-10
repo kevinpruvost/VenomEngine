@@ -5,7 +5,7 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/plugin/graphics/Shader.h>
+#include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
 #include <venom/vulkan/Allocator.h>
 
 #include <fstream>
@@ -21,85 +21,95 @@
 
 namespace venom::vulkan
 {
-
-VulkanShader::VulkanShader()
-    : __graphicsPipeline(VK_NULL_HANDLE)
-    , __pipelineLayout(VK_NULL_HANDLE)
-    , __multisamplingCreateInfo{}
-    , __rasterizerCreateInfo{}
-    , __shaderDirty(true)
+VulkanShaderResource::VulkanShaderResource()
+    : graphicsPipeline(VK_NULL_HANDLE)
+    , pipelineLayout(VK_NULL_HANDLE)
+    , multisamplingCreateInfo{}
+    , rasterizerCreateInfo{}
+    , shaderDirty(true)
 {
-    // MultisamplingOption: on of the ways to do antialiasing
-    __multisamplingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-    __multisamplingCreateInfo.sampleShadingEnable = VK_FALSE;
-    __multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(vc::GraphicsSettings::GetSamplesMultisampling());
+        // MultisamplingOption: on of the ways to do antialiasing
+    multisamplingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+    multisamplingCreateInfo.sampleShadingEnable = VK_FALSE;
+    multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(vc::GraphicsSettings::GetSamplesMultisampling());
     //multisampling.minSampleShading = 1.0f; // Optional
     //multisampling.pSampleMask = nullptr; // Optional
     //multisampling.alphaToCoverageEnable = VK_FALSE; // Optional
     //multisampling.alphaToOneEnable = VK_FALSE; // Optional
 
     // Rasterizer
-    __rasterizerCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-    __rasterizerCreateInfo.depthClampEnable = VK_FALSE;
-    __rasterizerCreateInfo.rasterizerDiscardEnable = VK_FALSE;
-    __rasterizerCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
-    __rasterizerCreateInfo.lineWidth = 1.0f;
+    rasterizerCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+    rasterizerCreateInfo.depthClampEnable = VK_FALSE;
+    rasterizerCreateInfo.rasterizerDiscardEnable = VK_FALSE;
+    rasterizerCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
+    rasterizerCreateInfo.lineWidth = 1.0f;
     // Cull mode determines the type of face culling, back bit means to cull back faces
-    __rasterizerCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
+    rasterizerCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
     // Front face is the vertex order that is considered front facing
-    __rasterizerCreateInfo.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+    rasterizerCreateInfo.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     // Depth bias is just adding a constant value or a value proportional to the slope of the polygon
     // Can be used for shadow mapping
     // https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias
-    __rasterizerCreateInfo.depthBiasEnable = VK_FALSE;
+    rasterizerCreateInfo.depthBiasEnable = VK_FALSE;
     //rasterizer.depthBiasConstantFactor = 0.0f;
     //rasterizer.depthBiasClamp = 0.0f;
     //rasterizer.depthBiasSlopeFactor = 0.0f;
 
     // Stencil & Depth testing
-    __depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     // Depth test determines if a fragment is drawn based on its depth value
-    __depthStencilCreateInfo.depthTestEnable = VK_TRUE;
+    depthStencilCreateInfo.depthTestEnable = VK_TRUE;
     // Depth write determines if the depth value of a fragment is written to the depth buffer
-    __depthStencilCreateInfo.depthWriteEnable = VK_TRUE;
-    __depthStencilCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS;
-    __depthStencilCreateInfo.depthBoundsTestEnable = VK_FALSE;
-    __depthStencilCreateInfo.minDepthBounds = 0.0f; // Optional
-    __depthStencilCreateInfo.maxDepthBounds = 100.0f; // Optional
-    __depthStencilCreateInfo.stencilTestEnable = VK_FALSE;
-    __depthStencilCreateInfo.front = {}; // Optional
-    __depthStencilCreateInfo.back = {}; // Optional
+    depthStencilCreateInfo.depthWriteEnable = VK_TRUE;
+    depthStencilCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS;
+    depthStencilCreateInfo.depthBoundsTestEnable = VK_FALSE;
+    depthStencilCreateInfo.minDepthBounds = 0.0f; // Optional
+    depthStencilCreateInfo.maxDepthBounds = 100.0f; // Optional
+    depthStencilCreateInfo.stencilTestEnable = VK_FALSE;
+    depthStencilCreateInfo.front = {}; // Optional
+    depthStencilCreateInfo.back = {}; // Optional
 }
 
-VulkanShader::~VulkanShader()
+VulkanShaderResource::~VulkanShaderResource()
 {
-    __DestroyShaderModules();
-    if (__graphicsPipeline != VK_NULL_HANDLE)
-        vkDestroyPipeline(LogicalDevice::GetVkDevice(), __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
-    if (__pipelineLayout != VK_NULL_HANDLE)
-        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
+    DestroyShaderModules();
+    if (graphicsPipeline != VK_NULL_HANDLE)
+        vkDestroyPipeline(LogicalDevice::GetVkDevice(), graphicsPipeline, Allocator::GetVKAllocationCallbacks());
+    if (pipelineLayout != VK_NULL_HANDLE)
+        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
 
-VulkanShader::VulkanShader(VulkanShader&& other) noexcept
-    : __graphicsPipeline(other.__graphicsPipeline)
-    , __pipelineLayout(other.__pipelineLayout)
+void VulkanShaderResource::DestroyShaderModules()
 {
-    other.__graphicsPipeline = VK_NULL_HANDLE;
-    other.__pipelineLayout = VK_NULL_HANDLE;
+    for (int i = 0; i < shaderStages.size(); ++i) {
+        vkDestroyShaderModule(LogicalDevice::GetVkDevice(), shaderStages[i].module, Allocator::GetVKAllocationCallbacks());
+    }
+    shaderStages.clear();
 }
 
-VulkanShader& VulkanShader::operator=(VulkanShader&& other) noexcept
+VulkanShaderPipeline::VulkanShaderPipeline()
+{
+    _resource.reset(new VulkanShaderResource());
+}
+
+VulkanShaderPipeline::~VulkanShaderPipeline()
+{
+}
+
+VulkanShaderPipeline::VulkanShaderPipeline(VulkanShaderPipeline&& other) noexcept
+{
+    _resource = std::move(other._resource);
+}
+
+VulkanShaderPipeline& VulkanShaderPipeline::operator=(VulkanShaderPipeline&& other) noexcept
 {
     if (this != &other) {
-        __graphicsPipeline = other.__graphicsPipeline;
-        __pipelineLayout = other.__pipelineLayout;
-        other.__graphicsPipeline = VK_NULL_HANDLE;
-        other.__pipelineLayout = VK_NULL_HANDLE;
+        _resource = std::move(other._resource);
     }
     return *this;
 }
 
-vc::Error VulkanShader::_LoadShader(const std::string& path)
+vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)
 {
     std::string basePath = vc::Resources::GetShadersFolderPath() + "compiled/";
 
@@ -117,45 +127,45 @@ vc::Error VulkanShader::_LoadShader(const std::string& path)
             if (shaderName.ends_with(".spv"))
             {
                 vc::Log::Print("Loading shader: %s", shaderPath.c_str());
-                _shaderPaths.emplace_back(std::move(shaderPath));
+                _resource->As<VulkanShaderResource>()->shaderPaths.emplace_back(std::move(shaderPath));
             }
         }
     }
-    if (_shaderPaths.empty()) return vc::Error::Failure;
+    if (_resource->As<VulkanShaderResource>()->shaderPaths.empty()) return vc::Error::Failure;
     return LoadShaders();
 }
 
-void VulkanShader::_SetLineWidth(const float width)
+void VulkanShaderPipeline::_SetLineWidth(const float width)
 {
-    if (__rasterizerCreateInfo.lineWidth == width) return;
-    __rasterizerCreateInfo.lineWidth = width;
-    __shaderDirty = true;
+    if (_resource->As<VulkanShaderResource>()->rasterizerCreateInfo.lineWidth == width) return;
+    _resource->As<VulkanShaderResource>()->rasterizerCreateInfo.lineWidth = width;
+    _resource->As<VulkanShaderResource>()->shaderDirty = true;
 }
 
-void VulkanShader::SetMultiSamplingCount(const int samples)
+void VulkanShaderPipeline::SetMultiSamplingCount(const int samples)
 {
-    if (__multisamplingCreateInfo.rasterizationSamples == static_cast<VkSampleCountFlagBits>(samples)) return;
-    __multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(samples);
-    __shaderDirty = true;
+    if (_resource->As<VulkanShaderResource>()->multisamplingCreateInfo.rasterizationSamples == static_cast<VkSampleCountFlagBits>(samples)) return;
+    _resource->As<VulkanShaderResource>()->multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(samples);
+    _resource->As<VulkanShaderResource>()->shaderDirty = true;
 }
 
-void VulkanShader::_SetDepthTest(const bool enable)
+void VulkanShaderPipeline::_SetDepthTest(const bool enable)
 {
-    if (__depthStencilCreateInfo.depthTestEnable == enable) return;
-    __depthStencilCreateInfo.depthTestEnable = enable;
-    __shaderDirty = true;
+    if (_resource->As<VulkanShaderResource>()->depthStencilCreateInfo.depthTestEnable == enable) return;
+    _resource->As<VulkanShaderResource>()->depthStencilCreateInfo.depthTestEnable = enable;
+    _resource->As<VulkanShaderResource>()->shaderDirty = true;
 }
 
-void VulkanShader::_SetDepthWrite(const bool enable)
+void VulkanShaderPipeline::_SetDepthWrite(const bool enable)
 {
-    if (__depthStencilCreateInfo.depthWriteEnable == enable) return;
-    __depthStencilCreateInfo.depthWriteEnable = enable;
-    __shaderDirty = true;
+    if (_resource->As<VulkanShaderResource>()->depthStencilCreateInfo.depthWriteEnable == enable) return;
+    _resource->As<VulkanShaderResource>()->depthStencilCreateInfo.depthWriteEnable = enable;
+    _resource->As<VulkanShaderResource>()->shaderDirty = true;
 }
 
-vc::Error VulkanShader::_ReloadShader()
+vc::Error VulkanShaderPipeline::_ReloadShader()
 {
-    if (__shaderDirty == false || __shaderStages.empty()) return vc::Error::Success;
+    if (_resource->As<VulkanShaderResource>()->shaderDirty == false || _resource->As<VulkanShaderResource>()->shaderStages.empty()) return vc::Error::Success;
 
     // Input Assembly: Describes how primitives are assembled
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -216,11 +226,11 @@ vc::Error VulkanShader::_ReloadShader()
     //pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
     //pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
 
-    if (__pipelineLayout != VK_NULL_HANDLE) {
-        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), __pipelineLayout, Allocator::GetVKAllocationCallbacks());
-        __pipelineLayout = VK_NULL_HANDLE;
+    if (_resource->As<VulkanShaderResource>()->pipelineLayout != VK_NULL_HANDLE) {
+        vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipelineLayout, Allocator::GetVKAllocationCallbacks());
+        _resource->As<VulkanShaderResource>()->pipelineLayout = VK_NULL_HANDLE;
     }
-    if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &__pipelineLayout) != VK_SUCCESS)
+    if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &_resource->As<VulkanShaderResource>()->pipelineLayout) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create pipeline layout");
         return vc::Error::Failure;
@@ -229,40 +239,40 @@ vc::Error VulkanShader::_ReloadShader()
     // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputInfo.vertexAttributeDescriptionCount = __attributeDescriptions.size();
-    vertexInputInfo.pVertexAttributeDescriptions = __attributeDescriptions.data();
-    vertexInputInfo.vertexBindingDescriptionCount = __bindingDescriptions.size();
-    vertexInputInfo.pVertexBindingDescriptions = __bindingDescriptions.data();
+    vertexInputInfo.vertexAttributeDescriptionCount = _resource->As<VulkanShaderResource>()->attributeDescriptions.size();
+    vertexInputInfo.pVertexAttributeDescriptions = _resource->As<VulkanShaderResource>()->attributeDescriptions.data();
+    vertexInputInfo.vertexBindingDescriptionCount = _resource->As<VulkanShaderResource>()->bindingDescriptions.size();
+    vertexInputInfo.pVertexBindingDescriptions = _resource->As<VulkanShaderResource>()->bindingDescriptions.data();
 
     // Setting up the pipeline
     VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
     graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(__shaderStages.size());
-    graphicsPipelineCreateInfo.pStages = __shaderStages.data();
+    graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(_resource->As<VulkanShaderResource>()->shaderStages.size());
+    graphicsPipelineCreateInfo.pStages = _resource->As<VulkanShaderResource>()->shaderStages.data();
     graphicsPipelineCreateInfo.pVertexInputState = &vertexInputInfo;
     graphicsPipelineCreateInfo.pInputAssemblyState = &inputAssembly;
     graphicsPipelineCreateInfo.pViewportState = &viewportState;
-    graphicsPipelineCreateInfo.pRasterizationState = &__rasterizerCreateInfo;
-    graphicsPipelineCreateInfo.pMultisampleState = &__multisamplingCreateInfo;
-    graphicsPipelineCreateInfo.pDepthStencilState = &__depthStencilCreateInfo;
+    graphicsPipelineCreateInfo.pRasterizationState = &_resource->As<VulkanShaderResource>()->rasterizerCreateInfo;
+    graphicsPipelineCreateInfo.pMultisampleState = &_resource->As<VulkanShaderResource>()->multisamplingCreateInfo;
+    graphicsPipelineCreateInfo.pDepthStencilState = &_resource->As<VulkanShaderResource>()->depthStencilCreateInfo;
     graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
     graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
-    graphicsPipelineCreateInfo.layout = __pipelineLayout;
+    graphicsPipelineCreateInfo.layout = _resource->As<VulkanShaderResource>()->pipelineLayout;
     graphicsPipelineCreateInfo.renderPass = RenderPass::MainRenderPass()->GetVkRenderPass();
     graphicsPipelineCreateInfo.subpass = 0; // Index of the subpass in the render pass where this pipeline will be used
     graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
     //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
 
-    if (__graphicsPipeline != VK_NULL_HANDLE) {
-        vkDestroyPipeline(LogicalDevice::GetVkDevice(), __graphicsPipeline, Allocator::GetVKAllocationCallbacks());
-        __graphicsPipeline = VK_NULL_HANDLE;
+    if (_resource->As<VulkanShaderResource>()->graphicsPipeline != VK_NULL_HANDLE) {
+        vkDestroyPipeline(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->graphicsPipeline, Allocator::GetVKAllocationCallbacks());
+        _resource->As<VulkanShaderResource>()->graphicsPipeline = VK_NULL_HANDLE;
     }
-    if (VkResult res = vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &__graphicsPipeline); res != VK_SUCCESS)
+    if (VkResult res = vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &_resource->As<VulkanShaderResource>()->graphicsPipeline); res != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create graphics pipeline, error code: %d", res);
         return vc::Error::Failure;
     }
-    __shaderDirty = false;
+    _resource->As<VulkanShaderResource>()->shaderDirty = false;
     return vc::Error::Success;
 }
 
@@ -306,16 +316,16 @@ VkFormat GetVkFormatFromShaderVertexFormat(const vc::ShaderVertexFormat format)
     }
 }
 
-void VulkanShader::_AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location,
+void VulkanShaderPipeline::_AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location,
     const uint32_t offset, const vc::ShaderVertexFormat format)
 {
-    __bindingDescriptions.push_back({
+    _resource->As<VulkanShaderResource>()->bindingDescriptions.push_back({
         .binding = binding,
         .stride = vertexSize,
         .inputRate = VK_VERTEX_INPUT_RATE_VERTEX
     });
     VkFormat vkFormat = GetVkFormatFromShaderVertexFormat(format);
-    __attributeDescriptions.push_back({
+    _resource->As<VulkanShaderResource>()->attributeDescriptions.push_back({
         .location = location,
         .binding = binding,
         .format = vkFormat,
@@ -323,7 +333,7 @@ void VulkanShader::_AddVertexBufferToLayout(const uint32_t vertexSize, const uin
     });
 }
 
-vc::Error VulkanShader::LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
+vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
     std::ifstream file(shaderPath, std::ios::ate | std::ios::binary);
 
@@ -408,53 +418,45 @@ vc::Error VulkanShader::LoadShader(const std::string& shaderPath, VkPipelineShad
     return vc::Error::Success;
 }
 
-void VulkanShader::__DestroyShaderModules()
-{
-    for (int i = 0; i < __shaderStages.size(); ++i) {
-        vkDestroyShaderModule(LogicalDevice::GetVkDevice(), __shaderStages[i].module, Allocator::GetVKAllocationCallbacks());
-    }
-    __shaderStages.clear();
-}
-
-vc::Error VulkanShader::LoadShaders()
+vc::Error VulkanShaderPipeline::LoadShaders()
 {
     // Loading every shader
-    __DestroyShaderModules();
-    __shaderStages.resize(_shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
-    for (int i = 0; i < _shaderPaths.size(); ++i)
+    _resource->As<VulkanShaderResource>()->DestroyShaderModules();
+    _resource->As<VulkanShaderResource>()->shaderStages.resize(_resource->As<VulkanShaderResource>()->shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
+    for (int i = 0; i < _resource->As<VulkanShaderResource>()->shaderPaths.size(); ++i)
     {
-        if (LoadShader(_shaderPaths[i], &__shaderStages[i]) != vc::Error::Success)
+        if (LoadShader(_resource->As<VulkanShaderResource>()->shaderPaths[i], &_resource->As<VulkanShaderResource>()->shaderStages[i]) != vc::Error::Success)
         {
-            vc::Log::Error("Failed to load shader: %s", _shaderPaths[i].c_str());
+            vc::Log::Error("Failed to load shader: %s", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str());
             return vc::Error::Failure;
         }
     }
     // Check if duplicate stages
-    for (int i = 0; i < __shaderStages.size(); ++i) {
-        for (int j = i + 1; j < __shaderStages.size(); ++j)
+    for (int i = 0; i < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++i) {
+        for (int j = i + 1; j < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++j)
         {
-            if (__shaderStages[i].stage == __shaderStages[j].stage)
+            if (_resource->As<VulkanShaderResource>()->shaderStages[i].stage == _resource->As<VulkanShaderResource>()->shaderStages[j].stage)
             {
-                vc::Log::Error("Duplicate shader stages: [%s] | [%s]", _shaderPaths[i].c_str(), _shaderPaths[j].c_str());
-                for (int k = 0; k < __shaderStages.size(); ++k) {
-                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), __shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
+                vc::Log::Error("Duplicate shader stages: [%s] | [%s]", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str(), _resource->As<VulkanShaderResource>()->shaderPaths[j].c_str());
+                for (int k = 0; k < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++k) {
+                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
                 }
                 return vc::Error::Failure;
             }
         }
     }
 
-    __shaderDirty = true;
+    _resource->As<VulkanShaderResource>()->shaderDirty = true;
     return _ReloadShader();
 }
 
-VkPipeline VulkanShader::GetPipeline() const
+VkPipeline VulkanShaderPipeline::GetPipeline() const
 {
-    return __graphicsPipeline;
+    return _resource->As<VulkanShaderResource>()->graphicsPipeline;
 }
 
-VkPipelineLayout VulkanShader::GetPipelineLayout() const
+VkPipelineLayout VulkanShaderPipeline::GetPipelineLayout() const
 {
-    return __pipelineLayout;
+    return _resource->As<VulkanShaderResource>()->pipelineLayout;
 }
 }

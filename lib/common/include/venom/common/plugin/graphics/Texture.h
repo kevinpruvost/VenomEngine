@@ -42,7 +42,7 @@ public:
     vc::Error InitDepthBuffer(int width, int height);
     static const TextureImpl * GetDummyTexture();
 #ifdef VENOM_BINDLESS_TEXTURES
-    inline int GetTextureID() const { return _GetTextureToCache()->As<TextureResource>()->GetTextureID(); }
+    inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
 #endif
     virtual bool HasTexture() const = 0;
 

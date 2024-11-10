@@ -9,16 +9,16 @@
 
 void Scene()
 {
-    vc::Shader shader_skybox;
+    vc::ShaderPipeline shader_skybox;
     shader_skybox.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
     shader_skybox.SetDepthWrite(false);
     shader_skybox.LoadShaderFromFile("skybox");
     vc::Entity cubemap = vc::CreateEntity("cubemap")
 //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
             .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
-        .emplace<vc::Shader>(shader_skybox);
+        .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
 
-    vc::Shader shader;
+    vc::ShaderPipeline shader;
     shader.AddVertexBufferToLayout({
         {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
         {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
@@ -32,14 +32,14 @@ void Scene()
 //            .emplace<vc::Model>("eye/eye.obj")
 //            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
         .emplace<vc::Model>("dead_space_gun/gun.fbx")
-        .emplace<vc::Shader>(shader)
+        .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::BasicModel);
         ;
     balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(4.0f, 4.0f, 0.0f));
 
     vc::Entity face_hd = vc::CreateEntity("face_hd")
         .emplace<vc::Transform3D>()
         .emplace<vc::Model>("face/model_mid.ply")
-        .emplace<vc::Shader>(shader)
+        .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::BasicModel);
         ;
 
     vc::Entity camera = vc::CreateEntity("camera")

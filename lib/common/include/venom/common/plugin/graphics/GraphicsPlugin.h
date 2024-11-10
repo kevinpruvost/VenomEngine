@@ -21,7 +21,8 @@ class ModelImpl;
 class MeshImpl;
 class TextureImpl;
 class CameraImpl;
-class ShaderImpl;
+class ShaderPipelineImpl;
+class RenderingPipelineImpl;
 class SkyboxImpl;
 
 class ShaderResourceTable;
@@ -51,7 +52,8 @@ public:
     virtual MeshImpl * CreateMesh() = 0;
     virtual TextureImpl * CreateTexture() = 0;
     virtual CameraImpl * CreateCamera() = 0;
-    virtual ShaderImpl * CreateShader() = 0;
+    virtual ShaderPipelineImpl * CreateShaderPipeline() = 0;
+    virtual RenderingPipelineImpl * CreateRenderingPipeline() = 0;
     virtual SkyboxImpl * CreateSkybox() = 0;
 
     // Global instances

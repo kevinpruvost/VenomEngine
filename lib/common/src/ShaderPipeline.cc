@@ -1,11 +1,11 @@
 ///
 /// Project: VenomEngineWorkspace
-/// @file Shader.cc
+/// @file ShaderPipeline.cc
 /// @date Oct, 22 2024
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/common/plugin/graphics/Shader.h>
+#include <venom/common/plugin/graphics/ShaderPipeline.h>
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/Resources.h>
@@ -16,18 +16,18 @@ namespace venom
 {
 namespace common
 {
-ShaderImpl::ShaderImpl()
+ShaderPipelineImpl::ShaderPipelineImpl()
 {
 }
 
-vc::Error ShaderImpl::LoadShaderFromFile(const std::string & path)
+vc::Error ShaderPipelineImpl::LoadShaderFromFile(const std::string & path)
 {
     // Check if path contains shaders
     {
         // Load from cache if already loaded
-        std::shared_ptr<GraphicsCachedResource> cachedTexture = GraphicsPluginObject::GetCachedObject(path);
-        if (cachedTexture) {
-            _LoadFromCache(cachedTexture);
+        std::shared_ptr<GraphicsCachedResource> cachedShader = GraphicsPluginObject::GetCachedObject(path);
+        if (cachedShader) {
+            _LoadFromCache(cachedShader);
             return vc::Error::Success;
         }
     }
@@ -38,11 +38,11 @@ vc::Error ShaderImpl::LoadShaderFromFile(const std::string & path)
         return err;
     }
     // Set In Cache
-    _SetInCache(path, _GetTextureToCache());
+    _SetInCache(path, _GetResourceToCache());
     return err;
 }
 
-void ShaderImpl::AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding,
+void ShaderPipelineImpl::AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding,
     const uint32_t location, const uint32_t offset)
 {
     uint32_t formatSize = 0;
@@ -100,25 +100,25 @@ void ShaderImpl::AddVertexBufferToLayout(const ShaderVertexFormat format, const 
     _AddVertexBufferToLayout(formatSize, binding, location, offset, format);
 }
 
-void ShaderImpl::AddVertexBufferToLayout(const VertexBufferLayout& layout)
+void ShaderPipelineImpl::AddVertexBufferToLayout(const VertexBufferLayout& layout)
 {
     AddVertexBufferToLayout(layout.format, layout.binding, layout.location, layout.offset);
 }
 
-void ShaderImpl::AddVertexBufferToLayout(const std::vector<VertexBufferLayout>& layouts)
+void ShaderPipelineImpl::AddVertexBufferToLayout(const std::vector<VertexBufferLayout>& layouts)
 {
     for (const VertexBufferLayout& layout : layouts) {
         AddVertexBufferToLayout(layout);
     }
 }
 
-Shader::Shader()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateShader())
+ShaderPipeline::ShaderPipeline()
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateShaderPipeline())
 {
 }
 
-Shader::Shader(const char* path)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateShader())
+ShaderPipeline::ShaderPipeline(const char* path)
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateShaderPipeline())
 {
     if (Error err = LoadShaderFromFile(path); err != Error::Success) {
         Destroy();
@@ -126,7 +126,7 @@ Shader::Shader(const char* path)
     }
 }
 
-Shader::~Shader()
+ShaderPipeline::~ShaderPipeline()
 {
 }
 }

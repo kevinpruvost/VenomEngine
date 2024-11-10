@@ -214,7 +214,7 @@ std::vector<DescriptorSetGroup> DescriptorPool::AllocateSets(const std::vector<V
     return sets;
 }
 
-void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint)
+void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint)
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
@@ -225,7 +225,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
         0, nullptr);
 }
 
-void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShader & pipeline, const VkPipelineBindPoint bindPoint,
+void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint,
     const std::vector<uint32_t>& dynamicOffsets)
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");

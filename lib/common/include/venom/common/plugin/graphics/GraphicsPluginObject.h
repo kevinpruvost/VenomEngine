@@ -33,6 +33,7 @@ public:
     GraphicsCachedResource & operator=(const GraphicsCachedResource &) = delete;
     void ReleaseFromCache();
 
+    template<typename T> inline bool IsType() const { return dynamic_cast<const T *>(this) != nullptr; }
     template<typename T> inline T * As() { return static_cast<T *>(this); }
     template<typename T> inline const T * As() const { return static_cast<const T *>(this); }
 };
@@ -51,9 +52,12 @@ public:
     GraphicsCachedResourceHolder();
     virtual ~GraphicsCachedResourceHolder() = default;
 
+public:
+    inline void SetResource(const GraphicsCachedResourceHolder & resource) { _resource = resource._resource; }
+    inline void SetResource(const SPtr<GraphicsCachedResource> & resource) { _resource = resource; }
 protected:
-    inline const SPtr<GraphicsCachedResource> & _GetTextureToCache() const { return _resource; }
-    inline SPtr<GraphicsCachedResource> & _GetTextureToCache() { return _resource; }
+    inline const SPtr<GraphicsCachedResource> & _GetResourceToCache() const { return _resource; }
+    inline SPtr<GraphicsCachedResource> & _GetResourceToCache() { return _resource; }
     inline void _LoadFromCache(const SPtr<GraphicsCachedResource> & cache) { _resource = cache; }
 
     SPtr<GraphicsCachedResource> _resource;
@@ -85,6 +89,12 @@ public:
      * @return nullptr if the object is not in cache, the object otherwise
      */
     static SPtr<GraphicsCachedResource> GetCachedObject(const std::string & path);
+
+    /**
+     * @brief Gets all cached objects
+     * @return cached objects
+     */
+    static const std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> & GetCachedObjects();
 protected:
     /**
      * @brief Sets an object in the cache

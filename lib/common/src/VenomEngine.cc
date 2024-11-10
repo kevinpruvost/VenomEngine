@@ -17,7 +17,8 @@
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/plugin/graphics/Mesh.h>
 #include <venom/common/plugin/graphics/Model.h>
-#include <venom/common/plugin/graphics/Shader.h>
+#include <venom/common/plugin/graphics/RenderingPipeline.h>
+#include <venom/common/plugin/graphics/ShaderPipeline.h>
 #include <venom/common/plugin/graphics/Skybox.h>
 
 #include <filesystem>
@@ -95,7 +96,6 @@ Error VenomEngine::RunEngine(int argc, char** argv)
     if (err = app->Init(); err != vc::Error::Success) {
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
     } else {
-        auto test = app->GetAvailableMultisamplingOptions();
         s_sceneCallback();
         vc::Timer::ResetLoopTimer();
         while (!app->ShouldClose())
@@ -144,7 +144,8 @@ void VenomEngine::__LoadECS()
 {
     // Reserve entities
 
-    __ecs->RegisterComponent<Shader>();
+    __ecs->RegisterComponent<ShaderPipeline>();
+    __ecs->RegisterComponent<RenderingPipeline>();
     __ecs->RegisterComponent<Model>();
     __ecs->RegisterComponent<Skybox>();
 }

@@ -12,7 +12,7 @@
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/Surface.h>
 #include <venom/vulkan/SwapChain.h>
-#include <venom/vulkan/plugin/graphics/Shader.h>
+#include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
 #include <venom/vulkan/RenderPass.h>
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/Semaphore.h>
@@ -105,7 +105,7 @@ private:
     // For test
     static int __bindlessSupported;
     Sampler __sampler;
-    vc::Shader __shaderPipeline;
+    vc::ShaderPipeline __shaderPipeline;
     CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];

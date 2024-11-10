@@ -1,13 +1,13 @@
 ///
 /// Project: VenomEngine
-/// @file Shader.h
+/// @file ShaderPipeline.h
 /// @date Aug, 22 2024
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
 
-#include <venom/common/plugin/graphics/Shader.h>
+#include <venom/common/plugin/graphics/ShaderPipeline.h>
 
 #include <venom/vulkan/PhysicalDevice.h>
 #include <venom/vulkan/SwapChain.h>
@@ -22,15 +22,38 @@ namespace venom
 {
 namespace vulkan
 {
-class VulkanShader : public vc::ShaderImpl
+class VulkanShaderResource : public vc::ShaderResource
 {
 public:
-    VulkanShader();
-    ~VulkanShader() override;
-    VulkanShader(const VulkanShader&) = delete;
-    VulkanShader& operator=(const VulkanShader&) = delete;
-    VulkanShader(VulkanShader&& other) noexcept;
-    VulkanShader& operator=(VulkanShader&& other) noexcept;
+    VulkanShaderResource();
+    ~VulkanShaderResource() override;
+
+    void DestroyShaderModules();
+public:
+    VkPipeline graphicsPipeline;
+    VkPipelineLayout pipelineLayout;
+
+    std::vector<VkVertexInputBindingDescription> bindingDescriptions;
+    std::vector<VkVertexInputAttributeDescription> attributeDescriptions;
+
+    VkPipelineMultisampleStateCreateInfo multisamplingCreateInfo;
+    VkPipelineRasterizationStateCreateInfo rasterizerCreateInfo;
+    VkPipelineDepthStencilStateCreateInfo depthStencilCreateInfo;
+
+    std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
+
+    bool shaderDirty;
+};
+
+class VulkanShaderPipeline : public vc::ShaderPipelineImpl
+{
+public:
+    VulkanShaderPipeline();
+    ~VulkanShaderPipeline() override;
+    VulkanShaderPipeline(const VulkanShaderPipeline&) = delete;
+    VulkanShaderPipeline& operator=(const VulkanShaderPipeline&) = delete;
+    VulkanShaderPipeline(VulkanShaderPipeline&& other) noexcept;
+    VulkanShaderPipeline& operator=(VulkanShaderPipeline&& other) noexcept;
 
     vc::Error _LoadShader(const std::string & path) override;
     void SetMultiSamplingCount(const int samples) override;
@@ -46,23 +69,6 @@ public:
     const VkDescriptorSetLayout & GetDescriptorSetLayout() const;
 private:
     vc::Error LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
-
-    void __DestroyShaderModules();
-
-private:
-    VkPipeline __graphicsPipeline;
-    VkPipelineLayout __pipelineLayout;
-
-    std::vector<VkVertexInputBindingDescription> __bindingDescriptions;
-    std::vector<VkVertexInputAttributeDescription> __attributeDescriptions;
-
-    VkPipelineMultisampleStateCreateInfo __multisamplingCreateInfo;
-    VkPipelineRasterizationStateCreateInfo __rasterizerCreateInfo;
-    VkPipelineDepthStencilStateCreateInfo __depthStencilCreateInfo;
-
-    std::vector<VkPipelineShaderStageCreateInfo> __shaderStages;
-
-    bool __shaderDirty;
 };
 
 }
