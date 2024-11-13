@@ -10,6 +10,7 @@
 #include <venom/common/plugin/graphics/RenderingPipelineType.h>
 #include <venom/vulkan/SwapChain.h>
 #include <venom/vulkan/CommandPool.h>
+#include <venom/vulkan/Framebuffer.h>
 
 namespace venom
 {
@@ -43,6 +44,9 @@ private:
 private:
     VkRenderPass __renderPass;
     vc::RenderingPipelineType __type;
+    // By image count then attachments
+    vc::Vector<vc::Vector<vc::Texture>> __attachments;
+    vc::Vector<Framebuffer> __framebuffers;
 };
 }
 }

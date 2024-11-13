@@ -40,13 +40,13 @@ public:
     vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) override;
     vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) override;
     vc::Error _InitDepthBuffer(int width, int height) override;
+    vc::Error _CreateAttachment(int width, int height, vc::ShaderVertexFormat format) override;
 
     inline bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }
 
     inline const Image & GetImage() const { return _resource->As<VulkanTextureResource>()->image; }
-    inline const ImageView & GetImageView() const { return _resource->As<VulkanTextureResource>()->imageView; }
-private:
     inline Image & GetImage() { return _resource->As<VulkanTextureResource>()->image; }
+    inline const ImageView & GetImageView() const { return _resource->As<VulkanTextureResource>()->imageView; }
     inline ImageView & GetImageView() { return _resource->As<VulkanTextureResource>()->imageView; }
 };
 

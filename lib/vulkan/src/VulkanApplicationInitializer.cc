@@ -258,8 +258,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __normalRenderPass.SetRenderingType(vc::RenderingPipelineType::BasicModel);
     __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::ShadowModel);
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
-        if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
-            return vc::Error::InitializationFailed;
+        if (renderPass == nullptr) continue;
+        if (err = renderPass->InitRenderPass(&__swapChain); err != vc::Error::Success)
+            return err;
     }
 
     // Create Graphics Command Pool
@@ -268,13 +269,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Create Command Buffers
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         if (err = graphicsCommandPool->CreateCommandBuffer(&__commandBuffers[i]); err != vc::Error::Success)
-            return err;
-    }
-
-    // Init Render Pass Framebuffers
-    for (const auto renderPass : RenderPass::GetRenderPasses()) {
-        if (renderPass == nullptr) continue;
-        if (err = __swapChain.InitSwapChainFramebuffers(renderPass); err != vc::Error::Success)
             return err;
     }
 
@@ -370,9 +364,8 @@ vc::Error VulkanApplication::__RecreateSwapChain()
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
         if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
             return vc::Error::InitializationFailed;
+
     }
-    if (err = __swapChain.InitSwapChainFramebuffers(&__normalRenderPass); err != vc::Error::Success)
-        return err;
     // We also need to reset the last used semaphore
     if (err = __imageAvailableSemaphores[_currentFrame].InitSemaphore(); err != vc::Error::Success)
         return err;

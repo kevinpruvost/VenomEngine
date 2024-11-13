@@ -111,7 +111,7 @@ vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain, CommandBuffer* comma
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = __renderPass;
-    renderPassInfo.framebuffer = swapChain->__swapChainFramebuffers[framebufferIndex].GetVkFramebuffer();
+    renderPassInfo.framebuffer = __framebuffers[framebufferIndex].GetVkFramebuffer();
     renderPassInfo.renderArea.offset = {0, 0};
     renderPassInfo.renderArea.extent = swapChain->extent;
 
@@ -249,6 +249,45 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
         vc::Log::Error("Failed to create render pass");
         return vc::Error::Failure;
     }
+
+    // Framebuffers
+    const size_t framebufferCount = swapChain->swapChainImageHandles.size();
+    __attachments.clear();
+    __framebuffers.clear();
+    __attachments.resize(framebufferCount);
+    __framebuffers.resize(framebufferCount);
+    for (int i = 0; i < framebufferCount; ++i) {
+        vc::Vector<VkImageView> attachments(multisampled ? 3 : 2, VK_NULL_HANDLE);
+
+        // Create Depth Image
+        __attachments[i].resize(multisampled ? 2 : 1);
+        vc::Texture & depthTexture = __attachments[i][0];
+        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
+        depthTexture.InitDepthBuffer(swapChain->extent.width, swapChain->extent.height);
+
+        // Create MultiSampled Image if needed
+        if (multisampled) {
+            vc::Texture & colorTexture = __attachments[i][1];
+            VulkanTexture * vkTexture = colorTexture.GetImpl()->As<VulkanTexture>();
+            vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
+            colorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, vc::ShaderVertexFormat::Vec4);
+            attachments[0] = vkTexture->GetImageView().GetVkImageView();
+            attachments[2] = swapChain->__swapChainMultisampledImageViews[i].GetVkImageView();
+        } else {
+            attachments[0] = swapChain->__swapChainMultisampledImageViews[i].GetVkImageView();
+        }
+        attachments[1] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+
+        // Create Framebuffer
+        __framebuffers[i].SetExtent(swapChain->extent);
+        __framebuffers[i].SetAttachments(attachments);
+        __framebuffers[i].SetLayers(1);
+        __framebuffers[i].SetRenderPass(this);
+        if (__framebuffers[i].Init() != vc::Error::Success) {
+            vc::Log::Error("Failed to create framebuffer");
+            return vc::Error::Failure;
+        }
+    }
     return vc::Error::Success;
 }
 
@@ -350,6 +389,45 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     {
         vc::Log::Error("Failed to create render pass");
         return vc::Error::Failure;
+    }
+
+    // Framebuffers
+    const size_t framebufferCount = swapChain->swapChainImageHandles.size();
+    __attachments.clear();
+    __framebuffers.clear();
+    __attachments.resize(framebufferCount);
+    __framebuffers.resize(framebufferCount);
+    for (int i = 0; i < framebufferCount; ++i) {
+        vc::Vector<VkImageView> attachments(multisampled ? 3 : 2, VK_NULL_HANDLE);
+
+        // Create Depth Image
+        __attachments[i].resize(multisampled ? 2 : 1);
+        vc::Texture & depthTexture = __attachments[i][0];
+        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
+        depthTexture.InitDepthBuffer(swapChain->extent.width, swapChain->extent.height);
+
+        // Create MultiSampled Image if needed
+        if (multisampled) {
+            vc::Texture & colorTexture = __attachments[i][1];
+            VulkanTexture * vkTexture = colorTexture.GetImpl()->As<VulkanTexture>();
+            vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
+            colorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, vc::ShaderVertexFormat::Vec4);
+            attachments[0] = vkTexture->GetImageView().GetVkImageView();
+            attachments[2] = swapChain->__swapChainMultisampledImageViews[i].GetVkImageView();
+        } else {
+            attachments[0] = swapChain->__swapChainMultisampledImageViews[i].GetVkImageView();
+        }
+        attachments[1] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+
+        // Create Framebuffer
+        __framebuffers[i].SetExtent(swapChain->extent);
+        __framebuffers[i].SetAttachments(attachments);
+        __framebuffers[i].SetLayers(1);
+        __framebuffers[i].SetRenderPass(this);
+        if (__framebuffers[i].Init() != vc::Error::Success) {
+            vc::Log::Error("Failed to create framebuffer");
+            return vc::Error::Failure;
+        }
     }
     return vc::Error::Success;
 }

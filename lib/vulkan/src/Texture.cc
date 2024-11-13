@@ -80,7 +80,6 @@ vc::Error VulkanTexture::LoadImage(uint16_t* pixels, int width, int height, int 
 vc::Error VulkanTexture::_InitDepthBuffer(int width, int height)
 {
     VkFormat depthFormat = PhysicalDevice::FindDepthFormat();
-    GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
     if (GetImage().Create(depthFormat, VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height) != vc::Error::Success)
@@ -89,6 +88,38 @@ vc::Error VulkanTexture::_InitDepthBuffer(int width, int height)
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+    return vc::Error::Success;
+}
+
+vc::Error VulkanTexture::_CreateAttachment(int width, int height, vc::ShaderVertexFormat format)
+{
+    VkFormat vkFormat;
+    switch (format) {
+        case vc::ShaderVertexFormat::Float:
+            vkFormat = VK_FORMAT_R16_SFLOAT;
+            break;
+        case vc::ShaderVertexFormat::Vec2:
+            vkFormat = VK_FORMAT_R16G16_SFLOAT;
+            break;
+        case vc::ShaderVertexFormat::Vec3:
+            vkFormat = VK_FORMAT_R16G16B16_SFLOAT;
+            break;
+        case vc::ShaderVertexFormat::Vec4:
+            vkFormat = VK_FORMAT_R16G16B16A16_SFLOAT;
+            break;
+        default:
+            vc::Log::Error("Unsupported format for attachment");
+            return vc::Error::Failure;
+    };
+
+    if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height) != vc::Error::Success)
+        return vc::Error::Failure;
+    if (GetImageView().Create(GetImage().GetVkImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
+        VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
+        return vc::Error::Failure;
+    GetImage().SetImageLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
     return vc::Error::Success;
 }
 }
