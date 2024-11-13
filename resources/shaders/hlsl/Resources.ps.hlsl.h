@@ -15,15 +15,13 @@ struct PSInput {
 struct GBufferOutput {
     float4 baseColor       : SV_Target0; // Base color with optional alpha for opacity or transmission
     float3 normal          : SV_Target1; // World or view-space normal
-    float2 metallicRough   : SV_Target2; // Metallic and roughness parameters
+    float3 metallicRoughAo   : SV_Target2; // Metallic and roughness parameters
     float4 position        : SV_Target3; // Position in world space (or depth if reconstructing later)
-    float ao               : SV_Target4; // Ambient occlusion factor (optional)
 
     // Extended components
-    float4 specularReflect : SV_Target5; // Specular color and reflectivity
-    float4 emissionColor   : SV_Target6; // Emission color
-    float2 clearcoatSheen  : SV_Target7; // Clearcoat and sheen for cloth or coated materials
-    float2 anisotropyTrans : SV_Target8; // Anisotropy and transmission
+    float4 specularReflect : SV_Target4; // Specular color and reflectivity
+    float4 emissionColor   : SV_Target5; // Emission color
+    float4 anisoTransClearcoatSheen  : SV_Target6; // Anisotropy and transmission and Clearcoat and sheen for cloth or coated materials
 };
 
 // Materials

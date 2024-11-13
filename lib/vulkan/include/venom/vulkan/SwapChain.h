@@ -44,7 +44,6 @@ public:
     /// @brief Inits Swap chain and swap chain image views
     /// @return Error
     vc::Error InitSwapChain();
-    vc::Error InitSwapChainFramebuffers(const RenderPass* renderPass);
 
 public:
     const Surface * surface;
@@ -57,11 +56,7 @@ public:
     vc::Vector<VkImage> swapChainImageHandles;
 
 private:
-    vc::Vector<Image> __swapChainPresentImages;
-    vc::Vector<ImageView> __swapChainMultisampledImageViews, __swapChainPresentImageViews;
-    vc::Vector<Image> __depthTextures;
-    vc::Vector<ImageView> __depthTextureViews;
-    vc::Vector<Framebuffer> __swapChainFramebuffers;
+    vc::Vector<ImageView> __swapChainImages;
 
     int __samples;
 

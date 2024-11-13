@@ -27,7 +27,6 @@ SwapChain::SwapChain()
     , swapChain(VK_NULL_HANDLE)
     , viewport{}
     , scissor{}
-    , __depthTextures()
     , __samples(1)
 {
 }
@@ -40,12 +39,11 @@ SwapChain::~SwapChain()
 SwapChain::SwapChain(SwapChain&& other)
     : swapChain(other.swapChain)
     , swapChainImageHandles(std::move(other.swapChainImageHandles))
-    , __swapChainMultisampledImageViews(std::move(other.__swapChainMultisampledImageViews))
+    , __swapChainImages(std::move(other.__swapChainImages))
     , surface(std::move(other.surface))
     , activeSurfaceFormat(other.activeSurfaceFormat)
     , activePresentMode(other.activePresentMode)
     , extent(other.extent)
-    , __depthTextures(std::move(other.__depthTextures))
 {
     other.swapChain = VK_NULL_HANDLE;
 }
@@ -55,12 +53,11 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
     if (this != &other) {
         swapChain = other.swapChain;
         swapChainImageHandles = std::move(other.swapChainImageHandles);
-        __swapChainMultisampledImageViews = std::move(other.__swapChainMultisampledImageViews);
+        __swapChainImages = std::move(other.__swapChainImages);
         surface = std::move(other.surface);
         activeSurfaceFormat = other.activeSurfaceFormat;
         activePresentMode = other.activePresentMode;
         extent = other.extent;
-        __depthTextures = std::move(other.__depthTextures);
         other.swapChain = VK_NULL_HANDLE;
     }
     return *this;
@@ -68,8 +65,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
 
 void SwapChain::CleanSwapChain()
 {
-    __swapChainFramebuffers.clear();
-    __swapChainMultisampledImageViews.clear();
+    __swapChainImages.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
         vkDestroySwapchainKHR(LogicalDevice::GetVkDevice(), swapChain, Allocator::GetVKAllocationCallbacks());
@@ -221,84 +217,13 @@ vc::Error SwapChain::InitSwapChain()
     vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, nullptr);
     swapChainImageHandles.resize(imageCount);
     vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, swapChainImageHandles.data());
-    if (__samples > 1) {
-        // Multisampling
-        // Present Images
-        __swapChainPresentImages.clear();
-        __swapChainPresentImages.resize(imageCount);
-        for (size_t i = 0; i < imageCount; ++i) {
-            __swapChainPresentImages[i].SetSamples(static_cast<VkSampleCountFlagBits>(__samples));
-            if (__swapChainPresentImages[i].Create(activeSurfaceFormat.format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, extent.width, extent.height) != vc::Error::Success) {
-                vc::Log::Error("Failed to create present image");
-                return vc::Error::InitializationFailed;
-            }
-        }
-
-        // Present Image Views
-        __swapChainPresentImageViews.clear();
-        __swapChainPresentImageViews.resize(imageCount);
-        for (size_t i = 0; i < imageCount; ++i) {
-            if (__swapChainPresentImageViews[i].Create(__swapChainPresentImages[i].GetVkImage(), activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
-                vc::Log::Error("Failed to create present image view");
-                return vc::Error::InitializationFailed;
-            }
-        }
-    }
 
     // Create ImageViews
-    __swapChainMultisampledImageViews.clear();
-    __swapChainMultisampledImageViews.resize(imageCount);
+    __swapChainImages.clear();
+    __swapChainImages.resize(imageCount);
     for (size_t i = 0; i < imageCount; ++i) {
-        if (__swapChainMultisampledImageViews[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
+        if (__swapChainImages[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
             vc::Log::Error("Failed to create image view");
-            return vc::Error::InitializationFailed;
-        }
-    }
-    return vc::Error::Success;
-}
-
-vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
-{
-    // Create Depth Texture
-    __depthTextures.clear();
-    __depthTextures.resize(__swapChainMultisampledImageViews.size());
-    const VkImageUsageFlags usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | (__samples > 1 ? VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT : 0);
-    for (int i = 0; i < __swapChainMultisampledImageViews.size(); ++i) {
-        __depthTextures[i].SetSamples(static_cast<VkSampleCountFlagBits>(__samples));
-        if (__depthTextures[i].Create(VK_FORMAT_D32_SFLOAT, VK_IMAGE_TILING_OPTIMAL, usage, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, extent.width, extent.height) != vc::Error::Success) {
-            vc::Log::Error("Failed to create multisampled image");
-            return vc::Error::InitializationFailed;
-        }
-    }
-    __depthTextureViews.clear();
-    __depthTextureViews.resize(__depthTextures.size());
-    for (int i = 0; i < __depthTextures.size(); ++i) {
-        if (__depthTextureViews[i].Create(__depthTextures[i].GetVkImage(), VK_FORMAT_D32_SFLOAT, VK_IMAGE_ASPECT_DEPTH_BIT) != vc::Error::Success) {
-            vc::Log::Error("Failed to create depth image view");
-            return vc::Error::InitializationFailed;
-        }
-        __depthTextures[i].SetImageLayout(VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
-    }
-
-    __swapChainFramebuffers.clear();
-    __swapChainFramebuffers.resize(__swapChainMultisampledImageViews.size());
-    for (int i = 0; i < __swapChainMultisampledImageViews.size(); ++i) {
-        vc::Vector<VkImageView> attachments = {
-            __swapChainMultisampledImageViews[i].GetVkImageView(),
-            __depthTextureViews[i].GetVkImageView()
-        };
-        if (!__swapChainPresentImageViews.empty()) {
-            attachments.insert(attachments.begin(), __swapChainPresentImageViews[i].GetVkImageView());
-            std::swap(attachments[1], attachments[2]);
-        }
-
-        __swapChainFramebuffers[i].SetExtent(extent);
-        __swapChainFramebuffers[i].SetRenderPass(renderPass);
-        __swapChainFramebuffers[i].SetAttachments(attachments);
-        __swapChainFramebuffers[i].SetLayers(1);
-
-        if (__swapChainFramebuffers[i].Init() != vc::Error::Success) {
-            vc::Log::Error("Failed to create framebuffer");
             return vc::Error::InitializationFailed;
         }
     }

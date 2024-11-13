@@ -41,12 +41,20 @@ private:
     vc::Error __CreateNormalRenderPass(const SwapChain * swapChain);
     vc::Error __CreateDeferredShadowRenderPass(const SwapChain * swapChain);
 
+    void __AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout);
+    void __SolveAttachmentReferences();
+
 private:
     VkRenderPass __renderPass;
     vc::RenderingPipelineType __type;
     // By image count then attachments
     vc::Vector<vc::Vector<vc::Texture>> __attachments;
     vc::Vector<Framebuffer> __framebuffers;
+
+    vc::Vector<VkAttachmentDescription> __attachmentDescriptions;
+    vc::Vector<VkAttachmentDescription> __resolveAttachmentDescriptions;
+    vc::Vector<VkAttachmentReference> __attachmentRefs;
+    vc::Vector<VkAttachmentReference> __resolveAttachmentRefs;
 };
 }
 }
