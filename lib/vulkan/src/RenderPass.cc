@@ -111,7 +111,7 @@ vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain, CommandBuffer* comma
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = __renderPass;
-    renderPassInfo.framebuffer = swapChain->__swapChainFramebuffers[framebufferIndex];
+    renderPassInfo.framebuffer = swapChain->__swapChainFramebuffers[framebufferIndex].GetVkFramebuffer();
     renderPassInfo.renderArea.offset = {0, 0};
     renderPassInfo.renderArea.extent = swapChain->extent;
 

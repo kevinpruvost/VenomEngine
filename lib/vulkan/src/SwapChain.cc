@@ -68,12 +68,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
 
 void SwapChain::CleanSwapChain()
 {
-    for (auto & framebuffer : __swapChainFramebuffers) {
-        if (framebuffer != VK_NULL_HANDLE)
-            vkDestroyFramebuffer(LogicalDevice::GetVkDevice(), framebuffer, Allocator::GetVKAllocationCallbacks());
-    }
     __swapChainFramebuffers.clear();
-
     __swapChainMultisampledImageViews.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
@@ -285,6 +280,7 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
         __depthTextures[i].SetImageLayout(VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
     }
 
+    __swapChainFramebuffers.clear();
     __swapChainFramebuffers.resize(__swapChainMultisampledImageViews.size());
     for (int i = 0; i < __swapChainMultisampledImageViews.size(); ++i) {
         vc::Vector<VkImageView> attachments = {
@@ -296,16 +292,12 @@ vc::Error SwapChain::InitSwapChainFramebuffers(const RenderPass* renderPass)
             std::swap(attachments[1], attachments[2]);
         }
 
-        VkFramebufferCreateInfo framebufferInfo = {};
-        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-        framebufferInfo.renderPass = renderPass->GetVkRenderPass();
-        framebufferInfo.attachmentCount = attachments.size();
-        framebufferInfo.pAttachments = attachments.data();
-        framebufferInfo.width = extent.width;
-        framebufferInfo.height = extent.height;
-        framebufferInfo.layers = 1;
+        __swapChainFramebuffers[i].SetExtent(extent);
+        __swapChainFramebuffers[i].SetRenderPass(renderPass);
+        __swapChainFramebuffers[i].SetAttachments(attachments);
+        __swapChainFramebuffers[i].SetLayers(1);
 
-        if (vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &framebufferInfo, Allocator::GetVKAllocationCallbacks(), &__swapChainFramebuffers[i]) != VK_SUCCESS) {
+        if (__swapChainFramebuffers[i].Init() != vc::Error::Success) {
             vc::Log::Error("Failed to create framebuffer");
             return vc::Error::InitializationFailed;
         }

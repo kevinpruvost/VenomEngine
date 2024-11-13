@@ -11,6 +11,8 @@
 #include <venom/vulkan/Surface.h>
 #include <venom/vulkan/QueueFamily.h>
 #include <venom/vulkan/ImageView.h>
+#include <venom/vulkan/Framebuffer.h>
+
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
 #include <venom/common/Context.h>
@@ -59,7 +61,7 @@ private:
     vc::Vector<ImageView> __swapChainMultisampledImageViews, __swapChainPresentImageViews;
     vc::Vector<Image> __depthTextures;
     vc::Vector<ImageView> __depthTextureViews;
-    vc::Vector<VkFramebuffer> __swapChainFramebuffers;
+    vc::Vector<Framebuffer> __swapChainFramebuffers;
 
     int __samples;
 
