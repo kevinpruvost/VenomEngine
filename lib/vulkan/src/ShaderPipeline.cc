@@ -21,8 +21,9 @@
 
 namespace venom::vulkan
 {
-VulkanShaderResource::VulkanShaderResource()
-    : graphicsPipeline(VK_NULL_HANDLE)
+VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
+    : ShaderResource(h)
+    , graphicsPipeline(VK_NULL_HANDLE)
     , pipelineLayout(VK_NULL_HANDLE)
     , multisamplingCreateInfo{}
     , rasterizerCreateInfo{}
@@ -89,7 +90,7 @@ void VulkanShaderResource::DestroyShaderModules()
 
 VulkanShaderPipeline::VulkanShaderPipeline()
 {
-    _resource.reset(new VulkanShaderResource());
+    _resource.reset(new VulkanShaderResource(this));
 }
 
 VulkanShaderPipeline::~VulkanShaderPipeline()
@@ -165,6 +166,9 @@ void VulkanShaderPipeline::_SetDepthWrite(const bool enable)
 
 vc::Error VulkanShaderPipeline::_ReloadShader()
 {
+    venom_assert(_renderingPipelineType != vc::RenderingPipelineType::None, "Rendering Pipeline Type is not set");
+    venom_assert(_renderingPipelineIndex != std::numeric_limits<uint32_t>::max(), "Rendering Pipeline Index is not set");
+
     if (_resource->As<VulkanShaderResource>()->shaderDirty == false || _resource->As<VulkanShaderResource>()->shaderStages.empty()) return vc::Error::Success;
 
     // Input Assembly: Describes how primitives are assembled
@@ -258,8 +262,8 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
     graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
     graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
     graphicsPipelineCreateInfo.layout = _resource->As<VulkanShaderResource>()->pipelineLayout;
-    graphicsPipelineCreateInfo.renderPass = RenderPass::MainRenderPass()->GetVkRenderPass();
-    graphicsPipelineCreateInfo.subpass = 0; // Index of the subpass in the render pass where this pipeline will be used
+    graphicsPipelineCreateInfo.renderPass = RenderPass::GetRenderPass(_renderingPipelineType)->GetVkRenderPass();
+    graphicsPipelineCreateInfo.subpass = _renderingPipelineIndex; // Index of the subpass in the render pass where this pipeline will be used
     graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
     //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
 

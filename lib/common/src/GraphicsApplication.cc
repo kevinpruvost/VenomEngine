@@ -64,44 +64,8 @@ Error GraphicsApplication::Init()
         _dummyTexture->__CreateDummyTexture();
     }
 
-    // All default shader pipelines
-    // Loading basic model shaders
-    {
-        ShaderPipelineList basicModelShaders;
-        ShaderPipeline & shader = basicModelShaders.emplace_back();
-        shader.AddVertexBufferToLayout({
-            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
-            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
-        //            {vc::ShaderVertexFormat::Vec4, 2, 2, 0},
-            {vc::ShaderVertexFormat::Vec2, 3, 3, 0},
-        });
-        shader.LoadShaderFromFile("shader_mesh");
-        RenderingPipelineImpl::SetRenderingPipelineCache(basicModelShaders, RenderingPipelineType::BasicModel);
-    }
-
-    // Loading shadow shaders
-    {
-        ShaderPipelineList shadowModelShaders;
-        ShaderPipeline & shader = shadowModelShaders.emplace_back();
-        shader.AddVertexBufferToLayout({
-            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
-            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
-            {vc::ShaderVertexFormat::Vec2, 2, 2, 0},
-        });
-        shader.LoadShaderFromFile("shader_gbuffer");
-
-        RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::ShadowModel);
-    }
-
-    // Loading skybox shaders
-    {
-        ShaderPipelineList skyboxShaders;
-        ShaderPipeline & shader = skyboxShaders.emplace_back();
-        shader.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
-        shader.SetDepthWrite(false);
-        shader.LoadShaderFromFile("skybox");
-        RenderingPipelineImpl::SetRenderingPipelineCache(skyboxShaders, RenderingPipelineType::Skybox);
-    }
+    // Loading Rendering Pipelines
+    __LoadRenderingPipelines();
 
     // Post Init
     err = __PostInit();
@@ -112,5 +76,54 @@ Error GraphicsApplication::Loop()
 {
     vc::Context::Get()->PollEvents();
     return __Loop();
+}
+
+void GraphicsApplication::__LoadRenderingPipelines()
+{
+    // All default shader pipelines
+    // Loading basic model shaders
+    {
+        ShaderPipelineList basicModelShaders;
+        ShaderPipeline & shader = basicModelShaders.emplace_back();
+        shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
+            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
+            {vc::ShaderVertexFormat::Vec2, 2, 2, 0},
+        });
+        shader.SetRenderingPipelineType(RenderingPipelineType::BasicModel);
+        shader.SetRenderingPipelineIndex(0);
+        shader.LoadShaderFromFile("shader_mesh");
+        RenderingPipelineImpl::SetRenderingPipelineCache(basicModelShaders, RenderingPipelineType::BasicModel);
+    }
+
+    // Loading shadow able shaders
+    {
+        ShaderPipelineList shadowModelShaders;
+        ShaderPipeline & gbuffer_shader = shadowModelShaders.emplace_back();
+        gbuffer_shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0}, // Position
+            {vc::ShaderVertexFormat::Vec3, 1, 1, 0}, // Normal
+            {vc::ShaderVertexFormat::Vec2, 2, 2, 0}, // UV
+            {vc::ShaderVertexFormat::Vec3, 3, 3, 0}, // Tangent
+            {vc::ShaderVertexFormat::Vec3, 4, 4, 0}, // Bitangent
+        });
+        gbuffer_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
+        gbuffer_shader.SetRenderingPipelineIndex(0);
+        gbuffer_shader.LoadShaderFromFile("shader_gbuffer");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::ShadowModel);
+    }
+
+    // Loading skybox shaders
+    {
+        ShaderPipelineList skyboxShaders;
+        ShaderPipeline & shader = skyboxShaders.emplace_back();
+        shader.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
+        shader.SetDepthWrite(false);
+        shader.SetRenderingPipelineType(RenderingPipelineType::Skybox);
+        shader.SetRenderingPipelineIndex(0);
+        shader.LoadShaderFromFile("skybox");
+        RenderingPipelineImpl::SetRenderingPipelineCache(skyboxShaders, RenderingPipelineType::Skybox);
+    }
 }
 }

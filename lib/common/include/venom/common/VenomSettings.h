@@ -14,6 +14,7 @@
 
 #define VENOM_MAX_BINDLESS_TEXTURES 4096
 #define VENOM_MAX_DYNAMIC_TEXTURES 32
+#define VENOM_MAX_LIGHTS 128
 
 namespace venom
 {

@@ -12,18 +12,6 @@ namespace venom
 {
 namespace common
 {
-enum class VENOM_COMMON_API RenderingPipelineType
-{
-    None = -1,
-    Text2D = 0,
-    Text3D = 1,
-    BasicModel = 2,
-    ShadowModel = 3,
-    PBRModel = 4,
-    Skybox = 5,
-    Count = 6
-};
-
 typedef vc::Vector<ShaderPipeline> ShaderPipelineList;
 
 class VENOM_COMMON_API RenderingPipelineImpl : public PluginObjectImpl, public GraphicsPluginObject

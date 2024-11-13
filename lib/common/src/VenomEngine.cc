@@ -12,6 +12,7 @@
 #include <venom/common/MemoryPool.h>
 #include <venom/common/Resources.h>
 #include <venom/common/Timer.h>
+#include <venom/common/Light.h>
 
 #include <venom/common/plugin/graphics/Camera.h>
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
@@ -24,7 +25,6 @@
 #include <filesystem>
 #include <thread>
 #include <chrono>
-
 
 
 namespace venom
@@ -144,10 +144,10 @@ void VenomEngine::__LoadECS()
 {
     // Reserve entities
 
-    __ecs->RegisterComponent<ShaderPipeline>();
     __ecs->RegisterComponent<RenderingPipeline>();
     __ecs->RegisterComponent<Model>();
     __ecs->RegisterComponent<Skybox>();
+    __ecs->RegisterComponent<Light>();
 }
 }
 }

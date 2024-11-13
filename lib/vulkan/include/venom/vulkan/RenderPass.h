@@ -7,6 +7,7 @@
 ///
 #pragma once
 
+#include <venom/common/plugin/graphics/RenderingPipelineType.h>
 #include <venom/vulkan/SwapChain.h>
 #include <venom/vulkan/CommandPool.h>
 
@@ -26,15 +27,22 @@ public:
 
     void Destroy();
 
+    void SetRenderingType(const vc::RenderingPipelineType type);
     vc::Error InitRenderPass(const SwapChain * swapChain);
     vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);
     VkRenderPass GetVkRenderPass() const;
 
-    static RenderPass * MainRenderPass();
+    static RenderPass * GetRenderPass(const vc::RenderingPipelineType type);
+    static vc::Vector<RenderPass *> GetRenderPasses();
+
+private:
+    vc::Error __CreateNormalRenderPass(const SwapChain * swapChain);
+    vc::Error __CreateDeferredShadowRenderPass(const SwapChain * swapChain);
 
 private:
     VkRenderPass __renderPass;
+    vc::RenderingPipelineType __type;
 };
 }
 }

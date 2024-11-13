@@ -19,6 +19,7 @@ VSOutput main(VSInput input)
     output.outPosition = mul(view, output.outPosition);  // Apply the view matrix
     output.outPosition = mul(proj, output.outPosition);  // Apply the projection matrix
     output.fragColor = float4(1.0, 1.0, 1.0, 1.0);       // Pass the color to the fragment shader
+    output.normal = input.inNormal;
     output.fragTexCoord = input.inTexCoord;              // Pass the texture
     return output;
 }

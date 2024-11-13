@@ -16,7 +16,15 @@ namespace venom
 {
 namespace common
 {
+ShaderResource::ShaderResource(GraphicsCachedResourceHolder* holder)
+    : GraphicsCachedResource(holder)
+{
+}
+
 ShaderPipelineImpl::ShaderPipelineImpl()
+    : _renderingPipelineType(RenderingPipelineType::None)
+    , _renderingPipelineIndex(std::numeric_limits<uint32_t>::max())
+    , _loaded(false)
 {
 }
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/GraphicsPluginObject.h>
+#include <venom/common/plugin/graphics/RenderingPipelineType.h>
 
 namespace venom
 {
@@ -16,6 +17,8 @@ namespace common
 class VENOM_COMMON_API ShaderResource : public GraphicsCachedResource
 {
 public:
+    ShaderResource(GraphicsCachedResourceHolder * holder);
+
     Vector<String> shaderPaths;
 };
 
@@ -79,9 +82,12 @@ public:
     void AddVertexBufferToLayout(const std::vector<VertexBufferLayout> & layouts);
 
     virtual void SetMultiSamplingCount(const int samples) = 0;
-    inline vc::Error SetLineWidth(const float width) { _SetLineWidth(width); return _ReloadShader(); }
-    inline vc::Error SetDepthTest(const bool enable) { _SetDepthTest(enable); return _ReloadShader(); }
-    inline vc::Error SetDepthWrite(const bool enable) { _SetDepthWrite(enable); return _ReloadShader(); }
+    inline vc::Error SetLineWidth(const float width) { _SetLineWidth(width); return _ReloadShaderAfterSettings(); }
+    inline vc::Error SetDepthTest(const bool enable) { _SetDepthTest(enable); return _ReloadShaderAfterSettings(); }
+    inline vc::Error SetDepthWrite(const bool enable) { _SetDepthWrite(enable); return _ReloadShaderAfterSettings(); }
+
+    inline void SetRenderingPipelineType(const RenderingPipelineType type) { _renderingPipelineType = type; }
+    inline void SetRenderingPipelineIndex(const uint32_t index) { _renderingPipelineIndex = index; }
 
 protected:
     virtual void _SetLineWidth(const float width) = 0;
@@ -91,7 +97,14 @@ protected:
     virtual void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const ShaderVertexFormat format) = 0;
 
     virtual vc::Error _ReloadShader() = 0;
-private:
+    inline vc::Error _ReloadShaderAfterSettings() {
+        if (_loaded) return _ReloadShader();
+        return vc::Error::Success;
+    }
+protected:
+    RenderingPipelineType _renderingPipelineType;
+    uint32_t _renderingPipelineIndex;
+    bool _loaded;
 };
 
 class VENOM_COMMON_API ShaderPipeline : public PluginObjectImplWrapper
@@ -101,6 +114,8 @@ public:
     ShaderPipeline(const char * path);
     ~ShaderPipeline();
 
+    inline void SetRenderingPipelineIndex(const uint32_t index) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineIndex(index); }
+    inline void SetRenderingPipelineType(const RenderingPipelineType type) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineType(type); }
     inline vc::Error LoadShaderFromFile(const char * path) { return _impl->As<ShaderPipelineImpl>()->LoadShaderFromFile(path); }
     inline void AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding, const uint32_t location, const uint32_t offset) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(format, binding, location, offset); }
     inline void AddVertexBufferToLayout(const ShaderPipelineImpl::VertexBufferLayout & layout) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layout); }

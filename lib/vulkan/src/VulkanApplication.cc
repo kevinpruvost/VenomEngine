@@ -145,7 +145,7 @@ vc::Error VulkanApplication::__DrawFrame()
     if (auto err = __commandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
-        __renderPass.BeginRenderPass(&__swapChain, __commandBuffers[_currentFrame], imageIndex);
+        __normalRenderPass.BeginRenderPass(&__swapChain, __commandBuffers[_currentFrame], imageIndex);
         __commandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
         __commandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
         //__descriptorSets[_currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
@@ -183,7 +183,7 @@ vc::Error VulkanApplication::__DrawFrame()
         // Draw GUI
         _gui->Render();
 
-        __renderPass.EndRenderPass(__commandBuffers[_currentFrame]);
+        __normalRenderPass.EndRenderPass(__commandBuffers[_currentFrame]);
 
     if (auto err = __commandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
         return err;

@@ -20,10 +20,9 @@ cbuffer UniformBufferCamera : register(b0, space1) {
 struct VSInput {
     [[vk::location(0)]] float3 inPosition : POSITION;
     [[vk::location(1)]] float3 inNormal : NORMAL;
-    //    [[vk::location(2)]] float4 inColor : COLOR;
-    [[vk::location(3)]] float2 inTexCoord : TEXCOORD;
-    // [[vk::location(3)]] float3 inTangent : TANGENT;
-    // [[vk::location(4)]] float3 inBitangent : BITANGENT;
+    [[vk::location(2)]] float2 inTexCoord : TEXCOORD;
+    [[vk::location(3)]] float3 inTangent : TANGENT;
+    [[vk::location(4)]] float3 inBitangent : BITANGENT;
     uint instanceID : SV_InstanceID;
 };
 

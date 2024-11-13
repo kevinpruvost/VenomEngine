@@ -16,6 +16,7 @@
 #include <venom/common/plugin/graphics/GUI.h>
 #include <venom/common/plugin/graphics/Skybox.h>
 #include <venom/common/Timer.h>
+#include <venom/common/Light.h>
 
 #include <thread>
 

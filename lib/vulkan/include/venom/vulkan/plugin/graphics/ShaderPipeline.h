@@ -25,7 +25,7 @@ namespace vulkan
 class VulkanShaderResource : public vc::ShaderResource
 {
 public:
-    VulkanShaderResource();
+    VulkanShaderResource(vc::GraphicsCachedResourceHolder * h);
     ~VulkanShaderResource() override;
 
     void DestroyShaderModules();

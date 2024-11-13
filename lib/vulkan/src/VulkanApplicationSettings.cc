@@ -23,31 +23,16 @@ vc::Error VulkanApplication::_LoadGfxSettings()
     // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders
     if (_multisamplingDirty)
     {
-        vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-        __swapChain.CleanSwapChain();
-        // Create Surface
-        __surface.CreateSurface(vc::Context::Get());
-        // ReCreate Render Pass
-        if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
-            return err;
-        if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
-            return err;
-        if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
-            return err;
-        if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
-            return err;
-
-        // We also need to reset the last used semaphore
-        err = __imageAvailableSemaphores[_currentFrame].InitSemaphore();
-        if (err != vc::Error::Success)
-            return err;
+        if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
 
         static vc::ShaderPipeline vkShader;
         for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
             if (!shader->IsType<VulkanShaderResource>()) continue;
-            vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetResource(shader);
-            vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
-            vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
+            shader->GetHolder()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
+            shader->GetHolder()->As<VulkanShaderPipeline>()->LoadShaders();
+            //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetResource(shader);
+            //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
+            //vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
         }
     }
     return err;

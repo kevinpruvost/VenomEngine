@@ -35,17 +35,14 @@ vc::Error VulkanMesh::__LoadMeshFromCurrentData()
     // Normals
     if (!_normals.empty() && AddVertexBuffer(_normals.data(), static_cast<uint32_t>(_normals.size()), sizeof(vcm::VertexNormal), 1) != vc::Error::Success)
         return vc::Error::Failure;
-    // Colors
-    if (!_colors[0].empty() && AddVertexBuffer(_colors[0].data(), static_cast<uint32_t>(_colors[0].size()), sizeof(vcm::VertexColor), 2) != vc::Error::Success)
-        return vc::Error::Failure;
     // UVs
-    if (!_uvs[0].empty() && AddVertexBuffer(_uvs[0].data(), static_cast<uint32_t>(_uvs[0].size()), sizeof(vcm::VertexUV), 3) != vc::Error::Success)
+    if (!_uvs[0].empty() && AddVertexBuffer(_uvs[0].data(), static_cast<uint32_t>(_uvs[0].size()), sizeof(vcm::VertexUV), 2) != vc::Error::Success)
         return vc::Error::Failure;
     // Tangents
-    if (!_tangents.empty() && AddVertexBuffer(_tangents.data(), static_cast<uint32_t>(_tangents.size()), sizeof(vcm::VertexTangent), 4) != vc::Error::Success)
+    if (!_tangents.empty() && AddVertexBuffer(_tangents.data(), static_cast<uint32_t>(_tangents.size()), sizeof(vcm::VertexTangent), 3) != vc::Error::Success)
         return vc::Error::Failure;
     // Bitangents
-    if (!_bitangents.empty() && AddVertexBuffer(_bitangents.data(), static_cast<uint32_t>(_bitangents.size()), sizeof(vcm::VertexBitangent), 5) != vc::Error::Success)
+    if (!_bitangents.empty() && AddVertexBuffer(_bitangents.data(), static_cast<uint32_t>(_bitangents.size()), sizeof(vcm::VertexBitangent), 4) != vc::Error::Success)
         return vc::Error::Failure;
     // Indices
     if (!_indices.empty() && AddIndexBuffer(_indices.data(), static_cast<uint32_t>(_indices.size()), sizeof(uint32_t)) != vc::Error::Success)

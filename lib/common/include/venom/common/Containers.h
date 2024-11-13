@@ -9,6 +9,8 @@
 
 #include <vector>
 #include <stack>
+#include <map>
+#include <unordered_map>
 
 namespace venom
 {
@@ -20,5 +22,10 @@ template<typename T>
 using Stack = std::stack<T>;
 template<typename T, size_t N>
 using Array = std::array<T, N>;
+
+template<typename T, typename U>
+using Map = std::map<T, U>;
+template<typename T, typename U>
+using UMap = std::unordered_map<T, U>;
 }
 }

@@ -255,8 +255,12 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __presentQueue = QueueManager::GetPresentQueue();
 
     // Create Render Pass
-    if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
-        return err;
+    __normalRenderPass.SetRenderingType(vc::RenderingPipelineType::BasicModel);
+    __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::ShadowModel);
+    for (const auto renderPass : RenderPass::GetRenderPasses()) {
+        if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
+            return vc::Error::InitializationFailed;
+    }
 
     // Create Graphics Command Pool
     CommandPool * graphicsCommandPool = __commandPoolManager.GetGraphicsCommandPool();
@@ -268,12 +272,11 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     }
 
     // Init Render Pass Framebuffers
-    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
-        return err;
-    // if (IsHDREnabled()) {
-    //     if (err = __swapChain.InitSwapChainFramebuffers(__hdrRenderPass.get()); err != vc::Error::Success)
-    //         return err;
-    // }
+    for (const auto renderPass : RenderPass::GetRenderPasses()) {
+        if (renderPass == nullptr) continue;
+        if (err = __swapChain.InitSwapChainFramebuffers(renderPass); err != vc::Error::Success)
+            return err;
+    }
 
     // Init descriptor sets parameters
     if (err = __InitializeSets(); err != vc::Error::Success)
@@ -359,14 +362,16 @@ vc::Error VulkanApplication::__RecreateSwapChain()
     __swapChain.CleanSwapChain();
     // Create Surface
     __surface.CreateSurface(vc::Context::Get());
-    // ReCreate Render Pass
-    if (err = __renderPass.InitRenderPass(&__swapChain); err != vc::Error::Success)
-        return err;
     if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
         return err;
     if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
-    if (err = __swapChain.InitSwapChainFramebuffers(&__renderPass); err != vc::Error::Success)
+    // ReCreate Render Pass
+    for (const auto renderPass : RenderPass::GetRenderPasses()) {
+        if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
+            return vc::Error::InitializationFailed;
+    }
+    if (err = __swapChain.InitSwapChainFramebuffers(&__normalRenderPass); err != vc::Error::Success)
         return err;
     // We also need to reset the last used semaphore
     if (err = __imageAvailableSemaphores[_currentFrame].InitSemaphore(); err != vc::Error::Success)

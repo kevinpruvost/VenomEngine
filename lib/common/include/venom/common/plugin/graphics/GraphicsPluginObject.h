@@ -14,6 +14,7 @@ namespace venom
 namespace common
 {
 class GraphicsCachedResource;
+class GraphicsCachedResourceHolder;
 class GraphicsPluginObject;
 
 // Must not inherit GraphicsCachedResource and GraphicsPluginObject at the same time
@@ -28,6 +29,7 @@ class VENOM_COMMON_API GraphicsCachedResource
 {
 public:
     GraphicsCachedResource() {}
+    GraphicsCachedResource(GraphicsCachedResourceHolder * h) : __holder(h) {}
     virtual ~GraphicsCachedResource();
     GraphicsCachedResource(const GraphicsCachedResource &) = delete;
     GraphicsCachedResource & operator=(const GraphicsCachedResource &) = delete;
@@ -36,6 +38,11 @@ public:
     template<typename T> inline bool IsType() const { return dynamic_cast<const T *>(this) != nullptr; }
     template<typename T> inline T * As() { return static_cast<T *>(this); }
     template<typename T> inline const T * As() const { return static_cast<const T *>(this); }
+
+    inline void SetHolder(GraphicsCachedResourceHolder * h) { __holder = h; }
+    inline GraphicsCachedResourceHolder * GetHolder() const { return __holder; }
+private:
+    GraphicsCachedResourceHolder * __holder;
 };
 
 // Must not inherit GraphicsCachedResource and GraphicsPluginObject at the same time
@@ -53,6 +60,8 @@ public:
     virtual ~GraphicsCachedResourceHolder() = default;
 
 public:
+    template<typename T> T * As() { return dynamic_cast<T *>(this); }
+
     inline void SetResource(const GraphicsCachedResourceHolder & resource) { _resource = resource._resource; }
     inline void SetResource(const SPtr<GraphicsCachedResource> & resource) { _resource = resource; }
 protected:
