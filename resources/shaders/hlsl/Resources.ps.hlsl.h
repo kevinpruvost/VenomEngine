@@ -14,8 +14,8 @@ struct PSInput {
 
 struct GBufferOutput {
     float4 baseColor       : SV_Target0; // Base color with optional alpha for opacity or transmission
-    float3 normal          : SV_Target1; // World or view-space normal
-    float3 metallicRoughAo   : SV_Target2; // Metallic and roughness parameters
+    float4 normal          : SV_Target1; // World or view-space normal
+    float4 metallicRoughAo   : SV_Target2; // Metallic and roughness parameters
     float4 position        : SV_Target3; // Position in world space (or depth if reconstructing later)
 
     // Extended components
@@ -126,27 +126,27 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.baseColor = MaterialComponentGetValue4(MaterialComponentType::DIFFUSE, uv);
 
     // Normal
-    output.normal = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv);
+    output.normal = MaterialComponentGetValue4(MaterialComponentType::NORMAL, uv);
 
     // Metallic (if PBR, then METALLIC otherwise 0)
     if (material.components[MaterialComponentType::METALLIC].valueType != NONE)
-        output.metallicRough[0] = MaterialComponentGetValue1(MaterialComponentType::METALLIC, uv);
+        output.metallicRoughAo[0] = MaterialComponentGetValue1(MaterialComponentType::METALLIC, uv);
     else
-        output.metallicRough[0] = 0.0;
+        output.metallicRoughAo[0] = 0.0;
     // Roughness (if PBR, then ROUGHNESS otherwise square of 2/(SPECULAR+2))
     if (material.components[MaterialComponentType::ROUGHNESS].valueType != NONE)
-        output.metallicRough[1] = MaterialComponentGetValue1(MaterialComponentType::ROUGHNESS, uv);
+        output.metallicRoughAo[1] = MaterialComponentGetValue1(MaterialComponentType::ROUGHNESS, uv);
     else
-        output.metallicRough[1] = sqrt(2.0 / (MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv) + 2));
+        output.metallicRoughAo[1] = sqrt(2.0 / (MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv) + 2));
 
     // Position
     output.position = float4(input.position.xyz, 1);
 
     // Ambient occlusion
     if (material.components[MaterialComponentType::AMBIENT_OCCLUSION].valueType != NONE)
-        output.ao = MaterialComponentGetValue1(MaterialComponentType::AMBIENT_OCCLUSION, uv);
+        output.metallicRoughAo[2] = MaterialComponentGetValue1(MaterialComponentType::AMBIENT_OCCLUSION, uv);
     else
-        output.ao = 1.0;
+        output.metallicRoughAo[2] = 1.0;
 
     // Specular reflectivity
     if (material.components[MaterialComponentType::REFLECTIVITY].valueType != NONE)
@@ -160,27 +160,27 @@ GBufferOutput ComputeMaterialColor(PSInput input)
     else
         output.emissionColor = float4(0, 0, 0, 0);
 
-    // Clearcoat
-    if (material.components[MaterialComponentType::CLEARCOAT].valueType != NONE)
-        output.clearcoatSheen[0] = MaterialComponentGetValue1(MaterialComponentType::CLEARCOAT, uv);
-    else
-        output.clearcoatSheen[0] = 0.0;
-    // Sheen
-    if (material.components[MaterialComponentType::SHEEN].valueType != NONE)
-        output.clearcoatSheen[1] = MaterialComponentGetValue1(MaterialComponentType::SHEEN, uv);
-    else
-        output.clearcoatSheen[1] = 0.0;
-
     // Anisotropy
     if (material.components[MaterialComponentType::ANISOTROPY].valueType != NONE)
-        output.anisotropyTrans[0] = MaterialComponentGetValue1(MaterialComponentType::ANISOTROPY, uv);
+        output.anisoTransClearcoatSheen[0] = MaterialComponentGetValue1(MaterialComponentType::ANISOTROPY, uv);
     else
-        output.anisotropyTrans[0] = 0.0;
+        output.anisoTransClearcoatSheen[0] = 0.0;
 
     // Transmission
     if (material.components[MaterialComponentType::TRANSMISSION].valueType != NONE)
-        output.anisotropyTrans[1] = MaterialComponentGetValue1(MaterialComponentType::TRANSMISSION, uv);
+        output.anisoTransClearcoatSheen[1] = MaterialComponentGetValue1(MaterialComponentType::TRANSMISSION, uv);
     else
-        output.anisotropyTrans[1] = 0.0;
+        output.anisoTransClearcoatSheen[1] = 0.0;
+
+    // Clearcoat
+    if (material.components[MaterialComponentType::CLEARCOAT].valueType != NONE)
+        output.anisoTransClearcoatSheen[0] = MaterialComponentGetValue1(MaterialComponentType::CLEARCOAT, uv);
+    else
+        output.anisoTransClearcoatSheen[0] = 0.0;
+    // Sheen
+    if (material.components[MaterialComponentType::SHEEN].valueType != NONE)
+        output.anisoTransClearcoatSheen[1] = MaterialComponentGetValue1(MaterialComponentType::SHEEN, uv);
+    else
+        output.anisoTransClearcoatSheen[1] = 0.0;
     return output;
 }
