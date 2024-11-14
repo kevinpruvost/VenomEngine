@@ -182,5 +182,6 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.anisoTransClearcoatSheen[1] = MaterialComponentGetValue1(MaterialComponentType::SHEEN, uv);
     else
         output.anisoTransClearcoatSheen[1] = 0.0;
+
     return output;
 }

@@ -49,6 +49,7 @@ public:
     inline void SetShaderType(const RenderingPipelineType type) { _impl->As<RenderingPipelineImpl>()->SetShaderType(type); }
     inline RenderingPipelineType GetShaderType() const { return _impl->As<RenderingPipelineImpl>()->GetShaderType(); }
     inline const ShaderPipelineList & GetRenderingPipelineCache() const { return _impl->As<RenderingPipelineImpl>()->GetRenderingPipelineCache(); }
+    inline static const ShaderPipelineList & GetRenderingPipelineCache(const RenderingPipelineType type) { return RenderingPipelineImpl::GetRenderingPipelineCache(type); }
 };
 
 }
