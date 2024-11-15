@@ -16,6 +16,20 @@ namespace venom
 {
 namespace vulkan
 {
+class AttachmentsManager
+{
+public:
+    AttachmentsManager();
+    ~AttachmentsManager();
+    void RecreateAttachments();
+
+    static AttachmentsManager * Get();
+
+public:
+    vc::Vector<vc::Vector<vc::Texture>> attachments;
+    vc::Vector<vc::Vector<vc::Texture>> resolveAttachments;
+};
+
 class RenderPass
 {
 public:
@@ -35,7 +49,7 @@ public:
     VkRenderPass GetVkRenderPass() const;
 
     inline const vc::Vector<VkSubpassDescription> & GetSubpassDescriptions() const { return __subpassDescriptions; }
-    inline const vc::Vector<vc::Vector<vc::Texture>> & GetAttachments() const { return __attachments; }
+    inline vc::Vector<vc::Vector<vc::Texture>> & GetAttachments() { return __attachments; }
 
     static RenderPass * GetRenderPass(const vc::RenderingPipelineType type);
     static vc::Vector<RenderPass *> GetRenderPasses();
@@ -45,7 +59,7 @@ private:
     vc::Error __CreateGuiRenderPass(const SwapChain * swapChain);
     vc::Error __CreateDeferredShadowRenderPass(const SwapChain * swapChain);
 
-    void __AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp);
+    void __AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp,  const VkImageLayout initalLayout);
     void __SolveAttachmentReferences();
 
 private:

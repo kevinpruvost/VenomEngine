@@ -31,6 +31,7 @@ Image::Image()
     __imageInfo.arrayLayers = 1;
     __imageInfo.initialLayout = __layout = VK_IMAGE_LAYOUT_UNDEFINED;
     __imageInfo.flags = 0;
+    __imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 }
 
 Image::~Image()
@@ -160,6 +161,12 @@ void Image::SetSamples(VkSampleCountFlagBits samples)
     __imageInfo.samples = samples;
 }
 
+void Image::SetSamples(int samples)
+{
+    venom_assert(samples == 1 || samples == 2 || samples == 4 || samples == 8 || samples == 16, "Invalid samples count");
+    __imageInfo.samples = static_cast<VkSampleCountFlagBits>(samples);
+}
+
 void Image::SetImageLayout(VkImageLayout layout)
 {
     if (__image == VK_NULL_HANDLE) {
@@ -171,6 +178,11 @@ void Image::SetImageLayout(VkImageLayout layout)
         commandBuffer.TransitionImageLayout(*this, __imageInfo.format, __layout, layout);
         __layout = layout;
     }
+}
+
+VkFormat Image::GetFormat() const
+{
+    return __imageInfo.format;
 }
 
 VkImage Image::GetVkImage() const

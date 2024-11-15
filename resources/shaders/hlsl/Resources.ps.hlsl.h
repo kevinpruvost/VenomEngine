@@ -13,10 +13,10 @@ struct PSInput {
 };
 
 struct GBufferOutput {
-    float4 baseColor        : SV_Target0; // Base color with optional alpha for opacity or transmission
-    float4 normalSpecular   : SV_Target1; // World or view-space normal
-    float4 metallicRoughAo  : SV_Target2; // Metallic and roughness parameters
-    float4 position         : SV_Target3; // Position in world space (or depth if reconstructing later)
+    float4 baseColor        : SV_Target1; // Base color with optional alpha for opacity or transmission
+    float4 normalSpecular   : SV_Target2; // World or view-space normal
+    float4 metallicRoughAo  : SV_Target3; // Metallic and roughness parameters
+    float4 position         : SV_Target4; // Position in world space (or depth if reconstructing later)
 };
 
 // Materials

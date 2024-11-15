@@ -80,6 +80,7 @@ private:
 
     vc::Error __CreateInstance();
 
+    void __CreateAttachments();
     vc::Error __RecreateSwapChain();
     vc::Error __InitializeSets();
 
@@ -92,6 +93,7 @@ private:
     MappedQueueFamilies __queueFamilies;
     Surface __surface;
     SwapChain __swapChain;
+    AttachmentsManager __attachmentsManager;
     RenderPass __normalRenderPass, __shadowRenderPass, __guiRenderPass;
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;

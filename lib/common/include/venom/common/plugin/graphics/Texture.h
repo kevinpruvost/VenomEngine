@@ -64,6 +64,16 @@ private:
     float __luminance;
 };
 
+enum ColorAttachmentType
+{
+    Present = 0,
+    NormalSpecular = 1,
+    MetallicRougnessAO = 2,
+    Position = 3,
+    Depth = 4,
+    Count
+};
+
 class VENOM_COMMON_API Texture : public PluginObjectImplWrapper
 {
 public:

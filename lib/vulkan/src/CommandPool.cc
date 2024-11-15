@@ -324,12 +324,22 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
 
         sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
         destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-    } else if (oldLayout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
-        barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-        barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+    } else if (oldLayout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) {
+        if (newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
+            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+            barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
 
-        sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-        destinationStage = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
+            sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+            destinationStage = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
+        } else if (newLayout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) {
+            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+            barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+
+            sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+            destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+        } else {
+            goto unsupported_layout;
+        }
     } else {
         unsupported_layout:
         venom_assert(false, "Unsupported layout transition");
@@ -337,6 +347,16 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
 
     vkCmdPipelineBarrier(_commandBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
     image.__layout = newLayout;
+}
+
+void CommandBuffer::ChangeImageLayout(vc::Texture& image, const VkImageLayout oldLayout, const VkImageLayout newLayout)
+{
+    TransitionImageLayout(image.GetImpl()->As<VulkanTexture>()->GetImage(), image.GetImpl()->As<VulkanTexture>()->GetImage().GetFormat(), oldLayout, newLayout);
+}
+
+void CommandBuffer::ChangeImageLayout(vc::Texture& image, const VkImageLayout newLayout)
+{
+    TransitionImageLayout(image.GetImpl()->As<VulkanTexture>()->GetImage(), image.GetImpl()->As<VulkanTexture>()->GetImage().GetFormat(), image.GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), newLayout);
 }
 
 void CommandBuffer::BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,

@@ -261,6 +261,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __normalRenderPass.SetRenderingType(vc::RenderingPipelineType::BasicModel);
     __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::ShadowModel);
     __guiRenderPass.SetRenderingType(vc::RenderingPipelineType::GUI);
+    __CreateAttachments();
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
         if (renderPass == nullptr) continue;
         if (err = renderPass->InitRenderPass(&__swapChain); err != vc::Error::Success)
@@ -353,6 +354,23 @@ vc::Error VulkanApplication::__CreateInstance()
     return vc::Error::Success;
 }
 
+void VulkanApplication::__CreateAttachments()
+{
+    AttachmentsManager::Get()->attachments.clear();
+    AttachmentsManager::Get()->attachments.resize(VENOM_MAX_FRAMES_IN_FLIGHT);
+    AttachmentsManager::Get()->resolveAttachments.clear();
+    AttachmentsManager::Get()->resolveAttachments.resize(VENOM_MAX_FRAMES_IN_FLIGHT);
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
+        AttachmentsManager::Get()->attachments[i].reserve(vc::ColorAttachmentType::Count);
+        AttachmentsManager::Get()->resolveAttachments[i].reserve(vc::ColorAttachmentType::Count);
+        for (int j = 0; j < vc::ColorAttachmentType::Count; ++j) {
+            AttachmentsManager::Get()->attachments[i].emplace_back().GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(__swapChain.GetSamples());
+            AttachmentsManager::Get()->attachments[i][j].CreateAttachment(__swapChain.extent.width, __swapChain.extent.height, 1, vc::ShaderVertexFormat::Vec4);
+            AttachmentsManager::Get()->resolveAttachments[i].emplace_back().CreateAttachment(__swapChain.extent.width, __swapChain.extent.height, 1, vc::ShaderVertexFormat::Vec4);
+        }
+    }
+}
+
 vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
@@ -364,7 +382,8 @@ vc::Error VulkanApplication::__RecreateSwapChain()
         return err;
     if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
-    // ReCreate Render Pass
+    // ReCreate Attachments and Render Pass
+    __CreateAttachments();
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
         if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
             return vc::Error::InitializationFailed;

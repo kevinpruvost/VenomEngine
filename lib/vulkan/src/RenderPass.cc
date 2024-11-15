@@ -13,6 +13,28 @@ namespace venom::vulkan
 {
 static RenderPass* s_mainRenderPass = nullptr;
 static vc::Vector<RenderPass *> s_renderPasses(static_cast<int>(vc::RenderingPipelineType::Count), nullptr);
+
+static AttachmentsManager* s_attachmentsManager = nullptr;
+
+AttachmentsManager::AttachmentsManager()
+{
+    venom_assert(s_attachmentsManager == nullptr, "AttachmentsManager::AttachmentsManager() : AttachmentsManager already exists");
+    s_attachmentsManager = this;
+}
+
+AttachmentsManager::~AttachmentsManager()
+{
+}
+
+void AttachmentsManager::RecreateAttachments()
+{
+}
+
+AttachmentsManager* AttachmentsManager::Get()
+{
+    return s_attachmentsManager;
+}
+
 RenderPass::RenderPass()
     : __renderPass(VK_NULL_HANDLE)
     , __type(vc::RenderingPipelineType::None)
@@ -171,7 +193,7 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
     colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     // Layout of the image before and after the render pass
     colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    colorAttachment.finalLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
     // Depth attachment
     VkAttachmentDescription depthAttachment{};
@@ -184,17 +206,6 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
     depthAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     depthAttachment.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-    // Color attachment resolve
-    VkAttachmentDescription colorAttachmentResolve{};
-    colorAttachmentResolve.format = swapChain->activeSurfaceFormat.format;
-    colorAttachmentResolve.samples = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachmentResolve.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    colorAttachmentResolve.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-    colorAttachmentResolve.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachmentResolve.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    colorAttachmentResolve.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachmentResolve.finalLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
     // Color attachment reference
     VkAttachmentReference colorAttachmentRef{};
     colorAttachmentRef.attachment = 0;
@@ -204,19 +215,12 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
     depthAttachmentRef.attachment = 1;
     depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-    // Color attachment resolve reference
-    VkAttachmentReference colorAttachmentResolveRef{};
-    colorAttachmentResolveRef.attachment = 2;
-    colorAttachmentResolveRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
     // Subpass
     VkSubpassDescription & subpass = __subpassDescriptions.emplace_back();
     subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpass.colorAttachmentCount = 1;
     subpass.pColorAttachments = &colorAttachmentRef;
     subpass.pDepthStencilAttachment = &depthAttachmentRef; // Depth and stencil
-    if (multisampled)
-        subpass.pResolveAttachments = &colorAttachmentResolveRef; // Multisampling
     subpass.inputAttachmentCount = 0;
     subpass.pInputAttachments = nullptr; // Input attachments
 
@@ -231,8 +235,6 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
 
     // Attachments
     vc::Vector<VkAttachmentDescription> attachments = {colorAttachment, depthAttachment};
-    if (multisampled)
-        attachments.emplace_back(colorAttachmentResolve);
 
     // Dependencies
     vc::Vector<VkSubpassDependency> dependencies = {dependency};
@@ -267,22 +269,17 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
-        vc::Vector<VkImageView> attachments(multisampled ? 3 : 2, VK_NULL_HANDLE);
+        vc::Vector<VkImageView> attachments(2, VK_NULL_HANDLE);
 
         // Create Depth Image
-        __attachments[i].resize(attachments.size() - 1);
+        __attachments[i].resize(attachments.size());
         vc::Texture & depthTexture = __attachments[i][0];
         depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
         depthTexture.InitDepthBuffer(swapChain->extent.width, swapChain->extent.height);
 
         // Create MultiSampled Image if needed
         if (multisampled) {
-            vc::Texture & colorTexture = __attachments[i][1];
-            VulkanTexture * vkTexture = colorTexture.GetImpl()->As<VulkanTexture>();
-            vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
-            colorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            attachments[0] = vkTexture->GetImageView().GetVkImageView();
-            attachments[2] = swapChain->__swapChainImages[i].GetVkImageView();
+            attachments[0] = AttachmentsManager::Get()->attachments[i][vc::ColorAttachmentType::Present].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
         } else {
             attachments[0] = swapChain->__swapChainImages[i].GetVkImageView();
         }
@@ -306,6 +303,7 @@ vc::Error RenderPass::__CreateGuiRenderPass(const SwapChain* swapChain)
     const bool multisampled = swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Render Pass
+    //__AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, multisampled ? VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
     VkAttachmentDescription colorAttachment{};
     // Should match the format of the swap chain
     colorAttachment.format = swapChain->activeSurfaceFormat.format;
@@ -335,11 +333,11 @@ vc::Error RenderPass::__CreateGuiRenderPass(const SwapChain* swapChain)
     VkAttachmentDescription colorAttachmentResolve{};
     colorAttachmentResolve.format = swapChain->activeSurfaceFormat.format;
     colorAttachmentResolve.samples = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachmentResolve.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+    colorAttachmentResolve.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachmentResolve.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
     colorAttachmentResolve.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachmentResolve.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    colorAttachmentResolve.initialLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+    colorAttachmentResolve.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     colorAttachmentResolve.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
     // Color attachment reference
@@ -428,7 +426,8 @@ vc::Error RenderPass::__CreateGuiRenderPass(const SwapChain* swapChain)
             VulkanTexture * vkTexture = colorTexture.GetImpl()->As<VulkanTexture>();
             vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
             colorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            attachments[0] = vkTexture->GetImageView().GetVkImageView();
+            //attachments[0] = vkTexture->GetImageView().GetVkImageView();
+            attachments[0] = AttachmentsManager::Get()->attachments[i][vc::ColorAttachmentType::Present].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
             attachments[2] = swapChain->__swapChainImages[i].GetVkImageView();
         } else {
             attachments[0] = swapChain->__swapChainImages[i].GetVkImageView();
@@ -453,33 +452,15 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     const bool multisampled = swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Color Attachment : 0
-    __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, multisampled ? VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, VK_ATTACHMENT_LOAD_OP_LOAD);
+    __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
     // Normal Attachment & specular : 1
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Metallic Roughness AO Attachment : 2
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Position Attachment : 3
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Depth Attachment : 4
-    __AddAttachment(swapChain, VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR);
-
-    // For resolve indices if using multisampling
-    __SolveAttachmentReferences();
-
-    // Color attachment resolve
-    VkAttachmentDescription colorAttachmentResolve{};
-    colorAttachmentResolve.format = swapChain->activeSurfaceFormat.format;
-    colorAttachmentResolve.samples = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachmentResolve.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachmentResolve.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-    colorAttachmentResolve.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachmentResolve.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    colorAttachmentResolve.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachmentResolve.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-    // Reference
-    VkAttachmentReference colorAttachmentResolveRef{};
-    colorAttachmentResolveRef.attachment = 5;
-    colorAttachmentResolveRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+    __AddAttachment(swapChain, VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
 
     // Subpasses
     VkSubpassDescription & subpass = __subpassDescriptions.emplace_back();
@@ -487,8 +468,6 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     subpass.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
     subpass.pColorAttachments = __attachmentRefs.data();
     subpass.pDepthStencilAttachment = &__attachmentRefs[4]; // Depth and stencil
-    if (multisampled)
-        subpass.pResolveAttachments = __resolveAttachmentRefs.data(); // Multisampling
     subpass.inputAttachmentCount = 0;
     subpass.pInputAttachments = nullptr; // Input attachments
 
@@ -541,7 +520,7 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
-        vc::Vector<VkImageView> attachments(multisampled ? __attachmentRefs.size() * 2 : __attachmentRefs.size(), VK_NULL_HANDLE);
+        vc::Vector<VkImageView> attachments(__attachmentRefs.size(), VK_NULL_HANDLE);
 
         // Create Depth Image
         __attachments[i].resize(attachments.size());
@@ -571,34 +550,7 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
 
         // Create MultiSampled Image if needed
         if (multisampled) {
-            vc::Texture & resolveColorTexture = __attachments[i][5];
-            VulkanTexture * vkTexture = resolveColorTexture.GetImpl()->As<VulkanTexture>();
-            vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
-            resolveColorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            attachments[0] = vkTexture->GetImageView().GetVkImageView();
-            attachments[5] = swapChain->__swapChainImages[i].GetVkImageView();
-
-            // Create Resolve for every other color attachment
-            // Normal Specular
-            vc::Texture & resolveNormalTexture = __attachments[i][6];
-            resolveNormalTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
-            resolveNormalTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            attachments[6] = resolveNormalTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
-            // Metallic Roughness AO
-            vc::Texture & resolveMetallicRoughnessTexture = __attachments[i][7];
-            resolveMetallicRoughnessTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
-            resolveMetallicRoughnessTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            attachments[7] = resolveMetallicRoughnessTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
-            // Position
-            vc::Texture & resolvePositionTexture = __attachments[i][8];
-            resolvePositionTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
-            resolvePositionTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            attachments[8] = resolvePositionTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
-            // Depth
-            vc::Texture & resolveDepthTexture = __attachments[i][9];
-            resolveDepthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
-            resolveDepthTexture.InitDepthBuffer(swapChain->extent.width, swapChain->extent.height);
-            attachments[9] = resolveDepthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+            attachments[0] = AttachmentsManager::Get()->attachments[i][vc::ColorAttachmentType::Present].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
         } else {
             attachments[0] = swapChain->__swapChainImages[i].GetVkImageView();
         }
@@ -616,7 +568,7 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     return vc::Error::Success;
 }
 
-void RenderPass::__AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp)
+void RenderPass::__AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp, const VkImageLayout initalLayout)
 {
     const bool multisampled = swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
@@ -631,7 +583,7 @@ void RenderPass::__AddAttachment(const SwapChain* swapChain, const VkFormat form
     colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     // Layout of the image before and after the render pass
-    colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    colorAttachment.initialLayout = initalLayout;
     colorAttachment.finalLayout = layout;
 
     VkAttachmentReference & colorAttachmentRef = __attachmentRefs.emplace_back();
