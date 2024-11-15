@@ -13,15 +13,10 @@ struct PSInput {
 };
 
 struct GBufferOutput {
-    float4 baseColor       : SV_Target0; // Base color with optional alpha for opacity or transmission
-    float4 normal          : SV_Target1; // World or view-space normal
-    float4 metallicRoughAo   : SV_Target2; // Metallic and roughness parameters
-    float4 position        : SV_Target3; // Position in world space (or depth if reconstructing later)
-
-    // Extended components
-    float4 specularReflect : SV_Target4; // Specular color and reflectivity
-    float4 emissionColor   : SV_Target5; // Emission color
-    float4 anisoTransClearcoatSheen  : SV_Target6; // Anisotropy and transmission and Clearcoat and sheen for cloth or coated materials
+    float4 baseColor        : SV_Target0; // Base color with optional alpha for opacity or transmission
+    float4 normalSpecular   : SV_Target1; // World or view-space normal
+    float4 metallicRoughAo  : SV_Target2; // Metallic and roughness parameters
+    float4 position         : SV_Target3; // Position in world space (or depth if reconstructing later)
 };
 
 // Materials
@@ -126,7 +121,9 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.baseColor = MaterialComponentGetValue4(MaterialComponentType::DIFFUSE, uv);
 
     // Normal
-    output.normal = MaterialComponentGetValue4(MaterialComponentType::NORMAL, uv);
+    output.normalSpecular.rgb = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv);
+    // Specular
+    output.normalSpecular.w = MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv);
 
     // Metallic (if PBR, then METALLIC otherwise 0)
     if (material.components[MaterialComponentType::METALLIC].valueType != NONE)
@@ -138,50 +135,15 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.metallicRoughAo[1] = MaterialComponentGetValue1(MaterialComponentType::ROUGHNESS, uv);
     else
         output.metallicRoughAo[1] = sqrt(2.0 / (MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv) + 2));
-
-    // Position
-    output.position = float4(input.position.xyz, 1);
-
     // Ambient occlusion
     if (material.components[MaterialComponentType::AMBIENT_OCCLUSION].valueType != NONE)
         output.metallicRoughAo[2] = MaterialComponentGetValue1(MaterialComponentType::AMBIENT_OCCLUSION, uv);
     else
         output.metallicRoughAo[2] = 1.0;
 
-    // Specular reflectivity
-    if (material.components[MaterialComponentType::REFLECTIVITY].valueType != NONE)
-        output.specularReflect = MaterialComponentGetValue4(MaterialComponentType::REFLECTIVITY, uv);
-    else
-        output.specularReflect = float4(0, 0, 0, 0);
+    // Position
+    output.position = float4(input.position.xyz, 1);
 
-    // Emission color
-    if (material.components[MaterialComponentType::EMISSION_COLOR].valueType != NONE)
-        output.emissionColor = MaterialComponentGetValue4(MaterialComponentType::EMISSION_COLOR, uv);
-    else
-        output.emissionColor = float4(0, 0, 0, 0);
-
-    // Anisotropy
-    if (material.components[MaterialComponentType::ANISOTROPY].valueType != NONE)
-        output.anisoTransClearcoatSheen[0] = MaterialComponentGetValue1(MaterialComponentType::ANISOTROPY, uv);
-    else
-        output.anisoTransClearcoatSheen[0] = 0.0;
-
-    // Transmission
-    if (material.components[MaterialComponentType::TRANSMISSION].valueType != NONE)
-        output.anisoTransClearcoatSheen[1] = MaterialComponentGetValue1(MaterialComponentType::TRANSMISSION, uv);
-    else
-        output.anisoTransClearcoatSheen[1] = 0.0;
-
-    // Clearcoat
-    if (material.components[MaterialComponentType::CLEARCOAT].valueType != NONE)
-        output.anisoTransClearcoatSheen[0] = MaterialComponentGetValue1(MaterialComponentType::CLEARCOAT, uv);
-    else
-        output.anisoTransClearcoatSheen[0] = 0.0;
-    // Sheen
-    if (material.components[MaterialComponentType::SHEEN].valueType != NONE)
-        output.anisoTransClearcoatSheen[1] = MaterialComponentGetValue1(MaterialComponentType::SHEEN, uv);
-    else
-        output.anisoTransClearcoatSheen[1] = 0.0;
 
     return output;
 }

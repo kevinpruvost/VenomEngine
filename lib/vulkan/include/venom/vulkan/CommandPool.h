@@ -15,6 +15,8 @@
 
 #include <memory>
 
+#include "plugin/graphics/Texture.h"
+
 namespace venom
 {
 namespace vulkan
@@ -87,6 +89,9 @@ public:
     void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShaderPipeline & pipeline) const;
     void DrawSkybox(const VulkanSkybox * vulkanSkybox, const VulkanShaderPipeline * shader);
 
+    void CopyImage(const Image& image, const Image& getImage);
+    void CopySwapChainImage(const VkImage& image, const Image& getImage);
+    void ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue) const;
     void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
     void TransitionImageLayout(Image& image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);

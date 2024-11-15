@@ -91,7 +91,7 @@ vc::Error VulkanTexture::_InitDepthBuffer(int width, int height)
     return vc::Error::Success;
 }
 
-vc::Error VulkanTexture::_CreateAttachment(int width, int height, vc::ShaderVertexFormat format)
+vc::Error VulkanTexture::_CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format)
 {
     VkFormat vkFormat;
     switch (format) {
@@ -114,10 +114,10 @@ vc::Error VulkanTexture::_CreateAttachment(int width, int height, vc::ShaderVert
 
     if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height) != vc::Error::Success)
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height, imageCount) != vc::Error::Success)
         return vc::Error::Failure;
     if (GetImageView().Create(GetImage().GetVkImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
-        VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
+        VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, imageCount) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
     return vc::Error::Success;

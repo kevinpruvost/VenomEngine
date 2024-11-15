@@ -42,7 +42,7 @@ public:
 
     vc::Error LoadImageFromFile(const char * path);
     vc::Error InitDepthBuffer(int width, int height);
-    vc::Error CreateAttachment(int width, int height, vc::ShaderVertexFormat format);
+    vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format);
     static const TextureImpl * GetDummyTexture();
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
@@ -55,7 +55,7 @@ public:
     inline const float & GetTexturePeakLuminance() const { return __luminance; }
 protected:
     virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
-    virtual vc::Error _CreateAttachment(int width, int height, vc::ShaderVertexFormat format) = 0;
+    virtual vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) = 0;
 private:
     friend class Texture;
     void __CreateDummyTexture();
@@ -73,7 +73,7 @@ public:
 
     inline vc::Error LoadImageFromFile(const char * path) { return _impl->As<TextureImpl>()->LoadImageFromFile(path); }
     inline vc::Error InitDepthBuffer(int width, int height) { return _impl->As<TextureImpl>()->InitDepthBuffer(width, height); }
-    inline vc::Error CreateAttachment(int width, int height, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, format); }
+    inline vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, imageCount, format); }
     inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }

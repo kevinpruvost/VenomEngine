@@ -207,9 +207,9 @@ vc::Error TextureImpl::InitDepthBuffer(int width, int height)
     return _InitDepthBuffer(width, height);
 }
 
-vc::Error TextureImpl::CreateAttachment(int width, int height, vc::ShaderVertexFormat format)
+vc::Error TextureImpl::CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format)
 {
-    return _CreateAttachment(width, height, format);
+    return _CreateAttachment(width, height, imageCount, format);
 }
 }
 }

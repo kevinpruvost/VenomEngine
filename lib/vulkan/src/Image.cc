@@ -116,7 +116,7 @@ vc::Error Image::Load(uint16_t* pixels, int width, int height, int channels, VkF
 }
 
 vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
-                        VkMemoryPropertyFlags properties, uint32_t width, uint32_t height)
+                        VkMemoryPropertyFlags properties, uint32_t width, uint32_t height, uint32_t arrayLayers, uint32_t mipLevels)
 {
     // Image
     __imageInfo.extent.width = static_cast<uint32_t>(width);
@@ -128,6 +128,8 @@ vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags
     // and be usable as a sampled image in a shader
     __imageInfo.usage = usage;
     __imageInfo.sharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
+    __imageInfo.mipLevels = mipLevels;
+    __imageInfo.arrayLayers = arrayLayers;
 
     if (VkResult vkErr = vkCreateImage(LogicalDevice::GetVkDevice(), &__imageInfo, Allocator::GetVKAllocationCallbacks(), &__image); vkErr != VK_SUCCESS) {
         vc::Log::Error("Failed to create image: %d", vkErr);

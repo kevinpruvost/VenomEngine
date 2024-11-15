@@ -180,6 +180,69 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
     vkCmdDraw(_commandBuffer, 6, 1, 0, 0);
 }
 
+void CommandBuffer::CopyImage(const Image& image, const Image& getImage)
+{
+    VkImageCopy region {
+        .srcSubresource = {
+            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .mipLevel = 0,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        },
+        .srcOffset = {0, 0, 0},
+        .dstSubresource = {
+            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .mipLevel = 0,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        },
+        .dstOffset = {0, 0, 0},
+        .extent = {
+            .width = image.GetWidth(),
+            .height = image.GetHeight(),
+            .depth = 1
+        }
+    };
+    vkCmdCopyImage(_commandBuffer, image.GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, getImage.GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+}
+
+void CommandBuffer::CopySwapChainImage(const VkImage& image, const Image& getImage)
+{
+    VkImageCopy region {
+        .srcSubresource = {
+            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .mipLevel = 0,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        },
+        .srcOffset = {0, 0, 0},
+        .dstSubresource = {
+            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .mipLevel = 0,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        },
+        .dstOffset = {0, 0, 0},
+        .extent = {
+            .width = getImage.GetWidth(),
+            .height = getImage.GetHeight(),
+            .depth = 1
+        }
+    };
+    vkCmdCopyImage(_commandBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, getImage.GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+}
+
+void CommandBuffer::ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits,
+                                     VkClearValue vkClearValue) const
+{
+    VkClearAttachment clearAttachment {
+        .aspectMask = vkImageAspectFlagBits,
+        .colorAttachment = i,
+        .clearValue = vkClearValue
+    };
+    vkCmdClearAttachments(_commandBuffer, 1, &clearAttachment, 0, nullptr);
+}
+
 void CommandBuffer::PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
                                   uint32_t size, const void* pValues) const
 {

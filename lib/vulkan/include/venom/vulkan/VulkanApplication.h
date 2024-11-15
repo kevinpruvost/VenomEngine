@@ -53,6 +53,7 @@ public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
     inline const SwapChain * GetSwapChain() const { return &__swapChain; }
     inline const RenderPass * GetRenderPass() const { return &__normalRenderPass; }
+    inline const RenderPass * GetGuiRenderPass() const { return &__normalRenderPass; }
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
     inline const RenderPass * GetHDRRenderPass() const { return &__normalRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __commandBuffers[index]; }
@@ -91,7 +92,7 @@ private:
     MappedQueueFamilies __queueFamilies;
     Surface __surface;
     SwapChain __swapChain;
-    RenderPass __normalRenderPass, __shadowRenderPass;
+    RenderPass __normalRenderPass, __shadowRenderPass, __guiRenderPass;
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
 

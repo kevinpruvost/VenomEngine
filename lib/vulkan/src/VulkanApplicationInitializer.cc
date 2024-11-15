@@ -210,6 +210,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
         .pNext = &descriptorIndexingFeatures
     };
+    VkPhysicalDevicePortabilitySubsetFeaturesKHR portabilityFeatures{};
+    portabilityFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
+    descriptorIndexingFeatures.pNext = &portabilityFeatures;
     __GetPhysicalDeviceFeatures(physicalDeviceFeaturesSupported, descriptorIndexingFeatures, physicalDeviceFeatures2);
     createInfo.pNext = &physicalDeviceFeatures2;
     if (!physicalDeviceFeaturesSupported) {
@@ -257,6 +260,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Create Render Pass
     __normalRenderPass.SetRenderingType(vc::RenderingPipelineType::BasicModel);
     __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::ShadowModel);
+    __guiRenderPass.SetRenderingType(vc::RenderingPipelineType::GUI);
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
         if (renderPass == nullptr) continue;
         if (err = renderPass->InitRenderPass(&__swapChain); err != vc::Error::Success)

@@ -149,7 +149,7 @@ vc::Error VulkanGUI::Initialize()
     initInfo.Queue = QueueManager::GetGraphicsQueue().GetVkQueue();
     //initInfo.PipelineCache = g_PipelineCache;
     initInfo.DescriptorPool = app->GetDescriptorPool()->GetVkDescriptorPool();
-    initInfo.RenderPass = app->GetRenderPass()->GetVkRenderPass();
+    initInfo.RenderPass = app->GetGuiRenderPass()->GetVkRenderPass();
     initInfo.Subpass = 0;
     initInfo.MinImageCount = app->GetSwapChain()->surface->GetCapabilities().minImageCount;
     initInfo.ImageCount = VENOM_MAX_FRAMES_IN_FLIGHT;
@@ -187,7 +187,7 @@ vc::Error VulkanGUI::Reset()
     initInfo.Queue = QueueManager::GetGraphicsQueue().GetVkQueue();
     //initInfo.PipelineCache = g_PipelineCache;
     initInfo.DescriptorPool = app->GetDescriptorPool()->GetVkDescriptorPool();
-    initInfo.RenderPass = app->GetRenderPass()->GetVkRenderPass();
+    initInfo.RenderPass = app->GetGuiRenderPass()->GetVkRenderPass();
     initInfo.Subpass = 0;
     initInfo.MinImageCount = app->GetSwapChain()->surface->GetCapabilities().minImageCount;
     initInfo.ImageCount = VENOM_MAX_FRAMES_IN_FLIGHT;

@@ -44,6 +44,11 @@ vc::Error ImageView::Create(VkImage image, VkFormat format, VkImageAspectFlags a
                             uint32_t baseMipLevel, uint32_t levelCount,
                             uint32_t baseArrayLayer, uint32_t layerCount)
 {
+    if (layerCount > 1) {
+        if (viewType == VK_IMAGE_VIEW_TYPE_1D) viewType = VK_IMAGE_VIEW_TYPE_1D_ARRAY;
+        else if (viewType == VK_IMAGE_VIEW_TYPE_2D) viewType = VK_IMAGE_VIEW_TYPE_2D_ARRAY;
+        else if (viewType == VK_IMAGE_VIEW_TYPE_3D) viewType = VK_IMAGE_VIEW_TYPE_3D;
+    }
     VkImageViewCreateInfo createInfo = {
         .sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
         .image = image,

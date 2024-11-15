@@ -40,6 +40,7 @@ public:
 
     inline int GetSamples() const { return __samples; }
     inline void SetSamples(const int samples) { __samples = samples; }
+    inline const vc::Vector<ImageView> & GetSwapChainImageViews() const { return __swapChainImages; }
 
     /// @brief Inits Swap chain and swap chain image views
     /// @return Error

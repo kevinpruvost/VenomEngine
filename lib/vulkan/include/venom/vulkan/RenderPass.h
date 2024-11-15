@@ -34,14 +34,18 @@ public:
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);
     VkRenderPass GetVkRenderPass() const;
 
+    inline const vc::Vector<VkSubpassDescription> & GetSubpassDescriptions() const { return __subpassDescriptions; }
+    inline const vc::Vector<vc::Vector<vc::Texture>> & GetAttachments() const { return __attachments; }
+
     static RenderPass * GetRenderPass(const vc::RenderingPipelineType type);
     static vc::Vector<RenderPass *> GetRenderPasses();
 
 private:
     vc::Error __CreateNormalRenderPass(const SwapChain * swapChain);
+    vc::Error __CreateGuiRenderPass(const SwapChain * swapChain);
     vc::Error __CreateDeferredShadowRenderPass(const SwapChain * swapChain);
 
-    void __AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout);
+    void __AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp);
     void __SolveAttachmentReferences();
 
 private:
@@ -55,6 +59,10 @@ private:
     vc::Vector<VkAttachmentDescription> __resolveAttachmentDescriptions;
     vc::Vector<VkAttachmentReference> __attachmentRefs;
     vc::Vector<VkAttachmentReference> __resolveAttachmentRefs;
+
+    vc::Vector<VkSubpassDescription> __subpassDescriptions;
+
+    vc::Vector<VkClearValue> __clearValues;
 };
 }
 }

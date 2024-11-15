@@ -14,7 +14,7 @@ namespace common
 enum class RenderingPipelineType
 {
     None = -1,
-    Text2D = 0,
+    GUI = 0,
     Text3D = 1,
     BasicModel = 2,
     ShadowModel = 3,
