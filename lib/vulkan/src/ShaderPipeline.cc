@@ -172,53 +172,6 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
 
     if (_resource->As<VulkanShaderResource>()->shaderDirty == false || _resource->As<VulkanShaderResource>()->shaderStages.empty()) return vc::Error::Success;
 
-    // Input Assembly: Describes how primitives are assembled
-    VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
-    inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-    inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-    // Primitive Restart allows you to break up lines and triangles in the strip topology, to break
-    // up a line strip, you can insert a special index value that tells the GPU to start a new line
-    inputAssembly.primitiveRestartEnable = VK_FALSE;
-
-    VkPipelineViewportStateCreateInfo viewportState{};
-    viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-    viewportState.viewportCount = 1;
-    viewportState.scissorCount = 1;
-
-    // Color blending
-    VkPipelineColorBlendAttachmentState colorBlendAttachment{};
-    colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    colorBlendAttachment.blendEnable = VK_TRUE;
-    colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-    colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
-    colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
-
-    vc::Vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments(RenderPass::GetRenderPass(_renderingPipelineType)->GetSubpassDescriptions()[_renderingPipelineIndex].colorAttachmentCount, colorBlendAttachment);
-
-    VkPipelineColorBlendStateCreateInfo colorBlending{};
-    colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlending.logicOpEnable = VK_FALSE;
-    colorBlending.logicOp = VK_LOGIC_OP_COPY; // Optional
-    colorBlending.attachmentCount = colorBlendAttachments.size();
-    colorBlending.pAttachments = colorBlendAttachments.data();
-    colorBlending.blendConstants[0] = 0.0f; // Optional
-    colorBlending.blendConstants[1] = 0.0f; // Optional
-    colorBlending.blendConstants[2] = 0.0f; // Optional
-    colorBlending.blendConstants[3] = 0.0f; // Optional
-
-    // Dynamic States are to specify which states can be changed without recreating the pipeline
-    std::vector<VkDynamicState> dynamicStates = {
-        VK_DYNAMIC_STATE_VIEWPORT,
-        VK_DYNAMIC_STATE_SCISSOR
-    };
-    VkPipelineDynamicStateCreateInfo dynamicState{};
-    dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-    dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
-    dynamicState.pDynamicStates = dynamicStates.data();
-
     // Push constants
     VkPushConstantRange pushConstantRange{};
     pushConstantRange.offset = 0;
@@ -242,15 +195,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
         vc::Log::Error("Failed to create pipeline layout");
         return vc::Error::Failure;
     }
-
-    // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
-    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
-    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputInfo.vertexAttributeDescriptionCount = _resource->As<VulkanShaderResource>()->attributeDescriptions.size();
-    vertexInputInfo.pVertexAttributeDescriptions = _resource->As<VulkanShaderResource>()->attributeDescriptions.data();
-    vertexInputInfo.vertexBindingDescriptionCount = _resource->As<VulkanShaderResource>()->bindingDescriptions.size();
-    vertexInputInfo.pVertexBindingDescriptions = _resource->As<VulkanShaderResource>()->bindingDescriptions.data();
-
+    
     // Destroying the pipeline if it exists
     if (_resource->As<VulkanShaderResource>()->pipeline != VK_NULL_HANDLE) {
         vkDestroyPipeline(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipeline, Allocator::GetVKAllocationCallbacks());
@@ -260,6 +205,61 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
     // Setting up the pipeline
     if (_resource->As<VulkanShaderResource>()->pipelineType == PipelineType::Graphics)
     {
+        // Input Assembly: Describes how primitives are assembled
+        VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
+        inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+        inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+        // Primitive Restart allows you to break up lines and triangles in the strip topology, to break
+        // up a line strip, you can insert a special index value that tells the GPU to start a new line
+        inputAssembly.primitiveRestartEnable = VK_FALSE;
+
+        VkPipelineViewportStateCreateInfo viewportState{};
+        viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+        viewportState.viewportCount = 1;
+        viewportState.scissorCount = 1;
+
+        // Color blending
+        VkPipelineColorBlendAttachmentState colorBlendAttachment{};
+        colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+        colorBlendAttachment.blendEnable = VK_TRUE;
+        colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+        colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+        colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+        colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+        colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+        colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+
+        vc::Vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments(RenderPass::GetRenderPass(_renderingPipelineType)->GetSubpassDescriptions()[_renderingPipelineIndex].colorAttachmentCount, colorBlendAttachment);
+
+        VkPipelineColorBlendStateCreateInfo colorBlending{};
+        colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+        colorBlending.logicOpEnable = VK_FALSE;
+        colorBlending.logicOp = VK_LOGIC_OP_COPY; // Optional
+        colorBlending.attachmentCount = colorBlendAttachments.size();
+        colorBlending.pAttachments = colorBlendAttachments.data();
+        colorBlending.blendConstants[0] = 0.0f; // Optional
+        colorBlending.blendConstants[1] = 0.0f; // Optional
+        colorBlending.blendConstants[2] = 0.0f; // Optional
+        colorBlending.blendConstants[3] = 0.0f; // Optional
+
+        // Dynamic States are to specify which states can be changed without recreating the pipeline
+        std::vector<VkDynamicState> dynamicStates = {
+            VK_DYNAMIC_STATE_VIEWPORT,
+            VK_DYNAMIC_STATE_SCISSOR
+        };
+        VkPipelineDynamicStateCreateInfo dynamicState{};
+        dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+        dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
+        dynamicState.pDynamicStates = dynamicStates.data();
+        
+        // Vertex Input: Describes the format of the vertex data that will be passed to the vertex shader
+        VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+        vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+        vertexInputInfo.vertexAttributeDescriptionCount = _resource->As<VulkanShaderResource>()->attributeDescriptions.size();
+        vertexInputInfo.pVertexAttributeDescriptions = _resource->As<VulkanShaderResource>()->attributeDescriptions.data();
+        vertexInputInfo.vertexBindingDescriptionCount = _resource->As<VulkanShaderResource>()->bindingDescriptions.size();
+        vertexInputInfo.pVertexBindingDescriptions = _resource->As<VulkanShaderResource>()->bindingDescriptions.data();
+        
         VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
         graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
         graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(_resource->As<VulkanShaderResource>()->shaderStages.size());

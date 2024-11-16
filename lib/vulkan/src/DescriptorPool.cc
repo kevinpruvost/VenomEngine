@@ -44,6 +44,12 @@ void DescriptorSetGroup::GroupUpdateSampler(const Sampler& sampler, uint32_t bin
     GROUP_UPDATE(UpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement));
 }
 
+void DescriptorSetGroup::GroupUpdateImageView(const ImageView& imageView, uint32_t binding,
+    VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    GROUP_UPDATE(UpdateImageView(imageView, binding, descriptorType, descriptorCount, arrayElement));
+}
+
 void DescriptorSetGroup::GroupUpdatePerFrame(int frameIndex, const VkWriteDescriptorSet& write)
 {
     __descriptorSets[frameIndex].Update(write);
@@ -71,6 +77,12 @@ void DescriptorSetGroup::GroupUpdateSamplerPerFrame(int frameIndex, const Sample
     VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
 {
     __descriptorSets[frameIndex].UpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement);
+}
+
+void DescriptorSetGroup::GroupUpdateImageViewPerFrame(int frameIndex, const ImageView& imageView, uint32_t binding,
+    VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement)
+{
+    __descriptorSets[frameIndex].UpdateImageView(imageView, binding, descriptorType, descriptorCount, arrayElement);
 }
 
 DescriptorSetGroupAllocator::DescriptorSetGroupAllocator(std::vector<DescriptorSetGroup>&& sets)

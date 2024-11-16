@@ -36,7 +36,7 @@ vc::Error VulkanApplication::__InitializeSets()
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         if (err = __objectStorageBuffers[i].Init(VENOM_MAX_ENTITIES * sizeof(vcm::Mat4)); err != vc::Error::Success)
             return err;
-        if (err = __cameraUniformBuffers[i].Init(2 * sizeof(vcm::Mat4)); err != vc::Error::Success)
+        if (err = __cameraUniformBuffers[i].Init(2 * sizeof(vcm::Mat4) + sizeof(vcm::Vec3)); err != vc::Error::Success)
             return err;
     }
 
@@ -78,6 +78,13 @@ vc::Error VulkanApplication::__InitializeSets()
 
     // Forward Plus
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_ALL);
+
+    // Input Attachments
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 3, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 4, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 5, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 6, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+
 
     // GUI needs VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT & VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER for fonts
     DescriptorPool::GetPool()->AddPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VENOM_MAX_FRAMES_IN_FLIGHT * 100);
@@ -121,6 +128,18 @@ vc::Error VulkanApplication::__InitializeSets()
             return err;
         DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT).GroupUpdateBuffer(__forwardPlusPropsBuffer[i], 0, 2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
     }
+
+    // Screen Quad for Forward+
+    static vc::Array<vcm::Vec4, 6> screenQuadVertices = {
+        vcm::Vec4{-1.0f, -1.0f, 0.0f, 1.0f},
+        vcm::Vec4{1.0f, -1.0f, 0.0f, 1.0f},
+        vcm::Vec4{1.0f, 1.0f, 0.0f, 1.0f},
+        vcm::Vec4{-1.0f, 1.0f, 0.0f, 1.0f},
+        vcm::Vec4{-1.0f, -1.0f, 0.0f, 1.0f},
+        vcm::Vec4{1.0f, 1.0f, 0.0f, 1.0f},
+    };
+    if (err = __screenQuadVertexBuffer.Init(6, sizeof(vcm::Vec4), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, screenQuadVertices.data()); err != vc::Error::Success)
+        return err;
 
     return err;
 }

@@ -3,6 +3,7 @@
 cbuffer UniformBufferCamera : register(b0, space1) {
     float4x4 view;
     float4x4 proj;
+    float3 cameraPos;
 };
 
 cbuffer cb1 : register(b0, space5) {

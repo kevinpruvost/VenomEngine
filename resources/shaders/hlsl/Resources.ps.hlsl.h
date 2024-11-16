@@ -13,10 +13,11 @@ struct PSInput {
 };
 
 struct GBufferOutput {
-    float4 baseColor        : SV_Target0; // Base color with optional alpha for opacity or transmission
-    float4 normalSpecular   : SV_Target1; // World or view-space normal
-    float4 metallicRoughAo  : SV_Target2; // Metallic and roughness parameters
-    float4 position         : SV_Target3; // Position in world space (or depth if reconstructing later)
+    float4 finalColor       : SV_Target0; // Final color
+    float4 baseColor        : SV_Target1; // Base color with optional alpha for opacity or transmission
+    float4 normalSpecular   : SV_Target2; // World or view-space normal
+    float4 metallicRoughAo  : SV_Target3; // Metallic and roughness parameters
+    float4 position         : SV_Target4; // Position in world space (or depth if reconstructing later)
 };
 
 // Materials
@@ -121,7 +122,11 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.baseColor = MaterialComponentGetValue4(MaterialComponentType::DIFFUSE, uv);
 
     // Normal
-    output.normalSpecular.rgb = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv);
+    if (material.components[MaterialComponentType::NORMAL].valueType != NONE)
+        output.normalSpecular.rgb = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv);
+    else
+        output.normalSpecular.rgb = float3(1, 1, 1);
+    output.normalSpecular.rgb = input.normal;
     // Specular
     output.normalSpecular.w = MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv);
 
@@ -145,7 +150,7 @@ GBufferOutput ComputeMaterialColor(PSInput input)
 
     // Position
     output.position = float4(input.position.xyz, 1);
-
+    output.finalColor = output.baseColor;
 
     return output;
 }

@@ -271,7 +271,6 @@ vc::Error ModelImpl::ImportModel(const char * path)
         mesh._impl->As<MeshImpl>()->_positions.reserve(aimesh->mNumVertices);
         mesh._impl->As<MeshImpl>()->_normals.reserve(aimesh->mNumVertices);
 
-
         // Find the bounding box for normalization
         glm::vec3 minVertex(FLT_MAX);
         glm::vec3 maxVertex(-FLT_MAX);

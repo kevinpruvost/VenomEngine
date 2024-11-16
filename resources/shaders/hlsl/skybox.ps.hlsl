@@ -26,10 +26,6 @@ float4 main(PanoramInput input) : SV_Target {
     uint width, height;
     panoramaTexture.GetDimensions(width, height);
 
-    // Precomputed Gaussian weights and offsets
-    static const float offset[3] = { 0.0, 1.3846153846, 3.2307692308 };
-    static const float weight[3] = { 0.2270270270, 0.3162162162, 0.0702702703 };
-
     // TODO: Optimize Gaussian Blur because it is VERY SLOW
 
     // Calculate texel size for sampling offsets

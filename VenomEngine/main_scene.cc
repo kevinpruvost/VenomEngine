@@ -37,10 +37,10 @@ void Scene()
 
     vc::Entity light1 = vc::CreateEntity("light1")
         .emplace<vc::Light>();
-    light1.get_mut<vc::Light>()->SetType(vc::LightType::Point);
+    light1.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
     light1.get_mut<vc::Light>()->SetPosition({6.0f, 10.0f, 2.0f});
-    light1.get_mut<vc::Light>()->SetColor({1.0f, 1.0f, 1.0f});
+    light1.get_mut<vc::Light>()->SetColor({0.0f, 1.0f, 0.0f});
     light1.get_mut<vc::Light>()->SetIntensity(10.0f);
 
-    vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
+    //vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
 }

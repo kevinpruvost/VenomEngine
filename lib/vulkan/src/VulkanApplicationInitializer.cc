@@ -258,6 +258,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Get Present Queue
     __presentQueue = QueueManager::GetPresentQueue();
 
+    // Init descriptor sets parameters
+    if (err = __InitializeSets(); err != vc::Error::Success)
+        return err;
+
     // Create Render Pass
     __normalRenderPass.SetRenderingType(vc::RenderingPipelineType::BasicModel);
     __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::ShadowModel);
@@ -282,10 +286,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         if (err = computeCommandPool->CreateCommandBuffer(&__computeCommandBuffers[i]); err != vc::Error::Success)
             return err;
     }
-
-    // Init descriptor sets parameters
-    if (err = __InitializeSets(); err != vc::Error::Success)
-        return err;
 
     // Create Sampler
     __sampler.SetCreateInfo({

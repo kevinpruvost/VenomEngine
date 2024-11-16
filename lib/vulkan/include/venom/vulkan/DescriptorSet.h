@@ -33,6 +33,7 @@ public:
     void UpdateBuffer(StorageBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void UpdateTexture(const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void UpdateSampler(const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
+    void UpdateImageView(const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
 
     const VkDescriptorSet & GetVkDescriptorSet() const;
     const VkDescriptorSet * GetVkDescriptorSetPtr() const;

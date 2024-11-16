@@ -8,6 +8,7 @@
 #include <venom/vulkan/RenderPass.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/DescriptorPool.h>
 
 namespace venom::vulkan
 {
@@ -456,15 +457,17 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
 {
     const bool multisampled = swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
-    // Color Attachment : 0
+    // Final Attachment : 0
     __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-    // Normal Attachment & specular : 1
+    // Color Attachment : 1
+    __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    // Normal Attachment & specular : 2
     __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
-    // Metallic Roughness AO Attachment : 2
+    // Metallic Roughness AO Attachment : 3
     __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
-    // Position Attachment : 3
+    // Position Attachment : 4
     __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
-    // Depth Attachment : 4
+    // Depth Attachment : 5
     __AddAttachment(swapChain, VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
 
     // 3 Subpasses for Forward+ Rendering
@@ -473,21 +476,27 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     subpassGBuffer.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpassGBuffer.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
     subpassGBuffer.pColorAttachments = __attachmentRefs.data();
-    subpassGBuffer.pDepthStencilAttachment = &__attachmentRefs[4]; // Depth and stencil
+    subpassGBuffer.pDepthStencilAttachment = &__attachmentRefs[5]; // Depth and stencil
     subpassGBuffer.inputAttachmentCount = 0;
     subpassGBuffer.pInputAttachments = nullptr; // Input attachments
     subpassGBuffer.preserveAttachmentCount = 0;
     subpassGBuffer.pPreserveAttachments = nullptr;
     subpassGBuffer.pResolveAttachments = nullptr;
 
+    vc::Vector<VkAttachmentReference> lightingAttachmentDescriptions;
+    lightingAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingAttachmentDescriptions.emplace_back(3, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingAttachmentDescriptions.emplace_back(4, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+
     VkSubpassDescription & subpassLighting = __subpassDescriptions.emplace_back();
     subpassLighting.flags = 0;
     subpassLighting.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    subpassLighting.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
+    subpassLighting.colorAttachmentCount = 1;
     subpassLighting.pColorAttachments = __attachmentRefs.data();
-    subpassLighting.pDepthStencilAttachment = &__attachmentRefs[4]; // Depth and stencil
-    subpassLighting.inputAttachmentCount = 0;
-    subpassLighting.pInputAttachments = nullptr; // Input attachments
+    subpassLighting.pDepthStencilAttachment = &__attachmentRefs[5]; // Depth and stencil
+    subpassLighting.inputAttachmentCount = static_cast<uint32_t>(lightingAttachmentDescriptions.size());
+    subpassLighting.pInputAttachments = lightingAttachmentDescriptions.data(); // Input attachments
     subpassLighting.preserveAttachmentCount = 0;
     subpassLighting.pPreserveAttachments = nullptr;
     subpassLighting.pResolveAttachments = nullptr;
@@ -501,8 +510,18 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
     dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
 
+    // Subpass dependencies
+    VkSubpassDependency dependencyGBufferToLighting{};
+    dependencyGBufferToLighting.srcSubpass = 0; // GBuffer subpass
+    dependencyGBufferToLighting.dstSubpass = 1; // Lighting subpass
+    dependencyGBufferToLighting.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    dependencyGBufferToLighting.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+    dependencyGBufferToLighting.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    dependencyGBufferToLighting.dstAccessMask = VK_ACCESS_INPUT_ATTACHMENT_READ_BIT;
+    dependencyGBufferToLighting.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
     // Dependencies
-    vc::Vector<VkSubpassDependency> dependencies = {dependency};
+    vc::Vector<VkSubpassDependency> dependencies = {dependency, dependencyGBufferToLighting};
 
     // Create Info
     VkRenderPassCreateInfo renderPassInfo{};
@@ -522,6 +541,8 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     }
 
     // Clear Values
+    // Final color
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
     // Base color
     __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
     // Normal Specular
@@ -544,29 +565,35 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
 
         // Create Depth Image
         __attachments[i].resize(attachments.size());
-        vc::Texture & depthTexture = __attachments[i][4];
+        vc::Texture & depthTexture = __attachments[i][5];
         depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
         depthTexture.InitDepthBuffer(swapChain->extent.width, swapChain->extent.height);
 
-        attachments[4] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+        attachments[5] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+
+        // Create Base Color Image
+        vc::Texture & colorTexture = __attachments[i][1];
+        colorTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
+        colorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
+        attachments[1] = colorTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
         // Create Normal Specular Image
-        vc::Texture & normalTexture = __attachments[i][1];
+        vc::Texture & normalTexture = __attachments[i][2];
         normalTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
         normalTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-        attachments[1] = normalTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+        attachments[2] = normalTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
         // Create Metallic Roughness Image and AO
-        vc::Texture & metallicRoughnessTexture = __attachments[i][2];
+        vc::Texture & metallicRoughnessTexture = __attachments[i][3];
         metallicRoughnessTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
         metallicRoughnessTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-        attachments[2] = metallicRoughnessTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+        attachments[3] = metallicRoughnessTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
         // Create Position Image
-        vc::Texture & positionTexture = __attachments[i][3];
+        vc::Texture & positionTexture = __attachments[i][4];
         positionTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
         positionTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-        attachments[3] = positionTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+        attachments[4] = positionTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
         // Create MultiSampled Image if needed
         if (multisampled) {
@@ -583,6 +610,14 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
         if (__framebuffers[i].Init() != vc::Error::Success) {
             vc::Log::Error("Failed to create framebuffer");
             return vc::Error::Failure;
+        }
+    }
+
+    // Now linking the input attachments to the descriptor sets
+    for (int i = 0; i < framebufferCount; ++i) {
+        for (int x = 0; x < 4; ++x) {
+            DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT)
+                .GroupUpdateImageViewPerFrame(i, __attachments[i][x+1].GetImpl()->As<VulkanTexture>()->GetImageView(), x+3, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1);
         }
     }
     return vc::Error::Success;

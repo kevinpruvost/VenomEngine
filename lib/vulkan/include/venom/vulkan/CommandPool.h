@@ -85,6 +85,7 @@ public:
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;
+    void DrawVertices(const VertexBuffer & vertexBuffer) const;
     void DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShaderPipeline & pipeline) const;
     void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShaderPipeline & pipeline) const;
     void DrawSkybox(const VulkanSkybox * vulkanSkybox, const VulkanShaderPipeline * shader);

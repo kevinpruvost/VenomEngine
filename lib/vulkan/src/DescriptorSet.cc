@@ -115,6 +115,28 @@ void DescriptorSet::UpdateSampler(const Sampler& sampler, uint32_t binding, VkDe
     Update(write);
 }
 
+void DescriptorSet::UpdateImageView(const ImageView& imageView, uint32_t binding, VkDescriptorType descriptorType,
+    uint32_t descriptorCount, uint32_t arrayElement)
+{
+    VkDescriptorImageInfo imageInfo = {
+        .imageView = imageView.GetVkImageView(),
+        .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+    };
+
+    VkWriteDescriptorSet write = {
+        .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
+        .pNext = nullptr,
+        .dstSet = __set,
+        .dstBinding = binding,
+        .dstArrayElement = arrayElement,
+        .descriptorCount = descriptorCount,
+        .descriptorType = descriptorType,
+        .pImageInfo = &imageInfo
+    };
+
+    Update(write);
+}
+
 const VkDescriptorSet & DescriptorSet::GetVkDescriptorSet() const
 {
     return __set;

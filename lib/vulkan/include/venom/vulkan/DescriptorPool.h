@@ -31,11 +31,13 @@ public:
     void GroupUpdateBuffer(StorageBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void GroupUpdateTexture(const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void GroupUpdateSampler(const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
+    void GroupUpdateImageView(const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void GroupUpdatePerFrame(int frameIndex, const VkWriteDescriptorSet &write);
     void GroupUpdateBufferPerFrame(int frameIndex, UniformBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void GroupUpdateBufferPerFrame(int frameIndex, StorageBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void GroupUpdateTexturePerFrame(int frameIndex, const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
     void GroupUpdateSamplerPerFrame(int frameIndex, const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
+    void GroupUpdateImageViewPerFrame(int frameIndex, const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
 
     inline DescriptorSet & operator[](const uint32_t index) { return __descriptorSets[index]; }
     inline DescriptorSet & GetCurrentSet() { return __descriptorSets[vc::GraphicsApplication::GetCurrentFrame()]; }
@@ -59,11 +61,13 @@ public:
     inline void GroupUpdateBuffer(StorageBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateTexture(const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateTexture(texture, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateSampler(const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement)); }
+    inline void GroupUpdateImageView(const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateImageView(imageView, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdatePerFrame(int frameIndex, const VkWriteDescriptorSet &write) { DSGA_GROUP_UPDATE(GroupUpdatePerFrame(frameIndex, write)); }
     inline void GroupUpdateBufferPerFrame(int frameIndex, UniformBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateBufferPerFrame(frameIndex, buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateBufferPerFrame(int frameIndex, StorageBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateBufferPerFrame(frameIndex, buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateTexturePerFrame(int frameIndex, const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateTexturePerFrame(frameIndex, texture, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateSamplerPerFrame(int frameIndex, const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateSamplerPerFrame(frameIndex, sampler, binding, descriptorType, descriptorCount, arrayElement)); }
+    inline void GroupUpdateImageViewPerFrame(int frameIndex, const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateImageViewPerFrame(frameIndex, imageView, binding, descriptorType, descriptorCount, arrayElement)); }
 
     inline DescriptorSetGroup & operator[](const uint32_t index) { return __descriptorSetGroups[index]; }
     inline size_t size() const { return __descriptorSetGroups.size(); }

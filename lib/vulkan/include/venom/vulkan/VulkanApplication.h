@@ -105,6 +105,8 @@ private:
     UniformBuffer __lightCountBuffer;
     StorageBuffer __forwardPlusPropsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
 
+    VertexBuffer __screenQuadVertexBuffer;
+
     Queue __graphicsQueue, __presentQueue;
 
     bool __shouldClose;

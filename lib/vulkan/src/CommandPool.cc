@@ -117,6 +117,13 @@ void CommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount,
     vkCmdDraw(_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
+void CommandBuffer::DrawVertices(const VertexBuffer& vertexBuffer) const
+{
+    static VkDeviceSize offsets[] = {0};
+    vkCmdBindVertexBuffers(_commandBuffer, 0, 1, vertexBuffer.GetVkBufferPtr(), offsets);
+    vkCmdDraw(_commandBuffer, vertexBuffer.GetVertexCount(), 1, 0, 0);
+}
+
 void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInstance, const VulkanShaderPipeline & pipeline) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
@@ -315,6 +322,9 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
         } else if (newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
             barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
             destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        } else if (newLayout == VK_IMAGE_LAYOUT_GENERAL) {
+            barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
+            destinationStage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
         } else {
             goto unsupported_layout;
         }
