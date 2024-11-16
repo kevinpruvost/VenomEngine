@@ -21,12 +21,16 @@ float4 main(PanoramInput input) : SV_Target {
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;        // Vertical, inclination
 
-    // TODO: IMPLEMENT AUTO EXPOSURE
-
     // Box Blur
     // Get texture dimensions
     uint width, height;
     panoramaTexture.GetDimensions(width, height);
+
+    // Precomputed Gaussian weights and offsets
+    static const float offset[3] = { 0.0, 1.3846153846, 3.2307692308 };
+    static const float weight[3] = { 0.2270270270, 0.3162162162, 0.0702702703 };
+
+    // TODO: Optimize Gaussian Blur because it is VERY SLOW
 
     // Calculate texel size for sampling offsets
     float2 texelSize = float2(1.0 / width, 1.0 / height);
@@ -35,7 +39,7 @@ float4 main(PanoramInput input) : SV_Target {
     float weightSum = 0.0;
 
     // Parameters for Gaussian kernel
-    const int radius = 10;
+    const int radius = 4;
     const float sigma = 4.0; // Adjust sigma based on desired blur
 
     // Precompute constants for Gaussian function

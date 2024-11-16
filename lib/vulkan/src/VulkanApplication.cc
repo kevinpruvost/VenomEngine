@@ -8,6 +8,7 @@
 #include <venom/vulkan/VulkanApplication.h>
 
 #include <array>
+#include <thread>
 #include <vector>
 
 #include <venom/vulkan/LogicalDevice.h>
@@ -156,7 +157,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
         VkSubmitInfo submitInfo{};
         submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
         VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[_currentFrame].GetSemaphore()};
-        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
         submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
         submitInfo.pWaitSemaphores = waitSemaphores;
         submitInfo.pWaitDstStageMask = waitStages;
@@ -169,7 +170,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
             __framebufferChanged = false;
             return __RecreateSwapChain();
         } else if (result != VK_SUCCESS) {
@@ -220,8 +221,8 @@ vc::Error VulkanApplication::__GraphicsOperations()
         // Synchronization between the image being presented and the image being rendered
         VkSubmitInfo submitInfo{};
         submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-        VkSemaphore waitSemaphores[] = {__graphicsFirstCheckpointSemaphores[_currentFrame].GetSemaphore(), __computeShadersFinishedSemaphores[_currentFrame].GetSemaphore()};
-        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+        VkSemaphore waitSemaphores[] = {__graphicsFirstCheckpointSemaphores[_currentFrame].GetSemaphore()};//, __computeShadersFinishedSemaphores[_currentFrame].GetSemaphore()};
+        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
         submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
         submitInfo.pWaitSemaphores = waitSemaphores;
         submitInfo.pWaitDstStageMask = waitStages;
@@ -233,7 +234,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
             __framebufferChanged = false;
             return __RecreateSwapChain();
         } else if (result != VK_SUCCESS) {
@@ -271,7 +272,7 @@ vc::Error VulkanApplication::__ComputeOperations()
         DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__computeCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_COMPUTE);
         DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, *__computeCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_COMPUTE);
         DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *__computeCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_COMPUTE);
-        __computeCommandBuffers[_currentFrame]->Dispatch(1, 1, 1);
+        //__computeCommandBuffers[_currentFrame]->Dispatch(1, 1, 1);
 
     if (err = __computeCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
         return err;
@@ -309,7 +310,7 @@ vc::Error VulkanApplication::__DrawFrame()
     });
     // Wait for the fence to be signaled
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
-    vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
+    //vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 
     // Debug Compute Shaders
 #ifdef VENOM_DEBUG
@@ -336,8 +337,8 @@ vc::Error VulkanApplication::__DrawFrame()
     __graphicsSecondCheckpointCommandBuffers[_currentFrame]->Reset(0);
     __computeCommandBuffers[_currentFrame]->Reset(0);
 
-    if (err = __ComputeOperations(); err != vc::Error::Success)
-        return err;
+    // if (err = __ComputeOperations(); err != vc::Error::Success)
+    //     return err;
     if (err = __GraphicsOperations(); err != vc::Error::Success)
         return err;
 
