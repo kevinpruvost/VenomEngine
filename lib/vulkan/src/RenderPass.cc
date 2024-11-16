@@ -154,6 +154,11 @@ vc::Error RenderPass::BeginRenderPass(SwapChain* swapChain, CommandBuffer* comma
     return vc::Error::Success;
 }
 
+void RenderPass::NextSubpass(CommandBuffer* commandBuffer)
+{
+    vkCmdNextSubpass(commandBuffer->_commandBuffer, VK_SUBPASS_CONTENTS_INLINE);
+}
+
 vc::Error RenderPass::EndRenderPass(CommandBuffer* commandBuffer)
 {
     vkCmdEndRenderPass(commandBuffer->_commandBuffer);
@@ -462,14 +467,30 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     // Depth Attachment : 4
     __AddAttachment(swapChain, VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
 
-    // Subpasses
-    VkSubpassDescription & subpass = __subpassDescriptions.emplace_back();
-    subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    subpass.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
-    subpass.pColorAttachments = __attachmentRefs.data();
-    subpass.pDepthStencilAttachment = &__attachmentRefs[4]; // Depth and stencil
-    subpass.inputAttachmentCount = 0;
-    subpass.pInputAttachments = nullptr; // Input attachments
+    // 3 Subpasses for Forward+ Rendering
+    VkSubpassDescription & subpassGBuffer = __subpassDescriptions.emplace_back();
+    subpassGBuffer.flags = 0;
+    subpassGBuffer.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    subpassGBuffer.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
+    subpassGBuffer.pColorAttachments = __attachmentRefs.data();
+    subpassGBuffer.pDepthStencilAttachment = &__attachmentRefs[4]; // Depth and stencil
+    subpassGBuffer.inputAttachmentCount = 0;
+    subpassGBuffer.pInputAttachments = nullptr; // Input attachments
+    subpassGBuffer.preserveAttachmentCount = 0;
+    subpassGBuffer.pPreserveAttachments = nullptr;
+    subpassGBuffer.pResolveAttachments = nullptr;
+
+    VkSubpassDescription & subpassLighting = __subpassDescriptions.emplace_back();
+    subpassLighting.flags = 0;
+    subpassLighting.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    subpassLighting.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
+    subpassLighting.pColorAttachments = __attachmentRefs.data();
+    subpassLighting.pDepthStencilAttachment = &__attachmentRefs[4]; // Depth and stencil
+    subpassLighting.inputAttachmentCount = 0;
+    subpassLighting.pInputAttachments = nullptr; // Input attachments
+    subpassLighting.preserveAttachmentCount = 0;
+    subpassLighting.pPreserveAttachments = nullptr;
+    subpassLighting.pResolveAttachments = nullptr;
 
     // Subpass dependencies
     VkSubpassDependency dependency{};
@@ -511,7 +532,6 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
     // Depth
     __clearValues.emplace_back(VkClearValue{.depthStencil= {1.0f, 0}});
-
 
     // Framebuffers
     const size_t framebufferCount = swapChain->swapChainImageHandles.size();

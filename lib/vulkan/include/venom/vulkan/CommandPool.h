@@ -89,6 +89,19 @@ public:
     void DrawModel(const VulkanModel * vulkanModel, const int firstInstance, const VulkanShaderPipeline & pipeline) const;
     void DrawSkybox(const VulkanSkybox * vulkanSkybox, const VulkanShaderPipeline * shader);
 
+    inline void Dispatch(uint32_t groupX, uint32_t groupY, uint32_t groupZ) const { vkCmdDispatch(_commandBuffer, groupX, groupY, groupZ); }
+    inline void PipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags,
+        uint32_t memoryBarrierCount, const VkMemoryBarrier * pMemoryBarriers,
+        uint32_t bufferMemoryBarrierCount, const VkBufferMemoryBarrier * pBufferMemoryBarriers,
+        uint32_t imageMemoryBarrierCount, const VkImageMemoryBarrier * pImageMemoryBarriers) const
+    {
+        vkCmdPipelineBarrier(_commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+    }
+    inline void PipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) const
+    {
+        vkCmdPipelineBarrier(_commandBuffer, srcStageMask, dstStageMask, dependencyFlags, 0, nullptr, 0, nullptr, 0, nullptr);
+    }
+
     void CopyImage(const Image& image, const Image& getImage);
     void CopySwapChainImage(const VkImage& image, const Image& getImage);
     void ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue) const;

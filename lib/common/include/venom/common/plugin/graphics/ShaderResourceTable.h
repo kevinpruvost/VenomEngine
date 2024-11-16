@@ -40,6 +40,7 @@ public:
         SETS_INDEX_MATERIAL = 4,
         SETS_INDEX_SCENE = 5,
         SETS_INDEX_PANORAMA = 6,
+        SETS_INDEX_LIGHT = 7,
     };
 
     class Descriptor

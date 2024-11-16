@@ -24,6 +24,7 @@
 #include "venom/common/ECS.h"
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
+#include "venom/common/Light.h"
 #include "venom/common/plugin/graphics/GUI.h"
 #include "venom/common/plugin/graphics/RenderingPipeline.h"
 
@@ -113,109 +114,134 @@ void VulkanApplication::__UpdateUniformBuffers()
     // View and Projection
     __cameraUniformBuffers[_currentFrame].WriteToBuffer(viewAndProj, sizeof(viewAndProj));
     // Push Constants (model)
-    // __commandBuffers[_currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
+    // __graphicsFirstCheckpointCommandBuffers[_currentFrame]->PushConstants(&__shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(vcm::Mat4), &model);
+
+    // Lights
+    static vc::Array<vc::LightShaderStruct, VENOM_MAX_LIGHTS> lightShaderStructs;
+    const auto & lights = vc::LightManager::GetLights();
+    for (int i = 0; i < lights.size(); ++i) {
+        lightShaderStructs[i] = lights[i]->GetShaderStruct();
+    }
+    __lightsBuffer.WriteToBuffer(lightShaderStructs.data(), sizeof(vc::LightShaderStruct) * lightShaderStructs.size());
+    uint32_t lightCount = lights.size();
+    __lightCountBuffer.WriteToBuffer(&lightCount, sizeof(uint32_t));
 }
 
-vc::Error VulkanApplication::__DrawFrame()
+vc::Error VulkanApplication::__GraphicsOperations()
 {
-    // Draw image
-    vc::ECS::GetECS()->ForEach<vc::Model>([&](vc::Entity entity, vc::Model & model)
-    {
-        for (auto & mesh : model.GetImpl()->As<VulkanModel>()->GetMeshes())
-            mesh.GetMaterial().GetImpl()->ConstAs<VulkanMaterial>()->GetMaterialDescriptorSet();
-    });
-    // Wait for the fence to be signaled
-    vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __inFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
-
-    uint32_t imageIndex;
-    VkResult result = vkAcquireNextImageKHR(LogicalDevice::GetVkDevice(), __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[_currentFrame].GetSemaphore(), VK_NULL_HANDLE, &imageIndex);
-    if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
-        __framebufferChanged = false;
-        vc::Log::Print("Recreating swap chain");
-        return __RecreateSwapChain();
-    } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
-        vc::Log::Error("Failed to acquire swap chain image");
-        return vc::Error::Failure;
-    }
-
-    // If we reset before, then it will wait endlessly as no work is done
-    vkResetFences(LogicalDevice::GetVkDevice(), 1, __inFlightFences[_currentFrame].GetFence());
-    __commandBuffers[_currentFrame]->Reset(0);
-
-    if (auto err = __commandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
+    if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
-        __commandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
-        __commandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
-        //__descriptorSets[_currentFrame].UpdateTexture(reinterpret_cast<const VulkanTexture*>(__texture), 2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
-        //__commandBuffers[_currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, __shaderPipeline.GetPipelineLayout(), 0, 1, __descriptorSets[_currentFrame].GetVkDescriptorSet());
+        __graphicsFirstCheckpointCommandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
+        __graphicsFirstCheckpointCommandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
 
         // Update Uniform Buffers
         __UpdateUniformBuffers();
 
         // Draw Skybox
-        __normalRenderPass.BeginRenderPass(&__swapChain, __commandBuffers[_currentFrame], imageIndex);
-        vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
-        {
-            const auto & shaders = pipeline.GetRenderingPipelineCache();
-            shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
-            __commandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
-        });
-        __normalRenderPass.EndRenderPass(__commandBuffers[_currentFrame]);
+        __normalRenderPass.BeginRenderPass(&__swapChain, __graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
+            vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
+            {
+                const auto & shaders = pipeline.GetRenderingPipelineCache();
+                shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
+                __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
+            });
+        __normalRenderPass.EndRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame]);
 
-        __shadowRenderPass.BeginRenderPass(&__swapChain, __commandBuffers[_currentFrame], imageIndex);
-        // Draw Shadow Models
+    if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
+        return err;
+
+    {
+        // Synchronization between the image being presented and the image being rendered
+        VkSubmitInfo submitInfo{};
+        submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+        VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[_currentFrame].GetSemaphore()};
+        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+        submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
+        submitInfo.pWaitSemaphores = waitSemaphores;
+        submitInfo.pWaitDstStageMask = waitStages;
+        submitInfo.commandBufferCount = 1;
+        VkCommandBuffer commandBuffers[] = {__graphicsFirstCheckpointCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
+        submitInfo.pCommandBuffers = commandBuffers;
+        VkSemaphore signalSemaphores[] = {__graphicsFirstCheckpointSemaphores[_currentFrame].GetSemaphore()};
+        submitInfo.signalSemaphoreCount = 1;
+        submitInfo.pSignalSemaphores = signalSemaphores;
+
+        VkResult result;
+        vc::Timer theoreticalFpsCounter;
+        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+            __framebufferChanged = false;
+            return __RecreateSwapChain();
+        } else if (result != VK_SUCCESS) {
+            vc::Log::Error("Failed to submit draw command buffer");
+            return vc::Error::Failure;
+        }
+    }
+
+    if (auto err = __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
+        return err;
+
+        __graphicsSecondCheckpointCommandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
+        __graphicsSecondCheckpointCommandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
+
+        // Draw Shadowed Models (Forward+)
         const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::ShadowModel);
-        for (const auto & shader : shadowRenderingPipeline) {
-            if (!__commandBuffers[_currentFrame]->BindPipeline(shader.GetImpl()->As<VulkanShaderPipeline>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS)) {
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MODEL_MATRICES, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *__commandBuffers[_currentFrame], *shader.GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
-            }
+        __shadowRenderPass.BeginRenderPass(&__swapChain, __graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
+            // Draw Shadow Models
+            // Second pass : Geometry pass
+            __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MODEL_MATRICES, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
             vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
             {
                 int index;
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+            #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
                 index = transform.GetModelMatrixId();
-#endif
-                __commandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shader.GetImpl()->As<VulkanShaderPipeline>());
+            #endif
+                __graphicsSecondCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
             });
-        }
-        __shadowRenderPass.EndRenderPass(__commandBuffers[_currentFrame]);
+
+            // Execute Compute Shader
+            __shadowRenderPass.NextSubpass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
+
+        __shadowRenderPass.EndRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
 
         // Draw GUI
-        __guiRenderPass.BeginRenderPass(&__swapChain, __commandBuffers[_currentFrame], imageIndex);
-        _gui->Render();
-        __guiRenderPass.EndRenderPass(__commandBuffers[_currentFrame]);
+        __guiRenderPass.BeginRenderPass(&__swapChain, __graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
+            _gui->Render();
+        __guiRenderPass.EndRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
 
-    if (auto err = __commandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
+    if (auto err = __graphicsSecondCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
         return err;
 
-    // Synchronization between the image being presented and the image being rendered
-    VkSubmitInfo submitInfo{};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-
-    VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[_currentFrame].GetSemaphore()};
-    VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-    submitInfo.waitSemaphoreCount = 1;
-    submitInfo.pWaitSemaphores = waitSemaphores;
-    submitInfo.pWaitDstStageMask = waitStages;
-    submitInfo.commandBufferCount = 1;
-    VkCommandBuffer commandBuffers[] = {__commandBuffers[_currentFrame]->GetVkCommandBuffer()};
-    submitInfo.pCommandBuffers = commandBuffers;
     VkSemaphore signalSemaphores[] = {__renderFinishedSemaphores[_currentFrame].GetSemaphore()};
-    submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = signalSemaphores;
+    {
+        // Synchronization between the image being presented and the image being rendered
+        VkSubmitInfo submitInfo{};
+        submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+        VkSemaphore waitSemaphores[] = {__graphicsFirstCheckpointSemaphores[_currentFrame].GetSemaphore(), __computeShadersFinishedSemaphores[_currentFrame].GetSemaphore()};
+        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+        submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
+        submitInfo.pWaitSemaphores = waitSemaphores;
+        submitInfo.pWaitDstStageMask = waitStages;
+        submitInfo.commandBufferCount = 1;
+        VkCommandBuffer commandBuffers[] = {__graphicsSecondCheckpointCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
+        submitInfo.pCommandBuffers = commandBuffers;
+        submitInfo.signalSemaphoreCount = 1;
+        submitInfo.pSignalSemaphores = signalSemaphores;
 
-    vc::Timer theoreticalFpsCounter;
-    if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__inFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
-        __framebufferChanged = false;
-        return __RecreateSwapChain();
-    } else if (result != VK_SUCCESS) {
-        vc::Log::Error("Failed to submit draw command buffer");
-        return vc::Error::Failure;
+        VkResult result;
+        vc::Timer theoreticalFpsCounter;
+        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+            __framebufferChanged = false;
+            return __RecreateSwapChain();
+        } else if (result != VK_SUCCESS) {
+            vc::Log::Error("Failed to submit draw command buffer");
+            return vc::Error::Failure;
+        }
+        _UpdateTheoreticalFPS(theoreticalFpsCounter.GetMicroSeconds());
     }
-    _UpdateTheoreticalFPS(theoreticalFpsCounter.GetMicroSeconds());
 
     VkPresentInfoKHR presentInfo{};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
@@ -227,9 +253,93 @@ vc::Error VulkanApplication::__DrawFrame()
     presentInfo.swapchainCount = 1;
     presentInfo.pSwapchains = swapChains;
 
-    presentInfo.pImageIndices = &imageIndex;
+    presentInfo.pImageIndices = &__imageIndex;
 
     vkQueuePresentKHR(__presentQueue.GetVkQueue(), &presentInfo);
+    return vc::Error::Success;
+}
+
+vc::Error VulkanApplication::__ComputeOperations()
+{
+    vc::Error err;
+    if (err = __computeCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
+        return err;
+
+        const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::ShadowModel);
+        // First pass : Light Culling
+        __computeCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>()->GetPipeline(), VK_PIPELINE_BIND_POINT_COMPUTE);
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__computeCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_COMPUTE);
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, *__computeCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_COMPUTE);
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *__computeCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_COMPUTE);
+        __computeCommandBuffers[_currentFrame]->Dispatch(1, 1, 1);
+
+    if (err = __computeCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
+        return err;
+
+    // Synchronization between the image being presented and the image being rendered
+    VkSubmitInfo submitInfo{};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.waitSemaphoreCount = 0;
+    submitInfo.pWaitSemaphores = nullptr;
+    submitInfo.pWaitDstStageMask = nullptr;
+    submitInfo.commandBufferCount = 1;
+    VkCommandBuffer commandBuffers[] = {__computeCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
+    submitInfo.pCommandBuffers = commandBuffers;
+    VkSemaphore signalSemaphores[] = {__computeShadersFinishedSemaphores[_currentFrame].GetSemaphore()};
+    submitInfo.signalSemaphoreCount = 1;
+    submitInfo.pSignalSemaphores = signalSemaphores;
+
+    VkResult result;
+    if (result = vkQueueSubmit(QueueManager::GetComputeQueue().GetVkQueue(), 1, &submitInfo, *__computeInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+        vc::Log::Error("Error: %d", result);
+        return vc::Error::Failure;
+    }
+
+    return vc::Error::Success;
+}
+
+vc::Error VulkanApplication::__DrawFrame()
+{
+    vc::Error err;
+    // Draw image
+    vc::ECS::GetECS()->ForEach<vc::Model>([&](vc::Entity entity, vc::Model & model)
+    {
+        for (auto & mesh : model.GetImpl()->As<VulkanModel>()->GetMeshes())
+            mesh.GetMaterial().GetImpl()->ConstAs<VulkanMaterial>()->GetMaterialDescriptorSet();
+    });
+    // Wait for the fence to be signaled
+    vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
+    vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
+
+    // Debug Compute Shaders
+#ifdef VENOM_DEBUG
+    static vc::Array<uint64_t, 32 * 32> forwardPlusProps;
+    for (int i = 0; i < 32 * 32; ++i) {
+        forwardPlusProps[i] = ((uint64_t*)__forwardPlusPropsBuffer[0].GetMappedData())[i];
+    }
+#endif
+
+    VkResult result = vkAcquireNextImageKHR(LogicalDevice::GetVkDevice(), __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[_currentFrame].GetSemaphore(), VK_NULL_HANDLE, &__imageIndex);
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
+        __framebufferChanged = false;
+        vc::Log::Print("Recreating swap chain");
+        return __RecreateSwapChain();
+    } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+        vc::Log::Error("Failed to acquire swap chain image");
+        return vc::Error::Failure;
+    }
+
+    // If we reset before, then it will wait endlessly as no work is done
+    vkResetFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[_currentFrame].GetFence());
+    vkResetFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence());
+    __graphicsFirstCheckpointCommandBuffers[_currentFrame]->Reset(0);
+    __graphicsSecondCheckpointCommandBuffers[_currentFrame]->Reset(0);
+    __computeCommandBuffers[_currentFrame]->Reset(0);
+
+    if (err = __ComputeOperations(); err != vc::Error::Success)
+        return err;
+    if (err = __GraphicsOperations(); err != vc::Error::Success)
+        return err;
 
     _currentFrame = (_currentFrame + 1) % VENOM_MAX_FRAMES_IN_FLIGHT;
     return vc::Error::Success;

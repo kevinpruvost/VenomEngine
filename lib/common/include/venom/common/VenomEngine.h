@@ -11,7 +11,8 @@
 #include <venom/common/ECS.h>
 #include <venom/common/VenomSettings.h>
 
-#include "Context.h"
+#include <venom/common/Context.h>
+#include <venom/common/Light.h>
 
 namespace venom
 {
@@ -88,6 +89,7 @@ private:
     UPtr<DLL_Cache> __dllCache;
     UPtr<ECS> __ecs;
     UPtr<VenomSettings> __settings;
+    UPtr<LightManager> __lightManager;
 };
 }
 }

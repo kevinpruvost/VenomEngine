@@ -23,7 +23,8 @@ namespace venom::vulkan
 {
 VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
     : ShaderResource(h)
-    , graphicsPipeline(VK_NULL_HANDLE)
+    , pipeline(VK_NULL_HANDLE)
+    , pipelineType(PipelineType::Graphics)
     , pipelineLayout(VK_NULL_HANDLE)
     , multisamplingCreateInfo{}
     , rasterizerCreateInfo{}
@@ -74,8 +75,8 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
 VulkanShaderResource::~VulkanShaderResource()
 {
     DestroyShaderModules();
-    if (graphicsPipeline != VK_NULL_HANDLE)
-        vkDestroyPipeline(LogicalDevice::GetVkDevice(), graphicsPipeline, Allocator::GetVKAllocationCallbacks());
+    if (pipeline != VK_NULL_HANDLE)
+        vkDestroyPipeline(LogicalDevice::GetVkDevice(), pipeline, Allocator::GetVKAllocationCallbacks());
     if (pipelineLayout != VK_NULL_HANDLE)
         vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
@@ -250,33 +251,52 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
     vertexInputInfo.vertexBindingDescriptionCount = _resource->As<VulkanShaderResource>()->bindingDescriptions.size();
     vertexInputInfo.pVertexBindingDescriptions = _resource->As<VulkanShaderResource>()->bindingDescriptions.data();
 
-    // Setting up the pipeline
-    VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
-    graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(_resource->As<VulkanShaderResource>()->shaderStages.size());
-    graphicsPipelineCreateInfo.pStages = _resource->As<VulkanShaderResource>()->shaderStages.data();
-    graphicsPipelineCreateInfo.pVertexInputState = &vertexInputInfo;
-    graphicsPipelineCreateInfo.pInputAssemblyState = &inputAssembly;
-    graphicsPipelineCreateInfo.pViewportState = &viewportState;
-    graphicsPipelineCreateInfo.pRasterizationState = &_resource->As<VulkanShaderResource>()->rasterizerCreateInfo;
-    graphicsPipelineCreateInfo.pMultisampleState = &_resource->As<VulkanShaderResource>()->multisamplingCreateInfo;
-    graphicsPipelineCreateInfo.pDepthStencilState = &_resource->As<VulkanShaderResource>()->depthStencilCreateInfo;
-    graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
-    graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
-    graphicsPipelineCreateInfo.layout = _resource->As<VulkanShaderResource>()->pipelineLayout;
-    graphicsPipelineCreateInfo.renderPass = RenderPass::GetRenderPass(_renderingPipelineType)->GetVkRenderPass();
-    graphicsPipelineCreateInfo.subpass = _renderingPipelineIndex; // Index of the subpass in the render pass where this pipeline will be used
-    graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
-    //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
-
-    if (_resource->As<VulkanShaderResource>()->graphicsPipeline != VK_NULL_HANDLE) {
-        vkDestroyPipeline(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->graphicsPipeline, Allocator::GetVKAllocationCallbacks());
-        _resource->As<VulkanShaderResource>()->graphicsPipeline = VK_NULL_HANDLE;
+    // Destroying the pipeline if it exists
+    if (_resource->As<VulkanShaderResource>()->pipeline != VK_NULL_HANDLE) {
+        vkDestroyPipeline(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipeline, Allocator::GetVKAllocationCallbacks());
+        _resource->As<VulkanShaderResource>()->pipeline = VK_NULL_HANDLE;
     }
-    if (VkResult res = vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &_resource->As<VulkanShaderResource>()->graphicsPipeline); res != VK_SUCCESS)
+
+    // Setting up the pipeline
+    if (_resource->As<VulkanShaderResource>()->pipelineType == PipelineType::Graphics)
     {
-        vc::Log::Error("Failed to create graphics pipeline, error code: %d", res);
-        return vc::Error::Failure;
+        VkGraphicsPipelineCreateInfo graphicsPipelineCreateInfo = {};
+        graphicsPipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+        graphicsPipelineCreateInfo.stageCount = static_cast<uint32_t>(_resource->As<VulkanShaderResource>()->shaderStages.size());
+        graphicsPipelineCreateInfo.pStages = _resource->As<VulkanShaderResource>()->shaderStages.data();
+        graphicsPipelineCreateInfo.pVertexInputState = &vertexInputInfo;
+        graphicsPipelineCreateInfo.pInputAssemblyState = &inputAssembly;
+        graphicsPipelineCreateInfo.pViewportState = &viewportState;
+        graphicsPipelineCreateInfo.pRasterizationState = &_resource->As<VulkanShaderResource>()->rasterizerCreateInfo;
+        graphicsPipelineCreateInfo.pMultisampleState = &_resource->As<VulkanShaderResource>()->multisamplingCreateInfo;
+        graphicsPipelineCreateInfo.pDepthStencilState = &_resource->As<VulkanShaderResource>()->depthStencilCreateInfo;
+        graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
+        graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
+        graphicsPipelineCreateInfo.layout = _resource->As<VulkanShaderResource>()->pipelineLayout;
+        graphicsPipelineCreateInfo.renderPass = RenderPass::GetRenderPass(_renderingPipelineType)->GetVkRenderPass();
+        graphicsPipelineCreateInfo.subpass = _renderingPipelineIndex; // Index of the subpass in the render pass where this pipeline will be used
+        graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
+        //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional
+
+        if (VkResult res = vkCreateGraphicsPipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &_resource->As<VulkanShaderResource>()->pipeline); res != VK_SUCCESS)
+        {
+            vc::Log::Error("Failed to create graphics pipeline, error code: %d", res);
+            return vc::Error::Failure;
+        }
+    }
+    else if (_resource->As<VulkanShaderResource>()->pipelineType == PipelineType::Compute)
+    {
+        VkComputePipelineCreateInfo computePipelineCreateInfo = {};
+        computePipelineCreateInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
+        computePipelineCreateInfo.flags = 0;
+        computePipelineCreateInfo.stage = _resource->As<VulkanShaderResource>()->shaderStages[0];
+        computePipelineCreateInfo.layout = _resource->As<VulkanShaderResource>()->pipelineLayout;
+
+        if (VkResult res = vkCreateComputePipelines(LogicalDevice::GetVkDevice(), VK_NULL_HANDLE, 1, &computePipelineCreateInfo, Allocator::GetVKAllocationCallbacks(), &_resource->As<VulkanShaderResource>()->pipeline); res != VK_SUCCESS)
+        {
+            vc::Log::Error("Failed to create compute pipeline, error code: %d", res);
+            return vc::Error::Failure;
+        }
     }
     _resource->As<VulkanShaderResource>()->shaderDirty = false;
     return vc::Error::Success;
@@ -409,9 +429,10 @@ vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipe
         pipelineCreateInfo->stage = VK_SHADER_STAGE_VERTEX_BIT;
     else if (shaderPath.find("frag") != std::string::npos || shaderPath.find("fs") != std::string::npos || shaderPath.find("pixel") != std::string::npos || shaderPath.find("ps") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-    else if (shaderPath.find("comp") != std::string::npos || shaderPath.find("cs") != std::string::npos || shaderPath.find("compute") != std::string::npos)
+    else if (shaderPath.find("comp") != std::string::npos || shaderPath.find("cs") != std::string::npos || shaderPath.find("compute") != std::string::npos) {
         pipelineCreateInfo->stage = VK_SHADER_STAGE_COMPUTE_BIT;
-    else if (shaderPath.find("geom") != std::string::npos)
+        _resource->As<VulkanShaderResource>()->pipelineType = PipelineType::Compute;
+    } else if (shaderPath.find("geom") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_GEOMETRY_BIT;
     else if (shaderPath.find("tesc") != std::string::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;
@@ -458,7 +479,7 @@ vc::Error VulkanShaderPipeline::LoadShaders()
 
 VkPipeline VulkanShaderPipeline::GetPipeline() const
 {
-    return _resource->As<VulkanShaderResource>()->graphicsPipeline;
+    return _resource->As<VulkanShaderResource>()->pipeline;
 }
 
 VkPipelineLayout VulkanShaderPipeline::GetPipelineLayout() const

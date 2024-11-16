@@ -286,7 +286,7 @@ void VulkanGUI::_Render()
 
     ImGui::Render();
     ImDrawData* draw_data = ImGui::GetDrawData();
-    ImGui_ImplVulkan_RenderDrawData(draw_data, app->GetCurrentCommandBuffer()->GetVkCommandBuffer());
+    ImGui_ImplVulkan_RenderDrawData(draw_data, app->GetCurrentGraphicsCommandBuffer()->GetVkCommandBuffer());
 }
 
 }

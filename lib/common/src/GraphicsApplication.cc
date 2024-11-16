@@ -111,6 +111,11 @@ void GraphicsApplication::__LoadRenderingPipelines()
         gbuffer_shader.SetRenderingPipelineIndex(0);
         gbuffer_shader.LoadShaderFromFile("shader_gbuffer");
 
+        ShaderPipeline & lightCulling_shader = shadowModelShaders.emplace_back();
+        lightCulling_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
+        lightCulling_shader.SetRenderingPipelineIndex(1);
+        lightCulling_shader.LoadShaderFromFile("shader_lightculling");
+
         RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::ShadowModel);
     }
 

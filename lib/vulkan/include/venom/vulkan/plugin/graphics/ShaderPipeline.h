@@ -22,6 +22,13 @@ namespace venom
 {
 namespace vulkan
 {
+enum class PipelineType : uint32_t
+{
+    Graphics = 0,
+    Compute = 1,
+    RayTracing = 2
+};
+
 class VulkanShaderResource : public vc::ShaderResource
 {
 public:
@@ -30,7 +37,7 @@ public:
 
     void DestroyShaderModules();
 public:
-    VkPipeline graphicsPipeline;
+    VkPipeline pipeline;
     VkPipelineLayout pipelineLayout;
 
     std::vector<VkVertexInputBindingDescription> bindingDescriptions;
@@ -43,6 +50,7 @@ public:
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
 
     bool shaderDirty;
+    PipelineType pipelineType;
 };
 
 class VulkanShaderPipeline : public vc::ShaderPipelineImpl

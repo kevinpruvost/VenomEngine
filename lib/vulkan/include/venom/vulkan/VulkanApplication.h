@@ -56,8 +56,8 @@ public:
     inline const RenderPass * GetGuiRenderPass() const { return &__normalRenderPass; }
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
     inline const RenderPass * GetHDRRenderPass() const { return &__normalRenderPass; }
-    inline const CommandBuffer * GetCommandBuffer(const int index) const { return __commandBuffers[index]; }
-    inline const CommandBuffer * GetCurrentCommandBuffer() const { return __commandBuffers[GetCurrentFrame()]; }
+    inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }
+    inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSecondCheckpointCommandBuffers[GetCurrentFrame()]; }
 
 protected:
     vc::Error _LoadGfxSettings() override;
@@ -69,6 +69,8 @@ protected:
 
 private:
     void __UpdateUniformBuffers();
+    vc::Error __GraphicsOperations();
+    vc::Error __ComputeOperations();
     vc::Error __DrawFrame();
     vc::Error __InitVulkan();
     VkPhysicalDeviceFeatures2 __GetPhysicalDeviceFeatures(bool & supported, VkPhysicalDeviceDescriptorIndexingFeatures & descriptorIndexingFeatures, VkPhysicalDeviceFeatures2 & features);
@@ -98,7 +100,10 @@ private:
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
 
-    UniformBuffer __targetLuminanceBuffer;
+    UniformBuffer __targetLuminanceBuffer, __screenPropsBuffer;
+    UniformBuffer __lightsBuffer;
+    UniformBuffer __lightCountBuffer;
+    StorageBuffer __forwardPlusPropsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
 
     Queue __graphicsQueue, __presentQueue;
 
@@ -106,13 +111,23 @@ private:
 
 private:
     // For test
+    uint32_t __imageIndex;
     static int __bindlessSupported;
     Sampler __sampler;
     vc::ShaderPipeline __shaderPipeline;
-    CommandBuffer * __commandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+
+    CommandBuffer * __graphicsFirstCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    CommandBuffer * __graphicsSecondCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    CommandBuffer * __computeCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+
     Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
-    Fence __inFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
+    Semaphore __graphicsFirstCheckpointSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
+    Semaphore __computeShadersFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
+
+    Fence __graphicsInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
+    Fence __computeInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
+
     bool __framebufferChanged;
     StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];

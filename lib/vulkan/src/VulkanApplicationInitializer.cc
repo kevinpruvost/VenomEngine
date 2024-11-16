@@ -210,9 +210,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
         .pNext = &descriptorIndexingFeatures
     };
-    VkPhysicalDevicePortabilitySubsetFeaturesKHR portabilityFeatures{};
-    portabilityFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
-    descriptorIndexingFeatures.pNext = &portabilityFeatures;
+    // Only with VK_ENABLE_BETA_EXTENSIONS
+    //VkPhysicalDevicePortabilitySubsetFeaturesKHR portabilityFeatures{};
+    //portabilityFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
+    //descriptorIndexingFeatures.pNext = &portabilityFeatures;
     __GetPhysicalDeviceFeatures(physicalDeviceFeaturesSupported, descriptorIndexingFeatures, physicalDeviceFeatures2);
     createInfo.pNext = &physicalDeviceFeatures2;
     if (!physicalDeviceFeaturesSupported) {
@@ -270,10 +271,15 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create Graphics Command Pool
     CommandPool * graphicsCommandPool = __commandPoolManager.GetGraphicsCommandPool();
+    CommandPool * computeCommandPool = __commandPoolManager.GetComputeCommandPool();
 
     // Create Command Buffers
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = graphicsCommandPool->CreateCommandBuffer(&__commandBuffers[i]); err != vc::Error::Success)
+        if (err = graphicsCommandPool->CreateCommandBuffer(&__graphicsFirstCheckpointCommandBuffers[i]); err != vc::Error::Success)
+            return err;
+        if (err = graphicsCommandPool->CreateCommandBuffer(&__graphicsSecondCheckpointCommandBuffers[i]); err != vc::Error::Success)
+            return err;
+        if (err = computeCommandPool->CreateCommandBuffer(&__computeCommandBuffers[i]); err != vc::Error::Success)
             return err;
     }
 

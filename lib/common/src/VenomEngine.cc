@@ -39,6 +39,7 @@ VenomEngine::VenomEngine()
     : pluginManager(new PluginManager())
     , __dllCache(new DLL_Cache())
     , __ecs(new ECS())
+    , __lightManager(new LightManager())
 {
     venom_assert(__dllCache, "VenomEngine::VenomEngine() : __dllCache is nullptr");
     DLL_Cache::SetCache(__dllCache.get());

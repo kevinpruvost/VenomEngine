@@ -41,7 +41,7 @@ StorageBuffer& StorageBuffer::operator=(StorageBuffer&& other)
 vc::Error StorageBuffer::Init(const VkDeviceSize size)
 {
     vc::Error err = __buffer.CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-        QueueManager::GetGraphicsTransferSharingMode(),
+        QueueManager::GetGraphicsComputeTransferSharingMode(),
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
     );
     if (err != vc::Error::Success) {
