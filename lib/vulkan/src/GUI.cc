@@ -255,6 +255,11 @@ void VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_m
     ImGui::SliderFloat(label, v, v_min, v_max, format, power);
 }
 
+void VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power)
+{
+    ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
+}
+
 void VulkanGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags)
 {
     ImGui::ColorEdit3(label, col, static_cast<ImGuiColorEditFlags>(flags));

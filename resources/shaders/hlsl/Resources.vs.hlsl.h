@@ -12,14 +12,28 @@ cbuffer UniformBufferObject : register(b0, space0) {
 // [[vk::push_constant]]
 // C cameraPC;
 
-struct VSInput {
-    [[vk::location(0)]] float3 inPosition : POSITION;
-    [[vk::location(1)]] float3 inNormal : NORMAL;
-    [[vk::location(2)]] float2 inTexCoord : TEXCOORD;
-    [[vk::location(3)]] float3 inTangent : TANGENT;
-    [[vk::location(4)]] float3 inBitangent : BITANGENT;
-    uint instanceID : SV_InstanceID;
-};
+float3x3 inverse(float3x3 m) {
+    float a00 = m[0][0], a01 = m[0][1], a02 = m[0][2];
+    float a10 = m[1][0], a11 = m[1][1], a12 = m[1][2];
+    float a20 = m[2][0], a21 = m[2][1], a22 = m[2][2];
+
+    float det = a00 * (a11 * a22 - a12 * a21) - a01 * (a10 * a22 - a12 * a20) + a02 * (a10 * a21 - a11 * a20);
+    float idet = 1.0f / det;
+
+    float3x3 ret;
+
+    ret[0][0] = (a11 * a22 - a12 * a21) * idet;
+    ret[0][1] = (a02 * a21 - a01 * a22) * idet;
+    ret[0][2] = (a01 * a12 - a02 * a11) * idet;
+    ret[1][0] = (a12 * a20 - a10 * a22) * idet;
+    ret[1][1] = (a00 * a22 - a02 * a20) * idet;
+    ret[1][2] = (a02 * a10 - a00 * a12) * idet;
+    ret[2][0] = (a10 * a21 - a11 * a20) * idet;
+    ret[2][1] = (a01 * a20 - a00 * a21) * idet;
+    ret[2][2] = (a00 * a11 - a01 * a10) * idet;
+
+    return ret;
+}
 
 float4x4 inverse(float4x4 m) {
     float n11 = m[0][0], n12 = m[1][0], n13 = m[2][0], n14 = m[3][0];

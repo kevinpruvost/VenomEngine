@@ -2,18 +2,18 @@
 
 #include "Resources.vs.hlsl.h"
 
-struct VSOutput {
+struct SkyboxVSOutput {
     float4 position : SV_Position;
     [[vk::location(0)]] float3 viewDir : TEXCOORD0;     // Equivalent to layout(location = 0) out in GLSL
 };
 
-struct PanoramaInput {
+struct SkyboxInput {
     [[vk::location(0)]] float3 inPosition : POSITION;
 };
 
-VSOutput main(PanoramaInput input)
+SkyboxVSOutput main(SkyboxInput input)
 {
-    VSOutput output;
+    SkyboxVSOutput output;
 
     // Convert NDC position to world space
     float4x4 invView = view;

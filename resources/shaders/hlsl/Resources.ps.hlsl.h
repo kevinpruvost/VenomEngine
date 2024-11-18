@@ -3,21 +3,13 @@ SamplerState g_sampler : register(s0, space3);
 #include "Textures.hlsl.h"
 #include "Scene.hlsl.h"
 
-struct PSInput {
-    float4 position : SV_POSITION;
-    [[vk::location(0)]] float3 color : COLOR;
-    [[vk::location(1)]] float2 texCoord : TEXCOORD;
-    [[vk::location(2)]] float3 normal : NORMAL;
-    //[[vk::location(3)]] float3 tangent : TANGENT;
-    //[[vk::location(4)]] float3 bitangent : BITANGENT;
-};
-
 struct GBufferOutput {
     float4 finalColor       : SV_Target0; // Final color
     float4 baseColor        : SV_Target1; // Base color with optional alpha for opacity or transmission
-    float4 normalSpecular   : SV_Target2; // World or view-space normal
+    float4 normal           : SV_Target2; // World or view-space normal
     float4 metallicRoughAo  : SV_Target3; // Metallic and roughness parameters
     float4 position         : SV_Target4; // Position in world space (or depth if reconstructing later)
+    float4 specular         : SV_Target5; // Specular color
 };
 
 // Materials
@@ -83,7 +75,7 @@ float MaterialComponentGetValue1(int componentType, float2 uv)
 {
     if (material.components[componentType].valueType == TEXTURE)
         return GetTexture(componentType, uv).x;
-        return material.components[componentType].value.x;
+    return material.components[componentType].value.x;
 }
 
 float2 MaterialComponentGetValue2(int componentType, float2 uv)
@@ -108,12 +100,11 @@ float4 MaterialComponentGetValue4(int componentType, float2 uv)
 }
 
 // Example usage of material in shader
-GBufferOutput ComputeMaterialColor(PSInput input)
+GBufferOutput ComputeMaterialColor(VSOutput input)
 {
-    float2 uv = input.texCoord;
+    float2 uv = input.fragTexCoord;
     GBufferOutput output;
     float4 color = float4(0.5, 0.5, 0.5, 1); // Default color
-    //return GetTexture(1, uv);
 
     // Base color (if PBR, then BASE_COLOR otherwise approx. of DIFFUSE)
     if (material.components[MaterialComponentType::BASE_COLOR].valueType != NONE)
@@ -122,13 +113,18 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.baseColor = MaterialComponentGetValue4(MaterialComponentType::DIFFUSE, uv);
 
     // Normal
-    if (material.components[MaterialComponentType::NORMAL].valueType != NONE)
-        output.normalSpecular.rgb = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv);
-    else
-        output.normalSpecular.rgb = float3(1, 1, 1);
-    output.normalSpecular.rgb = input.normal;
+    if (material.components[MaterialComponentType::NORMAL].valueType != NONE) {
+        float3x3 TBN = float3x3(input.tangent, input.bitangent, input.normal);
+        float3 normal = normalize(mul(TBN, MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv)));
+//        float3 normal = normalize(MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv) * input.normal);
+        output.normal = float4(normal, 1.0);
+    } else
+        output.normal = float4(input.normal, 1.0);
     // Specular
-    output.normalSpecular.w = MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv);
+    if (material.components[MaterialComponentType::SPECULAR].valueType != NONE)
+        output.specular = MaterialComponentGetValue4(MaterialComponentType::SPECULAR, uv);
+    else
+        output.specular = float4(0.5, 0.5, 0.5, 1.0);
 
     // Metallic (if PBR, then METALLIC otherwise 0)
     if (material.components[MaterialComponentType::METALLIC].valueType != NONE)
@@ -138,8 +134,6 @@ GBufferOutput ComputeMaterialColor(PSInput input)
     // Roughness (if PBR, then ROUGHNESS otherwise square of 2/(SPECULAR+2))
     if (material.components[MaterialComponentType::ROUGHNESS].valueType != NONE)
         output.metallicRoughAo[1] = MaterialComponentGetValue1(MaterialComponentType::ROUGHNESS, uv);
-    else if (material.components[MaterialComponentType::SPECULAR].valueType != NONE)
-        output.metallicRoughAo[1] = sqrt(2.0 / (MaterialComponentGetValue1(MaterialComponentType::SPECULAR, uv) + 2));
     else
         output.metallicRoughAo[1] = 0.5;
     // Ambient occlusion
@@ -147,9 +141,10 @@ GBufferOutput ComputeMaterialColor(PSInput input)
         output.metallicRoughAo[2] = MaterialComponentGetValue1(MaterialComponentType::AMBIENT_OCCLUSION, uv);
     else
         output.metallicRoughAo[2] = 1.0;
+    output.metallicRoughAo[3] = 1.0;
 
     // Position
-    output.position = float4(input.position.xyz, 1);
+    output.position = float4(input.outPosition.xyz, 1);
     output.finalColor = output.baseColor;
 
     return output;

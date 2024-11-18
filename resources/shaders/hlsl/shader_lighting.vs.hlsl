@@ -2,18 +2,18 @@
 
 #include "Resources.vs.hlsl.h"
 
-struct VSOutput {
+struct LightingVSOutput {
     float4 position : SV_POSITION;
     [[vk::location(0)]] float2 uv : TEXCOORD0;
 };
 
-struct PanoramaInput {
+struct LightingVSInput {
     [[vk::location(0)]] float4 inPosition : POSITION;
 };
 
-VSOutput main(PanoramaInput input)
+LightingVSOutput main(LightingVSInput input)
 {
-    VSOutput output;
+    LightingVSOutput output;
     output.position = input.inPosition;
     output.uv.x = (input.inPosition.x + 1.0) / 2.0;
     output.uv.y = (input.inPosition.y + 1.0) / 2.0;

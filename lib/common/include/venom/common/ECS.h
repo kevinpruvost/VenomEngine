@@ -45,6 +45,9 @@ public:
 
     Entity CreateEntity();
     Entity CreateEntity(const char * name);
+    static inline Entity GetEntity(const char * name) {
+        return ECS::GetECS()->__GetEntity(name);
+    }
 
     template <typename... Comps, typename... Args>
     System CreateSystem(const char * name) {
@@ -61,6 +64,10 @@ public:
 
 private:
     static ECS * s_ecs;
+
+    Entity __GetEntity(const char * name) {
+        return __world.lookup(name);
+    }
 
 private:
     flecs::world __world;

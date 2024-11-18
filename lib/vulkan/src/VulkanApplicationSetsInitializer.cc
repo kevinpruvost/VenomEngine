@@ -84,6 +84,7 @@ vc::Error VulkanApplication::__InitializeSets()
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 4, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 5, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
     DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 6, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
+    DescriptorPool::GetPool()->AddDescriptorSetLayoutBinding(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, 7, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, VK_SHADER_STAGE_FRAGMENT_BIT);
 
 
     // GUI needs VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT & VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER for fonts

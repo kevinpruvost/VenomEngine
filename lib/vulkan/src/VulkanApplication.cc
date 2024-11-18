@@ -88,15 +88,9 @@ void VulkanApplication::__UpdateUniformBuffers()
     float time = timer_uni.GetMilliSeconds();
     timer_uni.Reset();
 
-    vcm::Vec3 cameraInitialPos = {-2, -2, 1};
     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
     {
-        transform.RotateYaw(time / 1000.0f);
         transform.UpdateModelMatrix();
-        // Make camera rotate around object
-        vcm::Vec3 cameraPos = cameraInitialPos;
-        //vc::Camera::GetMainCamera().RotateAround(transform.GetPosition(), {0,1,0}, time * 0.03f);
-        // vc::Camera::GetMainCamera()->LookAt(transform.GetPosition());
     });
 
     // Camera

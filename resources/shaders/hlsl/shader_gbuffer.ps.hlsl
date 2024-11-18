@@ -1,5 +1,5 @@
 #include "Resources.ps.hlsl.h"
 
-GBufferOutput main(PSInput input) {
+GBufferOutput main(VSOutput input) {
     return ComputeMaterialColor(input);
 }

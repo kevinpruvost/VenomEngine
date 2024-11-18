@@ -2,15 +2,6 @@
 
 #include "Resources.vs.hlsl.h"
 
-struct VSOutput {
-    float4 outPosition : SV_POSITION; // Equivalent to gl_Position in GLSL
-    [[vk::location(0)]] float4 fragColor : TEXCOORD0;     // Equivalent to layout(location = 0) out in GLSL
-    [[vk::location(1)]] float2 fragTexCoord : TEXCOORD1;  // Equivalent to layout(location = 1) out in GLSL
-    [[vk::location(2)]] float3 normal : NORMAL;
-    //[[vk::location(3)]] float3 tangent : TANGENT;
-    //[[vk::location(4)]] float3 bitangent : BITANGENT;
-};
-
 VSOutput main(VSInput input)
 {
     VSOutput output;
@@ -19,7 +10,20 @@ VSOutput main(VSInput input)
     output.outPosition = mul(view, output.outPosition);  // Apply the view matrix
     output.outPosition = mul(proj, output.outPosition);  // Apply the projection matrix
     output.fragColor = float4(1.0, 1.0, 1.0, 1.0);       // Pass the color to the fragment shader
-    output.normal = input.inNormal;
+
+    // Transform normal
+    float4x4 modelMatrix = models[input.instanceID];
+    float3 transformedNormal = mul(transpose(inverse((float3x3)modelMatrix)), input.inNormal);
+    output.normal = normalize(transformedNormal); // Normalize for correctness
+
+    // Correct tangent transformation
+    float3 transformedTangent = normalize(mul((float3x3)modelMatrix, input.inTangent));
+    output.tangent = transformedTangent;
+
+    // Correct bitangent transformation
+    float3 transformedBitangent = normalize(mul((float3x3)modelMatrix, input.inBitangent));
+    output.bitangent = transformedBitangent;
+
     output.fragTexCoord = input.inTexCoord;              // Pass the texture
     return output;
 }
