@@ -103,12 +103,15 @@ void RenderPass::SetRenderingType(const vc::RenderingPipelineType type)
 vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
 {
     vc::Error err = vc::Error::Success;
+    __attachments.clear();
+    __framebuffers.clear();
     __attachmentRefs.clear();
     __resolveAttachmentRefs.clear();
     __attachmentDescriptions.clear();
     __resolveAttachmentDescriptions.clear();
     __subpassDescriptions.clear();
     __clearValues.clear();
+    Destroy();
     switch (__type) {
         case vc::RenderingPipelineType::BasicModel:
         case vc::RenderingPipelineType::Skybox: {
@@ -255,7 +258,6 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
     renderPassInfo.pDependencies = dependencies.data();
     renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
 
-    Destroy();
     if (vkCreateRenderPass(LogicalDevice::GetVkDevice(), &renderPassInfo, Allocator::GetVKAllocationCallbacks(), &__renderPass) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create render pass");
@@ -270,8 +272,6 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
 
     // Framebuffers
     const size_t framebufferCount = swapChain->swapChainImageHandles.size();
-    __attachments.clear();
-    __framebuffers.clear();
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
@@ -398,7 +398,6 @@ vc::Error RenderPass::__CreateGuiRenderPass(const SwapChain* swapChain)
     renderPassInfo.pDependencies = dependencies.data();
     renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
 
-    Destroy();
     if (vkCreateRenderPass(LogicalDevice::GetVkDevice(), &renderPassInfo, Allocator::GetVKAllocationCallbacks(), &__renderPass) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create render pass");
@@ -413,8 +412,6 @@ vc::Error RenderPass::__CreateGuiRenderPass(const SwapChain* swapChain)
 
     // Framebuffers
     const size_t framebufferCount = swapChain->swapChainImageHandles.size();
-    __attachments.clear();
-    __framebuffers.clear();
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
@@ -460,46 +457,56 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     // Final Attachment : 0
     __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
     // Color Attachment : 1
-    __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    __AddAttachment(swapChain, swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Normal Attachment : 2
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Metallic Roughness AO Attachment : 3
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Position Attachment : 4
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Specular Attachment : 5
-    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
+    __AddAttachment(swapChain, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
     // Depth Attachment : 6
     __AddAttachment(swapChain, VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED);
 
-    // 3 Subpasses for Forward+ Rendering
+    // 2 Subpasses for Forward+ Lighting
+    vc::Vector<VkAttachmentReference> gBufferAttachmentDescriptions;
+    gBufferAttachmentDescriptions.emplace_back(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(3, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(4, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(5, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+
+    VkAttachmentReference depthAttachmentRef{6, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL};
+
     VkSubpassDescription & subpassGBuffer = __subpassDescriptions.emplace_back();
     subpassGBuffer.flags = 0;
     subpassGBuffer.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    subpassGBuffer.colorAttachmentCount = __attachmentRefs.size() - 1; // Color attachments
-    subpassGBuffer.pColorAttachments = __attachmentRefs.data();
-    subpassGBuffer.pDepthStencilAttachment = &__attachmentRefs[6]; // Depth and stencil
+    subpassGBuffer.colorAttachmentCount = gBufferAttachmentDescriptions.size();
+    subpassGBuffer.pColorAttachments = gBufferAttachmentDescriptions.data();
+    subpassGBuffer.pDepthStencilAttachment = &depthAttachmentRef;
     subpassGBuffer.inputAttachmentCount = 0;
     subpassGBuffer.pInputAttachments = nullptr; // Input attachments
     subpassGBuffer.preserveAttachmentCount = 0;
     subpassGBuffer.pPreserveAttachments = nullptr;
     subpassGBuffer.pResolveAttachments = nullptr;
 
-    vc::Vector<VkAttachmentReference> lightingAttachmentDescriptions;
-    lightingAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-    lightingAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-    lightingAttachmentDescriptions.emplace_back(3, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-    lightingAttachmentDescriptions.emplace_back(4, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-    lightingAttachmentDescriptions.emplace_back(5, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    vc::Vector<VkAttachmentReference> lightingInputAttachmentDescriptions;
+    lightingInputAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingInputAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingInputAttachmentDescriptions.emplace_back(3, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingInputAttachmentDescriptions.emplace_back(4, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    lightingInputAttachmentDescriptions.emplace_back(5, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
     VkSubpassDescription & subpassLighting = __subpassDescriptions.emplace_back();
     subpassLighting.flags = 0;
     subpassLighting.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpassLighting.colorAttachmentCount = 1;
-    subpassLighting.pColorAttachments = __attachmentRefs.data();
-    subpassLighting.pDepthStencilAttachment = &__attachmentRefs[6]; // Depth and stencil
-    subpassLighting.inputAttachmentCount = static_cast<uint32_t>(lightingAttachmentDescriptions.size());
-    subpassLighting.pInputAttachments = lightingAttachmentDescriptions.data(); // Input attachments
+    subpassLighting.pColorAttachments = gBufferAttachmentDescriptions.data();
+    subpassLighting.pDepthStencilAttachment = &depthAttachmentRef;
+    subpassLighting.inputAttachmentCount = static_cast<uint32_t>(lightingInputAttachmentDescriptions.size());
+    subpassLighting.pInputAttachments = lightingInputAttachmentDescriptions.data(); // Input attachments
     subpassLighting.preserveAttachmentCount = 0;
     subpassLighting.pPreserveAttachments = nullptr;
     subpassLighting.pResolveAttachments = nullptr;
@@ -509,17 +516,17 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
     dependency.dstSubpass = 0;
     dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-    dependency.srcAccessMask = 0;
     dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+    dependency.srcAccessMask = 0;
     dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
 
     // Subpass dependencies
     VkSubpassDependency dependencyGBufferToLighting{};
     dependencyGBufferToLighting.srcSubpass = 0; // GBuffer subpass
     dependencyGBufferToLighting.dstSubpass = 1; // Lighting subpass
-    dependencyGBufferToLighting.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    dependencyGBufferToLighting.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
     dependencyGBufferToLighting.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-    dependencyGBufferToLighting.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    dependencyGBufferToLighting.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
     dependencyGBufferToLighting.dstAccessMask = VK_ACCESS_INPUT_ATTACHMENT_READ_BIT;
     dependencyGBufferToLighting.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
@@ -536,7 +543,6 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
     renderPassInfo.pDependencies = dependencies.data();
     renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
 
-    Destroy();
     if (vkCreateRenderPass(LogicalDevice::GetVkDevice(), &renderPassInfo, Allocator::GetVKAllocationCallbacks(), &__renderPass) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create render pass");
@@ -561,12 +567,10 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
 
     // Framebuffers
     const size_t framebufferCount = swapChain->swapChainImageHandles.size();
-    __attachments.clear();
-    __framebuffers.clear();
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
-        vc::Vector<VkImageView> attachments(__attachmentRefs.size(), VK_NULL_HANDLE);
+        vc::Vector<VkImageView> attachments(__attachmentDescriptions.size(), VK_NULL_HANDLE);
 
         // Create Depth Image
         __attachments[i].resize(attachments.size());

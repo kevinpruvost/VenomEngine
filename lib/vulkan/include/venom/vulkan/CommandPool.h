@@ -109,6 +109,7 @@ public:
     void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void * pValues) const;
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
     void TransitionImageLayout(Image& image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+    void TransitionImageLayout(Image& image, VkImageLayout oldLayout, VkImageLayout newLayout);
     void ChangeImageLayout(vc::Texture & image, const VkImageLayout oldLayout, const VkImageLayout newLayout);
     void ChangeImageLayout(vc::Texture & image, const VkImageLayout newLayout);
 
@@ -121,6 +122,8 @@ public:
     void SubmitToQueue(VkFence fence = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitStage = 0,
         VkSemaphore signalSemaphore = VK_NULL_HANDLE);
     void WaitForQueue() const;
+private:
+    void __TransitionImageLayout(VkImageMemoryBarrier & barrier, VkImageLayout oldLayout, VkImageLayout newLayout);
 protected:
     VkCommandBuffer _commandBuffer;
     const Queue * _queue;

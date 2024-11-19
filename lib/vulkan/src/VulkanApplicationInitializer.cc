@@ -381,6 +381,8 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i)
+        vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[i].GetFence(), VK_TRUE, UINT64_MAX);
     __swapChain.CleanSwapChain();
     // Create Surface
     __surface.CreateSurface(vc::Context::Get());

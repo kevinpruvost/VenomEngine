@@ -170,10 +170,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
-            __framebufferChanged = false;
-            return __RecreateSwapChain();
-        } else if (result != VK_SUCCESS) {
+        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result != VK_SUCCESS) {
             vc::Log::Error("Failed to submit draw command buffer");
             return vc::Error::Failure;
         }
@@ -203,7 +200,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 __graphicsSecondCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
             });
 
-            // Execute Compute Shader
+            // Execute Lighting shader
             __shadowRenderPass.NextSubpass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
             __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>()->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
             DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[1].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
@@ -239,10 +236,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
-            __framebufferChanged = false;
-            return __RecreateSwapChain();
-        } else if (result != VK_SUCCESS) {
+        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result != VK_SUCCESS) {
             vc::Log::Error("Failed to submit draw command buffer");
             return vc::Error::Failure;
         }
