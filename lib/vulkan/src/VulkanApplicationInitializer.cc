@@ -224,10 +224,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Validation Layers
     _SetCreateInfoValidationLayers(&createInfo);
 
-    // Create Swap Chain
-    if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
-        return err;
-
     // Verify if the device is suitable
     if (!__IsDeviceSuitable(&createInfo))
     {
@@ -245,6 +241,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Init Queue Manager
     if (err = __queueManager.Init(); err != vc::Error::Success)
+        return err;
+
+    // Create Swap Chain
+    if (err = __swapChain.InitSwapChainSettings(&__surface); err != vc::Error::Success)
         return err;
 
     // Create SwapChain
@@ -381,8 +381,6 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
-    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i)
-        vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[i].GetFence(), VK_TRUE, UINT64_MAX);
     __swapChain.CleanSwapChain();
     // Create Surface
     __surface.CreateSurface(vc::Context::Get());
@@ -395,11 +393,14 @@ vc::Error VulkanApplication::__RecreateSwapChain()
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
         if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
             return vc::Error::InitializationFailed;
-
     }
     // We also need to reset the last used semaphore
-    if (err = __imageAvailableSemaphores[_currentFrame].InitSemaphore(); err != vc::Error::Success)
-        return err;
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
+        __imageAvailableSemaphores[i].InitSemaphore();
+        __renderFinishedSemaphores[i].InitSemaphore();
+        __graphicsFirstCheckpointSemaphores[i].InitSemaphore();
+        __computeShadersFinishedSemaphores[i].InitSemaphore();
+    }
     // GUI
     if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
         return err;

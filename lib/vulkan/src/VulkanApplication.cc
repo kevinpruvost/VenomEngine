@@ -309,20 +309,13 @@ vc::Error VulkanApplication::__DrawFrame()
     });
     // Wait for the fence to be signaled
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
-    //vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
-
-    // Debug Compute Shaders
-#ifdef VENOM_DEBUG
-    static vc::Array<uint64_t, 32 * 32> forwardPlusProps;
-    for (int i = 0; i < 32 * 32; ++i) {
-        forwardPlusProps[i] = ((uint64_t*)__forwardPlusPropsBuffer[0].GetMappedData())[i];
-    }
-#endif
+    vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 
     VkResult result = vkAcquireNextImageKHR(LogicalDevice::GetVkDevice(), __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[_currentFrame].GetSemaphore(), VK_NULL_HANDLE, &__imageIndex);
     if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
         __framebufferChanged = false;
         vc::Log::Print("Recreating swap chain");
+        _currentFrame = 0;
         return __RecreateSwapChain();
     } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
         vc::Log::Error("Failed to acquire swap chain image");
