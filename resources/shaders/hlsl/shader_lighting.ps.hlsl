@@ -11,7 +11,7 @@ struct LightingVSOutput {
 [[vk::input_attachment_index(1)]] SubpassInput g_normal : register(t4, space7);
 [[vk::input_attachment_index(2)]] SubpassInput g_metallicRoughAo : register(t5, space7);
 [[vk::input_attachment_index(3)]] SubpassInput g_position : register(t6, space7);
-[[vk::input_attachment_index(3)]] SubpassInput g_specular : register(t7, space7);
+[[vk::input_attachment_index(4)]] SubpassInput g_specular : register(t7, space7);
 
 struct FragmentOutput {
     float4 color : SV_Target0;
@@ -24,60 +24,64 @@ float ComputeShadow(float3 position, float3 normal, float3 lightDir) {
     return saturate(ndl); // Shadow factor based on light direction and surface normal
 }
 
-float3 ComputeBRDF(
-    float3 baseColor,
-    float3 normal,
-    float3 viewDir,
-    float3 lightDir,
-    float3 lightColor,
-    float metallic,
-    float roughness,
-    float specular = 1.0f
-    ) {
-    // Ensure our vectors are normalized
-    normal = normalize(normal);
-    viewDir = normalize(viewDir);
-    lightDir = normalize(lightDir);
+float DistributionGGX(float3 N, float3 H, float roughness) {
+    float a = roughness * roughness;
+    float a2 = a * a;
+    float NdotH = saturate(dot(N, H));
+    float NdotH2 = NdotH * NdotH;
 
-    // Compute common vectors
-    float3 halfVector = normalize(viewDir + lightDir);
+    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+    return a2 / (M_PI * denom * denom);
+}
 
-    // Compute common dot products
-    float NdotL = max(dot(normal, lightDir), 0.0f);
-    float NdotV = max(dot(normal, viewDir), 0.0f);
-    float NdotH = max(dot(normal, halfVector), 0.0f);
-    float HdotV = max(dot(halfVector, viewDir), 0.0f);
+float3 FresnelSchlick(float cosTheta, float3 F0) {
+    return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
 
-    // Roughness remapping
-    float alpha = roughness * roughness;
-    float alpha2 = alpha * alpha;
+float GeometrySchlickGGX(float NdotV, float roughness) {
+    float k = (roughness + 1.0) * (roughness + 1.0) / 8.0;
+    return NdotV / (NdotV * (1.0 - k) + k);
+}
 
-    // Fresnel (Schlick approximation)
-    float3 f0 = lerp(float3(0.04f, 0.04f, 0.04f), baseColor, metallic);
-    float3 F = f0 + (1.0f - f0) * pow(1.0f - HdotV, 5.0f);
+float GeometrySmith(float3 N, float3 V, float3 L, float roughness) {
+    float NdotV = saturate(dot(N, V));
+    float NdotL = saturate(dot(N, L));
+    float ggx1 = GeometrySchlickGGX(NdotV, roughness);
+    float ggx2 = GeometrySchlickGGX(NdotL, roughness);
+    return ggx1 * ggx2;
+}
 
-    // Distribution (GGX/Trowbridge-Reitz)
-    float D = alpha2;
-    float denomD = (NdotH * NdotH * (alpha2 - 1.0f) + 1.0f);
-    D /= max(M_PI * denomD * denomD, 0.001f);
+float3 CookTorranceBRDF(
+    float3 N,           // Surface normal
+    float3 V,           // View direction
+    float3 L,           // Light direction
+    float3 F0,          // Fresnel reflectance at normal incidence
+    float roughness,    // Roughness factor
+    float metallic,     // Metallic factor
+    float3 albedo       // Base color
+) {
+    float3 H = normalize(V + L); // Halfway vector
 
-    // Geometry (Smith model with Schlick-GGX)
-    float k = (roughness + 1.0f) * (roughness + 1.0f) / 8.0f;
-    float G1V = NdotV / (NdotV * (1.0f - k) + k);
-    float G1L = NdotL / (NdotL * (1.0f - k) + k);
-    float G = G1V * G1L;
+    // Dot products
+    float NdotL = saturate(dot(N, L));
+    float NdotV = saturate(dot(N, V));
+    float NdotH = saturate(dot(N, H));
+    float VdotH = saturate(dot(V, H));
 
-    // Combine terms for specular
-    float3 specularTerm = (F * D * G) / max(4.0f * NdotV * NdotL, 0.001f);
-    specularTerm *= specular;
+    // Cook-Torrance components
+    float D = DistributionGGX(N, H, roughness);
+    float3 F = FresnelSchlick(VdotH, F0);
+    float G = GeometrySmith(N, V, L, roughness);
 
-    // Compute diffuse term
-    float3 diffuseTerm = baseColor * (1.0f - metallic) / M_PI;
+    // Specular BRDF
+    float3 specular = (D * F * G) / max(4.0 * NdotV * NdotL, 0.001);
 
-    // Combine everything
-    float3 result = (diffuseTerm + specularTerm) * lightColor * NdotL;
+    // Diffuse BRDF (Lambertian)
+    float3 kD = float3(1.0, 1.0, 1.0) - F; // Energy conservation
+    kD *= 1.0 - metallic;                 // Non-metallic surfaces only
+    float3 diffuse = kD * albedo / M_PI;
 
-    return result;
+    return (diffuse + specular) * NdotL;  // Apply Lambert's cosine law
 }
 
 
@@ -156,6 +160,8 @@ FragmentOutput main(LightingVSOutput input) {
        discard;
     }
 
+    // Test normal
+
     // Calculate final shading
     float3 viewDir = normalize(cameraPos - position.xyz);
 
@@ -168,16 +174,21 @@ FragmentOutput main(LightingVSOutput input) {
 
         // Compute BRDF for this light
         float3 lightColor = GetLightColor(light, position.xyz);
-        float3 lightDir = normalize(GetLightDirection(light, position.xyz));
-        finalColor += ComputeBRDF(baseColor.rgb, normal, viewDir, lightDir, lightColor, metallic, roughness);
+        float3 lightDir = GetLightDirection(light, position.xyz);
+        //finalColor = baseColor.rgb * dot(normal, lightDir);
+        // Fresnel reflectance at normal incidence
+        float3 F0 = lerp(float3(0.04, 0.04, 0.04), specular.rgb, metallic);
+        float3 radiance = lightColor * saturate(dot(normal, lightDir));
+        finalColor += CookTorranceBRDF(normal, viewDir, lightDir, F0, roughness, metallic, baseColor.rgb) * radiance;
     }
 
     // Add ambient light
-    finalColor += ComputeAmbient(baseColor.rgb, normal, viewDir, metallic, roughness, float3(0.2, 0.2, 0.2));
+    finalColor += ComputeAmbient(baseColor.rgb, normal, viewDir, metallic, roughness, float3(0.2, 0.2, 0.2), 0.01f);
 
     // Calculate shadow factor
     // float shadowFactor = ComputeShadow(position.xyz, normal, lightDir) * 1.0f;
 
+    finalColor *= ao;
     output.color = float4(finalColor, 1.0f);
     return output;
 }

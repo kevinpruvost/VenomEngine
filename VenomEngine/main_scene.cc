@@ -28,6 +28,7 @@ void Scene()
         .emplace<vc::Model>("face/face.obj")
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::ShadowModel);
         ;
+    face_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(0.0f, 2.0f, 0.0f));
 
     vc::Entity camera = vc::CreateEntity("camera")
         .emplace<vc::Transform3D>()
@@ -39,9 +40,20 @@ void Scene()
         .emplace<vc::Light>();
     light1.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
     light1.get_mut<vc::Light>()->SetPosition({6.0f, 10.0f, 2.0f});
-    light1.get_mut<vc::Light>()->SetDirection({1.0f, 1.0f, 1.0f});
+    light1.get_mut<vc::Light>()->SetDirection({0.053f, -0.230f, 1.0f});
     light1.get_mut<vc::Light>()->SetColor({1.0f, 1.0f, 1.0f});
     light1.get_mut<vc::Light>()->SetIntensity(2.0f);
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            auto name = "ground" + std::to_string(i) + "_" + std::to_string(j);
+            vc::Entity ground = vc::CreateEntity(name.c_str())
+                .emplace<vc::Transform3D>()
+                .emplace<vc::Model>("ground/ground.fbx")
+                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::ShadowModel);
+            ground.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(i * 3.0f, 0.0f,j * 3.0f));
+        }
+    }
 
     //vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
 }

@@ -37,9 +37,19 @@ Entity ECS::CreateEntity(const char* name)
     return __world.entity(name);
 }
 
+Entity ECS::CreatePrefab(const char* name)
+{
+    return __world.prefab(name);
+}
+
 ECS* ECS::GetECS()
 {
     return s_ecs;
+}
+
+Entity CreatePrefab(const char* name)
+{
+    return ECS::GetECS()->CreatePrefab(name);
 }
 
 Entity CreateEntity(const char* name)

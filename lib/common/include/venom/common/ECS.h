@@ -45,6 +45,7 @@ public:
 
     Entity CreateEntity();
     Entity CreateEntity(const char * name);
+    Entity CreatePrefab(const char * name);
     static inline Entity GetEntity(const char * name) {
         return ECS::GetECS()->__GetEntity(name);
     }
@@ -55,14 +56,19 @@ public:
     }
 
     template <typename... Args>
-    void ForEach(auto && func) {
-        flecs::query<Args...> q = __world.query<Args...>();
-        q.each(func);
+    static inline void ForEach(auto && func) {
+        ECS::GetECS()->__ForEach<Args...>(func);
     }
 
     static ECS * GetECS();
 
 private:
+    template <typename... Args>
+    void __ForEach(auto && func) {
+        flecs::query<Args...> q = __world.query<Args...>();
+        q.each(func);
+    }
+
     static ECS * s_ecs;
 
     Entity __GetEntity(const char * name) {
@@ -73,6 +79,7 @@ private:
     flecs::world __world;
 };
 
+Entity CreatePrefab(const char* name);
 Entity CreateEntity(const char * name);
 Entity CreateEntity();
 

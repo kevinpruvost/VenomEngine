@@ -140,14 +140,14 @@ vc::Error VulkanApplication::__GraphicsOperations()
         __UpdateUniformBuffers();
 
         // Draw Skybox
-        __normalRenderPass.BeginRenderPass(&__swapChain, __graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        __skyboxRenderPass.BeginRenderPass(&__swapChain, __graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
             vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
             {
                 const auto & shaders = pipeline.GetRenderingPipelineCache();
                 shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
                 __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
             });
-        __normalRenderPass.EndRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame]);
+        __skyboxRenderPass.EndRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame]);
 
     if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
         return err;

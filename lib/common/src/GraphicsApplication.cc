@@ -81,21 +81,6 @@ Error GraphicsApplication::Loop()
 void GraphicsApplication::__LoadRenderingPipelines()
 {
     // All default shader pipelines
-    // Loading basic model shaders
-    {
-        ShaderPipelineList basicModelShaders;
-        ShaderPipeline & shader = basicModelShaders.emplace_back();
-        shader.AddVertexBufferToLayout({
-            {vc::ShaderVertexFormat::Vec3, 0, 0, 0},
-            {vc::ShaderVertexFormat::Vec3, 1, 1, 0},
-            {vc::ShaderVertexFormat::Vec2, 2, 2, 0},
-        });
-        shader.SetRenderingPipelineType(RenderingPipelineType::BasicModel);
-        shader.SetRenderingPipelineIndex(0);
-        shader.LoadShaderFromFile("shader_mesh");
-        RenderingPipelineImpl::SetRenderingPipelineCache(basicModelShaders, RenderingPipelineType::BasicModel);
-    }
-
     // Loading shadow able shaders
     {
         ShaderPipelineList shadowModelShaders;

@@ -135,7 +135,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
     //importer.SetPropertyFloat(AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, 45.0f); // Example: 45 degrees
     importer.SetPropertyInteger(AI_CONFIG_PP_CT_MAX_SMOOTHING_ANGLE, 30);
     // Print cwd
-    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_GenUVCoords | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace | aiProcess_PreTransformVertices);
+    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_GenUVCoords | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_PreTransformVertices);
     if (!scene) {
         vc::Log::Error("Failed to load model: %s", realPath.c_str());
         return vc::Error::Failure;

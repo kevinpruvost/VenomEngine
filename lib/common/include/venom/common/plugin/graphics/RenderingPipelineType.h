@@ -15,11 +15,10 @@ enum class RenderingPipelineType
 {
     None = -1,
     GUI = 0,
-    Text3D = 1,
-    BasicModel = 2,
-    ShadowModel = 3,
-    Skybox = 4,
-    Count = 5
+    Text3D,
+    ShadowModel,
+    Skybox,
+    Count,
 };
 }
 }

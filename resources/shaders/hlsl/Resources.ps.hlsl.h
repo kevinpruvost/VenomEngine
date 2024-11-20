@@ -115,9 +115,10 @@ GBufferOutput ComputeMaterialColor(VSOutput input)
     // Normal
     if (material.components[MaterialComponentType::NORMAL].valueType != NONE) {
         float3x3 TBN = float3x3(input.tangent, input.bitangent, input.normal);
-        float3 normal = normalize(mul(TBN, MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv)));
-//        float3 normal = normalize(MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv) * input.normal);
+        //float3 normal = mul(TBN, MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv));
+        float3 normal = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv) * input.normal;
         output.normal = float4(normal, 1.0);
+        //output.normal = float4(input.normal, 1.0);
     } else
         output.normal = float4(input.normal, 1.0);
     // Specular

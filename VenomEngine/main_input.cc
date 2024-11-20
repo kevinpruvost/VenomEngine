@@ -43,10 +43,11 @@ void SceneInput(vc::Context * context)
     }
 
     if (automaticTurn) {
-        vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
-        {
+        vc::ECS::ForEach<vc::Transform3D, vc::Model>([&](vc::Entity entity, vc::Transform3D & transform, vc::Model & model) {
             transform.RotateYaw(time / 1000.0f);
         });
+        vc::ECS::GetEntity("balls_hd").get_mut<vc::Transform3D>()->RotateYaw(time / 1000.0f);
+        vc::ECS::GetEntity("face_hd").get_mut<vc::Transform3D>()->RotateYaw(time / 1000.0f);
     }
 
     if (context->IsKeyReleased(vc::KeyboardInput::KeyboardT)) {

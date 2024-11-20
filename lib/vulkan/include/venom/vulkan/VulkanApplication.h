@@ -52,10 +52,10 @@ public:
 public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
     inline const SwapChain * GetSwapChain() const { return &__swapChain; }
-    inline const RenderPass * GetRenderPass() const { return &__normalRenderPass; }
-    inline const RenderPass * GetGuiRenderPass() const { return &__normalRenderPass; }
+    inline const RenderPass * GetRenderPass() const { return &__skyboxRenderPass; }
+    inline const RenderPass * GetGuiRenderPass() const { return &__skyboxRenderPass; }
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
-    inline const RenderPass * GetHDRRenderPass() const { return &__normalRenderPass; }
+    inline const RenderPass * GetHDRRenderPass() const { return &__skyboxRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }
     inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSecondCheckpointCommandBuffers[GetCurrentFrame()]; }
 
@@ -96,7 +96,7 @@ private:
     Surface __surface;
     SwapChain __swapChain;
     AttachmentsManager __attachmentsManager;
-    RenderPass __normalRenderPass, __shadowRenderPass, __guiRenderPass;
+    RenderPass __skyboxRenderPass, __shadowRenderPass, __guiRenderPass;
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
 
