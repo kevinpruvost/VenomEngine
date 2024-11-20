@@ -26,6 +26,12 @@ ShaderResourceTable::~ShaderResourceTable()
     s_shaderResourceTable = nullptr;
 }
 
+void ShaderResourceTable::UpdateDescriptor(const SetsIndex index, const int binding, const void* data,
+    const size_t size, const size_t offset)
+{
+    s_shaderResourceTable->__UpdateDescriptor(index, binding, data, size, offset);
+}
+
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
 // Model matrix buffers
 

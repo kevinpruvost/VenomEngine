@@ -29,9 +29,7 @@ public:
     VkBuffer GetVkBuffer() const;
     VkDeviceSize GetSize() const;
     template<typename T>
-    inline void WriteToBuffer(const T * data) { memcpy(__mappedData, data, sizeof(T)); }
-    template<typename T>
-    inline void WriteToBuffer(const T * data, size_t size) { memcpy(__mappedData, data, size); }
+    inline void WriteToBuffer(const T * data, size_t size, size_t offset = 0) { memcpy((char *)__mappedData + offset, data, size); }
 
 private:
     Buffer __buffer;

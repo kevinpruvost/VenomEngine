@@ -28,6 +28,7 @@ class VENOM_COMMON_API GraphicsApplication : public GraphicsPluginObject, public
 protected:
     GraphicsApplication();
 public:
+    static GraphicsApplication * Get();
     static GraphicsApplication * Create();
     static inline int GetCurrentFrame() { return _currentFrame; }
     ~GraphicsApplication() override;

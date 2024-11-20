@@ -270,9 +270,9 @@ void VulkanGUI::_Button(const char* label, const vcm::Vec2& size)
     ImGui::Button(label, ImVec2(size.x, size.y));
 }
 
-void VulkanGUI::_Checkbox(const char* label, bool* v)
+bool VulkanGUI::_Checkbox(const char* label, bool* v)
 {
-    ImGui::Checkbox(label, v);
+    return ImGui::Checkbox(label, v);
 }
 
 void VulkanGUI::_ProgressBar(float fraction, const vcm::Vec2& size_arg, const char* overlay)

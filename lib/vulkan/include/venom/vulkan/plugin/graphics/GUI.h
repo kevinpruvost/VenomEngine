@@ -39,7 +39,7 @@ protected:
     void _ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags) override;
 
     void _Button(const char* label, const vcm::Vec2 & size) override;
-    void _Checkbox(const char* label, bool* v) override;
+    bool _Checkbox(const char* label, bool* v) override;
     void _ProgressBar(float fraction, const vcm::Vec2 & size_arg, const char* overlay) override;
 
     void _SameLine(float offset_from_start_x, float spacing) override;

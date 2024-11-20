@@ -20,10 +20,18 @@ namespace venom::common
 {
 
 int GraphicsApplication::_currentFrame = 0;
+static GraphicsApplication * s_graphicsApplication = nullptr;
 
 GraphicsApplication::GraphicsApplication()
     : _shaderResourceTable(GraphicsPlugin::Get()->CreateShaderResourceTable())
 {
+    venom_assert(s_graphicsApplication == nullptr, "Graphics Application already set static.");
+    s_graphicsApplication = this;
+}
+
+GraphicsApplication* GraphicsApplication::Get()
+{
+    return s_graphicsApplication;
 }
 
 GraphicsApplication* GraphicsApplication::Create()
@@ -41,6 +49,7 @@ GraphicsApplication* GraphicsApplication::Create()
 GraphicsApplication::~GraphicsApplication()
 {
     vc::Log::Print("Destroying Graphics Application...");
+    s_graphicsApplication = nullptr;
 }
 
 Error GraphicsApplication::Init()

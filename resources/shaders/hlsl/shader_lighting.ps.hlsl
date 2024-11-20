@@ -24,64 +24,100 @@ float ComputeShadow(float3 position, float3 normal, float3 lightDir) {
     return saturate(ndl); // Shadow factor based on light direction and surface normal
 }
 
-float DistributionGGX(float3 N, float3 H, float roughness) {
-    float a = roughness * roughness;
+// Disney Principled BRDF Helper Functions
+float SchlickFresnel(float u) {
+    return pow(1.0 - u, 5.0);
+}
+
+float GTR2(float NdotH, float a) {
     float a2 = a * a;
-    float NdotH = saturate(dot(N, H));
-    float NdotH2 = NdotH * NdotH;
-
-    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-    return a2 / (M_PI * denom * denom);
+    float t = 1.0 + (a2 - 1.0) * NdotH * NdotH;
+    return a2 / (M_PI * t * t);
 }
 
-float3 FresnelSchlick(float cosTheta, float3 F0) {
-    return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+float GTR2Aniso(float NdotH, float3 H, float3 N, float ax, float ay) {
+    float3 X = normalize(cross(N, float3(0, 1, 0)));
+    float3 Y = normalize(cross(N, X));
+
+    float hdx = dot(H, X) / ax;
+    float hdy = dot(H, Y) / ay;
+    float ndh = dot(N, H);
+
+    return 1.0 / (M_PI * ax * ay *
+        sqrt(1.0 - ndh * ndh +
+        (hdx * hdx / (ax * ax)) +
+        (hdy * hdy / (ay * ay))));
 }
 
-float GeometrySchlickGGX(float NdotV, float roughness) {
-    float k = (roughness + 1.0) * (roughness + 1.0) / 8.0;
-    return NdotV / (NdotV * (1.0 - k) + k);
+float SmithGGXCorrelated(float NdotV, float NdotL, float a) {
+    float a2 = a * a;
+    float GGXL = NdotV * sqrt((-NdotL * a2 + NdotL) * NdotL + a2);
+    float GGXV = NdotL * sqrt((-NdotV * a2 + NdotV) * NdotV + a2);
+    return 0.5 / (GGXL + GGXV);
 }
 
-float GeometrySmith(float3 N, float3 V, float3 L, float roughness) {
-    float NdotV = saturate(dot(N, V));
-    float NdotL = saturate(dot(N, L));
-    float ggx1 = GeometrySchlickGGX(NdotV, roughness);
-    float ggx2 = GeometrySchlickGGX(NdotL, roughness);
-    return ggx1 * ggx2;
+float GeometrySmithAniso(float NdotL, float NdotV, float NdotH, float LdotH, float roughness) {
+    float a = roughness * roughness;
+    float lambdaV = NdotL * sqrt((-NdotV * a + NdotV) * NdotV + a);
+    float lambdaL = NdotV * sqrt((-NdotL * a + NdotL) * NdotL + a);
+    return 2.0 * NdotL * NdotV / (lambdaV + lambdaL);
 }
 
-float3 CookTorranceBRDF(
+float3 DisneyPrincipledBRDF(
     float3 N,           // Surface normal
     float3 V,           // View direction
     float3 L,           // Light direction
-    float3 F0,          // Fresnel reflectance at normal incidence
-    float roughness,    // Roughness factor
+    float3 baseColor,   // Base color
     float metallic,     // Metallic factor
-    float3 albedo       // Base color
+    float roughness,    // Roughness factor
+    float subsurface,   // Subsurface scattering factor
+    float specular,     // Specular intensity
+    float specularTint, // Specular tint
+    float anisotropic,  // Anisotropic factor
+    float sheen,        // Sheen intensity
+    float sheenTint     // Sheen tint
 ) {
-    float3 H = normalize(V + L); // Halfway vector
-
-    // Dot products
     float NdotL = saturate(dot(N, L));
     float NdotV = saturate(dot(N, V));
+    float3 H = normalize(V + L);
     float NdotH = saturate(dot(N, H));
-    float VdotH = saturate(dot(V, H));
+    float LdotH = saturate(dot(L, H));
 
-    // Cook-Torrance components
-    float D = DistributionGGX(N, H, roughness);
-    float3 F = FresnelSchlick(VdotH, F0);
-    float G = GeometrySmith(N, V, L, roughness);
+    // Diffuse
+    float FL = SchlickFresnel(NdotL);
+    float FV = SchlickFresnel(NdotV);
+    float Fd90 = 0.5 + 2.0 * LdotH * LdotH * roughness;
+    float Fd = lerp(1.0, Fd90, FL) * lerp(1.0, Fd90, FV);
+    float3 diffuse = baseColor * Fd / M_PI * (1.0 - metallic);
 
-    // Specular BRDF
-    float3 specular = (D * F * G) / max(4.0 * NdotV * NdotL, 0.001);
+    // Specular
+    float aspect = sqrt(1.0 - anisotropic * 0.9);
+    float ax = max(0.001, roughness * roughness / aspect);
+    float ay = max(0.001, roughness * roughness * aspect);
 
-    // Diffuse BRDF (Lambertian)
-    float3 kD = float3(1.0, 1.0, 1.0) - F; // Energy conservation
-    kD *= 1.0 - metallic;                 // Non-metallic surfaces only
-    float3 diffuse = kD * albedo / M_PI;
+    float Ds = GTR2Aniso(NdotH, H, N, ax, ay);
+    float FH = SchlickFresnel(LdotH);
+    float3 Fs = lerp(float3(specular, specular, specular), baseColor, specularTint) * FH;
+    float Gs = GeometrySmithAniso(NdotL, NdotV, NdotH, LdotH, roughness);
 
-    return (diffuse + specular) * NdotL;  // Apply Lambert's cosine law
+    float3 specular_term = Ds * Fs * Gs / (4.0 * NdotL * NdotV);
+
+    // Sheen
+    float3 sheen_color = lerp(float3(1.0, 1.0, 1.0), baseColor, sheenTint);
+    float3 sheen_term = sheen * sheen_color * SchlickFresnel(LdotH);
+
+    // Subsurface scattering approximation
+    float Fss90 = LdotH * LdotH * roughness;
+    float Fss = lerp(1.0, Fss90, FL) * lerp(1.0, Fss90, FV);
+    float ss = 1.25 * (Fss * (1.0 / (NdotL + NdotV) - 0.5) + 0.5);
+
+    // Combine components
+    return NdotL * (
+        diffuse * (1.0 - subsurface) +
+        ss * subsurface * baseColor +
+        specular_term +
+        sheen_term
+    );
 }
 
 
@@ -110,7 +146,7 @@ float3 GetLightColor(Light light, float3 position)
 float3 GetLightDirection(Light light, float3 position)
 {
     if (light.type == LightType::Directional) {
-        return -light.direction;
+        return -normalize(light.direction);
     }
     else if (light.type == LightType::Point) {
         return normalize(light.position - position);
@@ -167,19 +203,38 @@ FragmentOutput main(LightingVSOutput input) {
 
     float3 finalColor = float3(0.0f, 0.0f, 0.0f);
 
+    // Define additional material parameters for the Disney BRDF
+    float subsurface = 0.0;  // Subsurface scattering amount
+    float specularVal = 0.8; // Specular intensity
+    float specularTint = 0.5; // Specular tint
+    float anisotropic = 0.0; // Anisotropy
+    float sheen = 0.0;       // Sheen amount
+    float sheenTint = 0.0;   // Sheen tint
+
     // Loop over lights
-//    for (uint i = 0; i < lightCount; ++i) {
     for (uint i = 0; i < 1; ++i) {
         Light light = lights[i];
 
         // Compute BRDF for this light
         float3 lightColor = GetLightColor(light, position.xyz);
         float3 lightDir = GetLightDirection(light, position.xyz);
-        //finalColor = baseColor.rgb * dot(normal, lightDir);
-        // Fresnel reflectance at normal incidence
-        float3 F0 = lerp(float3(0.04, 0.04, 0.04), specular.rgb, metallic);
+
         float3 radiance = lightColor * saturate(dot(normal, lightDir));
-        finalColor += CookTorranceBRDF(normal, viewDir, lightDir, F0, roughness, metallic, baseColor.rgb) * radiance;
+
+        finalColor += DisneyPrincipledBRDF(
+            normal,
+            viewDir,
+            lightDir,
+            baseColor.rgb,
+            metallic,
+            roughness,
+            subsurface,
+            specularVal,
+            specularTint,
+            anisotropic,
+            sheen,
+            sheenTint
+        ) * radiance;
     }
 
     // Add ambient light
@@ -189,6 +244,9 @@ FragmentOutput main(LightingVSOutput input) {
     // float shadowFactor = ComputeShadow(position.xyz, normal, lightDir) * 1.0f;
 
     finalColor *= ao;
+
+    if (normalMapDraw != 0)
+        finalColor = normal;
     output.color = float4(finalColor, 1.0f);
     return output;
 }

@@ -50,6 +50,8 @@ public:
         ~Descriptor();
     };
 
+    static void UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0);
+
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     static vcm::Mat4 * GetAllModelMatrixBuffer();
     static vcm::Mat4 * GetModelMatrixBuffer();
@@ -64,7 +66,8 @@ public:
     static inline int GetMaxTextures() { return __maxTextures; }
     static bool UsingLargeBindlessTextures() { return __maxTextures == VENOM_MAX_BINDLESS_TEXTURES; }
 
-protected:
+private:
+    virtual void __UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0) = 0;
 
 private:
     static int __maxTextures;

@@ -38,6 +38,7 @@ public:
     static void SetDummyTexture(VulkanTexture * texture);
 
     vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) override;
+    vc::Error LoadImageBGRA(unsigned char * pixels, int width, int height, int channels) override;
     vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) override;
     vc::Error _InitDepthBuffer(int width, int height) override;
     vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) override;

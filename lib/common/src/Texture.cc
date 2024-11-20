@@ -34,6 +34,15 @@ Texture::Texture(const char * path)
     }
 }
 
+Texture::Texture(const char* path, int id, char* bgraData, unsigned int width, unsigned int height)
+    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
+{
+    if (Error err = LoadImage(path, id, bgraData, width, height); err != Error::Success) {
+        Destroy();
+        return;
+    }
+}
+
 Texture::~Texture()
 {
 }
@@ -184,6 +193,43 @@ vc::Error TextureImpl::LoadImageFromFile(const char* path)
     }
     // Set In Cache
     _SetInCache(realPath, _GetResourceToCache());
+    return vc::Error::Success;
+}
+
+vc::Error TextureImpl::LoadImage(const char* path, int id, char* bgraData, unsigned int width, unsigned int height)
+{
+    auto realPath = path + std::to_string(id);
+
+    {
+        // Load from cache if already loaded
+        vc::SPtr<GraphicsCachedResource> cachedTexture = GraphicsPluginObject::GetCachedObject(realPath);
+        if (cachedTexture) {
+            _LoadFromCache(cachedTexture);
+            return vc::Error::Success;
+        }
+    }
+
+    int realWidth, realHeight;
+    int channels;
+    unsigned char* imageData = stbi_load_from_memory(
+        reinterpret_cast<unsigned char*>(bgraData),
+        width,
+        &realWidth,
+        &realHeight,
+        &channels,
+        STBI_rgb_alpha // Use the original number of channels
+    );
+    if (imageData == nullptr) {
+        vc::Log::Error("Failed to load image from memory: %s", path);
+        return vc::Error::Failure;
+    }
+
+    if (LoadImageBGRA(imageData, realWidth, realHeight, channels) != vc::Error::Success) {
+        vc::Log::Error("Failed to load image from memory: %s", path);
+        return vc::Error::Failure;
+    }
+    _SetInCache(realPath, _GetResourceToCache());
+    stbi_image_free(imageData);
     return vc::Error::Success;
 }
 

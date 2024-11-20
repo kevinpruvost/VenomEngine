@@ -39,7 +39,7 @@ const DescriptorSet& VulkanMaterial::GetMaterialDescriptorSet()
     const MaterialResourceTable & resTable = _GetResourceTable(wasDirty);
     if (wasDirty) {
         // Update material uniform buffer
-        __uniformBuffer.WriteToBuffer(&resTable);
+        __uniformBuffer.WriteToBuffer(&resTable, sizeof(MaterialResourceTable));
 
         // Update textures
         if (__textureDescriptorSet) {

@@ -30,8 +30,8 @@ void main(uint3 groupThreadID : SV_GroupThreadID)
     // Determine the screen area covered by this tile
     uint tileMinX = tileX * 32;
     uint tileMinY = tileY * 32;
-    uint tileMaxX = min(tileMinX + 32, screenProps.width);
-    uint tileMaxY = min(tileMinY + 32, screenProps.height);
+    uint tileMaxX = min(tileMinX + 32, screenWidth);
+    uint tileMaxY = min(tileMinY + 32, screenHeight);
 
     // Now calculate which lights affect this tile
     int relevantLights = 0;

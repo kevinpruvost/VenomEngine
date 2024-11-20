@@ -114,9 +114,19 @@ GBufferOutput ComputeMaterialColor(VSOutput input)
 
     // Normal
     if (material.components[MaterialComponentType::NORMAL].valueType != NONE) {
+        float3 q1 = ddx(input.outPosition.xyz);
+        float3 q2 = ddy(input.outPosition.xyz);
+        float2 st1 = ddx(uv);
+        float2 st2 = ddy(uv);
+
+        float3 T = normalize(q1 * st2.y - q2 * st1.y);
+        T = normalize(T - dot(T, input.normal) * input.normal);
+
+        float3 B = normalize(cross(input.normal, T));
+        //float3x3 TBN = float3x3(T, B, input.normal);
         float3x3 TBN = float3x3(input.tangent, input.bitangent, input.normal);
-        //float3 normal = mul(TBN, MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv));
-        float3 normal = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv) * input.normal;
+        float3 normal = normalize(mul(MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv), TBN));
+        //float3 normal = MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv) * input.normal;
         output.normal = float4(normal, 1.0);
         //output.normal = float4(input.normal, 1.0);
     } else
@@ -135,7 +145,7 @@ GBufferOutput ComputeMaterialColor(VSOutput input)
     // Roughness (if PBR, then ROUGHNESS otherwise square of 2/(SPECULAR+2))
     if (material.components[MaterialComponentType::ROUGHNESS].valueType != NONE)
         output.metallicRoughAo[1] = MaterialComponentGetValue1(MaterialComponentType::ROUGHNESS, uv);
-    else
+    elsex
         output.metallicRoughAo[1] = 0.5;
     // Ambient occlusion
     if (material.components[MaterialComponentType::AMBIENT_OCCLUSION].valueType != NONE)
@@ -145,7 +155,7 @@ GBufferOutput ComputeMaterialColor(VSOutput input)
     output.metallicRoughAo[3] = 1.0;
 
     // Position
-    output.position = float4(input.outPosition.xyz, 1);
+    output.position = float4(input.worldPos, 1);
     output.finalColor = float4(0.0, 0.0, 0.0, 0.0);
 
     return output;

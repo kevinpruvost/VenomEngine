@@ -38,6 +38,8 @@ namespace venom
 /// @brief Encapsulation of Vulkan for the front end of VenomEngine.
 namespace vulkan
 {
+class VulkanShaderResourceTable;
+
 class VulkanApplication
     : public vc::GraphicsApplication
     , public DebugApplication
@@ -133,6 +135,8 @@ private:
     bool __framebufferChanged;
     StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+
+    friend class VulkanShaderResourceTable;
 };
 }
 }

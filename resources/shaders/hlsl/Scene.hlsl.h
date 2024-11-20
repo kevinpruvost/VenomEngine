@@ -16,6 +16,7 @@ struct VSOutput {
     [[vk::location(2)]] float2 fragTexCoord : TEXCOORD1;  // Equivalent to layout(location = 1) out in GLSL
     [[vk::location(3)]] float3 tangent : TANGENT;
     [[vk::location(4)]] float3 bitangent : BITANGENT;
+    [[vk::location(5)]] float3 worldPos : TEXCOORD2;
 };
 
 cbuffer UniformBufferCamera : register(b0, space1) {
@@ -28,13 +29,10 @@ cbuffer cb1 : register(b0, space5) {
     float targetLuminance;
 };
 
-struct ScreenProps
-{
-    int width;
-    int height;
-};
 cbuffer cb2 : register(b1, space5) {
-    ScreenProps screenProps;
+    int screenWidth;
+    int screenHeight;
+    int normalMapDraw;
 };
 
 enum class LightType

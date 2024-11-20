@@ -18,10 +18,10 @@ void Scene()
         .emplace<vc::Transform3D>()
 //            .emplace<vc::Model>("eye/eye.obj")
 //            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
-        .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
+        .emplace<vc::Model>("dead_space_gun/test.fbx")
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::ShadowModel);
         ;
-    balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(4.0f, 4.0f, 0.0f));
+    balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-8.0f, 4.0f, 0.0f));
 
     vc::Entity face_hd = vc::CreateEntity("face_hd")
         .emplace<vc::Transform3D>()
@@ -29,6 +29,13 @@ void Scene()
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::ShadowModel);
         ;
     face_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(0.0f, 2.0f, 0.0f));
+
+    vc::Entity helmet = vc::CreateEntity("helmet_hd")
+    .emplace<vc::Transform3D>()
+    .emplace<vc::Model>("helmet/helmet.glb")
+    .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::ShadowModel);
+    ;
+    helmet.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-4.0f, 4.0f, 0.0f));
 
     vc::Entity camera = vc::CreateEntity("camera")
         .emplace<vc::Transform3D>()

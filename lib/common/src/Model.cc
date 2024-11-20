@@ -199,8 +199,19 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         memcpy(&value, property->mData, property->mDataLength);
                         // Tries to load from cache or path
                         std::string texturePath = parentFolder / value.C_Str();
-                        Texture texture(texturePath.c_str());
-                        material.SetComponent(matCompType, texture);
+                        // If .gltf, then we have to load another way
+                        if (std::filesystem::path(path).extension() == ".gltf" || std::filesystem::path(path).extension() == ".glb") {
+                            // Load gltf texture
+                            unsigned int textureIndex = std::atoi(value.C_Str() + 1);
+                            aiTexture* aiTexture = scene->mTextures[textureIndex];
+
+                            Texture texture(path, textureIndex, reinterpret_cast<char*>(aiTexture->pcData), aiTexture->mWidth, aiTexture->mHeight);
+                            material.SetComponent(matCompType, texture);
+                            continue;
+                        } else {
+                            Texture texture(texturePath.c_str());
+                            material.SetComponent(matCompType, texture);
+                        }
                         break;
                     }
                     default:

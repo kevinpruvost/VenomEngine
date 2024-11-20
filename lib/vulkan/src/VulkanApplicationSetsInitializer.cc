@@ -109,10 +109,12 @@ vc::Error VulkanApplication::__InitializeSets()
     }
 
     // Screen Props
-    if (err = __screenPropsBuffer.Init(sizeof(vcm::Vec2)); err != vc::Error::Success)
+    if (err = __screenPropsBuffer.Init(sizeof(vcm::Vec2) + sizeof(int)); err != vc::Error::Success)
         return err;
     vcm::Vec2 screenProps = {__swapChain.extent.width, __swapChain.extent.height};
+    int normalMapDraw = 0;
     __screenPropsBuffer.WriteToBuffer(&screenProps, sizeof(vcm::Vec2));
+    __screenPropsBuffer.WriteToBuffer(&normalMapDraw, sizeof(int), sizeof(vcm::Vec2));
     DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE).GroupUpdateBuffer(__screenPropsBuffer, 0, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
     // Lights
