@@ -81,9 +81,6 @@ uint64_t Timer::GetLambdaMilliseconds()
 
 double Timer::GetLambdaSeconds()
 {
-    auto testa = static_cast<double>(s_loopTimer->GetMilliSeconds());
-    auto test = testa / 1000.0f;
-    return test;
     return (double)(s_loopTimer->GetMilliSeconds()) / 1000.0f;
 }
 

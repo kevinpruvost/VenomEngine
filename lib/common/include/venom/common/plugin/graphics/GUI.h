@@ -43,8 +43,8 @@ public:
     static inline void TextColored(const vcm::Vec4 & col, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_TextColored(col, fmt, args); va_end(args); }
     static inline void LabelText(const char* label, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_LabelText(label, fmt, args); va_end(args); }
 
-    static inline void SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { s_gui->_SliderFloat(label, v, v_min, v_max, format, power); }
-    static inline void SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { s_gui->_SliderFloat3(label, v, v_min, v_max, format, power); }
+    static inline bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat(label, v, v_min, v_max, format, power); }
+    static inline bool SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat3(label, v, v_min, v_max, format, power); }
 
     static inline void ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags = 0) { s_gui->_ColorEdit3(label, col, flags); }
 
@@ -62,8 +62,8 @@ protected:
     virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
     virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
 
-    virtual void _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) = 0;
-    virtual void _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power) = 0;
+    virtual bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) = 0;
+    virtual bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power) = 0;
 
     virtual void _ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags) = 0;
 

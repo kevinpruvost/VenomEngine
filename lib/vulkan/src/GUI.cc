@@ -250,14 +250,14 @@ void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
     va_end(args);
 }
 
-void VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power)
+bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power)
 {
-    ImGui::SliderFloat(label, v, v_min, v_max, format, power);
+    return ImGui::SliderFloat(label, v, v_min, v_max, format, power);
 }
 
-void VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power)
+bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power)
 {
-    ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
+    return ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
 }
 
 void VulkanGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags)

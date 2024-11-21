@@ -1,5 +1,15 @@
 #define M_PI 3.14159265358979323846264
 
+struct MaterialPBR
+{
+    float3 baseColor;
+    float metallic;
+    float3 normal;
+    float roughness;
+    float3 specular;
+    float ao;
+};
+
 struct VSInput {
     [[vk::location(0)]] float3 inPosition : POSITION;
     [[vk::location(1)]] float3 inNormal : NORMAL;
@@ -33,6 +43,10 @@ cbuffer cb2 : register(b1, space5) {
     int screenWidth;
     int screenHeight;
     int normalMapDraw;
+    int disableMetallic;
+    int disableRoughness;
+    float constant_metallic;
+    float constant_roughness;
 };
 
 enum class LightType

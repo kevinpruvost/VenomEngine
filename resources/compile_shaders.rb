@@ -67,7 +67,7 @@ elsif ARGV[0] == 'compile_debug'
     hlsl_files.each do |file|
         output_file = output_file_create_name(file, compiled_dir)
         type = shader_type(file)
-        cmd = "#{dxc_path} -Zi -T #{type} -spirv #{file} -Fo #{output_file} #{macos_flag} -Fh #{output_file}.pdb"
+        cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} -O1 -Zi #{macos_flag} -Fh #{output_file}.pdb"
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)
     end

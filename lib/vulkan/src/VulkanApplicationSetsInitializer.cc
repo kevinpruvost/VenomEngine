@@ -109,12 +109,20 @@ vc::Error VulkanApplication::__InitializeSets()
     }
 
     // Screen Props
-    if (err = __screenPropsBuffer.Init(sizeof(vcm::Vec2) + sizeof(int)); err != vc::Error::Success)
+    if (err = __screenPropsBuffer.Init(sizeof(vcm::Vec2) + sizeof(int) * 3 + sizeof(float) * 2); err != vc::Error::Success)
         return err;
     vcm::Vec2 screenProps = {__swapChain.extent.width, __swapChain.extent.height};
     int normalMapDraw = 0;
+    int disableMetallic = 0;
+    int disableRoughness = 0;
+    float metallic = 0.0f;
+    float roughness = 0.0f;
     __screenPropsBuffer.WriteToBuffer(&screenProps, sizeof(vcm::Vec2));
     __screenPropsBuffer.WriteToBuffer(&normalMapDraw, sizeof(int), sizeof(vcm::Vec2));
+    __screenPropsBuffer.WriteToBuffer(&disableMetallic, sizeof(int), sizeof(vcm::Vec2) + sizeof(int));
+    __screenPropsBuffer.WriteToBuffer(&disableRoughness, sizeof(int), sizeof(vcm::Vec2) + 2 * sizeof(int));
+    __screenPropsBuffer.WriteToBuffer(&metallic, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int));
+    __screenPropsBuffer.WriteToBuffer(&roughness, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int) + sizeof(float));
     DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE).GroupUpdateBuffer(__screenPropsBuffer, 0, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
     // Lights

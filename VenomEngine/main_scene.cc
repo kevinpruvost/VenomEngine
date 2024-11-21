@@ -40,7 +40,7 @@ void Scene()
     vc::Entity camera = vc::CreateEntity("camera")
         .emplace<vc::Transform3D>()
         .emplace<vc::Camera>();
-    camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-2.0f, -2.0f, 1.0f));
+    camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-5.2f, 4.8f, -4.7f));
     camera.get_mut<vc::Camera>()->LookAt(balls_hd.get<vc::Transform3D>()->GetPosition());
 
     vc::Entity light1 = vc::CreateEntity("light1")

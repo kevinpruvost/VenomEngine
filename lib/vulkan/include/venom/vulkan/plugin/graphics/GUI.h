@@ -33,8 +33,8 @@ protected:
     void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) override;
     void _LabelText(const char* label, const char* fmt, ...) override;
 
-    void _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) override;
-    void _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power);
+    bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) override;
+    bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power);
 
     void _ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags) override;
 

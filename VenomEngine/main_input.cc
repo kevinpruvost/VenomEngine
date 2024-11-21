@@ -56,6 +56,10 @@ void SceneInput(vc::Context * context)
 }
 
 int drawNormalMap = false;
+int disableMetallic = false;
+float metallic = 0.0f;
+int disableRoughness = false;
+float roughness = 0.0f;
 
 void SceneGUI()
 {
@@ -70,6 +74,18 @@ void SceneGUI()
     vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
     if (vc::GUI::Checkbox("Draw Normal Map", (bool *)&drawNormalMap)) {
         vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &drawNormalMap, sizeof(int), sizeof(vcm::Vec2));
+    }
+    if (vc::GUI::Checkbox("Disable Metallic", (bool *)&disableMetallic)) {
+        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &disableMetallic, sizeof(int), sizeof(vcm::Vec2) + sizeof(int));
+    }
+    if (vc::GUI::SliderFloat("Metallic", &metallic, 0.0f, 1.0f)) {
+        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &metallic, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int));
+    }
+    if (vc::GUI::Checkbox("Disable Roughness", (bool *)&disableRoughness)) {
+        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &disableRoughness, sizeof(int), sizeof(vcm::Vec2) + 2 * sizeof(int));
+    }
+    if (vc::GUI::SliderFloat("Roughness", &roughness, 0.0f, 1.0f)) {
+        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &roughness, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int) + sizeof(float));
     }
     vc::GUI::End();
 }
