@@ -70,7 +70,7 @@ void SceneGUI()
     vc::GUI::Text("Welcome to my demo !");
     vc::GUI::Checkbox("Camera Locked", &cameraLocked);
     vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
-    vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 1000.0f);
+    vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
     vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
     if (vc::GUI::Checkbox("Draw Normal Map", (bool *)&drawNormalMap)) {
         vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &drawNormalMap, sizeof(int), sizeof(vcm::Vec2));

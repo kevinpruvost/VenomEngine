@@ -120,9 +120,12 @@ GBufferOutput ComputeMaterialColor(VSOutput input)
         float2 st2 = ddy(uv);
 
         float3 T = normalize(q1 * st2.y - q2 * st1.y);
-        T = normalize(T - dot(T, input.normal) * input.normal);
+        //T = normalize(T - dot(T, input.normal) * input.normal);
 
         float3 B = normalize(cross(input.normal, T));
+
+        T = normalize(cross(input.normal, float3(0.0, 1.0, 0.0)));
+        B = normalize(cross(input.normal, T));
         float3x3 TBN = float3x3(T, B, input.normal);
         //float3x3 TBN = float3x3(input.tangent, input.bitangent, input.normal);
         float3 normal = normalize(mul(MaterialComponentGetValue3(MaterialComponentType::NORMAL, uv), TBN));
