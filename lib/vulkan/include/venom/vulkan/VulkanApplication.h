@@ -55,7 +55,7 @@ public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
     inline const SwapChain * GetSwapChain() const { return &__swapChain; }
     inline const RenderPass * GetRenderPass() const { return &__skyboxRenderPass; }
-    inline const RenderPass * GetGuiRenderPass() const { return &__skyboxRenderPass; }
+    inline const RenderPass * GetGuiRenderPass() const { return &__guiRenderPass; }
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
     inline const RenderPass * GetHDRRenderPass() const { return &__skyboxRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }

@@ -81,7 +81,7 @@ void VulkanGUI::__SetStyle()
     _style->FramePadding = ImVec2(4, 2);
     _style->ItemSpacing = ImVec2(6, 2);
     _style->ItemInnerSpacing = ImVec2(6, 4);
-    _style->Alpha = 0.95f;
+    _style->Alpha = 1.0f;
     _style->WindowRounding = 4.0f;
     _style->FrameRounding = 2.0f;
     _style->IndentSpacing = 6.0f;
@@ -177,7 +177,6 @@ vc::Error VulkanGUI::Reset()
     ImGui_ImplGlfw_Shutdown();
 
     // Setup Platform/Renderer backends
-    ImGui::CreateContext();
 
     ImGui_ImplGlfw_InitForVulkan(vc::Context::Get()->GetWindow(), true);
     initInfo.Instance = Instance::GetVkInstance();
@@ -202,7 +201,6 @@ vc::Error VulkanGUI::Reset()
 #endif
     if (!ImGui_ImplVulkan_Init(&initInfo))
         return vc::Error::Failure;
-
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::Get()->GetWindowWidth()), static_cast<float>(vc::Context::Get()->GetWindowHeight()));
 
@@ -265,9 +263,9 @@ void VulkanGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFla
     ImGui::ColorEdit3(label, col, static_cast<ImGuiColorEditFlags>(flags));
 }
 
-void VulkanGUI::_Button(const char* label, const vcm::Vec2& size)
+bool VulkanGUI::_Button(const char* label, const vcm::Vec2& size)
 {
-    ImGui::Button(label, ImVec2(size.x, size.y));
+    return ImGui::Button(label, ImVec2(size.x, size.y));
 }
 
 bool VulkanGUI::_Checkbox(const char* label, bool* v)
@@ -278,6 +276,26 @@ bool VulkanGUI::_Checkbox(const char* label, bool* v)
 void VulkanGUI::_ProgressBar(float fraction, const vcm::Vec2& size_arg, const char* overlay)
 {
     ImGui::ProgressBar(fraction, ImVec2(size_arg.x, size_arg.y), overlay);
+}
+
+bool VulkanGUI::_Selectable(const char* label, bool selected, vc::GUISelectableFlags flags, const vcm::Vec2& size)
+{
+    return ImGui::Selectable(label, selected, static_cast<ImGuiSelectableFlags>(flags), ImVec2(size.x, size.y));
+}
+
+bool VulkanGUI::_BeginCombo(const char* label, const char* preview_value, vc::GUIComboFlags flags)
+{
+    return ImGui::BeginCombo(label, preview_value, static_cast<ImGuiComboFlags>(flags));
+}
+
+void VulkanGUI::_EndCombo()
+{
+    ImGui::EndCombo();
+}
+
+void VulkanGUI::_SetItemDefaultFocus()
+{
+    ImGui::SetItemDefaultFocus();
 }
 
 void VulkanGUI::_SameLine(float offset_from_start_x, float spacing)

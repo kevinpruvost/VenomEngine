@@ -38,9 +38,16 @@ protected:
 
     void _ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags) override;
 
-    void _Button(const char* label, const vcm::Vec2 & size) override;
+    bool _Button(const char* label, const vcm::Vec2 & size) override;
     bool _Checkbox(const char* label, bool* v) override;
     void _ProgressBar(float fraction, const vcm::Vec2 & size_arg, const char* overlay) override;
+
+    bool _Selectable(const char* label, bool selected, vc::GUISelectableFlags flags, const vcm::Vec2 & size) override;
+
+    bool _BeginCombo(const char* label, const char* preview_value, vc::GUIComboFlags flags) override;
+    void _EndCombo() override;
+
+    void _SetItemDefaultFocus() override;
 
     void _SameLine(float offset_from_start_x, float spacing) override;
 

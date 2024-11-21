@@ -18,6 +18,8 @@ GraphicsSettings::GraphicsSettings()
     , _multisamplingDirty(false)
     , _isHdrSupported(false)
     , __isHdrEnabled(false)
+    , __loadingQueued(false)
+    , _samplingMode(MultiSamplingModeOption::None)
     , _samples(1)
 {
     venom_assert(s_graphicsSettings == nullptr, "GraphicsSettings is a singleton.");
@@ -29,16 +31,26 @@ GraphicsSettings::~GraphicsSettings()
     s_graphicsSettings = nullptr;
 }
 
+vc::Error GraphicsSettings::ManageGfxSettingsLoadingQueue()
+{
+    if (s_graphicsSettings->__loadingQueued)
+    {
+        vc::Error err = s_graphicsSettings->__LoadGfxSettings();
+        if (err != vc::Error::Success)
+            return err;
+        s_graphicsSettings->__loadingQueued = false;
+    }
+    return vc::Error::Success;
+}
+
 vc::Error GraphicsSettings::SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)
 {
-    vc::Error err = s_graphicsSettings->_SetMultiSampling(mode, samples);
-    if (err != vc::Error::Success)
-        return err;
     s_graphicsSettings->_multisamplingDirty = true;
     s_graphicsSettings->_samples = static_cast<int>(samples);
+    s_graphicsSettings->_samplingMode = mode;
     if (s_graphicsSettings->_gfxSettingsChangeState == GfxSettingsChangeState::Ended)
-        return LoadGfxSettings();
-    return err;
+        s_graphicsSettings->__AddLoadGFXSettingsToQueue();
+    return vc::Error::Success;
 }
 
 vc::Error GraphicsSettings::SetHDR(bool enable)
@@ -63,7 +75,7 @@ bool GraphicsSettings::IsHDRSupported()
     return s_graphicsSettings->_isHdrSupported;
 }
 
-vc::Error GraphicsSettings::LoadGfxSettings()
+vc::Error GraphicsSettings::__LoadGfxSettings()
 {
     vc::Error err = s_graphicsSettings->_LoadGfxSettings();
     if (err != vc::Error::Success)
@@ -80,7 +92,7 @@ void GraphicsSettings::StartGfxSettingsChange()
 vc::Error GraphicsSettings::EndGfxSettingsChange()
 {
     s_graphicsSettings->_gfxSettingsChangeState = GfxSettingsChangeState::Ended;
-    return LoadGfxSettings();
+    return __LoadGfxSettings();
 }
 
 int GraphicsSettings::GetSamplesMultisampling()
@@ -90,10 +102,15 @@ int GraphicsSettings::GetSamplesMultisampling()
 
 const vc::Vector<GraphicsSettings::MultiSamplingCountOption> & GraphicsSettings::GetAvailableMultisamplingOptions()
 {
-    if (__availableMultisamplingOptions.empty()) {
-        __availableMultisamplingOptions = _GetAvailableMultisamplingOptions();
+    if (s_graphicsSettings->__availableMultisamplingOptions.empty()) {
+        s_graphicsSettings->__availableMultisamplingOptions = s_graphicsSettings->_GetAvailableMultisamplingOptions();
     }
-    return __availableMultisamplingOptions;
+    return s_graphicsSettings->__availableMultisamplingOptions;
+}
+
+void GraphicsSettings::__AddLoadGFXSettingsToQueue()
+{
+    __loadingQueued = true;
 }
 }
 }

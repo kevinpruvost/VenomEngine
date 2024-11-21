@@ -23,6 +23,7 @@ vc::Error VulkanApplication::_LoadGfxSettings()
     // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders
     if (_multisamplingDirty)
     {
+        __swapChain.SetSamples(_samples);
         if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
 
         static vc::ShaderPipeline vkShader;
@@ -34,6 +35,8 @@ vc::Error VulkanApplication::_LoadGfxSettings()
             //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
             //vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
         }
+        if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
+            return err;
     }
     return err;
 }

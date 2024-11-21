@@ -48,9 +48,16 @@ public:
 
     static inline void ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags = 0) { s_gui->_ColorEdit3(label, col, flags); }
 
-    static inline void Button(const char* label, const vcm::Vec2 & size = vcm::Vec2(0, 0)) { s_gui->_Button(label, size); }
+    static inline bool Button(const char* label, const vcm::Vec2 & size = vcm::Vec2(0, 0)) { return s_gui->_Button(label, size); }
     static inline bool Checkbox(const char* label, bool* v) { return s_gui->_Checkbox(label, v); }
     static inline void ProgressBar(float fraction, const vcm::Vec2 & size_arg = vcm::Vec2(-1, 0), const char* overlay = nullptr) { s_gui->_ProgressBar(fraction, size_arg, overlay); }
+
+    static inline bool Selectable(const char* label, bool selected, GUISelectableFlags flags = 0, const vcm::Vec2 & size = vcm::Vec2(0, 0)) { return s_gui->_Selectable(label, selected, flags, size); }
+
+    static inline bool BeginCombo(const char* label, const char* preview_value, GUIComboFlags flags = 0) { return s_gui->_BeginCombo(label, preview_value, flags); }
+    static inline void EndCombo() { s_gui->_EndCombo(); }
+
+    static inline void SetItemDefaultFocus() { s_gui->_SetItemDefaultFocus(); }
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
 
@@ -67,9 +74,16 @@ protected:
 
     virtual void _ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags) = 0;
 
-    virtual void _Button(const char* label, const vcm::Vec2 & size) = 0;
+    virtual bool _Button(const char* label, const vcm::Vec2 & size) = 0;
     virtual bool _Checkbox(const char* label, bool* v) = 0;
     virtual void _ProgressBar(float fraction, const vcm::Vec2 & size_arg, const char* overlay) = 0;
+
+    virtual bool _Selectable(const char* label, bool selected, GUISelectableFlags flags, const vcm::Vec2 & size) = 0;
+
+    virtual bool _BeginCombo(const char* label, const char* preview_value, GUIComboFlags flags) = 0;
+    virtual void _EndCombo() = 0;
+
+    virtual void _SetItemDefaultFocus() = 0;
 
     virtual void _SameLine(float offset_from_start_x, float spacing) = 0;
 

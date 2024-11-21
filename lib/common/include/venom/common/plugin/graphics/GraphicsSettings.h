@@ -24,6 +24,8 @@ public:
     GraphicsSettings();
     virtual ~GraphicsSettings();
 
+    static vc::Error ManageGfxSettingsLoadingQueue();
+
     enum class MultiSamplingModeOption
     {
         None = 1,
@@ -38,7 +40,6 @@ public:
         Samples16 = 16,
         Samples32 = 32,
     };
-    static vc::Error LoadGfxSettings();
     static vc::Error SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples);
 
     static vc::Error SetHDR(bool enable);
@@ -48,7 +49,7 @@ public:
     static void StartGfxSettingsChange();
     static vc::Error EndGfxSettingsChange();
     static int GetSamplesMultisampling();
-    const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingOptions();
+    static const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingOptions();
 
 protected:
     virtual vc::Error _LoadGfxSettings() = 0;
@@ -66,12 +67,17 @@ protected:
     };
     GfxSettingsChangeState _gfxSettingsChangeState;
 
+    MultiSamplingModeOption _samplingMode;
     int _samples;
     bool _multisamplingDirty;
     bool _isHdrSupported;
 
 private:
+    static vc::Error __LoadGfxSettings();
+    void __AddLoadGFXSettingsToQueue();
+
     bool __isHdrEnabled;
+    bool __loadingQueued;
 
 private:
     vc::Vector<MultiSamplingCountOption> __availableMultisamplingOptions;

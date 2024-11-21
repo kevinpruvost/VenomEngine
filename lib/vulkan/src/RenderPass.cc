@@ -627,9 +627,9 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
 
     // Now linking the input attachments to the descriptor sets
     for (int i = 0; i < framebufferCount; ++i) {
-        for (int x = 0; x < 5; ++x) {
+        for (int x = 1; x <= 5; ++x) {
             DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT)
-                .GroupUpdateImageViewPerFrame(i, __attachments[i][x+1].GetImpl()->As<VulkanTexture>()->GetImageView(), x+3, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1);
+                .GroupUpdateImageViewPerFrame(i, __attachments[i][x].GetImpl()->As<VulkanTexture>()->GetImageView(), x+2, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1);
         }
     }
     return vc::Error::Success;

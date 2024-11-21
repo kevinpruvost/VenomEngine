@@ -7,11 +7,11 @@ struct LightingVSOutput {
     [[vk::location(0)]] float2 uv : TEXCOORD0;
 };
 
-[[vk::input_attachment_index(0)]] SubpassInput g_baseColor : register(t3, space7);
-[[vk::input_attachment_index(1)]] SubpassInput g_normal : register(t4, space7);
-[[vk::input_attachment_index(2)]] SubpassInput g_metallicRoughAo : register(t5, space7);
-[[vk::input_attachment_index(3)]] SubpassInput g_position : register(t6, space7);
-[[vk::input_attachment_index(4)]] SubpassInput g_specular : register(t7, space7);
+[[vk::input_attachment_index(0)]] SubpassInputMS g_baseColor : register(t3, space7);
+[[vk::input_attachment_index(1)]] SubpassInputMS g_normal : register(t4, space7);
+[[vk::input_attachment_index(2)]] SubpassInputMS g_metallicRoughAo : register(t5, space7);
+[[vk::input_attachment_index(3)]] SubpassInputMS g_position : register(t6, space7);
+[[vk::input_attachment_index(4)]] SubpassInputMS g_specular : register(t7, space7);
 
 struct FragmentOutput {
     float4 color : SV_Target0;
@@ -188,21 +188,21 @@ float3 ComputeAmbient(
 FragmentOutput main(LightingVSOutput input) {
     FragmentOutput output;
 
-    MaterialPBR mat;
-    mat.baseColor = g_baseColor.SubpassLoad().rgb;
-    mat.normal = g_normal.SubpassLoad().xyz;
-    mat.metallic = g_metallicRoughAo.SubpassLoad().r;
-    mat.roughness = g_metallicRoughAo.SubpassLoad().g;
-    mat.ao = g_metallicRoughAo.SubpassLoad().b;
-    mat.specular = g_specular.SubpassLoad().rgb;
+    // MaterialPBR mat;
+    // mat.baseColor = g_baseColor.SubpassLoad().rgb;
+    // mat.normal = g_normal.SubpassLoad().xyz;
+    // mat.metallic = g_metallicRoughAo.SubpassLoad().r;
+    // mat.roughness = g_metallicRoughAo.SubpassLoad().g;
+    // mat.ao = g_metallicRoughAo.SubpassLoad().b;
+    // mat.specular = g_specular.SubpassLoad().rgb;
 
-    float4 baseColor = g_baseColor.SubpassLoad();
-    float3 normal = g_normal.SubpassLoad().xyz;
-    float4 specular = g_specular.SubpassLoad();
-    float metallic = g_metallicRoughAo.SubpassLoad().r;
-    float roughness = g_metallicRoughAo.SubpassLoad().g;
-    float ao = g_metallicRoughAo.SubpassLoad().b;
-    float4 position = g_position.SubpassLoad();
+    float4 baseColor = g_baseColor.SubpassLoad(1);
+    float3 normal = g_normal.SubpassLoad(1).xyz;
+    float4 specular = g_specular.SubpassLoad(1);
+    float metallic = g_metallicRoughAo.SubpassLoad(1).r;
+    float roughness = g_metallicRoughAo.SubpassLoad(1).g;
+    float ao = g_metallicRoughAo.SubpassLoad(1).b;
+    float4 position = g_position.SubpassLoad(1);
 
     if (disableMetallic != 0) {
         metallic = constant_metallic;

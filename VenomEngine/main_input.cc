@@ -87,5 +87,23 @@ void SceneGUI()
     if (vc::GUI::SliderFloat("Roughness", &roughness, 0.0f, 1.0f)) {
         vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &roughness, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int) + sizeof(float));
     }
+    vc::Vector<const char *> msaaModes = {"MSAA 1", "MSAA 2", "MSAA 4", "MSAA 8", "MSAA 16"};
+    static int msaaMode = 1;
+    if (vc::GUI::Button("Test")) {
+        vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, (vc::GraphicsSettings::MultiSamplingCountOption)(1));
+    }
+    if (vc::GUI::BeginCombo("MSAA:", msaaModes[msaaMode])) {
+        for (int i = 0; i < vc::GraphicsSettings::GetAvailableMultisamplingOptions().size(); i++) {
+            bool isSelected = (msaaMode == i);
+            if (vc::GUI::Selectable(msaaModes[i], isSelected)) {
+                msaaMode = i;
+                vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, (vc::GraphicsSettings::MultiSamplingCountOption)(pow(2, i)));
+            }
+            if (isSelected) {
+                vc::GUI::SetItemDefaultFocus();
+            }
+        }
+        vc::GUI::EndCombo();
+    }
     vc::GUI::End();
 }

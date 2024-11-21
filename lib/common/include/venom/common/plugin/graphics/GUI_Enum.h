@@ -12,7 +12,7 @@ namespace venom
 namespace common
 {
 /**
- * Window flags based on GUIWindowFlagsBits_ (based on ImGUI 1.91.5)
+ * Window flags based on GUIWindowFlagsBits_ (based on GUI 1.91.5)
  */
 enum GUIWindowFlagsBits
 {
@@ -50,7 +50,7 @@ enum GUIWindowFlagsBits
 typedef int GUIWindowFlags;
 
 /**
- * Color edit flags based on GUIColorEditFlagsBits_ (based on ImGUI 1.91.5)
+ * Color edit flags based on GUIColorEditFlagsBits_ (based on GUI 1.91.5)
  */
 enum GUIColorEditFlagsBits
 {
@@ -95,6 +95,33 @@ enum GUIColorEditFlagsBits
     //GUIColorEditFlags_RGB = GUIColorEditFlags_DisplayRGB, GUIColorEditFlags_HSV = GUIColorEditFlags_DisplayHSV, GUIColorEditFlags_HEX = GUIColorEditFlags_DisplayHex  // [renamed in 1.69]
 };
 typedef int GUIColorEditFlags;
+
+enum GuiComboFlagsBits
+{
+    GUIComboFlags_None                    = 0,
+    GUIComboFlags_PopupAlignLeft          = 1 << 0,   // Align the popup toward the left by default
+    GUIComboFlags_HeightSmall             = 1 << 1,   // Max ~4 items visible. Tip: If you want your combo popup to be a specific size you can use SetNextWindowSizeConstraints() prior to calling BeginCombo()
+    GUIComboFlags_HeightRegular           = 1 << 2,   // Max ~8 items visible (default)
+    GUIComboFlags_HeightLarge             = 1 << 3,   // Max ~20 items visible
+    GUIComboFlags_HeightLargest           = 1 << 4,   // As many fitting items as possible
+    GUIComboFlags_NoArrowButton           = 1 << 5,   // Display on the preview box without the square arrow button
+    GUIComboFlags_NoPreview               = 1 << 6,   // Display only a square arrow button
+    GUIComboFlags_WidthFitPreview         = 1 << 7,   // Width dynamically calculated from preview contents
+    GUIComboFlags_HeightMask_             = GUIComboFlags_HeightSmall | GUIComboFlags_HeightRegular | GUIComboFlags_HeightLarge | GUIComboFlags_HeightLargest,
+};
+typedef int GUIComboFlags;
+
+enum GUISelectableFlagsBits
+{
+    GUISelectableFlags_None               = 0,
+    GUISelectableFlags_NoAutoClosePopups  = 1 << 0,   // Clicking this doesn't close parent popup window (overrides GUIItemFlags_AutoClosePopups)
+    GUISelectableFlags_SpanAllColumns     = 1 << 1,   // Frame will span all columns of its container table (text will still fit in current column)
+    GUISelectableFlags_AllowDoubleClick   = 1 << 2,   // Generate press events on double clicks too
+    GUISelectableFlags_Disabled           = 1 << 3,   // Cannot be selected, display grayed out text
+    GUISelectableFlags_AllowOverlap       = 1 << 4,   // (WIP) Hit testing to allow subsequent widgets to overlap this one
+    GUISelectableFlags_Highlight          = 1 << 5,   // Make the item be displayed as if it is hovered
+};
+typedef int GUISelectableFlags;
 
 }
 }
