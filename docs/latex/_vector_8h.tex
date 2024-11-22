@@ -49,7 +49,25 @@ vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}{ven
 vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}{venom\+::common\+::math\+::\+Get\+Right}} (const vcm\+::\+Quat \&quat)
 \begin{DoxyCompactList}\small\item\em Get the right vector from a quaternion. \end{DoxyCompactList}\item 
 vcm\+::\+Quat \mbox{\hyperlink{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}{venom\+::common\+::math\+::\+Identity\+Quat}} ()
-\begin{DoxyCompactList}\small\item\em Get the identity quaternion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get the identity quaternion. \end{DoxyCompactList}\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_ab817c9981a9c26c07f8d6de5a3be0720}{venom\+::common\+::math\+::\+Get\+Perpendicular\+Vector}} (const vcm\+::\+Vec3 \&vec)
+\begin{DoxyCompactList}\small\item\em Get the perpendicular vector of a vector. \end{DoxyCompactList}\item 
+\Hypertarget{_vector_8h_a46cba368de80eb88077f076cf35fd380}\label{_vector_8h_a46cba368de80eb88077f076cf35fd380} 
+vcm\+::\+Vec3 {\bfseries venom\+::common\+::math\+::\+Cross\+Product} (const vcm\+::\+Vec3 \&a, const vcm\+::\+Vec3 \&b)
+\item 
+\Hypertarget{_vector_8h_a08420343a7814f33d2f676638f6891f4}\label{_vector_8h_a08420343a7814f33d2f676638f6891f4} 
+float {\bfseries venom\+::common\+::math\+::\+Dot\+Product} (const vcm\+::\+Vec3 \&a, const vcm\+::\+Vec3 \&b)
+\item 
+vcm\+::\+Vec3 \mbox{\hyperlink{_vector_8h_a08999f1f35dfca7e203e2cd02c897af4}{venom\+::common\+::math\+::\+Rotate\+Around}} (const vcm\+::\+Vec3 \&point, const vcm\+::\+Vec3 \&target, const vcm\+::\+Vec3 \&plane\+Normal, float angle)
+\begin{DoxyCompactList}\small\item\em Rotates around the target on the given plane\+Normal by the given angle. \end{DoxyCompactList}\item 
+vcm\+::\+Vec2 \mbox{\hyperlink{_vector_8h_ad755b22fae5046ffed5b5702005a822e}{venom\+::common\+::math\+::\+Rotate\+Around}} (const vcm\+::\+Vec2 \&point, const vcm\+::\+Vec2 \&center, const float angle)
+\begin{DoxyCompactList}\small\item\em Rotates point around center by angle (degrees) \end{DoxyCompactList}\item 
+\Hypertarget{_vector_8h_a4cf9b052a43292636c4b09258394bebd}\label{_vector_8h_a4cf9b052a43292636c4b09258394bebd} 
+VENOM\+\_\+\+COMMON\+\_\+\+API void {\bfseries venom\+::common\+::math\+::\+Normalize} (Vec3 \&vec)
+\item 
+\Hypertarget{_vector_8h_ab6845e2f063f17c9cf029c396754f2e7}\label{_vector_8h_ab6845e2f063f17c9cf029c396754f2e7} 
+vcm\+::\+Quat {\bfseries venom\+::common\+::math\+::\+From\+Euler\+Angles} (const float yaw, const float pitch, const float roll)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -99,6 +117,19 @@ Get the forward vector from a quaternion.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Forward vector 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_ab817c9981a9c26c07f8d6de5a3be0720}\index{Vector.h@{Vector.h}!GetPerpendicularVector@{GetPerpendicularVector}}
+\index{GetPerpendicularVector@{GetPerpendicularVector}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{GetPerpendicularVector()}{GetPerpendicularVector()}}
+{\footnotesize\ttfamily \label{_vector_8h_ab817c9981a9c26c07f8d6de5a3be0720} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Get\+Perpendicular\+Vector (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec3 \&}]{vec}{}\end{DoxyParamCaption})}
+
+
+
+Get the perpendicular vector of a vector. 
+
+\begin{DoxyReturn}{Returns}
+Perpendicular vector 
 \end{DoxyReturn}
 \Hypertarget{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}\index{Vector.h@{Vector.h}!GetRight@{GetRight}}
 \index{GetRight@{GetRight}!Vector.h@{Vector.h}}
@@ -166,6 +197,52 @@ Create a quaternion from a view matrix.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Quaternion 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_ad755b22fae5046ffed5b5702005a822e}\index{Vector.h@{Vector.h}!RotateAround@{RotateAround}}
+\index{RotateAround@{RotateAround}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{RotateAround()}{RotateAround()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_vector_8h_ad755b22fae5046ffed5b5702005a822e} 
+vcm\+::\+Vec2 venom\+::common\+::math\+::\+Rotate\+Around (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec2 \&}]{point}{, }\item[{const vcm\+::\+Vec2 \&}]{center}{, }\item[{const float}]{angle}{}\end{DoxyParamCaption})}
+
+
+
+Rotates point around center by angle (degrees) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em center} & \\
+\hline
+{\em angle} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new point 
+\end{DoxyReturn}
+\Hypertarget{_vector_8h_a08999f1f35dfca7e203e2cd02c897af4}\index{Vector.h@{Vector.h}!RotateAround@{RotateAround}}
+\index{RotateAround@{RotateAround}!Vector.h@{Vector.h}}
+\doxysubsubsection{\texorpdfstring{RotateAround()}{RotateAround()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{_vector_8h_a08999f1f35dfca7e203e2cd02c897af4} 
+vcm\+::\+Vec3 venom\+::common\+::math\+::\+Rotate\+Around (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec3 \&}]{point}{, }\item[{const vcm\+::\+Vec3 \&}]{target}{, }\item[{const vcm\+::\+Vec3 \&}]{plane\+Normal}{, }\item[{float}]{angle}{}\end{DoxyParamCaption})}
+
+
+
+Rotates around the target on the given plane\+Normal by the given angle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em target} & \\
+\hline
+{\em plane\+Normal} & \\
+\hline
+{\em angle} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new point 
 \end{DoxyReturn}
 \Hypertarget{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}\index{Vector.h@{Vector.h}!RotateQuat@{RotateQuat}}
 \index{RotateQuat@{RotateQuat}!Vector.h@{Vector.h}}

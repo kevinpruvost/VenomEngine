@@ -124,10 +124,11 @@ $(function(){initNavTree('classvenom_1_1common_1_1_shader_resource_table.html','
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classvenom_1_1common_1_1_shader_resource_table-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">venom::common::ShaderResourceTable Class Reference</div></div>
+  <div class="headertitle"><div class="title">venom::common::ShaderResourceTable Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -145,6 +146,11 @@ $(function(){initNavTree('classvenom_1_1common_1_1_shader_resource_table.html','
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor.html">Descriptor</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:aaf1ac49627e7d034dc2ef5ba35972cf2" id="r_aaf1ac49627e7d034dc2ef5ba35972cf2"><td class="memItemLeft" align="right" valign="top"><a id="aaf1ac49627e7d034dc2ef5ba35972cf2" name="aaf1ac49627e7d034dc2ef5ba35972cf2"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SetsIndex</b> { <br />
@@ -155,12 +161,17 @@ Public Types</h2></td></tr>
 , <br />
 &#160;&#160;<b>SETS_INDEX_MATERIAL</b> = 4
 , <b>SETS_INDEX_SCENE</b> = 5
+, <b>SETS_INDEX_PANORAMA</b> = 6
+, <b>SETS_INDEX_LIGHT</b> = 7
 <br />
  }</td></tr>
 <tr class="separator:aaf1ac49627e7d034dc2ef5ba35972cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6795a3a40cba5993f933a4807ae87282" id="r_a6795a3a40cba5993f933a4807ae87282"><td class="memItemLeft" align="right" valign="top"><a id="a6795a3a40cba5993f933a4807ae87282" name="a6795a3a40cba5993f933a4807ae87282"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateDescriptor</b> (const SetsIndex index, const int binding, const void *data, const size_t size, const size_t offset=0)</td></tr>
+<tr class="separator:a6795a3a40cba5993f933a4807ae87282"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae10a4a2ccc0292be6fdde4665998591e" id="r_ae10a4a2ccc0292be6fdde4665998591e"><td class="memItemLeft" align="right" valign="top"><a id="ae10a4a2ccc0292be6fdde4665998591e" name="ae10a4a2ccc0292be6fdde4665998591e"></a>
 static vcm::Mat4 *&#160;</td><td class="memItemRight" valign="bottom"><b>GetAllModelMatrixBuffer</b> ()</td></tr>
 <tr class="separator:ae10a4a2ccc0292be6fdde4665998591e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,6 +209,9 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>UsingLargeBind
 <tr class="memitem:afa55a84a78740e243ca0baed73281fb5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_afa55a84a78740e243ca0baed73281fb5"><td class="memItemLeft" align="right" valign="top">static SPtr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#afa55a84a78740e243ca0baed73281fb5">GetCachedObject</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:afa55a84a78740e243ca0baed73281fb5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a cached object from the graphics cache.  <br /></td></tr>
 <tr class="separator:afa55a84a78740e243ca0baed73281fb5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4c5c13af9a06594bb5ef3e7107e0a5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_aed4c5c13af9a06594bb5ef3e7107e0a5"><td class="memItemLeft" align="right" valign="top">static const std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#aed4c5c13af9a06594bb5ef3e7107e0a5">GetCachedObjects</a> ()</td></tr>
+<tr class="memdesc:aed4c5c13af9a06594bb5ef3e7107e0a5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all cached objects.  <br /></td></tr>
+<tr class="separator:aed4c5c13af9a06594bb5ef3e7107e0a5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>

@@ -177,9 +177,9 @@ vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>EndCommandBuffer
 <tr class="memitem:ac3fb03ed79c4470270c7fac3fdcd337f" id="r_ac3fb03ed79c4470270c7fac3fdcd337f"><td class="memItemLeft" align="right" valign="top"><a id="ac3fb03ed79c4470270c7fac3fdcd337f" name="ac3fb03ed79c4470270c7fac3fdcd337f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> (VkCommandBufferResetFlags flags)</td></tr>
 <tr class="separator:ac3fb03ed79c4470270c7fac3fdcd337f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa9d531cd169726c3b7e153a831ff76" id="r_abaa9d531cd169726c3b7e153a831ff76"><td class="memItemLeft" align="right" valign="top"><a id="abaa9d531cd169726c3b7e153a831ff76" name="abaa9d531cd169726c3b7e153a831ff76"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>BindPipeline</b> (VkPipeline pipeline, VkPipelineBindPoint bindPoint) const</td></tr>
-<tr class="separator:abaa9d531cd169726c3b7e153a831ff76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5196bc074c860ae3162fdb252cf99f4" id="r_ab5196bc074c860ae3162fdb252cf99f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5196bc074c860ae3162fdb252cf99f4">BindPipeline</a> (VkPipeline pipeline, VkPipelineBindPoint bindPoint)</td></tr>
+<tr class="memdesc:ab5196bc074c860ae3162fdb252cf99f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind a pipeline to the command buffer.  <br /></td></tr>
+<tr class="separator:ab5196bc074c860ae3162fdb252cf99f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80ee2ce2e7527cd48426eec25511feae" id="r_a80ee2ce2e7527cd48426eec25511feae"><td class="memItemLeft" align="right" valign="top"><a id="a80ee2ce2e7527cd48426eec25511feae" name="a80ee2ce2e7527cd48426eec25511feae"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetViewport</b> (const VkViewport &amp;viewport) const</td></tr>
 <tr class="separator:a80ee2ce2e7527cd48426eec25511feae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,21 +189,54 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetScissor</b> (const
 <tr class="memitem:ae408ebdb45af81e84a77dc27fe579ee6" id="r_ae408ebdb45af81e84a77dc27fe579ee6"><td class="memItemLeft" align="right" valign="top"><a id="ae408ebdb45af81e84a77dc27fe579ee6" name="ae408ebdb45af81e84a77dc27fe579ee6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> (uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const</td></tr>
 <tr class="separator:ae408ebdb45af81e84a77dc27fe579ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92c95abeabe570bfb7c0dc1f8bb89a31" id="r_a92c95abeabe570bfb7c0dc1f8bb89a31"><td class="memItemLeft" align="right" valign="top"><a id="a92c95abeabe570bfb7c0dc1f8bb89a31" name="a92c95abeabe570bfb7c0dc1f8bb89a31"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawMesh</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_mesh.html">VulkanMesh</a> *vulkanMesh, const int firstInstance, const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> &amp;pipeline) const</td></tr>
-<tr class="separator:a92c95abeabe570bfb7c0dc1f8bb89a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64773ca2f4ff3d3aa53c446d91fbf3e7" id="r_a64773ca2f4ff3d3aa53c446d91fbf3e7"><td class="memItemLeft" align="right" valign="top"><a id="a64773ca2f4ff3d3aa53c446d91fbf3e7" name="a64773ca2f4ff3d3aa53c446d91fbf3e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawModel</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_model.html">VulkanModel</a> *vulkanModel, const int firstInstance, const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> &amp;pipeline) const</td></tr>
-<tr class="separator:a64773ca2f4ff3d3aa53c446d91fbf3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4960d56504403e8ea1ebd86a7f6059a5" id="r_a4960d56504403e8ea1ebd86a7f6059a5"><td class="memItemLeft" align="right" valign="top"><a id="a4960d56504403e8ea1ebd86a7f6059a5" name="a4960d56504403e8ea1ebd86a7f6059a5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PushConstants</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a> *shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void *pValues) const</td></tr>
-<tr class="separator:a4960d56504403e8ea1ebd86a7f6059a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d18daecbf9efe221f80044a58eb3163" id="r_a1d18daecbf9efe221f80044a58eb3163"><td class="memItemLeft" align="right" valign="top"><a id="a1d18daecbf9efe221f80044a58eb3163" name="a1d18daecbf9efe221f80044a58eb3163"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawVertices</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vertex_buffer.html">VertexBuffer</a> &amp;vertexBuffer) const</td></tr>
+<tr class="separator:a1d18daecbf9efe221f80044a58eb3163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ff3e52813549b6b3e5f86a1923536f5" id="r_a3ff3e52813549b6b3e5f86a1923536f5"><td class="memItemLeft" align="right" valign="top"><a id="a3ff3e52813549b6b3e5f86a1923536f5" name="a3ff3e52813549b6b3e5f86a1923536f5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawMesh</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_mesh.html">VulkanMesh</a> *vulkanMesh, const int firstInstance, const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_pipeline.html">VulkanShaderPipeline</a> &amp;pipeline) const</td></tr>
+<tr class="separator:a3ff3e52813549b6b3e5f86a1923536f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65d0f28929fa682a3a073a8046a3fd77" id="r_a65d0f28929fa682a3a073a8046a3fd77"><td class="memItemLeft" align="right" valign="top"><a id="a65d0f28929fa682a3a073a8046a3fd77" name="a65d0f28929fa682a3a073a8046a3fd77"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawModel</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_model.html">VulkanModel</a> *vulkanModel, const int firstInstance, const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_pipeline.html">VulkanShaderPipeline</a> &amp;pipeline) const</td></tr>
+<tr class="separator:a65d0f28929fa682a3a073a8046a3fd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d534b2773577c7b40cae3d4b995065" id="r_a36d534b2773577c7b40cae3d4b995065"><td class="memItemLeft" align="right" valign="top"><a id="a36d534b2773577c7b40cae3d4b995065" name="a36d534b2773577c7b40cae3d4b995065"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawSkybox</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_skybox.html">VulkanSkybox</a> *vulkanSkybox, const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_pipeline.html">VulkanShaderPipeline</a> *shader)</td></tr>
+<tr class="separator:a36d534b2773577c7b40cae3d4b995065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade1aef614026d81f032d89892632dcc8" id="r_ade1aef614026d81f032d89892632dcc8"><td class="memItemLeft" align="right" valign="top"><a id="ade1aef614026d81f032d89892632dcc8" name="ade1aef614026d81f032d89892632dcc8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Dispatch</b> (uint32_t groupX, uint32_t groupY, uint32_t groupZ) const</td></tr>
+<tr class="separator:ade1aef614026d81f032d89892632dcc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87abedc72253decae81cb4527547412f" id="r_a87abedc72253decae81cb4527547412f"><td class="memItemLeft" align="right" valign="top"><a id="a87abedc72253decae81cb4527547412f" name="a87abedc72253decae81cb4527547412f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PipelineBarrier</b> (VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags, uint32_t memoryBarrierCount, const VkMemoryBarrier *pMemoryBarriers, uint32_t bufferMemoryBarrierCount, const VkBufferMemoryBarrier *pBufferMemoryBarriers, uint32_t imageMemoryBarrierCount, const VkImageMemoryBarrier *pImageMemoryBarriers) const</td></tr>
+<tr class="separator:a87abedc72253decae81cb4527547412f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50a3aefc2ec0ae1ba032dce9bdf8b9d" id="r_ac50a3aefc2ec0ae1ba032dce9bdf8b9d"><td class="memItemLeft" align="right" valign="top"><a id="ac50a3aefc2ec0ae1ba032dce9bdf8b9d" name="ac50a3aefc2ec0ae1ba032dce9bdf8b9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PipelineBarrier</b> (VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) const</td></tr>
+<tr class="separator:ac50a3aefc2ec0ae1ba032dce9bdf8b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69548db609266bda71fdf1ccb5205ec4" id="r_a69548db609266bda71fdf1ccb5205ec4"><td class="memItemLeft" align="right" valign="top"><a id="a69548db609266bda71fdf1ccb5205ec4" name="a69548db609266bda71fdf1ccb5205ec4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CopyImage</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;image, const <a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;getImage)</td></tr>
+<tr class="separator:a69548db609266bda71fdf1ccb5205ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba2465f5f0ddb425e815bb37d207ccd4" id="r_aba2465f5f0ddb425e815bb37d207ccd4"><td class="memItemLeft" align="right" valign="top"><a id="aba2465f5f0ddb425e815bb37d207ccd4" name="aba2465f5f0ddb425e815bb37d207ccd4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CopySwapChainImage</b> (const VkImage &amp;image, const <a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;getImage)</td></tr>
+<tr class="separator:aba2465f5f0ddb425e815bb37d207ccd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb386255bb0295ed9b2e5945d3599742" id="r_adb386255bb0295ed9b2e5945d3599742"><td class="memItemLeft" align="right" valign="top"><a id="adb386255bb0295ed9b2e5945d3599742" name="adb386255bb0295ed9b2e5945d3599742"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearAttachments</b> (uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue) const</td></tr>
+<tr class="separator:adb386255bb0295ed9b2e5945d3599742"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a789292393cd170c0f904238ef05c1f76" id="r_a789292393cd170c0f904238ef05c1f76"><td class="memItemLeft" align="right" valign="top"><a id="a789292393cd170c0f904238ef05c1f76" name="a789292393cd170c0f904238ef05c1f76"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PushConstants</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_pipeline.html">VulkanShaderPipeline</a> *shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset, uint32_t size, const void *pValues) const</td></tr>
+<tr class="separator:a789292393cd170c0f904238ef05c1f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6948ddcc08c1b263490a63560a3f5d7f" id="r_a6948ddcc08c1b263490a63560a3f5d7f"><td class="memItemLeft" align="right" valign="top"><a id="a6948ddcc08c1b263490a63560a3f5d7f" name="a6948ddcc08c1b263490a63560a3f5d7f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CopyBufferToImage</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_buffer.html">Buffer</a> &amp;srcBuffer, const <a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;dstImage)</td></tr>
 <tr class="separator:a6948ddcc08c1b263490a63560a3f5d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543ed40a05de90ae67cad8fcb0d986f3" id="r_a543ed40a05de90ae67cad8fcb0d986f3"><td class="memItemLeft" align="right" valign="top"><a id="a543ed40a05de90ae67cad8fcb0d986f3" name="a543ed40a05de90ae67cad8fcb0d986f3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>TransitionImageLayout</b> (<a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout)</td></tr>
 <tr class="separator:a543ed40a05de90ae67cad8fcb0d986f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c5f1fc6921d8aa91fa45d88d3a2c8b0" id="r_a2c5f1fc6921d8aa91fa45d88d3a2c8b0"><td class="memItemLeft" align="right" valign="top"><a id="a2c5f1fc6921d8aa91fa45d88d3a2c8b0" name="a2c5f1fc6921d8aa91fa45d88d3a2c8b0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>TransitionImageLayout</b> (<a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a> &amp;image, VkImageLayout oldLayout, VkImageLayout newLayout)</td></tr>
+<tr class="separator:a2c5f1fc6921d8aa91fa45d88d3a2c8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09def11fc3689db956424637d4124d15" id="r_a09def11fc3689db956424637d4124d15"><td class="memItemLeft" align="right" valign="top"><a id="a09def11fc3689db956424637d4124d15" name="a09def11fc3689db956424637d4124d15"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ChangeImageLayout</b> (<a class="el" href="classvenom_1_1common_1_1_texture.html">vc::Texture</a> &amp;image, const VkImageLayout oldLayout, const VkImageLayout newLayout)</td></tr>
+<tr class="separator:a09def11fc3689db956424637d4124d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a386747b3eefb84115d97e6d7d388a964" id="r_a386747b3eefb84115d97e6d7d388a964"><td class="memItemLeft" align="right" valign="top"><a id="a386747b3eefb84115d97e6d7d388a964" name="a386747b3eefb84115d97e6d7d388a964"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ChangeImageLayout</b> (<a class="el" href="classvenom_1_1common_1_1_texture.html">vc::Texture</a> &amp;image, const VkImageLayout newLayout)</td></tr>
+<tr class="separator:a386747b3eefb84115d97e6d7d388a964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f9169e7ec1f3c0e8294d9f38f997ac6" id="r_a4f9169e7ec1f3c0e8294d9f38f997ac6"><td class="memItemLeft" align="right" valign="top"><a id="a4f9169e7ec1f3c0e8294d9f38f997ac6" name="a4f9169e7ec1f3c0e8294d9f38f997ac6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>BindDescriptorSets</b> (VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout, uint32_t firstSet, VkDescriptorSet vkDescriptors) const</td></tr>
 <tr class="separator:a4f9169e7ec1f3c0e8294d9f38f997ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,6 +261,9 @@ const <a class="el" href="classvenom_1_1vulkan_1_1_queue.html">Queue</a> *&#160;
 <tr class="memitem:a1306bb26d43a99d816ebd07a8a13fb0a" id="r_a1306bb26d43a99d816ebd07a8a13fb0a"><td class="memItemLeft" align="right" valign="top"><a id="a1306bb26d43a99d816ebd07a8a13fb0a" name="a1306bb26d43a99d816ebd07a8a13fb0a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>_isActive</b></td></tr>
 <tr class="separator:a1306bb26d43a99d816ebd07a8a13fb0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5faa7a570bca63cc4b19a70e3302d200" id="r_a5faa7a570bca63cc4b19a70e3302d200"><td class="memItemLeft" align="right" valign="top"><a id="a5faa7a570bca63cc4b19a70e3302d200" name="a5faa7a570bca63cc4b19a70e3302d200"></a>
+VkPipeline&#160;</td><td class="memItemRight" valign="bottom"><b>_lastBoundPipeline</b></td></tr>
+<tr class="separator:a5faa7a570bca63cc4b19a70e3302d200"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -240,7 +276,39 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderPass</b></td><
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Command <a class="el" href="classvenom_1_1vulkan_1_1_buffer.html">Buffer</a> class, only instanciable by VulkanCommandPool. To use them, you need to create a VulkanCommandPool and then create/access them via VulkanCommandPool. To make sure destruction and memory is handled in a correct way for command buffers, only VulkanCommandPool should own them. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab5196bc074c860ae3162fdb252cf99f4" name="ab5196bc074c860ae3162fdb252cf99f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5196bc074c860ae3162fdb252cf99f4">&#9670;&#160;</a></span>BindPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::CommandBuffer::BindPipeline </td>
+          <td>(</td>
+          <td class="paramtype">VkPipeline</td>          <td class="paramname"><span class="paramname"><em>pipeline</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkPipelineBindPoint</td>          <td class="paramname"><span class="paramname"><em>bindPoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bind a pipeline to the command buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipeline</td><td>The pipeline to bind </td></tr>
+    <tr><td class="paramname">bindPoint</td><td>The bind point of the pipeline </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the pipeline was already bound, false otherwise </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_command_pool_8h_source.html">CommandPool.h</a></li>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="_command_pool_8cc.html">CommandPool.cc</a></li>
 </ul>

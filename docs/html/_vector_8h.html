@@ -198,6 +198,27 @@ Functions</h2></td></tr>
 <tr class="memitem:a40ed191ee8aa4317568a2f832caf6416" id="r_a40ed191ee8aa4317568a2f832caf6416"><td class="memItemLeft" align="right" valign="top">vcm::Quat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40ed191ee8aa4317568a2f832caf6416">venom::common::math::IdentityQuat</a> ()</td></tr>
 <tr class="memdesc:a40ed191ee8aa4317568a2f832caf6416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the identity quaternion.  <br /></td></tr>
 <tr class="separator:a40ed191ee8aa4317568a2f832caf6416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab817c9981a9c26c07f8d6de5a3be0720" id="r_ab817c9981a9c26c07f8d6de5a3be0720"><td class="memItemLeft" align="right" valign="top">vcm::Vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab817c9981a9c26c07f8d6de5a3be0720">venom::common::math::GetPerpendicularVector</a> (const vcm::Vec3 &amp;vec)</td></tr>
+<tr class="memdesc:ab817c9981a9c26c07f8d6de5a3be0720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the perpendicular vector of a vector.  <br /></td></tr>
+<tr class="separator:ab817c9981a9c26c07f8d6de5a3be0720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cba368de80eb88077f076cf35fd380" id="r_a46cba368de80eb88077f076cf35fd380"><td class="memItemLeft" align="right" valign="top"><a id="a46cba368de80eb88077f076cf35fd380" name="a46cba368de80eb88077f076cf35fd380"></a>
+vcm::Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::math::CrossProduct</b> (const vcm::Vec3 &amp;a, const vcm::Vec3 &amp;b)</td></tr>
+<tr class="separator:a46cba368de80eb88077f076cf35fd380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08420343a7814f33d2f676638f6891f4" id="r_a08420343a7814f33d2f676638f6891f4"><td class="memItemLeft" align="right" valign="top"><a id="a08420343a7814f33d2f676638f6891f4" name="a08420343a7814f33d2f676638f6891f4"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::math::DotProduct</b> (const vcm::Vec3 &amp;a, const vcm::Vec3 &amp;b)</td></tr>
+<tr class="separator:a08420343a7814f33d2f676638f6891f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08999f1f35dfca7e203e2cd02c897af4" id="r_a08999f1f35dfca7e203e2cd02c897af4"><td class="memItemLeft" align="right" valign="top">vcm::Vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08999f1f35dfca7e203e2cd02c897af4">venom::common::math::RotateAround</a> (const vcm::Vec3 &amp;point, const vcm::Vec3 &amp;target, const vcm::Vec3 &amp;planeNormal, float angle)</td></tr>
+<tr class="memdesc:a08999f1f35dfca7e203e2cd02c897af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates around the target on the given planeNormal by the given angle.  <br /></td></tr>
+<tr class="separator:a08999f1f35dfca7e203e2cd02c897af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad755b22fae5046ffed5b5702005a822e" id="r_ad755b22fae5046ffed5b5702005a822e"><td class="memItemLeft" align="right" valign="top">vcm::Vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad755b22fae5046ffed5b5702005a822e">venom::common::math::RotateAround</a> (const vcm::Vec2 &amp;point, const vcm::Vec2 &amp;center, const float angle)</td></tr>
+<tr class="memdesc:ad755b22fae5046ffed5b5702005a822e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates point around center by angle (degrees)  <br /></td></tr>
+<tr class="separator:ad755b22fae5046ffed5b5702005a822e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf9b052a43292636c4b09258394bebd" id="r_a4cf9b052a43292636c4b09258394bebd"><td class="memItemLeft" align="right" valign="top"><a id="a4cf9b052a43292636c4b09258394bebd" name="a4cf9b052a43292636c4b09258394bebd"></a>
+VENOM_COMMON_API void&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::math::Normalize</b> (Vec3 &amp;vec)</td></tr>
+<tr class="separator:a4cf9b052a43292636c4b09258394bebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6845e2f063f17c9cf029c396754f2e7" id="r_ab6845e2f063f17c9cf029c396754f2e7"><td class="memItemLeft" align="right" valign="top"><a id="ab6845e2f063f17c9cf029c396754f2e7" name="ab6845e2f063f17c9cf029c396754f2e7"></a>
+vcm::Quat&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::math::FromEulerAngles</b> (const float yaw, const float pitch, const float roll)</td></tr>
+<tr class="separator:ab6845e2f063f17c9cf029c396754f2e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngine</p>
@@ -253,6 +274,26 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Forward vector </dd></dl>
+
+</div>
+</div>
+<a id="ab817c9981a9c26c07f8d6de5a3be0720" name="ab817c9981a9c26c07f8d6de5a3be0720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab817c9981a9c26c07f8d6de5a3be0720">&#9670;&#160;</a></span>GetPerpendicularVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vcm::Vec3 venom::common::math::GetPerpendicularVector </td>
+          <td>(</td>
+          <td class="paramtype">const vcm::Vec3 &amp;</td>          <td class="paramname"><span class="paramname"><em>vec</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the perpendicular vector of a vector. </p>
+<dl class="section return"><dt>Returns</dt><dd>Perpendicular vector </dd></dl>
 
 </div>
 </div>
@@ -351,6 +392,86 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Quaternion </dd></dl>
+
+</div>
+</div>
+<a id="ad755b22fae5046ffed5b5702005a822e" name="ad755b22fae5046ffed5b5702005a822e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad755b22fae5046ffed5b5702005a822e">&#9670;&#160;</a></span>RotateAround() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vcm::Vec2 venom::common::math::RotateAround </td>
+          <td>(</td>
+          <td class="paramtype">const vcm::Vec2 &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec2 &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>angle</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotates point around center by angle (degrees) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td></td></tr>
+    <tr><td class="paramname">center</td><td></td></tr>
+    <tr><td class="paramname">angle</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new point </dd></dl>
+
+</div>
+</div>
+<a id="a08999f1f35dfca7e203e2cd02c897af4" name="a08999f1f35dfca7e203e2cd02c897af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08999f1f35dfca7e203e2cd02c897af4">&#9670;&#160;</a></span>RotateAround() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vcm::Vec3 venom::common::math::RotateAround </td>
+          <td>(</td>
+          <td class="paramtype">const vcm::Vec3 &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec3 &amp;</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec3 &amp;</td>          <td class="paramname"><span class="paramname"><em>planeNormal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angle</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotates around the target on the given planeNormal by the given angle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td></td></tr>
+    <tr><td class="paramname">target</td><td></td></tr>
+    <tr><td class="paramname">planeNormal</td><td></td></tr>
+    <tr><td class="paramname">angle</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new point </dd></dl>
 
 </div>
 </div>

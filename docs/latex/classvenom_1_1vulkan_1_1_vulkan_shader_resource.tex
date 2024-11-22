@@ -1,0 +1,87 @@
+\doxysection{venom\+::vulkan\+::Vulkan\+Shader\+Resource Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource}{}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource}\index{venom::vulkan::VulkanShaderResource@{venom::vulkan::VulkanShaderResource}}
+Inheritance diagram for venom\+::vulkan\+::Vulkan\+Shader\+Resource\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classvenom_1_1vulkan_1_1_vulkan_shader_resource}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_adc3ce2f6177a7195c2057dc70268d564}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_adc3ce2f6177a7195c2057dc70268d564} 
+{\bfseries Vulkan\+Shader\+Resource} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{vc\+::\+Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*}h)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a8f99f396a4d9ded97a4b8bd2846c90e7}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a8f99f396a4d9ded97a4b8bd2846c90e7} 
+void {\bfseries Destroy\+Shader\+Modules} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{venom\+::common\+::\+Shader\+Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Shader\+Resource} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*}holder)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{venom\+::common\+::\+Graphics\+Cached\+Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Graphics\+Cached\+Resource} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*}h)
+\item 
+{\bfseries Graphics\+Cached\+Resource} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} \&)=delete
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} \&)=delete
+\item 
+void {\bfseries Release\+From\+Cache} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool {\bfseries Is\+Type} () const
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+void {\bfseries Set\+Holder} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*}h)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Holder} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a56220be49b58bcd6a12e926c616dddc2}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a56220be49b58bcd6a12e926c616dddc2} 
+Vk\+Pipeline {\bfseries pipeline}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a0396d44861bec5e6dd729f34d1d34415}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a0396d44861bec5e6dd729f34d1d34415} 
+Vk\+Pipeline\+Layout {\bfseries pipeline\+Layout}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_aeba2bc2020cb83c2ff942c370cd5e7cc}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_aeba2bc2020cb83c2ff942c370cd5e7cc} 
+std\+::vector$<$ Vk\+Vertex\+Input\+Binding\+Description $>$ {\bfseries binding\+Descriptions}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a57da44e91e931b131a71d1981a4d79c1}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a57da44e91e931b131a71d1981a4d79c1} 
+std\+::vector$<$ Vk\+Vertex\+Input\+Attribute\+Description $>$ {\bfseries attribute\+Descriptions}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a9860ab215f24bb43fe2118128e32f65f}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a9860ab215f24bb43fe2118128e32f65f} 
+Vk\+Pipeline\+Multisample\+State\+Create\+Info {\bfseries multisampling\+Create\+Info}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a881d224ddc9fe7d87e3e1459b59c8128}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a881d224ddc9fe7d87e3e1459b59c8128} 
+Vk\+Pipeline\+Rasterization\+State\+Create\+Info {\bfseries rasterizer\+Create\+Info}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_accb2bbb938e78e02e5b571d92951aa81}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_accb2bbb938e78e02e5b571d92951aa81} 
+Vk\+Pipeline\+Depth\+Stencil\+State\+Create\+Info {\bfseries depth\+Stencil\+Create\+Info}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a224ced306c17eac560f5aff88fa5451a}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a224ced306c17eac560f5aff88fa5451a} 
+std\+::vector$<$ Vk\+Pipeline\+Shader\+Stage\+Create\+Info $>$ {\bfseries shader\+Stages}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a3c106dab0766340935b96d8c61504716}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_a3c106dab0766340935b96d8c61504716} 
+bool {\bfseries shader\+Dirty}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_shader_resource_ac3069a262c716bc4e11fa1d787221977}\label{classvenom_1_1vulkan_1_1_vulkan_shader_resource_ac3069a262c716bc4e11fa1d787221977} 
+Pipeline\+Type {\bfseries pipeline\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{venom\+::common\+::\+Shader\+Resource}}}
+\begin{DoxyCompactItemize}
+\item 
+Vector$<$ String $>$ {\bfseries shader\+Paths}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_shader_pipeline_8h}{Shader\+Pipeline.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/Shader\+Pipeline.\+cc\end{DoxyCompactItemize}

@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "venom::vulkan::Allocator", "classvenom_1_1vulkan_1_1_allocator.html", null ],
+    [ "venom::vulkan::AttachmentsManager", "classvenom_1_1vulkan_1_1_attachments_manager.html", null ],
     [ "venom::common::BindlessTexturesIdManager", "classvenom_1_1common_1_1_bindless_textures_id_manager.html", null ],
     [ "venom::vulkan::VulkanMesh::BoundVkBuffer", "structvenom_1_1vulkan_1_1_vulkan_mesh_1_1_bound_vk_buffer.html", null ],
     [ "venom::vulkan::Buffer", "classvenom_1_1vulkan_1_1_buffer.html", null ],
@@ -14,6 +15,7 @@ var hierarchy =
     [ "venom::vulkan::DebugApplication", "classvenom_1_1vulkan_1_1_debug_application.html", [
       [ "venom::vulkan::VulkanApplication", "classvenom_1_1vulkan_1_1_vulkan_application.html", null ]
     ] ],
+    [ "venom::common::ShaderResourceTable::Descriptor", "classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor.html", null ],
     [ "venom::vulkan::DescriptorPool", "classvenom_1_1vulkan_1_1_descriptor_pool.html", null ],
     [ "venom::vulkan::DescriptorSet", "classvenom_1_1vulkan_1_1_descriptor_set.html", null ],
     [ "venom::vulkan::DescriptorSetGroup", "classvenom_1_1vulkan_1_1_descriptor_set_group.html", null ],
@@ -24,11 +26,14 @@ var hierarchy =
     [ "venom::common::ECS", "classvenom_1_1common_1_1_e_c_s.html", null ],
     [ "venom::vulkan::Fence", "classvenom_1_1vulkan_1_1_fence.html", null ],
     [ "venom::common::FpsCounter", "classvenom_1_1common_1_1_fps_counter.html", null ],
+    [ "venom::vulkan::Framebuffer", "classvenom_1_1vulkan_1_1_framebuffer.html", null ],
     [ "venom::common::GraphicsCachedResource", "classvenom_1_1common_1_1_graphics_cached_resource.html", [
       [ "venom::common::ModelResource", "classvenom_1_1common_1_1_model_resource.html", [
         [ "venom::vulkan::VulkanModelResource", "classvenom_1_1vulkan_1_1_vulkan_model_resource.html", null ]
       ] ],
-      [ "venom::common::ShaderResource", "classvenom_1_1common_1_1_shader_resource.html", null ],
+      [ "venom::common::ShaderResource", "classvenom_1_1common_1_1_shader_resource.html", [
+        [ "venom::vulkan::VulkanShaderResource", "classvenom_1_1vulkan_1_1_vulkan_shader_resource.html", null ]
+      ] ],
       [ "venom::common::TextureResource", "classvenom_1_1common_1_1_texture_resource.html", [
         [ "venom::vulkan::VulkanTextureResource", "classvenom_1_1vulkan_1_1_vulkan_texture_resource.html", null ]
       ] ]
@@ -37,9 +42,16 @@ var hierarchy =
       [ "venom::common::ModelImpl", "classvenom_1_1common_1_1_model_impl.html", [
         [ "venom::vulkan::VulkanModel", "classvenom_1_1vulkan_1_1_vulkan_model.html", null ]
       ] ],
-      [ "venom::common::ShaderImpl", "classvenom_1_1common_1_1_shader_impl.html", null ],
+      [ "venom::common::ShaderPipelineImpl", "classvenom_1_1common_1_1_shader_pipeline_impl.html", [
+        [ "venom::vulkan::VulkanShaderPipeline", "classvenom_1_1vulkan_1_1_vulkan_shader_pipeline.html", null ]
+      ] ],
       [ "venom::common::TextureImpl", "classvenom_1_1common_1_1_texture_impl.html", [
         [ "venom::vulkan::VulkanTexture", "classvenom_1_1vulkan_1_1_vulkan_texture.html", null ]
+      ] ]
+    ] ],
+    [ "venom::common::GraphicsSettings", "classvenom_1_1common_1_1_graphics_settings.html", [
+      [ "venom::common::GraphicsApplication", "classvenom_1_1common_1_1_graphics_application.html", [
+        [ "venom::vulkan::VulkanApplication", "classvenom_1_1vulkan_1_1_vulkan_application.html", null ]
       ] ]
     ] ],
     [ "venom::vulkan::Image", "classvenom_1_1vulkan_1_1_image.html", null ],
@@ -51,9 +63,10 @@ var hierarchy =
           [ "venom::common::CameraImpl", "classvenom_1_1common_1_1_camera_impl.html", [
             [ "venom::vulkan::VulkanCamera", "classvenom_1_1vulkan_1_1_vulkan_camera.html", null ]
           ] ],
-          [ "venom::common::GraphicsApplication", "classvenom_1_1common_1_1_graphics_application.html", [
-            [ "venom::vulkan::VulkanApplication", "classvenom_1_1vulkan_1_1_vulkan_application.html", null ]
+          [ "venom::common::GUI", "classvenom_1_1common_1_1_g_u_i.html", [
+            [ "venom::vulkan::VulkanGUI", "classvenom_1_1vulkan_1_1_vulkan_g_u_i.html", null ]
           ] ],
+          [ "venom::common::GraphicsApplication", "classvenom_1_1common_1_1_graphics_application.html", null ],
           [ "venom::common::MaterialImpl", "classvenom_1_1common_1_1_material_impl.html", [
             [ "venom::vulkan::VulkanMaterial", "classvenom_1_1vulkan_1_1_vulkan_material.html", null ]
           ] ],
@@ -61,9 +74,15 @@ var hierarchy =
             [ "venom::vulkan::VulkanMesh", "classvenom_1_1vulkan_1_1_vulkan_mesh.html", null ]
           ] ],
           [ "venom::common::ModelImpl", "classvenom_1_1common_1_1_model_impl.html", null ],
-          [ "venom::common::ShaderImpl", "classvenom_1_1common_1_1_shader_impl.html", null ],
+          [ "venom::common::RenderingPipelineImpl", "classvenom_1_1common_1_1_rendering_pipeline_impl.html", [
+            [ "venom::vulkan::VulkanRenderingPipeline", "classvenom_1_1vulkan_1_1_vulkan_rendering_pipeline.html", null ]
+          ] ],
+          [ "venom::common::ShaderPipelineImpl", "classvenom_1_1common_1_1_shader_pipeline_impl.html", null ],
           [ "venom::common::ShaderResourceTable", "classvenom_1_1common_1_1_shader_resource_table.html", [
             [ "venom::vulkan::VulkanShaderResourceTable", "classvenom_1_1vulkan_1_1_vulkan_shader_resource_table.html", null ]
+          ] ],
+          [ "venom::common::SkyboxImpl", "classvenom_1_1common_1_1_skybox_impl.html", [
+            [ "venom::vulkan::VulkanSkybox", "classvenom_1_1vulkan_1_1_vulkan_skybox.html", null ]
           ] ],
           [ "venom::common::TextureImpl", "classvenom_1_1common_1_1_texture_impl.html", null ]
         ] ]
@@ -73,10 +92,14 @@ var hierarchy =
         [ "venom::common::MaterialImpl", "classvenom_1_1common_1_1_material_impl.html", null ],
         [ "venom::common::MeshImpl", "classvenom_1_1common_1_1_mesh_impl.html", null ],
         [ "venom::common::ModelImpl", "classvenom_1_1common_1_1_model_impl.html", null ],
-        [ "venom::common::ShaderImpl", "classvenom_1_1common_1_1_shader_impl.html", null ],
+        [ "venom::common::RenderingPipelineImpl", "classvenom_1_1common_1_1_rendering_pipeline_impl.html", null ],
+        [ "venom::common::ShaderPipelineImpl", "classvenom_1_1common_1_1_shader_pipeline_impl.html", null ],
+        [ "venom::common::SkyboxImpl", "classvenom_1_1common_1_1_skybox_impl.html", null ],
         [ "venom::common::TextureImpl", "classvenom_1_1common_1_1_texture_impl.html", null ]
       ] ]
     ] ],
+    [ "venom::common::LightManager", "classvenom_1_1common_1_1_light_manager.html", null ],
+    [ "venom::common::LightShaderStruct", "structvenom_1_1common_1_1_light_shader_struct.html", null ],
     [ "venom::common::Log", "classvenom_1_1common_1_1_log.html", null ],
     [ "venom::vulkan::LogicalDevice", "classvenom_1_1vulkan_1_1_logical_device.html", null ],
     [ "venom::vulkan::MappedQueueFamilies", "classvenom_1_1vulkan_1_1_mapped_queue_families.html", null ],
@@ -100,6 +123,9 @@ var hierarchy =
       [ "venom::common::Material", "classvenom_1_1common_1_1_material.html", null ],
       [ "venom::common::Mesh", "classvenom_1_1common_1_1_mesh.html", null ],
       [ "venom::common::Model", "classvenom_1_1common_1_1_model.html", null ],
+      [ "venom::common::RenderingPipeline", "classvenom_1_1common_1_1_rendering_pipeline.html", null ],
+      [ "venom::common::ShaderPipeline", "classvenom_1_1common_1_1_shader_pipeline.html", null ],
+      [ "venom::common::Skybox", "classvenom_1_1common_1_1_skybox.html", null ],
       [ "venom::common::Texture", "classvenom_1_1common_1_1_texture.html", null ]
     ] ],
     [ "venom::vulkan::Queue", "classvenom_1_1vulkan_1_1_queue.html", null ],
@@ -110,17 +136,21 @@ var hierarchy =
     [ "venom::common::Resources", "classvenom_1_1common_1_1_resources.html", null ],
     [ "venom::vulkan::Sampler", "classvenom_1_1vulkan_1_1_sampler.html", null ],
     [ "venom::vulkan::Semaphore", "classvenom_1_1vulkan_1_1_semaphore.html", null ],
-    [ "venom::vulkan::ShaderPipeline", "classvenom_1_1vulkan_1_1_shader_pipeline.html", null ],
     [ "venom::vulkan::StorageBuffer", "classvenom_1_1vulkan_1_1_storage_buffer.html", null ],
     [ "venom::vulkan::Surface", "classvenom_1_1vulkan_1_1_surface.html", null ],
     [ "venom::vulkan::SwapChain", "classvenom_1_1vulkan_1_1_swap_chain.html", null ],
+    [ "venom::common::TextureLoader", "classvenom_1_1common_1_1_texture_loader.html", [
+      [ "venom::common::EXR_TextureLoader", "classvenom_1_1common_1_1_e_x_r___texture_loader.html", null ],
+      [ "venom::common::Stbi_TextureLoader", "classvenom_1_1common_1_1_stbi___texture_loader.html", null ]
+    ] ],
     [ "venom::common::Timer", "classvenom_1_1common_1_1_timer.html", null ],
     [ "venom::common::Transform3D", "classvenom_1_1common_1_1_transform3_d.html", [
-      [ "venom::common::CameraImpl", "classvenom_1_1common_1_1_camera_impl.html", null ]
+      [ "venom::common::CameraImpl", "classvenom_1_1common_1_1_camera_impl.html", null ],
+      [ "venom::common::Light", "classvenom_1_1common_1_1_light.html", null ]
     ] ],
     [ "venom::vulkan::UniformBuffer", "classvenom_1_1vulkan_1_1_uniform_buffer.html", null ],
     [ "venom::common::VenomEngine", "classvenom_1_1common_1_1_venom_engine.html", null ],
     [ "venom::common::VenomSettings", "classvenom_1_1common_1_1_venom_settings.html", null ],
     [ "venom::vulkan::VertexBuffer", "classvenom_1_1vulkan_1_1_vertex_buffer.html", null ],
-    [ "venom::vulkan::VulkanShader", "classvenom_1_1vulkan_1_1_vulkan_shader.html", null ]
+    [ "venom::common::ShaderPipelineImpl::VertexBufferLayout", "structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout.html", null ]
 ];

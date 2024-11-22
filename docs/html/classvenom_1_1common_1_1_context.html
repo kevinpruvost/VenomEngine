@@ -125,6 +125,7 @@ $(function(){initNavTree('classvenom_1_1common_1_1_context.html',''); initResiza
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classvenom_1_1common_1_1_context-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::common::Context Class Reference</div></div>
 </div><!--header-->
@@ -132,9 +133,9 @@ $(function(){initNavTree('classvenom_1_1common_1_1_context.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af1c1e32faf43865dd620288c3855c8cc" id="r_af1c1e32faf43865dd620288c3855c8cc"><td class="memItemLeft" align="right" valign="top"><a id="af1c1e32faf43865dd620288c3855c8cc" name="af1c1e32faf43865dd620288c3855c8cc"></a>
-Error&#160;</td><td class="memItemRight" valign="bottom"><b>InitContext</b> ()</td></tr>
-<tr class="separator:af1c1e32faf43865dd620288c3855c8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da5fd3fc2a876fff32c15c9dfea8e4f" id="r_a6da5fd3fc2a876fff32c15c9dfea8e4f"><td class="memItemLeft" align="right" valign="top"><a id="a6da5fd3fc2a876fff32c15c9dfea8e4f" name="a6da5fd3fc2a876fff32c15c9dfea8e4f"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>InitContext</b> ()</td></tr>
+<tr class="separator:a6da5fd3fc2a876fff32c15c9dfea8e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed1453655f98ef458942b31f533655ae" id="r_aed1453655f98ef458942b31f533655ae"><td class="memItemLeft" align="right" valign="top"><a id="aed1453655f98ef458942b31f533655ae" name="aed1453655f98ef458942b31f533655ae"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>ShouldClose</b> ()</td></tr>
 <tr class="separator:aed1453655f98ef458942b31f533655ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,10 +148,82 @@ GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>GetWindow</b>
 <tr class="memitem:a32cc0ef3261802c53090947be0daf307" id="r_a32cc0ef3261802c53090947be0daf307"><td class="memItemLeft" align="right" valign="top"><a id="a32cc0ef3261802c53090947be0daf307" name="a32cc0ef3261802c53090947be0daf307"></a>
 const GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><b>GetWindow</b> () const</td></tr>
 <tr class="separator:a32cc0ef3261802c53090947be0daf307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5c412336be240289a02a2d00f4baf1" id="r_aea5c412336be240289a02a2d00f4baf1"><td class="memItemLeft" align="right" valign="top"><a id="aea5c412336be240289a02a2d00f4baf1" name="aea5c412336be240289a02a2d00f4baf1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetWindowTitle</b> (const char *title)</td></tr>
+<tr class="separator:aea5c412336be240289a02a2d00f4baf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21f3e609b21090d98e6a6458eb22a2fd" id="r_a21f3e609b21090d98e6a6458eb22a2fd"><td class="memItemLeft" align="right" valign="top"><a id="a21f3e609b21090d98e6a6458eb22a2fd" name="a21f3e609b21090d98e6a6458eb22a2fd"></a>
+InputState&#160;</td><td class="memItemRight" valign="bottom"><b>GetKeyState</b> (KeyboardInput key) const</td></tr>
+<tr class="separator:a21f3e609b21090d98e6a6458eb22a2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af411bd98f661e6d41623ac7d8848ca36" id="r_af411bd98f661e6d41623ac7d8848ca36"><td class="memItemLeft" align="right" valign="top"><a id="af411bd98f661e6d41623ac7d8848ca36" name="af411bd98f661e6d41623ac7d8848ca36"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsKeyPressed</b> (KeyboardInput key) const</td></tr>
+<tr class="separator:af411bd98f661e6d41623ac7d8848ca36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59909f8439e89630043e0a03a6b9a9f1" id="r_a59909f8439e89630043e0a03a6b9a9f1"><td class="memItemLeft" align="right" valign="top"><a id="a59909f8439e89630043e0a03a6b9a9f1" name="a59909f8439e89630043e0a03a6b9a9f1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsKeyReleased</b> (KeyboardInput key) const</td></tr>
+<tr class="separator:a59909f8439e89630043e0a03a6b9a9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d6d0432f2eb7ffc432c9547dc464be" id="r_ad2d6d0432f2eb7ffc432c9547dc464be"><td class="memItemLeft" align="right" valign="top"><a id="ad2d6d0432f2eb7ffc432c9547dc464be" name="ad2d6d0432f2eb7ffc432c9547dc464be"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsKeyRepeat</b> (KeyboardInput key) const</td></tr>
+<tr class="separator:ad2d6d0432f2eb7ffc432c9547dc464be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a03c65fa40a27982dc541b4b6c89461" id="r_a1a03c65fa40a27982dc541b4b6c89461"><td class="memItemLeft" align="right" valign="top"><a id="a1a03c65fa40a27982dc541b4b6c89461" name="a1a03c65fa40a27982dc541b4b6c89461"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetWindowWidth</b> () const</td></tr>
+<tr class="separator:a1a03c65fa40a27982dc541b4b6c89461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f5932539dd996e153d645ed4a62b392" id="r_a9f5932539dd996e153d645ed4a62b392"><td class="memItemLeft" align="right" valign="top"><a id="a9f5932539dd996e153d645ed4a62b392" name="a9f5932539dd996e153d645ed4a62b392"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetWindowHeight</b> () const</td></tr>
+<tr class="separator:a9f5932539dd996e153d645ed4a62b392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a656e9f125f3634382e912d8b2e0d65e9" id="r_a656e9f125f3634382e912d8b2e0d65e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a656e9f125f3634382e912d8b2e0d65e9">IsKeyModifierPressed</a> (int modifier) const</td></tr>
+<tr class="memdesc:a656e9f125f3634382e912d8b2e0d65e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a specified keyboard modifier key is currently pressed.  <br /></td></tr>
+<tr class="separator:a656e9f125f3634382e912d8b2e0d65e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c13d84910d6b977df1543e9fe66351" id="r_a07c13d84910d6b977df1543e9fe66351"><td class="memItemLeft" align="right" valign="top"><a id="a07c13d84910d6b977df1543e9fe66351" name="a07c13d84910d6b977df1543e9fe66351"></a>
+vcm::Vec2&#160;</td><td class="memItemRight" valign="bottom"><b>GetMousePosition</b> () const</td></tr>
+<tr class="separator:a07c13d84910d6b977df1543e9fe66351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f76a3cf9ac561aa90287682b0236366" id="r_a8f76a3cf9ac561aa90287682b0236366"><td class="memItemLeft" align="right" valign="top"><a id="a8f76a3cf9ac561aa90287682b0236366" name="a8f76a3cf9ac561aa90287682b0236366"></a>
+vcm::Vec2&#160;</td><td class="memItemRight" valign="bottom"><b>GetMouseMove</b> () const</td></tr>
+<tr class="separator:a8f76a3cf9ac561aa90287682b0236366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a38d28e14fc6768f8d23de50393d5e85f" id="r_a38d28e14fc6768f8d23de50393d5e85f"><td class="memItemLeft" align="right" valign="top"><a id="a38d28e14fc6768f8d23de50393d5e85f" name="a38d28e14fc6768f8d23de50393d5e85f"></a>
+static <a class="el" href="classvenom_1_1common_1_1_context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> ()</td></tr>
+<tr class="separator:a38d28e14fc6768f8d23de50393d5e85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a656e9f125f3634382e912d8b2e0d65e9" name="a656e9f125f3634382e912d8b2e0d65e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a656e9f125f3634382e912d8b2e0d65e9">&#9670;&#160;</a></span>IsKeyModifierPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::common::Context::IsKeyModifierPressed </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>modifier</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if a specified keyboard modifier key is currently pressed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modifier</td><td>A bitmask of one or more KeyboardModifier values. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the specified modifier(s) is pressed; otherwise, false. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/<a class="el" href="_context_8h_source.html">Context.h</a></li>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="_context_8cc.html">Context.cc</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="_context_input_8cc.html">ContextInput.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

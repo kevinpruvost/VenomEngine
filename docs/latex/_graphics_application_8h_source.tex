@@ -7,33 +7,40 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_error_8h}{venom/common/Error.h}}>}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h}{venom/common/plugin/graphics/ShaderResourceTable.h}}>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00023\ \{}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h}{venom/common/plugin/graphics/ShaderResourceTable.h}}>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_settings_8h}{venom/common/plugin/graphics/GraphicsSettings.h}}>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }common}
 \DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}();}
-\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ Create();}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetCurrentFrame()\ \{\ \textcolor{keywordflow}{return}\ \_currentFrame;\ \}}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{\string~GraphicsApplication}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00032\ \ \ \ \ Error\ Init();}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ \_\_Init()\ =\ 0;}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_PostInit()\ =\ 0;}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ Loop()\ =\ 0;}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ ShouldClose()\ =\ 0;}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ *\ \_shaderResourceTable;}
-\DoxyCodeLine{00040\ \ \ \ \ UPtr<vc::Texture>\ \_dummyTexture;}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_currentFrame;}
-\DoxyCodeLine{00042\ \};}
-\DoxyCodeLine{00043\ \}}
-\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{GraphicsSettings}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}();}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ Get();}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ Create();}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetCurrentFrame()\ \{\ \textcolor{keywordflow}{return}\ \_currentFrame;\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{\string~GraphicsApplication}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ \ \ \ \ Error\ Init();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ \_\_Init()\ =\ 0;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_PostInit()\ =\ 0;}
+\DoxyCodeLine{00038\ \ \ \ \ Error\ Loop();}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ Error\ \_\_Loop()\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ ShouldClose()\ =\ 0;}
+\DoxyCodeLine{00041\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_LoadRenderingPipelines();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ *\ \_shaderResourceTable;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ *\ \_gui;}
+\DoxyCodeLine{00047\ \ \ \ \ UPtr<vc::Texture>\ \_dummyTexture;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_currentFrame;}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ \}}
 
 \end{DoxyCode}

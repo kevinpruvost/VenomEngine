@@ -24,25 +24,30 @@
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Load(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels,}
 \DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties);}
-\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ Create(VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties,\ uint32\_t\ width,\ uint32\_t\ height);}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ SetImageLayout(VkImageLayout\ layout);}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ VkImage\ GetVkImage()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ VkImage()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ uint32\_t\ GetWidth()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00036\ \ \ \ \ uint32\_t\ GetHeight()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00037\ \ \ \ \ VkImageLayout\ GetLayout()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}};}
-\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00041\ \ \ \ \ VkImageCreateInfo\ \_\_imageInfo;}
-\DoxyCodeLine{00042\ \ \ \ \ VkImage\ \_\_image;}
-\DoxyCodeLine{00043\ \ \ \ \ VkImageLayout\ \_\_layout;}
-\DoxyCodeLine{00044\ \ \ \ \ VkDeviceMemory\ \_\_imageMemory;}
-\DoxyCodeLine{00045\ \ \ \ \ uint32\_t\ \_\_width,\ \_\_height;}
-\DoxyCodeLine{00046\ \};}
-\DoxyCodeLine{00047\ \}}
-\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ Load(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties);}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ Create(VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties,\ uint32\_t\ width,\ uint32\_t\ height,\ uint32\_t\ arrayLevels\ =\ 1,\ uint32\_t\ mipLevels\ =\ 1);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSamples(VkSampleCountFlagBits\ samples);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSamples(\textcolor{keywordtype}{int}\ samples);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetImageLayout(VkImageLayout\ layout);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ VkFormat\ GetFormat()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ VkImage\ GetVkImage()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ VkImage()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ uint32\_t\ GetWidth()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00041\ \ \ \ \ uint32\_t\ GetHeight()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00042\ \ \ \ \ VkImageLayout\ GetLayout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}};}
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ VkImageCreateInfo\ \_\_imageInfo;}
+\DoxyCodeLine{00047\ \ \ \ \ VkImage\ \_\_image;}
+\DoxyCodeLine{00048\ \ \ \ \ VkImageLayout\ \_\_layout;}
+\DoxyCodeLine{00049\ \ \ \ \ VkDeviceMemory\ \_\_imageMemory;}
+\DoxyCodeLine{00050\ \ \ \ \ uint32\_t\ \_\_width,\ \_\_height;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ \}}
 
 \end{DoxyCode}

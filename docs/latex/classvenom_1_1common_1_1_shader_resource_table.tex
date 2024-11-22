@@ -6,6 +6,11 @@ Inheritance diagram for venom\+::common\+::Shader\+Resource\+Table\+:\begin{figu
 \includegraphics[height=5.000000cm]{classvenom_1_1common_1_1_shader_resource_table}
 \end{center}
 \end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor}{Descriptor}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -18,10 +23,15 @@ enum {\bfseries Sets\+Index} \{ \newline
 , \newline
 {\bfseries SETS\+\_\+\+INDEX\+\_\+\+MATERIAL} = 4
 , {\bfseries SETS\+\_\+\+INDEX\+\_\+\+SCENE} = 5
+, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+PANORAMA} = 6
+, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+LIGHT} = 7
  \}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_resource_table_a6795a3a40cba5993f933a4807ae87282}\label{classvenom_1_1common_1_1_shader_resource_table_a6795a3a40cba5993f933a4807ae87282} 
+static void {\bfseries Update\+Descriptor} (const Sets\+Index index, const int binding, const void \texorpdfstring{$\ast$}{*}data, const size\+\_\+t size, const size\+\_\+t offset=0)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_resource_table_ae10a4a2ccc0292be6fdde4665998591e}\label{classvenom_1_1common_1_1_shader_resource_table_ae10a4a2ccc0292be6fdde4665998591e} 
 static vcm\+::\+Mat4 \texorpdfstring{$\ast$}{*} {\bfseries Get\+All\+Model\+Matrix\+Buffer} ()
@@ -59,7 +69,9 @@ static bool {\bfseries Using\+Large\+Bindless\+Textures} ()
 static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
 static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
-\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}

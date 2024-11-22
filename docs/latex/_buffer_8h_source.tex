@@ -27,16 +27,17 @@
 \DoxyCodeLine{00029\ \ \ \ \ VkBuffer\ GetVkBuffer()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ VkDeviceMemory\ \&\ GetVkDeviceMemory()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00031\ \ \ \ \ VkDeviceSize\ GetSize()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00034\ \ \ \ \ vc::Error\ \_\_BindBufferMemory();}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00037\ \ \ \ \ uint32\_t\ \_\_size;}
-\DoxyCodeLine{00038\ \ \ \ \ VkBuffer\ \_\_buffer;}
-\DoxyCodeLine{00039\ \ \ \ \ VkDeviceMemory\ \_\_memory;}
-\DoxyCodeLine{00040\ \};}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VkBuffer\ *\ GetVkBufferPtr()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \&\_\_buffer;\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ vc::Error\ \_\_BindBufferMemory();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ uint32\_t\ \_\_size;}
+\DoxyCodeLine{00039\ \ \ \ \ VkBuffer\ \_\_buffer;}
+\DoxyCodeLine{00040\ \ \ \ \ VkDeviceMemory\ \_\_memory;}
+\DoxyCodeLine{00041\ \};}
 \DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ \}}
 
 \end{DoxyCode}

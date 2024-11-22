@@ -1,6 +1,8 @@
 \doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Context.h File Reference}
 \hypertarget{_context_8h}{}\label{_context_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Context.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Context.h}}
 {\ttfamily \#include $<$venom/common/\+Error.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Containers.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/math/\+Matrix.\+h$>$}\newline
 {\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 \doxysubsubsection*{Classes}
@@ -15,6 +17,199 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a4b58b54f6a969aa3b5bd4ef73b55bb3b}\label{namespacevenom_1_1common_a4b58b54f6a969aa3b5bd4ef73b55bb3b} 
+enum {\bfseries Input\+State} \+: int8\+\_\+t \{ {\bfseries Released} = 0x1
+, {\bfseries Pressed} = 0x2
+, {\bfseries Repeat} = 0x4
+, {\bfseries Unknown} = 0x8
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_ae8ca766ddc2cc5d7cf687d7d82733fe4}\label{namespacevenom_1_1common_ae8ca766ddc2cc5d7cf687d7d82733fe4} 
+enum {\bfseries Keyboard\+Input} \{ \newline
+{\bfseries Keyboard\+Unknown} = 0
+, {\bfseries KeyboardA} = 1
+, {\bfseries KeyboardB} = 2
+, {\bfseries KeyboardC} = 3
+, \newline
+{\bfseries KeyboardD} = 4
+, {\bfseries KeyboardE} = 5
+, {\bfseries KeyboardF} = 6
+, {\bfseries KeyboardG} = 7
+, \newline
+{\bfseries KeyboardH} = 8
+, {\bfseries KeyboardI} = 9
+, {\bfseries KeyboardJ} = 10
+, {\bfseries KeyboardK} = 11
+, \newline
+{\bfseries KeyboardL} = 12
+, {\bfseries KeyboardM} = 13
+, {\bfseries KeyboardN} = 14
+, {\bfseries KeyboardO} = 15
+, \newline
+{\bfseries KeyboardP} = 16
+, {\bfseries KeyboardQ} = 17
+, {\bfseries KeyboardR} = 18
+, {\bfseries KeyboardS} = 19
+, \newline
+{\bfseries KeyboardT} = 20
+, {\bfseries KeyboardU} = 21
+, {\bfseries KeyboardV} = 22
+, {\bfseries KeyboardW} = 23
+, \newline
+{\bfseries KeyboardX} = 24
+, {\bfseries KeyboardY} = 25
+, {\bfseries KeyboardZ} = 26
+, {\bfseries Keyboard0} = 27
+, \newline
+{\bfseries Keyboard1} = 28
+, {\bfseries Keyboard2} = 29
+, {\bfseries Keyboard3} = 30
+, {\bfseries Keyboard4} = 31
+, \newline
+{\bfseries Keyboard5} = 32
+, {\bfseries Keyboard6} = 33
+, {\bfseries Keyboard7} = 34
+, {\bfseries Keyboard8} = 35
+, \newline
+{\bfseries Keyboard9} = 36
+, {\bfseries Keyboard\+Escape} = 37
+, {\bfseries Keyboard\+Enter} = 38
+, {\bfseries Keyboard\+Tab} = 39
+, \newline
+{\bfseries Keyboard\+Backspace} = 40
+, {\bfseries Keyboard\+Insert} = 41
+, {\bfseries Keyboard\+Delete} = 42
+, {\bfseries Keyboard\+Right} = 43
+, \newline
+{\bfseries Keyboard\+Left} = 44
+, {\bfseries Keyboard\+Down} = 45
+, {\bfseries Keyboard\+Up} = 46
+, {\bfseries Keyboard\+Page\+Up} = 47
+, \newline
+{\bfseries Keyboard\+Page\+Down} = 48
+, {\bfseries Keyboard\+Home} = 49
+, {\bfseries Keyboard\+End} = 50
+, {\bfseries Keyboard\+Caps\+Lock} = 51
+, \newline
+{\bfseries Keyboard\+Scroll\+Lock} = 52
+, {\bfseries Keyboard\+Num\+Lock} = 53
+, {\bfseries Keyboard\+Print\+Screen} = 54
+, {\bfseries Keyboard\+Pause} = 55
+, \newline
+{\bfseries Keyboard\+F1} = 56
+, {\bfseries Keyboard\+F2} = 57
+, {\bfseries Keyboard\+F3} = 58
+, {\bfseries Keyboard\+F4} = 59
+, \newline
+{\bfseries Keyboard\+F5} = 60
+, {\bfseries Keyboard\+F6} = 61
+, {\bfseries Keyboard\+F7} = 62
+, {\bfseries Keyboard\+F8} = 63
+, \newline
+{\bfseries Keyboard\+F9} = 64
+, {\bfseries Keyboard\+F10} = 65
+, {\bfseries Keyboard\+F11} = 66
+, {\bfseries Keyboard\+F12} = 67
+, \newline
+{\bfseries Keyboard\+F13} = 68
+, {\bfseries Keyboard\+F14} = 69
+, {\bfseries Keyboard\+F15} = 70
+, {\bfseries Keyboard\+F16} = 71
+, \newline
+{\bfseries Keyboard\+F17} = 72
+, {\bfseries Keyboard\+F18} = 73
+, {\bfseries Keyboard\+F19} = 74
+, {\bfseries Keyboard\+F20} = 75
+, \newline
+{\bfseries Keyboard\+F21} = 76
+, {\bfseries Keyboard\+F22} = 77
+, {\bfseries Keyboard\+F23} = 78
+, {\bfseries Keyboard\+F24} = 79
+, \newline
+{\bfseries Keyboard\+F25} = 80
+, {\bfseries Keyboard\+KP0} = 81
+, {\bfseries Keyboard\+KP1} = 82
+, {\bfseries Keyboard\+KP2} = 83
+, \newline
+{\bfseries Keyboard\+KP3} = 84
+, {\bfseries Keyboard\+KP4} = 85
+, {\bfseries Keyboard\+KP5} = 86
+, {\bfseries Keyboard\+KP6} = 87
+, \newline
+{\bfseries Keyboard\+KP7} = 88
+, {\bfseries Keyboard\+KP8} = 89
+, {\bfseries Keyboard\+KP9} = 90
+, {\bfseries Keyboard\+KPDecimal} = 91
+, \newline
+{\bfseries Keyboard\+KPDivide} = 92
+, {\bfseries Keyboard\+KPMultiply} = 93
+, {\bfseries Keyboard\+KPSubtract} = 94
+, {\bfseries Keyboard\+KPAdd} = 95
+, \newline
+{\bfseries Keyboard\+KPEnter} = 96
+, {\bfseries Keyboard\+KPEqual} = 97
+, {\bfseries Keyboard\+Left\+Shift} = 98
+, {\bfseries Keyboard\+Left\+Control} = 99
+, \newline
+{\bfseries Keyboard\+Left\+Alt} = 100
+, {\bfseries Keyboard\+Left\+Super} = 101
+, {\bfseries Keyboard\+Right\+Shift} = 102
+, {\bfseries Keyboard\+Right\+Control} = 103
+, \newline
+{\bfseries Keyboard\+Right\+Alt} = 104
+, {\bfseries Keyboard\+Right\+Super} = 105
+, {\bfseries Keyboard\+Menu} = 106
+, {\bfseries Keyboard\+Space} = 107
+, \newline
+{\bfseries Keyboard\+Apostrophe} = 108
+, {\bfseries Keyboard\+Comma} = 109
+, {\bfseries Keyboard\+Minus} = 110
+, {\bfseries Keyboard\+Period} = 111
+, \newline
+{\bfseries Keyboard\+Slash} = 112
+, {\bfseries Keyboard\+Semicolon} = 113
+, {\bfseries Keyboard\+Equal} = 114
+, {\bfseries Keyboard\+Left\+Bracket} = 115
+, \newline
+{\bfseries Keyboard\+Backslash} = 116
+, {\bfseries Keyboard\+Right\+Bracket} = 117
+, {\bfseries Keyboard\+Grave\+Accent} = 118
+, {\bfseries Keyboard\+World1} = 119
+, \newline
+{\bfseries Keyboard\+World2} = 120
+, {\bfseries Keyboard\+Total}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_af9cd8210eda17dc25a1b3600c501b827}\label{namespacevenom_1_1common_af9cd8210eda17dc25a1b3600c501b827} 
+enum {\bfseries Keyboard\+Modifier} \{ {\bfseries Keyboard\+Mod\+Shift} = 0x0001
+, {\bfseries Keyboard\+Mod\+Control} = 0x0002
+, {\bfseries Keyboard\+Mod\+Alt} = 0x0004
+, {\bfseries Keyboard\+Mod\+Super} = 0x0008
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_afc530f715c4776f60c7b7ce2cb0c1ee0}\label{namespacevenom_1_1common_afc530f715c4776f60c7b7ce2cb0c1ee0} 
+enum {\bfseries Mouse\+Button} \{ \newline
+{\bfseries Mouse\+Button1} = 0
+, {\bfseries Mouse\+Button2} = 1
+, {\bfseries Mouse\+Button3} = 2
+, {\bfseries Mouse\+Button4} = 3
+, \newline
+{\bfseries Mouse\+Button5} = 4
+, {\bfseries Mouse\+Button6} = 5
+, {\bfseries Mouse\+Button7} = 6
+, {\bfseries Mouse\+Button8} = 7
+, \newline
+{\bfseries Mouse\+Button\+Last} = Mouse\+Button8
+, {\bfseries Mouse\+Button\+Left} = Mouse\+Button1
+, {\bfseries Mouse\+Button\+Right} = Mouse\+Button2
+, {\bfseries Mouse\+Button\+Middle} = Mouse\+Button3
+, \newline
+{\bfseries Mouse\+Total}
+ \}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

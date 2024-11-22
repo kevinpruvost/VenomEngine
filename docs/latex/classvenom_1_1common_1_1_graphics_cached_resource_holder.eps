@@ -175,9 +175,10 @@ boxfont setfont
 1 boundaspect scale
 (venom::common::GraphicsCachedResourceHolder) cw
 (venom::common::ModelImpl) cw
-(venom::common::ShaderImpl) cw
+(venom::common::ShaderPipelineImpl) cw
 (venom::common::TextureImpl) cw
 (venom::vulkan::VulkanModel) cw
+(venom::vulkan::VulkanShaderPipeline) cw
 (venom::vulkan::VulkanTexture) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -192,9 +193,10 @@ boundx scalefactor div boundy scalefactor div scale
 
  (venom::common::GraphicsCachedResourceHolder) 1.000000 2.000000 box
  (venom::common::ModelImpl) 0.000000 1.000000 box
- (venom::common::ShaderImpl) 1.000000 1.000000 box
+ (venom::common::ShaderPipelineImpl) 1.000000 1.000000 box
  (venom::common::TextureImpl) 2.000000 1.000000 box
  (venom::vulkan::VulkanModel) 0.000000 0.000000 box
+ (venom::vulkan::VulkanShaderPipeline) 1.000000 0.000000 box
  (venom::vulkan::VulkanTexture) 2.000000 0.000000 box
 
 % ----- relations -----
@@ -210,10 +212,14 @@ solid
 solid
 0 1.000000 1.750000 in
 solid
+1 1.000000 0.250000 out
+solid
 0 2.000000 1.750000 in
 solid
 1 2.000000 0.250000 out
 solid
 0 0.000000 0.750000 in
+solid
+0 1.000000 0.750000 in
 solid
 0 2.000000 0.750000 in

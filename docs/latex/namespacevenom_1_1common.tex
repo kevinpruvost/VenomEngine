@@ -24,6 +24,8 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l___cache}{DLL\+\_\+\+Cache}
 \begin{DoxyCompactList}\small\item\em Holds all DLLs loaded in memory unless explicitly unloaded/deleted. Only instantiable by \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} as it must not be deleted before all DLLs are unloaded. And also to centralize every wannabe singletons into one. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}
 \begin{DoxyCompactList}\small\item\em Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_e_x_r___texture_loader}{EXR\+\_\+\+Texture\+Loader}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_fps_counter}{Fps\+Counter}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}}
@@ -36,7 +38,17 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{Graphics\+Plugi
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{Graphics\+Plugin\+Object}}
 \begin{DoxyCompactList}\small\item\em Base class for graphics plugin objects. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{Graphics\+Settings}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPlugin\+Object}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_light_manager}{Light\+Manager}}
+\item 
+struct \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{Light\+Shader\+Struct}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_log}{Log}}
 \item 
@@ -70,17 +82,31 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Obje
 \begin{DoxyCompactList}\small\item\em Interface for the \doxylink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object} different implementations. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}}
 \begin{DoxyCompactList}\small\item\em Wrapper for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline}{Rendering\+Pipeline}}
+\begin{DoxyCompactList}\small\item\em Interface with shader pipelines and shader settings. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{Rendering\+Pipeline\+Impl}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_resources}{Resources}}
 \item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_impl}{Shader\+Impl}}
+class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{Shader\+Pipeline}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{Shader\+Pipeline\+Impl}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{Shader\+Resource}}
-\begin{DoxyCompactList}\small\item\em Equivalent to descriptor sets in Vulkan, but for every API. \end{DoxyCompactList}\item 
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{Skybox\+Impl}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_stbi___texture_loader}{Stbi\+\_\+\+Texture\+Loader}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{Texture\+Impl}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_loader}{Texture\+Loader}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{Texture\+Resource}}
 \item 
@@ -102,6 +128,21 @@ concept \mbox{\hyperlink{conceptvenom_1_1common_1_1_valid_graphics_cached_resour
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{namespacevenom_1_1common_a684ee51e80dc3c8c65b7a373734fb4ad}\label{namespacevenom_1_1common_a684ee51e80dc3c8c65b7a373734fb4ad} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries Vector} = std\+::vector$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a0f83e80477be3b4e035e7a42c134c2aa}\label{namespacevenom_1_1common_a0f83e80477be3b4e035e7a42c134c2aa} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries Stack} = std\+::stack$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_af030c43b6d3d391f9b0f91d0c613ab73}\label{namespacevenom_1_1common_af030c43b6d3d391f9b0f91d0c613ab73} 
+{\footnotesize template$<$typename T , size\+\_\+t N$>$ }\\using {\bfseries Array} = std\+::array$<$T, N$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a0d05bbde107543d39fd58f661ecc35a1}\label{namespacevenom_1_1common_a0d05bbde107543d39fd58f661ecc35a1} 
+{\footnotesize template$<$typename T , typename U $>$ }\\using {\bfseries Map} = std\+::map$<$T, U$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a371fdb4bdc8e5752b5e6246d372f2d73}\label{namespacevenom_1_1common_a371fdb4bdc8e5752b5e6246d372f2d73} 
+{\footnotesize template$<$typename T , typename U $>$ }\\using {\bfseries UMap} = std\+::unordered\+\_\+map$<$T, U$>$
+\item 
 \Hypertarget{namespacevenom_1_1common_a0adb5b5907b1898471697a8ae6b621e8}\label{namespacevenom_1_1common_a0adb5b5907b1898471697a8ae6b621e8} 
 typedef flecs\+::entity {\bfseries Entity}
 \item 
@@ -111,14 +152,347 @@ typedef flecs\+::entity {\bfseries Entity}
 \Hypertarget{namespacevenom_1_1common_a64106511eb000154f288f120e5733286}\label{namespacevenom_1_1common_a64106511eb000154f288f120e5733286} 
 typedef flecs\+::system {\bfseries System}
 \item 
+\Hypertarget{namespacevenom_1_1common_aae3079310aa760da4212630f80f3c0a4}\label{namespacevenom_1_1common_aae3079310aa760da4212630f80f3c0a4} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries GUIDraw\+Callback}) ()
+\item 
+\Hypertarget{namespacevenom_1_1common_ab9d3f1293abd6fb668a16d41cdae7b4b}\label{namespacevenom_1_1common_ab9d3f1293abd6fb668a16d41cdae7b4b} 
+typedef int {\bfseries GUIWindow\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_aee99bd7eb5076a264cc86afcf6b547f4}\label{namespacevenom_1_1common_aee99bd7eb5076a264cc86afcf6b547f4} 
+typedef int {\bfseries GUIColor\+Edit\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_a7297007a9c85eee12e127a8a3aa794af}\label{namespacevenom_1_1common_a7297007a9c85eee12e127a8a3aa794af} 
+typedef int {\bfseries GUICombo\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_ad99d96af7693e4856d31606fadbd5330}\label{namespacevenom_1_1common_ad99d96af7693e4856d31606fadbd5330} 
+typedef int {\bfseries GUISelectable\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_ac661f3873ffb23694ed900444a359e62}\label{namespacevenom_1_1common_ac661f3873ffb23694ed900444a359e62} 
+typedef vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{Shader\+Pipeline}} $>$ {\bfseries Shader\+Pipeline\+List}
+\item 
+\Hypertarget{namespacevenom_1_1common_a4d62c68e249d38cf36a57475f36bc71e}\label{namespacevenom_1_1common_a4d62c68e249d38cf36a57475f36bc71e} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries WPtr} = std\+::weak\+\_\+ptr$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_af6c498ca6a907c3e3e1b4dc99776dbe0}\label{namespacevenom_1_1common_af6c498ca6a907c3e3e1b4dc99776dbe0} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries SPtr} = std\+::shared\+\_\+ptr$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a897c4cff3c357a9dcaa482241346a36e}\label{namespacevenom_1_1common_a897c4cff3c357a9dcaa482241346a36e} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries UPtr} = std\+::unique\+\_\+ptr$<$T$>$
+\item 
 \Hypertarget{namespacevenom_1_1common_a90741080148150d7bd6816520f32b60c}\label{namespacevenom_1_1common_a90741080148150d7bd6816520f32b60c} 
 using {\bfseries String} = std\+::string
 \item 
 \Hypertarget{namespacevenom_1_1common_a5b519f7b1b4175543bd31666b4daacc2}\label{namespacevenom_1_1common_a5b519f7b1b4175543bd31666b4daacc2} 
 typedef void(\texorpdfstring{$\ast$}{*} {\bfseries Scene\+Callback}) ()
+\item 
+\Hypertarget{namespacevenom_1_1common_acd30373ce5cc8e244e928693644b5a5e}\label{namespacevenom_1_1common_acd30373ce5cc8e244e928693644b5a5e} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries Loop\+Callback}) ()
+\item 
+\Hypertarget{namespacevenom_1_1common_a57e4a72fb5ecd7f19dbda8fe15d40d66}\label{namespacevenom_1_1common_a57e4a72fb5ecd7f19dbda8fe15d40d66} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries Input\+Callback}) (\mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}} \texorpdfstring{$\ast$}{*})
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a4b58b54f6a969aa3b5bd4ef73b55bb3b}\label{namespacevenom_1_1common_a4b58b54f6a969aa3b5bd4ef73b55bb3b} 
+enum {\bfseries Input\+State} \+: int8\+\_\+t \{ {\bfseries Released} = 0x1
+, {\bfseries Pressed} = 0x2
+, {\bfseries Repeat} = 0x4
+, {\bfseries Unknown} = 0x8
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_ae8ca766ddc2cc5d7cf687d7d82733fe4}\label{namespacevenom_1_1common_ae8ca766ddc2cc5d7cf687d7d82733fe4} 
+enum {\bfseries Keyboard\+Input} \{ \newline
+{\bfseries Keyboard\+Unknown} = 0
+, {\bfseries KeyboardA} = 1
+, {\bfseries KeyboardB} = 2
+, {\bfseries KeyboardC} = 3
+, \newline
+{\bfseries KeyboardD} = 4
+, {\bfseries KeyboardE} = 5
+, {\bfseries KeyboardF} = 6
+, {\bfseries KeyboardG} = 7
+, \newline
+{\bfseries KeyboardH} = 8
+, {\bfseries KeyboardI} = 9
+, {\bfseries KeyboardJ} = 10
+, {\bfseries KeyboardK} = 11
+, \newline
+{\bfseries KeyboardL} = 12
+, {\bfseries KeyboardM} = 13
+, {\bfseries KeyboardN} = 14
+, {\bfseries KeyboardO} = 15
+, \newline
+{\bfseries KeyboardP} = 16
+, {\bfseries KeyboardQ} = 17
+, {\bfseries KeyboardR} = 18
+, {\bfseries KeyboardS} = 19
+, \newline
+{\bfseries KeyboardT} = 20
+, {\bfseries KeyboardU} = 21
+, {\bfseries KeyboardV} = 22
+, {\bfseries KeyboardW} = 23
+, \newline
+{\bfseries KeyboardX} = 24
+, {\bfseries KeyboardY} = 25
+, {\bfseries KeyboardZ} = 26
+, {\bfseries Keyboard0} = 27
+, \newline
+{\bfseries Keyboard1} = 28
+, {\bfseries Keyboard2} = 29
+, {\bfseries Keyboard3} = 30
+, {\bfseries Keyboard4} = 31
+, \newline
+{\bfseries Keyboard5} = 32
+, {\bfseries Keyboard6} = 33
+, {\bfseries Keyboard7} = 34
+, {\bfseries Keyboard8} = 35
+, \newline
+{\bfseries Keyboard9} = 36
+, {\bfseries Keyboard\+Escape} = 37
+, {\bfseries Keyboard\+Enter} = 38
+, {\bfseries Keyboard\+Tab} = 39
+, \newline
+{\bfseries Keyboard\+Backspace} = 40
+, {\bfseries Keyboard\+Insert} = 41
+, {\bfseries Keyboard\+Delete} = 42
+, {\bfseries Keyboard\+Right} = 43
+, \newline
+{\bfseries Keyboard\+Left} = 44
+, {\bfseries Keyboard\+Down} = 45
+, {\bfseries Keyboard\+Up} = 46
+, {\bfseries Keyboard\+Page\+Up} = 47
+, \newline
+{\bfseries Keyboard\+Page\+Down} = 48
+, {\bfseries Keyboard\+Home} = 49
+, {\bfseries Keyboard\+End} = 50
+, {\bfseries Keyboard\+Caps\+Lock} = 51
+, \newline
+{\bfseries Keyboard\+Scroll\+Lock} = 52
+, {\bfseries Keyboard\+Num\+Lock} = 53
+, {\bfseries Keyboard\+Print\+Screen} = 54
+, {\bfseries Keyboard\+Pause} = 55
+, \newline
+{\bfseries Keyboard\+F1} = 56
+, {\bfseries Keyboard\+F2} = 57
+, {\bfseries Keyboard\+F3} = 58
+, {\bfseries Keyboard\+F4} = 59
+, \newline
+{\bfseries Keyboard\+F5} = 60
+, {\bfseries Keyboard\+F6} = 61
+, {\bfseries Keyboard\+F7} = 62
+, {\bfseries Keyboard\+F8} = 63
+, \newline
+{\bfseries Keyboard\+F9} = 64
+, {\bfseries Keyboard\+F10} = 65
+, {\bfseries Keyboard\+F11} = 66
+, {\bfseries Keyboard\+F12} = 67
+, \newline
+{\bfseries Keyboard\+F13} = 68
+, {\bfseries Keyboard\+F14} = 69
+, {\bfseries Keyboard\+F15} = 70
+, {\bfseries Keyboard\+F16} = 71
+, \newline
+{\bfseries Keyboard\+F17} = 72
+, {\bfseries Keyboard\+F18} = 73
+, {\bfseries Keyboard\+F19} = 74
+, {\bfseries Keyboard\+F20} = 75
+, \newline
+{\bfseries Keyboard\+F21} = 76
+, {\bfseries Keyboard\+F22} = 77
+, {\bfseries Keyboard\+F23} = 78
+, {\bfseries Keyboard\+F24} = 79
+, \newline
+{\bfseries Keyboard\+F25} = 80
+, {\bfseries Keyboard\+KP0} = 81
+, {\bfseries Keyboard\+KP1} = 82
+, {\bfseries Keyboard\+KP2} = 83
+, \newline
+{\bfseries Keyboard\+KP3} = 84
+, {\bfseries Keyboard\+KP4} = 85
+, {\bfseries Keyboard\+KP5} = 86
+, {\bfseries Keyboard\+KP6} = 87
+, \newline
+{\bfseries Keyboard\+KP7} = 88
+, {\bfseries Keyboard\+KP8} = 89
+, {\bfseries Keyboard\+KP9} = 90
+, {\bfseries Keyboard\+KPDecimal} = 91
+, \newline
+{\bfseries Keyboard\+KPDivide} = 92
+, {\bfseries Keyboard\+KPMultiply} = 93
+, {\bfseries Keyboard\+KPSubtract} = 94
+, {\bfseries Keyboard\+KPAdd} = 95
+, \newline
+{\bfseries Keyboard\+KPEnter} = 96
+, {\bfseries Keyboard\+KPEqual} = 97
+, {\bfseries Keyboard\+Left\+Shift} = 98
+, {\bfseries Keyboard\+Left\+Control} = 99
+, \newline
+{\bfseries Keyboard\+Left\+Alt} = 100
+, {\bfseries Keyboard\+Left\+Super} = 101
+, {\bfseries Keyboard\+Right\+Shift} = 102
+, {\bfseries Keyboard\+Right\+Control} = 103
+, \newline
+{\bfseries Keyboard\+Right\+Alt} = 104
+, {\bfseries Keyboard\+Right\+Super} = 105
+, {\bfseries Keyboard\+Menu} = 106
+, {\bfseries Keyboard\+Space} = 107
+, \newline
+{\bfseries Keyboard\+Apostrophe} = 108
+, {\bfseries Keyboard\+Comma} = 109
+, {\bfseries Keyboard\+Minus} = 110
+, {\bfseries Keyboard\+Period} = 111
+, \newline
+{\bfseries Keyboard\+Slash} = 112
+, {\bfseries Keyboard\+Semicolon} = 113
+, {\bfseries Keyboard\+Equal} = 114
+, {\bfseries Keyboard\+Left\+Bracket} = 115
+, \newline
+{\bfseries Keyboard\+Backslash} = 116
+, {\bfseries Keyboard\+Right\+Bracket} = 117
+, {\bfseries Keyboard\+Grave\+Accent} = 118
+, {\bfseries Keyboard\+World1} = 119
+, \newline
+{\bfseries Keyboard\+World2} = 120
+, {\bfseries Keyboard\+Total}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_af9cd8210eda17dc25a1b3600c501b827}\label{namespacevenom_1_1common_af9cd8210eda17dc25a1b3600c501b827} 
+enum {\bfseries Keyboard\+Modifier} \{ {\bfseries Keyboard\+Mod\+Shift} = 0x0001
+, {\bfseries Keyboard\+Mod\+Control} = 0x0002
+, {\bfseries Keyboard\+Mod\+Alt} = 0x0004
+, {\bfseries Keyboard\+Mod\+Super} = 0x0008
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_afc530f715c4776f60c7b7ce2cb0c1ee0}\label{namespacevenom_1_1common_afc530f715c4776f60c7b7ce2cb0c1ee0} 
+enum {\bfseries Mouse\+Button} \{ \newline
+{\bfseries Mouse\+Button1} = 0
+, {\bfseries Mouse\+Button2} = 1
+, {\bfseries Mouse\+Button3} = 2
+, {\bfseries Mouse\+Button4} = 3
+, \newline
+{\bfseries Mouse\+Button5} = 4
+, {\bfseries Mouse\+Button6} = 5
+, {\bfseries Mouse\+Button7} = 6
+, {\bfseries Mouse\+Button8} = 7
+, \newline
+{\bfseries Mouse\+Button\+Last} = Mouse\+Button8
+, {\bfseries Mouse\+Button\+Left} = Mouse\+Button1
+, {\bfseries Mouse\+Button\+Right} = Mouse\+Button2
+, {\bfseries Mouse\+Button\+Middle} = Mouse\+Button3
+, \newline
+{\bfseries Mouse\+Total}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a9eb762116023920818bfa847a35b60ef}\label{namespacevenom_1_1common_a9eb762116023920818bfa847a35b60ef} 
+enum class {\bfseries Light\+Type} \{ {\bfseries Directional} = 0
+, {\bfseries Point} = 1
+, {\bfseries Spot} = 2
+ \}
+\item 
+enum \mbox{\hyperlink{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}{GUIWindow\+Flags\+Bits}} \{ \newline
+{\bfseries Window\+Flags\+\_\+\+None} = 0
+, {\bfseries Window\+Flags\+\_\+\+No\+Title\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries Window\+Flags\+\_\+\+No\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries Window\+Flags\+\_\+\+No\+Move} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries Window\+Flags\+\_\+\+No\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries Window\+Flags\+\_\+\+No\+Scroll\+With\+Mouse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries Window\+Flags\+\_\+\+No\+Collapse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries Window\+Flags\+\_\+\+Always\+Auto\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries Window\+Flags\+\_\+\+No\+Background} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries Window\+Flags\+\_\+\+No\+Saved\+Settings} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries Window\+Flags\+\_\+\+No\+Mouse\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries Window\+Flags\+\_\+\+Menu\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, \newline
+{\bfseries Window\+Flags\+\_\+\+Horizontal\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries Window\+Flags\+\_\+\+No\+Focus\+On\+Appearing} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
+, {\bfseries Window\+Flags\+\_\+\+No\+Bring\+To\+Front\+On\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
+, {\bfseries Window\+Flags\+\_\+\+Always\+Vertical\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
+, \newline
+{\bfseries Window\+Flags\+\_\+\+Always\+Horizontal\+Scrollbar} =1\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
+, {\bfseries Window\+Flags\+\_\+\+No\+Nav\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, {\bfseries Window\+Flags\+\_\+\+No\+Nav\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries Window\+Flags\+\_\+\+Unsaved\+Document} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+, \newline
+{\bfseries Window\+Flags\+\_\+\+No\+Nav} = Window\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Focus
+, {\bfseries Window\+Flags\+\_\+\+No\+Decoration} = Window\+Flags\+\_\+\+No\+Title\+Bar \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Resize \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Scrollbar \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Collapse
+, {\bfseries Window\+Flags\+\_\+\+No\+Inputs} = Window\+Flags\+\_\+\+No\+Mouse\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Focus
+, {\bfseries Window\+Flags\+\_\+\+Child\+Window} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 24
+, \newline
+{\bfseries Window\+Flags\+\_\+\+Tooltip} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 25
+, {\bfseries Window\+Flags\+\_\+\+Popup} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 26
+, {\bfseries Window\+Flags\+\_\+\+Modal} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 27
+, {\bfseries Window\+Flags\+\_\+\+Child\+Menu} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 28
+ \}
+\item 
+enum \mbox{\hyperlink{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306}{GUIColor\+Edit\+Flags\+Bits}} \{ \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Alpha} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Picker} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Options} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Small\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Tooltip} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Label} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Side\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Drag\+Drop} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Border} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Alpha\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Alpha\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Alpha\+Preview\+Half} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+HDR} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 19
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+RGB} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 20
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+HSV} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 21
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+Hex} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 22
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Uint8} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 23
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Float} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 24
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 25
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Wheel} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 26
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 27
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+HSV} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 28
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Default\+Options\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Uint8 \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Display\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Bar
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Display\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Display\+HSV \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Display\+Hex
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Data\+Type\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Uint8 \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Float
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Picker\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Wheel \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Bar
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Input\+HSV
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_aaed966893320a5db070b271b3c648fac}\label{namespacevenom_1_1common_aaed966893320a5db070b271b3c648fac} 
+enum {\bfseries Gui\+Combo\+Flags\+Bits} \{ \newline
+{\bfseries GUICombo\+Flags\+\_\+\+None} = 0
+, {\bfseries GUICombo\+Flags\+\_\+\+Popup\+Align\+Left} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Small} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Regular} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUICombo\+Flags\+\_\+\+Height\+Large} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Largest} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUICombo\+Flags\+\_\+\+No\+Arrow\+Button} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUICombo\+Flags\+\_\+\+No\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries GUICombo\+Flags\+\_\+\+Width\+Fit\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Mask\+\_\+} = GUICombo\+Flags\+\_\+\+Height\+Small \texorpdfstring{$\vert$}{|} GUICombo\+Flags\+\_\+\+Height\+Regular \texorpdfstring{$\vert$}{|} GUICombo\+Flags\+\_\+\+Height\+Large \texorpdfstring{$\vert$}{|} GUICombo\+Flags\+\_\+\+Height\+Largest
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a681d630b3b1a1b77f49996edb9b17d48}\label{namespacevenom_1_1common_a681d630b3b1a1b77f49996edb9b17d48} 
+enum {\bfseries GUISelectable\+Flags\+Bits} \{ \newline
+{\bfseries GUISelectable\+Flags\+\_\+\+None} = 0
+, {\bfseries GUISelectable\+Flags\+\_\+\+No\+Auto\+Close\+Popups} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUISelectable\+Flags\+\_\+\+Span\+All\+Columns} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUISelectable\+Flags\+\_\+\+Allow\+Double\+Click} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUISelectable\+Flags\+\_\+\+Disabled} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUISelectable\+Flags\+\_\+\+Allow\+Overlap} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUISelectable\+Flags\+\_\+\+Highlight} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+ \}
 \item 
 \Hypertarget{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}\label{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81} 
 enum \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} \{ \newline
@@ -161,6 +535,50 @@ enum \mbox{\hyperlink{namespacevenom_1_1common_a3e9bc99142c58325bf033d6ebaa2d139
 {\bfseries TEXTURE}
  \}
 \begin{DoxyCompactList}\small\item\em Material\+Component\+Value\+Type Contains all the possible value types of a material component. \end{DoxyCompactList}\item 
+\Hypertarget{namespacevenom_1_1common_a25645b5b48ea0b1dec0b7051eb016b58}\label{namespacevenom_1_1common_a25645b5b48ea0b1dec0b7051eb016b58} 
+enum class {\bfseries Rendering\+Pipeline\+Type} \{ \newline
+{\bfseries None} = -\/1
+, {\bfseries GUI} = 0
+, {\bfseries Text3D}
+, {\bfseries Shadow\+Model}
+, \newline
+{\bfseries Skybox}
+, {\bfseries Count}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_af1dfce29a447aa257bfb917175da19c9}\label{namespacevenom_1_1common_af1dfce29a447aa257bfb917175da19c9} 
+enum class {\bfseries Shader\+Vertex\+Format} \{ \newline
+{\bfseries Float}
+, {\bfseries Vec2}
+, {\bfseries Vec3}
+, {\bfseries Vec4}
+, \newline
+{\bfseries Int}
+, {\bfseries IVec2}
+, {\bfseries IVec3}
+, {\bfseries IVec4}
+, \newline
+{\bfseries Uint}
+, {\bfseries UVec2}
+, {\bfseries UVec3}
+, {\bfseries UVec4}
+, \newline
+{\bfseries Mat2}
+, {\bfseries Mat3}
+, {\bfseries Mat4}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_aa180b9c9bc13783af4525066fe04b6eb}\label{namespacevenom_1_1common_aa180b9c9bc13783af4525066fe04b6eb} 
+enum {\bfseries Color\+Attachment\+Type} \{ \newline
+{\bfseries Present} = 0
+, {\bfseries Normal\+Specular} = 1
+, {\bfseries Metallic\+Rougness\+AO} = 2
+, {\bfseries Position} = 3
+, \newline
+{\bfseries Depth} = 4
+, {\bfseries Count}
+ \}
+\item 
 \Hypertarget{namespacevenom_1_1common_ae063fd539e2f3cf66eb23f77cf93e0f9}\label{namespacevenom_1_1common_ae063fd539e2f3cf66eb23f77cf93e0f9} 
 enum class {\bfseries Plugin\+Type} \{ {\bfseries Graphics} = 0
 , {\bfseries Total\+Count}
@@ -168,6 +586,9 @@ enum class {\bfseries Plugin\+Type} \{ {\bfseries Graphics} = 0
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a69ca065a8f320e9d9d7ede60626b703c}\label{namespacevenom_1_1common_a69ca065a8f320e9d9d7ede60626b703c} 
+Entity {\bfseries Create\+Prefab} (const char \texorpdfstring{$\ast$}{*}name)
 \item 
 \Hypertarget{namespacevenom_1_1common_ad0a555c57b2308441e03f6767aec3984}\label{namespacevenom_1_1common_ad0a555c57b2308441e03f6767aec3984} 
 Entity {\bfseries Create\+Entity} (const char \texorpdfstring{$\ast$}{*}name)
@@ -192,6 +613,9 @@ VENOM\+\_\+\+COMMON\+\_\+\+API const char \texorpdfstring{$\ast$}{*} {\bfseries 
 \item 
 \Hypertarget{namespacevenom_1_1common_a0a34a5d62fc5eff2b4ad7bfeed27c03c}\label{namespacevenom_1_1common_a0a34a5d62fc5eff2b4ad7bfeed27c03c} 
 {\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Load\+Plugin\+From\+Name\+And\+Type} (const std\+::string \&lib\+Name, const char \texorpdfstring{$\ast$}{*}function\+Name)
+\item 
+\Hypertarget{namespacevenom_1_1common_a7df8479ee3bd0915a50e4f879c7d3340}\label{namespacevenom_1_1common_a7df8479ee3bd0915a50e4f879c7d3340} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_texture_loader}{Texture\+Loader}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Texture\+Loader} (const char \texorpdfstring{$\ast$}{*}path)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -217,23 +641,25 @@ enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries Initialization\+Failed} = 1 $<$$<
 \Hypertarget{namespacevenom_1_1common_a72898516813076851d5bb5ab87e20ec9}\label{namespacevenom_1_1common_a72898516813076851d5bb5ab87e20ec9} 
 enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries Invalid\+Use} = 1 $<$$<$ 5
 \item 
-enum VENOM\+\_\+\+COMMON\+\_\+\+API \mbox{\hyperlink{namespacevenom_1_1common_a2841f877864bbe896a476e122c83b1be}{Unknown}}
+\Hypertarget{namespacevenom_1_1common_ab81f8b60810099e01ec70f0969bed4ad}\label{namespacevenom_1_1common_ab81f8b60810099e01ec70f0969bed4ad} 
+enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries Feature\+Not\+Supported} = 1 $<$$<$ 6
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. 
 
-\doxysubsection{Variable Documentation}
-\Hypertarget{namespacevenom_1_1common_a2841f877864bbe896a476e122c83b1be}\index{venom::common@{venom::common}!Unknown@{Unknown}}
-\index{Unknown@{Unknown}!venom::common@{venom::common}}
-\doxysubsubsection{\texorpdfstring{Unknown}{Unknown}}
-{\footnotesize\ttfamily \label{namespacevenom_1_1common_a2841f877864bbe896a476e122c83b1be} 
-enum VENOM\+\_\+\+COMMON\+\_\+\+API venom\+::common\+::\+Unknown}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306}\index{venom::common@{venom::common}!GUIColorEditFlagsBits@{GUIColorEditFlagsBits}}
+\index{GUIColorEditFlagsBits@{GUIColorEditFlagsBits}!venom::common@{venom::common}}
+\doxysubsubsection{\texorpdfstring{GUIColorEditFlagsBits}{GUIColorEditFlagsBits}}
+{\footnotesize\ttfamily \label{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306} 
+enum \mbox{\hyperlink{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306}{venom\+::common\+::\+GUIColor\+Edit\+Flags\+Bits}}}
 
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{=\ std::numeric\_limits<uint32\_t>::max()}
-\DoxyCodeLine{\}}
+Color edit flags based on GUIColor\+Edit\+Flags\+Bits\+\_\+ (based on \doxylink{classvenom_1_1common_1_1_g_u_i}{GUI} 1.\+91.\+5) \Hypertarget{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}\index{venom::common@{venom::common}!GUIWindowFlagsBits@{GUIWindowFlagsBits}}
+\index{GUIWindowFlagsBits@{GUIWindowFlagsBits}!venom::common@{venom::common}}
+\doxysubsubsection{\texorpdfstring{GUIWindowFlagsBits}{GUIWindowFlagsBits}}
+{\footnotesize\ttfamily \label{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806} 
+enum \mbox{\hyperlink{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}{venom\+::common\+::\+GUIWindow\+Flags\+Bits}}}
 
-\end{DoxyCode}
+Window flags based on GUIWindow\+Flags\+Bits\+\_\+ (based on \doxylink{classvenom_1_1common_1_1_g_u_i}{GUI} 1.\+91.\+5) 

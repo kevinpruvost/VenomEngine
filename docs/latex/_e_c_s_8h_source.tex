@@ -38,36 +38,50 @@
 \DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ \ \ \ \ Entity\ CreateEntity();}
 \DoxyCodeLine{00047\ \ \ \ \ Entity\ CreateEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Comps,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00050\ \ \ \ \ System\ CreateSystem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name)\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_world.system<Comps...>(name);}
-\DoxyCodeLine{00052\ \ \ \ \ \}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ ForEach(\textcolor{keyword}{auto}\ \&\&\ func)\ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ flecs::query<Args...>\ q\ =\ \_\_world.query<Args...>();}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ q.each(func);}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}\ *\ GetECS();}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}\ *\ s\_ecs;}
+\DoxyCodeLine{00048\ \ \ \ \ Entity\ CreatePrefab(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Entity\ GetEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ECS::GetECS()-\/>\_\_GetEntity(name);}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Comps,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00054\ \ \ \ \ System\ CreateSystem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_world.system<Comps...>(name);}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ForEach(\textcolor{keyword}{auto}\ \&\&\ func)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ ECS::GetECS()-\/>\_\_ForEach<Args...>(func);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}\ *\ GetECS();}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00066\ \ \ \ \ flecs::world\ \_\_world;}
-\DoxyCodeLine{00067\ \};}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ Entity\ CreateEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
-\DoxyCodeLine{00070\ Entity\ CreateEntity();}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_ForEach(\textcolor{keyword}{auto}\ \&\&\ func)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ flecs::query<Args...>\ q\ =\ \_\_world.query<Args...>();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ q.each(func);}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
 \DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00073\ \textcolor{keyword}{inline}\ Component<T>\ GetComponent()\ \{}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ ECS::GetECS()-\/>GetComponent<T>();}
-\DoxyCodeLine{00075\ \}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \}}
-\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}\ *\ s\_ecs;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ Entity\ \_\_GetEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name)\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_world.lookup(name);}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00079\ \ \ \ \ flecs::world\ \_\_world;}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ Entity\ CreatePrefab(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00083\ Entity\ CreateEntity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name);}
+\DoxyCodeLine{00084\ Entity\ CreateEntity();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00087\ \textcolor{keyword}{inline}\ Component<T>\ GetComponent()\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ ECS::GetECS()-\/>GetComponent<T>();}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ \}}
 
 \end{DoxyCode}

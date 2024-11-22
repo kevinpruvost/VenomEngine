@@ -7,41 +7,43 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <venom/vulkan/Instance.h>}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }vulkan}
 \DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}();}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{\string~PhysicalDevice}}();}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ uint64\_t\ GetDeviceLocalVRAMAmount()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{\string~PhysicalDevice}}();}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ GetDeviceQueue(VkQueue\ *\ queuePtr,\ uint32\_t\ queueFamilyIndex,\ uint32\_t\ queueIndex)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ VkFormat\ FindSupportedFormat(\textcolor{keyword}{const}\ std::vector<VkFormat>\ \&\ candidates,\ VkImageTiling\ tiling,\ VkFormatFeatureFlags\ features);}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ VkFormat\ FindDepthFormat();}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ VkPhysicalDevice\ GetUsedVkPhysicalDevice();}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ \&\ GetUsedPhysicalDevice();}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetUsedPhysicalDevice(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ *\ device);}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<PhysicalDevice>\ GetVulkanPhysicalDevices();}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDevice\ \&\ GetVkPhysicalDevice()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDeviceProperties\ \&\ GetProperties()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDeviceFeatures\ \&\ GetFeatures()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDeviceMemoryProperties\ \&\ GetMemoryProperties()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ VkFormatProperties\ \&\ GetFormatProperties()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00039\ \ \ \ \ VkFormatProperties\ \_\_formatProperties;}
-\DoxyCodeLine{00040\ \ \ \ \ VkPhysicalDevice\ \_\_physicalDevice;}
-\DoxyCodeLine{00041\ \ \ \ \ VkPhysicalDeviceProperties\ \_\_properties;}
-\DoxyCodeLine{00042\ \ \ \ \ VkPhysicalDeviceFeatures\ \_\_features;}
-\DoxyCodeLine{00043\ \ \ \ \ VkPhysicalDeviceMemoryProperties\ \_\_memoryProperties;}
-\DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \}}
-\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ uint64\_t\ GetDeviceLocalVRAMAmount()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ GetDeviceQueue(VkQueue\ *\ queuePtr,\ uint32\_t\ queueFamilyIndex,\ uint32\_t\ queueIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ VkFormat\ FindSupportedFormat(\textcolor{keyword}{const}\ std::vector<VkFormat>\ \&\ candidates,\ VkImageTiling\ tiling,\ VkFormatFeatureFlags\ features);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ VkFormat\ FindDepthFormat();}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ VkPhysicalDevice\ GetUsedVkPhysicalDevice();}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ \&\ GetUsedPhysicalDevice();}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetUsedPhysicalDevice(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\ *\ device);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<PhysicalDevice>\ GetVulkanPhysicalDevices();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDevice\ \&\ GetVkPhysicalDevice()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_physicalDevice;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDeviceProperties\ \&\ GetProperties()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_properties;\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDeviceFeatures\ \&\ GetFeatures()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_features;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ VkPhysicalDeviceMemoryProperties\ \&\ GetMemoryProperties()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_memoryProperties;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ VkFormatProperties\ \&\ GetFormatProperties()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_formatProperties;\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ VkFormatProperties\ \_\_formatProperties;}
+\DoxyCodeLine{00042\ \ \ \ \ VkPhysicalDevice\ \_\_physicalDevice;}
+\DoxyCodeLine{00043\ \ \ \ \ VkPhysicalDeviceProperties\ \_\_properties;}
+\DoxyCodeLine{00044\ \ \ \ \ VkPhysicalDeviceFeatures\ \_\_features;}
+\DoxyCodeLine{00045\ \ \ \ \ VkPhysicalDeviceMemoryProperties\ \_\_memoryProperties;}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ \}}
 
 \end{DoxyCode}

@@ -143,15 +143,19 @@ $(function(){initNavTree('classvenom_1_1common_1_1_graphics_cached_resource.html
   <img src="classvenom_1_1common_1_1_graphics_cached_resource.png" usemap="#venom::common::GraphicsCachedResource_map" alt=""/>
   <map id="venom::common::GraphicsCachedResource_map" name="venom::common::GraphicsCachedResource_map">
 <area href="classvenom_1_1common_1_1_model_resource.html" alt="venom::common::ModelResource" shape="rect" coords="0,56,256,80"/>
-<area href="classvenom_1_1common_1_1_shader_resource.html" title="Equivalent to descriptor sets in Vulkan, but for every API." alt="venom::common::ShaderResource" shape="rect" coords="266,56,522,80"/>
+<area href="classvenom_1_1common_1_1_shader_resource.html" alt="venom::common::ShaderResource" shape="rect" coords="266,56,522,80"/>
 <area href="classvenom_1_1common_1_1_texture_resource.html" alt="venom::common::TextureResource" shape="rect" coords="532,56,788,80"/>
 <area href="classvenom_1_1vulkan_1_1_vulkan_model_resource.html" alt="venom::vulkan::VulkanModelResource" shape="rect" coords="0,112,256,136"/>
+<area href="classvenom_1_1vulkan_1_1_vulkan_shader_resource.html" alt="venom::vulkan::VulkanShaderResource" shape="rect" coords="266,112,522,136"/>
 <area href="classvenom_1_1vulkan_1_1_vulkan_texture_resource.html" alt="venom::vulkan::VulkanTextureResource" shape="rect" coords="532,112,788,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aeaed9012a5de1c4e6dd51eea8a39fe9a" id="r_aeaed9012a5de1c4e6dd51eea8a39fe9a"><td class="memItemLeft" align="right" valign="top"><a id="aeaed9012a5de1c4e6dd51eea8a39fe9a" name="aeaed9012a5de1c4e6dd51eea8a39fe9a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>GraphicsCachedResource</b> (<a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource_holder.html">GraphicsCachedResourceHolder</a> *h)</td></tr>
+<tr class="separator:aeaed9012a5de1c4e6dd51eea8a39fe9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa44bf4a9c37b832dcaebbedd20eff511" id="r_aa44bf4a9c37b832dcaebbedd20eff511"><td class="memItemLeft" align="right" valign="top"><a id="aa44bf4a9c37b832dcaebbedd20eff511" name="aa44bf4a9c37b832dcaebbedd20eff511"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>GraphicsCachedResource</b> (const <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &amp;)=delete</td></tr>
 <tr class="separator:aa44bf4a9c37b832dcaebbedd20eff511"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +165,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f4ae7bdb6e40cacf39c3f96b8296ebb" id="r_a4f4ae7bdb6e40cacf39c3f96b8296ebb"><td class="memItemLeft" align="right" valign="top"><a id="a4f4ae7bdb6e40cacf39c3f96b8296ebb" name="a4f4ae7bdb6e40cacf39c3f96b8296ebb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ReleaseFromCache</b> ()</td></tr>
 <tr class="separator:a4f4ae7bdb6e40cacf39c3f96b8296ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32c7918724cd103d93bdaa3b6e50b71" id="r_ab32c7918724cd103d93bdaa3b6e50b71"><td class="memTemplParams" colspan="2"><a id="ab32c7918724cd103d93bdaa3b6e50b71" name="ab32c7918724cd103d93bdaa3b6e50b71"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab32c7918724cd103d93bdaa3b6e50b71"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>IsType</b> () const</td></tr>
+<tr class="separator:ab32c7918724cd103d93bdaa3b6e50b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad019a14408b0956268d862396ac1f846" id="r_ad019a14408b0956268d862396ac1f846"><td class="memTemplParams" colspan="2"><a id="ad019a14408b0956268d862396ac1f846" name="ad019a14408b0956268d862396ac1f846"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ad019a14408b0956268d862396ac1f846"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>As</b> ()</td></tr>
@@ -169,6 +177,12 @@ template&lt;typename T &gt; </td></tr>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a6e0451151b827c2b01d6e8fc557276a0"><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>As</b> () const</td></tr>
 <tr class="separator:a6e0451151b827c2b01d6e8fc557276a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af253a7463057388df3e6321a2ceb1eff" id="r_af253a7463057388df3e6321a2ceb1eff"><td class="memItemLeft" align="right" valign="top"><a id="af253a7463057388df3e6321a2ceb1eff" name="af253a7463057388df3e6321a2ceb1eff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHolder</b> (<a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource_holder.html">GraphicsCachedResourceHolder</a> *h)</td></tr>
+<tr class="separator:af253a7463057388df3e6321a2ceb1eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab049604f7f85e942828bebffdb657b31" id="r_ab049604f7f85e942828bebffdb657b31"><td class="memItemLeft" align="right" valign="top"><a id="ab049604f7f85e942828bebffdb657b31" name="ab049604f7f85e942828bebffdb657b31"></a>
+<a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource_holder.html">GraphicsCachedResourceHolder</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetHolder</b> () const</td></tr>
+<tr class="separator:ab049604f7f85e942828bebffdb657b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for cached resources. </p>

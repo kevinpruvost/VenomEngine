@@ -9,41 +9,53 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_e_c_s_8h}{venom/common/ECS.h}}>}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_venom_settings_8h}{venom/common/VenomSettings.h}}>}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{comment}{//\ Scenes\ are\ callbacks\ that\ will\ be\ called\ by\ the\ engine\ to\ load\ a\ scene}}
-\DoxyCodeLine{00019\ \textcolor{comment}{//\ Can\ either\ be\ a\ file\ or\ a\ function}}
-\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ void\ (*SceneCallback)();}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}}
-\DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}();}
-\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{\string~VenomEngine}}();}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}\ *\ GetInstance();}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ Error\ RunEngine(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **\ argv);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ Error\ SetScene(\textcolor{keyword}{const}\ String\ \&\ scenefileName);}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{static}\ Error\ SetScene(\textcolor{keyword}{const}\ SceneCallback\ \&\ sceneCallback);}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_LoadECS();}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00067\ \ \ \ \ std::unique\_ptr<PluginManager>\ pluginManager;}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00070\ \ \ \ \ std::unique\_ptr<DLL\_Cache>\ \_\_dllCache;}
-\DoxyCodeLine{00071\ \ \ \ \ std::unique\_ptr<ECS>\ \_\_ecs;}
-\DoxyCodeLine{00072\ \ \ \ \ std::unique\_ptr<VenomSettings>\ \_\_settings;}
-\DoxyCodeLine{00073\ \};}
-\DoxyCodeLine{00074\ \}}
-\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_light_8h}{venom/common/Light.h}}>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Scenes\ are\ callbacks\ that\ will\ be\ called\ by\ the\ engine\ to\ load\ a\ scene}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Can\ either\ be\ a\ file\ or\ a\ function}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ void\ (*SceneCallback)();}
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ void\ (*LoopCallback)();}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ void\ (*InputCallback)(Context\ *);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}();}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{\string~VenomEngine}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}}\ *\ GetInstance();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ Error\ RunEngine(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **\ argv);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ Error\ SetScene(\textcolor{keyword}{const}\ String\ \&\ scenefileName);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ Error\ SetScene(\textcolor{keyword}{const}\ SceneCallback\ \&\ sceneCallback);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ AddLoopCallback(\textcolor{keyword}{const}\ LoopCallback\ \&\ loopCallback);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ AddInputCallback(\textcolor{keyword}{const}\ InputCallback\ \&\ inputCallback);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_LoadECS();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00085\ \ \ \ \ UPtr<PluginManager>\ pluginManager;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \ \ UPtr<Context>\ \_\_context;}
+\DoxyCodeLine{00089\ \ \ \ \ UPtr<DLL\_Cache>\ \_\_dllCache;}
+\DoxyCodeLine{00090\ \ \ \ \ UPtr<ECS>\ \_\_ecs;}
+\DoxyCodeLine{00091\ \ \ \ \ UPtr<VenomSettings>\ \_\_settings;}
+\DoxyCodeLine{00092\ \ \ \ \ UPtr<LightManager>\ \_\_lightManager;}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ \}}
 
 \end{DoxyCode}

@@ -42,23 +42,45 @@ vc\+::\+Error {\bfseries End\+Command\+Buffer} ()
 \item 
 void {\bfseries Reset} (Vk\+Command\+Buffer\+Reset\+Flags flags)
 \item 
-void {\bfseries Bind\+Pipeline} (Vk\+Pipeline pipeline, Vk\+Pipeline\+Bind\+Point bind\+Point) const
-\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer_ab5196bc074c860ae3162fdb252cf99f4}{Bind\+Pipeline}} (Vk\+Pipeline pipeline, Vk\+Pipeline\+Bind\+Point bind\+Point)
+\begin{DoxyCompactList}\small\item\em Bind a pipeline to the command buffer. \end{DoxyCompactList}\item 
 void {\bfseries Set\+Viewport} (const Vk\+Viewport \&viewport) const
 \item 
 void {\bfseries Set\+Scissor} (const Vk\+Rect2D \&scissor) const
 \item 
 void {\bfseries Draw} (uint32\+\_\+t vertex\+Count, uint32\+\_\+t instance\+Count, uint32\+\_\+t first\+Vertex, uint32\+\_\+t first\+Instance) const
 \item 
-void {\bfseries Draw\+Mesh} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}} \texorpdfstring{$\ast$}{*}vulkan\+Mesh, const int first\+Instance, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&pipeline) const
+void {\bfseries Draw\+Vertices} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{Vertex\+Buffer}} \&vertex\+Buffer) const
 \item 
-void {\bfseries Draw\+Model} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_model}{Vulkan\+Model}} \texorpdfstring{$\ast$}{*}vulkan\+Model, const int first\+Instance, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \&pipeline) const
+void {\bfseries Draw\+Mesh} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}} \texorpdfstring{$\ast$}{*}vulkan\+Mesh, const int first\+Instance, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \&pipeline) const
 \item 
-void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, uint32\+\_\+t offset, uint32\+\_\+t size, const void \texorpdfstring{$\ast$}{*}p\+Values) const
+void {\bfseries Draw\+Model} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_model}{Vulkan\+Model}} \texorpdfstring{$\ast$}{*}vulkan\+Model, const int first\+Instance, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \&pipeline) const
+\item 
+void {\bfseries Draw\+Skybox} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox}{Vulkan\+Skybox}} \texorpdfstring{$\ast$}{*}vulkan\+Skybox, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader)
+\item 
+void {\bfseries Dispatch} (uint32\+\_\+t groupX, uint32\+\_\+t groupY, uint32\+\_\+t groupZ) const
+\item 
+void {\bfseries Pipeline\+Barrier} (Vk\+Pipeline\+Stage\+Flags src\+Stage\+Mask, Vk\+Pipeline\+Stage\+Flags dst\+Stage\+Mask, Vk\+Dependency\+Flags dependency\+Flags, uint32\+\_\+t memory\+Barrier\+Count, const Vk\+Memory\+Barrier \texorpdfstring{$\ast$}{*}p\+Memory\+Barriers, uint32\+\_\+t buffer\+Memory\+Barrier\+Count, const Vk\+Buffer\+Memory\+Barrier \texorpdfstring{$\ast$}{*}p\+Buffer\+Memory\+Barriers, uint32\+\_\+t image\+Memory\+Barrier\+Count, const Vk\+Image\+Memory\+Barrier \texorpdfstring{$\ast$}{*}p\+Image\+Memory\+Barriers) const
+\item 
+void {\bfseries Pipeline\+Barrier} (Vk\+Pipeline\+Stage\+Flags src\+Stage\+Mask, Vk\+Pipeline\+Stage\+Flags dst\+Stage\+Mask, Vk\+Dependency\+Flags dependency\+Flags) const
+\item 
+void {\bfseries Copy\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&get\+Image)
+\item 
+void {\bfseries Copy\+Swap\+Chain\+Image} (const Vk\+Image \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&get\+Image)
+\item 
+void {\bfseries Clear\+Attachments} (uint32\+\_\+t i, Vk\+Image\+Aspect\+Flags vk\+Image\+Aspect\+Flag\+Bits, Vk\+Clear\+Value vk\+Clear\+Value) const
+\item 
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, uint32\+\_\+t offset, uint32\+\_\+t size, const void \texorpdfstring{$\ast$}{*}p\+Values) const
 \item 
 void {\bfseries Copy\+Buffer\+To\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&src\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&dst\+Image)
 \item 
 void {\bfseries Transition\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, Vk\+Format format, Vk\+Image\+Layout old\+Layout, Vk\+Image\+Layout new\+Layout)
+\item 
+void {\bfseries Transition\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, Vk\+Image\+Layout old\+Layout, Vk\+Image\+Layout new\+Layout)
+\item 
+void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&image, const Vk\+Image\+Layout old\+Layout, const Vk\+Image\+Layout new\+Layout)
+\item 
+void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&image, const Vk\+Image\+Layout new\+Layout)
 \item 
 void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, Vk\+Descriptor\+Set vk\+Descriptors) const
 \item 
@@ -84,6 +106,8 @@ Vk\+Command\+Buffer {\bfseries \+\_\+command\+Buffer}
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+queue}
 \item 
 bool {\bfseries \+\_\+is\+Active}
+\item 
+Vk\+Pipeline {\bfseries \+\_\+last\+Bound\+Pipeline}
 \end{DoxyCompactItemize}
 
 

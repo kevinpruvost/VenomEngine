@@ -68,39 +68,50 @@
 \DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}();}
 \DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{\string~Camera}}();}
 \DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetMainCamera(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ \&\ camera);}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ \&\ GetMainCamera();}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ GetMainCamera();}
 \DoxyCodeLine{00078\ }
 \DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetPosition(\textcolor{keyword}{const}\ vcm::Vec3\&\ position)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetPosition(position);\ \}}
 \DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Move(\textcolor{keyword}{const}\ vcm::Vec3\&\ delta)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>Move(delta);\ \}}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetPosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetPosition();\ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRotation(\textcolor{keyword}{const}\ vcm::Quat\&\ rotation)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetRotation(rotation);\ \}}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Rotate(\textcolor{keyword}{const}\ vcm::Vec3\&\ axis,\ \textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>Rotate(axis,\ angle);\ \}}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Quat\ \&\ GetRotationQuat()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetRotationQuat();\ \}}
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetRotation()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetRotation();\ \}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetViewMatrix()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetViewMatrix();\ \}}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetPerspective(\textcolor{keywordtype}{float}\ fovY,\ \textcolor{keywordtype}{float}\ aspectRatio,\ \textcolor{keywordtype}{float}\ nearPlane,\ \textcolor{keywordtype}{float}\ farPlane)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetPerspective(fovY,\ aspectRatio,\ nearPlane,\ farPlane);\ \}}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetProjectionMatrix()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetProjectionMatrix();\ \}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetFieldOfView(\textcolor{keywordtype}{float}\ fovY)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetFieldOfView(fovY);\ \}}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetFieldOfView()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetFieldOfView();\ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAspectRatio(\textcolor{keywordtype}{float}\ aspectRatio)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetAspectRatio(aspectRatio);\ \}}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetAspectRatio()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetAspectRatio();\ \}}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetNearPlane(\textcolor{keywordtype}{float}\ nearPlane)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetNearPlane(nearPlane);\ \}}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetNearPlane()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetNearPlane();\ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveForward(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>MoveForward(delta);\ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveRight(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>MoveRight(delta);\ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveUp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>MoveUp(delta);\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetPosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetPosition();\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetYaw(\textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetYaw(angle);\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetPitch(\textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetPitch(angle);\ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRoll(\textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetRoll(angle);\ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRotation(\textcolor{keyword}{const}\ vcm::Vec3\&\ rotation)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetRotation(rotation);\ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ RotateYaw(\textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>RotateYaw(angle);\ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ RotatePitch(\textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>RotatePitch(angle);\ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ RotateRoll(\textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>RotateRoll(angle);\ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Rotate(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ rotation)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>Rotate(rotation);\ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Quat\ \&\ GetRotationQuat()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetRotationQuat();\ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetRotation()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetRotation();\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetViewMatrix()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetViewMatrix();\ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetPerspective(\textcolor{keywordtype}{float}\ fovY,\ \textcolor{keywordtype}{float}\ aspectRatio,\ \textcolor{keywordtype}{float}\ nearPlane,\ \textcolor{keywordtype}{float}\ farPlane)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetPerspective(fovY,\ aspectRatio,\ nearPlane,\ farPlane);\ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetProjectionMatrix()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetProjectionMatrix();\ \}}
 \DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetFarPlane(\textcolor{keywordtype}{float}\ farPlane)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetFarPlane(farPlane);\ \}}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetFarPlane()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetFarPlane();\ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetFieldOfView(\textcolor{keywordtype}{float}\ fovY)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetFieldOfView(fovY);\ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetFieldOfView()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetFieldOfView();\ \}}
 \DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LookAt(\textcolor{keyword}{const}\ vcm::Vec3\&\ target)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>LookAt(target);\ \}}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetForwardVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetForwardVector();\ \}}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetUpVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetUpVector();\ \}}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetRightVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetRightVector();\ \}}
-\DoxyCodeLine{00108\ \};}
-\DoxyCodeLine{00109\ \}}
-\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAspectRatio(\textcolor{keywordtype}{float}\ aspectRatio)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetAspectRatio(aspectRatio);\ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetAspectRatio()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetAspectRatio();\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetNearPlane(\textcolor{keywordtype}{float}\ nearPlane)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetNearPlane(nearPlane);\ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetNearPlane()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetNearPlane();\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetFarPlane(\textcolor{keywordtype}{float}\ farPlane)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>SetFarPlane(farPlane);\ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetFarPlane()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetFarPlane();\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LookAt(\textcolor{keyword}{const}\ vcm::Vec3\&\ target)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>LookAt(target);\ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetForwardVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetForwardVector();\ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetUpVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetUpVector();\ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetRightVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>GetRightVector();\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ RotateAround(\textcolor{keyword}{const}\ vcm::Vec3\&\ target,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ planeNormal,\ \textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}>()-\/>RotateAround(target,\ planeNormal,\ angle);\ \}}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ \}}
+\DoxyCodeLine{00121\ \}}
 
 \end{DoxyCode}

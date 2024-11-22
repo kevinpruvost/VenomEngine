@@ -24,18 +24,19 @@
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Init(\textcolor{keyword}{const}\ uint32\_t\ vertexCount,\ \textcolor{keyword}{const}\ uint32\_t\ vertexSize,\ \textcolor{keyword}{const}\ VkBufferUsageFlags\ flags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data);}
 \DoxyCodeLine{00028\ \ \ \ \ VkBuffer\ GetVkBuffer()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ CopyBuffer(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ srcBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ dstBuffer,\ \textcolor{keyword}{const}\ VkDeviceSize\ size);}
-\DoxyCodeLine{00030\ \ \ \ \ uint32\_t\ GetVertexCount()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00031\ \ \ \ \ uint32\_t\ GetVertexSize()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00032\ \ \ \ \ uint32\_t\ GetTotalSize()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
-\DoxyCodeLine{00036\ \ \ \ \ uint32\_t\ \_\_vertexCount;}
-\DoxyCodeLine{00037\ \ \ \ \ uint32\_t\ \_\_vertexSize;}
-\DoxyCodeLine{00038\ \};}
-\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{VertexBuffer}}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{IndexBuffer}};}
-\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VkBuffer\ *\ GetVkBufferPtr()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_buffer.GetVkBufferPtr();\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ CopyBuffer(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ srcBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ dstBuffer,\ \textcolor{keyword}{const}\ VkDeviceSize\ size);}
+\DoxyCodeLine{00031\ \ \ \ \ uint32\_t\ GetVertexCount()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ \ \ \ \ uint32\_t\ GetVertexSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ \ \ \ \ uint32\_t\ GetTotalSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
+\DoxyCodeLine{00037\ \ \ \ \ uint32\_t\ \_\_vertexCount;}
+\DoxyCodeLine{00038\ \ \ \ \ uint32\_t\ \_\_vertexSize;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{VertexBuffer}}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{IndexBuffer}};}
 \DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ \}}
 
 \end{DoxyCode}

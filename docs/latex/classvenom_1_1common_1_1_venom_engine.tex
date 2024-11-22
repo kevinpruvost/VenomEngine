@@ -19,12 +19,16 @@ static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a1d9b55a02d6
 static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a999cb4238b1acca05ca969269d6e5a06}{Set\+Scene}} (const String \&scenefile\+Name)
 \begin{DoxyCompactList}\small\item\em Loads a scene from a file. \end{DoxyCompactList}\item 
 static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a242ad4d6bf7a0e252ade3de2da17406f}{Set\+Scene}} (const Scene\+Callback \&scene\+Callback)
-\begin{DoxyCompactList}\small\item\em Loads a scene from a callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Loads a scene from a callback. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_aadaf207c744764cb258e0b43144b5956}{Add\+Loop\+Callback}} (const Loop\+Callback \&loop\+Callback)
+\begin{DoxyCompactList}\small\item\em Adds a loop callback. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a73bb66d4f690291f8d0dd0fbe051de6c}{Add\+Input\+Callback}} (const Input\+Callback \&input\+Callback)
+\begin{DoxyCompactList}\small\item\em Adds a loop callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_venom_engine_a7960648bb56880422879b4ed96d63a79}\label{classvenom_1_1common_1_1_venom_engine_a7960648bb56880422879b4ed96d63a79} 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{Plugin\+Manager}} $>$ {\bfseries plugin\+Manager}
+\Hypertarget{classvenom_1_1common_1_1_venom_engine_a7f40d3470dcfd5e93e0bfc18afd2cf05}\label{classvenom_1_1common_1_1_venom_engine_a7f40d3470dcfd5e93e0bfc18afd2cf05} 
+UPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{Plugin\+Manager}} $>$ {\bfseries plugin\+Manager}
 \end{DoxyCompactItemize}
 
 
@@ -32,6 +36,36 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manag
 Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management. 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_venom_engine_a73bb66d4f690291f8d0dd0fbe051de6c}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!AddInputCallback@{AddInputCallback}}
+\index{AddInputCallback@{AddInputCallback}!venom::common::VenomEngine@{venom::common::VenomEngine}}
+\doxysubsubsection{\texorpdfstring{AddInputCallback()}{AddInputCallback()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_venom_engine_a73bb66d4f690291f8d0dd0fbe051de6c} 
+void venom\+::common\+::\+Venom\+Engine\+::\+Add\+Input\+Callback (\begin{DoxyParamCaption}\item[{const Input\+Callback \&}]{input\+Callback}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Adds a loop callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Callback} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classvenom_1_1common_1_1_venom_engine_aadaf207c744764cb258e0b43144b5956}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!AddLoopCallback@{AddLoopCallback}}
+\index{AddLoopCallback@{AddLoopCallback}!venom::common::VenomEngine@{venom::common::VenomEngine}}
+\doxysubsubsection{\texorpdfstring{AddLoopCallback()}{AddLoopCallback()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_venom_engine_aadaf207c744764cb258e0b43144b5956} 
+void venom\+::common\+::\+Venom\+Engine\+::\+Add\+Loop\+Callback (\begin{DoxyParamCaption}\item[{const Loop\+Callback \&}]{loop\+Callback}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Adds a loop callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em loop\+Callback} & \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classvenom_1_1common_1_1_venom_engine_a0ef26a66954f7362382c721f6d486b6e}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!GetInstance@{GetInstance}}
 \index{GetInstance@{GetInstance}!venom::common::VenomEngine@{venom::common::VenomEngine}}
 \doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}

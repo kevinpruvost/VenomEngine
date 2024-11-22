@@ -147,13 +147,16 @@ $(function(){initNavTree('classvenom_1_1common_1_1_graphics_plugin_object.html',
 <area href="classvenom_1_1common_1_1_plugin_object.html" title="Base class for all the plugin objects Objects that will be loaded from the plugins as their implement..." alt="venom::common::PluginObject" shape="rect" coords="0,56,233,80"/>
 <area href="classvenom_1_1common_1_1_i_plugin_object.html" alt="venom::common::IPluginObject" shape="rect" coords="0,0,233,24"/>
 <area href="classvenom_1_1common_1_1_camera_impl.html" alt="venom::common::CameraImpl" shape="rect" coords="243,168,476,192"/>
-<area href="classvenom_1_1common_1_1_graphics_application.html" alt="venom::common::GraphicsApplication" shape="rect" coords="243,224,476,248"/>
-<area href="classvenom_1_1common_1_1_material_impl.html" alt="venom::common::MaterialImpl" shape="rect" coords="243,280,476,304"/>
-<area href="classvenom_1_1common_1_1_mesh_impl.html" alt="venom::common::MeshImpl" shape="rect" coords="243,336,476,360"/>
-<area href="classvenom_1_1common_1_1_model_impl.html" alt="venom::common::ModelImpl" shape="rect" coords="243,392,476,416"/>
-<area href="classvenom_1_1common_1_1_shader_impl.html" alt="venom::common::ShaderImpl" shape="rect" coords="243,448,476,472"/>
-<area href="classvenom_1_1common_1_1_shader_resource_table.html" alt="venom::common::ShaderResourceTable" shape="rect" coords="243,504,476,528"/>
-<area href="classvenom_1_1common_1_1_texture_impl.html" alt="venom::common::TextureImpl" shape="rect" coords="243,560,476,584"/>
+<area href="classvenom_1_1common_1_1_g_u_i.html" alt="venom::common::GUI" shape="rect" coords="243,224,476,248"/>
+<area href="classvenom_1_1common_1_1_graphics_application.html" alt="venom::common::GraphicsApplication" shape="rect" coords="243,280,476,304"/>
+<area href="classvenom_1_1common_1_1_material_impl.html" alt="venom::common::MaterialImpl" shape="rect" coords="243,336,476,360"/>
+<area href="classvenom_1_1common_1_1_mesh_impl.html" alt="venom::common::MeshImpl" shape="rect" coords="243,392,476,416"/>
+<area href="classvenom_1_1common_1_1_model_impl.html" alt="venom::common::ModelImpl" shape="rect" coords="243,448,476,472"/>
+<area href="classvenom_1_1common_1_1_rendering_pipeline_impl.html" alt="venom::common::RenderingPipelineImpl" shape="rect" coords="243,504,476,528"/>
+<area href="classvenom_1_1common_1_1_shader_pipeline_impl.html" alt="venom::common::ShaderPipelineImpl" shape="rect" coords="243,560,476,584"/>
+<area href="classvenom_1_1common_1_1_shader_resource_table.html" alt="venom::common::ShaderResourceTable" shape="rect" coords="243,616,476,640"/>
+<area href="classvenom_1_1common_1_1_skybox_impl.html" alt="venom::common::SkyboxImpl" shape="rect" coords="243,672,476,696"/>
+<area href="classvenom_1_1common_1_1_texture_impl.html" alt="venom::common::TextureImpl" shape="rect" coords="243,728,476,752"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -186,6 +189,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:afa55a84a78740e243ca0baed73281fb5" id="r_afa55a84a78740e243ca0baed73281fb5"><td class="memItemLeft" align="right" valign="top">static SPtr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa55a84a78740e243ca0baed73281fb5">GetCachedObject</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:afa55a84a78740e243ca0baed73281fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a cached object from the graphics cache.  <br /></td></tr>
 <tr class="separator:afa55a84a78740e243ca0baed73281fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4c5c13af9a06594bb5ef3e7107e0a5" id="r_aed4c5c13af9a06594bb5ef3e7107e0a5"><td class="memItemLeft" align="right" valign="top">static const std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed4c5c13af9a06594bb5ef3e7107e0a5">GetCachedObjects</a> ()</td></tr>
+<tr class="memdesc:aed4c5c13af9a06594bb5ef3e7107e0a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all cached objects.  <br /></td></tr>
+<tr class="separator:aed4c5c13af9a06594bb5ef3e7107e0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -374,6 +380,34 @@ Static Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd><code>path</code> must be the original asset path relative to the <code>resources</code> folder </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>nullptr if the object is not in cache, the object otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aed4c5c13af9a06594bb5ef3e7107e0a5" name="aed4c5c13af9a06594bb5ef3e7107e0a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed4c5c13af9a06594bb5ef3e7107e0a5">&#9670;&#160;</a></span>GetCachedObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt; &gt; &amp; venom::common::GraphicsPluginObject::GetCachedObjects </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets all cached objects. </p>
+<dl class="section return"><dt>Returns</dt><dd>cached objects </dd></dl>
 
 </div>
 </div>

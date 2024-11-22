@@ -24,14 +24,20 @@ Entity {\bfseries Create\+Entity} ()
 \Hypertarget{classvenom_1_1common_1_1_e_c_s_a59c143511472caf13be0e288dbb0bc49}\label{classvenom_1_1common_1_1_e_c_s_a59c143511472caf13be0e288dbb0bc49} 
 Entity {\bfseries Create\+Entity} (const char \texorpdfstring{$\ast$}{*}name)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a47a2482b61e2b0f2d54373235cdd1abb}\label{classvenom_1_1common_1_1_e_c_s_a47a2482b61e2b0f2d54373235cdd1abb} 
+Entity {\bfseries Create\+Prefab} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_e_c_s_ad1d28cb2bfb62fd8e20946db968347fc}\label{classvenom_1_1common_1_1_e_c_s_ad1d28cb2bfb62fd8e20946db968347fc} 
 {\footnotesize template$<$typename... Comps, typename... Args$>$ }\\System {\bfseries Create\+System} (const char \texorpdfstring{$\ast$}{*}name)
-\item 
-\Hypertarget{classvenom_1_1common_1_1_e_c_s_a912c1a599834020d27cb779aa111efcb}\label{classvenom_1_1common_1_1_e_c_s_a912c1a599834020d27cb779aa111efcb} 
-{\footnotesize template$<$typename... Args$>$ }\\void {\bfseries For\+Each} (auto \&\&func)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a317004790b2e3f1cf1b524a32dfdc381}\label{classvenom_1_1common_1_1_e_c_s_a317004790b2e3f1cf1b524a32dfdc381} 
+static Entity {\bfseries Get\+Entity} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a04e1180bcf620f71a2618d14e45fc027}\label{classvenom_1_1common_1_1_e_c_s_a04e1180bcf620f71a2618d14e45fc027} 
+{\footnotesize template$<$typename... Args$>$ }\\static void {\bfseries For\+Each} (auto \&\&func)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_e_c_s_a743a62f8b33c81e5e7c243b430f87d4f}\label{classvenom_1_1common_1_1_e_c_s_a743a62f8b33c81e5e7c243b430f87d4f} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+ECS} ()

@@ -126,6 +126,7 @@ $(function(){initNavTree('namespacevenom_1_1vulkan.html',''); initResizable(true
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">venom::vulkan Namespace Reference</div></div>
 </div><!--header-->
@@ -137,6 +138,8 @@ $(function(){initNavTree('namespacevenom_1_1vulkan.html',''); initResizable(true
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_allocator.html">Allocator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_attachments_manager.html">AttachmentsManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_buffer.html">Buffer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +164,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_descriptor_set_layout.html">DescriptorSetLayout</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_fence.html">Fence</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_framebuffer.html">Framebuffer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_image.html">Image</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,8 +193,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_semaphore.html">Semaphore</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_shader_pipeline.html">ShaderPipeline</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_single_time_command_buffer.html">SingleTimeCommandBuffer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_storage_buffer.html">StorageBuffer</a></td></tr>
@@ -208,6 +211,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_graphics_plugin.html">VulkanGraphicsPlugin</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_g_u_i.html">VulkanGUI</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_material.html">VulkanMaterial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_mesh.html">VulkanMesh</a></td></tr>
@@ -216,9 +221,15 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_model_resource.html">VulkanModelResource</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader.html">VulkanShader</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_rendering_pipeline.html">VulkanRenderingPipeline</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_pipeline.html">VulkanShaderPipeline</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_resource.html">VulkanShaderResource</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_shader_resource_table.html">VulkanShaderResourceTable</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_skybox.html">VulkanSkybox</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_texture.html">VulkanTexture</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -237,11 +248,22 @@ typedef std::vector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign=
 typedef <a class="el" href="classvenom_1_1vulkan_1_1_vertex_buffer.html">VertexBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IndexBuffer</b></td></tr>
 <tr class="separator:a7ef46e5684b5fd57ce6f132876a73b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ae58382ad3f6a3a2297ff04a2bb192bd2" id="r_ae58382ad3f6a3a2297ff04a2bb192bd2"><td class="memItemLeft" align="right" valign="top"><a id="ae58382ad3f6a3a2297ff04a2bb192bd2" name="ae58382ad3f6a3a2297ff04a2bb192bd2"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>PipelineType</b> : uint32_t { <b>Graphics</b> = 0
+, <b>Compute</b> = 1
+, <b>RayTracing</b> = 2
+ }</td></tr>
+<tr class="separator:ae58382ad3f6a3a2297ff04a2bb192bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a425819e2f03f966cd161d2af3eaf9409" id="r_a425819e2f03f966cd161d2af3eaf9409"><td class="memItemLeft" align="right" valign="top"><a id="a425819e2f03f966cd161d2af3eaf9409" name="a425819e2f03f966cd161d2af3eaf9409"></a>
 <a class="el" href="classvenom_1_1vulkan_1_1_mapped_queue_families.html">MappedQueueFamilies</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getVulkanQueueFamilies</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_physical_device.html">PhysicalDevice</a> &amp;physicalDevice)</td></tr>
 <tr class="separator:a425819e2f03f966cd161d2af3eaf9409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae152479f9e02d8d0958ae45ea49eb9e2" id="r_ae152479f9e02d8d0958ae45ea49eb9e2"><td class="memItemLeft" align="right" valign="top"><a id="ae152479f9e02d8d0958ae45ea49eb9e2" name="ae152479f9e02d8d0958ae45ea49eb9e2"></a>
+VkFormat&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkFormatFromShaderVertexFormat</b> (const vc::ShaderVertexFormat format)</td></tr>
+<tr class="separator:ae152479f9e02d8d0958ae45ea49eb9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsulation of Vulkan for the front end of VenomEngine. </p>

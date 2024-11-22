@@ -27,17 +27,44 @@ void {\bfseries Set\+Position} (const vcm\+::\+Vec3 \&position)
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a5400b724ad7494105c668eb607960eef}\label{classvenom_1_1common_1_1_transform3_d_a5400b724ad7494105c668eb607960eef} 
 void {\bfseries Move} (const vcm\+::\+Vec3 \&delta)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_ac23611e7b565d40c30417056a7e2e24d}\label{classvenom_1_1common_1_1_transform3_d_ac23611e7b565d40c30417056a7e2e24d} 
+void {\bfseries Move\+Forward} (const float delta)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_acb970ae41649742e66e5d7555a316483}\label{classvenom_1_1common_1_1_transform3_d_acb970ae41649742e66e5d7555a316483} 
+void {\bfseries Move\+Right} (const float delta)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a14397c14a528391825b3172e912d03bb}\label{classvenom_1_1common_1_1_transform3_d_a14397c14a528391825b3172e912d03bb} 
+void {\bfseries Move\+Up} (const float delta)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a6c1e6699199fb0be9ee05b0146dc4428}\label{classvenom_1_1common_1_1_transform3_d_a6c1e6699199fb0be9ee05b0146dc4428} 
 const vcm\+::\+Vec3 \& {\bfseries Get\+Position} () const
 \item 
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_aebea3c2fa664ff4f283eaa4ceed84e4a}\label{classvenom_1_1common_1_1_transform3_d_aebea3c2fa664ff4f283eaa4ceed84e4a} 
 bool {\bfseries Has\+Position\+Changed} ()
 \item 
-\Hypertarget{classvenom_1_1common_1_1_transform3_d_a3b5d65b66d1c70cb2fd9b8171ef290ef}\label{classvenom_1_1common_1_1_transform3_d_a3b5d65b66d1c70cb2fd9b8171ef290ef} 
-void {\bfseries Set\+Rotation} (const vcm\+::\+Quat \&rotation)
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a01e7ce9644f531a23b7c91f83c78bf52}\label{classvenom_1_1common_1_1_transform3_d_a01e7ce9644f531a23b7c91f83c78bf52} 
+void {\bfseries Set\+Rotation} (const vcm\+::\+Vec3 \&rotation)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_transform3_d_a0c5ba5a93fd2e1aeb2312d2c9aed8b35}\label{classvenom_1_1common_1_1_transform3_d_a0c5ba5a93fd2e1aeb2312d2c9aed8b35} 
-void {\bfseries Rotate} (const vcm\+::\+Vec3 \&axis, float angle)
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a16515fe9e0b0f8c0f6aecebca29b02d0}\label{classvenom_1_1common_1_1_transform3_d_a16515fe9e0b0f8c0f6aecebca29b02d0} 
+void {\bfseries Set\+Yaw} (float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a6e20e16774a3a65325e72f8449f28c87}\label{classvenom_1_1common_1_1_transform3_d_a6e20e16774a3a65325e72f8449f28c87} 
+void {\bfseries Set\+Pitch} (float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a40e3e8466ae8eccd36050264ebbaa0af}\label{classvenom_1_1common_1_1_transform3_d_a40e3e8466ae8eccd36050264ebbaa0af} 
+void {\bfseries Set\+Roll} (float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a79e0392f0a5f6cdd3fec1855faeea915}\label{classvenom_1_1common_1_1_transform3_d_a79e0392f0a5f6cdd3fec1855faeea915} 
+void {\bfseries Rotate\+Yaw} (float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a5dba5ef3b50cee97e4afd1098f9c64bb}\label{classvenom_1_1common_1_1_transform3_d_a5dba5ef3b50cee97e4afd1098f9c64bb} 
+void {\bfseries Rotate\+Pitch} (float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_aee0787b98681a1e99c18e12f99622fae}\label{classvenom_1_1common_1_1_transform3_d_aee0787b98681a1e99c18e12f99622fae} 
+void {\bfseries Rotate\+Roll} (float angle)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a06d6f926d8c04a176f67ca380bd10184}\label{classvenom_1_1common_1_1_transform3_d_a06d6f926d8c04a176f67ca380bd10184} 
+void {\bfseries Rotate} (const vcm\+::\+Vec3 \&rotation)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a5f2c7002e3c84cf83f64f474b3c991b1}\label{classvenom_1_1common_1_1_transform3_d_a5f2c7002e3c84cf83f64f474b3c991b1} 
 const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
@@ -45,6 +72,8 @@ const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a9cc357e34efd2d481c68fe3f7ff20556}\label{classvenom_1_1common_1_1_transform3_d_a9cc357e34efd2d481c68fe3f7ff20556} 
 const vcm\+::\+Vec3 \& {\bfseries Get\+Rotation} ()
 \item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d_a1087d42ee65a2f8d88bdf569443e403b}{Rotate\+Around}} (const vcm\+::\+Vec3 \&target, const vcm\+::\+Vec3 \&plane\+Normal, float angle)
+\begin{DoxyCompactList}\small\item\em Rotates around the target on the given plane\+Normal by the given angle. \end{DoxyCompactList}\item 
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a0621b3e1c1a700a9943c8df854ca1200}\label{classvenom_1_1common_1_1_transform3_d_a0621b3e1c1a700a9943c8df854ca1200} 
 void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
 \item 
@@ -63,21 +92,60 @@ void {\bfseries Update\+Model\+Matrix} ()
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_ab3f045cd7a19778e96a50e05ca8a3db8}\label{classvenom_1_1common_1_1_transform3_d_ab3f045cd7a19778e96a50e05ca8a3db8} 
 const vcm\+::\+Mat4 \& {\bfseries Get\+Model\+Matrix} ()
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_afcad7b7966f424033c2c9ddbe05b38d8}\label{classvenom_1_1common_1_1_transform3_d_afcad7b7966f424033c2c9ddbe05b38d8} 
+void {\bfseries \+\_\+\+Update\+Rotation\+Quat} ()
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a9c83ecca076e892fbe3796c6b958c2ec}\label{classvenom_1_1common_1_1_transform3_d_a9c83ecca076e892fbe3796c6b958c2ec} 
 vcm\+::\+Vec3 {\bfseries \+\_\+position}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_transform3_d_aa3617bc697b69f04b3b91899fa14cce7}\label{classvenom_1_1common_1_1_transform3_d_aa3617bc697b69f04b3b91899fa14cce7} 
-vcm\+::\+Quat {\bfseries \+\_\+rotation}
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a14c6a7780b8cccc73f2fbdfc8970f22a}\label{classvenom_1_1common_1_1_transform3_d_a14c6a7780b8cccc73f2fbdfc8970f22a} 
+vcm\+::\+Quat {\bfseries \+\_\+rotation\+Quat}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_transform3_d_aff4e2ca7944f16dd03f20b6d25afa09a}\label{classvenom_1_1common_1_1_transform3_d_aff4e2ca7944f16dd03f20b6d25afa09a} 
-vcm\+::\+Vec3 {\bfseries \+\_\+3\+Drotation\+View}
-\item 
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a6014ddd984e6d772d767e85c51f541ef}\label{classvenom_1_1common_1_1_transform3_d_a6014ddd984e6d772d767e85c51f541ef} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>vcm::Vec3 {\bfseries \_3Drotation}\\
+\Hypertarget{unionvenom_1_1common_1_1_transform3_d_1_1_0d0_a986f5d34760abf3e55f1c7bd9c7d938d}\label{unionvenom_1_1common_1_1_transform3_d_1_1_0d0_a986f5d34760abf3e55f1c7bd9c7d938d} 
+\>struct \{\\
+\>\>float {\bfseries \_yaw}\\
+\>\>float {\bfseries \_pitch}\\
+\>\>float {\bfseries \_roll}\\
+\>\} \\
+\}; \\
+
+\end{tabbing}\item 
 \Hypertarget{classvenom_1_1common_1_1_transform3_d_a1ad514c14f65d1193bacf364677137ac}\label{classvenom_1_1common_1_1_transform3_d_a1ad514c14f65d1193bacf364677137ac} 
 vcm\+::\+Mat4 {\bfseries \+\_\+model\+Matrix}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_transform3_d_a1087d42ee65a2f8d88bdf569443e403b}\index{venom::common::Transform3D@{venom::common::Transform3D}!RotateAround@{RotateAround}}
+\index{RotateAround@{RotateAround}!venom::common::Transform3D@{venom::common::Transform3D}}
+\doxysubsubsection{\texorpdfstring{RotateAround()}{RotateAround()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_transform3_d_a1087d42ee65a2f8d88bdf569443e403b} 
+void venom\+::common\+::\+Transform3\+D\+::\+Rotate\+Around (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec3 \&}]{target}{, }\item[{const vcm\+::\+Vec3 \&}]{plane\+Normal}{, }\item[{float}]{angle}{}\end{DoxyParamCaption})}
+
+
+
+Rotates around the target on the given plane\+Normal by the given angle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \\
+\hline
+{\em plane\+Normal} & \\
+\hline
+{\em angle} & \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

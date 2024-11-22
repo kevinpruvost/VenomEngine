@@ -1,0 +1,41 @@
+\doxysection{Skybox.\+h}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Skybox.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Skybox.h}}
+\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_plugin_object_8h}{venom/common/plugin/graphics/GraphicsPluginObject.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{venom/common/plugin/graphics/Texture.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_pipeline_8h}{venom/common/plugin/graphics/ShaderPipeline.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{\string~SkyboxImpl}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ texturePath);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ GetPanorama()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_panorama;\ \}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadSkybox(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)\ =\ 0;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_panorama;}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{\string~Skybox}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}>()-\/>LoadSkybox(path);\ \}}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ \}}
+
+\end{DoxyCode}

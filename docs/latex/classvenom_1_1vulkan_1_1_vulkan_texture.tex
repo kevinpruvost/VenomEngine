@@ -9,24 +9,44 @@ Inheritance diagram for venom\+::vulkan\+::Vulkan\+Texture\+:\begin{figure}[H]
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_a6fe982615ddb4eab84ab39cc1927e624}{\+\_\+\+Load\+Image}} (unsigned char \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels) override
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_a87be52e7751ddb4ab521325820d02c58}{Load\+Image}} (unsigned char \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_aff7cc9838b6e708eaa3b76ccd01473ab}{Load\+Image\+BGRA}} (unsigned char \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_adff01df3e7044933eae9603b86702d02}{Load\+Image}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels) override
 \item 
 vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_af7621f68c5a1bf87c454b4cb55af0ec5}{\+\_\+\+Init\+Depth\+Buffer}} (int width, int height) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_a21ffe1228a7fa1d693a484c6b1420c87}{\+\_\+\+Create\+Attachment}} (int width, int height, int image\+Count, vc\+::\+Shader\+Vertex\+Format format) override
 \item 
 bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_a9e0597c7d7af9a5735639eefef2ac2d5}{Has\+Texture}} () const override
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a5e540bfa5bdffc6e39bb33b8a301bb39}\label{classvenom_1_1vulkan_1_1_vulkan_texture_a5e540bfa5bdffc6e39bb33b8a301bb39} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \& {\bfseries Get\+Image} () const
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a650d2a6938f05633f80fbab98423c4f4}\label{classvenom_1_1vulkan_1_1_vulkan_texture_a650d2a6938f05633f80fbab98423c4f4} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \& {\bfseries Get\+Image} ()
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a88288540eda68834141e1c5d82e3981f}\label{classvenom_1_1vulkan_1_1_vulkan_texture_a88288540eda68834141e1c5d82e3981f} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{Image\+View}} \& {\bfseries Get\+Image\+View} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a523f194023f92413e8792334304f9774}\label{classvenom_1_1vulkan_1_1_vulkan_texture_a523f194023f92413e8792334304f9774} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{Image\+View}} \& {\bfseries Get\+Image\+View} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}}
 \begin{DoxyCompactItemize}
 \item 
 vc\+::\+Error {\bfseries Load\+Image\+From\+File} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
+vc\+::\+Error {\bfseries Load\+Image} (const char \texorpdfstring{$\ast$}{*}path, int id, char \texorpdfstring{$\ast$}{*}bgra\+Data, unsigned int width, unsigned int height)
+\item 
 vc\+::\+Error {\bfseries Init\+Depth\+Buffer} (int width, int height)
+\item 
+vc\+::\+Error {\bfseries Create\+Attachment} (int width, int height, int image\+Count, vc\+::\+Shader\+Vertex\+Format format)
+\item 
+void {\bfseries Set\+Texture\+Peak\+Luminance} (float peak\+Luminance)
+\item 
+const float \& {\bfseries Get\+Texture\+Peak\+Luminance} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
 \begin{DoxyCompactItemize}
@@ -63,6 +83,14 @@ Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f
 {\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{venom\+::common\+::\+Graphics\+Cached\+Resource\+Holder}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+void {\bfseries Set\+Resource} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \&resource)
+\item 
+void {\bfseries Set\+Resource} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&resource)
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -83,15 +111,17 @@ static const \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{Texture\+Im
 static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
 static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
-\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{venom\+::common\+::\+Graphics\+Cached\+Resource\+Holder}}}
 \begin{DoxyCompactItemize}
 \item 
-const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \& {\bfseries \+\_\+\+Get\+Texture\+To\+Cache} () const
+const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \& {\bfseries \+\_\+\+Get\+Resource\+To\+Cache} () const
 \item 
-SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \& {\bfseries \+\_\+\+Get\+Texture\+To\+Cache} ()
+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \& {\bfseries \+\_\+\+Get\+Resource\+To\+Cache} ()
 \item 
 void {\bfseries \+\_\+\+Load\+From\+Cache} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&cache)
 \end{DoxyCompactItemize}
@@ -112,6 +142,16 @@ SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Grap
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a21ffe1228a7fa1d693a484c6b1420c87}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!\_CreateAttachment@{\_CreateAttachment}}
+\index{\_CreateAttachment@{\_CreateAttachment}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+\doxysubsubsection{\texorpdfstring{\_CreateAttachment()}{\_CreateAttachment()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_a21ffe1228a7fa1d693a484c6b1420c87} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+\_\+\+Create\+Attachment (\begin{DoxyParamCaption}\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{image\+Count}{, }\item[{vc\+::\+Shader\+Vertex\+Format}]{format}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}.
+
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_af7621f68c5a1bf87c454b4cb55af0ec5}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!\_InitDepthBuffer@{\_InitDepthBuffer}}
 \index{\_InitDepthBuffer@{\_InitDepthBuffer}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
 \doxysubsubsection{\texorpdfstring{\_InitDepthBuffer()}{\_InitDepthBuffer()}}
@@ -122,21 +162,41 @@ vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+\_\+\+Init\+Depth\+Buffe
 
 Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}.
 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a6fe982615ddb4eab84ab39cc1927e624}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!\_LoadImage@{\_LoadImage}}
-\index{\_LoadImage@{\_LoadImage}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
-\doxysubsubsection{\texorpdfstring{\_LoadImage()}{\_LoadImage()}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_a6fe982615ddb4eab84ab39cc1927e624} 
-vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+\_\+\+Load\+Image (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{pixels}{, }\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{channels}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}.
-
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a9e0597c7d7af9a5735639eefef2ac2d5}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!HasTexture@{HasTexture}}
 \index{HasTexture@{HasTexture}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
 \doxysubsubsection{\texorpdfstring{HasTexture()}{HasTexture()}}
 {\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_a9e0597c7d7af9a5735639eefef2ac2d5} 
 bool venom\+::vulkan\+::\+Vulkan\+Texture\+::\+Has\+Texture (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_adff01df3e7044933eae9603b86702d02}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!LoadImage@{LoadImage}}
+\index{LoadImage@{LoadImage}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+\doxysubsubsection{\texorpdfstring{LoadImage()}{LoadImage()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_adff01df3e7044933eae9603b86702d02} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+Load\+Image (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{pixels}{, }\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{channels}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_a87be52e7751ddb4ab521325820d02c58}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!LoadImage@{LoadImage}}
+\index{LoadImage@{LoadImage}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+\doxysubsubsection{\texorpdfstring{LoadImage()}{LoadImage()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_a87be52e7751ddb4ab521325820d02c58} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+Load\+Image (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{pixels}{, }\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{channels}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_texture_aff7cc9838b6e708eaa3b76ccd01473ab}\index{venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}!LoadImageBGRA@{LoadImageBGRA}}
+\index{LoadImageBGRA@{LoadImageBGRA}!venom::vulkan::VulkanTexture@{venom::vulkan::VulkanTexture}}
+\doxysubsubsection{\texorpdfstring{LoadImageBGRA()}{LoadImageBGRA()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_texture_aff7cc9838b6e708eaa3b76ccd01473ab} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Texture\+::\+Load\+Image\+BGRA (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{pixels}{, }\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{channels}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 

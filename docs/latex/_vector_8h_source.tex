@@ -19,53 +19,86 @@
 \DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT3\ Vec3;}
 \DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT2\ Vec2;}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ DirectX::XMVECTOR\ Quat;}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ DirectX::XMMATRIX\ Mat4;}
-\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT3X3\ Mat3;}
-\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#elif\ defined(VENOM\_MATH\_GLM)}}
-\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ glm::vec4\ Vec4;}
-\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ glm::vec3\ Vec3;}
-\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ glm::vec2\ Vec2;}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ glm::quat\ Quat;}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ glm::mat4\ Mat4;}
-\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ glm::mat3\ Mat3;}
-\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \textcolor{comment}{//\ We\ want\ vertices\ to\ be\ used\ separate\ and\ not\ packed\ (non-\/interleaved\ and\ not\ interleaved)}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{VertexPos}};}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{VertexNormal}};}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ Vec4\ \mbox{\hyperlink{_vector_8h_a34c20fd280aa09317ad9e948afda1664}{VertexColor}};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ DirectX::XMINT2\ IVec2;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ DirectX::XMINT3\ IVec3;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ DirectX::XMINT4\ IVec4;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ DirectX::XMUINT2\ UVec2;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ DirectX::XMUINT3\ UVec3;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ DirectX::XMUINT4\ UVec4;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ DirectX::XMVECTOR\ Quat;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ DirectX::XMMATRIX\ Mat4;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT3X3\ Mat3;}
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ DirectX::XMFLOAT2X2\ Mat2;}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#elif\ defined(VENOM\_MATH\_GLM)}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ glm::vec4\ Vec4;}
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ glm::vec3\ Vec3;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ glm::vec2\ Vec2;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ glm::ivec2\ IVec2;}
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ glm::ivec3\ IVec3;}
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ glm::ivec4\ IVec4;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ glm::uvec2\ UVec2;}
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ glm::uvec3\ UVec3;}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ glm::uvec4\ UVec4;}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ Vec2\ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{VertexUV}};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a066a89acef984c6819306a176b693d65}{VertexTangent}};}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd}{VertexBitangent}};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ glm::quat\ Quat;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ glm::mat4\ Mat4;}
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ glm::mat3\ Mat3;}
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ glm::mat2\ Mat2;}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ We\ want\ vertices\ to\ be\ used\ separate\ and\ not\ packed\ (non-\/interleaved\ and\ not\ interleaved)}}
 \DoxyCodeLine{00058\ }
-\DoxyCodeLine{00060\ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{_vector_8h_a36b6a61f40d61b43b3c4bf534f0769ca}{VertexIndex}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{VertexPos}};}
 \DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00068\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_ad017de705bddff4c8fee33385ac80e86}{GetEulerAngles}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}{RotateQuat}}(vcm::Quat\ \&\ quat,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle,\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ axis);}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00083\ vcm::Quat\ \mbox{\hyperlink{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65}{QuatFromViewMatrix}}(\textcolor{keyword}{const}\ vcm::Mat4\ \&\ viewMatrix);}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00090\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}{GetForward}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00097\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}{GetUp}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00104\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}{GetRight}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00110\ vcm::Quat\ \mbox{\hyperlink{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}{IdentityQuat}}();}
-\DoxyCodeLine{00111\ \}}
-\DoxyCodeLine{00112\ \}}
-\DoxyCodeLine{00113\ \}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{VertexNormal}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ Vec4\ \mbox{\hyperlink{_vector_8h_a34c20fd280aa09317ad9e948afda1664}{VertexColor}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ Vec2\ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{VertexUV}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a066a89acef984c6819306a176b693d65}{VertexTangent}};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ Vec3\ \mbox{\hyperlink{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd}{VertexBitangent}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{_vector_8h_a36b6a61f40d61b43b3c4bf534f0769ca}{VertexIndex}};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00086\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_ad017de705bddff4c8fee33385ac80e86}{GetEulerAngles}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_vector_8h_a2f5e71b6f5162fc464bd6b9b7565e699}{RotateQuat}}(vcm::Quat\ \&\ quat,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle,\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ axis);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ vcm::Quat\ \mbox{\hyperlink{_vector_8h_a5710647526c7ba26eb666a03dbf2dc65}{QuatFromViewMatrix}}(\textcolor{keyword}{const}\ vcm::Mat4\ \&\ viewMatrix);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00108\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}{GetForward}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00115\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}{GetUp}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00122\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}{GetRight}}(\textcolor{keyword}{const}\ vcm::Quat\ \&\ quat);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00128\ vcm::Quat\ \mbox{\hyperlink{_vector_8h_a40ed191ee8aa4317568a2f832caf6416}{IdentityQuat}}();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00134\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_ab817c9981a9c26c07f8d6de5a3be0720}{GetPerpendicularVector}}(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ vec);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ vcm::Vec3\ CrossProduct(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ a,\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ b);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{float}\ DotProduct(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ a,\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ b);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00148\ vcm::Vec3\ \mbox{\hyperlink{_vector_8h_a08999f1f35dfca7e203e2cd02c897af4}{RotateAround}}(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ point,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ target,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ planeNormal,\ \textcolor{keywordtype}{float}\ angle);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00157\ vcm::Vec2\ \mbox{\hyperlink{_vector_8h_a08999f1f35dfca7e203e2cd02c897af4}{RotateAround}}(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ point,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ VENOM\_COMMON\_API\ \textcolor{keywordtype}{void}\ Normalize(Vec3\&\ vec);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ vcm::Quat\ FromEulerAngles(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ yaw,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ pitch,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ roll);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \}}
+\DoxyCodeLine{00164\ \}}
+\DoxyCodeLine{00165\ \}}
 
 \end{DoxyCode}

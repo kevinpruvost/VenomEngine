@@ -125,12 +125,15 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_tex
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">Texture.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h_source.html">venom/common/plugin/graphics/GraphicsPlugin.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h_source.html">venom/common/plugin/graphics/ShaderResourceTable.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_types_8h_source.html">venom/common/Types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_shader_pipeline_8h_source.html">venom/common/plugin/graphics/ShaderPipeline.h</a>&gt;</code><br />
 </div>
 <p><a href="common_2include_2venom_2common_2plugin_2graphics_2_texture_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -151,6 +154,20 @@ Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
 <tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aa180b9c9bc13783af4525066fe04b6eb" id="r_aa180b9c9bc13783af4525066fe04b6eb"><td class="memItemLeft" align="right" valign="top"><a id="aa180b9c9bc13783af4525066fe04b6eb" name="aa180b9c9bc13783af4525066fe04b6eb"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ColorAttachmentType</b> { <br />
+&#160;&#160;<b>Present</b> = 0
+, <b>NormalSpecular</b> = 1
+, <b>MetallicRougnessAO</b> = 2
+, <b>Position</b> = 3
+, <br />
+&#160;&#160;<b>Depth</b> = 4
+, <b>Count</b>
+<br />
+ }</td></tr>
+<tr class="separator:aa180b9c9bc13783af4525066fe04b6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngine</p>

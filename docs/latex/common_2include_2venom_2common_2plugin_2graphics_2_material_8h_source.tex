@@ -30,54 +30,55 @@
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&\ GetName()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ SetName(\textcolor{keyword}{const}\ std::string\ \&\ name);}
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{struct\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_component_resource_table}{MaterialComponentResourceTable}}\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_component_resource_table}{MaterialComponentResourceTable}}();}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ vcm::Vec4\ value;}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ valueType;}
-\DoxyCodeLine{00039\ \ \ \ \ \};}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{struct\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_resource_table}{MaterialResourceTable}}\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_component_resource_table}{MaterialComponentResourceTable}}\ components[MaterialComponentType::MAX\_COMPONENT];}
-\DoxyCodeLine{00042\ \ \ \ \ \};}
-\DoxyCodeLine{00043\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_resource_table}{MaterialResourceTable}}\ \&\ \_GetResourceTable(\textcolor{keywordtype}{bool}\ \&\ wasDirty);}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{MaterialComponent}}\ \_\_components[MaterialComponentType::MAX\_COMPONENT];}
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_resource_table}{MaterialResourceTable}}\ \_\_resourceTable;}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_resourceTableDirty;}
-\DoxyCodeLine{00050\ \ \ \ \ std::string\ \_\_name;}
-\DoxyCodeLine{00051\ \};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
-\DoxyCodeLine{00054\ \{}
-\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}();}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{\string~Material}}();}
-\DoxyCodeLine{00058\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ value)\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ value);}
-\DoxyCodeLine{00061\ \ \ \ \ \}}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ vcm::Vec4\&\ value)\ \{}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ value);}
-\DoxyCodeLine{00064\ \ \ \ \ \}}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ value)\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ value);}
-\DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)\ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ texture);}
-\DoxyCodeLine{00070\ \ \ \ \ \}}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{MaterialComponent}}\ \&\ GetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>GetComponent(type);}
-\DoxyCodeLine{00073\ \ \ \ \ \}}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ std::string\ \&\ GetName()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>GetName();}
-\DoxyCodeLine{00076\ \ \ \ \ \}}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetName(\textcolor{keyword}{const}\ std::string\ \&\ name)\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetName(name);}
-\DoxyCodeLine{00079\ \ \ \ \ \}}
-\DoxyCodeLine{00080\ \};}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \}}
-\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{struct\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_component_resource_table}{MaterialComponentResourceTable}}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_component_resource_table}{MaterialComponentResourceTable}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ vcm::Vec4\ value;\ \textcolor{comment}{//\ 16\ bytes}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ valueType;\ \textcolor{comment}{//\ 4\ bytes}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ padding[12];\ \textcolor{comment}{//\ 12\ bytes}}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{struct\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_resource_table}{MaterialResourceTable}}\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_component_resource_table}{MaterialComponentResourceTable}}\ components[MaterialComponentType::MAX\_COMPONENT];}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_resource_table}{MaterialResourceTable}}\ \&\ \_GetResourceTable(\textcolor{keywordtype}{bool}\ \&\ wasDirty);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{MaterialComponent}}\ \_\_components[MaterialComponentType::MAX\_COMPONENT];}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_material_impl_1_1_material_resource_table}{MaterialResourceTable}}\ \_\_resourceTable;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_resourceTableDirty;}
+\DoxyCodeLine{00054\ \ \ \ \ std::string\ \_\_name;}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}();}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{\string~Material}}();}
+\DoxyCodeLine{00062\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ value)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ value);}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ vcm::Vec4\&\ value)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ value);}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ value)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ value);}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetComponent(type,\ texture);}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{MaterialComponent}}\ \&\ GetComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>GetComponent(type);}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ std::string\ \&\ GetName()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>GetName();}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetName(\textcolor{keyword}{const}\ std::string\ \&\ name)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}>()-\/>SetName(name);}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ \}}
 
 \end{DoxyCode}

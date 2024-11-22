@@ -125,6 +125,7 @@ $(function(){initNavTree('classvenom_1_1vulkan_1_1_render_pass.html',''); initRe
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classvenom_1_1vulkan_1_1_render_pass-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::vulkan::RenderPass Class Reference</div></div>
 </div><!--header-->
@@ -144,18 +145,42 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aee9c0af05f5a05152836ecfc2fc91927" id="r_aee9c0af05f5a05152836ecfc2fc91927"><td class="memItemLeft" align="right" valign="top"><a id="aee9c0af05f5a05152836ecfc2fc91927" name="aee9c0af05f5a05152836ecfc2fc91927"></a>
 <a class="el" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a> &amp;&amp;other)</td></tr>
 <tr class="separator:aee9c0af05f5a05152836ecfc2fc91927"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee5375e64ba84f6a06c6f06413afdbab" id="r_aee5375e64ba84f6a06c6f06413afdbab"><td class="memItemLeft" align="right" valign="top"><a id="aee5375e64ba84f6a06c6f06413afdbab" name="aee5375e64ba84f6a06c6f06413afdbab"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Destroy</b> ()</td></tr>
+<tr class="separator:aee5375e64ba84f6a06c6f06413afdbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4220adb5b3cf247a3baaddb3ba98e8eb" id="r_a4220adb5b3cf247a3baaddb3ba98e8eb"><td class="memItemLeft" align="right" valign="top"><a id="a4220adb5b3cf247a3baaddb3ba98e8eb" name="a4220adb5b3cf247a3baaddb3ba98e8eb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRenderingType</b> (const vc::RenderingPipelineType type)</td></tr>
+<tr class="separator:a4220adb5b3cf247a3baaddb3ba98e8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a5fe5e5d5a78f1b80e1c33ebad4671e" id="r_a0a5fe5e5d5a78f1b80e1c33ebad4671e"><td class="memItemLeft" align="right" valign="top"><a id="a0a5fe5e5d5a78f1b80e1c33ebad4671e" name="a0a5fe5e5d5a78f1b80e1c33ebad4671e"></a>
 vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>InitRenderPass</b> (const <a class="el" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> *swapChain)</td></tr>
 <tr class="separator:a0a5fe5e5d5a78f1b80e1c33ebad4671e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a698dba2081a7704ea29348a5073a5768" id="r_a698dba2081a7704ea29348a5073a5768"><td class="memItemLeft" align="right" valign="top"><a id="a698dba2081a7704ea29348a5073a5768" name="a698dba2081a7704ea29348a5073a5768"></a>
 vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>BeginRenderPass</b> (<a class="el" href="classvenom_1_1vulkan_1_1_swap_chain.html">SwapChain</a> *swapChain, <a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> *commandBuffer, int framebufferIndex)</td></tr>
 <tr class="separator:a698dba2081a7704ea29348a5073a5768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab059d32d62c1e1b5b39dd4228286b7a1" id="r_ab059d32d62c1e1b5b39dd4228286b7a1"><td class="memItemLeft" align="right" valign="top"><a id="ab059d32d62c1e1b5b39dd4228286b7a1" name="ab059d32d62c1e1b5b39dd4228286b7a1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>NextSubpass</b> (<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> *commandBuffer)</td></tr>
+<tr class="separator:ab059d32d62c1e1b5b39dd4228286b7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3212df0b9f9f9fe29c52889a270816d3" id="r_a3212df0b9f9f9fe29c52889a270816d3"><td class="memItemLeft" align="right" valign="top"><a id="a3212df0b9f9f9fe29c52889a270816d3" name="a3212df0b9f9f9fe29c52889a270816d3"></a>
 vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>EndRenderPass</b> (<a class="el" href="classvenom_1_1vulkan_1_1_command_buffer.html">CommandBuffer</a> *commandBuffer)</td></tr>
 <tr class="separator:a3212df0b9f9f9fe29c52889a270816d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a422f2b40c3f071dab6d3050e728acaa3" id="r_a422f2b40c3f071dab6d3050e728acaa3"><td class="memItemLeft" align="right" valign="top"><a id="a422f2b40c3f071dab6d3050e728acaa3" name="a422f2b40c3f071dab6d3050e728acaa3"></a>
-VkRenderPass&#160;</td><td class="memItemRight" valign="bottom"><b>GetRenderPass</b> () const</td></tr>
-<tr class="separator:a422f2b40c3f071dab6d3050e728acaa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a0c192835e30e07e652c2e28702cf0c" id="r_a9a0c192835e30e07e652c2e28702cf0c"><td class="memItemLeft" align="right" valign="top"><a id="a9a0c192835e30e07e652c2e28702cf0c" name="a9a0c192835e30e07e652c2e28702cf0c"></a>
+VkRenderPass&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkRenderPass</b> () const</td></tr>
+<tr class="separator:a9a0c192835e30e07e652c2e28702cf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a217b9a01e381b8efd08f261f0c508159" id="r_a217b9a01e381b8efd08f261f0c508159"><td class="memItemLeft" align="right" valign="top"><a id="a217b9a01e381b8efd08f261f0c508159" name="a217b9a01e381b8efd08f261f0c508159"></a>
+const vc::Vector&lt; VkSubpassDescription &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetSubpassDescriptions</b> () const</td></tr>
+<tr class="separator:a217b9a01e381b8efd08f261f0c508159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac99fa7e5e9864215d7b23ceca940d1ff" id="r_ac99fa7e5e9864215d7b23ceca940d1ff"><td class="memItemLeft" align="right" valign="top"><a id="ac99fa7e5e9864215d7b23ceca940d1ff" name="ac99fa7e5e9864215d7b23ceca940d1ff"></a>
+vc::Vector&lt; vc::Vector&lt; <a class="el" href="classvenom_1_1common_1_1_texture.html">vc::Texture</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetAttachments</b> ()</td></tr>
+<tr class="separator:ac99fa7e5e9864215d7b23ceca940d1ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ada8c6c483a62dfc9ae363f7c6e22a331" id="r_ada8c6c483a62dfc9ae363f7c6e22a331"><td class="memItemLeft" align="right" valign="top"><a id="ada8c6c483a62dfc9ae363f7c6e22a331" name="ada8c6c483a62dfc9ae363f7c6e22a331"></a>
+static <a class="el" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetRenderPass</b> (const vc::RenderingPipelineType type)</td></tr>
+<tr class="separator:ada8c6c483a62dfc9ae363f7c6e22a331"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e24b91c1ce8600a4ab54a19b0a13fdf" id="r_a8e24b91c1ce8600a4ab54a19b0a13fdf"><td class="memItemLeft" align="right" valign="top"><a id="a8e24b91c1ce8600a4ab54a19b0a13fdf" name="a8e24b91c1ce8600a4ab54a19b0a13fdf"></a>
+static vc::Vector&lt; <a class="el" href="classvenom_1_1vulkan_1_1_render_pass.html">RenderPass</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRenderPasses</b> ()</td></tr>
+<tr class="separator:a8e24b91c1ce8600a4ab54a19b0a13fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/<a class="el" href="_render_pass_8h_source.html">RenderPass.h</a></li>

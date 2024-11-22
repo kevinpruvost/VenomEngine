@@ -9,5 +9,6 @@ var searchData=
   ['vertexbuffer_2ecc_6',['VertexBuffer.cc',['../_vertex_buffer_8cc.html',1,'']]],
   ['vertexbuffer_2eh_7',['VertexBuffer.h',['../_vertex_buffer_8h.html',1,'']]],
   ['vulkanapplicationinitializer_2ecc_8',['VulkanApplicationInitializer.cc',['../_vulkan_application_initializer_8cc.html',1,'']]],
-  ['vulkanapplicationsetsinitializer_2ecc_9',['VulkanApplicationSetsInitializer.cc',['../_vulkan_application_sets_initializer_8cc.html',1,'']]]
+  ['vulkanapplicationsetsinitializer_2ecc_9',['VulkanApplicationSetsInitializer.cc',['../_vulkan_application_sets_initializer_8cc.html',1,'']]],
+  ['vulkanapplicationsettings_2ecc_10',['VulkanApplicationSettings.cc',['../_vulkan_application_settings_8cc.html',1,'']]]
 ];

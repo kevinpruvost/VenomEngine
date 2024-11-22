@@ -156,20 +156,22 @@ $(function(){initNavTree('_descriptor_set_8h_source.html',''); initResizable(tru
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> UpdateBuffer(<a class="code hl_class" href="classvenom_1_1vulkan_1_1_storage_buffer.html">StorageBuffer</a> &amp; buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">void</span> UpdateTexture(<span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_vulkan_texture.html">VulkanTexture</a> * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> UpdateSampler(<span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_sampler.html">Sampler</a> &amp;sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> VkDescriptorSet &amp; GetVkDescriptorSet() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> VkDescriptorSet * GetVkDescriptorSetPtr() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1vulkan_1_1_descriptor_pool.html">DescriptorPool</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    VkDescriptorSet __set;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> UpdateImageView(<span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1vulkan_1_1_image_view.html">ImageView</a> &amp;imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> VkDescriptorSet &amp; GetVkDescriptorSet() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> VkDescriptorSet * GetVkDescriptorSetPtr() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1vulkan_1_1_descriptor_pool.html">DescriptorPool</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    VkDescriptorSet __set;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 <div class="ttc" id="a_storage_buffer_8h_html"><div class="ttname"><a href="_storage_buffer_8h.html">StorageBuffer.h</a></div></div>
 <div class="ttc" id="a_uniform_buffer_8h_html"><div class="ttname"><a href="_uniform_buffer_8h.html">UniformBuffer.h</a></div></div>
-<div class="ttc" id="aclassvenom_1_1vulkan_1_1_descriptor_pool_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_descriptor_pool.html">venom::vulkan::DescriptorPool</a></div><div class="ttdef"><b>Definition</b> DescriptorPool.h:78</div></div>
+<div class="ttc" id="aclassvenom_1_1vulkan_1_1_descriptor_pool_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_descriptor_pool.html">venom::vulkan::DescriptorPool</a></div><div class="ttdef"><b>Definition</b> DescriptorPool.h:82</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_descriptor_set_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_descriptor_set.html">venom::vulkan::DescriptorSet</a></div><div class="ttdef"><b>Definition</b> DescriptorSet.h:22</div></div>
+<div class="ttc" id="aclassvenom_1_1vulkan_1_1_image_view_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_image_view.html">venom::vulkan::ImageView</a></div><div class="ttdef"><b>Definition</b> ImageView.h:18</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_sampler_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_sampler.html">venom::vulkan::Sampler</a></div><div class="ttdef"><b>Definition</b> Sampler.h:17</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_storage_buffer_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_storage_buffer.html">venom::vulkan::StorageBuffer</a></div><div class="ttdef"><b>Definition</b> StorageBuffer.h:16</div></div>
 <div class="ttc" id="aclassvenom_1_1vulkan_1_1_uniform_buffer_html"><div class="ttname"><a href="classvenom_1_1vulkan_1_1_uniform_buffer.html">venom::vulkan::UniformBuffer</a></div><div class="ttdef"><b>Definition</b> UniformBuffer.h:17</div></div>

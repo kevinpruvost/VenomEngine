@@ -1,0 +1,63 @@
+\doxysection{GUI.\+h}
+\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_g_u_i_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_g_u_i_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/GUI.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/GUI.h}}
+\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_g_u_i_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_g_u_i_8h}{venom/common/plugin/graphics/GUI.h}}>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <imgui.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_glfw.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_vulkan.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i}{VulkanGUI}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{vc::GUI}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i}{VulkanGUI}}();}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i}{\string~VulkanGUI}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ vc::Error\ Initialize()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00026\ \ \ \ \ vc::Error\ Reset()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \_NewFrame()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \_End()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \_LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ \textcolor{keywordtype}{float}\ power)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ \textcolor{keywordtype}{float}\ power);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ vc::GUISelectableFlags\ flags,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ vc::GUIComboFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndCombo()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetItemDefaultFocus()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x,\ \textcolor{keywordtype}{float}\ spacing)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Render()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetStyle();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00060\ \ \ \ \ ImGui\_ImplVulkan\_InitInfo\ initInfo;}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ \}}
+
+\end{DoxyCode}

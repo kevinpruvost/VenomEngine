@@ -1,0 +1,42 @@
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Containers.h File Reference}
+\hypertarget{_containers_8h}{}\label{_containers_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Containers.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Containers.h}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$stack$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom}{venom}}
+\begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a684ee51e80dc3c8c65b7a373734fb4ad}\label{namespacevenom_1_1common_a684ee51e80dc3c8c65b7a373734fb4ad} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+Vector} = std\+::vector$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a0f83e80477be3b4e035e7a42c134c2aa}\label{namespacevenom_1_1common_a0f83e80477be3b4e035e7a42c134c2aa} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+Stack} = std\+::stack$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_af030c43b6d3d391f9b0f91d0c613ab73}\label{namespacevenom_1_1common_af030c43b6d3d391f9b0f91d0c613ab73} 
+{\footnotesize template$<$typename T , size\+\_\+t N$>$ }\\using {\bfseries venom\+::common\+::\+Array} = std\+::array$<$T, N$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a0d05bbde107543d39fd58f661ecc35a1}\label{namespacevenom_1_1common_a0d05bbde107543d39fd58f661ecc35a1} 
+{\footnotesize template$<$typename T , typename U $>$ }\\using {\bfseries venom\+::common\+::\+Map} = std\+::map$<$T, U$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a371fdb4bdc8e5752b5e6246d372f2d73}\label{namespacevenom_1_1common_a371fdb4bdc8e5752b5e6246d372f2d73} 
+{\footnotesize template$<$typename T , typename U $>$ }\\using {\bfseries venom\+::common\+::\+UMap} = std\+::unordered\+\_\+map$<$T, U$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Venom\+Engine\+Workspace
+
+\begin{DoxyDate}{Date}
+Oct, 27 2024 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+\end{DoxyAuthor}

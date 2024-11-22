@@ -1,6 +1,7 @@
 \doxysection{Class Hierarchy}
 This inheritance list is sorted roughly, but not completely, alphabetically\+:\begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Allocator}{\pageref{classvenom_1_1vulkan_1_1_allocator}}{}
+\item \contentsline{section}{venom\+::vulkan\+::Attachments\+Manager}{\pageref{classvenom_1_1vulkan_1_1_attachments_manager}}{}
 \item \contentsline{section}{venom\+::common\+::Bindless\+Textures\+Id\+Manager}{\pageref{classvenom_1_1common_1_1_bindless_textures_id_manager}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Mesh\+::Bound\+Vk\+Buffer}{\pageref{structvenom_1_1vulkan_1_1_vulkan_mesh_1_1_bound_vk_buffer}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Buffer}{\pageref{classvenom_1_1vulkan_1_1_buffer}}{}
@@ -16,6 +17,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Application}{\pageref{classvenom_1_1vulkan_1_1_vulkan_application}}{}
 \end{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Shader\+Resource\+Table\+::Descriptor}{\pageref{classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Descriptor\+Pool}{\pageref{classvenom_1_1vulkan_1_1_descriptor_pool}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Descriptor\+Set}{\pageref{classvenom_1_1vulkan_1_1_descriptor_set}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Descriptor\+Set\+Group}{\pageref{classvenom_1_1vulkan_1_1_descriptor_set_group}}{}
@@ -26,6 +28,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{venom\+::common\+::ECS}{\pageref{classvenom_1_1common_1_1_e_c_s}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Fence}{\pageref{classvenom_1_1vulkan_1_1_fence}}{}
 \item \contentsline{section}{venom\+::common\+::Fps\+Counter}{\pageref{classvenom_1_1common_1_1_fps_counter}}{}
+\item \contentsline{section}{venom\+::vulkan\+::Framebuffer}{\pageref{classvenom_1_1vulkan_1_1_framebuffer}}{}
 \item \contentsline{section}{venom\+::common\+::Graphics\+Cached\+Resource}{\pageref{classvenom_1_1common_1_1_graphics_cached_resource}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Model\+Resource}{\pageref{classvenom_1_1common_1_1_model_resource}}{}
@@ -33,6 +36,9 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Model\+Resource}{\pageref{classvenom_1_1vulkan_1_1_vulkan_model_resource}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Shader\+Resource}{\pageref{classvenom_1_1common_1_1_shader_resource}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Shader\+Resource}{\pageref{classvenom_1_1vulkan_1_1_vulkan_shader_resource}}{}
+\end{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Texture\+Resource}{\pageref{classvenom_1_1common_1_1_texture_resource}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Texture\+Resource}{\pageref{classvenom_1_1vulkan_1_1_vulkan_texture_resource}}{}
@@ -44,10 +50,20 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Model}{\pageref{classvenom_1_1vulkan_1_1_vulkan_model}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{venom\+::common\+::Shader\+Impl}{\pageref{classvenom_1_1common_1_1_shader_impl}}{}
+\item \contentsline{section}{venom\+::common\+::Shader\+Pipeline\+Impl}{\pageref{classvenom_1_1common_1_1_shader_pipeline_impl}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Shader\+Pipeline}{\pageref{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}}{}
+\end{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Texture\+Impl}{\pageref{classvenom_1_1common_1_1_texture_impl}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Texture}{\pageref{classvenom_1_1vulkan_1_1_vulkan_texture}}{}
+\end{DoxyCompactList}
+\end{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Graphics\+Settings}{\pageref{classvenom_1_1common_1_1_graphics_settings}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Graphics\+Application}{\pageref{classvenom_1_1common_1_1_graphics_application}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Application}{\pageref{classvenom_1_1vulkan_1_1_vulkan_application}}{}
 \end{DoxyCompactList}
 \end{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Image}{\pageref{classvenom_1_1vulkan_1_1_image}}{}
@@ -63,10 +79,11 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Camera}{\pageref{classvenom_1_1vulkan_1_1_vulkan_camera}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{venom\+::common\+::Graphics\+Application}{\pageref{classvenom_1_1common_1_1_graphics_application}}{}
+\item \contentsline{section}{venom\+::common\+::GUI}{\pageref{classvenom_1_1common_1_1_g_u_i}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Application}{\pageref{classvenom_1_1vulkan_1_1_vulkan_application}}{}
+\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+GUI}{\pageref{classvenom_1_1vulkan_1_1_vulkan_g_u_i}}{}
 \end{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Graphics\+Application}{\pageref{classvenom_1_1common_1_1_graphics_application}}{}
 \item \contentsline{section}{venom\+::common\+::Material\+Impl}{\pageref{classvenom_1_1common_1_1_material_impl}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Material}{\pageref{classvenom_1_1vulkan_1_1_vulkan_material}}{}
@@ -76,10 +93,18 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Mesh}{\pageref{classvenom_1_1vulkan_1_1_vulkan_mesh}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Model\+Impl}{\pageref{classvenom_1_1common_1_1_model_impl}}{}
-\item \contentsline{section}{venom\+::common\+::Shader\+Impl}{\pageref{classvenom_1_1common_1_1_shader_impl}}{}
+\item \contentsline{section}{venom\+::common\+::Rendering\+Pipeline\+Impl}{\pageref{classvenom_1_1common_1_1_rendering_pipeline_impl}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Rendering\+Pipeline}{\pageref{classvenom_1_1vulkan_1_1_vulkan_rendering_pipeline}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Shader\+Pipeline\+Impl}{\pageref{classvenom_1_1common_1_1_shader_pipeline_impl}}{}
 \item \contentsline{section}{venom\+::common\+::Shader\+Resource\+Table}{\pageref{classvenom_1_1common_1_1_shader_resource_table}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Shader\+Resource\+Table}{\pageref{classvenom_1_1vulkan_1_1_vulkan_shader_resource_table}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Skybox\+Impl}{\pageref{classvenom_1_1common_1_1_skybox_impl}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Skybox}{\pageref{classvenom_1_1vulkan_1_1_vulkan_skybox}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Texture\+Impl}{\pageref{classvenom_1_1common_1_1_texture_impl}}{}
 \end{DoxyCompactList}
@@ -90,10 +115,14 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{venom\+::common\+::Material\+Impl}{\pageref{classvenom_1_1common_1_1_material_impl}}{}
 \item \contentsline{section}{venom\+::common\+::Mesh\+Impl}{\pageref{classvenom_1_1common_1_1_mesh_impl}}{}
 \item \contentsline{section}{venom\+::common\+::Model\+Impl}{\pageref{classvenom_1_1common_1_1_model_impl}}{}
-\item \contentsline{section}{venom\+::common\+::Shader\+Impl}{\pageref{classvenom_1_1common_1_1_shader_impl}}{}
+\item \contentsline{section}{venom\+::common\+::Rendering\+Pipeline\+Impl}{\pageref{classvenom_1_1common_1_1_rendering_pipeline_impl}}{}
+\item \contentsline{section}{venom\+::common\+::Shader\+Pipeline\+Impl}{\pageref{classvenom_1_1common_1_1_shader_pipeline_impl}}{}
+\item \contentsline{section}{venom\+::common\+::Skybox\+Impl}{\pageref{classvenom_1_1common_1_1_skybox_impl}}{}
 \item \contentsline{section}{venom\+::common\+::Texture\+Impl}{\pageref{classvenom_1_1common_1_1_texture_impl}}{}
 \end{DoxyCompactList}
 \end{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::Light\+Manager}{\pageref{classvenom_1_1common_1_1_light_manager}}{}
+\item \contentsline{section}{venom\+::common\+::Light\+Shader\+Struct}{\pageref{structvenom_1_1common_1_1_light_shader_struct}}{}
 \item \contentsline{section}{venom\+::common\+::Log}{\pageref{classvenom_1_1common_1_1_log}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Logical\+Device}{\pageref{classvenom_1_1vulkan_1_1_logical_device}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Mapped\+Queue\+Families}{\pageref{classvenom_1_1vulkan_1_1_mapped_queue_families}}{}
@@ -120,6 +149,9 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{venom\+::common\+::Material}{\pageref{classvenom_1_1common_1_1_material}}{}
 \item \contentsline{section}{venom\+::common\+::Mesh}{\pageref{classvenom_1_1common_1_1_mesh}}{}
 \item \contentsline{section}{venom\+::common\+::Model}{\pageref{classvenom_1_1common_1_1_model}}{}
+\item \contentsline{section}{venom\+::common\+::Rendering\+Pipeline}{\pageref{classvenom_1_1common_1_1_rendering_pipeline}}{}
+\item \contentsline{section}{venom\+::common\+::Shader\+Pipeline}{\pageref{classvenom_1_1common_1_1_shader_pipeline}}{}
+\item \contentsline{section}{venom\+::common\+::Skybox}{\pageref{classvenom_1_1common_1_1_skybox}}{}
 \item \contentsline{section}{venom\+::common\+::Texture}{\pageref{classvenom_1_1common_1_1_texture}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Queue}{\pageref{classvenom_1_1vulkan_1_1_queue}}{}
@@ -130,18 +162,23 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{venom\+::common\+::Resources}{\pageref{classvenom_1_1common_1_1_resources}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Sampler}{\pageref{classvenom_1_1vulkan_1_1_sampler}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Semaphore}{\pageref{classvenom_1_1vulkan_1_1_semaphore}}{}
-\item \contentsline{section}{venom\+::vulkan\+::Shader\+Pipeline}{\pageref{classvenom_1_1vulkan_1_1_shader_pipeline}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Storage\+Buffer}{\pageref{classvenom_1_1vulkan_1_1_storage_buffer}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Surface}{\pageref{classvenom_1_1vulkan_1_1_surface}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Swap\+Chain}{\pageref{classvenom_1_1vulkan_1_1_swap_chain}}{}
+\item \contentsline{section}{venom\+::common\+::Texture\+Loader}{\pageref{classvenom_1_1common_1_1_texture_loader}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{venom\+::common\+::EXR\+\_\+\+Texture\+Loader}{\pageref{classvenom_1_1common_1_1_e_x_r___texture_loader}}{}
+\item \contentsline{section}{venom\+::common\+::Stbi\+\_\+\+Texture\+Loader}{\pageref{classvenom_1_1common_1_1_stbi___texture_loader}}{}
+\end{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Timer}{\pageref{classvenom_1_1common_1_1_timer}}{}
 \item \contentsline{section}{venom\+::common\+::Transform3D}{\pageref{classvenom_1_1common_1_1_transform3_d}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{venom\+::common\+::Camera\+Impl}{\pageref{classvenom_1_1common_1_1_camera_impl}}{}
+\item \contentsline{section}{venom\+::common\+::Light}{\pageref{classvenom_1_1common_1_1_light}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{venom\+::vulkan\+::Uniform\+Buffer}{\pageref{classvenom_1_1vulkan_1_1_uniform_buffer}}{}
 \item \contentsline{section}{venom\+::common\+::Venom\+Engine}{\pageref{classvenom_1_1common_1_1_venom_engine}}{}
 \item \contentsline{section}{venom\+::common\+::Venom\+Settings}{\pageref{classvenom_1_1common_1_1_venom_settings}}{}
 \item \contentsline{section}{venom\+::vulkan\+::Vertex\+Buffer}{\pageref{classvenom_1_1vulkan_1_1_vertex_buffer}}{}
-\item \contentsline{section}{venom\+::vulkan\+::Vulkan\+Shader}{\pageref{classvenom_1_1vulkan_1_1_vulkan_shader}}{}
+\item \contentsline{section}{venom\+::common\+::Shader\+Pipeline\+Impl\+::Vertex\+Buffer\+Layout}{\pageref{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}}{}
 \end{DoxyCompactList}

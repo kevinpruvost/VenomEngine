@@ -1,0 +1,142 @@
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\+GUI\+\_\+\+Enum.h File Reference}
+\hypertarget{_g_u_i___enum_8h}{}\label{_g_u_i___enum_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GUI\_Enum.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GUI\_Enum.h}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom}{venom}}
+\begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ab9d3f1293abd6fb668a16d41cdae7b4b}\label{namespacevenom_1_1common_ab9d3f1293abd6fb668a16d41cdae7b4b} 
+typedef int {\bfseries venom\+::common\+::\+GUIWindow\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_aee99bd7eb5076a264cc86afcf6b547f4}\label{namespacevenom_1_1common_aee99bd7eb5076a264cc86afcf6b547f4} 
+typedef int {\bfseries venom\+::common\+::\+GUIColor\+Edit\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_a7297007a9c85eee12e127a8a3aa794af}\label{namespacevenom_1_1common_a7297007a9c85eee12e127a8a3aa794af} 
+typedef int {\bfseries venom\+::common\+::\+GUICombo\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_ad99d96af7693e4856d31606fadbd5330}\label{namespacevenom_1_1common_ad99d96af7693e4856d31606fadbd5330} 
+typedef int {\bfseries venom\+::common\+::\+GUISelectable\+Flags}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}{venom\+::common\+::\+GUIWindow\+Flags\+Bits}} \{ \newline
+{\bfseries Window\+Flags\+\_\+\+None} = 0
+, {\bfseries Window\+Flags\+\_\+\+No\+Title\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries Window\+Flags\+\_\+\+No\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries Window\+Flags\+\_\+\+No\+Move} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries Window\+Flags\+\_\+\+No\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries Window\+Flags\+\_\+\+No\+Scroll\+With\+Mouse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries Window\+Flags\+\_\+\+No\+Collapse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries Window\+Flags\+\_\+\+Always\+Auto\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries Window\+Flags\+\_\+\+No\+Background} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries Window\+Flags\+\_\+\+No\+Saved\+Settings} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries Window\+Flags\+\_\+\+No\+Mouse\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries Window\+Flags\+\_\+\+Menu\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, \newline
+{\bfseries Window\+Flags\+\_\+\+Horizontal\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries Window\+Flags\+\_\+\+No\+Focus\+On\+Appearing} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
+, {\bfseries Window\+Flags\+\_\+\+No\+Bring\+To\+Front\+On\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
+, {\bfseries Window\+Flags\+\_\+\+Always\+Vertical\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
+, \newline
+{\bfseries Window\+Flags\+\_\+\+Always\+Horizontal\+Scrollbar} =1\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
+, {\bfseries Window\+Flags\+\_\+\+No\+Nav\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, {\bfseries Window\+Flags\+\_\+\+No\+Nav\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries Window\+Flags\+\_\+\+Unsaved\+Document} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+, \newline
+{\bfseries Window\+Flags\+\_\+\+No\+Nav} = Window\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Focus
+, {\bfseries Window\+Flags\+\_\+\+No\+Decoration} = Window\+Flags\+\_\+\+No\+Title\+Bar \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Resize \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Scrollbar \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Collapse
+, {\bfseries Window\+Flags\+\_\+\+No\+Inputs} = Window\+Flags\+\_\+\+No\+Mouse\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Focus
+, {\bfseries Window\+Flags\+\_\+\+Child\+Window} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 24
+, \newline
+{\bfseries Window\+Flags\+\_\+\+Tooltip} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 25
+, {\bfseries Window\+Flags\+\_\+\+Popup} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 26
+, {\bfseries Window\+Flags\+\_\+\+Modal} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 27
+, {\bfseries Window\+Flags\+\_\+\+Child\+Menu} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 28
+ \}
+\item 
+enum \mbox{\hyperlink{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306}{venom\+::common\+::\+GUIColor\+Edit\+Flags\+Bits}} \{ \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Alpha} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Picker} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Options} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Small\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Tooltip} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Label} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Side\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Drag\+Drop} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+No\+Border} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Alpha\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Alpha\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Alpha\+Preview\+Half} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+HDR} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 19
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+RGB} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 20
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+HSV} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 21
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+Hex} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 22
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Uint8} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 23
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Float} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 24
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 25
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Wheel} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 26
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 27
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+HSV} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 28
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Default\+Options\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Uint8 \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Display\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Bar
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Display\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Display\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Display\+HSV \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Display\+Hex
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Data\+Type\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Uint8 \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Float
+, {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Picker\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Wheel \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Picker\+Hue\+Bar
+, \newline
+{\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Input\+HSV
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_aaed966893320a5db070b271b3c648fac}\label{namespacevenom_1_1common_aaed966893320a5db070b271b3c648fac} 
+enum {\bfseries Gui\+Combo\+Flags\+Bits} \{ \newline
+{\bfseries GUICombo\+Flags\+\_\+\+None} = 0
+, {\bfseries GUICombo\+Flags\+\_\+\+Popup\+Align\+Left} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Small} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Regular} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUICombo\+Flags\+\_\+\+Height\+Large} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Largest} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUICombo\+Flags\+\_\+\+No\+Arrow\+Button} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUICombo\+Flags\+\_\+\+No\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries GUICombo\+Flags\+\_\+\+Width\+Fit\+Preview} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries GUICombo\+Flags\+\_\+\+Height\+Mask\+\_\+} = GUICombo\+Flags\+\_\+\+Height\+Small \texorpdfstring{$\vert$}{|} GUICombo\+Flags\+\_\+\+Height\+Regular \texorpdfstring{$\vert$}{|} GUICombo\+Flags\+\_\+\+Height\+Large \texorpdfstring{$\vert$}{|} GUICombo\+Flags\+\_\+\+Height\+Largest
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a681d630b3b1a1b77f49996edb9b17d48}\label{namespacevenom_1_1common_a681d630b3b1a1b77f49996edb9b17d48} 
+enum {\bfseries GUISelectable\+Flags\+Bits} \{ \newline
+{\bfseries GUISelectable\+Flags\+\_\+\+None} = 0
+, {\bfseries GUISelectable\+Flags\+\_\+\+No\+Auto\+Close\+Popups} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUISelectable\+Flags\+\_\+\+Span\+All\+Columns} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUISelectable\+Flags\+\_\+\+Allow\+Double\+Click} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUISelectable\+Flags\+\_\+\+Disabled} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUISelectable\+Flags\+\_\+\+Allow\+Overlap} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUISelectable\+Flags\+\_\+\+Highlight} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Venom\+Engine\+Workspace
+
+\begin{DoxyDate}{Date}
+Nov, 07 2024 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+\end{DoxyAuthor}

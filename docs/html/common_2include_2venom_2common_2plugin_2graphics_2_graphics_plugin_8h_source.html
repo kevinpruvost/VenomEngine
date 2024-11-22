@@ -143,56 +143,73 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_gra
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class </span>MeshImpl;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>TextureImpl;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">class </span>CameraImpl;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>ShaderResourceTable;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_graphics_plugin.html">   26</a></span><span class="keyword">class </span>VENOM_COMMON_API <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a> : <span class="keyword">public</span> <a class="code hl_class" href="classvenom_1_1common_1_1_plugin.html">Plugin</a></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">enum class</span> GraphicsPluginType</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        Vulkan,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        Metal,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        DirectX12</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    };</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a>();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">~GraphicsPlugin</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">static</span> <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a> * Get();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a> * CreateGraphicsApplication() = 0;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_material_impl.html">MaterialImpl</a> * CreateMaterial() = 0;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_model_impl.html">ModelImpl</a> * CreateModel() = 0;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_mesh_impl.html">MeshImpl</a> * CreateMesh() = 0;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_texture_impl.html">TextureImpl</a> * CreateTexture() = 0;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_camera_impl.html">CameraImpl</a> * CreateCamera() = 0;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_shader_resource_table.html">ShaderResourceTable</a> * CreateShaderResourceTable() = 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin_object.html">GraphicsPluginObject</a>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">static</span> <span class="keyword">inline</span> std::unordered_map&lt;std::string, std::shared_ptr&lt;GraphicsCachedResource&gt;&gt; * __GetGraphicsResourceCache() { <span class="keywordflow">return</span> Get()-&gt;__graphicsResourceCache.get(); }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    std::unique_ptr&lt;std::unordered_map&lt;std::string, std::shared_ptr&lt;GraphicsCachedResource&gt;&gt;&gt; __graphicsResourceCache;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>ShaderPipelineImpl;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">class </span>RenderingPipelineImpl;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span>SkyboxImpl;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">class </span>ShaderResourceTable;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">class </span>GUI;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_graphics_plugin.html">   31</a></span><span class="keyword">class </span>VENOM_COMMON_API <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a> : <span class="keyword">public</span> <a class="code hl_class" href="classvenom_1_1common_1_1_plugin.html">Plugin</a></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">enum class</span> GraphicsPluginType</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        Vulkan,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        Metal,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        DirectX12</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    };</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">~GraphicsPlugin</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">static</span> <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin.html">GraphicsPlugin</a> * Get();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a> * CreateGraphicsApplication() = 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// Graphics objects</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_material_impl.html">MaterialImpl</a> * CreateMaterial() = 0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_model_impl.html">ModelImpl</a> * CreateModel() = 0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_mesh_impl.html">MeshImpl</a> * CreateMesh() = 0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_texture_impl.html">TextureImpl</a> * CreateTexture() = 0;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_camera_impl.html">CameraImpl</a> * CreateCamera() = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_shader_pipeline_impl.html">ShaderPipelineImpl</a> * CreateShaderPipeline() = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_rendering_pipeline_impl.html">RenderingPipelineImpl</a> * CreateRenderingPipeline() = 0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_skybox_impl.html">SkyboxImpl</a> * CreateSkybox() = 0;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// Global instances</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_shader_resource_table.html">ShaderResourceTable</a> * CreateShaderResourceTable() = 0;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classvenom_1_1common_1_1_g_u_i.html">GUI</a> * CreateGUI() = 0;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1common_1_1_graphics_plugin_object.html">GraphicsPluginObject</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">static</span> <span class="keyword">inline</span> std::unordered_map&lt;std::string, std::shared_ptr&lt;GraphicsCachedResource&gt;&gt; * __GetGraphicsResourceCache() { <span class="keywordflow">return</span> Get()-&gt;__graphicsResourceCache.get(); }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    std::unique_ptr&lt;std::unordered_map&lt;std::string, std::shared_ptr&lt;GraphicsCachedResource&gt;&gt;&gt; __graphicsResourceCache;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
 </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
 <div class="ttc" id="a_graphics_plugin_object_8h_html"><div class="ttname"><a href="_graphics_plugin_object_8h.html">GraphicsPluginObject.h</a></div></div>
 <div class="ttc" id="a_plugin_8h_html"><div class="ttname"><a href="_plugin_8h.html">Plugin.h</a></div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_camera_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_camera_impl.html">venom::common::CameraImpl</a></div><div class="ttdef"><b>Definition</b> Camera.h:22</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_application_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_application.html">venom::common::GraphicsApplication</a></div><div class="ttdef"><b>Definition</b> GraphicsApplication.h:25</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_cached_resource_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_cached_resource.html">venom::common::GraphicsCachedResource</a></div><div class="ttdoc">Base class for cached resources.</div><div class="ttdef"><b>Definition</b> GraphicsPluginObject.h:30</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_plugin_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_plugin.html">venom::common::GraphicsPlugin</a></div><div class="ttdef"><b>Definition</b> GraphicsPlugin.h:27</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_plugin_object_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></div><div class="ttdoc">Base class for graphics plugin objects.</div><div class="ttdef"><b>Definition</b> GraphicsPluginObject.h:69</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_g_u_i_html"><div class="ttname"><a href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a></div><div class="ttdef"><b>Definition</b> GUI.h:22</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_application_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_application.html">venom::common::GraphicsApplication</a></div><div class="ttdef"><b>Definition</b> GraphicsApplication.h:27</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_cached_resource_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_cached_resource.html">venom::common::GraphicsCachedResource</a></div><div class="ttdoc">Base class for cached resources.</div><div class="ttdef"><b>Definition</b> GraphicsPluginObject.h:29</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_plugin_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_plugin.html">venom::common::GraphicsPlugin</a></div><div class="ttdef"><b>Definition</b> GraphicsPlugin.h:32</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_graphics_plugin_object_html"><div class="ttname"><a href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></div><div class="ttdoc">Base class for graphics plugin objects.</div><div class="ttdef"><b>Definition</b> GraphicsPluginObject.h:80</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_material_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_material_impl.html">venom::common::MaterialImpl</a></div><div class="ttdef"><b>Definition</b> Material.h:22</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_mesh_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_mesh_impl.html">venom::common::MeshImpl</a></div><div class="ttdef"><b>Definition</b> Mesh.h:23</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_model_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_model_impl.html">venom::common::ModelImpl</a></div><div class="ttdef"><b>Definition</b> Model.h:30</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_plugin_html"><div class="ttname"><a href="classvenom_1_1common_1_1_plugin.html">venom::common::Plugin</a></div><div class="ttdef"><b>Definition</b> Plugin.h:22</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_shader_resource_table_html"><div class="ttname"><a href="classvenom_1_1common_1_1_shader_resource_table.html">venom::common::ShaderResourceTable</a></div><div class="ttdef"><b>Definition</b> ShaderResourceTable.h:37</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_texture_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_texture_impl.html">venom::common::TextureImpl</a></div><div class="ttdef"><b>Definition</b> Texture.h:34</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_rendering_pipeline_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_rendering_pipeline_impl.html">venom::common::RenderingPipelineImpl</a></div><div class="ttdef"><b>Definition</b> RenderingPipeline.h:18</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_shader_pipeline_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_shader_pipeline_impl.html">venom::common::ShaderPipelineImpl</a></div><div class="ttdef"><b>Definition</b> ShaderPipeline.h:45</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_shader_resource_table_html"><div class="ttname"><a href="classvenom_1_1common_1_1_shader_resource_table.html">venom::common::ShaderResourceTable</a></div><div class="ttdef"><b>Definition</b> ShaderResourceTable.h:29</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_skybox_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_skybox_impl.html">venom::common::SkyboxImpl</a></div><div class="ttdef"><b>Definition</b> Skybox.h:18</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_texture_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_texture_impl.html">venom::common::TextureImpl</a></div><div class="ttdef"><b>Definition</b> Texture.h:38</div></div>
 <div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Config.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

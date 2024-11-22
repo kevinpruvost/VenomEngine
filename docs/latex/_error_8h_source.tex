@@ -26,18 +26,19 @@
 \DoxyCodeLine{00028\ \ \ \ \ DeviceLost\ \ \ \ \ \ =\ 1\ <<\ 3,}
 \DoxyCodeLine{00029\ \ \ \ \ InitializationFailed\ =\ 1\ <<\ 4,}
 \DoxyCodeLine{00030\ \ \ \ \ InvalidUse\ \ \ \ \ \ =\ 1\ <<\ 5,}
-\DoxyCodeLine{00031\ \ \ \ \ Unknown\ =\ std::numeric\_limits<uint32\_t>::max()}
-\DoxyCodeLine{00032\ \};}
-\DoxyCodeLine{00033\ VENOM\_COMMON\_API\ \textcolor{keywordtype}{void}\ setErrorString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str);}
-\DoxyCodeLine{00034\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ setErrorString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ Args\&\&...\ args)}
-\DoxyCodeLine{00036\ \{}
-\DoxyCodeLine{00037\ \ \ \ \ String\ str\ =\ format(fmt,\ args...);}
-\DoxyCodeLine{00038\ \ \ \ \ setErrorString(str.c\_str());}
-\DoxyCodeLine{00039\ \}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ VENOM\_COMMON\_API\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ getErrorString();}
-\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ FeatureNotSupported\ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00032\ \ \ \ \ Unknown\ =\ std::numeric\_limits<uint32\_t>::max()}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ VENOM\_COMMON\_API\ \textcolor{keywordtype}{void}\ setErrorString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str);}
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ setErrorString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ Args\&\&...\ args)}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ String\ str\ =\ format(fmt,\ args...);}
+\DoxyCodeLine{00039\ \ \ \ \ setErrorString(str.c\_str());}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ VENOM\_COMMON\_API\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ getErrorString();}
 \DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ \}}
 
 \end{DoxyCode}

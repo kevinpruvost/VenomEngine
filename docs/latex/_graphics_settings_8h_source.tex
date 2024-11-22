@@ -1,0 +1,82 @@
+\doxysection{Graphics\+Settings.\+h}
+\hypertarget{_graphics_settings_8h_source}{}\label{_graphics_settings_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsSettings.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/GraphicsSettings.h}}
+\mbox{\hyperlink{_graphics_settings_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_error_8h}{venom/common/Error.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_export_8h}{venom/common/Export.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{GraphicsSettings}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{GraphicsSettings}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{\string~GraphicsSettings}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ ManageGfxSettingsLoadingQueue();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{enum\ class}\ MultiSamplingModeOption}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ None\ =\ 1,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ MSAA\ =\ 2}
+\DoxyCodeLine{00033\ \ \ \ \ \};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{enum\ class}\ MultiSamplingCountOption}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ None\ =\ 1,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Samples2\ =\ 2,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ Samples4\ =\ 4,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ Samples8\ =\ 8,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Samples16\ =\ 16,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ Samples32\ =\ 32,}
+\DoxyCodeLine{00042\ \ \ \ \ \};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ SetMultiSampling(\textcolor{keyword}{const}\ MultiSamplingModeOption\ mode,\ \textcolor{keyword}{const}\ MultiSamplingCountOption\ samples);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ SetHDR(\textcolor{keywordtype}{bool}\ enable);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsHDREnabled();}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsHDRSupported();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ StartGfxSettingsChange();}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ EndGfxSettingsChange();}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetSamplesMultisampling();}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vc::Vector<MultiSamplingCountOption>\ \&\ GetAvailableMultisamplingOptions();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadGfxSettings()\ =\ 0;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SetMultiSampling(\textcolor{keyword}{const}\ MultiSamplingModeOption\ mode,\ \textcolor{keyword}{const}\ MultiSamplingCountOption\ samples)\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Vector<MultiSamplingCountOption>\ \_GetAvailableMultisamplingOptions()\ =\ 0;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SetHDR(\textcolor{keywordtype}{bool}\ enable)\ =\ 0;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{enum\ class}\ GfxSettingsChangeState}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ Ended,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ Started}
+\DoxyCodeLine{00067\ \ \ \ \ \};}
+\DoxyCodeLine{00068\ \ \ \ \ GfxSettingsChangeState\ \_gfxSettingsChangeState;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ MultiSamplingModeOption\ \_samplingMode;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{int}\ \_samples;}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_multisamplingDirty;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isHdrSupported;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ \_\_LoadGfxSettings();}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_AddLoadGFXSettingsToQueue();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_isHdrEnabled;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_loadingQueued;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00083\ \ \ \ \ vc::Vector<MultiSamplingCountOption>\ \_\_availableMultisamplingOptions;}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00086\ \}}
+
+\end{DoxyCode}

@@ -31,14 +31,15 @@
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateBuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{StorageBuffer}}\ \&\ buffer,\ uint32\_t\ bufferOffset,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
 \DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateTexture(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
 \DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateSampler(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}\ \&sampler,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSet\ \&\ GetVkDescriptorSet()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSet\ *\ GetVkDescriptorSetPtr()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00039\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}};}
-\DoxyCodeLine{00041\ \ \ \ \ VkDescriptorSet\ \_\_set;}
-\DoxyCodeLine{00042\ \};}
-\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateImageView(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&imageView,\ uint32\_t\ binding,\ VkDescriptorType\ descriptorType,\ uint32\_t\ descriptorCount,\ uint32\_t\ arrayElement\ =\ 0);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSet\ \&\ GetVkDescriptorSet()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{const}\ VkDescriptorSet\ *\ GetVkDescriptorSetPtr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{DescriptorPool}};}
+\DoxyCodeLine{00042\ \ \ \ \ VkDescriptorSet\ \_\_set;}
+\DoxyCodeLine{00043\ \};}
 \DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ \}}
 
 \end{DoxyCode}

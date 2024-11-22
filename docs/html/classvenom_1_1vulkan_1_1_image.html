@@ -148,12 +148,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b00aeae42f51bfc20658a141ab6fec5" id="r_a4b00aeae42f51bfc20658a141ab6fec5"><td class="memItemLeft" align="right" valign="top"><a id="a4b00aeae42f51bfc20658a141ab6fec5" name="a4b00aeae42f51bfc20658a141ab6fec5"></a>
 vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Load</b> (unsigned char *pixels, int width, int height, int channels, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties)</td></tr>
 <tr class="separator:a4b00aeae42f51bfc20658a141ab6fec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f1e373cd67f006cdcb835b23a8bdcf0" id="r_a8f1e373cd67f006cdcb835b23a8bdcf0"><td class="memItemLeft" align="right" valign="top"><a id="a8f1e373cd67f006cdcb835b23a8bdcf0" name="a8f1e373cd67f006cdcb835b23a8bdcf0"></a>
-vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t width, uint32_t height)</td></tr>
-<tr class="separator:a8f1e373cd67f006cdcb835b23a8bdcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a3d4b83088cd2ff1523e16a31e1850" id="r_a51a3d4b83088cd2ff1523e16a31e1850"><td class="memItemLeft" align="right" valign="top"><a id="a51a3d4b83088cd2ff1523e16a31e1850" name="a51a3d4b83088cd2ff1523e16a31e1850"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Load</b> (uint16_t *pixels, int width, int height, int channels, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties)</td></tr>
+<tr class="separator:a51a3d4b83088cd2ff1523e16a31e1850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb37bbae0ed3fca9143fc59bd5c1b1f8" id="r_abb37bbae0ed3fca9143fc59bd5c1b1f8"><td class="memItemLeft" align="right" valign="top"><a id="abb37bbae0ed3fca9143fc59bd5c1b1f8" name="abb37bbae0ed3fca9143fc59bd5c1b1f8"></a>
+vc::Error&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t width, uint32_t height, uint32_t arrayLevels=1, uint32_t mipLevels=1)</td></tr>
+<tr class="separator:abb37bbae0ed3fca9143fc59bd5c1b1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e14aa00cd96f2fc187d08d7b37e0d7f" id="r_a0e14aa00cd96f2fc187d08d7b37e0d7f"><td class="memItemLeft" align="right" valign="top"><a id="a0e14aa00cd96f2fc187d08d7b37e0d7f" name="a0e14aa00cd96f2fc187d08d7b37e0d7f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetSamples</b> (VkSampleCountFlagBits samples)</td></tr>
+<tr class="separator:a0e14aa00cd96f2fc187d08d7b37e0d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa15f5691023285cee7d2573fbb342434" id="r_aa15f5691023285cee7d2573fbb342434"><td class="memItemLeft" align="right" valign="top"><a id="aa15f5691023285cee7d2573fbb342434" name="aa15f5691023285cee7d2573fbb342434"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetSamples</b> (int samples)</td></tr>
+<tr class="separator:aa15f5691023285cee7d2573fbb342434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99628c223165e9a01760b7ff49a2c3d3" id="r_a99628c223165e9a01760b7ff49a2c3d3"><td class="memItemLeft" align="right" valign="top"><a id="a99628c223165e9a01760b7ff49a2c3d3" name="a99628c223165e9a01760b7ff49a2c3d3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetImageLayout</b> (VkImageLayout layout)</td></tr>
 <tr class="separator:a99628c223165e9a01760b7ff49a2c3d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add001a30ecbcc82b402a4d37c660a756" id="r_add001a30ecbcc82b402a4d37c660a756"><td class="memItemLeft" align="right" valign="top"><a id="add001a30ecbcc82b402a4d37c660a756" name="add001a30ecbcc82b402a4d37c660a756"></a>
+VkFormat&#160;</td><td class="memItemRight" valign="bottom"><b>GetFormat</b> () const</td></tr>
+<tr class="separator:add001a30ecbcc82b402a4d37c660a756"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0856314460b920ad8a2500f2f7836dc" id="r_ac0856314460b920ad8a2500f2f7836dc"><td class="memItemLeft" align="right" valign="top"><a id="ac0856314460b920ad8a2500f2f7836dc" name="ac0856314460b920ad8a2500f2f7836dc"></a>
 VkImage&#160;</td><td class="memItemRight" valign="bottom"><b>GetVkImage</b> () const</td></tr>
 <tr class="separator:ac0856314460b920ad8a2500f2f7836dc"><td class="memSeparator" colspan="2">&#160;</td></tr>

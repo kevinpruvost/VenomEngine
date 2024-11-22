@@ -2,6 +2,8 @@
 \hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Texture.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Texture.h}}
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Graphics\+Plugin.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Shader\+Resource\+Table.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Types.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/plugin/graphics/\+Shader\+Pipeline.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -18,6 +20,20 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_aa180b9c9bc13783af4525066fe04b6eb}\label{namespacevenom_1_1common_aa180b9c9bc13783af4525066fe04b6eb} 
+enum {\bfseries Color\+Attachment\+Type} \{ \newline
+{\bfseries Present} = 0
+, {\bfseries Normal\+Specular} = 1
+, {\bfseries Metallic\+Rougness\+AO} = 2
+, {\bfseries Position} = 3
+, \newline
+{\bfseries Depth} = 4
+, {\bfseries Count}
+ \}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

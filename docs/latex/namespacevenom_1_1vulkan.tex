@@ -10,6 +10,8 @@ Encapsulation of Vulkan for the front end of Venom\+Engine.
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_allocator}{Allocator}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_attachments_manager}{Attachments\+Manager}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}}
@@ -31,6 +33,8 @@ class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_fence}{Fence}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}
 \item 
@@ -58,8 +62,6 @@ class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_sampler}{Sampler}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}
 \item 
-class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_shader_pipeline}{Shader\+Pipeline}}
-\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_single_time_command_buffer}{Single\+Time\+Command\+Buffer}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_storage_buffer}{Storage\+Buffer}}
@@ -78,6 +80,8 @@ class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_camera}{Vulkan\+Camera}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin}{Vulkan\+Graphics\+Plugin}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i}{Vulkan\+GUI}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_material}{Vulkan\+Material}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_mesh}{Vulkan\+Mesh}}
@@ -86,9 +90,15 @@ class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_model}{Vulkan\+Model}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_model_resource}{Vulkan\+Model\+Resource}}
 \item 
-class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader}{Vulkan\+Shader}}
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_rendering_pipeline}{Vulkan\+Rendering\+Pipeline}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_resource}{Vulkan\+Shader\+Resource}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_resource_table}{Vulkan\+Shader\+Resource\+Table}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox}{Vulkan\+Skybox}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}}
 \item 
@@ -106,11 +116,23 @@ typedef std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries Queue\+Family\+Indices}
 \Hypertarget{namespacevenom_1_1vulkan_a7ef46e5684b5fd57ce6f132876a73b38}\label{namespacevenom_1_1vulkan_a7ef46e5684b5fd57ce6f132876a73b38} 
 typedef \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{Vertex\+Buffer}} {\bfseries Index\+Buffer}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_ae58382ad3f6a3a2297ff04a2bb192bd2}\label{namespacevenom_1_1vulkan_ae58382ad3f6a3a2297ff04a2bb192bd2} 
+enum class {\bfseries Pipeline\+Type} \+: uint32\+\_\+t \{ {\bfseries Graphics} = 0
+, {\bfseries Compute} = 1
+, {\bfseries Ray\+Tracing} = 2
+ \}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespacevenom_1_1vulkan_a425819e2f03f966cd161d2af3eaf9409}\label{namespacevenom_1_1vulkan_a425819e2f03f966cd161d2af3eaf9409} 
 \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{Mapped\+Queue\+Families}} {\bfseries get\+Vulkan\+Queue\+Families} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{Physical\+Device}} \&physical\+Device)
+\item 
+\Hypertarget{namespacevenom_1_1vulkan_ae152479f9e02d8d0958ae45ea49eb9e2}\label{namespacevenom_1_1vulkan_ae152479f9e02d8d0958ae45ea49eb9e2} 
+Vk\+Format {\bfseries Get\+Vk\+Format\+From\+Shader\+Vertex\+Format} (const vc\+::\+Shader\+Vertex\+Format format)
 \end{DoxyCompactItemize}
 
 

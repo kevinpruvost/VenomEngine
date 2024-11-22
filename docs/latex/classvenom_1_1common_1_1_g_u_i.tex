@@ -1,0 +1,191 @@
+\doxysection{venom\+::common\+::GUI Class Reference}
+\hypertarget{classvenom_1_1common_1_1_g_u_i}{}\label{classvenom_1_1common_1_1_g_u_i}\index{venom::common::GUI@{venom::common::GUI}}
+Inheritance diagram for venom\+::common\+::GUI\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classvenom_1_1common_1_1_g_u_i}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8bf1bc3610747abcc8b16009e2170111}\label{classvenom_1_1common_1_1_g_u_i_a8bf1bc3610747abcc8b16009e2170111} 
+void {\bfseries Set\+Graphics\+Application} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*}app)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0739acafa98122894035038eb14cc1e9}\label{classvenom_1_1common_1_1_g_u_i_a0739acafa98122894035038eb14cc1e9} 
+virtual vc\+::\+Error {\bfseries Initialize} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2aa1570182b536bca4eefc3b3ffb68d9}\label{classvenom_1_1common_1_1_g_u_i_a2aa1570182b536bca4eefc3b3ffb68d9} 
+virtual vc\+::\+Error {\bfseries Reset} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a7f0ea8000749c87a967949d2b5ca7bc0}\label{classvenom_1_1common_1_1_g_u_i_a7f0ea8000749c87a967949d2b5ca7bc0} 
+void {\bfseries Draw\+Callback} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a03e99add6854f2e6ea2537998d71a18c}\label{classvenom_1_1common_1_1_g_u_i_a03e99add6854f2e6ea2537998d71a18c} 
+void {\bfseries Render} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae5f879f8d9693602af52056686a979a1}\label{classvenom_1_1common_1_1_g_u_i_ae5f879f8d9693602af52056686a979a1} 
+static void {\bfseries Set\+GUIDraw\+Callback} (GUIDraw\+Callback gui\+Draw\+Callback)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab0d2c2b92759d410e8a99e9e78a56101}\label{classvenom_1_1common_1_1_g_u_i_ab0d2c2b92759d410e8a99e9e78a56101} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abbf328f3ccb13912356bc9301ff83e1a}\label{classvenom_1_1common_1_1_g_u_i_abbf328f3ccb13912356bc9301ff83e1a} 
+static void {\bfseries New\+Frame} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ad01a9e04f402e7988d75cf04cedde9df}\label{classvenom_1_1common_1_1_g_u_i_ad01a9e04f402e7988d75cf04cedde9df} 
+static void {\bfseries Begin} (const char \texorpdfstring{$\ast$}{*}name, bool \texorpdfstring{$\ast$}{*}p\+\_\+open=nullptr, GUIWindow\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4b6844f9f77b0bae10bdbf7fda9805d4}\label{classvenom_1_1common_1_1_g_u_i_a4b6844f9f77b0bae10bdbf7fda9805d4} 
+static void {\bfseries End} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a544f7ef8beb891760460a87686f6c2ea}\label{classvenom_1_1common_1_1_g_u_i_a544f7ef8beb891760460a87686f6c2ea} 
+static void {\bfseries Text} (const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8d4d1d00a710010ba57f4430505eb0b0}\label{classvenom_1_1common_1_1_g_u_i_a8d4d1d00a710010ba57f4430505eb0b0} 
+static void {\bfseries Text\+Colored} (const vcm\+::\+Vec4 \&col, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a702ab220cf444d8aef4c1cad0486e076}\label{classvenom_1_1common_1_1_g_u_i_a702ab220cf444d8aef4c1cad0486e076} 
+static void {\bfseries Label\+Text} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac4bd98c2430d3945ffc2affb7b4ff474}\label{classvenom_1_1common_1_1_g_u_i_ac4bd98c2430d3945ffc2affb7b4ff474} 
+static bool {\bfseries Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, float power=1.\+0f)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a3b4365283067194fa838dfc6c78393f1}\label{classvenom_1_1common_1_1_g_u_i_a3b4365283067194fa838dfc6c78393f1} 
+static bool {\bfseries Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, float power=1.\+0f)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8f4daef30d2b352b0d63c49dcba2c0b3}\label{classvenom_1_1common_1_1_g_u_i_a8f4daef30d2b352b0d63c49dcba2c0b3} 
+static void {\bfseries Color\+Edit3} (const char \texorpdfstring{$\ast$}{*}label, float col\mbox{[}3\mbox{]}, GUIColor\+Edit\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a35045e1bcb29f737f5191d1b46a4c3e2}\label{classvenom_1_1common_1_1_g_u_i_a35045e1bcb29f737f5191d1b46a4c3e2} 
+static bool {\bfseries Button} (const char \texorpdfstring{$\ast$}{*}label, const vcm\+::\+Vec2 \&size=vcm\+::\+Vec2(0, 0))
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5fce0027ff4e6b0b93fc3cecad7c389e}\label{classvenom_1_1common_1_1_g_u_i_a5fce0027ff4e6b0b93fc3cecad7c389e} 
+static bool {\bfseries Checkbox} (const char \texorpdfstring{$\ast$}{*}label, bool \texorpdfstring{$\ast$}{*}v)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a54535412accf6ab4461afb87713c0567}\label{classvenom_1_1common_1_1_g_u_i_a54535412accf6ab4461afb87713c0567} 
+static void {\bfseries Progress\+Bar} (float fraction, const vcm\+::\+Vec2 \&size\+\_\+arg=vcm\+::\+Vec2(-\/1, 0), const char \texorpdfstring{$\ast$}{*}overlay=nullptr)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a67678973757703c1728c8d38a719c1ac}\label{classvenom_1_1common_1_1_g_u_i_a67678973757703c1728c8d38a719c1ac} 
+static bool {\bfseries Selectable} (const char \texorpdfstring{$\ast$}{*}label, bool selected, GUISelectable\+Flags flags=0, const vcm\+::\+Vec2 \&size=vcm\+::\+Vec2(0, 0))
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a36e365bbaa8620884d25c074ceaa4cb4}\label{classvenom_1_1common_1_1_g_u_i_a36e365bbaa8620884d25c074ceaa4cb4} 
+static bool {\bfseries Begin\+Combo} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}preview\+\_\+value, GUICombo\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0b7b8044234364086eb282a904c8600c}\label{classvenom_1_1common_1_1_g_u_i_a0b7b8044234364086eb282a904c8600c} 
+static void {\bfseries End\+Combo} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4f70eda66193e1b2028ca156df33a761}\label{classvenom_1_1common_1_1_g_u_i_a4f70eda66193e1b2028ca156df33a761} 
+static void {\bfseries Set\+Item\+Default\+Focus} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac79fa758da5bc5fc4c7e1f5a6a04d3d7}\label{classvenom_1_1common_1_1_g_u_i_ac79fa758da5bc5fc4c7e1f5a6a04d3d7} 
+static void {\bfseries Same\+Line} (float offset\+\_\+from\+\_\+start\+\_\+x=0.\+0f, float spacing=-\/1.\+0f)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af9f77dfb95f14597ad6d39b49f720070}\label{classvenom_1_1common_1_1_g_u_i_af9f77dfb95f14597ad6d39b49f720070} 
+virtual void {\bfseries \+\_\+\+New\+Frame} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8d316f3eb3ae867fbd5e37628232344e}\label{classvenom_1_1common_1_1_g_u_i_a8d316f3eb3ae867fbd5e37628232344e} 
+virtual void {\bfseries \+\_\+\+Begin} (const char \texorpdfstring{$\ast$}{*}name, bool \texorpdfstring{$\ast$}{*}p\+\_\+open, GUIWindow\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a810605865661c3e8dbddf95bfb60ce9b}\label{classvenom_1_1common_1_1_g_u_i_a810605865661c3e8dbddf95bfb60ce9b} 
+virtual void {\bfseries \+\_\+\+End} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a766369e8c28e2256bb27150005bac351}\label{classvenom_1_1common_1_1_g_u_i_a766369e8c28e2256bb27150005bac351} 
+virtual void {\bfseries \+\_\+\+Text} (const char \texorpdfstring{$\ast$}{*}fmt,...)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_acf57c4202d86e863b2bf9c91edbc969c}\label{classvenom_1_1common_1_1_g_u_i_acf57c4202d86e863b2bf9c91edbc969c} 
+virtual void {\bfseries \+\_\+\+Text\+Colored} (const vcm\+::\+Vec4 \&col, const char \texorpdfstring{$\ast$}{*}fmt,...)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab34cc982931752c1907ca697024009b7}\label{classvenom_1_1common_1_1_g_u_i_ab34cc982931752c1907ca697024009b7} 
+virtual void {\bfseries \+\_\+\+Label\+Text} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt,...)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a60af973da9bdf651b973e40351af5b30}\label{classvenom_1_1common_1_1_g_u_i_a60af973da9bdf651b973e40351af5b30} 
+virtual bool {\bfseries \+\_\+\+Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format, float power)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af2c0c627a8ddc6717269b45d85984c6d}\label{classvenom_1_1common_1_1_g_u_i_af2c0c627a8ddc6717269b45d85984c6d} 
+virtual bool {\bfseries \+\_\+\+Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format, float power)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a266530480f19f6fb3f29f628a0687027}\label{classvenom_1_1common_1_1_g_u_i_a266530480f19f6fb3f29f628a0687027} 
+virtual void {\bfseries \+\_\+\+Color\+Edit3} (const char \texorpdfstring{$\ast$}{*}label, float col\mbox{[}3\mbox{]}, GUIColor\+Edit\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a80e73260cd9d05dca1dd1942d69e5fbb}\label{classvenom_1_1common_1_1_g_u_i_a80e73260cd9d05dca1dd1942d69e5fbb} 
+virtual bool {\bfseries \+\_\+\+Button} (const char \texorpdfstring{$\ast$}{*}label, const vcm\+::\+Vec2 \&size)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a94dffb90d6c7921e6be8f3eb40b53970}\label{classvenom_1_1common_1_1_g_u_i_a94dffb90d6c7921e6be8f3eb40b53970} 
+virtual bool {\bfseries \+\_\+\+Checkbox} (const char \texorpdfstring{$\ast$}{*}label, bool \texorpdfstring{$\ast$}{*}v)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a13f698ca2a328f1bb4398ca279316ff5}\label{classvenom_1_1common_1_1_g_u_i_a13f698ca2a328f1bb4398ca279316ff5} 
+virtual void {\bfseries \+\_\+\+Progress\+Bar} (float fraction, const vcm\+::\+Vec2 \&size\+\_\+arg, const char \texorpdfstring{$\ast$}{*}overlay)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a24d937ad9ef31a672172fe286734f06f}\label{classvenom_1_1common_1_1_g_u_i_a24d937ad9ef31a672172fe286734f06f} 
+virtual bool {\bfseries \+\_\+\+Selectable} (const char \texorpdfstring{$\ast$}{*}label, bool selected, GUISelectable\+Flags flags, const vcm\+::\+Vec2 \&size)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aba39df169574c1152eeedb2bab3f78e3}\label{classvenom_1_1common_1_1_g_u_i_aba39df169574c1152eeedb2bab3f78e3} 
+virtual bool {\bfseries \+\_\+\+Begin\+Combo} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}preview\+\_\+value, GUICombo\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac218a873c464a005efc7db5d39dd3c00}\label{classvenom_1_1common_1_1_g_u_i_ac218a873c464a005efc7db5d39dd3c00} 
+virtual void {\bfseries \+\_\+\+End\+Combo} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aa44298d6562400a8b646635a79b83429}\label{classvenom_1_1common_1_1_g_u_i_aa44298d6562400a8b646635a79b83429} 
+virtual void {\bfseries \+\_\+\+Set\+Item\+Default\+Focus} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_adeed2b7c8d89df59740057eabb821b55}\label{classvenom_1_1common_1_1_g_u_i_adeed2b7c8d89df59740057eabb821b55} 
+virtual void {\bfseries \+\_\+\+Same\+Line} (float offset\+\_\+from\+\_\+start\+\_\+x, float spacing)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a9aa319a4fd5de56ac804dd4a8f46a19d}\label{classvenom_1_1common_1_1_g_u_i_a9aa319a4fd5de56ac804dd4a8f46a19d} 
+virtual void {\bfseries \+\_\+\+Render} ()=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abe617666a0f1d4d56c8ae6cf97903b04}\label{classvenom_1_1common_1_1_g_u_i_abe617666a0f1d4d56c8ae6cf97903b04} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+app}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_g_u_i_8h}{GUI.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_g_u_i_8cc}{GUI.\+cc}}\end{DoxyCompactItemize}

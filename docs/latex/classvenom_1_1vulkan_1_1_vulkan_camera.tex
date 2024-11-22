@@ -83,18 +83,38 @@ void {\bfseries Set\+Position} (const vcm\+::\+Vec3 \&position)
 \item 
 void {\bfseries Move} (const vcm\+::\+Vec3 \&delta)
 \item 
+void {\bfseries Move\+Forward} (const float delta)
+\item 
+void {\bfseries Move\+Right} (const float delta)
+\item 
+void {\bfseries Move\+Up} (const float delta)
+\item 
 const vcm\+::\+Vec3 \& {\bfseries Get\+Position} () const
 \item 
 bool {\bfseries Has\+Position\+Changed} ()
 \item 
-void {\bfseries Set\+Rotation} (const vcm\+::\+Quat \&rotation)
+void {\bfseries Set\+Rotation} (const vcm\+::\+Vec3 \&rotation)
 \item 
-void {\bfseries Rotate} (const vcm\+::\+Vec3 \&axis, float angle)
+void {\bfseries Set\+Yaw} (float angle)
+\item 
+void {\bfseries Set\+Pitch} (float angle)
+\item 
+void {\bfseries Set\+Roll} (float angle)
+\item 
+void {\bfseries Rotate\+Yaw} (float angle)
+\item 
+void {\bfseries Rotate\+Pitch} (float angle)
+\item 
+void {\bfseries Rotate\+Roll} (float angle)
+\item 
+void {\bfseries Rotate} (const vcm\+::\+Vec3 \&rotation)
 \item 
 const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
 \item 
 const vcm\+::\+Vec3 \& {\bfseries Get\+Rotation} ()
 \item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d_a1087d42ee65a2f8d88bdf569443e403b}{Rotate\+Around}} (const vcm\+::\+Vec3 \&target, const vcm\+::\+Vec3 \&plane\+Normal, float angle)
+\begin{DoxyCompactList}\small\item\em Rotates around the target on the given plane\+Normal by the given angle. \end{DoxyCompactList}\item 
 void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
 \item 
 vcm\+::\+Vec3 {\bfseries Get\+Forward\+Vector} () const
@@ -113,7 +133,15 @@ const vcm\+::\+Mat4 \& {\bfseries Get\+Model\+Matrix} ()
 static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
 static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
-\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries \+\_\+\+Update\+Rotation\+Quat} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -128,10 +156,20 @@ static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abd
 \item 
 vcm\+::\+Vec3 {\bfseries \+\_\+position}
 \item 
-vcm\+::\+Quat {\bfseries \+\_\+rotation}
+vcm\+::\+Quat {\bfseries \+\_\+rotation\+Quat}
 \item 
-vcm\+::\+Vec3 {\bfseries \+\_\+3\+Drotation\+View}
-\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>vcm::Vec3 {\bfseries \_3Drotation}\\
+\>struct \{\\
+\>\>float {\bfseries \_yaw}\\
+\>\>float {\bfseries \_pitch}\\
+\>\>float {\bfseries \_roll}\\
+\>\} \\
+\}; \\
+
+\end{tabbing}\item 
 vcm\+::\+Mat4 {\bfseries \+\_\+model\+Matrix}
 \end{DoxyCompactItemize}
 

@@ -1,0 +1,113 @@
+\doxysection{venom\+::common\+::Rendering\+Pipeline\+Impl Class Reference}
+\hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl}{}\label{classvenom_1_1common_1_1_rendering_pipeline_impl}\index{venom::common::RenderingPipelineImpl@{venom::common::RenderingPipelineImpl}}
+Inheritance diagram for venom\+::common\+::Rendering\+Pipeline\+Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classvenom_1_1common_1_1_rendering_pipeline_impl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl_a5cf6a8453e0f1faab209f81184da58b7}\label{classvenom_1_1common_1_1_rendering_pipeline_impl_a5cf6a8453e0f1faab209f81184da58b7} 
+{\bfseries Rendering\+Pipeline\+Impl} (const Rendering\+Pipeline\+Type type=Rendering\+Pipeline\+Type\+::\+None)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl_ae092e4c957c2f607723cd9cd8a43f6fb}\label{classvenom_1_1common_1_1_rendering_pipeline_impl_ae092e4c957c2f607723cd9cd8a43f6fb} 
+void {\bfseries Set\+Shader\+Type} (const Rendering\+Pipeline\+Type type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl_ac02c999d14f9bc71ba63488636a79d04}\label{classvenom_1_1common_1_1_rendering_pipeline_impl_ac02c999d14f9bc71ba63488636a79d04} 
+Rendering\+Pipeline\+Type {\bfseries Get\+Shader\+Type} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl_a1d2753cdaab80eff8ba221cf04332992}\label{classvenom_1_1common_1_1_rendering_pipeline_impl_a1d2753cdaab80eff8ba221cf04332992} 
+const Shader\+Pipeline\+List \& {\bfseries Get\+Rendering\+Pipeline\+Cache} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl_ad79e7beab94ab126e200f1de66b89ac7}\label{classvenom_1_1common_1_1_rendering_pipeline_impl_ad79e7beab94ab126e200f1de66b89ac7} 
+static const Shader\+Pipeline\+List \& {\bfseries Get\+Rendering\+Pipeline\+Cache} (const Rendering\+Pipeline\+Type type)
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl_a0a75e2403cbbbc1699e2ac65ec0e82a8}{Set\+Rendering\+Pipeline\+Cache}} (const Shader\+Pipeline\+List \&list, const Rendering\+Pipeline\+Type type)
+\begin{DoxyCompactList}\small\item\em Sets the list of shader pipelines in cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_impl_a0a75e2403cbbbc1699e2ac65ec0e82a8}\index{venom::common::RenderingPipelineImpl@{venom::common::RenderingPipelineImpl}!SetRenderingPipelineCache@{SetRenderingPipelineCache}}
+\index{SetRenderingPipelineCache@{SetRenderingPipelineCache}!venom::common::RenderingPipelineImpl@{venom::common::RenderingPipelineImpl}}
+\doxysubsubsection{\texorpdfstring{SetRenderingPipelineCache()}{SetRenderingPipelineCache()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_rendering_pipeline_impl_a0a75e2403cbbbc1699e2ac65ec0e82a8} 
+void venom\+::common\+::\+Rendering\+Pipeline\+Impl\+::\+Set\+Rendering\+Pipeline\+Cache (\begin{DoxyParamCaption}\item[{const Shader\+Pipeline\+List \&}]{list}{, }\item[{const Rendering\+Pipeline\+Type}]{type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Sets the list of shader pipelines in cache. 
+
+\begin{DoxyWarning}{Warning}
+Beware, this function MOVES the list inside the cache 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em list} & \\
+\hline
+{\em type} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_rendering_pipeline_8h}{Rendering\+Pipeline.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_rendering_pipeline_8cc}{Rendering\+Pipeline.\+cc}}\end{DoxyCompactItemize}

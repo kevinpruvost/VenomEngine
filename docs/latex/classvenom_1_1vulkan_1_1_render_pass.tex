@@ -15,17 +15,41 @@
 \Hypertarget{classvenom_1_1vulkan_1_1_render_pass_aee9c0af05f5a05152836ecfc2fc91927}\label{classvenom_1_1vulkan_1_1_render_pass_aee9c0af05f5a05152836ecfc2fc91927} 
 \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \&\&other)
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_aee5375e64ba84f6a06c6f06413afdbab}\label{classvenom_1_1vulkan_1_1_render_pass_aee5375e64ba84f6a06c6f06413afdbab} 
+void {\bfseries Destroy} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a4220adb5b3cf247a3baaddb3ba98e8eb}\label{classvenom_1_1vulkan_1_1_render_pass_a4220adb5b3cf247a3baaddb3ba98e8eb} 
+void {\bfseries Set\+Rendering\+Type} (const vc\+::\+Rendering\+Pipeline\+Type type)
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a0a5fe5e5d5a78f1b80e1c33ebad4671e}\label{classvenom_1_1vulkan_1_1_render_pass_a0a5fe5e5d5a78f1b80e1c33ebad4671e} 
 vc\+::\+Error {\bfseries Init\+Render\+Pass} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*}swap\+Chain)
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a698dba2081a7704ea29348a5073a5768}\label{classvenom_1_1vulkan_1_1_render_pass_a698dba2081a7704ea29348a5073a5768} 
 vc\+::\+Error {\bfseries Begin\+Render\+Pass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*}swap\+Chain, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer, int framebuffer\+Index)
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_ab059d32d62c1e1b5b39dd4228286b7a1}\label{classvenom_1_1vulkan_1_1_render_pass_ab059d32d62c1e1b5b39dd4228286b7a1} 
+void {\bfseries Next\+Subpass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer)
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a3212df0b9f9f9fe29c52889a270816d3}\label{classvenom_1_1vulkan_1_1_render_pass_a3212df0b9f9f9fe29c52889a270816d3} 
 vc\+::\+Error {\bfseries End\+Render\+Pass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a422f2b40c3f071dab6d3050e728acaa3}\label{classvenom_1_1vulkan_1_1_render_pass_a422f2b40c3f071dab6d3050e728acaa3} 
-Vk\+Render\+Pass {\bfseries Get\+Render\+Pass} () const
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a9a0c192835e30e07e652c2e28702cf0c}\label{classvenom_1_1vulkan_1_1_render_pass_a9a0c192835e30e07e652c2e28702cf0c} 
+Vk\+Render\+Pass {\bfseries Get\+Vk\+Render\+Pass} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a217b9a01e381b8efd08f261f0c508159}\label{classvenom_1_1vulkan_1_1_render_pass_a217b9a01e381b8efd08f261f0c508159} 
+const vc\+::\+Vector$<$ Vk\+Subpass\+Description $>$ \& {\bfseries Get\+Subpass\+Descriptions} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_ac99fa7e5e9864215d7b23ceca940d1ff}\label{classvenom_1_1vulkan_1_1_render_pass_ac99fa7e5e9864215d7b23ceca940d1ff} 
+vc\+::\+Vector$<$ vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} $>$ $>$ \& {\bfseries Get\+Attachments} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_ada8c6c483a62dfc9ae363f7c6e22a331}\label{classvenom_1_1vulkan_1_1_render_pass_ada8c6c483a62dfc9ae363f7c6e22a331} 
+static \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Render\+Pass} (const vc\+::\+Rendering\+Pipeline\+Type type)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_render_pass_a8e24b91c1ce8600a4ab54a19b0a13fdf}\label{classvenom_1_1vulkan_1_1_render_pass_a8e24b91c1ce8600a4ab54a19b0a13fdf} 
+static vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries Get\+Render\+Passes} ()
 \end{DoxyCompactItemize}
 
 

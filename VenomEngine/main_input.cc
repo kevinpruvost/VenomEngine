@@ -88,7 +88,7 @@ void SceneGUI()
         vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &roughness, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int) + sizeof(float));
     }
     vc::Vector<const char *> msaaModes = {"MSAA 1", "MSAA 2", "MSAA 4", "MSAA 8", "MSAA 16"};
-    static int msaaMode = 1;
+    static int msaaMode = 2;
     if (vc::GUI::Button("Test")) {
         vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, (vc::GraphicsSettings::MultiSamplingCountOption)(1));
     }

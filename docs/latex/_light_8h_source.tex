@@ -1,0 +1,76 @@
+\doxysection{Light.\+h}
+\hypertarget{_light_8h_source}{}\label{_light_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Light.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Light.h}}
+\mbox{\hyperlink{_light_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_transform3_d_8h}{venom/common/Transform3D.h}}>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{enum\ class}\ LightType}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ Directional\ =\ 0,}
+\DoxyCodeLine{00018\ \ \ \ \ Point\ =\ 1,}
+\DoxyCodeLine{00019\ \ \ \ \ Spot\ =\ 2}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{LightShaderStruct}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ vcm::Vec3\ position;}
+\DoxyCodeLine{00025\ \ \ \ \ LightType\ type;}
+\DoxyCodeLine{00026\ \ \ \ \ vcm::Vec3\ color;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{float}\ intensity;}
+\DoxyCodeLine{00028\ \ \ \ \ vcm::Vec3\ direction;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{float}\ radius;}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_light}{\string~Light}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetType(\textcolor{keyword}{const}\ LightType\ type)\ \{\ \_\_type\ =\ type;\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ LightType\ \&\ GetType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_type;\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetColor(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ color)\ \{\ \_\_color\ =\ color;\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetColor()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_color;\ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetIntensity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ intensity)\ \{\ \_\_intensity\ =\ intensity;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetIntensity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_intensity;\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ *\ GetIntensityPtr()\ \{\ \textcolor{keywordflow}{return}\ \&\_\_intensity;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRadius(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ radius)\ \{\ \_\_radius\ =\ radius;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetRadius()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_radius;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetDirection(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ direction)\ \{\ \_\_direction\ =\ direction;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ *\ GetDirectionPtr()\ \{\ \textcolor{keywordflow}{return}\ \&\_\_direction.x;\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetDirection()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_direction;\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{LightShaderStruct}}\ GetShaderStruct()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \{GetPosition(),\ \_\_type,\ \_\_color,\ \_\_intensity,\ \_\_direction,\ \_\_radius\};\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ vcm::Vec3\ \_\_color;}
+\DoxyCodeLine{00054\ \ \ \ \ LightType\ \_\_type;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_intensity;}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_radius;}
+\DoxyCodeLine{00057\ \ \ \ \ uint32\_t\ \_\_lightID;}
+\DoxyCodeLine{00058\ \ \ \ \ vcm::Vec3\ \_\_direction;}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_light_manager}{LightManager}}}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_light_manager}{LightManager}}();}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_light_manager}{\string~LightManager}}();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vc::Vector<Light\ *>\ \&\ GetLights();}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_light_manager}{LightManager}}\ *\ Get();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ \ \ vc::Vector<Light\ *>\ \_\_lights;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}};}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ \}}
+
+\end{DoxyCode}

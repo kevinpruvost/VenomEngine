@@ -124,7 +124,8 @@ $(function(){initNavTree('_ptr_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">Ptr.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -137,6 +138,24 @@ Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom.html">venom</a></td></tr>
 <tr class="memdesc:namespacevenom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the entirety of the code of the VenomEngine project. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
+<tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4d62c68e249d38cf36a57475f36bc71e" id="r_a4d62c68e249d38cf36a57475f36bc71e"><td class="memTemplParams" colspan="2"><a id="a4d62c68e249d38cf36a57475f36bc71e" name="a4d62c68e249d38cf36a57475f36bc71e"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4d62c68e249d38cf36a57475f36bc71e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>venom::common::WPtr</b> = std::weak_ptr&lt;T&gt;</td></tr>
+<tr class="separator:a4d62c68e249d38cf36a57475f36bc71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6c498ca6a907c3e3e1b4dc99776dbe0" id="r_af6c498ca6a907c3e3e1b4dc99776dbe0"><td class="memTemplParams" colspan="2"><a id="af6c498ca6a907c3e3e1b4dc99776dbe0" name="af6c498ca6a907c3e3e1b4dc99776dbe0"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:af6c498ca6a907c3e3e1b4dc99776dbe0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>venom::common::SPtr</b> = std::shared_ptr&lt;T&gt;</td></tr>
+<tr class="separator:af6c498ca6a907c3e3e1b4dc99776dbe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a897c4cff3c357a9dcaa482241346a36e" id="r_a897c4cff3c357a9dcaa482241346a36e"><td class="memTemplParams" colspan="2"><a id="a897c4cff3c357a9dcaa482241346a36e" name="a897c4cff3c357a9dcaa482241346a36e"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a897c4cff3c357a9dcaa482241346a36e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>venom::common::UPtr</b> = std::unique_ptr&lt;T&gt;</td></tr>
+<tr class="separator:a897c4cff3c357a9dcaa482241346a36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngineWorkspace</p>

@@ -1,0 +1,111 @@
+\doxysection{venom\+::common\+::Graphics\+Settings Class Reference}
+\hypertarget{classvenom_1_1common_1_1_graphics_settings}{}\label{classvenom_1_1common_1_1_graphics_settings}\index{venom::common::GraphicsSettings@{venom::common::GraphicsSettings}}
+
+
+{\ttfamily \#include $<$Graphics\+Settings.\+h$>$}
+
+Inheritance diagram for venom\+::common\+::Graphics\+Settings\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classvenom_1_1common_1_1_graphics_settings}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}\label{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b} 
+enum class {\bfseries Multi\+Sampling\+Mode\+Option} \{ {\bfseries None} = 1
+, {\bfseries MSAA} = 2
+ \}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_ad67d19c23c52d1f5efe27d51ec8d47f5}\label{classvenom_1_1common_1_1_graphics_settings_ad67d19c23c52d1f5efe27d51ec8d47f5} 
+enum class {\bfseries Multi\+Sampling\+Count\+Option} \{ \newline
+{\bfseries None} = 1
+, {\bfseries Samples2} = 2
+, {\bfseries Samples4} = 4
+, {\bfseries Samples8} = 8
+, \newline
+{\bfseries Samples16} = 16
+, {\bfseries Samples32} = 32
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_ae241c24a0d7e0f7b4391c9ab160eb133}\label{classvenom_1_1common_1_1_graphics_settings_ae241c24a0d7e0f7b4391c9ab160eb133} 
+static vc\+::\+Error {\bfseries Manage\+Gfx\+Settings\+Loading\+Queue} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a0ee0c17b101505e015bdd17caeadf453}\label{classvenom_1_1common_1_1_graphics_settings_a0ee0c17b101505e015bdd17caeadf453} 
+static vc\+::\+Error {\bfseries Set\+Multi\+Sampling} (const Multi\+Sampling\+Mode\+Option mode, const Multi\+Sampling\+Count\+Option samples)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a06a65129be6095e485a2c716711940f8}\label{classvenom_1_1common_1_1_graphics_settings_a06a65129be6095e485a2c716711940f8} 
+static vc\+::\+Error {\bfseries Set\+HDR} (bool enable)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a426b0e4460e9fe5c2f4ccf17e6fb89d3}\label{classvenom_1_1common_1_1_graphics_settings_a426b0e4460e9fe5c2f4ccf17e6fb89d3} 
+static bool {\bfseries Is\+HDREnabled} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a093364ad291e2123602387fae9c5a966}\label{classvenom_1_1common_1_1_graphics_settings_a093364ad291e2123602387fae9c5a966} 
+static bool {\bfseries Is\+HDRSupported} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a8261df6bca4ed8117e0eec61c1e6df71}\label{classvenom_1_1common_1_1_graphics_settings_a8261df6bca4ed8117e0eec61c1e6df71} 
+static void {\bfseries Start\+Gfx\+Settings\+Change} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a287376cc180d7fbf6ed5ef7d859c0b55}\label{classvenom_1_1common_1_1_graphics_settings_a287376cc180d7fbf6ed5ef7d859c0b55} 
+static vc\+::\+Error {\bfseries End\+Gfx\+Settings\+Change} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a9ede6a5aeee001477bd5d37ba5d9a9ee}\label{classvenom_1_1common_1_1_graphics_settings_a9ede6a5aeee001477bd5d37ba5d9a9ee} 
+static int {\bfseries Get\+Samples\+Multisampling} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a06392c37f75bdfc3df746678dbccab25}\label{classvenom_1_1common_1_1_graphics_settings_a06392c37f75bdfc3df746678dbccab25} 
+static const vc\+::\+Vector$<$ Multi\+Sampling\+Count\+Option $>$ \& {\bfseries Get\+Available\+Multisampling\+Options} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a54867a936446f095336562b543a354fe}\label{classvenom_1_1common_1_1_graphics_settings_a54867a936446f095336562b543a354fe} 
+enum class {\bfseries Gfx\+Settings\+Change\+State} \{ {\bfseries Ended}
+, {\bfseries Started}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a2f9cf81df260541e66aee2bf0564a33d}\label{classvenom_1_1common_1_1_graphics_settings_a2f9cf81df260541e66aee2bf0564a33d} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Load\+Gfx\+Settings} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_ac14507e9b2a2b2ca2367ae35ecc2dfa4}\label{classvenom_1_1common_1_1_graphics_settings_ac14507e9b2a2b2ca2367ae35ecc2dfa4} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Set\+Multi\+Sampling} (const Multi\+Sampling\+Mode\+Option mode, const Multi\+Sampling\+Count\+Option samples)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a1bde4337b1fde4b6d9266569173b186c}\label{classvenom_1_1common_1_1_graphics_settings_a1bde4337b1fde4b6d9266569173b186c} 
+virtual vc\+::\+Vector$<$ Multi\+Sampling\+Count\+Option $>$ {\bfseries \+\_\+\+Get\+Available\+Multisampling\+Options} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_ada77b7511f48a38573ef7a4818e14c0d}\label{classvenom_1_1common_1_1_graphics_settings_ada77b7511f48a38573ef7a4818e14c0d} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Set\+HDR} (bool enable)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_abf3bae00008ba12797f9afb8cc198477}\label{classvenom_1_1common_1_1_graphics_settings_abf3bae00008ba12797f9afb8cc198477} 
+Gfx\+Settings\+Change\+State {\bfseries \+\_\+gfx\+Settings\+Change\+State}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_ab8737f1691f5a8f67fa51bfedb817ba5}\label{classvenom_1_1common_1_1_graphics_settings_ab8737f1691f5a8f67fa51bfedb817ba5} 
+Multi\+Sampling\+Mode\+Option {\bfseries \+\_\+sampling\+Mode}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a087b991a3416be1339b5eb1a3157aa0c}\label{classvenom_1_1common_1_1_graphics_settings_a087b991a3416be1339b5eb1a3157aa0c} 
+int {\bfseries \+\_\+samples}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_aefe9358ebfd0dd55058ccd4f1526f15b}\label{classvenom_1_1common_1_1_graphics_settings_aefe9358ebfd0dd55058ccd4f1526f15b} 
+bool {\bfseries \+\_\+multisampling\+Dirty}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_settings_ad3f114d7eb9650f4518b807e8684d700}\label{classvenom_1_1common_1_1_graphics_settings_ad3f114d7eb9650f4518b807e8684d700} 
+bool {\bfseries \+\_\+is\+Hdr\+Supported}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface of \doxylink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application} class to set the graphics settings. Includable in any plugin, useful to get access to enum and other things... 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{_graphics_settings_8h}{Graphics\+Settings.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_graphics_settings_8cc}{Graphics\+Settings.\+cc}}\end{DoxyCompactItemize}

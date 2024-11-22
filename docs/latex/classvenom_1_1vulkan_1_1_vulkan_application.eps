@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 210.084030
+%%BoundingBox: 0 0 500 140.056015
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 2.380000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 3.570000 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
 /rows 5 def
-/cols 2 def
+/cols 3 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -177,6 +177,7 @@ boxfont setfont
 (venom::common::GraphicsApplication) cw
 (venom::vulkan::DebugApplication) cw
 (venom::common::GraphicsPluginObject) cw
+(venom::common::GraphicsSettings) cw
 (venom::common::PluginObject) cw
 (venom::common::IPluginObject) cw
 /boxwidth boxwidth marginwidth 2 mul add def
@@ -190,10 +191,11 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (venom::vulkan::VulkanApplication) 0.500000 0.000000 box
- (venom::common::GraphicsApplication) 0.000000 1.000000 box
- (venom::vulkan::DebugApplication) 1.000000 1.000000 box
+ (venom::vulkan::VulkanApplication) 1.000000 0.000000 box
+ (venom::common::GraphicsApplication) 0.500000 1.000000 box
+ (venom::vulkan::DebugApplication) 1.500000 1.000000 box
  (venom::common::GraphicsPluginObject) 0.000000 2.000000 box
+ (venom::common::GraphicsSettings) 1.000000 2.000000 box
  (venom::common::PluginObject) 0.000000 3.000000 box
 dashed
  (venom::common::IPluginObject) 0.000000 4.000000 box
@@ -202,19 +204,23 @@ solid
 % ----- relations -----
 
 solid
-0 0.500000 0.000000 out
+0 1.000000 0.000000 out
 solid
-0.000000 1.000000 1.000000 conn
+0.500000 1.500000 1.000000 conn
 solid
-1 0.000000 1.000000 in
+1 0.500000 1.000000 in
 solid
-0 0.000000 1.000000 out
+0 0.500000 1.000000 out
 solid
-1 1.000000 1.000000 in
+0.000000 1.000000 2.000000 conn
+solid
+1 1.500000 1.000000 in
 solid
 1 0.000000 2.000000 in
 solid
 0 0.000000 2.000000 out
+solid
+1 1.000000 2.000000 in
 solid
 1 0.000000 3.000000 in
 solid

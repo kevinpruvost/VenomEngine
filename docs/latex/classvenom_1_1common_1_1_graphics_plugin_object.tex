@@ -12,7 +12,7 @@ Base class for graphics plugin objects.
 Inheritance diagram for venom\+::common\+::Graphics\+Plugin\+Object\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=11.000000cm]{classvenom_1_1common_1_1_graphics_plugin_object}
+\includegraphics[height=12.000000cm]{classvenom_1_1common_1_1_graphics_plugin_object}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -38,7 +38,9 @@ Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f
 static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
 static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
-\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -146,6 +148,19 @@ Gets a cached object from the graphics cache.
 \end{DoxyWarning}
 \begin{DoxyReturn}{Returns}
 nullptr if the object is not in cache, the object otherwise 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!GetCachedObjects@{GetCachedObjects}}
+\index{GetCachedObjects@{GetCachedObjects}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
+\doxysubsubsection{\texorpdfstring{GetCachedObjects()}{GetCachedObjects()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5} 
+const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Get\+Cached\+Objects (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets all cached objects. 
+
+\begin{DoxyReturn}{Returns}
+cached objects 
 \end{DoxyReturn}
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!HasCachedObject@{HasCachedObject}}
 \index{HasCachedObject@{HasCachedObject}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}

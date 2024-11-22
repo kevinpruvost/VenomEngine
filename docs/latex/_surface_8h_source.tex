@@ -23,13 +23,20 @@
 \DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\&\&\ surface)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\&\&\ surface)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ vc::Error\ CreateSurface(\mbox{\hyperlink{classvenom_1_1common_1_1_context}{vc::Context}}\ *\ context);}
-\DoxyCodeLine{00029\ \ \ \ \ VkSurfaceKHR\ GetVkSurface()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00032\ \ \ \ \ VkSurfaceKHR\ \_\_surface;}
-\DoxyCodeLine{00033\ \};}
-\DoxyCodeLine{00034\ \}}
-\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ Destroy();}
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ CreateSurface(\mbox{\hyperlink{classvenom_1_1common_1_1_context}{vc::Context}}\ *\ context);}
+\DoxyCodeLine{00030\ \ \ \ \ VkSurfaceKHR\ GetVkSurface()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{const}\ VkSurfaceCapabilitiesKHR\ \&\ GetCapabilities()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_capabilities;\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<VkSurfaceFormatKHR>\ \&\ GetSurfaceFormats()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_surfaceFormats;\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<VkPresentModeKHR>\ \&\ GetPresentModes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_presentModes;\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ VkSurfaceKHR\ \_\_surface;}
+\DoxyCodeLine{00037\ \ \ \ \ VkSurfaceCapabilitiesKHR\ \_\_capabilities;}
+\DoxyCodeLine{00038\ \ \ \ \ vc::Vector<VkSurfaceFormatKHR>\ \_\_surfaceFormats;}
+\DoxyCodeLine{00039\ \ \ \ \ vc::Vector<VkPresentModeKHR>\ \_\_presentModes;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ \}}
 
 \end{DoxyCode}

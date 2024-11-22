@@ -1,0 +1,996 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="generator" content="Doxygen 1.12.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- BEGIN opengraph metadata -->
+    <meta property="og:title" content="Doxygen Awesome" />
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+    <meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+    <meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+    <!-- END opengraph metadata -->
+    <!-- BEGIN twitter metadata -->
+    <meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+    <meta name="twitter:title" content="Doxygen Awesome" />
+    <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+    <!-- END twitter metadata -->
+    <title>VenomEngine: venom::vulkan::VulkanGUI Class Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeInteractiveToc.init()
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="venom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+    <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="height: 56px;">
+                <td id="projectlogo"><img alt="Logo" src="VenomEngineLogo_VerySmall.png"/></td>
+                <td id="projectalign" style="padding-left: 0.5em;">
+                    <div id="projectname">VenomEngine
+                    </div>
+                    <div id="projectbrief">Cross-Platform Modern Graphics Engine</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end header part -->
+<!-- Generated by Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classvenom_1_1vulkan_1_1_vulkan_g_u_i.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="classvenom_1_1vulkan_1_1_vulkan_g_u_i-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">venom::vulkan::VulkanGUI Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for venom::vulkan::VulkanGUI:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="classvenom_1_1vulkan_1_1_vulkan_g_u_i.png" usemap="#venom::vulkan::VulkanGUI_map" alt=""/>
+  <map id="venom::vulkan::VulkanGUI_map" name="venom::vulkan::VulkanGUI_map">
+<area href="classvenom_1_1common_1_1_g_u_i.html" alt="venom::common::GUI" shape="rect" coords="0,168,230,192"/>
+<area href="classvenom_1_1common_1_1_graphics_plugin_object.html" title="Base class for graphics plugin objects." alt="venom::common::GraphicsPluginObject" shape="rect" coords="0,112,230,136"/>
+<area href="classvenom_1_1common_1_1_plugin_object.html" title="Base class for all the plugin objects Objects that will be loaded from the plugins as their implement..." alt="venom::common::PluginObject" shape="rect" coords="0,56,230,80"/>
+<area href="classvenom_1_1common_1_1_i_plugin_object.html" alt="venom::common::IPluginObject" shape="rect" coords="0,0,230,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a75d1b9ad317a5536203d63938a9d3f79" id="r_a75d1b9ad317a5536203d63938a9d3f79"><td class="memItemLeft" align="right" valign="top">vc::Error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75d1b9ad317a5536203d63938a9d3f79">Initialize</a> () override</td></tr>
+<tr class="separator:a75d1b9ad317a5536203d63938a9d3f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4029deb513fbeacad47a857ed693a57f" id="r_a4029deb513fbeacad47a857ed693a57f"><td class="memItemLeft" align="right" valign="top">vc::Error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4029deb513fbeacad47a857ed693a57f">Reset</a> () override</td></tr>
+<tr class="separator:a4029deb513fbeacad47a857ed693a57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_g_u_i"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_g_u_i')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a></td></tr>
+<tr class="memitem:a8bf1bc3610747abcc8b16009e2170111 inherit pub_methods_classvenom_1_1common_1_1_g_u_i" id="r_a8bf1bc3610747abcc8b16009e2170111"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetGraphicsApplication</b> (<a class="el" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a> *app)</td></tr>
+<tr class="separator:a8bf1bc3610747abcc8b16009e2170111 inherit pub_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0ea8000749c87a967949d2b5ca7bc0 inherit pub_methods_classvenom_1_1common_1_1_g_u_i" id="r_a7f0ea8000749c87a967949d2b5ca7bc0"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawCallback</b> ()</td></tr>
+<tr class="separator:a7f0ea8000749c87a967949d2b5ca7bc0 inherit pub_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e99add6854f2e6ea2537998d71a18c inherit pub_methods_classvenom_1_1common_1_1_g_u_i" id="r_a03e99add6854f2e6ea2537998d71a18c"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Render</b> ()</td></tr>
+<tr class="separator:a03e99add6854f2e6ea2537998d71a18c inherit pub_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_graphics_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></td></tr>
+<tr class="memitem:ad9f18777cdaa7ebcbfeff2d3a04ffada inherit pub_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_ad9f18777cdaa7ebcbfeff2d3a04ffada"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#ad9f18777cdaa7ebcbfeff2d3a04ffada">Destroy</a> () override</td></tr>
+<tr class="memdesc:ad9f18777cdaa7ebcbfeff2d3a04ffada inherit pub_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE <code>delete</code>  <br /></td></tr>
+<tr class="separator:ad9f18777cdaa7ebcbfeff2d3a04ffada inherit pub_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_plugin_object.html">venom::common::PluginObject</a></td></tr>
+<tr class="memitem:a25f4890d211f95df28cb812021c6d6a4 inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a25f4890d211f95df28cb812021c6d6a4"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>PluginObject</b> (const PluginType type)</td></tr>
+<tr class="separator:a25f4890d211f95df28cb812021c6d6a4 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e2ddf499f1ab33b83c08f9362947041 inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a4e2ddf499f1ab33b83c08f9362947041"><td class="memItemLeft" align="right" valign="top">PluginType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_plugin_object.html#a4e2ddf499f1ab33b83c08f9362947041">GetType</a> () const override</td></tr>
+<tr class="separator:a4e2ddf499f1ab33b83c08f9362947041 inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea14174086ef728d7db6af200b6c8eaa inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_aea14174086ef728d7db6af200b6c8eaa"><td class="memTemplParams" colspan="2">
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:aea14174086ef728d7db6af200b6c8eaa inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DAs</b> ()</td></tr>
+<tr class="separator:aea14174086ef728d7db6af200b6c8eaa inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87168b86f727b929a58148d898903baf inherit pub_methods_classvenom_1_1common_1_1_plugin_object" id="r_a87168b86f727b929a58148d898903baf"><td class="memTemplParams" colspan="2">
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:a87168b86f727b929a58148d898903baf inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DAs</b> () const</td></tr>
+<tr class="separator:a87168b86f727b929a58148d898903baf inherit pub_methods_classvenom_1_1common_1_1_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classvenom_1_1common_1_1_i_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classvenom_1_1common_1_1_i_plugin_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_i_plugin_object.html">venom::common::IPluginObject</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a04d691ddf6bd5a7a0df7d432453a33df" id="r_a04d691ddf6bd5a7a0df7d432453a33df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04d691ddf6bd5a7a0df7d432453a33df">_NewFrame</a> () override</td></tr>
+<tr class="separator:a04d691ddf6bd5a7a0df7d432453a33df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a942b2e70938d86390ae8ce98d4f3c53d" id="r_a942b2e70938d86390ae8ce98d4f3c53d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a942b2e70938d86390ae8ce98d4f3c53d">_Begin</a> (const char *name, bool *p_open, vc::GUIWindowFlags flags) override</td></tr>
+<tr class="separator:a942b2e70938d86390ae8ce98d4f3c53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f31ed2017eac84aacab71f5cc1aeb4" id="r_a49f31ed2017eac84aacab71f5cc1aeb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49f31ed2017eac84aacab71f5cc1aeb4">_End</a> () override</td></tr>
+<tr class="separator:a49f31ed2017eac84aacab71f5cc1aeb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1028f6dbdf6981ebb4fef54dbb47a8" id="r_a8e1028f6dbdf6981ebb4fef54dbb47a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e1028f6dbdf6981ebb4fef54dbb47a8">_Text</a> (const char *fmt,...) override</td></tr>
+<tr class="separator:a8e1028f6dbdf6981ebb4fef54dbb47a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc52e92f9a819faaafb2bcae06cd6306" id="r_abc52e92f9a819faaafb2bcae06cd6306"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc52e92f9a819faaafb2bcae06cd6306">_TextColored</a> (const vcm::Vec4 &amp;col, const char *fmt,...) override</td></tr>
+<tr class="separator:abc52e92f9a819faaafb2bcae06cd6306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6824d0333b4c7a667b597ac3685a0ee9" id="r_a6824d0333b4c7a667b597ac3685a0ee9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6824d0333b4c7a667b597ac3685a0ee9">_LabelText</a> (const char *label, const char *fmt,...) override</td></tr>
+<tr class="separator:a6824d0333b4c7a667b597ac3685a0ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a60c28fb9e3b54ad06cf23e73e0301" id="r_a21a60c28fb9e3b54ad06cf23e73e0301"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21a60c28fb9e3b54ad06cf23e73e0301">_SliderFloat</a> (const char *label, float *v, float v_min, float v_max, const char *format, float power) override</td></tr>
+<tr class="separator:a21a60c28fb9e3b54ad06cf23e73e0301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fdc27998a700a0efcc504a78e443367" id="r_a6fdc27998a700a0efcc504a78e443367"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fdc27998a700a0efcc504a78e443367">_SliderFloat3</a> (const char *label, float v[3], float v_min, float v_max, const char *format, float power)</td></tr>
+<tr class="separator:a6fdc27998a700a0efcc504a78e443367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e39cce18daaad89c9d64fff8edcdd8" id="r_ae3e39cce18daaad89c9d64fff8edcdd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3e39cce18daaad89c9d64fff8edcdd8">_ColorEdit3</a> (const char *label, float col[3], vc::GUIColorEditFlags flags) override</td></tr>
+<tr class="separator:ae3e39cce18daaad89c9d64fff8edcdd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff388ae6999b509b7a87c4b0852c0503" id="r_aff388ae6999b509b7a87c4b0852c0503"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff388ae6999b509b7a87c4b0852c0503">_Button</a> (const char *label, const vcm::Vec2 &amp;size) override</td></tr>
+<tr class="separator:aff388ae6999b509b7a87c4b0852c0503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39e4ee266125587dbd3cdb29967d4cdc" id="r_a39e4ee266125587dbd3cdb29967d4cdc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39e4ee266125587dbd3cdb29967d4cdc">_Checkbox</a> (const char *label, bool *v) override</td></tr>
+<tr class="separator:a39e4ee266125587dbd3cdb29967d4cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02755b8cd57e3dda8a92727a96643f61" id="r_a02755b8cd57e3dda8a92727a96643f61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02755b8cd57e3dda8a92727a96643f61">_ProgressBar</a> (float fraction, const vcm::Vec2 &amp;size_arg, const char *overlay) override</td></tr>
+<tr class="separator:a02755b8cd57e3dda8a92727a96643f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06c63f6bd76a304749157fd9ddab095a" id="r_a06c63f6bd76a304749157fd9ddab095a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06c63f6bd76a304749157fd9ddab095a">_Selectable</a> (const char *label, bool selected, vc::GUISelectableFlags flags, const vcm::Vec2 &amp;size) override</td></tr>
+<tr class="separator:a06c63f6bd76a304749157fd9ddab095a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ed8149fc38b7600ae7d1ab76a76c7dc" id="r_a8ed8149fc38b7600ae7d1ab76a76c7dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ed8149fc38b7600ae7d1ab76a76c7dc">_BeginCombo</a> (const char *label, const char *preview_value, vc::GUIComboFlags flags) override</td></tr>
+<tr class="separator:a8ed8149fc38b7600ae7d1ab76a76c7dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e9d48c9dbbd88b59adf0478af849bc" id="r_a11e9d48c9dbbd88b59adf0478af849bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11e9d48c9dbbd88b59adf0478af849bc">_EndCombo</a> () override</td></tr>
+<tr class="separator:a11e9d48c9dbbd88b59adf0478af849bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c9d8e179c19b15410440e15254ccdc2" id="r_a2c9d8e179c19b15410440e15254ccdc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c9d8e179c19b15410440e15254ccdc2">_SetItemDefaultFocus</a> () override</td></tr>
+<tr class="separator:a2c9d8e179c19b15410440e15254ccdc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1757f5d56ee70acdc50cda4765841dac" id="r_a1757f5d56ee70acdc50cda4765841dac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1757f5d56ee70acdc50cda4765841dac">_SameLine</a> (float offset_from_start_x, float spacing) override</td></tr>
+<tr class="separator:a1757f5d56ee70acdc50cda4765841dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e960eb2f84f898499276324c1886b9c" id="r_a0e960eb2f84f898499276324c1886b9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e960eb2f84f898499276324c1886b9c">_Render</a> () override</td></tr>
+<tr class="separator:a0e960eb2f84f898499276324c1886b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classvenom_1_1common_1_1_g_u_i"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classvenom_1_1common_1_1_g_u_i')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_classvenom_1_1common_1_1_g_u_i')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a></td></tr>
+<tr class="memitem:ae5f879f8d9693602af52056686a979a1 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_ae5f879f8d9693602af52056686a979a1"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetGUIDrawCallback</b> (GUIDrawCallback guiDrawCallback)</td></tr>
+<tr class="separator:ae5f879f8d9693602af52056686a979a1 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0d2c2b92759d410e8a99e9e78a56101 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_ab0d2c2b92759d410e8a99e9e78a56101"><td class="memItemLeft" align="right" valign="top">
+static <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">GUI</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> ()</td></tr>
+<tr class="separator:ab0d2c2b92759d410e8a99e9e78a56101 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf328f3ccb13912356bc9301ff83e1a inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_abbf328f3ccb13912356bc9301ff83e1a"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>NewFrame</b> ()</td></tr>
+<tr class="separator:abbf328f3ccb13912356bc9301ff83e1a inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01a9e04f402e7988d75cf04cedde9df inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_ad01a9e04f402e7988d75cf04cedde9df"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (const char *name, bool *p_open=nullptr, GUIWindowFlags flags=0)</td></tr>
+<tr class="separator:ad01a9e04f402e7988d75cf04cedde9df inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b6844f9f77b0bae10bdbf7fda9805d4 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a4b6844f9f77b0bae10bdbf7fda9805d4"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>End</b> ()</td></tr>
+<tr class="separator:a4b6844f9f77b0bae10bdbf7fda9805d4 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a544f7ef8beb891760460a87686f6c2ea inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a544f7ef8beb891760460a87686f6c2ea"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Text</b> (const char *fmt,...)</td></tr>
+<tr class="separator:a544f7ef8beb891760460a87686f6c2ea inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d4d1d00a710010ba57f4430505eb0b0 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a8d4d1d00a710010ba57f4430505eb0b0"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>TextColored</b> (const vcm::Vec4 &amp;col, const char *fmt,...)</td></tr>
+<tr class="separator:a8d4d1d00a710010ba57f4430505eb0b0 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a702ab220cf444d8aef4c1cad0486e076 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a702ab220cf444d8aef4c1cad0486e076"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>LabelText</b> (const char *label, const char *fmt,...)</td></tr>
+<tr class="separator:a702ab220cf444d8aef4c1cad0486e076 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4bd98c2430d3945ffc2affb7b4ff474 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_ac4bd98c2430d3945ffc2affb7b4ff474"><td class="memItemLeft" align="right" valign="top">
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>SliderFloat</b> (const char *label, float *v, float v_min, float v_max, const char *format=&quot;%.3f&quot;, float power=1.0f)</td></tr>
+<tr class="separator:ac4bd98c2430d3945ffc2affb7b4ff474 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b4365283067194fa838dfc6c78393f1 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a3b4365283067194fa838dfc6c78393f1"><td class="memItemLeft" align="right" valign="top">
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>SliderFloat3</b> (const char *label, float v[3], float v_min, float v_max, const char *format=&quot;%.3f&quot;, float power=1.0f)</td></tr>
+<tr class="separator:a3b4365283067194fa838dfc6c78393f1 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f4daef30d2b352b0d63c49dcba2c0b3 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a8f4daef30d2b352b0d63c49dcba2c0b3"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>ColorEdit3</b> (const char *label, float col[3], GUIColorEditFlags flags=0)</td></tr>
+<tr class="separator:a8f4daef30d2b352b0d63c49dcba2c0b3 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35045e1bcb29f737f5191d1b46a4c3e2 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a35045e1bcb29f737f5191d1b46a4c3e2"><td class="memItemLeft" align="right" valign="top">
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>Button</b> (const char *label, const vcm::Vec2 &amp;size=vcm::Vec2(0, 0))</td></tr>
+<tr class="separator:a35045e1bcb29f737f5191d1b46a4c3e2 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fce0027ff4e6b0b93fc3cecad7c389e inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a5fce0027ff4e6b0b93fc3cecad7c389e"><td class="memItemLeft" align="right" valign="top">
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>Checkbox</b> (const char *label, bool *v)</td></tr>
+<tr class="separator:a5fce0027ff4e6b0b93fc3cecad7c389e inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54535412accf6ab4461afb87713c0567 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a54535412accf6ab4461afb87713c0567"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>ProgressBar</b> (float fraction, const vcm::Vec2 &amp;size_arg=vcm::Vec2(-1, 0), const char *overlay=nullptr)</td></tr>
+<tr class="separator:a54535412accf6ab4461afb87713c0567 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67678973757703c1728c8d38a719c1ac inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a67678973757703c1728c8d38a719c1ac"><td class="memItemLeft" align="right" valign="top">
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>Selectable</b> (const char *label, bool selected, GUISelectableFlags flags=0, const vcm::Vec2 &amp;size=vcm::Vec2(0, 0))</td></tr>
+<tr class="separator:a67678973757703c1728c8d38a719c1ac inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e365bbaa8620884d25c074ceaa4cb4 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a36e365bbaa8620884d25c074ceaa4cb4"><td class="memItemLeft" align="right" valign="top">
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>BeginCombo</b> (const char *label, const char *preview_value, GUIComboFlags flags=0)</td></tr>
+<tr class="separator:a36e365bbaa8620884d25c074ceaa4cb4 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7b8044234364086eb282a904c8600c inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a0b7b8044234364086eb282a904c8600c"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>EndCombo</b> ()</td></tr>
+<tr class="separator:a0b7b8044234364086eb282a904c8600c inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f70eda66193e1b2028ca156df33a761 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_a4f70eda66193e1b2028ca156df33a761"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetItemDefaultFocus</b> ()</td></tr>
+<tr class="separator:a4f70eda66193e1b2028ca156df33a761 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac79fa758da5bc5fc4c7e1f5a6a04d3d7 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i" id="r_ac79fa758da5bc5fc4c7e1f5a6a04d3d7"><td class="memItemLeft" align="right" valign="top">
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>SameLine</b> (float offset_from_start_x=0.0f, float spacing=-1.0f)</td></tr>
+<tr class="separator:ac79fa758da5bc5fc4c7e1f5a6a04d3d7 inherit pub_static_methods_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></td></tr>
+<tr class="memitem:af0e11f9034803a94229075d6de780a4b inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_af0e11f9034803a94229075d6de780a4b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#af0e11f9034803a94229075d6de780a4b">HasCachedObject</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:af0e11f9034803a94229075d6de780a4b inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an object is in the cache.  <br /></td></tr>
+<tr class="separator:af0e11f9034803a94229075d6de780a4b inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa55a84a78740e243ca0baed73281fb5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_afa55a84a78740e243ca0baed73281fb5"><td class="memItemLeft" align="right" valign="top">static SPtr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#afa55a84a78740e243ca0baed73281fb5">GetCachedObject</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:afa55a84a78740e243ca0baed73281fb5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a cached object from the graphics cache.  <br /></td></tr>
+<tr class="separator:afa55a84a78740e243ca0baed73281fb5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4c5c13af9a06594bb5ef3e7107e0a5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_aed4c5c13af9a06594bb5ef3e7107e0a5"><td class="memItemLeft" align="right" valign="top">static const std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#aed4c5c13af9a06594bb5ef3e7107e0a5">GetCachedObjects</a> ()</td></tr>
+<tr class="memdesc:aed4c5c13af9a06594bb5ef3e7107e0a5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all cached objects.  <br /></td></tr>
+<tr class="separator:aed4c5c13af9a06594bb5ef3e7107e0a5 inherit pub_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html">venom::common::GraphicsPluginObject</a></td></tr>
+<tr class="memitem:a121e0fdf9cd7cf34ebfb2bed2fbae6ed inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_a121e0fdf9cd7cf34ebfb2bed2fbae6ed"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#a121e0fdf9cd7cf34ebfb2bed2fbae6ed">_SetInCache</a> (const std::string &amp;path, const SPtr&lt; <a class="el" href="classvenom_1_1common_1_1_graphics_cached_resource.html">GraphicsCachedResource</a> &gt; &amp;object)</td></tr>
+<tr class="memdesc:a121e0fdf9cd7cf34ebfb2bed2fbae6ed inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an object in the cache.  <br /></td></tr>
+<tr class="separator:a121e0fdf9cd7cf34ebfb2bed2fbae6ed inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92f7af5330709adbfc36f6b7c8f7f32d inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_a92f7af5330709adbfc36f6b7c8f7f32d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#a92f7af5330709adbfc36f6b7c8f7f32d">_SetCacheSize</a> (size_t size)</td></tr>
+<tr class="memdesc:a92f7af5330709adbfc36f6b7c8f7f32d inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds cache size to avoid unnecessary additional allocations.  <br /></td></tr>
+<tr class="separator:a92f7af5330709adbfc36f6b7c8f7f32d inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdc28fae32ad24fe8fb7eb2c02276b27 inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object" id="r_abdc28fae32ad24fe8fb7eb2c02276b27"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvenom_1_1common_1_1_graphics_plugin_object.html#abdc28fae32ad24fe8fb7eb2c02276b27">_AddCacheSize</a> (size_t size)</td></tr>
+<tr class="memdesc:abdc28fae32ad24fe8fb7eb2c02276b27 inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds cache size to avoid unnecessary additional allocations.  <br /></td></tr>
+<tr class="separator:abdc28fae32ad24fe8fb7eb2c02276b27 inherit pro_static_methods_classvenom_1_1common_1_1_graphics_plugin_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classvenom_1_1common_1_1_g_u_i"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classvenom_1_1common_1_1_g_u_i')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a></td></tr>
+<tr class="memitem:abe617666a0f1d4d56c8ae6cf97903b04 inherit pro_attribs_classvenom_1_1common_1_1_g_u_i" id="r_abe617666a0f1d4d56c8ae6cf97903b04"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_app</b></td></tr>
+<tr class="separator:abe617666a0f1d4d56c8ae6cf97903b04 inherit pro_attribs_classvenom_1_1common_1_1_g_u_i"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a942b2e70938d86390ae8ce98d4f3c53d" name="a942b2e70938d86390ae8ce98d4f3c53d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a942b2e70938d86390ae8ce98d4f3c53d">&#9670;&#160;</a></span>_Begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_Begin </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>p_open</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vc::GUIWindowFlags</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a8ed8149fc38b7600ae7d1ab76a76c7dc" name="a8ed8149fc38b7600ae7d1ab76a76c7dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ed8149fc38b7600ae7d1ab76a76c7dc">&#9670;&#160;</a></span>_BeginCombo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::VulkanGUI::_BeginCombo </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>preview_value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vc::GUIComboFlags</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="aff388ae6999b509b7a87c4b0852c0503" name="aff388ae6999b509b7a87c4b0852c0503"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff388ae6999b509b7a87c4b0852c0503">&#9670;&#160;</a></span>_Button()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::VulkanGUI::_Button </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec2 &amp;</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a39e4ee266125587dbd3cdb29967d4cdc" name="a39e4ee266125587dbd3cdb29967d4cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39e4ee266125587dbd3cdb29967d4cdc">&#9670;&#160;</a></span>_Checkbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::VulkanGUI::_Checkbox </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>v</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="ae3e39cce18daaad89c9d64fff8edcdd8" name="ae3e39cce18daaad89c9d64fff8edcdd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3e39cce18daaad89c9d64fff8edcdd8">&#9670;&#160;</a></span>_ColorEdit3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_ColorEdit3 </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>col</em></span>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vc::GUIColorEditFlags</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a49f31ed2017eac84aacab71f5cc1aeb4" name="a49f31ed2017eac84aacab71f5cc1aeb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49f31ed2017eac84aacab71f5cc1aeb4">&#9670;&#160;</a></span>_End()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_End </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a11e9d48c9dbbd88b59adf0478af849bc" name="a11e9d48c9dbbd88b59adf0478af849bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11e9d48c9dbbd88b59adf0478af849bc">&#9670;&#160;</a></span>_EndCombo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_EndCombo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a6824d0333b4c7a667b597ac3685a0ee9" name="a6824d0333b4c7a667b597ac3685a0ee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6824d0333b4c7a667b597ac3685a0ee9">&#9670;&#160;</a></span>_LabelText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_LabelText </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fmt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a04d691ddf6bd5a7a0df7d432453a33df" name="a04d691ddf6bd5a7a0df7d432453a33df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d691ddf6bd5a7a0df7d432453a33df">&#9670;&#160;</a></span>_NewFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_NewFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a02755b8cd57e3dda8a92727a96643f61" name="a02755b8cd57e3dda8a92727a96643f61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02755b8cd57e3dda8a92727a96643f61">&#9670;&#160;</a></span>_ProgressBar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_ProgressBar </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fraction</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec2 &amp;</td>          <td class="paramname"><span class="paramname"><em>size_arg</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>overlay</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a0e960eb2f84f898499276324c1886b9c" name="a0e960eb2f84f898499276324c1886b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e960eb2f84f898499276324c1886b9c">&#9670;&#160;</a></span>_Render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_Render </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a1757f5d56ee70acdc50cda4765841dac" name="a1757f5d56ee70acdc50cda4765841dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1757f5d56ee70acdc50cda4765841dac">&#9670;&#160;</a></span>_SameLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_SameLine </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>offset_from_start_x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>spacing</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a06c63f6bd76a304749157fd9ddab095a" name="a06c63f6bd76a304749157fd9ddab095a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c63f6bd76a304749157fd9ddab095a">&#9670;&#160;</a></span>_Selectable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::VulkanGUI::_Selectable </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>selected</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vc::GUISelectableFlags</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec2 &amp;</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a2c9d8e179c19b15410440e15254ccdc2" name="a2c9d8e179c19b15410440e15254ccdc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c9d8e179c19b15410440e15254ccdc2">&#9670;&#160;</a></span>_SetItemDefaultFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_SetItemDefaultFocus </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a21a60c28fb9e3b54ad06cf23e73e0301" name="a21a60c28fb9e3b54ad06cf23e73e0301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21a60c28fb9e3b54ad06cf23e73e0301">&#9670;&#160;</a></span>_SliderFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::VulkanGUI::_SliderFloat </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>v</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>v_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>v_max</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>format</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>power</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a6fdc27998a700a0efcc504a78e443367" name="a6fdc27998a700a0efcc504a78e443367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fdc27998a700a0efcc504a78e443367">&#9670;&#160;</a></span>_SliderFloat3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool venom::vulkan::VulkanGUI::_SliderFloat3 </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>label</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>v</em></span>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>v_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>v_max</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>format</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>power</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a8e1028f6dbdf6981ebb4fef54dbb47a8" name="a8e1028f6dbdf6981ebb4fef54dbb47a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e1028f6dbdf6981ebb4fef54dbb47a8">&#9670;&#160;</a></span>_Text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_Text </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fmt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="abc52e92f9a819faaafb2bcae06cd6306" name="abc52e92f9a819faaafb2bcae06cd6306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc52e92f9a819faaafb2bcae06cd6306">&#9670;&#160;</a></span>_TextColored()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::vulkan::VulkanGUI::_TextColored </td>
+          <td>(</td>
+          <td class="paramtype">const vcm::Vec4 &amp;</td>          <td class="paramname"><span class="paramname"><em>col</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fmt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a75d1b9ad317a5536203d63938a9d3f79" name="a75d1b9ad317a5536203d63938a9d3f79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d1b9ad317a5536203d63938a9d3f79">&#9670;&#160;</a></span>Initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vc::Error venom::vulkan::VulkanGUI::Initialize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<a id="a4029deb513fbeacad47a857ed693a57f" name="a4029deb513fbeacad47a857ed693a57f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4029deb513fbeacad47a857ed693a57f">&#9670;&#160;</a></span>Reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vc::Error venom::vulkan::VulkanGUI::Reset </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classvenom_1_1common_1_1_g_u_i.html">venom::common::GUI</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/<a class="el" href="vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_g_u_i_8h_source.html">GUI.h</a></li>
+<li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/src/<a class="el" href="vulkan_2src_2_g_u_i_8cc.html">GUI.cc</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacevenom.html">venom</a></li><li class="navelem"><a class="el" href="namespacevenom_1_1vulkan.html">vulkan</a></li><li class="navelem"><a class="el" href="classvenom_1_1vulkan_1_1_vulkan_g_u_i.html">VulkanGUI</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

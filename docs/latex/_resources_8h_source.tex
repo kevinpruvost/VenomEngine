@@ -6,29 +6,31 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_export_8h}{venom/common/Export.h}}>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ defined(\_\_APPLE\_\_)\ \&\&\ defined(VENOM\_PACKAGE)}}
-\DoxyCodeLine{00014\ std::string\ getResourcePath();}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_resources}{Resources}}}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00024\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ InitializeFilesystem(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **\ argv);}
-\DoxyCodeLine{00025\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FreeFilesystem();}
-\DoxyCodeLine{00026\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
-\DoxyCodeLine{00027\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetTexturesResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
-\DoxyCodeLine{00028\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetShadersResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
-\DoxyCodeLine{00029\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetModelsResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
-\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00031\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ \_\_GetResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath,\ \textcolor{keyword}{const}\ std::string\ \&\ folder);}
-\DoxyCodeLine{00032\ \};}
-\DoxyCodeLine{00033\ \}}
-\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_string_8h}{venom/common/String.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(\_\_APPLE\_\_)\ \&\&\ defined(VENOM\_PACKAGE)}}
+\DoxyCodeLine{00015\ std::string\ getResourcePath();}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_resources}{Resources}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ InitializeFilesystem(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **\ argv);}
+\DoxyCodeLine{00026\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FreeFilesystem();}
+\DoxyCodeLine{00027\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00028\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetTexturesResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00029\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetShadersResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00030\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetShadersFolderPath();}
+\DoxyCodeLine{00031\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ GetModelsResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath);}
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ VENOM\_COMMON\_API\ \textcolor{keyword}{static}\ std::string\ \_\_GetResourcePath(\textcolor{keyword}{const}\ std::string\ \&\ resourcePath,\ \textcolor{keyword}{const}\ std::string\ \&\ folder);}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ \}}
 
 \end{DoxyCode}

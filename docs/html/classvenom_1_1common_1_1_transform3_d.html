@@ -125,6 +125,7 @@ $(function(){initNavTree('classvenom_1_1common_1_1_transform3_d.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classvenom_1_1common_1_1_transform3_d-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">venom::common::Transform3D Class Reference</div></div>
@@ -139,6 +140,7 @@ $(function(){initNavTree('classvenom_1_1common_1_1_transform3_d.html',''); initR
   <img src="classvenom_1_1common_1_1_transform3_d.png" usemap="#venom::common::Transform3D_map" alt=""/>
   <map id="venom::common::Transform3D_map" name="venom::common::Transform3D_map">
 <area href="classvenom_1_1common_1_1_camera_impl.html" alt="venom::common::CameraImpl" shape="rect" coords="0,56,181,80"/>
+<area href="classvenom_1_1common_1_1_light.html" alt="venom::common::Light" shape="rect" coords="191,56,372,80"/>
 <area href="classvenom_1_1vulkan_1_1_vulkan_camera.html" alt="venom::vulkan::VulkanCamera" shape="rect" coords="0,112,181,136"/>
   </map>
 </div></div>
@@ -163,24 +165,54 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPosition</b> (cons
 <tr class="memitem:a5400b724ad7494105c668eb607960eef" id="r_a5400b724ad7494105c668eb607960eef"><td class="memItemLeft" align="right" valign="top"><a id="a5400b724ad7494105c668eb607960eef" name="a5400b724ad7494105c668eb607960eef"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Move</b> (const vcm::Vec3 &amp;delta)</td></tr>
 <tr class="separator:a5400b724ad7494105c668eb607960eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac23611e7b565d40c30417056a7e2e24d" id="r_ac23611e7b565d40c30417056a7e2e24d"><td class="memItemLeft" align="right" valign="top"><a id="ac23611e7b565d40c30417056a7e2e24d" name="ac23611e7b565d40c30417056a7e2e24d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveForward</b> (const float delta)</td></tr>
+<tr class="separator:ac23611e7b565d40c30417056a7e2e24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb970ae41649742e66e5d7555a316483" id="r_acb970ae41649742e66e5d7555a316483"><td class="memItemLeft" align="right" valign="top"><a id="acb970ae41649742e66e5d7555a316483" name="acb970ae41649742e66e5d7555a316483"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveRight</b> (const float delta)</td></tr>
+<tr class="separator:acb970ae41649742e66e5d7555a316483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14397c14a528391825b3172e912d03bb" id="r_a14397c14a528391825b3172e912d03bb"><td class="memItemLeft" align="right" valign="top"><a id="a14397c14a528391825b3172e912d03bb" name="a14397c14a528391825b3172e912d03bb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveUp</b> (const float delta)</td></tr>
+<tr class="separator:a14397c14a528391825b3172e912d03bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c1e6699199fb0be9ee05b0146dc4428" id="r_a6c1e6699199fb0be9ee05b0146dc4428"><td class="memItemLeft" align="right" valign="top"><a id="a6c1e6699199fb0be9ee05b0146dc4428" name="a6c1e6699199fb0be9ee05b0146dc4428"></a>
 const vcm::Vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPosition</b> () const</td></tr>
 <tr class="separator:a6c1e6699199fb0be9ee05b0146dc4428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebea3c2fa664ff4f283eaa4ceed84e4a" id="r_aebea3c2fa664ff4f283eaa4ceed84e4a"><td class="memItemLeft" align="right" valign="top"><a id="aebea3c2fa664ff4f283eaa4ceed84e4a" name="aebea3c2fa664ff4f283eaa4ceed84e4a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasPositionChanged</b> ()</td></tr>
 <tr class="separator:aebea3c2fa664ff4f283eaa4ceed84e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b5d65b66d1c70cb2fd9b8171ef290ef" id="r_a3b5d65b66d1c70cb2fd9b8171ef290ef"><td class="memItemLeft" align="right" valign="top"><a id="a3b5d65b66d1c70cb2fd9b8171ef290ef" name="a3b5d65b66d1c70cb2fd9b8171ef290ef"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRotation</b> (const vcm::Quat &amp;rotation)</td></tr>
-<tr class="separator:a3b5d65b66d1c70cb2fd9b8171ef290ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c5ba5a93fd2e1aeb2312d2c9aed8b35" id="r_a0c5ba5a93fd2e1aeb2312d2c9aed8b35"><td class="memItemLeft" align="right" valign="top"><a id="a0c5ba5a93fd2e1aeb2312d2c9aed8b35" name="a0c5ba5a93fd2e1aeb2312d2c9aed8b35"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Rotate</b> (const vcm::Vec3 &amp;axis, float angle)</td></tr>
-<tr class="separator:a0c5ba5a93fd2e1aeb2312d2c9aed8b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e7ce9644f531a23b7c91f83c78bf52" id="r_a01e7ce9644f531a23b7c91f83c78bf52"><td class="memItemLeft" align="right" valign="top"><a id="a01e7ce9644f531a23b7c91f83c78bf52" name="a01e7ce9644f531a23b7c91f83c78bf52"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRotation</b> (const vcm::Vec3 &amp;rotation)</td></tr>
+<tr class="separator:a01e7ce9644f531a23b7c91f83c78bf52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16515fe9e0b0f8c0f6aecebca29b02d0" id="r_a16515fe9e0b0f8c0f6aecebca29b02d0"><td class="memItemLeft" align="right" valign="top"><a id="a16515fe9e0b0f8c0f6aecebca29b02d0" name="a16515fe9e0b0f8c0f6aecebca29b02d0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetYaw</b> (float angle)</td></tr>
+<tr class="separator:a16515fe9e0b0f8c0f6aecebca29b02d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e20e16774a3a65325e72f8449f28c87" id="r_a6e20e16774a3a65325e72f8449f28c87"><td class="memItemLeft" align="right" valign="top"><a id="a6e20e16774a3a65325e72f8449f28c87" name="a6e20e16774a3a65325e72f8449f28c87"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPitch</b> (float angle)</td></tr>
+<tr class="separator:a6e20e16774a3a65325e72f8449f28c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40e3e8466ae8eccd36050264ebbaa0af" id="r_a40e3e8466ae8eccd36050264ebbaa0af"><td class="memItemLeft" align="right" valign="top"><a id="a40e3e8466ae8eccd36050264ebbaa0af" name="a40e3e8466ae8eccd36050264ebbaa0af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRoll</b> (float angle)</td></tr>
+<tr class="separator:a40e3e8466ae8eccd36050264ebbaa0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79e0392f0a5f6cdd3fec1855faeea915" id="r_a79e0392f0a5f6cdd3fec1855faeea915"><td class="memItemLeft" align="right" valign="top"><a id="a79e0392f0a5f6cdd3fec1855faeea915" name="a79e0392f0a5f6cdd3fec1855faeea915"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RotateYaw</b> (float angle)</td></tr>
+<tr class="separator:a79e0392f0a5f6cdd3fec1855faeea915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dba5ef3b50cee97e4afd1098f9c64bb" id="r_a5dba5ef3b50cee97e4afd1098f9c64bb"><td class="memItemLeft" align="right" valign="top"><a id="a5dba5ef3b50cee97e4afd1098f9c64bb" name="a5dba5ef3b50cee97e4afd1098f9c64bb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RotatePitch</b> (float angle)</td></tr>
+<tr class="separator:a5dba5ef3b50cee97e4afd1098f9c64bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee0787b98681a1e99c18e12f99622fae" id="r_aee0787b98681a1e99c18e12f99622fae"><td class="memItemLeft" align="right" valign="top"><a id="aee0787b98681a1e99c18e12f99622fae" name="aee0787b98681a1e99c18e12f99622fae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RotateRoll</b> (float angle)</td></tr>
+<tr class="separator:aee0787b98681a1e99c18e12f99622fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06d6f926d8c04a176f67ca380bd10184" id="r_a06d6f926d8c04a176f67ca380bd10184"><td class="memItemLeft" align="right" valign="top"><a id="a06d6f926d8c04a176f67ca380bd10184" name="a06d6f926d8c04a176f67ca380bd10184"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Rotate</b> (const vcm::Vec3 &amp;rotation)</td></tr>
+<tr class="separator:a06d6f926d8c04a176f67ca380bd10184"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f2c7002e3c84cf83f64f474b3c991b1" id="r_a5f2c7002e3c84cf83f64f474b3c991b1"><td class="memItemLeft" align="right" valign="top"><a id="a5f2c7002e3c84cf83f64f474b3c991b1" name="a5f2c7002e3c84cf83f64f474b3c991b1"></a>
 const vcm::Quat &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRotationQuat</b> () const</td></tr>
 <tr class="separator:a5f2c7002e3c84cf83f64f474b3c991b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cc357e34efd2d481c68fe3f7ff20556" id="r_a9cc357e34efd2d481c68fe3f7ff20556"><td class="memItemLeft" align="right" valign="top"><a id="a9cc357e34efd2d481c68fe3f7ff20556" name="a9cc357e34efd2d481c68fe3f7ff20556"></a>
 const vcm::Vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRotation</b> ()</td></tr>
 <tr class="separator:a9cc357e34efd2d481c68fe3f7ff20556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1087d42ee65a2f8d88bdf569443e403b" id="r_a1087d42ee65a2f8d88bdf569443e403b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1087d42ee65a2f8d88bdf569443e403b">RotateAround</a> (const vcm::Vec3 &amp;target, const vcm::Vec3 &amp;planeNormal, float angle)</td></tr>
+<tr class="memdesc:a1087d42ee65a2f8d88bdf569443e403b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates around the target on the given planeNormal by the given angle.  <br /></td></tr>
+<tr class="separator:a1087d42ee65a2f8d88bdf569443e403b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0621b3e1c1a700a9943c8df854ca1200" id="r_a0621b3e1c1a700a9943c8df854ca1200"><td class="memItemLeft" align="right" valign="top"><a id="a0621b3e1c1a700a9943c8df854ca1200" name="a0621b3e1c1a700a9943c8df854ca1200"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>LookAt</b> (const vcm::Vec3 &amp;target)</td></tr>
 <tr class="separator:a0621b3e1c1a700a9943c8df854ca1200"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,21 +232,83 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateModelMatrix</b>
 const vcm::Mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetModelMatrix</b> ()</td></tr>
 <tr class="separator:ab3f045cd7a19778e96a50e05ca8a3db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:afcad7b7966f424033c2c9ddbe05b38d8" id="r_afcad7b7966f424033c2c9ddbe05b38d8"><td class="memItemLeft" align="right" valign="top"><a id="afcad7b7966f424033c2c9ddbe05b38d8" name="afcad7b7966f424033c2c9ddbe05b38d8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_UpdateRotationQuat</b> ()</td></tr>
+<tr class="separator:afcad7b7966f424033c2c9ddbe05b38d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a9c83ecca076e892fbe3796c6b958c2ec" id="r_a9c83ecca076e892fbe3796c6b958c2ec"><td class="memItemLeft" align="right" valign="top"><a id="a9c83ecca076e892fbe3796c6b958c2ec" name="a9c83ecca076e892fbe3796c6b958c2ec"></a>
 vcm::Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>_position</b></td></tr>
 <tr class="separator:a9c83ecca076e892fbe3796c6b958c2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3617bc697b69f04b3b91899fa14cce7" id="r_aa3617bc697b69f04b3b91899fa14cce7"><td class="memItemLeft" align="right" valign="top"><a id="aa3617bc697b69f04b3b91899fa14cce7" name="aa3617bc697b69f04b3b91899fa14cce7"></a>
-vcm::Quat&#160;</td><td class="memItemRight" valign="bottom"><b>_rotation</b></td></tr>
-<tr class="separator:aa3617bc697b69f04b3b91899fa14cce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff4e2ca7944f16dd03f20b6d25afa09a" id="r_aff4e2ca7944f16dd03f20b6d25afa09a"><td class="memItemLeft" align="right" valign="top"><a id="aff4e2ca7944f16dd03f20b6d25afa09a" name="aff4e2ca7944f16dd03f20b6d25afa09a"></a>
-vcm::Vec3&#160;</td><td class="memItemRight" valign="bottom"><b>_3DrotationView</b></td></tr>
-<tr class="separator:aff4e2ca7944f16dd03f20b6d25afa09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c6a7780b8cccc73f2fbdfc8970f22a" id="r_a14c6a7780b8cccc73f2fbdfc8970f22a"><td class="memItemLeft" align="right" valign="top"><a id="a14c6a7780b8cccc73f2fbdfc8970f22a" name="a14c6a7780b8cccc73f2fbdfc8970f22a"></a>
+vcm::Quat&#160;</td><td class="memItemRight" valign="bottom"><b>_rotationQuat</b></td></tr>
+<tr class="separator:a14c6a7780b8cccc73f2fbdfc8970f22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6014ddd984e6d772d767e85c51f541ef" id="r_a6014ddd984e6d772d767e85c51f541ef"><td class="memItemLeft" ><a id="a6014ddd984e6d772d767e85c51f541ef" name="a6014ddd984e6d772d767e85c51f541ef"></a>
+union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac108cf3568e201b3f657329ee5dbafbd" id="r_ac108cf3568e201b3f657329ee5dbafbd"><td class="memItemLeft" >
+&#160;&#160;&#160;vcm::Vec3&#160;&#160;&#160;<b>_3Drotation</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ac108cf3568e201b3f657329ee5dbafbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a986f5d34760abf3e55f1c7bd9c7d938d" id="r_a986f5d34760abf3e55f1c7bd9c7d938d"><td class="memItemLeft" ><a id="a986f5d34760abf3e55f1c7bd9c7d938d" name="a986f5d34760abf3e55f1c7bd9c7d938d"></a>
+&#160;&#160;&#160;struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1ba6e8aee09213ab27d4633495889c7" id="r_ad1ba6e8aee09213ab27d4633495889c7"><td class="memItemLeft" >
+&#160;&#160;&#160;&#160;&#160;&#160;float&#160;&#160;&#160;<b>_yaw</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ad1ba6e8aee09213ab27d4633495889c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd6357815de3a66ff5e07ac98ede6770" id="r_abd6357815de3a66ff5e07ac98ede6770"><td class="memItemLeft" >
+&#160;&#160;&#160;&#160;&#160;&#160;float&#160;&#160;&#160;<b>_pitch</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:abd6357815de3a66ff5e07ac98ede6770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a048842dc3f19bca7ce156c8e0d22fed4" id="r_a048842dc3f19bca7ce156c8e0d22fed4"><td class="memItemLeft" >
+&#160;&#160;&#160;&#160;&#160;&#160;float&#160;&#160;&#160;<b>_roll</b>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a048842dc3f19bca7ce156c8e0d22fed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a986f5d34760abf3e55f1c7bd9c7d938d" id="r_a986f5d34760abf3e55f1c7bd9c7d938d"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a986f5d34760abf3e55f1c7bd9c7d938d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6014ddd984e6d772d767e85c51f541ef" id="r_a6014ddd984e6d772d767e85c51f541ef"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a6014ddd984e6d772d767e85c51f541ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ad514c14f65d1193bacf364677137ac" id="r_a1ad514c14f65d1193bacf364677137ac"><td class="memItemLeft" align="right" valign="top"><a id="a1ad514c14f65d1193bacf364677137ac" name="a1ad514c14f65d1193bacf364677137ac"></a>
 vcm::Mat4&#160;</td><td class="memItemRight" valign="bottom"><b>_modelMatrix</b></td></tr>
 <tr class="separator:a1ad514c14f65d1193bacf364677137ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1087d42ee65a2f8d88bdf569443e403b" name="a1087d42ee65a2f8d88bdf569443e403b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1087d42ee65a2f8d88bdf569443e403b">&#9670;&#160;</a></span>RotateAround()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::common::Transform3D::RotateAround </td>
+          <td>(</td>
+          <td class="paramtype">const vcm::Vec3 &amp;</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vcm::Vec3 &amp;</td>          <td class="paramname"><span class="paramname"><em>planeNormal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angle</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotates around the target on the given planeNormal by the given angle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td></td></tr>
+    <tr><td class="paramname">planeNormal</td><td></td></tr>
+    <tr><td class="paramname">angle</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/<a class="el" href="_transform3_d_8h_source.html">Transform3D.h</a></li>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="_transform3_d_8cc.html">Transform3D.cc</a></li>

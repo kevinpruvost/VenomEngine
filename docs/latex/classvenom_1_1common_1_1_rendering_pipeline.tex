@@ -1,0 +1,76 @@
+\doxysection{venom\+::common\+::Rendering\+Pipeline Class Reference}
+\hypertarget{classvenom_1_1common_1_1_rendering_pipeline}{}\label{classvenom_1_1common_1_1_rendering_pipeline}\index{venom::common::RenderingPipeline@{venom::common::RenderingPipeline}}
+
+
+Interface with shader pipelines and shader settings.  
+
+
+
+
+{\ttfamily \#include $<$Rendering\+Pipeline.\+h$>$}
+
+Inheritance diagram for venom\+::common\+::Rendering\+Pipeline\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_rendering_pipeline}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_a13192e512eb9c266814846a557d1f4d6}\label{classvenom_1_1common_1_1_rendering_pipeline_a13192e512eb9c266814846a557d1f4d6} 
+{\bfseries Rendering\+Pipeline} (const Rendering\+Pipeline\+Type type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_af20605d0a7a78b67cb5d6d4a5ee60a27}\label{classvenom_1_1common_1_1_rendering_pipeline_af20605d0a7a78b67cb5d6d4a5ee60a27} 
+void {\bfseries Set\+Shader\+Type} (const Rendering\+Pipeline\+Type type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_a9366c367ca338c113e3c8d90711d7904}\label{classvenom_1_1common_1_1_rendering_pipeline_a9366c367ca338c113e3c8d90711d7904} 
+Rendering\+Pipeline\+Type {\bfseries Get\+Shader\+Type} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_ad7527b0096581a92550d7e154f5cd751}\label{classvenom_1_1common_1_1_rendering_pipeline_ad7527b0096581a92550d7e154f5cd751} 
+const Shader\+Pipeline\+List \& {\bfseries Get\+Rendering\+Pipeline\+Cache} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+bool {\bfseries Is\+Impl\+Initialized} () const
+\item 
+void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_rendering_pipeline_a8a27b996a8b934be6f71786e654a454a}\label{classvenom_1_1common_1_1_rendering_pipeline_a8a27b996a8b934be6f71786e654a454a} 
+static const Shader\+Pipeline\+List \& {\bfseries Get\+Rendering\+Pipeline\+Cache} (const Rendering\+Pipeline\+Type type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface with shader pipelines and shader settings. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_rendering_pipeline_8h}{Rendering\+Pipeline.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_rendering_pipeline_8cc}{Rendering\+Pipeline.\+cc}}\end{DoxyCompactItemize}

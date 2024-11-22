@@ -1,9 +1,21 @@
 \doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\+Texture.cc File Reference}
 \hypertarget{common_2src_2_texture_8cc}{}\label{common_2src_2_texture_8cc}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Texture.cc@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Texture.cc}}
 {\ttfamily \#include $<$stb\+\_\+image.\+h$>$}\newline
+{\ttfamily \#include $<$Imf\+Rgba\+File.\+h$>$}\newline
+{\ttfamily \#include $<$Imf\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$Imath\+Box.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Texture.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/\+Log.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/\+Resources.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_loader}{venom\+::common\+::\+Texture\+Loader}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_stbi___texture_loader}{venom\+::common\+::\+Stbi\+\_\+\+Texture\+Loader}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_e_x_r___texture_loader}{venom\+::common\+::\+EXR\+\_\+\+Texture\+Loader}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,6 +23,12 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a7df8479ee3bd0915a50e4f879c7d3340}\label{namespacevenom_1_1common_a7df8479ee3bd0915a50e4f879c7d3340} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_texture_loader}{Texture\+Loader}} \texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::\+Create\+Texture\+Loader} (const char \texorpdfstring{$\ast$}{*}path)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

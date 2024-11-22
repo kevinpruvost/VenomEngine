@@ -1,0 +1,76 @@
+\doxysection{venom\+::common\+::Shader\+Pipeline Class Reference}
+\hypertarget{classvenom_1_1common_1_1_shader_pipeline}{}\label{classvenom_1_1common_1_1_shader_pipeline}\index{venom::common::ShaderPipeline@{venom::common::ShaderPipeline}}
+Inheritance diagram for venom\+::common\+::Shader\+Pipeline\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_shader_pipeline}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a316f6426fb5db455f50751a3f7a2de38}\label{classvenom_1_1common_1_1_shader_pipeline_a316f6426fb5db455f50751a3f7a2de38} 
+{\bfseries Shader\+Pipeline} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_ace5961ef06487090bc4c12214333878e}\label{classvenom_1_1common_1_1_shader_pipeline_ace5961ef06487090bc4c12214333878e} 
+void {\bfseries Set\+Rendering\+Pipeline\+Index} (const uint32\+\_\+t index)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a668ec0003e0114c721c57c670593952b}\label{classvenom_1_1common_1_1_shader_pipeline_a668ec0003e0114c721c57c670593952b} 
+void {\bfseries Set\+Rendering\+Pipeline\+Type} (const Rendering\+Pipeline\+Type type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a50349289155aa0ee7828143f376518a6}\label{classvenom_1_1common_1_1_shader_pipeline_a50349289155aa0ee7828143f376518a6} 
+vc\+::\+Error {\bfseries Load\+Shader\+From\+File} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_ac5bab09adeeb53e9f1e9c4c6246c94e8}\label{classvenom_1_1common_1_1_shader_pipeline_ac5bab09adeeb53e9f1e9c4c6246c94e8} 
+void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const Shader\+Vertex\+Format format, const uint32\+\_\+t binding, const uint32\+\_\+t location, const uint32\+\_\+t offset)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_aeeec12911c4bcd0ec8a40bd0d9f2dc80}\label{classvenom_1_1common_1_1_shader_pipeline_aeeec12911c4bcd0ec8a40bd0d9f2dc80} 
+void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Shader\+Pipeline\+Impl\+::\+Vertex\+Buffer\+Layout}} \&layout)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a027f85a06748b1f6873fe04853ad1416}\label{classvenom_1_1common_1_1_shader_pipeline_a027f85a06748b1f6873fe04853ad1416} 
+void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const std\+::vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Shader\+Pipeline\+Impl\+::\+Vertex\+Buffer\+Layout}} $>$ \&layouts)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a96e996f50fcbc70005a6d90f9261027b}\label{classvenom_1_1common_1_1_shader_pipeline_a96e996f50fcbc70005a6d90f9261027b} 
+void {\bfseries Set\+Line\+Width} (const float width)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a97068f393c56998d25c2e478ce7f8fb9}\label{classvenom_1_1common_1_1_shader_pipeline_a97068f393c56998d25c2e478ce7f8fb9} 
+void {\bfseries Set\+Depth\+Test} (const bool enable)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a17dc179ae3714ff844c223670ccf0daa}\label{classvenom_1_1common_1_1_shader_pipeline_a17dc179ae3714ff844c223670ccf0daa} 
+void {\bfseries Set\+Depth\+Write} (const bool enable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
+\item 
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
+\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
+\item 
+bool {\bfseries Is\+Impl\+Initialized} () const
+\item 
+void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_pipeline_8h}{Shader\+Pipeline.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_shader_pipeline_8cc}{Shader\+Pipeline.\+cc}}\end{DoxyCompactItemize}

@@ -178,6 +178,7 @@ boxfont setfont
 (venom::common::ShaderResource) cw
 (venom::common::TextureResource) cw
 (venom::vulkan::VulkanModelResource) cw
+(venom::vulkan::VulkanShaderResource) cw
 (venom::vulkan::VulkanTextureResource) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -195,6 +196,7 @@ boundx scalefactor div boundy scalefactor div scale
  (venom::common::ShaderResource) 1.000000 1.000000 box
  (venom::common::TextureResource) 2.000000 1.000000 box
  (venom::vulkan::VulkanModelResource) 0.000000 0.000000 box
+ (venom::vulkan::VulkanShaderResource) 1.000000 0.000000 box
  (venom::vulkan::VulkanTextureResource) 2.000000 0.000000 box
 
 % ----- relations -----
@@ -210,10 +212,14 @@ solid
 solid
 0 1.000000 1.750000 in
 solid
+1 1.000000 0.250000 out
+solid
 0 2.000000 1.750000 in
 solid
 1 2.000000 0.250000 out
 solid
 0 0.000000 0.750000 in
+solid
+0 1.000000 0.750000 in
 solid
 0 2.000000 0.750000 in

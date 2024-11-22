@@ -125,11 +125,14 @@ $(function(){initNavTree('_context_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">Context.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="_error_8h_source.html">venom/common/Error.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_containers_8h_source.html">venom/common/Containers.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_matrix_8h_source.html">venom/common/math/Matrix.h</a>&gt;</code><br />
 <code>#include &lt;GLFW/glfw3.h&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
@@ -148,6 +151,197 @@ Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacevenom_1_1common.html">venom::common</a></td></tr>
 <tr class="memdesc:namespacevenom_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-Level Frontend of the <a class="el" href="classvenom_1_1common_1_1_venom_engine.html" title="Main class of the engine This class will be the main entry point of the engine. It will contain all t...">VenomEngine</a> project. It also contains all the code shared between every APIs/Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias 'vc' to access the namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a4b58b54f6a969aa3b5bd4ef73b55bb3b" id="r_a4b58b54f6a969aa3b5bd4ef73b55bb3b"><td class="memItemLeft" align="right" valign="top"><a id="a4b58b54f6a969aa3b5bd4ef73b55bb3b" name="a4b58b54f6a969aa3b5bd4ef73b55bb3b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>InputState</b> : int8_t { <b>Released</b> = 0x1
+, <b>Pressed</b> = 0x2
+, <b>Repeat</b> = 0x4
+, <b>Unknown</b> = 0x8
+ }</td></tr>
+<tr class="separator:a4b58b54f6a969aa3b5bd4ef73b55bb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ca766ddc2cc5d7cf687d7d82733fe4" id="r_ae8ca766ddc2cc5d7cf687d7d82733fe4"><td class="memItemLeft" align="right" valign="top"><a id="ae8ca766ddc2cc5d7cf687d7d82733fe4" name="ae8ca766ddc2cc5d7cf687d7d82733fe4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>KeyboardInput</b> { <br />
+&#160;&#160;<b>KeyboardUnknown</b> = 0
+, <b>KeyboardA</b> = 1
+, <b>KeyboardB</b> = 2
+, <b>KeyboardC</b> = 3
+, <br />
+&#160;&#160;<b>KeyboardD</b> = 4
+, <b>KeyboardE</b> = 5
+, <b>KeyboardF</b> = 6
+, <b>KeyboardG</b> = 7
+, <br />
+&#160;&#160;<b>KeyboardH</b> = 8
+, <b>KeyboardI</b> = 9
+, <b>KeyboardJ</b> = 10
+, <b>KeyboardK</b> = 11
+, <br />
+&#160;&#160;<b>KeyboardL</b> = 12
+, <b>KeyboardM</b> = 13
+, <b>KeyboardN</b> = 14
+, <b>KeyboardO</b> = 15
+, <br />
+&#160;&#160;<b>KeyboardP</b> = 16
+, <b>KeyboardQ</b> = 17
+, <b>KeyboardR</b> = 18
+, <b>KeyboardS</b> = 19
+, <br />
+&#160;&#160;<b>KeyboardT</b> = 20
+, <b>KeyboardU</b> = 21
+, <b>KeyboardV</b> = 22
+, <b>KeyboardW</b> = 23
+, <br />
+&#160;&#160;<b>KeyboardX</b> = 24
+, <b>KeyboardY</b> = 25
+, <b>KeyboardZ</b> = 26
+, <b>Keyboard0</b> = 27
+, <br />
+&#160;&#160;<b>Keyboard1</b> = 28
+, <b>Keyboard2</b> = 29
+, <b>Keyboard3</b> = 30
+, <b>Keyboard4</b> = 31
+, <br />
+&#160;&#160;<b>Keyboard5</b> = 32
+, <b>Keyboard6</b> = 33
+, <b>Keyboard7</b> = 34
+, <b>Keyboard8</b> = 35
+, <br />
+&#160;&#160;<b>Keyboard9</b> = 36
+, <b>KeyboardEscape</b> = 37
+, <b>KeyboardEnter</b> = 38
+, <b>KeyboardTab</b> = 39
+, <br />
+&#160;&#160;<b>KeyboardBackspace</b> = 40
+, <b>KeyboardInsert</b> = 41
+, <b>KeyboardDelete</b> = 42
+, <b>KeyboardRight</b> = 43
+, <br />
+&#160;&#160;<b>KeyboardLeft</b> = 44
+, <b>KeyboardDown</b> = 45
+, <b>KeyboardUp</b> = 46
+, <b>KeyboardPageUp</b> = 47
+, <br />
+&#160;&#160;<b>KeyboardPageDown</b> = 48
+, <b>KeyboardHome</b> = 49
+, <b>KeyboardEnd</b> = 50
+, <b>KeyboardCapsLock</b> = 51
+, <br />
+&#160;&#160;<b>KeyboardScrollLock</b> = 52
+, <b>KeyboardNumLock</b> = 53
+, <b>KeyboardPrintScreen</b> = 54
+, <b>KeyboardPause</b> = 55
+, <br />
+&#160;&#160;<b>KeyboardF1</b> = 56
+, <b>KeyboardF2</b> = 57
+, <b>KeyboardF3</b> = 58
+, <b>KeyboardF4</b> = 59
+, <br />
+&#160;&#160;<b>KeyboardF5</b> = 60
+, <b>KeyboardF6</b> = 61
+, <b>KeyboardF7</b> = 62
+, <b>KeyboardF8</b> = 63
+, <br />
+&#160;&#160;<b>KeyboardF9</b> = 64
+, <b>KeyboardF10</b> = 65
+, <b>KeyboardF11</b> = 66
+, <b>KeyboardF12</b> = 67
+, <br />
+&#160;&#160;<b>KeyboardF13</b> = 68
+, <b>KeyboardF14</b> = 69
+, <b>KeyboardF15</b> = 70
+, <b>KeyboardF16</b> = 71
+, <br />
+&#160;&#160;<b>KeyboardF17</b> = 72
+, <b>KeyboardF18</b> = 73
+, <b>KeyboardF19</b> = 74
+, <b>KeyboardF20</b> = 75
+, <br />
+&#160;&#160;<b>KeyboardF21</b> = 76
+, <b>KeyboardF22</b> = 77
+, <b>KeyboardF23</b> = 78
+, <b>KeyboardF24</b> = 79
+, <br />
+&#160;&#160;<b>KeyboardF25</b> = 80
+, <b>KeyboardKP0</b> = 81
+, <b>KeyboardKP1</b> = 82
+, <b>KeyboardKP2</b> = 83
+, <br />
+&#160;&#160;<b>KeyboardKP3</b> = 84
+, <b>KeyboardKP4</b> = 85
+, <b>KeyboardKP5</b> = 86
+, <b>KeyboardKP6</b> = 87
+, <br />
+&#160;&#160;<b>KeyboardKP7</b> = 88
+, <b>KeyboardKP8</b> = 89
+, <b>KeyboardKP9</b> = 90
+, <b>KeyboardKPDecimal</b> = 91
+, <br />
+&#160;&#160;<b>KeyboardKPDivide</b> = 92
+, <b>KeyboardKPMultiply</b> = 93
+, <b>KeyboardKPSubtract</b> = 94
+, <b>KeyboardKPAdd</b> = 95
+, <br />
+&#160;&#160;<b>KeyboardKPEnter</b> = 96
+, <b>KeyboardKPEqual</b> = 97
+, <b>KeyboardLeftShift</b> = 98
+, <b>KeyboardLeftControl</b> = 99
+, <br />
+&#160;&#160;<b>KeyboardLeftAlt</b> = 100
+, <b>KeyboardLeftSuper</b> = 101
+, <b>KeyboardRightShift</b> = 102
+, <b>KeyboardRightControl</b> = 103
+, <br />
+&#160;&#160;<b>KeyboardRightAlt</b> = 104
+, <b>KeyboardRightSuper</b> = 105
+, <b>KeyboardMenu</b> = 106
+, <b>KeyboardSpace</b> = 107
+, <br />
+&#160;&#160;<b>KeyboardApostrophe</b> = 108
+, <b>KeyboardComma</b> = 109
+, <b>KeyboardMinus</b> = 110
+, <b>KeyboardPeriod</b> = 111
+, <br />
+&#160;&#160;<b>KeyboardSlash</b> = 112
+, <b>KeyboardSemicolon</b> = 113
+, <b>KeyboardEqual</b> = 114
+, <b>KeyboardLeftBracket</b> = 115
+, <br />
+&#160;&#160;<b>KeyboardBackslash</b> = 116
+, <b>KeyboardRightBracket</b> = 117
+, <b>KeyboardGraveAccent</b> = 118
+, <b>KeyboardWorld1</b> = 119
+, <br />
+&#160;&#160;<b>KeyboardWorld2</b> = 120
+, <b>KeyboardTotal</b>
+<br />
+ }</td></tr>
+<tr class="separator:ae8ca766ddc2cc5d7cf687d7d82733fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9cd8210eda17dc25a1b3600c501b827" id="r_af9cd8210eda17dc25a1b3600c501b827"><td class="memItemLeft" align="right" valign="top"><a id="af9cd8210eda17dc25a1b3600c501b827" name="af9cd8210eda17dc25a1b3600c501b827"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>KeyboardModifier</b> { <b>KeyboardModShift</b> = 0x0001
+, <b>KeyboardModControl</b> = 0x0002
+, <b>KeyboardModAlt</b> = 0x0004
+, <b>KeyboardModSuper</b> = 0x0008
+ }</td></tr>
+<tr class="separator:af9cd8210eda17dc25a1b3600c501b827"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc530f715c4776f60c7b7ce2cb0c1ee0" id="r_afc530f715c4776f60c7b7ce2cb0c1ee0"><td class="memItemLeft" align="right" valign="top"><a id="afc530f715c4776f60c7b7ce2cb0c1ee0" name="afc530f715c4776f60c7b7ce2cb0c1ee0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>MouseButton</b> { <br />
+&#160;&#160;<b>MouseButton1</b> = 0
+, <b>MouseButton2</b> = 1
+, <b>MouseButton3</b> = 2
+, <b>MouseButton4</b> = 3
+, <br />
+&#160;&#160;<b>MouseButton5</b> = 4
+, <b>MouseButton6</b> = 5
+, <b>MouseButton7</b> = 6
+, <b>MouseButton8</b> = 7
+, <br />
+&#160;&#160;<b>MouseButtonLast</b> = MouseButton8
+, <b>MouseButtonLeft</b> = MouseButton1
+, <b>MouseButtonRight</b> = MouseButton2
+, <b>MouseButtonMiddle</b> = MouseButton3
+, <br />
+&#160;&#160;<b>MouseTotal</b>
+<br />
+ }</td></tr>
+<tr class="separator:afc530f715c4776f60c7b7ce2cb0c1ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: VenomEngine</p>

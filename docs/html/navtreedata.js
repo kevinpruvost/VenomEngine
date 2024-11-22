@@ -55,8 +55,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_allocator_8cc.html",
-"classvenom_1_1common_1_1_plugin_object.html#ab767caede79983aab03a9c8c99c91171",
-"structvenom_1_1vulkan_1_1_queue_manager_settings.html"
+"annotated.html",
+"classvenom_1_1vulkan_1_1_vulkan_model_resource.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

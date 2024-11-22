@@ -1,0 +1,355 @@
+\doxysection{venom\+::vulkan\+::Vulkan\+GUI Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i}{}\label{classvenom_1_1vulkan_1_1_vulkan_g_u_i}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+Inheritance diagram for venom\+::vulkan\+::Vulkan\+GUI\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classvenom_1_1vulkan_1_1_vulkan_g_u_i}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a75d1b9ad317a5536203d63938a9d3f79}{Initialize}} () override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a4029deb513fbeacad47a857ed693a57f}{Reset}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Set\+Graphics\+Application} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*}app)
+\item 
+void {\bfseries Draw\+Callback} ()
+\item 
+void {\bfseries Render} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a04d691ddf6bd5a7a0df7d432453a33df}{\+\_\+\+New\+Frame}} () override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a942b2e70938d86390ae8ce98d4f3c53d}{\+\_\+\+Begin}} (const char \texorpdfstring{$\ast$}{*}name, bool \texorpdfstring{$\ast$}{*}p\+\_\+open, vc\+::\+GUIWindow\+Flags flags) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a49f31ed2017eac84aacab71f5cc1aeb4}{\+\_\+\+End}} () override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a8e1028f6dbdf6981ebb4fef54dbb47a8}{\+\_\+\+Text}} (const char \texorpdfstring{$\ast$}{*}fmt,...) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_abc52e92f9a819faaafb2bcae06cd6306}{\+\_\+\+Text\+Colored}} (const vcm\+::\+Vec4 \&col, const char \texorpdfstring{$\ast$}{*}fmt,...) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a6824d0333b4c7a667b597ac3685a0ee9}{\+\_\+\+Label\+Text}} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt,...) override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a21a60c28fb9e3b54ad06cf23e73e0301}{\+\_\+\+Slider\+Float}} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format, float power) override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a6fdc27998a700a0efcc504a78e443367}{\+\_\+\+Slider\+Float3}} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format, float power)
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_ae3e39cce18daaad89c9d64fff8edcdd8}{\+\_\+\+Color\+Edit3}} (const char \texorpdfstring{$\ast$}{*}label, float col\mbox{[}3\mbox{]}, vc\+::\+GUIColor\+Edit\+Flags flags) override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_aff388ae6999b509b7a87c4b0852c0503}{\+\_\+\+Button}} (const char \texorpdfstring{$\ast$}{*}label, const vcm\+::\+Vec2 \&size) override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a39e4ee266125587dbd3cdb29967d4cdc}{\+\_\+\+Checkbox}} (const char \texorpdfstring{$\ast$}{*}label, bool \texorpdfstring{$\ast$}{*}v) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a02755b8cd57e3dda8a92727a96643f61}{\+\_\+\+Progress\+Bar}} (float fraction, const vcm\+::\+Vec2 \&size\+\_\+arg, const char \texorpdfstring{$\ast$}{*}overlay) override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a06c63f6bd76a304749157fd9ddab095a}{\+\_\+\+Selectable}} (const char \texorpdfstring{$\ast$}{*}label, bool selected, vc\+::\+GUISelectable\+Flags flags, const vcm\+::\+Vec2 \&size) override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a8ed8149fc38b7600ae7d1ab76a76c7dc}{\+\_\+\+Begin\+Combo}} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}preview\+\_\+value, vc\+::\+GUICombo\+Flags flags) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a11e9d48c9dbbd88b59adf0478af849bc}{\+\_\+\+End\+Combo}} () override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a2c9d8e179c19b15410440e15254ccdc2}{\+\_\+\+Set\+Item\+Default\+Focus}} () override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a1757f5d56ee70acdc50cda4765841dac}{\+\_\+\+Same\+Line}} (float offset\+\_\+from\+\_\+start\+\_\+x, float spacing) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a0e960eb2f84f898499276324c1886b9c}{\+\_\+\+Render}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries Set\+GUIDraw\+Callback} (GUIDraw\+Callback gui\+Draw\+Callback)
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
+\item 
+static void {\bfseries New\+Frame} ()
+\item 
+static void {\bfseries Begin} (const char \texorpdfstring{$\ast$}{*}name, bool \texorpdfstring{$\ast$}{*}p\+\_\+open=nullptr, GUIWindow\+Flags flags=0)
+\item 
+static void {\bfseries End} ()
+\item 
+static void {\bfseries Text} (const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+static void {\bfseries Text\+Colored} (const vcm\+::\+Vec4 \&col, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+static void {\bfseries Label\+Text} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+static bool {\bfseries Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, float power=1.\+0f)
+\item 
+static bool {\bfseries Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, float power=1.\+0f)
+\item 
+static void {\bfseries Color\+Edit3} (const char \texorpdfstring{$\ast$}{*}label, float col\mbox{[}3\mbox{]}, GUIColor\+Edit\+Flags flags=0)
+\item 
+static bool {\bfseries Button} (const char \texorpdfstring{$\ast$}{*}label, const vcm\+::\+Vec2 \&size=vcm\+::\+Vec2(0, 0))
+\item 
+static bool {\bfseries Checkbox} (const char \texorpdfstring{$\ast$}{*}label, bool \texorpdfstring{$\ast$}{*}v)
+\item 
+static void {\bfseries Progress\+Bar} (float fraction, const vcm\+::\+Vec2 \&size\+\_\+arg=vcm\+::\+Vec2(-\/1, 0), const char \texorpdfstring{$\ast$}{*}overlay=nullptr)
+\item 
+static bool {\bfseries Selectable} (const char \texorpdfstring{$\ast$}{*}label, bool selected, GUISelectable\+Flags flags=0, const vcm\+::\+Vec2 \&size=vcm\+::\+Vec2(0, 0))
+\item 
+static bool {\bfseries Begin\+Combo} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}preview\+\_\+value, GUICombo\+Flags flags=0)
+\item 
+static void {\bfseries End\+Combo} ()
+\item 
+static void {\bfseries Set\+Item\+Default\+Focus} ()
+\item 
+static void {\bfseries Same\+Line} (float offset\+\_\+from\+\_\+start\+\_\+x=0.\+0f, float spacing=-\/1.\+0f)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+app}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a942b2e70938d86390ae8ce98d4f3c53d}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_Begin@{\_Begin}}
+\index{\_Begin@{\_Begin}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_Begin()}{\_Begin()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a942b2e70938d86390ae8ce98d4f3c53d} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Begin (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{p\+\_\+open}{, }\item[{vc\+::\+GUIWindow\+Flags}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a8ed8149fc38b7600ae7d1ab76a76c7dc}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_BeginCombo@{\_BeginCombo}}
+\index{\_BeginCombo@{\_BeginCombo}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_BeginCombo()}{\_BeginCombo()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a8ed8149fc38b7600ae7d1ab76a76c7dc} 
+bool venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Begin\+Combo (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{preview\+\_\+value}{, }\item[{vc\+::\+GUICombo\+Flags}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_aff388ae6999b509b7a87c4b0852c0503}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_Button@{\_Button}}
+\index{\_Button@{\_Button}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_Button()}{\_Button()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_aff388ae6999b509b7a87c4b0852c0503} 
+bool venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Button (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{const vcm\+::\+Vec2 \&}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a39e4ee266125587dbd3cdb29967d4cdc}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_Checkbox@{\_Checkbox}}
+\index{\_Checkbox@{\_Checkbox}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_Checkbox()}{\_Checkbox()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a39e4ee266125587dbd3cdb29967d4cdc} 
+bool venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Checkbox (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_ae3e39cce18daaad89c9d64fff8edcdd8}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_ColorEdit3@{\_ColorEdit3}}
+\index{\_ColorEdit3@{\_ColorEdit3}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_ColorEdit3()}{\_ColorEdit3()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_ae3e39cce18daaad89c9d64fff8edcdd8} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Color\+Edit3 (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{float}]{col}{\mbox{[}3\mbox{]}, }\item[{vc\+::\+GUIColor\+Edit\+Flags}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a49f31ed2017eac84aacab71f5cc1aeb4}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_End@{\_End}}
+\index{\_End@{\_End}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_End()}{\_End()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a49f31ed2017eac84aacab71f5cc1aeb4} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+End (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a11e9d48c9dbbd88b59adf0478af849bc}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_EndCombo@{\_EndCombo}}
+\index{\_EndCombo@{\_EndCombo}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_EndCombo()}{\_EndCombo()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a11e9d48c9dbbd88b59adf0478af849bc} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+End\+Combo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a6824d0333b4c7a667b597ac3685a0ee9}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_LabelText@{\_LabelText}}
+\index{\_LabelText@{\_LabelText}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_LabelText()}{\_LabelText()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a6824d0333b4c7a667b597ac3685a0ee9} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Label\+Text (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fmt}{, }\item[{}]{...}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a04d691ddf6bd5a7a0df7d432453a33df}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_NewFrame@{\_NewFrame}}
+\index{\_NewFrame@{\_NewFrame}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_NewFrame()}{\_NewFrame()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a04d691ddf6bd5a7a0df7d432453a33df} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+New\+Frame (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a02755b8cd57e3dda8a92727a96643f61}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_ProgressBar@{\_ProgressBar}}
+\index{\_ProgressBar@{\_ProgressBar}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_ProgressBar()}{\_ProgressBar()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a02755b8cd57e3dda8a92727a96643f61} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Progress\+Bar (\begin{DoxyParamCaption}\item[{float}]{fraction}{, }\item[{const vcm\+::\+Vec2 \&}]{size\+\_\+arg}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{overlay}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a0e960eb2f84f898499276324c1886b9c}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_Render@{\_Render}}
+\index{\_Render@{\_Render}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_Render()}{\_Render()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a0e960eb2f84f898499276324c1886b9c} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Render (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a1757f5d56ee70acdc50cda4765841dac}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_SameLine@{\_SameLine}}
+\index{\_SameLine@{\_SameLine}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_SameLine()}{\_SameLine()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a1757f5d56ee70acdc50cda4765841dac} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Same\+Line (\begin{DoxyParamCaption}\item[{float}]{offset\+\_\+from\+\_\+start\+\_\+x}{, }\item[{float}]{spacing}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a06c63f6bd76a304749157fd9ddab095a}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_Selectable@{\_Selectable}}
+\index{\_Selectable@{\_Selectable}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_Selectable()}{\_Selectable()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a06c63f6bd76a304749157fd9ddab095a} 
+bool venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Selectable (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{bool}]{selected}{, }\item[{vc\+::\+GUISelectable\+Flags}]{flags}{, }\item[{const vcm\+::\+Vec2 \&}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a2c9d8e179c19b15410440e15254ccdc2}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_SetItemDefaultFocus@{\_SetItemDefaultFocus}}
+\index{\_SetItemDefaultFocus@{\_SetItemDefaultFocus}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_SetItemDefaultFocus()}{\_SetItemDefaultFocus()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a2c9d8e179c19b15410440e15254ccdc2} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Set\+Item\+Default\+Focus (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a21a60c28fb9e3b54ad06cf23e73e0301}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_SliderFloat@{\_SliderFloat}}
+\index{\_SliderFloat@{\_SliderFloat}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_SliderFloat()}{\_SliderFloat()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a21a60c28fb9e3b54ad06cf23e73e0301} 
+bool venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Slider\+Float (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{v}{, }\item[{float}]{v\+\_\+min}{, }\item[{float}]{v\+\_\+max}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{format}{, }\item[{float}]{power}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a6fdc27998a700a0efcc504a78e443367}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_SliderFloat3@{\_SliderFloat3}}
+\index{\_SliderFloat3@{\_SliderFloat3}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_SliderFloat3()}{\_SliderFloat3()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a6fdc27998a700a0efcc504a78e443367} 
+bool venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Slider\+Float3 (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{float}]{v}{\mbox{[}3\mbox{]}, }\item[{float}]{v\+\_\+min}{, }\item[{float}]{v\+\_\+max}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{format}{, }\item[{float}]{power}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a8e1028f6dbdf6981ebb4fef54dbb47a8}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_Text@{\_Text}}
+\index{\_Text@{\_Text}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_Text()}{\_Text()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a8e1028f6dbdf6981ebb4fef54dbb47a8} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Text (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fmt}{, }\item[{}]{...}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_abc52e92f9a819faaafb2bcae06cd6306}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!\_TextColored@{\_TextColored}}
+\index{\_TextColored@{\_TextColored}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{\_TextColored()}{\_TextColored()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_abc52e92f9a819faaafb2bcae06cd6306} 
+void venom\+::vulkan\+::\+Vulkan\+GUI\+::\+\_\+\+Text\+Colored (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec4 \&}]{col}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fmt}{, }\item[{}]{...}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a75d1b9ad317a5536203d63938a9d3f79}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a75d1b9ad317a5536203d63938a9d3f79} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+GUI\+::\+Initialize (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a4029deb513fbeacad47a857ed693a57f}\index{venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}!Reset@{Reset}}
+\index{Reset@{Reset}!venom::vulkan::VulkanGUI@{venom::vulkan::VulkanGUI}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_g_u_i_a4029deb513fbeacad47a857ed693a57f} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+GUI\+::\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{venom\+::common\+::\+GUI}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_g_u_i_8h}{GUI.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{vulkan_2src_2_g_u_i_8cc}{GUI.\+cc}}\end{DoxyCompactItemize}

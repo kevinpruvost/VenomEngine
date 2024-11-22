@@ -150,16 +150,88 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a242ad4d6bf7a0e252ade3de2da17406f" id="r_a242ad4d6bf7a0e252ade3de2da17406f"><td class="memItemLeft" align="right" valign="top">static Error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a242ad4d6bf7a0e252ade3de2da17406f">SetScene</a> (const SceneCallback &amp;sceneCallback)</td></tr>
 <tr class="memdesc:a242ad4d6bf7a0e252ade3de2da17406f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a scene from a callback.  <br /></td></tr>
 <tr class="separator:a242ad4d6bf7a0e252ade3de2da17406f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadaf207c744764cb258e0b43144b5956" id="r_aadaf207c744764cb258e0b43144b5956"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadaf207c744764cb258e0b43144b5956">AddLoopCallback</a> (const LoopCallback &amp;loopCallback)</td></tr>
+<tr class="memdesc:aadaf207c744764cb258e0b43144b5956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a loop callback.  <br /></td></tr>
+<tr class="separator:aadaf207c744764cb258e0b43144b5956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73bb66d4f690291f8d0dd0fbe051de6c" id="r_a73bb66d4f690291f8d0dd0fbe051de6c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73bb66d4f690291f8d0dd0fbe051de6c">AddInputCallback</a> (const InputCallback &amp;inputCallback)</td></tr>
+<tr class="memdesc:a73bb66d4f690291f8d0dd0fbe051de6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a loop callback.  <br /></td></tr>
+<tr class="separator:a73bb66d4f690291f8d0dd0fbe051de6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a7960648bb56880422879b4ed96d63a79" id="r_a7960648bb56880422879b4ed96d63a79"><td class="memItemLeft" align="right" valign="top"><a id="a7960648bb56880422879b4ed96d63a79" name="a7960648bb56880422879b4ed96d63a79"></a>
-std::unique_ptr&lt; <a class="el" href="classvenom_1_1common_1_1_plugin_manager.html">PluginManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pluginManager</b></td></tr>
-<tr class="separator:a7960648bb56880422879b4ed96d63a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f40d3470dcfd5e93e0bfc18afd2cf05" id="r_a7f40d3470dcfd5e93e0bfc18afd2cf05"><td class="memItemLeft" align="right" valign="top"><a id="a7f40d3470dcfd5e93e0bfc18afd2cf05" name="a7f40d3470dcfd5e93e0bfc18afd2cf05"></a>
+UPtr&lt; <a class="el" href="classvenom_1_1common_1_1_plugin_manager.html">PluginManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pluginManager</b></td></tr>
+<tr class="separator:a7f40d3470dcfd5e93e0bfc18afd2cf05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a73bb66d4f690291f8d0dd0fbe051de6c" name="a73bb66d4f690291f8d0dd0fbe051de6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73bb66d4f690291f8d0dd0fbe051de6c">&#9670;&#160;</a></span>AddInputCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::common::VenomEngine::AddInputCallback </td>
+          <td>(</td>
+          <td class="paramtype">const InputCallback &amp;</td>          <td class="paramname"><span class="paramname"><em>inputCallback</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a loop callback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputCallback</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aadaf207c744764cb258e0b43144b5956" name="aadaf207c744764cb258e0b43144b5956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadaf207c744764cb258e0b43144b5956">&#9670;&#160;</a></span>AddLoopCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::common::VenomEngine::AddLoopCallback </td>
+          <td>(</td>
+          <td class="paramtype">const LoopCallback &amp;</td>          <td class="paramname"><span class="paramname"><em>loopCallback</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a loop callback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">loopCallback</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0ef26a66954f7362382c721f6d486b6e" name="a0ef26a66954f7362382c721f6d486b6e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ef26a66954f7362382c721f6d486b6e">&#9670;&#160;</a></span>GetInstance()</h2>
 

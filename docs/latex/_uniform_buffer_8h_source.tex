@@ -27,15 +27,13 @@
 \DoxyCodeLine{00029\ \ \ \ \ VkBuffer\ GetVkBuffer()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00030\ \ \ \ \ VkDeviceSize\ GetSize()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data)\ \{\ memcpy(\_\_mappedData,\ data,\ \textcolor{keyword}{sizeof}(T));\ \}}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data,\ \textcolor{keywordtype}{size\_t}\ size)\ \{\ memcpy(\_\_mappedData,\ data,\ size);\ \}}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_mappedData;}
-\DoxyCodeLine{00039\ \};}
-\DoxyCodeLine{00040\ \}}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ WriteToBuffer(\textcolor{keyword}{const}\ T\ *\ data,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0)\ \{\ memcpy((\textcolor{keywordtype}{char}\ *)\_\_mappedData\ +\ offset,\ data,\ size);\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\ \_\_buffer;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_mappedData;}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ \}}
 
 \end{DoxyCode}
