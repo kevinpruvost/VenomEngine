@@ -18,7 +18,7 @@ GraphicsSettings::GraphicsSettings()
     , _multisamplingDirty(false)
     , _isHdrSupported(false)
     , __isHdrEnabled(false)
-    , __loadingQueued(false)
+    , _gfxSettingsChangeQueued(false)
     , _samplingMode(MultiSamplingModeOption::None)
     , _samples(1)
 {
@@ -31,18 +31,6 @@ GraphicsSettings::~GraphicsSettings()
     s_graphicsSettings = nullptr;
 }
 
-vc::Error GraphicsSettings::ManageGfxSettingsLoadingQueue()
-{
-    if (s_graphicsSettings->__loadingQueued)
-    {
-        vc::Error err = s_graphicsSettings->__LoadGfxSettings();
-        if (err != vc::Error::Success)
-            return err;
-        s_graphicsSettings->__loadingQueued = false;
-    }
-    return vc::Error::Success;
-}
-
 vc::Error GraphicsSettings::SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)
 {
     s_graphicsSettings->_multisamplingDirty = true;
@@ -50,6 +38,8 @@ vc::Error GraphicsSettings::SetMultiSampling(const MultiSamplingModeOption mode,
     s_graphicsSettings->_samplingMode = mode;
     if (s_graphicsSettings->_gfxSettingsChangeState == GfxSettingsChangeState::Ended)
         s_graphicsSettings->__AddLoadGFXSettingsToQueue();
+    if (s_graphicsSettings->_SetMultiSampling(mode, samples) != vc::Error::Success)
+        return vc::Error::Failure;
     return vc::Error::Success;
 }
 
@@ -110,7 +100,7 @@ const vc::Vector<GraphicsSettings::MultiSamplingCountOption> & GraphicsSettings:
 
 void GraphicsSettings::__AddLoadGFXSettingsToQueue()
 {
-    __loadingQueued = true;
+    _gfxSettingsChangeQueued = true;
 }
 }
 }

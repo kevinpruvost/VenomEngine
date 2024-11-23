@@ -5,6 +5,7 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
+#include <thread>
 #include <venom/vulkan/VulkanApplication.h>
 
 #include <venom/common/ECS.h>
@@ -20,12 +21,10 @@ vc::Error VulkanApplication::_LoadGfxSettings()
 {
     vc::Error err;
 
+    if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
     // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders
     if (_multisamplingDirty)
     {
-        __swapChain.SetSamples(_samples);
-        if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
-
         static vc::ShaderPipeline vkShader;
         for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
             if (!shader->IsType<VulkanShaderResource>()) continue;
@@ -57,7 +56,6 @@ vc::Error VulkanApplication::_SetMultiSampling(const MultiSamplingModeOption mod
             venom_assert(false, "Invalid MultiSamplingModeOption");
         return vc::Error::Failure;
     };
-    __RecreateSwapChain();
     return vc::Error::Success;
 }
 

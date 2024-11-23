@@ -312,11 +312,12 @@ vc::Error VulkanApplication::__DrawFrame()
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 
     VkResult result = vkAcquireNextImageKHR(LogicalDevice::GetVkDevice(), __swapChain.swapChain, UINT64_MAX, __imageAvailableSemaphores[_currentFrame].GetSemaphore(), VK_NULL_HANDLE, &__imageIndex);
-    if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged) {
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || __framebufferChanged || _gfxSettingsChangeQueued) {
         __framebufferChanged = false;
+        _gfxSettingsChangeQueued = false;
         vc::Log::Print("Recreating swap chain");
         _currentFrame = 0;
-        return __RecreateSwapChain();
+        return _LoadGfxSettings();
     } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
         vc::Log::Error("Failed to acquire swap chain image");
         return vc::Error::Failure;

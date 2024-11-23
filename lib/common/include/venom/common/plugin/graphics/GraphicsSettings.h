@@ -24,8 +24,6 @@ public:
     GraphicsSettings();
     virtual ~GraphicsSettings();
 
-    static vc::Error ManageGfxSettingsLoadingQueue();
-
     enum class MultiSamplingModeOption
     {
         None = 1,
@@ -72,12 +70,13 @@ protected:
     bool _multisamplingDirty;
     bool _isHdrSupported;
 
+    bool _gfxSettingsChangeQueued;
+
 private:
     static vc::Error __LoadGfxSettings();
     void __AddLoadGFXSettingsToQueue();
 
     bool __isHdrEnabled;
-    bool __loadingQueued;
 
 private:
     vc::Vector<MultiSamplingCountOption> __availableMultisamplingOptions;

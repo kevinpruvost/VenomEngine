@@ -161,7 +161,7 @@ GBufferOutput ComputeMaterialColor(VSOutput input)
 
     // Position
     output.position = float4(input.worldPos, 1);
-    output.finalColor = float4(1.0, 0.0, 0.0, 1.0);
+    output.finalColor = float4(0.0, 0.0, 0.0, 0.0);
 
     return output;
 }

@@ -101,7 +101,6 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         vc::Timer::ResetLoopTimer();
         while (!app->ShouldClose())
         {
-            vc::GraphicsSettings::ManageGfxSettingsLoadingQueue();
             app->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 
