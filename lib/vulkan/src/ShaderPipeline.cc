@@ -33,7 +33,7 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
         // MultisamplingOption: on of the ways to do antialiasing
     multisamplingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     multisamplingCreateInfo.sampleShadingEnable = VK_FALSE;
-    multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(vc::GraphicsSettings::GetSamplesMultisampling());
+    multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(vc::GraphicsSettings::GetActiveSamplesMultisampling());
     //multisampling.minSampleShading = 1.0f; // Optional
     //multisampling.pSampleMask = nullptr; // Optional
     //multisampling.alphaToCoverageEnable = VK_FALSE; // Optional

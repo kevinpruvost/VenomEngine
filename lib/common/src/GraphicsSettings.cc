@@ -85,17 +85,45 @@ vc::Error GraphicsSettings::EndGfxSettingsChange()
     return __LoadGfxSettings();
 }
 
-int GraphicsSettings::GetSamplesMultisampling()
+int GraphicsSettings::GetActiveSamplesMultisampling()
 {
     return s_graphicsSettings->_samples;
 }
 
-const vc::Vector<GraphicsSettings::MultiSamplingCountOption> & GraphicsSettings::GetAvailableMultisamplingOptions()
+GraphicsSettings::MultiSamplingModeOption GraphicsSettings::GetActiveMultisamplingMode()
+{
+    return s_graphicsSettings->_samplingMode;
+}
+
+GraphicsSettings::MultiSamplingCountOption GraphicsSettings::GetActiveMultisamplingCount()
+{
+    return static_cast<GraphicsSettings::MultiSamplingCountOption>(s_graphicsSettings->_samples);
+}
+
+int GraphicsSettings::GetActiveMultisamplingCountIndex()
+{
+    const auto & availableMultisamplingOptions = s_graphicsSettings->GetAvailableMultisamplingCountOptions();
+    return static_cast<int>(std::distance(availableMultisamplingOptions.begin(),
+                                          std::find(availableMultisamplingOptions.begin(), availableMultisamplingOptions.end(),
+                                                    GetActiveMultisamplingCount())));
+}
+
+const vc::Vector<GraphicsSettings::MultiSamplingCountOption> & GraphicsSettings::GetAvailableMultisamplingCountOptions()
 {
     if (s_graphicsSettings->__availableMultisamplingOptions.empty()) {
         s_graphicsSettings->__availableMultisamplingOptions = s_graphicsSettings->_GetAvailableMultisamplingOptions();
+        s_graphicsSettings->__availableMultisamplingCountsStrings.clear();
+        s_graphicsSettings->__availableMultisamplingCountsStrings.reserve(s_graphicsSettings->__availableMultisamplingOptions.size());
+        for (const auto & option : s_graphicsSettings->__availableMultisamplingOptions) {
+            s_graphicsSettings->__availableMultisamplingCountsStrings.emplace_back(format("x%d", static_cast<int>(option)));
+        }
     }
     return s_graphicsSettings->__availableMultisamplingOptions;
+}
+
+const vc::Vector<vc::String>& GraphicsSettings::GetAvailableMultisamplingCountOptionsStrings()
+{
+    return s_graphicsSettings->__availableMultisamplingCountsStrings;
 }
 
 void GraphicsSettings::__AddLoadGFXSettingsToQueue()

@@ -46,8 +46,12 @@ public:
 
     static void StartGfxSettingsChange();
     static vc::Error EndGfxSettingsChange();
-    static int GetSamplesMultisampling();
-    static const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingOptions();
+    static int GetActiveSamplesMultisampling();
+    static MultiSamplingModeOption GetActiveMultisamplingMode();
+    static MultiSamplingCountOption GetActiveMultisamplingCount();
+    static int GetActiveMultisamplingCountIndex();
+    static const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingCountOptions();
+    static const vc::Vector<vc::String> & GetAvailableMultisamplingCountOptionsStrings();
 
 protected:
     virtual vc::Error _LoadGfxSettings() = 0;
@@ -77,6 +81,8 @@ private:
     void __AddLoadGFXSettingsToQueue();
 
     bool __isHdrEnabled;
+
+    vc::Vector<vc::String> __availableMultisamplingCountsStrings;
 
 private:
     vc::Vector<MultiSamplingCountOption> __availableMultisamplingOptions;

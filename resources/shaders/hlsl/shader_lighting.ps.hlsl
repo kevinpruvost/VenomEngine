@@ -12,7 +12,6 @@ struct LightingVSOutput {
 [[vk::input_attachment_index(2)]] SubpassInputMS g_metallicRoughAo : register(t5, space7);
 [[vk::input_attachment_index(3)]] SubpassInputMS g_position : register(t6, space7);
 [[vk::input_attachment_index(4)]] SubpassInputMS g_specular : register(t7, space7);
-
 struct FragmentOutput {
     float4 color : SV_Target0;
 };
@@ -196,13 +195,13 @@ FragmentOutput main(LightingVSOutput input) {
     // mat.ao = g_metallicRoughAo.SubpassLoad().b;
     // mat.specular = g_specular.SubpassLoad().rgb;
 
-    float4 baseColor = g_baseColor.SubpassLoad(1);
-    float3 normal = g_normal.SubpassLoad(1).xyz;
-    float4 specular = g_specular.SubpassLoad(1);
-    float metallic = g_metallicRoughAo.SubpassLoad(1).r;
-    float roughness = g_metallicRoughAo.SubpassLoad(1).g;
-    float ao = g_metallicRoughAo.SubpassLoad(1).b;
-    float4 position = g_position.SubpassLoad(1);
+    float4 baseColor = g_baseColor.SubpassLoad(2);
+    float3 normal = g_normal.SubpassLoad(2).xyz;
+    float4 specular = g_specular.SubpassLoad(2);
+    float metallic = g_metallicRoughAo.SubpassLoad(2).r;
+    float roughness = g_metallicRoughAo.SubpassLoad(2).g;
+    float ao = g_metallicRoughAo.SubpassLoad(2).b;
+    float4 position = g_position.SubpassLoad(2);
 
     if (disableMetallic != 0) {
         metallic = constant_metallic;

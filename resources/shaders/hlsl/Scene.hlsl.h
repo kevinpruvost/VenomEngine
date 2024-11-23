@@ -47,6 +47,7 @@ cbuffer cb2 : register(b1, space5) {
     int disableRoughness;
     float constant_metallic;
     float constant_roughness;
+    int multisamplingSamples;
 };
 
 enum class LightType
