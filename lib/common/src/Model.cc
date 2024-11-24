@@ -218,6 +218,13 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         break;
                 }
 
+                switch (matCompType)
+                {
+                    case MaterialComponentType::DIFFUSE:
+                        material.SetComponent(MaterialComponentType::BASE_COLOR, material.GetComponent(MaterialComponentType::DIFFUSE).GetColor3D());
+                        break;
+                }
+
 #ifdef VENOM_DEBUG
                 Log::LogToFile("Property Name: %s", property->mKey.C_Str());
                 Log::LogToFile("Property Semantic: %d", property->mSemantic);

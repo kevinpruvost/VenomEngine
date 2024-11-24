@@ -5,6 +5,7 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
+#include <imgui_internal.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/plugin/graphics/GUI.h>
@@ -202,9 +203,26 @@ vc::Error VulkanGUI::Reset()
     if (!ImGui_ImplVulkan_Init(&initInfo))
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
-    io.DisplaySize = ImVec2(static_cast<float>(vc::Context::Get()->GetWindowWidth()), static_cast<float>(vc::Context::Get()->GetWindowHeight()));
+    io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
 
     return vc::Error::Success;
+}
+
+void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const vcm::Vec2& pivot)
+{
+    ImGui::SetNextWindowPos(ImVec2(pos.x, pos.y), static_cast<ImGuiCond>(cond), ImVec2(pivot.x, pivot.y));
+}
+
+const vcm::Vec2 & VulkanGUI::_GetWindowSize()
+{
+    const auto& size = ImGui::GetWindowSize();
+    return {size.x, size.y};
+}
+
+const vcm::Vec2 & VulkanGUI::_GetWindowPos()
+{
+    const auto& pos = ImGui::GetWindowPos();
+    return {pos.x, pos.y};
 }
 
 void VulkanGUI::_NewFrame()
@@ -301,6 +319,11 @@ void VulkanGUI::_SetItemDefaultFocus()
 void VulkanGUI::_SameLine(float offset_from_start_x, float spacing)
 {
     ImGui::SameLine(offset_from_start_x, spacing);
+}
+
+vc::Error VulkanGUI::_PreUpdate()
+{
+    return vc::Error::Success;
 }
 
 void VulkanGUI::_Render()

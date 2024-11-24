@@ -32,5 +32,10 @@ void GUI::SetGraphicsApplication(GraphicsApplication* app)
 {
     _app = app;
 }
+
+vc::Error GUI::__PreUpdate()
+{
+    return _PreUpdate();
+}
 }
 }

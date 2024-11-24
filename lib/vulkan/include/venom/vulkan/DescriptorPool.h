@@ -117,6 +117,7 @@ public:
     * @param maxSets
     */
     void SetDescriptorSetLayoutMaxSets(const uint32_t descriptorSetIndex, const uint32_t flags);
+    DescriptorSetLayout & GetOrCreateDescriptorSetLayout(const uint32_t descriptorSetIndex);
     inline void SetDescriptorSetLayoutBindless(const uint32_t descriptorSetIndex) { SetDescriptorSetLayoutBindingSpecifications(descriptorSetIndex, VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT_EXT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT | VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT_EXT); }
     vc::Error Create(VkDescriptorPoolCreateFlags flags, uint32_t maxSets = VENOM_MAX_FRAMES_IN_FLIGHT);
     std::vector<DescriptorSetGroup> AllocateSets(const VkDescriptorSetLayout &layout, uint32_t count, const bool bindless) const;

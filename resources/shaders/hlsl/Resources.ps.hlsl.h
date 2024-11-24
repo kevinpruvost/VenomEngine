@@ -49,11 +49,25 @@ enum MaterialComponentValueType
     TEXTURE = 4,
 };
 
+enum MaterialComponentValueChannels
+{
+    R = 0b1,
+    G = 0b10,
+    B = 0b100,
+    A = 0b1000,
+    RG = R | G,
+    GB = G | B,
+    BA = B | A,
+    RGB = R | G | B,
+    RGBA = R | G | B | A,
+};
+
 // Structure for material component
 struct MaterialComponent
 {
     float4 value;      // Generic value, can be interpreted based on valueType
     int valueType;     // Type of value stored (color3D, color4D, float, texture)
+    int channels;      // Which channels are used
 };
 
 struct Material
@@ -73,23 +87,57 @@ cbuffer materialProps : register(b0, space4) {
 
 float MaterialComponentGetValue1(int componentType, float2 uv)
 {
+    float4 value;
     if (material.components[componentType].valueType == TEXTURE)
-        return GetTexture(componentType, uv).x;
-    return material.components[componentType].value.x;
+        value = GetTexture(componentType, uv);
+    else
+        value = material.components[componentType].value;
+
+    if (material.components[componentType].channels & G)
+        return value.g;
+    else if (material.components[componentType].channels & B)
+        return value.b;
+    else if (material.components[componentType].channels & A)
+        return value.a;
+    else
+        return value.r;
 }
 
 float2 MaterialComponentGetValue2(int componentType, float2 uv)
 {
+    float4 value;
     if (material.components[componentType].valueType == TEXTURE)
-        return GetTexture(componentType, uv).xy;
-    return material.components[componentType].value.xy;
+        value = GetTexture(componentType, uv);
+    else
+        value = material.components[componentType].value;
+    if (material.components[componentType].channels & G && material.components[componentType].channels & B)
+        return value.gb;
+    else if (material.components[componentType].channels & B && material.components[componentType].channels & A)
+        return value.ba;
+    else if (material.components[componentType].channels & G && material.components[componentType].channels & A)
+        return value.ga;
+    else if (material.components[componentType].channels & R && material.components[componentType].channels & G)
+        return value.rg;
+    else if (material.components[componentType].channels & R && material.components[componentType].channels & B)
+        return value.rb;
+    else if (material.components[componentType].channels & R && material.components[componentType].channels & A)
+        return value.ra;
+    else
+        return value.rg;
 }
 
 float3 MaterialComponentGetValue3(int componentType, float2 uv)
 {
+    float4 value;
     if (material.components[componentType].valueType == TEXTURE)
-        return GetTexture(componentType, uv).xyz;
-    return material.components[componentType].value.xyz;
+        value = GetTexture(componentType, uv);
+    else
+        value = material.components[componentType].value;
+
+    if (material.components[componentType].channels == RGB)
+        return value.rgb;
+    else
+        return value.gba;
 }
 
 float4 MaterialComponentGetValue4(int componentType, float2 uv)

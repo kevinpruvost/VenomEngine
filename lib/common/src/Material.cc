@@ -74,6 +74,16 @@ void MaterialImpl::SetComponent(const MaterialComponentType type, const Texture 
     __components[type].SetValue(texture);
 }
 
+void MaterialImpl::SetComponentChannels(const MaterialComponentType type, const MaterialComponentValueChannels channels)
+{
+    __components[type].SetChannels(channels);
+}
+
+void MaterialImpl::SetComponentChannelsFromIndex(const MaterialComponentType type, const int index)
+{
+    __components[type].SetChannelsFromIndex(index);
+}
+
 const MaterialComponent& MaterialImpl::GetComponent(const MaterialComponentType type) const
 {
     venom_assert(type < MaterialComponentType::MAX_COMPONENT, "MaterialComponentType out of range");
@@ -103,7 +113,7 @@ const MaterialImpl::MaterialResourceTable& MaterialImpl::_GetResourceTable(bool&
     {
         for (int i = 0; i < MaterialComponentType::MAX_COMPONENT; i++)
         {
-            __resourceTable.components[i].valueType = static_cast<int16_t>(__components[i].GetValueType());
+            __resourceTable.components[i].valueType = static_cast<int>(__components[i].GetValueType());
             switch (__resourceTable.components[i].valueType) {
                 case MaterialComponentValueType::COLOR3D:
                     memcpy(&__resourceTable.components[i].value, &__components[i].GetColor3D(), sizeof(vcm::Vec3));
@@ -116,6 +126,7 @@ const MaterialImpl::MaterialResourceTable& MaterialImpl::_GetResourceTable(bool&
                     memcpy(&__resourceTable.components[i].value, &val, sizeof(float));
                     break;
             }
+            __resourceTable.components[i].channels = static_cast<int>(__components[i].GetChannels());
         }
         __resourceTableDirty = false;
     }

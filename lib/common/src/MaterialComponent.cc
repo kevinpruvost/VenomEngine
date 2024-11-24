@@ -13,6 +13,7 @@ namespace common
 {
 MaterialComponent::MaterialComponent(const MaterialComponentType type)
     : __valueType(MaterialComponentValueType::NONE)
+    , __channels(MaterialComponentValueChannels::RGBA)
 {
 }
 

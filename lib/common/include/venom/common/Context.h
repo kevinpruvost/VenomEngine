@@ -102,8 +102,8 @@ public:
     inline bool IsKeyPressed(KeyboardInput key) const { return (__keyboardState[key] & (InputState::Pressed | InputState::Repeat)) > 0; }
     inline bool IsKeyReleased(KeyboardInput key) const { return __keyboardState[key] == InputState::Released; }
     inline bool IsKeyRepeat(KeyboardInput key) const { return __keyboardState[key] == InputState::Repeat; }
-    inline int GetWindowWidth() const { return __width; }
-    inline int GetWindowHeight() const { return __height; }
+    static inline int GetWindowWidth() { return s_context->__width; }
+    static inline int GetWindowHeight() { return s_context->__height; }
     
     /**
      * @brief Checks if a specified keyboard modifier key is currently pressed.
@@ -118,6 +118,8 @@ public:
 private:
     int __ConvertKeyboardInputToGLFWEnum(KeyboardInput key) const;
     KeyboardInput __ConvertGLFWEnumToKeyboardInput(int key) const;
+    inline int __GetWindowWidth() const { return __width; }
+    inline int __GetWindowHeight() const { return __height; }
 
 private:
     GLFWwindow * __window;

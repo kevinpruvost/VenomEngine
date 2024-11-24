@@ -26,6 +26,8 @@
 #include <thread>
 #include <chrono>
 
+#include "venom/common/plugin/graphics/GUI.h"
+
 
 namespace venom
 {
@@ -101,6 +103,7 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         vc::Timer::ResetLoopTimer();
         while (!app->ShouldClose())
         {
+            vc::GUI::Get()->__PreUpdate();
             app->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 

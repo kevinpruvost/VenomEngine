@@ -23,13 +23,14 @@ public:
     DescriptorSetLayout(DescriptorSetLayout&& other) noexcept;
     DescriptorSetLayout& operator=(DescriptorSetLayout&& other) noexcept;
 
-    void AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count, VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers = nullptr);
+    DescriptorSetLayout & AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count, VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers = nullptr);
     vc::Error Create();
-    inline void SetFlags(VkDescriptorSetLayoutCreateFlags flags) { __descriptorSetLayoutInfo.flags = flags; }
+    inline DescriptorSetLayout & SetBindless() { return SetBindingFlags(VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT_EXT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT | VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT_EXT); }
+    inline DescriptorSetLayout & SetFlags(VkDescriptorSetLayoutCreateFlags flags) { __descriptorSetLayoutInfo.flags = flags; return *this; }
     inline VkDescriptorSetLayoutCreateFlags GetFlags() { return __descriptorSetLayoutInfo.flags; }
     bool IsBindless() const;
-    void SetBindingFlags(VkDescriptorBindingFlags flags);
-    void SetMaxSets(uint32_t maxSets);
+    DescriptorSetLayout & SetBindingFlags(VkDescriptorBindingFlags flags);
+    DescriptorSetLayout & SetMaxSets(uint32_t maxSets);
     uint32_t GetMaxSets() const;
     const std::vector<VkDescriptorSetLayoutBinding> & GetBindings() const;
 

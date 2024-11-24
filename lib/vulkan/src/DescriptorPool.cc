@@ -156,6 +156,13 @@ void DescriptorPool::SetDescriptorSetLayoutMaxSets(const uint32_t descriptorSetI
     __descriptorSetLayouts[descriptorSetIndex].SetMaxSets(maxSets);
 }
 
+DescriptorSetLayout& DescriptorPool::GetOrCreateDescriptorSetLayout(const uint32_t descriptorSetIndex)
+{
+    while (__descriptorSetLayouts.size() <= descriptorSetIndex)
+        __descriptorSetLayouts.emplace_back();
+    return __descriptorSetLayouts[descriptorSetIndex];
+}
+
 vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t maxSets)
 {
     // Create Pool

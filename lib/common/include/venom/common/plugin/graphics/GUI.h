@@ -16,6 +16,7 @@ namespace venom
 namespace common
 {
 class GraphicsApplication;
+class VenomEngine;
 
 typedef void(*GUIDrawCallback)();
 class VENOM_COMMON_API GUI : public GraphicsPluginObject
@@ -36,6 +37,10 @@ public:
 
     static inline GUI * Get() { return s_gui; }
 
+    static inline void SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond = GUICondBits::GUICond_None, const vcm::Vec2 & pivot = vcm::Vec2(0, 0)) { s_gui->_SetNextWindowPos(pos, cond, pivot); }
+
+    static inline const vcm::Vec2 & GetWindowSize() { return s_gui->_GetWindowSize(); }
+    static inline const vcm::Vec2 & GetWindowPos() { return s_gui->_GetWindowPos(); }
     static inline void NewFrame() { s_gui->_NewFrame(); }
     static inline void Begin(const char * name, bool * p_open = nullptr, GUIWindowFlags flags = 0) { s_gui->_Begin(name, p_open, flags); }
     static inline void End() { s_gui->_End(); }
@@ -62,6 +67,11 @@ public:
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
 
 protected:
+    virtual void _SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond, const vcm::Vec2 & pivot) = 0;
+
+    virtual const vcm::Vec2 & _GetWindowSize() = 0;
+    virtual const vcm::Vec2 & _GetWindowPos() = 0;
+
     virtual void _NewFrame() = 0;
     virtual void _Begin(const char * name, bool * p_open, GUIWindowFlags flags) = 0;
     virtual void _End() = 0;
@@ -88,15 +98,25 @@ protected:
     virtual void _SameLine(float offset_from_start_x, float spacing) = 0;
 
     virtual void _Render() = 0;
+    virtual vc::Error _PreUpdate() = 0;
 
 protected:
     GraphicsApplication * _app;
+
+private:
+    /**
+     * @brief Mainly serves for the GUI to update its internal state
+     * automatically from VenomEngine and not the Graphics API
+     */
+    vc::Error __PreUpdate();
 
 private:
     static GUI * s_gui;
 
 private:
     static GUIDrawCallback s_guiDrawCallback;
+
+    friend class VenomEngine;
 };
 }
 }

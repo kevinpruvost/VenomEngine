@@ -123,5 +123,15 @@ enum GUISelectableFlagsBits
 };
 typedef int GUISelectableFlags;
 
+enum GUICondBits
+{
+    GUICond_None          = 0,        // No condition (always set the variable), same as _Always
+    GUICond_Always        = 1 << 0,   // No condition (always set the variable), same as _None
+    GUICond_Once          = 1 << 1,   // Set the variable once per runtime session (only the first call will succeed)
+    GUICond_FirstUseEver  = 1 << 2,   // Set the variable if the object/window has no persistently saved data (no entry in .ini file)
+    GUICond_Appearing     = 1 << 3,   // Set the variable if the object/window is appearing after being hidden/inactive (or the first time)
+};
+typedef int GUICond;
+
 }
 }

@@ -58,7 +58,7 @@ void Scene()
                 .emplace<vc::Transform3D>()
                 .emplace<vc::Model>("ground/ground.fbx")
                 .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::ShadowModel);
-            ground.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(i * 3.0f, 0.0f,j * 3.0f));
+            ground.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(i * 3.5f, 0.0f,j * 3.5f));
         }
     }
 

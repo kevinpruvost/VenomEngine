@@ -223,7 +223,7 @@ FragmentOutput main(LightingVSOutput input) {
 
     // Define additional material parameters for the Disney BRDF
     float subsurface = 0.0f;  // Subsurface scattering amount
-    float specularVal = 0.8; // Specular intensity
+    float specularVal = 0.4; // Specular intensity
     float specularTint = 0.5; // Specular tint
     float anisotropic = 0.0; // Anisotropy
     float sheen = 0.0;       // Sheen amount

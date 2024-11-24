@@ -66,8 +66,8 @@ void SceneGUI()
     vc::Entity light1 = vc::ECS::GetEntity("light1");
 
     vc::GUI::NewFrame();
+    vc::GUI::SetNextWindowPos(vcm::Vec2(10, 10), vc::GUICondBits::GUICond_Always);
     vc::GUI::Begin("VenomEngine");
-    vc::GUI::Text("Welcome to my demo !");
     vc::GUI::Checkbox("Camera Locked", &cameraLocked);
     vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
     vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
@@ -89,9 +89,6 @@ void SceneGUI()
     }
     const vc::Vector<vc::String> & msaaModes = vc::GraphicsSettings::GetAvailableMultisamplingCountOptionsStrings();
     int msaaMode = vc::GraphicsSettings::GetActiveMultisamplingCountIndex();
-    if (vc::GUI::Button("Test")) {
-        vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, (vc::GraphicsSettings::MultiSamplingCountOption)(1));
-    }
     if (vc::GUI::BeginCombo("MSAA:", msaaModes[msaaMode].c_str())) {
         for (int i = 0; i < vc::GraphicsSettings::GetAvailableMultisamplingCountOptions().size(); i++) {
             bool isSelected = (msaaMode == i);
@@ -105,5 +102,10 @@ void SceneGUI()
         }
         vc::GUI::EndCombo();
     }
+    vc::GUI::End();
+
+    vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth() - 10, 10}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
+    vc::GUI::Begin("TestWindow");
+    vc::GUI::Text("Hello, world!");
     vc::GUI::End();
 }

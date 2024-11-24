@@ -58,13 +58,14 @@ DescriptorSetLayout& DescriptorSetLayout::operator=(DescriptorSetLayout&& other)
     return *this;
 }
 
-void DescriptorSetLayout::AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count,
+DescriptorSetLayout & DescriptorSetLayout::AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count,
                                      VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers)
 {
     __bindings.push_back({ binding, type, count, stageFlags, immutableSamplers });
     __descriptorSetLayoutInfo.bindingCount = __bindings.size();
     __descriptorSetLayoutInfo.pBindings = __bindings.data();
     __descriptorSetLayoutInfo.pNext = nullptr;
+    return *this;
 }
 
 vc::Error DescriptorSetLayout::Create()
@@ -89,7 +90,7 @@ bool DescriptorSetLayout::IsBindless() const
     return false;
 }
 
-void DescriptorSetLayout::SetBindingFlags(VkDescriptorBindingFlags flags)
+DescriptorSetLayout & DescriptorSetLayout::SetBindingFlags(VkDescriptorBindingFlags flags)
 {
     VkDescriptorBindingFlags * allocatedFlags = reinterpret_cast<VkDescriptorBindingFlags *>(__createInfoFlags.emplace_back(new VkDescriptorBindingFlags{flags}));
     VkDescriptorSetLayoutBindingFlagsCreateInfoEXT * bindingFlagsCreateInfoExt = reinterpret_cast<VkDescriptorSetLayoutBindingFlagsCreateInfoEXT *>(__createInfoPNexts.emplace_back(new VkDescriptorSetLayoutBindingFlagsCreateInfoEXT{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO_EXT, nullptr, 1, allocatedFlags }));
@@ -99,11 +100,13 @@ void DescriptorSetLayout::SetBindingFlags(VkDescriptorBindingFlags flags)
         exit(1);
     }
     __descriptorSetLayoutInfo.pNext = bindingFlagsCreateInfoExt;
+    return *this;
 }
 
-void DescriptorSetLayout::SetMaxSets(uint32_t maxSets)
+DescriptorSetLayout & DescriptorSetLayout::SetMaxSets(uint32_t maxSets)
 {
     __maxSets = maxSets;
+    return *this;
 }
 
 uint32_t DescriptorSetLayout::GetMaxSets() const
