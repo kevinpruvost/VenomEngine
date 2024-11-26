@@ -264,7 +264,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
 
     // Create Render Pass
     __skyboxRenderPass.SetRenderingType(vc::RenderingPipelineType::Skybox);
-    __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::ShadowModel);
+    __shadowRenderPass.SetRenderingType(vc::RenderingPipelineType::PBRModel);
     __guiRenderPass.SetRenderingType(vc::RenderingPipelineType::GUI);
     __CreateAttachments();
     for (const auto renderPass : RenderPass::GetRenderPasses()) {

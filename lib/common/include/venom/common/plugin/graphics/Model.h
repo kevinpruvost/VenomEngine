@@ -22,8 +22,8 @@ class Model;
 class VENOM_COMMON_API ModelResource : public GraphicsCachedResource
 {
 public:
-    std::vector<vc::Mesh> meshes;
-    std::vector<vc::Material> materials;
+    vc::Vector<vc::Mesh> meshes;
+    vc::Vector<vc::Material> materials;
 };
 
 class VENOM_COMMON_API ModelImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
@@ -35,7 +35,9 @@ public:
     vc::Error ImportModel(const char * path);
     virtual void Draw() = 0;
 
-    const std::vector<vc::Mesh> & GetMeshes() const;
+    const vc::Vector<vc::Mesh> & GetMeshes() const;
+    const vc::Vector<vc::Material> & GetMaterials() const;
+    vc::Vector<vc::Material> & GetMaterials();
 
 private:
     friend class Model;
@@ -52,7 +54,9 @@ public:
 
     inline void Draw() { _impl->As<ModelImpl>()->Draw(); }
     inline vc::Error ImportModel(const char * path) { return _impl->As<ModelImpl>()->ImportModel(path); }
-    inline const std::vector<vc::Mesh> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }
+    inline const vc::Vector<vc::Mesh> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }
+    inline const vc::Vector<vc::Material> & GetMaterials() const { return _impl->As<ModelImpl>()->GetMaterials(); }
+    inline vc::Vector<vc::Material> & GetMaterials() { return _impl->As<ModelImpl>()->GetMaterials(); }
 };
 
 

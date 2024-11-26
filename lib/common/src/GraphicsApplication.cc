@@ -101,24 +101,31 @@ void GraphicsApplication::__LoadRenderingPipelines()
             {vc::ShaderVertexFormat::Vec3, 3, 3, 0}, // Tangent
             {vc::ShaderVertexFormat::Vec3, 4, 4, 0}, // Bitangent
         });
-        gbuffer_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
+        gbuffer_shader.SetRenderingPipelineType(RenderingPipelineType::PBRModel);
         gbuffer_shader.SetRenderingPipelineIndex(0);
-        gbuffer_shader.LoadShaderFromFile("pbr_mesh/gbuffer");
+        gbuffer_shader.LoadShaderFromFile("pbr_mesh/lighting");
 
-        ShaderPipeline & lighting_shader = shadowModelShaders.emplace_back();
-        lighting_shader.AddVertexBufferToLayout({
-            {vc::ShaderVertexFormat::Vec4, 0, 0, 0}, // Position
-        });
-        lighting_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
-        lighting_shader.SetRenderingPipelineIndex(1);
-        lighting_shader.LoadShaderFromFile("pbr_mesh/lighting");
+        RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::PBRModel);
+    }
 
-        ShaderPipeline & lightCulling_shader = shadowModelShaders.emplace_back();
-        lightCulling_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
-        lightCulling_shader.SetRenderingPipelineIndex(2);
-        lightCulling_shader.LoadShaderFromFile("pbr_mesh/lightculling");
+    // Loading compute shader for Forward+ Light Culling
+    {
+        ShaderPipelineList lightCullingShaders;
+        ShaderPipeline & shader = lightCullingShaders.emplace_back();
+        shader.SetRenderingPipelineType(RenderingPipelineType::ComputeForwardPlusLightCulling);
+        shader.LoadShaderFromFile("pbr_mesh/forwardplus_lightculling");
 
-        RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::ShadowModel);
+        RenderingPipelineImpl::SetRenderingPipelineCache(lightCullingShaders, RenderingPipelineType::ComputeForwardPlusLightCulling);
+    }
+
+    // Loading compute shader for Cascaded Shadow Mapping
+    {
+        ShaderPipelineList csmShaders;
+        ShaderPipeline & shader = csmShaders.emplace_back();
+        shader.SetRenderingPipelineType(RenderingPipelineType::ComputeCascadedShadowMapping);
+        shader.LoadShaderFromFile("pbr_mesh/csm");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(csmShaders, RenderingPipelineType::ComputeCascadedShadowMapping);
     }
 
     // Loading skybox shaders

@@ -54,6 +54,16 @@ void TranslateMatrix(Mat4& matrix, const Vec3& translation)
 #endif
 }
 
+void ScaleMatrix(Mat4& matrix, const Vec3& scale)
+{
+#if defined(VENOM_MATH_DXMATH)
+    const Mat4 scaleMatrix = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+    matrix = DirectX::XMMatrixMultiply(matrix, scaleMatrix);
+#elif defined(VENOM_MATH_GLM)
+    matrix = glm::scale(matrix, scale);
+#endif
+}
+
 Mat4 LookAtLH(const Vec3& eye, const Vec3& center, const Vec3& up)
 {
 #if defined(VENOM_MATH_DXMATH)

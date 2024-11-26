@@ -21,12 +21,12 @@ struct VSInput {
 
 struct VSOutput {
     float4 outPosition : SV_POSITION; // Equivalent to gl_Position in GLSL
-    [[vk::location(0)]] float4 fragColor : TEXCOORD0;     // Equivalent to layout(location = 0) out in GLSL
-    [[vk::location(1)]] float3 normal : NORMAL;
-    [[vk::location(2)]] float2 fragTexCoord : TEXCOORD1;  // Equivalent to layout(location = 1) out in GLSL
-    [[vk::location(3)]] float3 tangent : TANGENT;
-    [[vk::location(4)]] float3 bitangent : BITANGENT;
-    [[vk::location(5)]] float3 worldPos : TEXCOORD2;
+    float2 fragTexCoord : TEXCOORD0;  // Equivalent to layout(location = 1) out in GLSL
+    float3 normal : NORMAL;
+    float4 fragColor : TEXCOORD1;     // Equivalent to layout(location = 0) out in GLSL
+    float3 tangent : TANGENT;
+    float3 bitangent : BITANGENT;
+    float3 worldPos : TEXCOORD2;
 };
 
 cbuffer UniformBufferCamera : register(b0, space1) {
@@ -67,7 +67,7 @@ struct Light
     float radius;
 };
 cbuffer cl1 : register(b0, space7) {
-    Light lights[128];
+    Light lights[256];
 };
 cbuffer cl2 : register(b1, space7) {
     int lightCount;

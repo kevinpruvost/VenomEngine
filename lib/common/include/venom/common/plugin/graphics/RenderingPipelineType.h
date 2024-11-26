@@ -16,8 +16,10 @@ enum class RenderingPipelineType
     None = -1,
     GUI = 0,
     Text3D,
-    ShadowModel,
     Skybox,
+    PBRModel,
+    ComputeForwardPlusLightCulling,
+    ComputeCascadedShadowMapping,
     Count,
 };
 }

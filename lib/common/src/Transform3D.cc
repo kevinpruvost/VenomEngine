@@ -14,6 +14,7 @@ namespace common
 {
 Transform3D::Transform3D()
     : _position(0.0f, 0.0f, 0.0f)
+    , _scale(1.0f, 1.0f, 1.0f)
     , _rotationQuat(vcm::IdentityQuat())
     , __3DrotationViewDirty(true)
     , __positionDirty(true)
@@ -36,6 +37,7 @@ Transform3D::~Transform3D()
 
 Transform3D::Transform3D(const Transform3D& other)
     : _position(other._position)
+    , _scale(other._scale)
     , _rotationQuat(other._rotationQuat)
     , __3DrotationViewDirty(other.__3DrotationViewDirty)
     , __positionDirty(other.__positionDirty)
@@ -55,6 +57,7 @@ Transform3D& Transform3D::operator=(const Transform3D& other)
 {
     if (this != &other) {
         _position = other._position;
+        _scale = other._scale;
         _rotationQuat = other._rotationQuat;
         __3DrotationViewDirty = other.__3DrotationViewDirty;
         __positionDirty = other.__positionDirty;
@@ -75,6 +78,7 @@ Transform3D& Transform3D::operator=(const Transform3D& other)
 
 Transform3D::Transform3D(Transform3D&& other) noexcept
     : _position(std::move(other._position))
+    , _scale(std::move(other._scale))
     , _rotationQuat(std::move(other._rotationQuat))
     , __3DrotationViewDirty(std::move(other.__3DrotationViewDirty))
     , __positionDirty(std::move(other.__positionDirty))
@@ -93,6 +97,7 @@ Transform3D& Transform3D::operator=(Transform3D&& other) noexcept
 {
     if (this != &other) {
         _position = std::move(other._position);
+        _scale = std::move(other._scale);
         _rotationQuat = std::move(other._rotationQuat);
         __3DrotationViewDirty = std::move(other.__3DrotationViewDirty);
         __positionDirty = std::move(other.__positionDirty);
@@ -113,6 +118,12 @@ void Transform3D::SetPosition(const vcm::Vec3& position)
 {
     _position = position;
     __positionDirty = true;
+    __modelDirty = true;
+}
+
+void Transform3D::SetScale(const vcm::Vec3& scale)
+{
+    _scale = scale;
     __modelDirty = true;
 }
 
@@ -195,6 +206,7 @@ void Transform3D::UpdateModelMatrix()
         __GetModelMatrix() = vcm::Identity();
         vcm::TranslateMatrix(__GetModelMatrix(), _position);
         vcm::RotateMatrix(__GetModelMatrix(), _rotationQuat);
+        vcm::ScaleMatrix(__GetModelMatrix(), _scale);
         __modelDirty = false;
     }
 }

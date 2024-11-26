@@ -25,6 +25,7 @@ public:
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera
+    void SetScale(const vcm::Vec3& scale);        // Set scale of the camera
     void Move(const vcm::Vec3& delta);            // Move camera by delta
     inline void MoveForward(const float delta) { Move(GetForwardVector() * delta); } // Move camera forward by delta
     inline void MoveRight(const float delta) { Move(GetRightVector() * delta); } // Move camera right by delta
@@ -85,6 +86,7 @@ protected:
 
 protected:
     vcm::Vec3 _position;
+    vcm::Vec3 _scale;
     vcm::Quat _rotationQuat;
     union
     {

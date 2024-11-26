@@ -34,6 +34,8 @@ public:
     const MaterialComponent & GetComponent(const MaterialComponentType type) const;
     const std::string & GetName() const;
     void SetName(const std::string & name);
+    const vcm::Vec2 & GetTextureRepeatFactor() const;
+    void SetTextureRepeatFactor(const vcm::Vec2 & factor);
 
     /**
      * Material Component Resource Table (size: 32 bytes)
@@ -47,12 +49,14 @@ public:
     };
     struct VENOM_COMMON_API MaterialResourceTable {
         MaterialComponentResourceTable components[MaterialComponentType::MAX_COMPONENT];
+        vcm::Vec2 textureRepeatingFactor;
     };
 protected:
     const MaterialResourceTable & _GetResourceTable(bool & wasDirty);
 
 private:
     MaterialComponent __components[MaterialComponentType::MAX_COMPONENT];
+    vcm::Vec2 __textureRepeatingFactor;
     MaterialResourceTable __resourceTable;
     bool __resourceTableDirty;
     std::string __name;
@@ -87,6 +91,12 @@ public:
     }
     inline void SetName(const std::string & name) {
         _impl->As<MaterialImpl>()->SetName(name);
+    }
+    inline const vcm::Vec2 & GetTextureRepeatFactor() const {
+        return _impl->As<MaterialImpl>()->GetTextureRepeatFactor();
+    }
+    inline void SetTextureRepeatFactor(const vcm::Vec2 & factor) {
+        _impl->As<MaterialImpl>()->SetTextureRepeatFactor(factor);
     }
 };
 

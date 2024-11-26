@@ -1,21 +1,5 @@
 #include "../PBR.hlsl.h"
 
-// Lighting shader
-
-struct LightingVSOutput {
-    float4 position : SV_POSITION;
-    [[vk::location(0)]] float2 uv : TEXCOORD0;
-};
-
-[[vk::input_attachment_index(0)]] SubpassInputMS g_baseColor : register(t3, space7);
-[[vk::input_attachment_index(1)]] SubpassInputMS g_normal : register(t4, space7);
-[[vk::input_attachment_index(2)]] SubpassInputMS g_metallicRoughAo : register(t5, space7);
-[[vk::input_attachment_index(3)]] SubpassInputMS g_position : register(t6, space7);
-[[vk::input_attachment_index(4)]] SubpassInputMS g_specular : register(t7, space7);
-struct FragmentOutput {
-    float4 color : SV_Target0;
-};
-
 // Placeholder for shadow calculation
 float ComputeShadow(float3 position, float3 normal, float3 lightDir) {
     float3 realNormal = normalize(position + normal);
@@ -83,24 +67,55 @@ float3 ComputeAmbient(
     return ambientDiffuse + ambientSpecular;
 }
 
-FragmentOutput main(LightingVSOutput input) {
-    FragmentOutput output;
+GBufferOutput main(VSOutput input, bool isFrontFace : SV_IsFrontFace) {
+    GBufferOutput output;
+    if (isFrontFace == false) {
+        input.normal = -input.normal;
+        input.tangent = -input.tangent;
+        input.bitangent = -input.bitangent;
+    }
+    float2 uv = input.fragTexCoord;
 
-    // MaterialPBR mat;
-    // mat.baseColor = g_baseColor.SubpassLoad().rgb;
-    // mat.normal = g_normal.SubpassLoad().xyz;
-    // mat.metallic = g_metallicRoughAo.SubpassLoad().r;
-    // mat.roughness = g_metallicRoughAo.SubpassLoad().g;
-    // mat.ao = g_metallicRoughAo.SubpassLoad().b;
-    // mat.specular = g_specular.SubpassLoad().rgb;
+    float4 baseColor;
+    float3 normal;
+    float4 specular;
+    float metallic = 0.0;
+    float roughness = 0.5;
+    float ao = 1.0;
+    float4 emissive;
+    float3 position = input.worldPos;
 
-    float4 baseColor = g_baseColor.SubpassLoad(2);
-    float3 normal = g_normal.SubpassLoad(2).xyz;
-    float4 specular = g_specular.SubpassLoad(2);
-    float metallic = g_metallicRoughAo.SubpassLoad(2).r;
-    float roughness = g_metallicRoughAo.SubpassLoad(2).g;
-    float ao = g_metallicRoughAo.SubpassLoad(2).b;
-    float4 position = g_position.SubpassLoad(2);
+    baseColor = MaterialComponentGetValue4(MaterialComponentType::BASE_COLOR, uv);
+
+    // Normal in tangent space
+    float3x3 TBN = transpose(float3x3(input.tangent, input.bitangent, input.normal));
+    bool tangentSpace = material.components[MaterialComponentType::NORMAL].valueType == TEXTURE;
+    if (tangentSpace) {
+        normal = GetMaterialTexture(MaterialComponentType::NORMAL, uv).rgb;
+        normal = normalize(mul(TBN, normal));
+        // normal = normalize(normal * input.normal);
+    } else
+    {
+        normal = normalize(input.normal);
+    }
+
+    // Specular
+    if (material.components[MaterialComponentType::SPECULAR].valueType != NONE)
+        specular = MaterialComponentGetValue4(MaterialComponentType::SPECULAR, uv);
+    else
+        specular = float4(0.5, 0.5, 0.5, 1.0);
+
+    // Metallic (if PBR, then METALLIC otherwise 0)
+    if (material.components[MaterialComponentType::METALLIC].valueType != NONE)
+        metallic = MaterialComponentGetValue1(MaterialComponentType::METALLIC, uv);
+    // Roughness (if PBR, then ROUGHNESS otherwise square of 2/(SPECULAR+2))
+    if (material.components[MaterialComponentType::ROUGHNESS].valueType != NONE)
+        roughness = MaterialComponentGetValue1(MaterialComponentType::ROUGHNESS, uv);
+    else if (material.components[MaterialComponentType::SHININESS].valueType != NONE)
+        roughness = MaterialComponentGetValue1(MaterialComponentType::SHININESS, uv);
+    // Ambient occlusion
+    if (material.components[MaterialComponentType::AMBIENT_OCCLUSION].valueType != NONE)
+        ao = MaterialComponentGetValue1(MaterialComponentType::AMBIENT_OCCLUSION, uv);
 
     if (disableMetallic != 0) {
         metallic = constant_metallic;
@@ -108,17 +123,6 @@ FragmentOutput main(LightingVSOutput input) {
     if (disableRoughness != 0) {
         roughness = constant_roughness;
     }
-
-    if (position.x == 0.0 && position.y == 0.0 && position.z == 0.0) {
-       discard;
-    }
-
-    // Test normal
-
-    // Calculate final shading
-    float3 viewDir = normalize(cameraPos - position.xyz);
-
-    float3 finalColor = float3(0.0f, 0.0f, 0.0f);
 
     // Define additional material parameters for the Disney BRDF
     float subsurface = 0.0f;  // Subsurface scattering amount
@@ -130,7 +134,13 @@ FragmentOutput main(LightingVSOutput input) {
     float clearCoat = 0.0;   // Clear coat amount
     float clearCoatGloss = 0.0; // Clear coat glossiness
 
+    float3 viewDir = normalize(cameraPos - position);
+
+    // Switch of view dir to tangent space
+    //if (tangentSpace) viewDir = mul(TBN, viewDir);
+
     // Loop over lights
+    output.finalColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
     for (uint i = 0; i < 1; ++i) {
         Light light = lights[i];
 
@@ -138,11 +148,13 @@ FragmentOutput main(LightingVSOutput input) {
         float3 lightColor = GetLightColor(light, position.xyz);
         float3 lightDir = GetLightDirection(light, position.xyz);
 
+        // Switch of lightDir to tangent space
+        //if (tangentSpace)
+        //    lightDir = mul(TBN, lightDir);
+
         float3 radiance = lightColor * saturate(dot(normal, lightDir));
 
-        float3 X = normalize(cross(normal, float3(0.0, 1.0, 0.0)));
-        float3 Y = cross(normal, X);
-        finalColor += DisneyPrincipledBRDF(lightDir, viewDir, normal, X, Y, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+        output.finalColor.rgb += DisneyPrincipledBRDF(lightDir, viewDir, normal, input.tangent, input.bitangent, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
         // finalColor += DisneyPrincipledBRDF(
         //     normal,
         //     viewDir,
@@ -157,7 +169,12 @@ FragmentOutput main(LightingVSOutput input) {
         //     sheen,
         //     sheenTint
         // ) * radiance;
+        output.finalColor.r = output.finalColor.g = output.finalColor.b = dot(normal, viewDir);
     }
+
+    // Set transparency
+    output.finalColor.a = baseColor.a;
+    output.finalColor.a = 1.0f;
 
     // Add ambient light
     //finalColor += ComputeAmbient(baseColor.rgb, normal, viewDir, metallic, roughness, float3(0.2, 0.2, 0.2), 0.01f);
@@ -168,7 +185,6 @@ FragmentOutput main(LightingVSOutput input) {
     //finalColor *= ao;
 
     if (normalMapDraw != 0)
-        finalColor = normal;
-    output.color = float4(finalColor, 1.0f);
+        output.finalColor = float4(normal, 1.0f);
     return output;
 }

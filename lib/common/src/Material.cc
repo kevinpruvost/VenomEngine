@@ -37,6 +37,7 @@ MaterialImpl::MaterialImpl()
     MaterialComponentType::SHEEN,
     MaterialComponentType::CLEARCOAT
     }
+    , __textureRepeatingFactor(1.0f, 1.0f)
     , __resourceTableDirty(true)
 {
 }
@@ -62,31 +63,37 @@ Material::~Material()
 void MaterialImpl::SetComponent(const MaterialComponentType type, const vcm::Vec3& value)
 {
     __components[type].SetValue(value);
+    __resourceTableDirty = true;
 }
 
 void MaterialImpl::SetComponent(const MaterialComponentType type, const vcm::Vec4& value)
 {
     __components[type].SetValue(value);
+    __resourceTableDirty = true;
 }
 
 void MaterialImpl::SetComponent(const MaterialComponentType type, const float value)
 {
     __components[type].SetValue(value);
+    __resourceTableDirty = true;
 }
 
 void MaterialImpl::SetComponent(const MaterialComponentType type, const Texture & texture)
 {
     __components[type].SetValue(texture);
+    __resourceTableDirty = true;
 }
 
 void MaterialImpl::SetComponentChannels(const MaterialComponentType type, const MaterialComponentValueChannels channels)
 {
     __components[type].SetChannels(channels);
+    __resourceTableDirty = true;
 }
 
 void MaterialImpl::SetComponentChannelsFromIndex(const MaterialComponentType type, const int index)
 {
     __components[type].SetChannelsFromIndex(index);
+    __resourceTableDirty = true;
 }
 
 const MaterialComponent& MaterialImpl::GetComponent(const MaterialComponentType type) const
@@ -103,6 +110,18 @@ const std::string& MaterialImpl::GetName() const
 void MaterialImpl::SetName(const std::string& name)
 {
     __name = name;
+    __resourceTableDirty = true;
+}
+
+const vcm::Vec2& MaterialImpl::GetTextureRepeatFactor() const
+{
+    return __textureRepeatingFactor;
+}
+
+void MaterialImpl::SetTextureRepeatFactor(const vcm::Vec2& factor)
+{
+    __textureRepeatingFactor = factor;
+    __resourceTableDirty = true;
 }
 
 MaterialImpl::MaterialComponentResourceTable::MaterialComponentResourceTable()
@@ -132,6 +151,7 @@ const MaterialImpl::MaterialResourceTable& MaterialImpl::_GetResourceTable(bool&
                     break;
             }
             __resourceTable.components[i].channels = static_cast<int>(__components[i].GetChannels());
+            __resourceTable.textureRepeatingFactor = __textureRepeatingFactor;
         }
         __resourceTableDirty = false;
     }

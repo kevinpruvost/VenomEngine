@@ -169,7 +169,6 @@ void VulkanShaderPipeline::_SetDepthWrite(const bool enable)
 vc::Error VulkanShaderPipeline::_ReloadShader()
 {
     venom_assert(_renderingPipelineType != vc::RenderingPipelineType::None, "Rendering Pipeline Type is not set");
-    venom_assert(_renderingPipelineIndex != std::numeric_limits<uint32_t>::max(), "Rendering Pipeline Index is not set");
 
     if (_resource->As<VulkanShaderResource>()->shaderDirty == false || _resource->As<VulkanShaderResource>()->shaderStages.empty()) return vc::Error::Success;
 
@@ -206,6 +205,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
     // Setting up the pipeline
     if (_resource->As<VulkanShaderResource>()->pipelineType == PipelineType::Graphics)
     {
+        venom_assert(_renderingPipelineIndex != std::numeric_limits<uint32_t>::max(), "Rendering Pipeline Index is not set");
         // Input Assembly: Describes how primitives are assembled
         VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
         inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;

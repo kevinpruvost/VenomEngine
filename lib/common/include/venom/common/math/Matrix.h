@@ -38,6 +38,14 @@ VENOM_COMMON_API void RotateMatrix(Mat4& matrix, const Quat& quat);
  * @param translation 
  */
 VENOM_COMMON_API void TranslateMatrix(Mat4& matrix, const Vec3& translation);
+
+/**
+ * @brief Scale matrix
+ * @param matrix
+ * @param scale
+ */
+VENOM_COMMON_API void ScaleMatrix(Mat4& matrix, const Vec3& scale);
+
 VENOM_COMMON_API Mat4 LookAtLH(const Vec3& eye, const Vec3& center, const Vec3& up);
 VENOM_COMMON_API Mat4 LookAtRH(const Vec3& eye, const Vec3& center, const Vec3& up);
 inline Mat4 LookAt(const Vec3& eye, const Vec3& center, const Vec3& up)
