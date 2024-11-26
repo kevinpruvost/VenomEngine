@@ -221,7 +221,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
                 switch (matCompType)
                 {
                     case MaterialComponentType::DIFFUSE:
-                        material.SetComponent(MaterialComponentType::BASE_COLOR, material.GetComponent(MaterialComponentType::DIFFUSE).GetColor3D());
+                        material.SetComponent(MaterialComponentType::BASE_COLOR, material.GetComponent(MaterialComponentType::DIFFUSE));
                         break;
                 }
 

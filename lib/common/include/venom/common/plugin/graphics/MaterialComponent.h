@@ -81,6 +81,7 @@ enum MaterialComponentValueChannels
 class VENOM_COMMON_API MaterialComponent
 {
 public:
+    typedef std::variant<vcm::Vec3, vcm::Vec4, float, Texture> ComponentValue;
     MaterialComponent(const MaterialComponentType type);
     ~MaterialComponent();
 
@@ -143,7 +144,9 @@ public:
      * @brief Gets the value of the material component
      * @return float
      */
-    inline float GetValue() const { return std::get<float>(__value); }
+    inline float GetFloatValue() const { return std::get<float>(__value); }
+    inline ComponentValue & GetValueRef() { return __value; }
+    inline const ComponentValue & GetValueRef() const { return __value; }
 
     inline void SetChannels(const MaterialComponentValueChannels channels) { __channels = channels; }
     inline void SetChannelsFromIndex(const int index) { __channels = GetComponentValueChannelsFromIndex(index); }
@@ -197,7 +200,7 @@ public:
 private:
     MaterialComponentValueType __valueType;
     MaterialComponentValueChannels __channels;
-    std::variant<vcm::Vec3, vcm::Vec4, float, Texture> __value;
+    ComponentValue __value;
 };
 
 

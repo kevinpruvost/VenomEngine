@@ -65,7 +65,7 @@ vc::Vector<vc::GraphicsSettings::MultiSamplingCountOption> VulkanApplication::_G
     vc::Vector<vc::GraphicsSettings::MultiSamplingCountOption> options;
 
     const auto & props = PhysicalDevice::GetUsedPhysicalDevice().GetProperties();
-    for (int i = 2; i <= props.limits.framebufferColorSampleCounts; i <<= 1)
+    for (int i = 1; i <= props.limits.framebufferColorSampleCounts; i <<= 1)
         options.push_back(static_cast<vc::GraphicsSettings::MultiSamplingCountOption>(i));
     return options;
 }

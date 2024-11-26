@@ -1,6 +1,6 @@
 // HLSL Vertex Shader for Vulkan using DXC
 
-#include "Resources.vs.hlsl.h"
+#include "../Resources.vs.hlsl.h"
 
 struct LightingVSOutput {
     float4 position : SV_POSITION;

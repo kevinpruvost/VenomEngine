@@ -24,6 +24,7 @@ public:
     MaterialImpl();
     virtual ~MaterialImpl();
 
+    void SetComponent(const MaterialComponentType type, const MaterialComponent & comp);
     void SetComponent(const MaterialComponentType type, const vcm::Vec3& value);
     void SetComponent(const MaterialComponentType type, const vcm::Vec4& value);
     void SetComponent(const MaterialComponentType type, const float value);
@@ -63,6 +64,9 @@ public:
     Material();
     ~Material();
 public:
+    inline void SetComponent(const MaterialComponentType type, const MaterialComponent & comp) {
+        _impl->As<MaterialImpl>()->SetComponent(type, comp);
+    }
     inline void SetComponent(const MaterialComponentType type, const vcm::Vec3& value) {
         _impl->As<MaterialImpl>()->SetComponent(type, value);
     }

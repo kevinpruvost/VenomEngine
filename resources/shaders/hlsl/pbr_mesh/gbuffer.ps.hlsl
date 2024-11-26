@@ -1,4 +1,4 @@
-#include "Resources.ps.hlsl.h"
+#include "../Resources.ps.hlsl.h"
 
 GBufferOutput main(VSOutput input, bool isFrontFace : SV_IsFrontFace) {
     if (isFrontFace == false) {

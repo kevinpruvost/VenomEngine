@@ -103,7 +103,7 @@ void GraphicsApplication::__LoadRenderingPipelines()
         });
         gbuffer_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
         gbuffer_shader.SetRenderingPipelineIndex(0);
-        gbuffer_shader.LoadShaderFromFile("shader_gbuffer");
+        gbuffer_shader.LoadShaderFromFile("pbr_mesh/gbuffer");
 
         ShaderPipeline & lighting_shader = shadowModelShaders.emplace_back();
         lighting_shader.AddVertexBufferToLayout({
@@ -111,12 +111,12 @@ void GraphicsApplication::__LoadRenderingPipelines()
         });
         lighting_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
         lighting_shader.SetRenderingPipelineIndex(1);
-        lighting_shader.LoadShaderFromFile("shader_lighting");
+        lighting_shader.LoadShaderFromFile("pbr_mesh/lighting");
 
         ShaderPipeline & lightCulling_shader = shadowModelShaders.emplace_back();
         lightCulling_shader.SetRenderingPipelineType(RenderingPipelineType::ShadowModel);
         lightCulling_shader.SetRenderingPipelineIndex(2);
-        lightCulling_shader.LoadShaderFromFile("shader_lightculling");
+        lightCulling_shader.LoadShaderFromFile("pbr_mesh/lightculling");
 
         RenderingPipelineImpl::SetRenderingPipelineCache(shadowModelShaders, RenderingPipelineType::ShadowModel);
     }

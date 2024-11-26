@@ -1,4 +1,4 @@
-#include "Scene.hlsl.h"
+#include "../Scene.hlsl.h"
 
 bool isLightPointAffectingTile(Light light, uint tileMinX, uint tileMinY, uint tileMaxX, uint tileMaxY)
 {
@@ -36,7 +36,7 @@ void main(uint3 groupThreadID : SV_GroupThreadID)
     // Now calculate which lights affect this tile
     int relevantLights = 0;
 
-    // Loop through all lights (we are limiting to 128 lights here)
+    // Loop through all lights (we are limiting to 65536 lights here)
     for (int i = 0; i < lightCount; ++i)
     {
         // Fetch the light from the bindless buffer (this is an offset-based access)

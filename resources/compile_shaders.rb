@@ -1,8 +1,9 @@
 require 'fileutils'
 
 # Directories
-hlsl_dir = './resources/shaders/hlsl'
-glsl_dir = './resources/shaders/glsl'
+$hlsl_dir = './resources/shaders/hlsl'
+$glsl_dir = './resources/shaders/glsl'
+$msl_dir = './resources/shaders/msl'
 compiled_dir = './resources/shaders/compiled'
 dxc_folder_path = './cmake_build/dxc/Release/bin'
 dxc_path = "#{dxc_folder_path}/dxc"
@@ -12,12 +13,35 @@ macos_flag = RUBY_PLATFORM =~ /darwin/ ? '-DMACOS' : ''
 FileUtils.mkdir_p(compiled_dir)
 
 # Find all HLSL files in the HLSL directory
-hlsl_files = Dir.glob("#{hlsl_dir}/*.hlsl")
-glsl_files = Dir.glob("#{glsl_dir}/*.glsl")
+hlsl_files = Dir.glob("#{$hlsl_dir}/**/*.hlsl")
+glsl_files = Dir.glob("#{$glsl_dir}/**/*.glsl")
+msl_files = Dir.glob("#{$msl_dir}/**/*.msl")
+
+# exclude files in 'old/'
+hlsl_files = hlsl_files.reject { |file| file.include?('old/') }
+glsl_files = glsl_files.reject { |file| file.include?('old/') }
+msl_files = msl_files.reject { |file| file.include?('old/') }
 
 def output_file_create_name(file, compiled_dir)
     filename_parts = File.basename(file).split('.')
-    "#{compiled_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+    # try to keep subdirectory if any, e.g. "./resources/shaders/hlsl/pbr_mesh/gbuffer.ps.hlsl" keeps "pbr_mesh"
+    # if hlsl, then remove hlsl_dir out of the path
+    subdir = if file.include?('.hlsl')
+                file.sub($hlsl_dir, '')
+             elsif file.include?('.glsl')
+                file.sub($glsl_dir, '')
+             elsif file.include?('.msl')
+                file.sub($msl_dir, '')
+             else
+                ''
+             end
+    # if contains multiple /
+    if subdir.count('/') > 1
+        subdir = subdir.split('/')[1] || ''
+        "#{compiled_dir}/#{subdir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+    else
+        "#{compiled_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+    end
 end
 
 # Check if dxc path folder exists

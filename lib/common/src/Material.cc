@@ -45,6 +45,11 @@ MaterialImpl::~MaterialImpl()
 {
 }
 
+void MaterialImpl::SetComponent(const MaterialComponentType type, const MaterialComponent& comp)
+{
+    __components[type] = comp;
+}
+
 Material::Material()
     : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateMaterial())
 {
@@ -122,7 +127,7 @@ const MaterialImpl::MaterialResourceTable& MaterialImpl::_GetResourceTable(bool&
                     __resourceTable.components[i].value = __components[i].GetColor4D();
                     break;
                 case MaterialComponentValueType::VALUE:
-                    float val = __components[i].GetValue();
+                    float val = __components[i].GetFloatValue();
                     memcpy(&__resourceTable.components[i].value, &val, sizeof(float));
                     break;
             }

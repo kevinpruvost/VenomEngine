@@ -115,12 +115,13 @@ vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)
 {
     std::string basePath = vc::Resources::GetShadersFolderPath() + "compiled/";
 
-    // List all stages of the basePath
-    for (const auto& entry : std::filesystem::directory_iterator(basePath))
+    // List all files recursively
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(basePath))
     {
-        // Check if entry filename starts with path
-        auto filename = entry.path().filename().string();
-        if (filename.starts_with(path) == false) continue;
+        // Gets relative path from ShadersFolderPath
+        auto relativePath = entry.path().string().substr(basePath.size());
+
+        if (relativePath.starts_with(path) == false) continue;
 
         if (entry.is_regular_file())
         {
