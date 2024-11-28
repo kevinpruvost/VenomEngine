@@ -53,6 +53,11 @@ void SceneInput(vc::Context * context)
     if (context->IsKeyReleased(vc::KeyboardInput::KeyboardT)) {
         cameraLocked = !cameraLocked;
     }
+
+    if (context->IsKeyReleased(vc::KeyboardInput::KeyboardC) && context->IsKeyModifierPressed(vc::KeyboardModifier::KeyboardModShift | vc::KeyboardModifier::KeyboardModControl)) {
+        vc::ShaderPipeline::RecompileAllShaders();
+        vc::ShaderPipeline::ReloadAllShaders();
+    }
 }
 
 int drawNormalMap = false;
@@ -66,7 +71,23 @@ void SceneGUI()
     vc::Entity light1 = vc::ECS::GetEntity("light1");
 
     vc::GUI::NewFrame();
-    vc::GUI::SetNextWindowPos(vcm::Vec2(10, 10), vc::GUICondBits::GUICond_Always);
+
+    if (vc::GUI::BeginMainMenuBar()) {
+        if (vc::GUI::BeginMenu("Shaders")) {
+            if (vc::GUI::MenuItem("Recompile & Reload Shaders", "Ctrl+Shift+C")) {
+                vc::ShaderPipeline::RecompileAllShaders();
+                vc::ShaderPipeline::ReloadAllShaders();
+            }
+            if (vc::GUI::MenuItem("Reload Shaders")) {
+                vc::ShaderPipeline::ReloadAllShaders();
+            }
+            vc::GUI::EndMenu();
+        }
+        vc::GUI::EndMainMenuBar();
+    }
+
+
+    vc::GUI::SetNextWindowPos(vcm::Vec2(0, 20), vc::GUICondBits::GUICond_Always);
     vc::GUI::Begin("VenomEngine");
     vc::GUI::Checkbox("Camera Locked", &cameraLocked);
     vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
@@ -104,7 +125,7 @@ void SceneGUI()
     }
     vc::GUI::End();
 
-    vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth() - 10, 10}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
+    vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
     vc::GUI::Begin("TestWindow");
     vc::GUI::Text("Hello, world!");
     vc::GUI::End();

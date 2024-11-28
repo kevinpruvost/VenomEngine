@@ -88,16 +88,20 @@ GBufferOutput main(VSOutput input, bool isFrontFace : SV_IsFrontFace) {
     baseColor = MaterialComponentGetValue4(MaterialComponentType::BASE_COLOR, uv);
 
     // Normal in tangent space
-    float3x3 TBN = transpose(float3x3(input.tangent, input.bitangent, input.normal));
+    float3x3 TBN;
+    TBN._m00_m10_m20 = input.tangent;
+    TBN._m01_m11_m21 = input.bitangent;
+    TBN._m02_m12_m22 = input.normal;
     bool tangentSpace = material.components[MaterialComponentType::NORMAL].valueType == TEXTURE;
     if (tangentSpace) {
-        normal = GetMaterialTexture(MaterialComponentType::NORMAL, uv).rgb;
+        normal = GetMaterialTexture(MaterialComponentType::NORMAL, uv).rgb * 2.0f - 1.0f;
         normal = normalize(mul(TBN, normal));
-        // normal = normalize(normal * input.normal);
+        //normal = normalize(input.normal * normal);
     } else
     {
         normal = normalize(input.normal);
     }
+    TBN = transpose(TBN);
 
     // Specular
     if (material.components[MaterialComponentType::SPECULAR].valueType != NONE)
@@ -137,7 +141,7 @@ GBufferOutput main(VSOutput input, bool isFrontFace : SV_IsFrontFace) {
     float3 viewDir = normalize(cameraPos - position);
 
     // Switch of view dir to tangent space
-    //if (tangentSpace) viewDir = mul(TBN, viewDir);
+    // if (tangentSpace) viewDir = normalize(mul(TBN, viewDir));
 
     // Loop over lights
     output.finalColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -149,27 +153,14 @@ GBufferOutput main(VSOutput input, bool isFrontFace : SV_IsFrontFace) {
         float3 lightDir = GetLightDirection(light, position.xyz);
 
         // Switch of lightDir to tangent space
-        //if (tangentSpace)
-        //    lightDir = mul(TBN, lightDir);
+        // if (tangentSpace)
+        //     lightDir = normalize(mul(TBN, lightDir));
 
         float3 radiance = lightColor * saturate(dot(normal, lightDir));
 
-        output.finalColor.rgb += DisneyPrincipledBRDF(lightDir, viewDir, normal, input.tangent, input.bitangent, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-        // finalColor += DisneyPrincipledBRDF(
-        //     normal,
-        //     viewDir,
-        //     lightDir,
-        //     baseColor.rgb,
-        //     metallic,
-        //     roughness,
-        //     subsurface,
-        //     specularVal,
-        //     specularTint,
-        //     anisotropic,
-        //     sheen,
-        //     sheenTint
-        // ) * radiance;
-        output.finalColor.r = output.finalColor.g = output.finalColor.b = dot(normal, viewDir);
+        output.finalColor.rgb += SimpleBRDF(baseColor.rgb, roughness, normal, viewDir, lightDir, lightColor);
+        // output.finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, input.tangent, input.bitangent, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+        // output.finalColor.r = output.finalColor.g = output.finalColor.b = dot(normal, viewDir);
     }
 
     // Set transparency

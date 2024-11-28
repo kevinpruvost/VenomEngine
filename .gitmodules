@@ -41,3 +41,6 @@
 [submodule "lib/external/imgui"]
 	path = lib/external/imgui
 	url = git@github.com:ocornut/imgui.git
+[submodule "lib/external/MikkTSpace"]
+	path = lib/external/MikkTSpace
+	url = git@github.com:mmikk/MikkTSpace.git

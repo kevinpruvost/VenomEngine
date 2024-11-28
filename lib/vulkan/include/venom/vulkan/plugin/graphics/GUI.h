@@ -52,6 +52,17 @@ protected:
     bool _BeginCombo(const char* label, const char* preview_value, vc::GUIComboFlags flags) override;
     void _EndCombo() override;
 
+    bool _BeginMenu(const char* label, bool enabled) override;
+    void _EndMenu() override;
+
+    bool _BeginMainMenuBar() override;
+    void _EndMainMenuBar() override;
+
+    bool _BeginMenuBar() override;
+    void _EndMenuBar() override;
+
+    bool _MenuItem(const char* str, const char* text) override;
+
     void _SetItemDefaultFocus() override;
 
     void _SameLine(float offset_from_start_x, float spacing) override;

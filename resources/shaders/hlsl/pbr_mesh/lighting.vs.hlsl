@@ -13,21 +13,32 @@ VSOutput main(VSInput input)
     output.fragColor = float4(1.0, 1.0, 1.0, 1.0);       // Pass the color to the fragment shader
 
     // Transform normal
-    float4x4 normalMatrix = transpose(inverse(models[input.instanceID]));
-    float3 transformedNormal = normalize(mul(normalMatrix, float4(input.inNormal, 0.0)).xyz);
+    float3x3 normalMatrix = transpose(inverse(models[input.instanceID]));
+    float3 transformedNormal = normalize(mul(normalMatrix, input.inNormal));
     output.normal = transformedNormal; // Normalize for correctness
 
-    // float3 T;
+    float3 T, B;
+
+    // Perturb normal, see http://www.thetenthplanet.de/archives/1180
+    float3 q1 = ddx(output.worldPos);
+    float3 q2 = ddy(output.worldPos);
+    float2 st1 = ddx(input.inTexCoord);
+    float2 st2 = ddy(input.inTexCoord);
+
+    T = normalize(q1 * st2.y - q2 * st1.y);
+    B = -normalize(cross(transformedNormal, T));
+
     // if (all(transformedNormal == float3(0.0, 1.0, 0.0)))
     //     T = normalize(cross(transformedNormal, float3(1.0, 0.0, 0.0)));
     // else
     //     T = normalize(cross(transformedNormal, float3(0.0, 1.0, 0.0)));
-    // float3 B = normalize(cross(transformedNormal, T));
+    // B = normalize(cross(transformedNormal, T));
 
-    float3 T = normalize(mul(models[input.instanceID], float4(input.inTangent, 0.0)).xyz);
-    float3 B = normalize(mul(models[input.instanceID], float4(input.inBitangent, 0.0)).xyz);
-    T = normalize(T - dot(T, transformedNormal) * transformedNormal);
-    B = cross(transformedNormal, T);
+    // T = normalize(mul(normalMatrix, input.inTangent));
+    // B = normalize(mul(normalMatrix, input.inBitangent));
+    //
+    // T = normalize(T - dot(transformedNormal, T) * transformedNormal);
+    // B = normalize(cross(transformedNormal, T) + 0.00001);
 
     output.tangent = T;
     output.bitangent = B;

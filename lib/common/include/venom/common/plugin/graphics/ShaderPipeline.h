@@ -85,6 +85,7 @@ public:
     inline vc::Error SetLineWidth(const float width) { _SetLineWidth(width); return _ReloadShaderAfterSettings(); }
     inline vc::Error SetDepthTest(const bool enable) { _SetDepthTest(enable); return _ReloadShaderAfterSettings(); }
     inline vc::Error SetDepthWrite(const bool enable) { _SetDepthWrite(enable); return _ReloadShaderAfterSettings(); }
+    inline vc::Error OpenAndReloadShader() { return _OpenShaders(); }
 
     inline void SetRenderingPipelineType(const RenderingPipelineType type) { _renderingPipelineType = type; }
     inline void SetRenderingPipelineIndex(const uint32_t index) { _renderingPipelineIndex = index; }
@@ -96,6 +97,7 @@ protected:
     virtual vc::Error _LoadShader(const std::string & path) = 0;
     virtual void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const ShaderVertexFormat format) = 0;
 
+    virtual vc::Error _OpenShaders() = 0;
     virtual vc::Error _ReloadShader() = 0;
     inline vc::Error _ReloadShaderAfterSettings() {
         if (_loaded) return _ReloadShader();
@@ -114,6 +116,9 @@ public:
     ShaderPipeline(const char * path);
     ~ShaderPipeline();
 
+    static vc::Error RecompileAllShaders();
+    static vc::Error ReloadAllShaders();
+    inline vc::Error OpenAndReloadShader() { return _impl->As<ShaderPipelineImpl>()->OpenAndReloadShader(); }
     inline void SetRenderingPipelineIndex(const uint32_t index) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineIndex(index); }
     inline void SetRenderingPipelineType(const RenderingPipelineType type) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineType(type); }
     inline vc::Error LoadShaderFromFile(const char * path) { return _impl->As<ShaderPipelineImpl>()->LoadShaderFromFile(path); }

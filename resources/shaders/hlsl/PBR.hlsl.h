@@ -50,8 +50,8 @@ float3 mon2lin(float3 x) {
     return float3(pow(x.x, 2.2), pow(x.y, 2.2), pow(x.z, 2.2));
 }
 
-// Disney Principled BRDF Function
-float3 DisneyPrincipledBRDF(
+// Disney Principled BSDF Function
+float3 DisneyPrincipledBSDF(
     float3 L, float3 V, float3 N, float3 X, float3 Y,
     float3 baseColor, float metallic, float roughness,
     float subsurface, float specular, float specularTint,
@@ -60,7 +60,7 @@ float3 DisneyPrincipledBRDF(
 ) {
     float NdotL = dot(N, L);
     float NdotV = dot(N, V);
-    if (NdotL < 0 || NdotV < 0) return float3(0, 0, 0);
+    if (NdotL <= 0.0f || NdotV <= 0.0f) return float3(0, 0, 0);
 
     float3 H = normalize(L + V);
     float NdotH = dot(N, H);
@@ -103,4 +103,45 @@ float3 DisneyPrincipledBRDF(
 
     return ((1 / PI) * lerp(Fd, ss, subsurface) * Cdlin + Fsheen) * (1 - metallic) +
            Gs * Fs * Ds + 0.25 * clearcoat * Gr * Fr * Dr;
+}
+
+float3 SimpleBRDF(
+    float3 baseColor,           // Surface base color
+    float roughness,            // Surface roughness
+    float3 normal,              // Surface normal vector
+    float3 viewDir,             // View direction vector
+    float3 lightDir,            // Light direction vector
+    float3 lightColor           // Incident light color
+)
+{
+    // Normalize input vectors
+    normal = normalize(normal);
+    viewDir = normalize(viewDir);
+    lightDir = normalize(lightDir);
+
+    // Halfway vector (used for specular calculations)
+    float3 halfVector = normalize(viewDir + lightDir);
+
+    // Diffuse calculation (Lambert)
+    float NdotL = max(dot(normal, lightDir), 0.0);
+    float3 diffuseTerm = baseColor * NdotL;
+
+    // Specular calculation (Blinn-Phong)
+    float NdotH = max(dot(normal, halfVector), 0.0);
+    float NdotV = max(dot(normal, viewDir), 0.0);
+
+    // Adjust specular based on roughness
+    float specPower = exp2(10 * (1.0 - roughness) + 1.0);
+    float specularTerm = pow(NdotH, specPower) * (specPower + 8.0) / 8.0;
+
+    // Fresnel approximation (Schlick's approximation)
+    float3 F0 = float3(0.04, 0.04, 0.04); // Base reflectivity
+    float3 fresnelTerm = F0 + (1.0 - F0) * pow(1.0 - NdotV, 5.0);
+
+    // Combine terms
+    float3 brdfResult = (diffuseTerm * (1.0 - fresnelTerm)) +
+                        (specularTerm * fresnelTerm);
+
+    // Multiply by light color and light intensity
+    return brdfResult * lightColor * NdotL;
 }

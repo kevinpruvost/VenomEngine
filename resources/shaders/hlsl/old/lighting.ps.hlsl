@@ -149,8 +149,8 @@ FragmentOutput main(LightingVSOutput input) {
         float3 Y = cross(normal, X);
         float3x3 TBN = float3x3(X, Y, normal);
         float3 V = mul(TBN, viewDir);
-        finalColor += DisneyPrincipledBRDF(lightDir, V, normal, X, Y, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-        // finalColor += DisneyPrincipledBRDF(
+        finalColor += DisneyPrincipledBSDF(lightDir, V, normal, X, Y, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+        // finalColor += DisneyPrincipledBSDF(
         //     normal,
         //     viewDir,
         //     lightDir,

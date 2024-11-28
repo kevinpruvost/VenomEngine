@@ -11,6 +11,9 @@
 #include <venom/common/Resources.h>
 
 #include <venom/common/math/Matrix.h>
+#include <venom/common/plugin/graphics/GraphicsSettings.h>
+
+#include <filesystem>
 
 namespace venom
 {
@@ -136,6 +139,30 @@ ShaderPipeline::ShaderPipeline(const char* path)
 
 ShaderPipeline::~ShaderPipeline()
 {
+}
+
+vc::Error ShaderPipeline::RecompileAllShaders()
+{
+    auto oldPath = std::filesystem::current_path();
+    std::filesystem::path parentDir = CMAKE_PROJECT_DIR;
+    std::filesystem::current_path(parentDir);
+
+    int result = std::system("make compile_shaders");
+    std::filesystem::current_path(oldPath);
+    if (result != 0) {
+        vc::Log::Error("Failed to compile shaders with make");
+        return vc::Error::Failure;
+    }
+    return vc::Error::Success;
+}
+
+vc::Error ShaderPipeline::ReloadAllShaders()
+{
+    for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
+        if (!shader->IsType<ShaderResource>()) continue;
+        shader->GetHolder()->As<ShaderPipelineImpl>()->OpenAndReloadShader();
+    }
+    GraphicsSettings::ReloadGFXSettings();
 }
 }
 }

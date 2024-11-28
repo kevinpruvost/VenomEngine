@@ -166,6 +166,38 @@ void VulkanShaderPipeline::_SetDepthWrite(const bool enable)
     _resource->As<VulkanShaderResource>()->shaderDirty = true;
 }
 
+vc::Error VulkanShaderPipeline::_OpenShaders()
+{
+    // Loading every shader
+    _resource->As<VulkanShaderResource>()->DestroyShaderModules();
+    _resource->As<VulkanShaderResource>()->shaderStages.resize(_resource->As<VulkanShaderResource>()->shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
+    for (int i = 0; i < _resource->As<VulkanShaderResource>()->shaderPaths.size(); ++i)
+    {
+        if (LoadShader(_resource->As<VulkanShaderResource>()->shaderPaths[i], &_resource->As<VulkanShaderResource>()->shaderStages[i]) != vc::Error::Success)
+        {
+            vc::Log::Error("Failed to load shader: %s", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str());
+            return vc::Error::Failure;
+        }
+    }
+    // Check if duplicate stages
+    for (int i = 0; i < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++i) {
+        for (int j = i + 1; j < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++j)
+        {
+            if (_resource->As<VulkanShaderResource>()->shaderStages[i].stage == _resource->As<VulkanShaderResource>()->shaderStages[j].stage)
+            {
+                vc::Log::Error("Duplicate shader stages: [%s] | [%s]", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str(), _resource->As<VulkanShaderResource>()->shaderPaths[j].c_str());
+                for (int k = 0; k < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++k) {
+                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
+                }
+                return vc::Error::Failure;
+            }
+        }
+    }
+
+    _resource->As<VulkanShaderResource>()->shaderDirty = true;
+    return vc::Error::Success;
+}
+
 vc::Error VulkanShaderPipeline::_ReloadShader()
 {
     venom_assert(_renderingPipelineType != vc::RenderingPipelineType::None, "Rendering Pipeline Type is not set");
@@ -448,33 +480,7 @@ vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipe
 
 vc::Error VulkanShaderPipeline::LoadShaders()
 {
-    // Loading every shader
-    _resource->As<VulkanShaderResource>()->DestroyShaderModules();
-    _resource->As<VulkanShaderResource>()->shaderStages.resize(_resource->As<VulkanShaderResource>()->shaderPaths.size(), VkPipelineShaderStageCreateInfo{});
-    for (int i = 0; i < _resource->As<VulkanShaderResource>()->shaderPaths.size(); ++i)
-    {
-        if (LoadShader(_resource->As<VulkanShaderResource>()->shaderPaths[i], &_resource->As<VulkanShaderResource>()->shaderStages[i]) != vc::Error::Success)
-        {
-            vc::Log::Error("Failed to load shader: %s", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str());
-            return vc::Error::Failure;
-        }
-    }
-    // Check if duplicate stages
-    for (int i = 0; i < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++i) {
-        for (int j = i + 1; j < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++j)
-        {
-            if (_resource->As<VulkanShaderResource>()->shaderStages[i].stage == _resource->As<VulkanShaderResource>()->shaderStages[j].stage)
-            {
-                vc::Log::Error("Duplicate shader stages: [%s] | [%s]", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str(), _resource->As<VulkanShaderResource>()->shaderPaths[j].c_str());
-                for (int k = 0; k < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++k) {
-                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
-                }
-                return vc::Error::Failure;
-            }
-        }
-    }
-
-    _resource->As<VulkanShaderResource>()->shaderDirty = true;
+    if (_OpenShaders() != vc::Error::Success) return vc::Error::Failure;
     return _ReloadShader();
 }
 

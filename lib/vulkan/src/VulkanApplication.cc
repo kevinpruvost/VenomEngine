@@ -98,11 +98,13 @@ void VulkanApplication::__UpdateUniformBuffers()
     {
         vcm::Mat4 viewAndProj[2];
         vcm::Vec3 cameraPos;
+        vcm::Vec3 direction;
     };
     CameraData camProps;
     camProps.viewAndProj[0] = vc::Camera::GetMainCamera()->GetViewMatrix();
     camProps.viewAndProj[1] = vc::Camera::GetMainCamera()->GetProjectionMatrix();
     camProps.cameraPos = vc::Camera::GetMainCamera()->GetPosition();
+    camProps.direction = vc::Camera::GetMainCamera()->GetForwardVector();
 
     // Uniform buffers
     // Model Matrices

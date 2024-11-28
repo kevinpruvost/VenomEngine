@@ -18,7 +18,7 @@ void Scene()
         .emplace<vc::Transform3D>()
 //            .emplace<vc::Model>("eye/eye.obj")
 //            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
-        .emplace<vc::Model>("dead_space_gun/test.fbx")
+        .emplace<vc::Model>("dead_space_gun/gun.glb")
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
         ;
     balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-8.0f, 4.0f, 0.0f));

@@ -126,6 +126,11 @@ const vc::Vector<vc::String>& GraphicsSettings::GetAvailableMultisamplingCountOp
     return s_graphicsSettings->__availableMultisamplingCountsStrings;
 }
 
+void GraphicsSettings::ReloadGFXSettings()
+{
+    s_graphicsSettings->__AddLoadGFXSettingsToQueue();
+}
+
 void GraphicsSettings::__AddLoadGFXSettingsToQueue()
 {
     _gfxSettingsChangeQueued = true;

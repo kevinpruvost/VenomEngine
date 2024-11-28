@@ -150,3 +150,21 @@ set(IMGUI_INCLUDE_DIR ${IMGUI_DIR_} ${IMGUI_DIR_}/backends PARENT_SCOPE)
 #    find_package(X11 REQUIRED)
 #    target_link_libraries(imgui PRIVATE X11)
 #endif()
+
+# MikktSpace
+set(MikkTSpace_src
+    "${CMAKE_CURRENT_SOURCE_DIR}/MikkTSpace/mikktspace.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/MikkTSpace/mikktspace.h"
+)
+
+add_library(MikkTSpace SHARED
+    ${MikkTSpace_src}
+)
+
+target_include_directories(MikkTSpace INTERFACE
+    "${CMAKE_CURRENT_SOURCE_DIR}/MikkTSpace/"
+)
+
+set_target_properties(MikkTSpace PROPERTIES
+        FOLDER "ExternalLibraries"
+)

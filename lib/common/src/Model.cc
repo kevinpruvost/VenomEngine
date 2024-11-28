@@ -20,6 +20,8 @@
 #include <assimp/DefaultLogger.hpp>
 #include <filesystem>
 
+#include <mikktspace.h>
+
 namespace venom
 {
 namespace common
@@ -135,7 +137,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
     //importer.SetPropertyFloat(AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, 45.0f); // Example: 45 degrees
     importer.SetPropertyInteger(AI_CONFIG_PP_CT_MAX_SMOOTHING_ANGLE, 30);
     // Print cwd
-    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_GenUVCoords | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_PreTransformVertices);
+    const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_PreTransformVertices);
     if (!scene) {
         vc::Log::Error("Failed to load model: %s", realPath.c_str());
         return vc::Error::Failure;
@@ -279,6 +281,9 @@ vc::Error ModelImpl::ImportModel(const char * path)
     // }
 
     // Load every mesh
+    // Find the bounding box for normalization
+    glm::vec3 minVertex(FLT_MAX);
+    glm::vec3 maxVertex(-FLT_MAX);
     for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
         vc::Mesh & mesh = _resource->As<ModelResource>()->meshes.emplace_back();
 
@@ -291,24 +296,15 @@ vc::Error ModelImpl::ImportModel(const char * path)
         mesh._impl->As<MeshImpl>()->_positions.reserve(aimesh->mNumVertices);
         mesh._impl->As<MeshImpl>()->_normals.reserve(aimesh->mNumVertices);
 
-        // Find the bounding box for normalization
-        glm::vec3 minVertex(FLT_MAX);
-        glm::vec3 maxVertex(-FLT_MAX);
-
         for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
             const auto& vertex = aimesh->mVertices[x];
             minVertex = glm::min(minVertex, glm::vec3(vertex.x, vertex.y, vertex.z));
             maxVertex = glm::max(maxVertex, glm::vec3(vertex.x, vertex.y, vertex.z));
         }
 
-        // Center and scale factor calculation
-        glm::vec3 center = (minVertex + maxVertex) * 0.5f;
-        float maxExtent = glm::length(maxVertex - center) * 0.5f;
-
         // Normalize vertices & normals
         for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
             glm::vec3 position = glm::vec3(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
-            position = (position - center) / maxExtent;
             mesh._impl->As<MeshImpl>()->_positions.emplace_back(position);
 
             if (aimesh->HasNormals()) {
@@ -337,15 +333,70 @@ vc::Error ModelImpl::ImportModel(const char * path)
             }
         }
 
+        // MikkTSpace
         // Tangents & Bitangents
-        if (aimesh->HasTangentsAndBitangents()) {
-            mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
-            mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
-            for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-                mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
-                mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
-            }
+        if (aimesh->HasTextureCoords(0)) {
+            mesh._impl->As<MeshImpl>()->_tangents.resize(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_bitangents.resize(aimesh->mNumVertices);
+
+            // MikkTSpace
+            struct MikkTSpaceData {
+                const aiMesh * aimesh;
+                std::vector<glm::vec3> * tangents;
+                std::vector<glm::vec3> * bitangents;
+            } mikktspaceData = { aimesh, &mesh._impl->As<MeshImpl>()->_tangents, &mesh._impl->As<MeshImpl>()->_bitangents };
+
+            SMikkTSpaceInterface mikktspace;
+            mikktspace.m_getNumFaces = [](const SMikkTSpaceContext * pContext) -> int {
+                return reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData)->aimesh->mNumFaces;
+            };
+            mikktspace.m_getNumVerticesOfFace = [](const SMikkTSpaceContext * pContext, const int iFace) -> int {
+                return reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData)->aimesh->mFaces[iFace].mNumIndices;
+            };
+            mikktspace.m_getPosition = [](const SMikkTSpaceContext * pContext, float fvPosOut[], const int iFace, const int iVert) {
+                MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
+                const aiVector3D& pos = data->aimesh->mVertices[data->aimesh->mFaces[iFace].mIndices[iVert]];
+                fvPosOut[0] = pos.x;
+                fvPosOut[1] = pos.y;
+                fvPosOut[2] = pos.z;
+            };
+            mikktspace.m_getNormal = [](const SMikkTSpaceContext * pContext, float fvNormOut[], const int iFace, const int iVert) {
+                MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
+                const aiVector3D& normal = data->aimesh->mNormals[data->aimesh->mFaces[iFace].mIndices[iVert]];
+                fvNormOut[0] = normal.x;
+                fvNormOut[1] = normal.y;
+                fvNormOut[2] = normal.z;
+            };
+            mikktspace.m_getTexCoord = [](const SMikkTSpaceContext * pContext, float fvTexcOut[], const int iFace, const int iVert) {
+                MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
+                const aiVector3D& uv = data->aimesh->mTextureCoords[0][data->aimesh->mFaces[iFace].mIndices[iVert]];
+                fvTexcOut[0] = uv.x;
+                fvTexcOut[1] = uv.y;
+            };
+            mikktspace.m_setTSpaceBasic = [](const SMikkTSpaceContext * pContext, const float fvTangent[], const float fSign, const int iFace, const int iVert) {
+                MikkTSpaceData * data = reinterpret_cast<MikkTSpaceData *>(pContext->m_pUserData);
+                int index = data->aimesh->mFaces[iFace].mIndices[iVert];
+                data->tangents->at(index) = vcm::Vec3(fvTangent[0], fvTangent[1], fvTangent[2]);
+                data->bitangents->at(index) = vcm::Vec3(fSign * fvTangent[0], fSign * fvTangent[1], fSign * fvTangent[2]);
+            };
+            mikktspace.m_setTSpace = nullptr;
+
+            SMikkTSpaceContext mikktspaceContext;
+            mikktspaceContext.m_pInterface = &mikktspace;
+            mikktspaceContext.m_pUserData = &mikktspaceData;
+
+            genTangSpaceDefault(&mikktspaceContext);
         }
+
+
+        // if (aimesh->HasTangentsAndBitangents()) {
+        //     mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
+        //     mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
+        //     for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
+        //         mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
+        //         mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
+        //     }
+        // }
 
         // Faces
         if (aimesh->HasFaces()) {
@@ -356,13 +407,24 @@ vc::Error ModelImpl::ImportModel(const char * path)
                 mesh._impl->As<MeshImpl>()->_indices.push_back(aimesh->mFaces[x].mIndices[2]);
             }
         }
+    }
 
+    // Center and scale factor calculation
+    glm::vec3 center = (minVertex + maxVertex) * 0.5f;
+    float maxExtent = glm::length(maxVertex - center) * 0.5f;
+
+    // Scaling
+    for (auto& mesh : _resource->As<ModelResource>()->meshes) {
+        for (auto& position : mesh._impl->As<MeshImpl>()->_positions) {
+            position = (position - center) / maxExtent;
+        }
         // Load mesh into Graphics API
         if (auto err = mesh._impl->As<MeshImpl>()->__LoadMeshFromCurrentData(); err != vc::Error::Success) {
             vc::Log::Error("Failed to load mesh from current data");
             return err;
         }
     }
+
     _SetInCache(realPath, _resource);
     return vc::Error::Success;
 }

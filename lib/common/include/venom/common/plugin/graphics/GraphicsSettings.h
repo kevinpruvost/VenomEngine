@@ -53,6 +53,8 @@ public:
     static const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingCountOptions();
     static const vc::Vector<vc::String> & GetAvailableMultisamplingCountOptionsStrings();
 
+    static void ReloadGFXSettings();
+
 protected:
     virtual vc::Error _LoadGfxSettings() = 0;
 

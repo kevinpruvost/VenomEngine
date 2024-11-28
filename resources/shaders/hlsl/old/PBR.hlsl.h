@@ -51,7 +51,7 @@ float3 mon2lin(float3 x) {
 }
 
 // Disney Principled BRDF Function
-float3 DisneyPrincipledBRDF(
+float3 DisneyPrincipledBSDF(
     float3 L, float3 V, float3 N, float3 X, float3 Y,
     float3 baseColor, float metallic, float roughness,
     float subsurface, float specular, float specularTint,

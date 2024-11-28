@@ -38,6 +38,8 @@ def output_file_create_name(file, compiled_dir)
     # if contains multiple /
     if subdir.count('/') > 1
         subdir = subdir.split('/')[1] || ''
+        # Create directory if does not exist
+        FileUtils.mkdir_p("#{compiled_dir}/#{subdir}")
         "#{compiled_dir}/#{subdir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
     else
         "#{compiled_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
@@ -77,15 +79,16 @@ if ARGV[0] == 'clean'
     puts 'Cleaning compiled shaders...'
     FileUtils.rm_rf(compiled_dir)
     exit
-elsif ARGV[0] == 'compile'
-    # Compile each HLSL file to SPIR-V
-    hlsl_files.each do |file|
-        output_file = output_file_create_name(file, compiled_dir)
-        type = shader_type(file)
-        cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} #{macos_flag}"
-        puts "Compiling #{file} to #{output_file} with command[#{cmd}]..."
-        system(cmd)
-    end
+# Disabling DXC, working with glsl directly as some features are just disabled when compiling to spirv from hlsl (like inverse or partial derivatives)
+# elsif ARGV[0] == 'compile'
+#     # Compile each HLSL file to SPIR-V
+#     hlsl_files.each do |file|
+#         output_file = output_file_create_name(file, compiled_dir)
+#         type = shader_type(file)
+#         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} #{macos_flag}"
+#         puts "Compiling #{file} to #{output_file} with command[#{cmd}]..."
+#         system(cmd)
+#     end
 elsif ARGV[0] == 'compile_debug'
     # Compile each HLSL file to SPIR-V
     hlsl_files.each do |file|
@@ -95,7 +98,7 @@ elsif ARGV[0] == 'compile_debug'
         puts "Compiling #{file} to #{output_file}..."
         system(cmd)
     end
-elsif ARGV[0] == 'compile_glsl'
+elsif ARGV[0] == 'compile_glsl' or ARGV[0] == 'compile'
     # Compile each GLSL file to SPIR-V
     glsl_files.each do |file|
         output_file = output_file_create_name(file, compiled_dir)

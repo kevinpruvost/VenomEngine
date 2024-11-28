@@ -26,14 +26,14 @@ vc::Error VulkanApplication::_LoadGfxSettings()
     if (_multisamplingDirty)
     {
         static vc::ShaderPipeline vkShader;
-        for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
-            if (!shader->IsType<VulkanShaderResource>()) continue;
-            shader->GetHolder()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
-            shader->GetHolder()->As<VulkanShaderPipeline>()->LoadShaders();
-            //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetResource(shader);
-            //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
-            //vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
-        }
+            for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
+                if (!shader->IsType<VulkanShaderResource>()) continue;
+                shader->GetHolder()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
+                shader->GetHolder()->As<VulkanShaderPipeline>()->LoadShaders();
+                //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetResource(shader);
+                //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
+                //vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
+            }
         if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
             return err;
         __screenPropsBuffer.WriteToBuffer(&_samples, sizeof(int), sizeof(vcm::Vec2) + 3 * sizeof(int) + 2 * sizeof(float));

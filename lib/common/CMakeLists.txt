@@ -31,10 +31,12 @@ target_link_libraries(${PROJECT_NAME}
     flecs::flecs
     OpenEXR::OpenEXR
     openvdb_static
+    MikkTSpace
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     VENOM_COMMON_EXPORTS
+    CMAKE_PROJECT_DIR="${CMAKE_SOURCE_DIR}"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

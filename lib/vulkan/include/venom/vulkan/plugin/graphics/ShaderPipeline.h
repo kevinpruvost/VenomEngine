@@ -68,6 +68,7 @@ public:
     void _SetLineWidth(const float width) override;
     void _SetDepthTest(const bool enable) override;
     void _SetDepthWrite(const bool enable) override;
+    vc::Error _OpenShaders() override;
     vc::Error _ReloadShader() override;
 
     void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const vc::ShaderVertexFormat format) override;

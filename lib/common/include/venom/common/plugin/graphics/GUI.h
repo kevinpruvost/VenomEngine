@@ -62,6 +62,17 @@ public:
     static inline bool BeginCombo(const char* label, const char* preview_value, GUIComboFlags flags = 0) { return s_gui->_BeginCombo(label, preview_value, flags); }
     static inline void EndCombo() { s_gui->_EndCombo(); }
 
+    static inline bool BeginMenu(const char* label, bool enabled = true) { return s_gui->_BeginMenu(label, enabled); }
+    static inline void EndMenu() { s_gui->_EndMenu(); }
+
+    static inline bool BeginMainMenuBar() { return s_gui->_BeginMainMenuBar(); }
+    static inline void EndMainMenuBar() { s_gui->_EndMainMenuBar(); }
+
+    static inline bool BeginMenuBar() { return s_gui->_BeginMenuBar(); }
+    static inline void EndMenuBar() { s_gui->_EndMenuBar(); }
+
+    static inline bool MenuItem(const char* str, const char* text = nullptr) { return s_gui->_MenuItem(str, text); }
+
     static inline void SetItemDefaultFocus() { s_gui->_SetItemDefaultFocus(); }
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
@@ -92,6 +103,17 @@ protected:
 
     virtual bool _BeginCombo(const char* label, const char* preview_value, GUIComboFlags flags) = 0;
     virtual void _EndCombo() = 0;
+
+    virtual bool _BeginMenu(const char* label, bool enabled) = 0;
+    virtual void _EndMenu() = 0;
+
+    virtual bool _BeginMainMenuBar() = 0;
+    virtual void _EndMainMenuBar() = 0;
+
+    virtual bool _BeginMenuBar() = 0;
+    virtual void _EndMenuBar() = 0;
+
+    virtual bool _MenuItem(const char* str, const char* text) = 0;
 
     virtual void _SetItemDefaultFocus() = 0;
 

@@ -36,7 +36,7 @@ vc::Error VulkanApplication::__InitializeSets()
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         if (err = __objectStorageBuffers[i].Init(VENOM_MAX_ENTITIES * sizeof(vcm::Mat4)); err != vc::Error::Success)
             return err;
-        if (err = __cameraUniformBuffers[i].Init(2 * sizeof(vcm::Mat4) + sizeof(vcm::Vec3)); err != vc::Error::Success)
+        if (err = __cameraUniformBuffers[i].Init(2 * sizeof(vcm::Mat4) + 2 * sizeof(vcm::Vec3)); err != vc::Error::Success)
             return err;
     }
 

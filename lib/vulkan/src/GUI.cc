@@ -311,6 +311,41 @@ void VulkanGUI::_EndCombo()
     ImGui::EndCombo();
 }
 
+bool VulkanGUI::_BeginMenu(const char* label, bool enabled)
+{
+    return ImGui::BeginMenu(label, enabled);
+}
+
+void VulkanGUI::_EndMenu()
+{
+    ImGui::EndMenu();
+}
+
+bool VulkanGUI::_BeginMainMenuBar()
+{
+    return ImGui::BeginMainMenuBar();
+}
+
+void VulkanGUI::_EndMainMenuBar()
+{
+    ImGui::EndMainMenuBar();
+}
+
+bool VulkanGUI::_BeginMenuBar()
+{
+    return ImGui::BeginMenuBar();
+}
+
+void VulkanGUI::_EndMenuBar()
+{
+    ImGui::EndMenuBar();
+}
+
+bool VulkanGUI::_MenuItem(const char* str, const char* text)
+{
+    return ImGui::MenuItem(str, text);
+}
+
 void VulkanGUI::_SetItemDefaultFocus()
 {
     ImGui::SetItemDefaultFocus();
