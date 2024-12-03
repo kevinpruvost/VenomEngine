@@ -56,7 +56,7 @@ void Scene()
             auto name = "ground" + std::to_string(i) + "_" + std::to_string(j);
             vc::Entity ground = vc::CreateEntity(name.c_str())
                 .emplace<vc::Transform3D>()
-                .emplace<vc::Model>("ground/ground_cube.glb")
+                .emplace<vc::Model>("ground/ground_sphere.glb")
                 .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
             ground.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(i * 3.5f, 0.0f,j * 3.5f));
             ground.get_mut<vc::Transform3D>()->SetScale(vcm::Vec3(1.0f, 1.0f, 1.0f));

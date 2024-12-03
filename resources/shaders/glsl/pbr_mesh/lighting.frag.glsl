@@ -145,8 +145,8 @@ void main()
 
     // Loop over lights
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
-    metallic = 1;
-    roughness = 0.5;
+    // metallic = 1;
+    // roughness = 0.5;
     for (uint i = 0; i < 1; ++i) {
         Light light = lights[i];
 
@@ -156,8 +156,10 @@ void main()
 
         vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
 
-        finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-        // finalColor.r = finalColor.g = finalColor.b = clamp(abs(dot(normal, viewDir)), 0.0001, 1.0);
+        if (tangentSpace)
+            finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+        else
+            finalColor.r = finalColor.g = finalColor.b = clamp(abs(dot(normal, viewDir)), 0.0001, 1.0);
         // finalColor.rgb = normal;
         // position.y = -position.y;
         // vec3 q1 = dFdx(position);
