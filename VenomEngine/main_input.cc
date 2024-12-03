@@ -60,12 +60,6 @@ void SceneInput(vc::Context * context)
     }
 }
 
-int drawNormalMap = false;
-int disableMetallic = false;
-float metallic = 0.0f;
-int disableRoughness = false;
-float roughness = 0.0f;
-
 void SceneGUI()
 {
     vc::Entity light1 = vc::ECS::GetEntity("light1");
@@ -90,39 +84,14 @@ void SceneGUI()
     vc::GUI::SetNextWindowPos(vcm::Vec2(0, 20), vc::GUICondBits::GUICond_Always);
     vc::GUI::Begin("VenomEngine");
     vc::GUI::Checkbox("Camera Locked", &cameraLocked);
+    vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
+    if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
+        vc::Camera::GetMainCamera()->SetPosition(cameraPos);
+    }
     vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
     vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
     vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
-    if (vc::GUI::Checkbox("Draw Normal Map", (bool *)&drawNormalMap)) {
-        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &drawNormalMap, sizeof(int), sizeof(vcm::Vec2));
-    }
-    if (vc::GUI::Checkbox("Disable Metallic", (bool *)&disableMetallic)) {
-        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &disableMetallic, sizeof(int), sizeof(vcm::Vec2) + sizeof(int));
-    }
-    if (vc::GUI::SliderFloat("Metallic", &metallic, 0.0f, 1.0f)) {
-        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &metallic, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int));
-    }
-    if (vc::GUI::Checkbox("Disable Roughness", (bool *)&disableRoughness)) {
-        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &disableRoughness, sizeof(int), sizeof(vcm::Vec2) + 2 * sizeof(int));
-    }
-    if (vc::GUI::SliderFloat("Roughness", &roughness, 0.0f, 1.0f)) {
-        vc::ShaderResourceTable::UpdateDescriptor(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, 1, &roughness, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int) + sizeof(float));
-    }
-    const vc::Vector<vc::String> & msaaModes = vc::GraphicsSettings::GetAvailableMultisamplingCountOptionsStrings();
-    int msaaMode = vc::GraphicsSettings::GetActiveMultisamplingCountIndex();
-    if (vc::GUI::BeginCombo("MSAA:", msaaModes[msaaMode].c_str())) {
-        for (int i = 0; i < vc::GraphicsSettings::GetAvailableMultisamplingCountOptions().size(); i++) {
-            bool isSelected = (msaaMode == i);
-            if (vc::GUI::Selectable(msaaModes[i].c_str(), isSelected)) {
-                msaaMode = i;
-                vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::GetAvailableMultisamplingCountOptions()[i]);
-            }
-            if (isSelected) {
-                vc::GUI::SetItemDefaultFocus();
-            }
-        }
-        vc::GUI::EndCombo();
-    }
+    vc::GUI::GraphicsSettingsWindow();
     vc::GUI::End();
 
     vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));

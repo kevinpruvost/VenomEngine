@@ -17,10 +17,14 @@ GraphicsSettings::GraphicsSettings()
     : _gfxSettingsChangeState(GfxSettingsChangeState::Ended)
     , _multisamplingDirty(false)
     , _isHdrSupported(false)
-    , __isHdrEnabled(false)
     , _gfxSettingsChangeQueued(false)
     , _samplingMode(MultiSamplingModeOption::None)
-    , _samples(1)
+    , __gfxSettingsData{
+        .multisamplingMode = static_cast<int>(MultiSamplingModeOption::MSAA),
+        .multisamplingSamples = 4,
+        .hdrEnabled = 1, // TODO: Disable by default
+    }
+    , __gfxSettingsDataDirty(true)
 {
     venom_assert(s_graphicsSettings == nullptr, "GraphicsSettings is a singleton.");
     s_graphicsSettings = this;
@@ -34,8 +38,9 @@ GraphicsSettings::~GraphicsSettings()
 vc::Error GraphicsSettings::SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)
 {
     s_graphicsSettings->_multisamplingDirty = true;
-    s_graphicsSettings->_samples = static_cast<int>(samples);
+    s_graphicsSettings->__gfxSettingsData.multisamplingSamples = static_cast<int>(samples);
     s_graphicsSettings->_samplingMode = mode;
+    s_graphicsSettings->__gfxSettingsDataDirty = true;
     if (s_graphicsSettings->_gfxSettingsChangeState == GfxSettingsChangeState::Ended)
         s_graphicsSettings->__AddLoadGFXSettingsToQueue();
     if (s_graphicsSettings->_SetMultiSampling(mode, samples) != vc::Error::Success)
@@ -51,13 +56,14 @@ vc::Error GraphicsSettings::SetHDR(bool enable)
     vc::Error err = s_graphicsSettings->_SetHDR(enable);
     if (err != vc::Error::Success)
         return err;
-    s_graphicsSettings->__isHdrEnabled = enable;
+    s_graphicsSettings->__gfxSettingsData.hdrEnabled = enable;
+    s_graphicsSettings->__gfxSettingsDataDirty = true;
     return err;
 }
 
 bool GraphicsSettings::IsHDREnabled()
 {
-    return s_graphicsSettings->__isHdrEnabled;
+    return s_graphicsSettings->__gfxSettingsData.hdrEnabled;
 }
 
 bool GraphicsSettings::IsHDRSupported()
@@ -82,12 +88,13 @@ void GraphicsSettings::StartGfxSettingsChange()
 vc::Error GraphicsSettings::EndGfxSettingsChange()
 {
     s_graphicsSettings->_gfxSettingsChangeState = GfxSettingsChangeState::Ended;
+    s_graphicsSettings->__gfxSettingsDataDirty = true;
     return __LoadGfxSettings();
 }
 
 int GraphicsSettings::GetActiveSamplesMultisampling()
 {
-    return s_graphicsSettings->_samples;
+    return s_graphicsSettings->__gfxSettingsData.multisamplingSamples;
 }
 
 GraphicsSettings::MultiSamplingModeOption GraphicsSettings::GetActiveMultisamplingMode()
@@ -97,7 +104,7 @@ GraphicsSettings::MultiSamplingModeOption GraphicsSettings::GetActiveMultisampli
 
 GraphicsSettings::MultiSamplingCountOption GraphicsSettings::GetActiveMultisamplingCount()
 {
-    return static_cast<GraphicsSettings::MultiSamplingCountOption>(s_graphicsSettings->_samples);
+    return static_cast<GraphicsSettings::MultiSamplingCountOption>(s_graphicsSettings->__gfxSettingsData.multisamplingSamples);
 }
 
 int GraphicsSettings::GetActiveMultisamplingCountIndex()
@@ -124,6 +131,25 @@ const vc::Vector<GraphicsSettings::MultiSamplingCountOption> & GraphicsSettings:
 const vc::Vector<vc::String>& GraphicsSettings::GetAvailableMultisamplingCountOptionsStrings()
 {
     return s_graphicsSettings->__availableMultisamplingCountsStrings;
+}
+
+const GraphicsSettingsData* GraphicsSettings::GetGfxSettingsDataPtr()
+{
+    return &s_graphicsSettings->__gfxSettingsData;
+}
+
+bool GraphicsSettings::_IsGfxSettingsDataDirty()
+{
+    const bool dirty = s_graphicsSettings->__gfxSettingsDataDirty;
+    s_graphicsSettings->__gfxSettingsDataDirty = false;
+    return dirty;
+}
+
+void GraphicsSettings::SetWindowResolution(int width, int height)
+{
+    s_graphicsSettings->__gfxSettingsData.screenWidth = width;
+    s_graphicsSettings->__gfxSettingsData.screenHeight = height;
+    s_graphicsSettings->__gfxSettingsDataDirty = true;
 }
 
 void GraphicsSettings::ReloadGFXSettings()

@@ -48,10 +48,18 @@ public:
     static inline void TextColored(const vcm::Vec4 & col, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_TextColored(col, fmt, args); va_end(args); }
     static inline void LabelText(const char* label, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_LabelText(label, fmt, args); va_end(args); }
 
+    static inline bool TreeNode(const char* label) { return s_gui->_TreeNode(label); }
+    static inline void TreePop() { s_gui->_TreePop(); }
+    static inline void TreePush(const char* str_id) { s_gui->_TreePush(str_id); }
+
+    static inline void Spacing() { s_gui->_Spacing(); }
+
     static inline bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat(label, v, v_min, v_max, format, power); }
     static inline bool SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat3(label, v, v_min, v_max, format, power); }
 
     static inline void ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags = 0) { s_gui->_ColorEdit3(label, col, flags); }
+
+    static inline bool CollapsingHeader(const char* label, GUITreeNodeFlags flags = 0) { return s_gui->_CollapsingHeader(label, flags); }
 
     static inline bool Button(const char* label, const vcm::Vec2 & size = vcm::Vec2(0, 0)) { return s_gui->_Button(label, size); }
     static inline bool Checkbox(const char* label, bool* v) { return s_gui->_Checkbox(label, v); }
@@ -77,6 +85,8 @@ public:
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
 
+    static void GraphicsSettingsWindow();
+
 protected:
     virtual void _SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond, const vcm::Vec2 & pivot) = 0;
 
@@ -90,10 +100,18 @@ protected:
     virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
     virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
 
+    virtual bool _TreeNode(const char* label) = 0;
+    virtual void _TreePop() = 0;
+    virtual void _TreePush(const char* str_id) = 0;
+
+    virtual void _Spacing() = 0;
+
     virtual bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) = 0;
     virtual bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power) = 0;
 
     virtual void _ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags) = 0;
+
+    virtual bool _CollapsingHeader(const char* label, GUITreeNodeFlags flags) = 0;
 
     virtual bool _Button(const char* label, const vcm::Vec2 & size) = 0;
     virtual bool _Checkbox(const char* label, bool* v) = 0;

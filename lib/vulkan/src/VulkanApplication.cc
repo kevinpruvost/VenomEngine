@@ -26,6 +26,7 @@
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
 #include "venom/common/Light.h"
+#include "venom/common/SceneSettings.h"
 #include "venom/common/plugin/graphics/GUI.h"
 #include "venom/common/plugin/graphics/RenderingPipeline.h"
 
@@ -128,6 +129,12 @@ void VulkanApplication::__UpdateUniformBuffers()
     __lightsBuffer.WriteToBuffer(lightShaderStructs.data(), sizeof(vc::LightShaderStruct) * lightShaderStructs.size());
     uint32_t lightCount = lights.size();
     __lightCountBuffer.WriteToBuffer(&lightCount, sizeof(uint32_t));
+    if (vc::SceneSettings::IsDataDirty()) {
+        __sceneSettingsBuffer.WriteToBuffer(vc::SceneSettings::GetCurrentSettingsData(), sizeof(vc::SceneSettingsData));
+    }
+    if (vc::GraphicsSettings::_IsGfxSettingsDataDirty()) {
+        __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
+    }
 }
 
 vc::Error VulkanApplication::__GraphicsOperations()

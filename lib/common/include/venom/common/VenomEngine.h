@@ -13,6 +13,7 @@
 
 #include <venom/common/Context.h>
 #include <venom/common/Light.h>
+#include <venom/common/SceneSettings.h>
 
 namespace venom
 {
@@ -90,6 +91,7 @@ private:
     UPtr<ECS> __ecs;
     UPtr<VenomSettings> __settings;
     UPtr<LightManager> __lightManager;
+    UPtr<SceneSettings> __sceneSettings;
 };
 }
 }

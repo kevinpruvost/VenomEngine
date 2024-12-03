@@ -8,6 +8,7 @@
 #include <venom/vulkan/VulkanApplication.h>
 
 #include "venom/common/Light.h"
+#include "venom/common/SceneSettings.h"
 
 namespace venom
 {
@@ -69,10 +70,9 @@ vc::Error VulkanApplication::__InitializeSets()
         .AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
         .SetMaxSets(VENOM_MAX_ENTITIES);
 
-    // Scene
+    // Scene settings & Graphics Settings
     DescriptorPool::GetPool()->GetOrCreateDescriptorSetLayout(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE)
         .AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_ALL)
-        // Screen Props
         .AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_ALL);
 
     // Panorama
@@ -97,11 +97,11 @@ vc::Error VulkanApplication::__InitializeSets()
         return vc::Error::Failure;
 
     // Target Luminance
-    if (err = __targetLuminanceBuffer.Init(sizeof(float)); err != vc::Error::Success)
+    if (err = __sceneSettingsBuffer.Init(sizeof(vc::SceneSettingsData)); err != vc::Error::Success)
         return err;
-    float targetLuminance = 100.0f;
-    __targetLuminanceBuffer.WriteToBuffer(&targetLuminance, sizeof(float));
-    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE).GroupUpdateBuffer(__targetLuminanceBuffer, 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+
+    __sceneSettingsBuffer.WriteToBuffer(vc::SceneSettings::GetCurrentSettingsData(), sizeof(vc::SceneSettingsData));
+    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE).GroupUpdateBuffer(__sceneSettingsBuffer, 0, 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         // Model & PBR info
@@ -111,23 +111,10 @@ vc::Error VulkanApplication::__InitializeSets()
     }
 
     // Screen Props
-    if (err = __screenPropsBuffer.Init(sizeof(vcm::Vec2) + sizeof(int) * 3 + sizeof(float) * 2 + sizeof(int)); err != vc::Error::Success)
+    if (err = __graphicsSettingsBuffer.Init(sizeof(vc::GraphicsSettingsData)); err != vc::Error::Success)
         return err;
-    vcm::Vec2 screenProps = {__swapChain.extent.width, __swapChain.extent.height};
-    int normalMapDraw = 0;
-    int disableMetallic = 0;
-    int disableRoughness = 0;
-    float metallic = 0.0f;
-    float roughness = 0.0f;
-    int multisampling = 4;
-    __screenPropsBuffer.WriteToBuffer(&screenProps, sizeof(vcm::Vec2));
-    __screenPropsBuffer.WriteToBuffer(&normalMapDraw, sizeof(int), sizeof(vcm::Vec2));
-    __screenPropsBuffer.WriteToBuffer(&disableMetallic, sizeof(int), sizeof(vcm::Vec2) + sizeof(int));
-    __screenPropsBuffer.WriteToBuffer(&disableRoughness, sizeof(int), sizeof(vcm::Vec2) + 2 * sizeof(int));
-    __screenPropsBuffer.WriteToBuffer(&metallic, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int));
-    __screenPropsBuffer.WriteToBuffer(&roughness, sizeof(float), sizeof(vcm::Vec2) + 3 * sizeof(int) + sizeof(float));
-    __screenPropsBuffer.WriteToBuffer(&multisampling, sizeof(int), sizeof(vcm::Vec2) + 3 * sizeof(int) + 2 * sizeof(float));
-    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE).GroupUpdateBuffer(__screenPropsBuffer, 0, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
+    __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
+    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE).GroupUpdateBuffer(__graphicsSettingsBuffer, 0, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
     // Lights
     if (err = __lightsBuffer.Init(VENOM_MAX_LIGHTS * sizeof(vc::LightShaderStruct)); err != vc::Error::Success)

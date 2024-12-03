@@ -41,7 +41,7 @@ void Scene()
         .emplace<vc::Transform3D>()
         .emplace<vc::Camera>();
     camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-5.2f, 4.8f, -4.7f));
-    camera.get_mut<vc::Camera>()->LookAt(balls_hd.get<vc::Transform3D>()->GetPosition());
+    camera.get_mut<vc::Camera>()->LookAt(helmet.get<vc::Transform3D>()->GetPosition());
 
     vc::Entity light1 = vc::CreateEntity("light1")
         .emplace<vc::Light>();
@@ -56,10 +56,10 @@ void Scene()
             auto name = "ground" + std::to_string(i) + "_" + std::to_string(j);
             vc::Entity ground = vc::CreateEntity(name.c_str())
                 .emplace<vc::Transform3D>()
-                .emplace<vc::Model>("ground/ground.glb")
+                .emplace<vc::Model>("ground/ground_cube.glb")
                 .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
             ground.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(i * 3.5f, 0.0f,j * 3.5f));
-            ground.get_mut<vc::Transform3D>()->SetScale(vcm::Vec3(3.0f, 3.0f, 3.0f));
+            ground.get_mut<vc::Transform3D>()->SetScale(vcm::Vec3(1.0f, 1.0f, 1.0f));
             ground.get_mut<vc::Model>()->GetMaterials()[0].SetTextureRepeatFactor(vcm::Vec2(1.0f, 1.0f));
         }
     }

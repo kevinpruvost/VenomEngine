@@ -26,19 +26,24 @@ layout(binding = 0, set = 1) uniform UniformBufferCamera {
     vec3 cameraDirection;
 };
 
-layout(binding = 0, set = 5) uniform cb1 {
+struct SceneSettings {
     float targetLuminance;
 };
 
-layout(binding = 1, set = 5) uniform cb2 {
+struct GraphicsSettings {
     int screenWidth;
     int screenHeight;
-    int normalMapDraw;
-    int disableMetallic;
-    int disableRoughness;
-    float constant_metallic;
-    float constant_roughness;
+    int multisamplingMode;
     int multisamplingSamples;
+    int hdrEnabled;
+};
+
+layout(binding = 0, set = 5) uniform cb1 {
+    SceneSettings sceneSettings;
+};
+
+layout(binding = 1, set = 5) uniform cb2 {
+    GraphicsSettings graphicsSettings;
 };
 
 const int LightType_Directional = 0;
@@ -63,6 +68,6 @@ layout(binding = 1, set = 7) uniform cl2 {
 };
 
 // Problem with this thing
-layout(binding = 2, set = 7) buffer forwardPlusResultBuffer {
-    int data[];
+layout(binding = 2, set = 7) buffer forwardPlusResultBufferData {
+    int forwardPlusResultBuffer[];
 };

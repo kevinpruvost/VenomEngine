@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file Texture.h
 /// @date Sep, 17 2024
 /// @brief 
@@ -38,12 +38,12 @@ public:
     static void SetDummyTexture(VulkanTexture * texture);
 
     vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) override;
-    vc::Error LoadImageBGRA(unsigned char * pixels, int width, int height, int channels) override;
+    vc::Error LoadImageRGBA(unsigned char * pixels, int width, int height, int channels) override;
     vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) override;
     vc::Error _InitDepthBuffer(int width, int height) override;
     vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) override;
 
-    inline bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }
+    bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }
 
     inline const Image & GetImage() const { return _resource->As<VulkanTextureResource>()->image; }
     inline Image & GetImage() { return _resource->As<VulkanTextureResource>()->image; }

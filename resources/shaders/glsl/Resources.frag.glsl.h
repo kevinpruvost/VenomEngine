@@ -29,10 +29,10 @@ const int MaterialComponentType_CLEARCOAT = 20;
 const int MaterialComponentType_MAX_COMPONENT = 21;
 
 const int MaterialComponentValueType_NONE = 0;
-const int MaterialComponentValueType_COLOR3D = 1;
-const int MaterialComponentValueType_COLOR4D = 2;
-const int MaterialComponentValueType_VALUE = 3;
-const int MaterialComponentValueType_TEXTURE = 4;
+const int MaterialComponentValueType_FLOAT3D = 1;
+const int MaterialComponentValueType_FLOAT4D = 2;
+const int MaterialComponentValueType_FLOAT1D = 4;
+const int MaterialComponentValueType_TEXTURE = 8;
 
 const int MaterialComponentValueChannels_R = 1;
 const int MaterialComponentValueChannels_G = 2;
@@ -62,70 +62,92 @@ layout(binding = 0, set = 4) uniform materialProps {
 
 // Function to get a texture value from a material component
 vec4 GetMaterialTexture(int componentType, vec2 uv) {
-    return GetTexture(componentType, uv * material.textureRepeatFactor);
+    return graphicsSettings.hdrEnabled == 1 ? fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor)) : GetTexture(componentType, uv * material.textureRepeatFactor);
 }
 
 float MaterialComponentGetValue1(int componentType, vec2 uv) {
-    vec4 value;
-    if (material.components[componentType].valueType == MaterialComponentValueType_TEXTURE)
-        value = GetMaterialTexture(componentType, uv);
-    else
-        value = material.components[componentType].value;
-
-    if ((material.components[componentType].channels & MaterialComponentValueChannels_G) != 0)
-        return value.g;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_B) != 0)
-        return value.b;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
-        return value.a;
-    else
-        return value.r;
+    float ret;
+    if ((material.components[componentType].valueType & MaterialComponentValueType_TEXTURE) != 0) {
+        vec4 value = GetMaterialTexture(componentType, uv);
+        if ((material.components[componentType].channels & MaterialComponentValueChannels_G) != 0)
+            ret = value.g;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_B) != 0)
+            ret = value.b;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
+            ret = value.a;
+        else
+            ret = value.r;
+        if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT4D) != 0) {
+            ret *= material.components[componentType].value.r;
+        } else if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT1D) != 0) {
+            ret *= material.components[componentType].value.r;
+        }
+    } else
+        ret = material.components[componentType].value.r;
+    return ret;
 }
 
 vec2 MaterialComponentGetValue2(int componentType, vec2 uv) {
-    vec4 value;
-    if (material.components[componentType].valueType == MaterialComponentValueType_TEXTURE)
-        value = GetMaterialTexture(componentType, uv);
-    else
-        value = material.components[componentType].value;
-
-    if ((material.components[componentType].channels & MaterialComponentValueChannels_G) != 0 &&
-        (material.components[componentType].channels & MaterialComponentValueChannels_B) != 0)
-        return value.gb;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_B) != 0 &&
-             (material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
-        return value.ba;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_G) != 0 &&
-             (material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
-        return value.ga;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_R) != 0 &&
-             (material.components[componentType].channels & MaterialComponentValueChannels_G) != 0)
-        return value.rg;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_R) != 0 &&
-             (material.components[componentType].channels & MaterialComponentValueChannels_B) != 0)
-        return value.rb;
-    else if ((material.components[componentType].channels & MaterialComponentValueChannels_R) != 0 &&
-             (material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
-        return value.ra;
-    else
-        return value.rg; // Default
+    vec2 ret;
+    if ((material.components[componentType].valueType & MaterialComponentValueType_TEXTURE) != 0) {
+        vec4 value = GetMaterialTexture(componentType, uv);
+        if ((material.components[componentType].channels & MaterialComponentValueChannels_G) != 0 &&
+            (material.components[componentType].channels & MaterialComponentValueChannels_B) != 0)
+            ret = value.gb;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_B) != 0 &&
+                (material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
+            ret = value.ba;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_G) != 0 &&
+                (material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
+            ret = value.ga;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_R) != 0 &&
+                (material.components[componentType].channels & MaterialComponentValueChannels_G) != 0)
+            ret = value.rg;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_R) != 0 &&
+                (material.components[componentType].channels & MaterialComponentValueChannels_B) != 0)
+            ret = value.rb;
+        else if ((material.components[componentType].channels & MaterialComponentValueChannels_R) != 0 &&
+                (material.components[componentType].channels & MaterialComponentValueChannels_A) != 0)
+            ret = value.ra;
+        else
+            ret = value.rg; // Default
+        if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT4D) != 0) {
+            ret *= material.components[componentType].value.rg;
+        } else if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT1D) != 0) {
+            ret *= material.components[componentType].value.r;
+        }
+    } else
+        ret = material.components[componentType].value.rg;
+    return ret;
 }
 
 vec3 MaterialComponentGetValue3(int componentType, vec2 uv) {
-    vec4 value;
-    if (material.components[componentType].valueType == MaterialComponentValueType_TEXTURE)
-        value = GetMaterialTexture(componentType, uv);
-    else
-        value = material.components[componentType].value;
-
-    if (material.components[componentType].channels == MaterialComponentValueChannels_RGB)
-        return value.rgb;
-    else
-        return value.gba; // Default fallback
+    vec3 ret;
+    if ((material.components[componentType].valueType & MaterialComponentValueType_TEXTURE) != 0) {
+       vec4 value = GetMaterialTexture(componentType, uv);
+       if (material.components[componentType].channels == MaterialComponentValueChannels_RGB)
+           ret = value.rgb;
+       else
+           ret = value.gba; // Default fallback
+        if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT4D) != 0) {
+            ret *= material.components[componentType].value.rgb;
+        } else if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT1D) != 0) {
+            ret *= material.components[componentType].value.r;
+        }
+    } else
+        ret = material.components[componentType].value.rgb;
+    return ret;
 }
 
 vec4 MaterialComponentGetValue4(int componentType, vec2 uv) {
-    if (material.components[componentType].valueType == MaterialComponentValueType_TEXTURE)
-        return GetMaterialTexture(componentType, uv);
+    if ((material.components[componentType].valueType & MaterialComponentValueType_TEXTURE) != 0) {
+        vec4 ret = GetMaterialTexture(componentType, uv);
+        if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT4D) != 0) {
+            ret *= material.components[componentType].value;
+        } else if ((material.components[componentType].valueType & MaterialComponentValueType_FLOAT1D) != 0) {
+            ret *= material.components[componentType].value.r;
+        }
+        return ret;
+    }
     return material.components[componentType].value;
 }

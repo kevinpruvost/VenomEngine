@@ -7,7 +7,8 @@ $msl_dir = './resources/shaders/msl'
 compiled_dir = './resources/shaders/compiled'
 dxc_folder_path = './cmake_build/dxc/Release/bin'
 dxc_path = "#{dxc_folder_path}/dxc"
-macos_flag = RUBY_PLATFORM =~ /darwin/ ? '-DMACOS' : ''
+glslangValidator_path = '/usr/local/bin/glslangValidator'
+macos_flag = RUBY_PLATFORM =~ /darwin/ ? 'MACOS' : ''
 
 # Ensure the compiled directory exists
 FileUtils.mkdir_p(compiled_dir)
@@ -85,7 +86,7 @@ if ARGV[0] == 'clean'
 #     hlsl_files.each do |file|
 #         output_file = output_file_create_name(file, compiled_dir)
 #         type = shader_type(file)
-#         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} #{macos_flag}"
+#         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} -D#{macos_flag}"
 #         puts "Compiling #{file} to #{output_file} with command[#{cmd}]..."
 #         system(cmd)
 #     end
@@ -102,8 +103,8 @@ elsif ARGV[0] == 'compile_glsl' or ARGV[0] == 'compile'
     # Compile each GLSL file to SPIR-V
     glsl_files.each do |file|
         output_file = output_file_create_name(file, compiled_dir)
-        cmd = "glslangValidator -V #{file} -o #{output_file}"
-        puts "Compiling #{file} to #{output_file}..."
+        cmd = "#{glslangValidator_path} -V #{file} -o #{output_file} -U#{macos_flag}"
+        puts "Compiling #{file} to #{output_file}... [#{cmd}]"
         system(cmd)
     end
 else

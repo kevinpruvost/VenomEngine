@@ -66,6 +66,8 @@ inline Mat4 Perspective(const float fov, const float aspect, const float nearPla
     return PerspectiveRH(fov, aspect, nearPlane, farPlane);
 #endif
 }
+
+VENOM_COMMON_API Mat4 Inverse(const Mat4& matrix);
 }
 }
 }

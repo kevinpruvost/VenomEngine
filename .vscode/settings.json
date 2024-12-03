@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "__bit_reference": "cpp",
+        "bitset": "cpp",
+        "deque": "cpp",
+        "limits": "cpp",
+        "ratio": "cpp",
+        "tuple": "cpp",
+        "vector": "cpp",
+        "*.inc": "cpp"
+    }
+}

@@ -80,7 +80,19 @@ void MaterialImpl::SetComponent(const MaterialComponentType type, const float va
 
 void MaterialImpl::SetComponent(const MaterialComponentType type, const Texture & texture)
 {
-    __components[type].SetValue(texture);
+    __components[type].SetTexture(texture);
+    __resourceTableDirty = true;
+}
+
+void MaterialImpl::RemoveComponentValue(const MaterialComponentType type)
+{
+    __components[type].RemoveValue();
+    __resourceTableDirty = true;
+}
+
+void MaterialImpl::RemoveComponentTexture(const MaterialComponentType type)
+{
+    __components[type].RemoveTexture();
     __resourceTableDirty = true;
 }
 
@@ -138,14 +150,14 @@ const MaterialImpl::MaterialResourceTable& MaterialImpl::_GetResourceTable(bool&
         for (int i = 0; i < MaterialComponentType::MAX_COMPONENT; i++)
         {
             __resourceTable.components[i].valueType = static_cast<int>(__components[i].GetValueType());
-            switch (__resourceTable.components[i].valueType) {
-                case MaterialComponentValueType::COLOR3D:
+            switch (__resourceTable.components[i].valueType & ~MaterialComponentValueType::TEXTURE) {
+                case MaterialComponentValueType::FLOAT3D:
                     memcpy(&__resourceTable.components[i].value, &__components[i].GetColor3D(), sizeof(vcm::Vec3));
                     break;
-                case MaterialComponentValueType::COLOR4D:
+                case MaterialComponentValueType::FLOAT4D:
                     __resourceTable.components[i].value = __components[i].GetColor4D();
                     break;
-                case MaterialComponentValueType::VALUE:
+                case MaterialComponentValueType::FLOAT1D:
                     float val = __components[i].GetFloatValue();
                     memcpy(&__resourceTable.components[i].value, &val, sizeof(float));
                     break;

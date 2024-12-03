@@ -55,10 +55,10 @@ enum MaterialComponentType
 enum MaterialComponentValueType
 {
     NONE,
-    COLOR3D,
-    COLOR4D,
-    VALUE,
-    TEXTURE,
+    FLOAT3D = 1,
+    FLOAT4D = 2,
+    FLOAT1D = 4,
+    TEXTURE = 8,
 };
 
 enum MaterialComponentValueChannels
@@ -81,8 +81,12 @@ enum MaterialComponentValueChannels
 class VENOM_COMMON_API MaterialComponent
 {
 public:
-    typedef std::variant<vcm::Vec3, vcm::Vec4, float, Texture> ComponentValue;
+    typedef std::variant<vcm::Vec3, vcm::Vec4, float> ComponentValue;
     MaterialComponent(const MaterialComponentType type);
+    MaterialComponent(const MaterialComponent & other);
+    MaterialComponent(MaterialComponent && other) noexcept;
+    MaterialComponent & operator=(const MaterialComponent & other);
+    MaterialComponent & operator=(MaterialComponent && other) noexcept;
     ~MaterialComponent();
 
     /**
@@ -91,7 +95,7 @@ public:
      */
     inline void SetValue(const vcm::Vec3 & value)
     {
-        __valueType = MaterialComponentValueType::COLOR3D;
+        __valueType = MaterialComponentValueType::FLOAT3D | (__valueType & MaterialComponentValueType::TEXTURE);
         __channels = MaterialComponentValueChannels::RGB;
         __value.emplace<vcm::Vec3>(value);
     }
@@ -101,7 +105,7 @@ public:
      */
     inline void SetValue(const vcm::Vec4 & value)
     {
-        __valueType = MaterialComponentValueType::COLOR4D;
+        __valueType = MaterialComponentValueType::FLOAT4D | (__valueType & MaterialComponentValueType::TEXTURE);
         __channels = MaterialComponentValueChannels::RGBA;
         __value.emplace<vcm::Vec4>(value);
     }
@@ -111,25 +115,41 @@ public:
      */
     inline void SetValue(const float value)
     {
-        __valueType = MaterialComponentValueType::VALUE;
+        __valueType = MaterialComponentValueType::FLOAT1D | (__valueType & MaterialComponentValueType::TEXTURE);
         __channels = MaterialComponentValueChannels::R;
         __value.emplace<float>(value);
+    }
+    /**
+     * @brief Removes the value of the material component
+     */
+    inline void RemoveValue()
+    {
+        __value = ComponentValue();
+        __valueType = __valueType & MaterialComponentValueType::TEXTURE;
     }
     /**
      * @brief Sets Material component value
      * @param value can be a color3D/4D, a value or a texture
      */
-    inline void SetValue(const Texture & texture)
+    inline void SetTexture(const Texture & texture)
     {
-        __value.emplace<Texture>(texture);
+        __texture.reset(new Texture(texture));
         __channels = MaterialComponentValueChannels::RGBA;
-        __valueType = MaterialComponentValueType::TEXTURE;
+        __valueType |= MaterialComponentValueType::TEXTURE;
+    }
+    /**
+     * @brief Removes the texture value of the material component
+     */
+    inline void RemoveTexture()
+    {
+        __texture.reset();
+        __valueType &= ~MaterialComponentValueType::TEXTURE;
     }
     /**
      * @brief Gets the texture value of the material component
      * @return Texture
      */
-    inline const Texture & GetTexture() const { return std::get<Texture>(__value); }
+    inline const Texture * GetTexture() const { return __texture.get(); }
     /**
      * @brief Gets the color value of the material component
      * @return Vec4
@@ -151,8 +171,10 @@ public:
     inline void SetChannels(const MaterialComponentValueChannels channels) { __channels = channels; }
     inline void SetChannelsFromIndex(const int index) { __channels = GetComponentValueChannelsFromIndex(index); }
 
-    inline MaterialComponentValueType GetValueType() const { return __valueType; }
-    inline MaterialComponentValueType & GetValueTypeRef() { return __valueType; }
+    inline bool HasTexture() const { return __valueType & MaterialComponentValueType::TEXTURE; }
+
+    inline int GetValueType() const { return __valueType; }
+    inline int & GetValueTypeRef() { return __valueType; }
     inline MaterialComponentValueChannels GetChannels() const { return __channels; }
     inline MaterialComponentValueChannels & GetChannelsRef() { return __channels; }
 
@@ -198,8 +220,9 @@ public:
         }
     }
 private:
-    MaterialComponentValueType __valueType;
+    int __valueType;
     MaterialComponentValueChannels __channels;
+    UPtr<Texture> __texture;
     ComponentValue __value;
 };
 

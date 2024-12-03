@@ -10,7 +10,7 @@ layout(location = 0) in vec3 viewDir;
 vec4 GetPanoramaColor(vec2 uv) {
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
-    float exposure = targetLuminance / panoramaPeakLuminance;
+    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
     return vec4(color.rgb * 0.105, color.a); // Applying exposure factor
 }
 

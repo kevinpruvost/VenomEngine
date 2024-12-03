@@ -248,7 +248,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Create SwapChain
-    __swapChain.SetSamples(_samples);
+    __swapChain.SetSamples(GetActiveSamplesMultisampling());
     if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
 

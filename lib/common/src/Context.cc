@@ -8,6 +8,8 @@
 #include <venom/common/Context.h>
 #include <venom/common/Log.h>
 
+#include <venom/common/plugin/graphics/GraphicsSettings.h>
+
 namespace venom::common
 {
 Context * Context::s_context = nullptr;
@@ -45,7 +47,7 @@ vc::Error Context::InitContext()
     const GLFWvidmode * activeMode = const_cast<GLFWvidmode *>(glfwGetVideoMode(monitor));
 
     // Sort video modes by removing ones that don't have the same refresh rate as the current active video mode
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < count; ++i)
     {
         if (modes[i].refreshRate == activeMode->refreshRate) {
             __modes.push_back(modes[i]);
@@ -105,6 +107,7 @@ vc::Error Context::InitContext()
         Context * context = s_context;
         context->__width = width;
         context->__height = height;
+        vc::GraphicsSettings::SetWindowResolution(width, height);
     });
 
     // Set Initial pos

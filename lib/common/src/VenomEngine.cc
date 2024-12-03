@@ -42,6 +42,7 @@ VenomEngine::VenomEngine()
     , __dllCache(new DLL_Cache())
     , __ecs(new ECS())
     , __lightManager(new LightManager())
+    , __sceneSettings(new SceneSettings())
 {
     venom_assert(__dllCache, "VenomEngine::VenomEngine() : __dllCache is nullptr");
     DLL_Cache::SetCache(__dllCache.get());
@@ -93,8 +94,9 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         vc::Log::Error("Failed to initialize context: %d", err);
         return vc::Error::InitializationFailed;
     }
-
     vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
+
+    vc::GraphicsSettings::SetWindowResolution(s_instance->__context->GetWindowWidth(), s_instance->__context->GetWindowWidth());
 
     if (err = app->Init(); err != vc::Error::Success) {
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));

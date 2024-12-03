@@ -33,6 +33,33 @@ void GUI::SetGraphicsApplication(GraphicsApplication* app)
     _app = app;
 }
 
+void GUI::GraphicsSettingsWindow()
+{
+    if (vc::GUI::CollapsingHeader("Graphics Settings", GUITreeNodeFlagsBits::GUITreeNodeFlags_None)) {
+        // Multisampling
+        const vc::Vector<vc::String> & msaaModes = vc::GraphicsSettings::GetAvailableMultisamplingCountOptionsStrings();
+        int msaaMode = vc::GraphicsSettings::GetActiveMultisamplingCountIndex();
+        if (vc::GUI::BeginCombo("MSAA:", msaaModes[msaaMode].c_str())) {
+            for (int i = 0; i < vc::GraphicsSettings::GetAvailableMultisamplingCountOptions().size(); i++) {
+                bool isSelected = (msaaMode == i);
+                if (vc::GUI::Selectable(msaaModes[i].c_str(), isSelected)) {
+                    msaaMode = i;
+                    vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::GetAvailableMultisamplingCountOptions()[i]);
+                }
+                if (isSelected) {
+                    vc::GUI::SetItemDefaultFocus();
+                }
+            }
+            vc::GUI::EndCombo();
+        }
+        // HDR
+        bool hdrEnabled = vc::GraphicsSettings::IsHDREnabled();
+        if (vc::GUI::Checkbox("HDR (High Dynamic Range)", &hdrEnabled)) {
+            vc::GraphicsSettings::SetHDR(hdrEnabled);
+        }
+    }
+}
+
 vc::Error GUI::__PreUpdate()
 {
     return _PreUpdate();

@@ -78,10 +78,10 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
 {
     // If name starts with "$mat." it's a value, "$clr." is a color, "$tex.file" is a texture
     if (strncmp(name.c_str(), "$mat.", 4) == 0) {
-        type = MaterialComponentValueType::VALUE;
+        type = MaterialComponentValueType::FLOAT1D;
     } else if (strncmp(name.c_str(), "$clr.", 4) == 0) {
-        type = MaterialComponentValueType::COLOR3D;
-        if (dataLength == sizeof(float) * 4) type = MaterialComponentValueType::COLOR4D;
+        type = MaterialComponentValueType::FLOAT3D;
+        if (dataLength == sizeof(float) * 4) type = MaterialComponentValueType::FLOAT4D;
     } else if (strncmp(name.c_str(), "$tex.file", 9) == 0) {
         type = MaterialComponentValueType::TEXTURE;
         return GetMaterialComponentTypeFromAiTextureType(static_cast<aiTextureType>(semantic));
@@ -135,7 +135,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
         Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
     Assimp::Importer importer;
     //importer.SetPropertyFloat(AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, 45.0f); // Example: 45 degrees
-    importer.SetPropertyInteger(AI_CONFIG_PP_CT_MAX_SMOOTHING_ANGLE, 30);
+    // importer.SetPropertyInteger(AI_CONFIG_PP_CT_MAX_SMOOTHING_ANGLE, 30);
     // Print cwd
     const aiScene* scene = importer.ReadFile(realPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_PreTransformVertices);
     if (!scene) {
@@ -178,19 +178,19 @@ vc::Error ModelImpl::ImportModel(const char * path)
                 }
 
                 switch (valueType) {
-                    case MaterialComponentValueType::VALUE: {
+                    case MaterialComponentValueType::FLOAT1D: {
                         float value;
                         memcpy(&value, property->mData, sizeof(float));
                         material.SetComponent(matCompType, value);
                         break;
                     }
-                    case MaterialComponentValueType::COLOR3D: {
+                    case MaterialComponentValueType::FLOAT3D: {
                         aiColor3D value;
                         memcpy(&value, property->mData, sizeof(aiColor3D));
                         material.SetComponent(matCompType, vcm::Vec3(value.r, value.g, value.b));
                         break;
                     }
-                    case MaterialComponentValueType::COLOR4D: {
+                    case MaterialComponentValueType::FLOAT4D: {
                         aiColor4D value;
                         memcpy(&value, property->mData, sizeof(aiColor4D));
                         material.SetComponent(matCompType, vcm::Vec4(value.r, value.g, value.b, value.a));
@@ -202,7 +202,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         // Tries to load from cache or path
                         std::string texturePath = parentFolder / value.C_Str();
                         // If .gltf, then we have to load another way
-                        if (std::filesystem::path(path).extension() == ".gltf" || std::filesystem::path(path).extension() == ".glb") {
+                        if (std::filesystem::path(path).extension() == ".glb") {
                             // Load gltf texture
                             unsigned int textureIndex = std::atoi(value.C_Str() + 1);
                             aiTexture* aiTexture = scene->mTextures[textureIndex];
@@ -304,12 +304,12 @@ vc::Error ModelImpl::ImportModel(const char * path)
 
         // Normalize vertices & normals
         for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-            glm::vec3 position = glm::vec3(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
+            vcm::VertexPos position = glm::vec3(aimesh->mVertices[x].x, aimesh->mVertices[x].y, aimesh->mVertices[x].z);
             mesh._impl->As<MeshImpl>()->_positions.emplace_back(position);
 
             if (aimesh->HasNormals()) {
-                glm::vec3 normal = glm::vec3(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
-                mesh._impl->As<MeshImpl>()->_normals.emplace_back(glm::normalize(normal));
+                vcm::VertexNormal normal = glm::vec3(aimesh->mNormals[x].x, aimesh->mNormals[x].y, aimesh->mNormals[x].z);
+                mesh._impl->As<MeshImpl>()->_normals.emplace_back(normal);
             }
         }
 
@@ -335,68 +335,68 @@ vc::Error ModelImpl::ImportModel(const char * path)
 
         // MikkTSpace
         // Tangents & Bitangents
-        if (aimesh->HasTextureCoords(0)) {
-            mesh._impl->As<MeshImpl>()->_tangents.resize(aimesh->mNumVertices);
-            mesh._impl->As<MeshImpl>()->_bitangents.resize(aimesh->mNumVertices);
-
-            // MikkTSpace
-            struct MikkTSpaceData {
-                const aiMesh * aimesh;
-                std::vector<glm::vec3> * tangents;
-                std::vector<glm::vec3> * bitangents;
-            } mikktspaceData = { aimesh, &mesh._impl->As<MeshImpl>()->_tangents, &mesh._impl->As<MeshImpl>()->_bitangents };
-
-            SMikkTSpaceInterface mikktspace;
-            mikktspace.m_getNumFaces = [](const SMikkTSpaceContext * pContext) -> int {
-                return reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData)->aimesh->mNumFaces;
-            };
-            mikktspace.m_getNumVerticesOfFace = [](const SMikkTSpaceContext * pContext, const int iFace) -> int {
-                return reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData)->aimesh->mFaces[iFace].mNumIndices;
-            };
-            mikktspace.m_getPosition = [](const SMikkTSpaceContext * pContext, float fvPosOut[], const int iFace, const int iVert) {
-                MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
-                const aiVector3D& pos = data->aimesh->mVertices[data->aimesh->mFaces[iFace].mIndices[iVert]];
-                fvPosOut[0] = pos.x;
-                fvPosOut[1] = pos.y;
-                fvPosOut[2] = pos.z;
-            };
-            mikktspace.m_getNormal = [](const SMikkTSpaceContext * pContext, float fvNormOut[], const int iFace, const int iVert) {
-                MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
-                const aiVector3D& normal = data->aimesh->mNormals[data->aimesh->mFaces[iFace].mIndices[iVert]];
-                fvNormOut[0] = normal.x;
-                fvNormOut[1] = normal.y;
-                fvNormOut[2] = normal.z;
-            };
-            mikktspace.m_getTexCoord = [](const SMikkTSpaceContext * pContext, float fvTexcOut[], const int iFace, const int iVert) {
-                MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
-                const aiVector3D& uv = data->aimesh->mTextureCoords[0][data->aimesh->mFaces[iFace].mIndices[iVert]];
-                fvTexcOut[0] = uv.x;
-                fvTexcOut[1] = uv.y;
-            };
-            mikktspace.m_setTSpaceBasic = [](const SMikkTSpaceContext * pContext, const float fvTangent[], const float fSign, const int iFace, const int iVert) {
-                MikkTSpaceData * data = reinterpret_cast<MikkTSpaceData *>(pContext->m_pUserData);
-                int index = data->aimesh->mFaces[iFace].mIndices[iVert];
-                data->tangents->at(index) = vcm::Vec3(fvTangent[0], fvTangent[1], fvTangent[2]);
-                data->bitangents->at(index) = vcm::Vec3(fSign * fvTangent[0], fSign * fvTangent[1], fSign * fvTangent[2]);
-            };
-            mikktspace.m_setTSpace = nullptr;
-
-            SMikkTSpaceContext mikktspaceContext;
-            mikktspaceContext.m_pInterface = &mikktspace;
-            mikktspaceContext.m_pUserData = &mikktspaceData;
-
-            genTangSpaceDefault(&mikktspaceContext);
-        }
-
-
-        // if (aimesh->HasTangentsAndBitangents()) {
-        //     mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
-        //     mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
-        //     for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-        //         mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
-        //         mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
-        //     }
+        // if (aimesh->HasTextureCoords(0)) {
+        //     mesh._impl->As<MeshImpl>()->_tangents.resize(aimesh->mNumVertices);
+        //     mesh._impl->As<MeshImpl>()->_bitangents.resize(aimesh->mNumVertices);
+        //
+        //     // MikkTSpace
+        //     struct MikkTSpaceData {
+        //         const aiMesh * aimesh;
+        //         std::vector<glm::vec3> * tangents;
+        //         std::vector<glm::vec3> * bitangents;
+        //     } mikktspaceData = { aimesh, &mesh._impl->As<MeshImpl>()->_tangents, &mesh._impl->As<MeshImpl>()->_bitangents };
+        //
+        //     SMikkTSpaceInterface mikktspace;
+        //     mikktspace.m_getNumFaces = [](const SMikkTSpaceContext * pContext) -> int {
+        //         return reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData)->aimesh->mNumFaces;
+        //     };
+        //     mikktspace.m_getNumVerticesOfFace = [](const SMikkTSpaceContext * pContext, const int iFace) -> int {
+        //         return reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData)->aimesh->mFaces[iFace].mNumIndices;
+        //     };
+        //     mikktspace.m_getPosition = [](const SMikkTSpaceContext * pContext, float fvPosOut[], const int iFace, const int iVert) {
+        //         MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
+        //         const aiVector3D& pos = data->aimesh->mVertices[data->aimesh->mFaces[iFace].mIndices[iVert]];
+        //         fvPosOut[0] = pos.x;
+        //         fvPosOut[1] = pos.y;
+        //         fvPosOut[2] = pos.z;
+        //     };
+        //     mikktspace.m_getNormal = [](const SMikkTSpaceContext * pContext, float fvNormOut[], const int iFace, const int iVert) {
+        //         MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
+        //         const aiVector3D& normal = data->aimesh->mNormals[data->aimesh->mFaces[iFace].mIndices[iVert]];
+        //         fvNormOut[0] = normal.x;
+        //         fvNormOut[1] = normal.y;
+        //         fvNormOut[2] = normal.z;
+        //     };
+        //     mikktspace.m_getTexCoord = [](const SMikkTSpaceContext * pContext, float fvTexcOut[], const int iFace, const int iVert) {
+        //         MikkTSpaceData* data = reinterpret_cast<MikkTSpaceData*>(pContext->m_pUserData);
+        //         const aiVector3D& uv = data->aimesh->mTextureCoords[0][data->aimesh->mFaces[iFace].mIndices[iVert]];
+        //         fvTexcOut[0] = uv.x;
+        //         fvTexcOut[1] = uv.y;
+        //     };
+        //     mikktspace.m_setTSpaceBasic = [](const SMikkTSpaceContext * pContext, const float fvTangent[], const float fSign, const int iFace, const int iVert) {
+        //         MikkTSpaceData * data = reinterpret_cast<MikkTSpaceData *>(pContext->m_pUserData);
+        //         int index = data->aimesh->mFaces[iFace].mIndices[iVert];
+        //         data->tangents->at(index) = vcm::Vec3(fvTangent[0], fvTangent[1], fvTangent[2]);
+        //         data->bitangents->at(index) = vcm::Vec3(fSign * fvTangent[0], fSign * fvTangent[1], fSign * fvTangent[2]);
+        //     };
+        //     mikktspace.m_setTSpace = nullptr;
+        //
+        //     SMikkTSpaceContext mikktspaceContext;
+        //     mikktspaceContext.m_pInterface = &mikktspace;
+        //     mikktspaceContext.m_pUserData = &mikktspaceData;
+        //
+        //     genTangSpaceDefault(&mikktspaceContext);
         // }
+
+
+        if (aimesh->HasTangentsAndBitangents()) {
+            mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
+            for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
+                mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
+                mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
+            }
+        }
 
         // Faces
         if (aimesh->HasFaces()) {

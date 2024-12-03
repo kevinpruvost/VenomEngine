@@ -45,9 +45,9 @@ const DescriptorSet& VulkanMaterial::GetMaterialDescriptorSet()
         if (__textureDescriptorSet) {
             for (int i = 0; i < vc::MaterialComponentType::MAX_COMPONENT; i++) {
                 const vc::MaterialComponent & component = GetComponent(static_cast<vc::MaterialComponentType>(i));
-                if (component.GetValueType() == vc::MaterialComponentValueType::TEXTURE) {
-                    const vc::Texture & texture = component.GetTexture();
-                    __textureDescriptorSet->GroupUpdateTexture(texture.GetConstImpl()->ConstAs<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+                if (component.GetValueType() & vc::MaterialComponentValueType::TEXTURE) {
+                    const vc::Texture * texture = component.GetTexture();
+                    __textureDescriptorSet->GroupUpdateTexture(texture->GetConstImpl()->ConstAs<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
                 }
             }
         }

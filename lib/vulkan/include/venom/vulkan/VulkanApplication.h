@@ -102,7 +102,7 @@ private:
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
 
-    UniformBuffer __targetLuminanceBuffer, __screenPropsBuffer;
+    UniformBuffer __sceneSettingsBuffer, __graphicsSettingsBuffer;
     UniformBuffer __lightsBuffer;
     UniformBuffer __lightCountBuffer;
     StorageBuffer __forwardPlusPropsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];

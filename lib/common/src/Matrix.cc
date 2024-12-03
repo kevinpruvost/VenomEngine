@@ -101,6 +101,15 @@ Mat4 PerspectiveRH(const float fov, const float aspect, const float nearPlane, c
     return glm::perspectiveRH(fov, aspect, nearPlane, farPlane);
 #endif
 }
+
+Mat4 Inverse(const Mat4& matrix)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return DirectX::XMMatrixInverse(nullptr, matrix);
+#elif defined(VENOM_MATH_GLM)
+    return glm::inverse(matrix);
+#endif
+}
 }
 }
 }

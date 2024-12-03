@@ -1,5 +1,5 @@
 ///
-/// Project: Bazel_Vulkan_Metal
+/// Project: VenomEngine
 /// @file Texture.cc
 /// @date Sep, 17 2024
 /// @brief 
@@ -59,7 +59,7 @@ vc::Error VulkanTexture::LoadImage(unsigned char* pixels, int width, int height,
     return vc::Error::Success;
 }
 
-vc::Error VulkanTexture::LoadImageBGRA(unsigned char* pixels, int width, int height, int channels)
+vc::Error VulkanTexture::LoadImageRGBA(unsigned char* pixels, int width, int height, int channels)
 {
     GetImage().SetSamples(VK_SAMPLE_COUNT_1_BIT);
     if (GetImage().Load(pixels, width, height, channels,

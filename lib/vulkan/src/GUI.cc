@@ -266,6 +266,26 @@ void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
     va_end(args);
 }
 
+bool VulkanGUI::_TreeNode(const char* label)
+{
+    return ImGui::TreeNode(label);
+}
+
+void VulkanGUI::_TreePop()
+{
+    ImGui::TreePop();
+}
+
+void VulkanGUI::_TreePush(const char* str_id)
+{
+    ImGui::TreePush(str_id);
+}
+
+void VulkanGUI::_Spacing()
+{
+    ImGui::Spacing();
+}
+
 bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power)
 {
     return ImGui::SliderFloat(label, v, v_min, v_max, format, power);
@@ -279,6 +299,11 @@ bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float 
 void VulkanGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags)
 {
     ImGui::ColorEdit3(label, col, static_cast<ImGuiColorEditFlags>(flags));
+}
+
+bool VulkanGUI::_CollapsingHeader(const char* label, vc::GUITreeNodeFlags flags)
+{
+    return ImGui::CollapsingHeader(label, static_cast<ImGuiTreeNodeFlags>(flags));
 }
 
 bool VulkanGUI::_Button(const char* label, const vcm::Vec2& size)

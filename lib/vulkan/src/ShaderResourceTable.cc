@@ -29,9 +29,8 @@ void VulkanShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const 
     {
         case SetsIndex::SETS_INDEX_SCENE: {
             switch (binding) {
-                case 0: break;
-                case 1: {
-                    app->__screenPropsBuffer.WriteToBuffer(data, size, offset);
+                case 0: {
+                    app->__sceneSettingsBuffer.WriteToBuffer(data, size, offset);
                     break;
                 }
             }

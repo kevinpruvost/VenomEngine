@@ -38,10 +38,18 @@ protected:
     void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) override;
     void _LabelText(const char* label, const char* fmt, ...) override;
 
+    bool _TreeNode(const char* label) override;
+    void _TreePop() override;
+    void _TreePush(const char* str_id) override;
+
+    void _Spacing() override;
+
     bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) override;
     bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power);
 
     void _ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags) override;
+
+    bool _CollapsingHeader(const char* label, vc::GUITreeNodeFlags flags) override;
 
     bool _Button(const char* label, const vcm::Vec2 & size) override;
     bool _Checkbox(const char* label, bool* v) override;

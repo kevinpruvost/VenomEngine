@@ -163,7 +163,7 @@ TextureLoader * CreateTextureLoader(const char * path)
     vc::String extension = path;
     extension = extension.substr(extension.find_last_of('.') + 1);
     if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp"
-     || extension == "tga" || extension == "gif" || extension == "psd"  || extension == "hdr") {
+     || extension == "tga" || extension == "gif" || extension == "psd") {
         return new Stbi_TextureLoader();
     } else if (extension == "exr" || extension == "hdr") {
         return new EXR_TextureLoader();
@@ -224,7 +224,7 @@ vc::Error TextureImpl::LoadImage(const char* path, int id, char* bgraData, unsig
         return vc::Error::Failure;
     }
 
-    if (LoadImageBGRA(imageData, realWidth, realHeight, channels) != vc::Error::Success) {
+    if (LoadImageRGBA(imageData, realWidth, realHeight, channels) != vc::Error::Success) {
         vc::Log::Error("Failed to load image from memory: %s", path);
         return vc::Error::Failure;
     }

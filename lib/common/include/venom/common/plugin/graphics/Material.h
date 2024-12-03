@@ -29,6 +29,8 @@ public:
     void SetComponent(const MaterialComponentType type, const vcm::Vec4& value);
     void SetComponent(const MaterialComponentType type, const float value);
     void SetComponent(const MaterialComponentType type, const Texture & texture);
+    void RemoveComponentValue(const MaterialComponentType type);
+    void RemoveComponentTexture(const MaterialComponentType type);
     void SetComponentChannels(const MaterialComponentType type, const MaterialComponentValueChannels channels);
     void SetComponentChannelsFromIndex(const MaterialComponentType type, const int index);
     const MaterialComponent & GetComponent(const MaterialComponentType type) const;
@@ -82,6 +84,12 @@ public:
     }
     inline void SetComponent(const MaterialComponentType type, const Texture & texture) {
         _impl->As<MaterialImpl>()->SetComponent(type, texture);
+    }
+    inline void RemoveComponentTexture(const MaterialComponentType type) {
+        _impl->As<MaterialImpl>()->RemoveComponentTexture(type);
+    }
+    inline void RemoveComponentValue(const MaterialComponentType type) {
+        _impl->As<MaterialImpl>()->RemoveComponentValue(type);
     }
     inline const MaterialComponent & GetComponent(const MaterialComponentType type) const {
         return _impl->As<MaterialImpl>()->GetComponent(type);

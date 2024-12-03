@@ -14,6 +14,15 @@ namespace venom
 {
 namespace common
 {
+struct GraphicsSettingsData
+{
+    int screenWidth;
+    int screenHeight;
+    int multisamplingMode;
+    int multisamplingSamples;
+    int hdrEnabled;
+};
+
 /**
  * Interface of GraphicsApplication class to set the graphics settings.
  * Includable in any plugin, useful to get access to enum and other things...
@@ -53,9 +62,14 @@ public:
     static const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingCountOptions();
     static const vc::Vector<vc::String> & GetAvailableMultisamplingCountOptionsStrings();
 
+    static const GraphicsSettingsData * GetGfxSettingsDataPtr();
+    static void SetWindowResolution(int width, int height);
+
     static void ReloadGFXSettings();
 
 protected:
+    static bool _IsGfxSettingsDataDirty();
+
     virtual vc::Error _LoadGfxSettings() = 0;
 
     virtual vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) = 0;
@@ -72,7 +86,6 @@ protected:
     GfxSettingsChangeState _gfxSettingsChangeState;
 
     MultiSamplingModeOption _samplingMode;
-    int _samples;
     bool _multisamplingDirty;
     bool _isHdrSupported;
 
@@ -83,6 +96,9 @@ private:
     void __AddLoadGFXSettingsToQueue();
 
     bool __isHdrEnabled;
+
+    GraphicsSettingsData __gfxSettingsData;
+    bool __gfxSettingsDataDirty;
 
     vc::Vector<vc::String> __availableMultisamplingCountsStrings;
 
