@@ -159,9 +159,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // Check if HDR is possible
     for (const auto& format : __surface.GetSurfaceFormats()) {
         if (format.format == VK_FORMAT_R16G16B16A16_SFLOAT) {
-            if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
+            if (format.colorSpace == VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT) {
                 _isHdrSupported = true;
-                SetHDR(true);
+                //SetHDR(true);
                 break;
             }
         }

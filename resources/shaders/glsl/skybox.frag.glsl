@@ -69,4 +69,6 @@ void main() {
 
     // Output the final color
     finalColor = color;
+    if (graphicsSettings.hdrEnabled == 0)
+        finalColor = fromLinear(finalColor);
 }

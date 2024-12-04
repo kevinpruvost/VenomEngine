@@ -22,7 +22,7 @@ GraphicsSettings::GraphicsSettings()
     , __gfxSettingsData{
         .multisamplingMode = static_cast<int>(MultiSamplingModeOption::MSAA),
         .multisamplingSamples = 4,
-        .hdrEnabled = 1, // TODO: Disable by default
+        .hdrEnabled = 0, // TODO: Disable by default
     }
     , __gfxSettingsDataDirty(true)
 {
@@ -56,6 +56,8 @@ vc::Error GraphicsSettings::SetHDR(bool enable)
     vc::Error err = s_graphicsSettings->_SetHDR(enable);
     if (err != vc::Error::Success)
         return err;
+    if (s_graphicsSettings->_gfxSettingsChangeState == GfxSettingsChangeState::Ended)
+        s_graphicsSettings->__AddLoadGFXSettingsToQueue();
     s_graphicsSettings->__gfxSettingsData.hdrEnabled = enable;
     s_graphicsSettings->__gfxSettingsDataDirty = true;
     return err;

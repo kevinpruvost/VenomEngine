@@ -194,4 +194,5 @@ void main()
     // finalColor.rgb *= ao;
     // finalColor = toLinear(finalColor);
     // finalColor = vec4(pow(finalColor.rgb, vec3(1.0 / 2.2)), finalColor.a);
+    // finalColor.rgb = pow(finalColor.rgb, vec3(1.0 / 1.5));
 }

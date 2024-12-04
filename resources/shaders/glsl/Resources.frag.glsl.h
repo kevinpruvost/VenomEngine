@@ -62,7 +62,8 @@ layout(binding = 0, set = 4) uniform materialProps {
 
 // Function to get a texture value from a material component
 vec4 GetMaterialTexture(int componentType, vec2 uv) {
-    return graphicsSettings.hdrEnabled == 1 ? fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor)) : GetTexture(componentType, uv * material.textureRepeatFactor);
+    // All the textures are in linear color space whether HDR is enabled or not, why ???
+    return graphicsSettings.hdrEnabled == 1 ? fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor)) : fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor));
 }
 
 float MaterialComponentGetValue1(int componentType, vec2 uv) {

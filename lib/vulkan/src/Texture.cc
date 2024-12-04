@@ -12,6 +12,8 @@
 #include <venom/vulkan/QueueManager.h>
 #include <venom/vulkan/PhysicalDevice.h>
 
+#include "venom/common/plugin/graphics/GraphicsSettings.h"
+
 namespace venom
 {
 namespace vulkan
@@ -112,16 +114,16 @@ vc::Error VulkanTexture::_CreateAttachment(int width, int height, int imageCount
     VkFormat vkFormat;
     switch (format) {
         case vc::ShaderVertexFormat::Float:
-            vkFormat = VK_FORMAT_R16_SFLOAT;
+            vkFormat = vc::GraphicsSettings::IsHDREnabled() ? VK_FORMAT_R16_SFLOAT : VK_FORMAT_R8_SRGB;
             break;
         case vc::ShaderVertexFormat::Vec2:
-            vkFormat = VK_FORMAT_R16G16_SFLOAT;
+            vkFormat = vc::GraphicsSettings::IsHDREnabled() ? VK_FORMAT_R16G16_SFLOAT : VK_FORMAT_R8G8_SRGB;
             break;
         case vc::ShaderVertexFormat::Vec3:
-            vkFormat = VK_FORMAT_R16G16B16_SFLOAT;
+            vkFormat = vc::GraphicsSettings::IsHDREnabled() ? VK_FORMAT_R16G16B16_SFLOAT : VK_FORMAT_B8G8R8_SRGB;
             break;
         case vc::ShaderVertexFormat::Vec4:
-            vkFormat = VK_FORMAT_R16G16B16A16_SFLOAT;
+            vkFormat = vc::GraphicsSettings::IsHDREnabled() ? VK_FORMAT_R16G16B16A16_SFLOAT : VK_FORMAT_B8G8R8A8_SRGB;
             break;
         default:
             vc::Log::Error("Unsupported format for attachment");
