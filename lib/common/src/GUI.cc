@@ -7,6 +7,7 @@
 ///
 #include <venom/common/plugin/graphics/GUI.h>
 
+#include "venom/common/SceneSettings.h"
 #include "venom/common/plugin/graphics/GraphicsApplication.h"
 
 namespace venom
@@ -56,6 +57,12 @@ void GUI::GraphicsSettingsWindow()
         bool hdrEnabled = vc::GraphicsSettings::IsHDREnabled();
         if (vc::GUI::Checkbox("HDR (High Dynamic Range)", &hdrEnabled)) {
             vc::GraphicsSettings::SetHDR(hdrEnabled);
+        }
+        // Background Target Luminance
+        static float targetLuminance;
+        targetLuminance = vc::SceneSettings::GetTargetLuminance();
+        if (vc::GUI::SliderFloat("Target Luminance", &targetLuminance, 0.0f, 1000.0f)) {
+            vc::SceneSettings::SetTargetLuminance(targetLuminance);
         }
     }
 }

@@ -10,8 +10,8 @@ layout(location = 0) in vec3 viewDir;
 vec4 GetPanoramaColor(vec2 uv) {
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
-    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
-    return vec4(color.rgb * 0.105, color.a); // Applying exposure factor
+    float exposure = sceneSettings.targetLuminance * 0.4 / panoramaPeakLuminance;
+    return vec4(color.rgb * exposure, color.a); // Applying exposure factor
 }
 
 float atan2_custom(in float y, in float x)
@@ -69,6 +69,5 @@ void main() {
 
     // Output the final color
     finalColor = color;
-    if (graphicsSettings.hdrEnabled == 0)
-        finalColor = fromLinear(finalColor);
+    finalColor = (finalColor);
 }

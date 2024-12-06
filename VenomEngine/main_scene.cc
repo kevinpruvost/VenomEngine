@@ -11,7 +11,7 @@ void Scene()
 {
     vc::Entity cubemap = vc::CreateEntity("cubemap")
 //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
-            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
+            .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
 
     vc::Entity balls_hd = vc::CreateEntity("balls_hd")
