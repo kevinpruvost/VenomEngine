@@ -49,6 +49,21 @@ enum GUIWindowFlagsBits
 };
 typedef int GUIWindowFlags;
 
+enum GUIChildFlagsBits
+{
+    GUIChildFlags_None                    = 0,
+    GUIChildFlags_Borders                 = 1 << 0,   // Show an outer border and enable WindowPadding. (IMPORTANT: this is always == 1 == true for legacy reason)
+    GUIChildFlags_AlwaysUseWindowPadding  = 1 << 1,   // Pad with style.WindowPadding even if no border are drawn (no padding by default for non-bordered child windows because it makes more sense)
+    GUIChildFlags_ResizeX                 = 1 << 2,   // Allow resize from right border (layout direction). Enable .ini saving (unless GUIWindowFlags_NoSavedSettings passed to window flags)
+    GUIChildFlags_ResizeY                 = 1 << 3,   // Allow resize from bottom border (layout direction). "
+    GUIChildFlags_AutoResizeX             = 1 << 4,   // Enable auto-resizing width. Read "IMPORTANT: Size measurement" details above.
+    GUIChildFlags_AutoResizeY             = 1 << 5,   // Enable auto-resizing height. Read "IMPORTANT: Size measurement" details above.
+    GUIChildFlags_AlwaysAutoResize        = 1 << 6,   // Combined with AutoResizeX/AutoResizeY. Always measure size even when child is hidden, always return true, always disable clipping optimization! NOT RECOMMENDED.
+    GUIChildFlags_FrameStyle              = 1 << 7,   // Style the child window like a framed item: use FrameBg, FrameRounding, FrameBorderSize, FramePadding instead of ChildBg, ChildRounding, ChildBorderSize, WindowPadding.
+    GUIChildFlags_NavFlattened            = 1 << 8,   // [BETA] Share focus scope, allow keyboard/gamepad navigation to cross over parent border to this child or between sibling child windows.
+};
+typedef int GUIChildFlags;
+
 /**
  * Color edit flags based on GUIColorEditFlagsBits_ (based on GUI 1.91.5)
  */

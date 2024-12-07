@@ -366,6 +366,17 @@ void VulkanGUI::_EndMenuBar()
     ImGui::EndMenuBar();
 }
 
+bool VulkanGUI::_BeginChild(const char* str_id, const vcm::Vec2& size, vc::GUIChildFlags childFlags, vc::GUIWindowFlags extra_flags)
+{
+    return ImGui::BeginChild(str_id, ImVec2(size.x, size.y), static_cast<ImGuiChildFlags>(childFlags),
+        static_cast<ImGuiWindowFlags>(extra_flags));
+}
+
+void VulkanGUI::_EndChild()
+{
+    ImGui::EndChild();
+}
+
 bool VulkanGUI::_MenuItem(const char* str, const char* text)
 {
     return ImGui::MenuItem(str, text);

@@ -79,13 +79,20 @@ public:
     static inline bool BeginMenuBar() { return s_gui->_BeginMenuBar(); }
     static inline void EndMenuBar() { s_gui->_EndMenuBar(); }
 
+    static inline bool BeginChild(const char* str_id, const vcm::Vec2 & size, GUIChildFlags childFlags, GUIWindowFlags extraFlags = 0) { return s_gui->_BeginChild(str_id, size, childFlags, extraFlags); }
+    static inline void EndChild() { s_gui->_EndChild(); }
+
     static inline bool MenuItem(const char* str, const char* text = nullptr) { return s_gui->_MenuItem(str, text); }
 
     static inline void SetItemDefaultFocus() { s_gui->_SetItemDefaultFocus(); }
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
 
-    static void GraphicsSettingsWindow();
+    static void GraphicsSettingsCollaspingHeader();
+
+    static void EntitiesListCollapsingHeader();
+private:
+    static void _EntityPropertiesWindow();
 
 protected:
     virtual void _SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond, const vcm::Vec2 & pivot) = 0;
@@ -130,6 +137,9 @@ protected:
 
     virtual bool _BeginMenuBar() = 0;
     virtual void _EndMenuBar() = 0;
+
+    virtual bool _BeginChild(const char* str_id, const vcm::Vec2 & size, GUIChildFlags childFlags, GUIWindowFlags extra_flags) = 0;
+    virtual void _EndChild() = 0;
 
     virtual bool _MenuItem(const char* str, const char* text) = 0;
 

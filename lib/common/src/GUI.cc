@@ -7,7 +7,9 @@
 ///
 #include <venom/common/plugin/graphics/GUI.h>
 
+#include "venom/common/ECS.h"
 #include "venom/common/SceneSettings.h"
+#include "venom/common/Transform3D.h"
 #include "venom/common/plugin/graphics/GraphicsApplication.h"
 
 namespace venom
@@ -34,7 +36,7 @@ void GUI::SetGraphicsApplication(GraphicsApplication* app)
     _app = app;
 }
 
-void GUI::GraphicsSettingsWindow()
+void GUI::GraphicsSettingsCollaspingHeader()
 {
     if (vc::GUI::CollapsingHeader("Graphics Settings", GUITreeNodeFlagsBits::GUITreeNodeFlags_None)) {
         // Multisampling
@@ -65,6 +67,40 @@ void GUI::GraphicsSettingsWindow()
             vc::SceneSettings::SetTargetLuminance(targetLuminance);
         }
     }
+}
+
+static vc::Entity selectedEntity;
+void GUI::EntitiesListCollapsingHeader()
+{
+    if (vc::GUI::CollapsingHeader("Entities", GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+        static int selected = -1;
+        if (vc::GUI::BeginChild("##EntitiesList", vcm::Vec2(0, 300), GUIChildFlagsBits::GUIChildFlags_FrameStyle | GUIChildFlagsBits::GUIChildFlags_ResizeY))
+        {
+            int n = 0;
+            vc::ECS::ForEach<vc::Transform3D>([&](vc::Entity entity, vc::Transform3D & transform) {
+                if (vc::GUI::Selectable(entity.name().c_str(), selected == n)) {
+                    selected = n;
+                    selectedEntity = entity;
+                }
+                ++n;
+            });
+        }
+        vc::GUI::EndChild();
+    }
+    if (selectedEntity.is_valid() && selectedEntity.is_alive()) {
+        _EntityPropertiesWindow();
+    }
+}
+
+void GUI::_EntityPropertiesWindow()
+{
+    vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
+    vc::GUI::Begin("Entity Properties");
+    {
+        vc::GUI::Text(selectedEntity.name().c_str());
+        vc::GUI::Text("ID: %d", selectedEntity.id());
+    }
+    vc::GUI::End();
 }
 
 vc::Error GUI::__PreUpdate()

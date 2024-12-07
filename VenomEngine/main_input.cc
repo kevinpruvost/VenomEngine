@@ -80,22 +80,28 @@ void SceneGUI()
         vc::GUI::EndMainMenuBar();
     }
 
-
     vc::GUI::SetNextWindowPos(vcm::Vec2(0, 20), vc::GUICondBits::GUICond_Always);
     vc::GUI::Begin("VenomEngine");
-    vc::GUI::Checkbox("Camera Locked", &cameraLocked);
-    vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
-    if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
-        vc::Camera::GetMainCamera()->SetPosition(cameraPos);
+    {
+        if (vc::GUI::CollapsingHeader("Scene Settings:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+            vc::GUI::Checkbox("Camera Locked", &cameraLocked);
+            vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
+            // if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
+            //     vc::Camera::GetMainCamera()->SetPosition(cameraPos);
+            // }
+            vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
+            // vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
+            // vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
+        }
+        vc::GUI::GraphicsSettingsCollaspingHeader();
+        vc::GUI::EntitiesListCollapsingHeader();
     }
-    vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
-    vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
-    vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
-    vc::GUI::GraphicsSettingsWindow();
     vc::GUI::End();
 
-    vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
-    vc::GUI::Begin("TestWindow");
-    vc::GUI::Text("Hello, world!");
-    vc::GUI::End();
+    // vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
+    // vc::GUI::Begin("TestWindow");
+    // {
+    //     vc::GUI::Text("Hello, world!");
+    // }
+    // vc::GUI::End();
 }

@@ -69,6 +69,9 @@ protected:
     bool _BeginMenuBar() override;
     void _EndMenuBar() override;
 
+    bool _BeginChild(const char* str_id, const vcm::Vec2 & size, vc::GUIChildFlags childFlags, vc::GUIWindowFlags extra_flags) override;
+    void _EndChild() override;
+
     bool _MenuItem(const char* str, const char* text) override;
 
     void _SetItemDefaultFocus() override;
