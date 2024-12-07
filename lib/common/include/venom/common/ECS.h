@@ -8,8 +8,11 @@
 #pragma once
 
 #include <venom/common/DLL.h>
+#include <venom/common/plugin/graphics/GUI.h>
 #include <flecs.h>
 #include <functional>
+
+#include <venom/common/Containers.h>
 
 namespace venom
 {
@@ -17,10 +20,21 @@ namespace common
 {
 typedef flecs::entity Entity;
 
-template <typename T>
-using Component = flecs::component<T>;
-
 typedef flecs::system System;
+
+class VenomComponent
+{
+public:
+    VenomComponent() = default;
+    virtual ~VenomComponent() = default;
+
+    void GUI();
+protected:
+    virtual void _GUI() = 0;
+    virtual vc::String _GetComponentTitle() = 0;
+};
+
+typedef VenomComponent Component;
 
 /**
  * @brief Entity Component System
@@ -36,11 +50,6 @@ public:
     template <typename T>
     void RegisterComponent() {
         __world.component<T>();
-    }
-
-    template<typename T>
-    inline Component<T> GetComponent() {
-        return __world.component<T>();
     }
 
     Entity CreateEntity();
@@ -60,6 +69,14 @@ public:
         ECS::GetECS()->__ForEach<Args...>(func);
     }
 
+    static inline void Each(auto && func) {
+        ECS::GetECS()->__Each(func);
+    }
+
+    static inline Component * GetComponentFromID(flecs::id id) {
+        return ECS::GetECS()->__GetComponentFromID(id);
+    }
+
     static ECS * GetECS();
 
 private:
@@ -69,11 +86,18 @@ private:
         q.each(func);
     }
 
+    void __Each(auto && func) {
+        auto query = __world.query_builder<>().build();
+        query.each(func);
+    }
+
     static ECS * s_ecs;
 
     Entity __GetEntity(const char * name) {
         return __world.lookup(name);
     }
+
+    Component * __GetComponentFromID(flecs::id id);
 
 private:
     flecs::world __world;
@@ -82,11 +106,6 @@ private:
 Entity CreatePrefab(const char* name);
 Entity CreateEntity(const char * name);
 Entity CreateEntity();
-
-template<typename T>
-inline Component<T> GetComponent() {
-    return ECS::GetECS()->GetComponent<T>();
-}
 
 }
 }

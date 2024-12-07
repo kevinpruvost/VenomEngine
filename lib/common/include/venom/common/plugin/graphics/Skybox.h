@@ -10,6 +10,8 @@
 #include <venom/common/plugin/graphics/Texture.h>
 #include <venom/common/plugin/graphics/ShaderPipeline.h>
 
+#include <venom/common/ECS.h>
+
 namespace venom
 {
 namespace common
@@ -28,13 +30,15 @@ private:
     Texture __panorama;
 };
 
-class VENOM_COMMON_API Skybox : public PluginObjectImplWrapper
+class VENOM_COMMON_API Skybox : public PluginObjectImplWrapper, public Component
 {
 public:
     Skybox();
     Skybox(const char * path);
     ~Skybox();
 
+    void _GUI() override;
+    vc::String _GetComponentTitle() override;
     inline vc::Error LoadSkybox(const char * path) { return _impl->As<SkyboxImpl>()->LoadSkybox(path); }
 };
 }

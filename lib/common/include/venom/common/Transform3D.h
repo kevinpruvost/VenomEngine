@@ -8,12 +8,13 @@
 #pragma once
 #include <venom/common/math/Matrix.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
+#include <venom/common/ECS.h>
 
 namespace venom
 {
 namespace common
 {
-class VENOM_COMMON_API Transform3D
+class VENOM_COMMON_API Transform3D : public Component
 {
 public:
     Transform3D();
@@ -22,6 +23,9 @@ public:
     Transform3D & operator=(const Transform3D & other);
     Transform3D(Transform3D && other) noexcept;
     Transform3D & operator=(Transform3D && other) noexcept;
+
+    void _GUI() override;
+    vc::String _GetComponentTitle() override;
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera
@@ -44,6 +48,7 @@ public:
     void Rotate(const vcm::Vec3 & rotation);     // Rotate camera around X, Y and Z axis by the given angles
     inline const vcm::Quat & GetRotationQuat() const { return _rotationQuat; } // Get current camera rotation
     const vcm::Vec3 & GetRotation();                                       // Get current camera rotation
+    const vcm::Vec3 & GetScale();                                          // Get current camera scale
 
 
     /**

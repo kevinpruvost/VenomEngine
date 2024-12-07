@@ -37,5 +37,14 @@ RenderingPipeline::RenderingPipeline(const RenderingPipelineType type)
 {
     SetShaderType(type);
 }
+
+void RenderingPipeline::_GUI()
+{
+}
+
+vc::String RenderingPipeline::_GetComponentTitle()
+{
+    return "Rendering Pipeline";
+}
 }
 }

@@ -57,6 +57,9 @@ public:
     static inline bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat(label, v, v_min, v_max, format, power); }
     static inline bool SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat3(label, v, v_min, v_max, format, power); }
 
+    static inline bool InputFloat(const char* label, float* v, float step = 0.0f, float step_fast = 0.0f, const char* format = "%.3f", GUIColorEditFlags flags = 0) { return s_gui->_InputFloat(label, v, step, step_fast, format, flags); }
+    static inline bool InputFloat3(const char* label, float v[3], const char* format = "%.3f", GUIColorEditFlags flags = 0) { return s_gui->_InputFloat3(label, v, format, flags); }
+
     static inline void ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags = 0) { s_gui->_ColorEdit3(label, col, flags); }
 
     static inline bool CollapsingHeader(const char* label, GUITreeNodeFlags flags = 0) { return s_gui->_CollapsingHeader(label, flags); }
@@ -115,6 +118,9 @@ protected:
 
     virtual bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) = 0;
     virtual bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power) = 0;
+
+    virtual bool _InputFloat(const char* label, float* v, float step, float step_fast, const char* format, GUIColorEditFlags flags) = 0;
+    virtual bool _InputFloat3(const char* label, float v[3], const char* format, GUIColorEditFlags flags) = 0;
 
     virtual void _ColorEdit3(const char* label, float col[3], GUIColorEditFlags flags) = 0;
 

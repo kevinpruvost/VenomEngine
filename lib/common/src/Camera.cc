@@ -52,6 +52,16 @@ Camera * Camera::GetMainCamera()
     return s_mainCamera.get();
 }
 
+void Camera::_GUI()
+{
+    GetImpl()->As<CameraImpl>()->_GUI();
+}
+
+vc::String Camera::_GetComponentTitle()
+{
+    return "Camera";
+}
+
 const vcm::Mat4& CameraImpl::GetViewMatrix()
 {
     if (HasPositionChanged()) {

@@ -22,11 +22,13 @@
 #include <venom/common/plugin/graphics/ShaderPipeline.h>
 #include <venom/common/plugin/graphics/Skybox.h>
 
+#include <venom/common/ComponentManager.h>
+
 #include <filesystem>
 #include <thread>
 #include <chrono>
 
-#include "venom/common/plugin/graphics/GUI.h"
+#include <venom/common/plugin/graphics/GUI.h>
 
 
 namespace venom
@@ -150,6 +152,8 @@ void VenomEngine::__LoadECS()
 {
     // Reserve entities
 
+    __ecs->RegisterComponent<ComponentManager>();
+    __ecs->RegisterComponent<Transform3D>();
     __ecs->RegisterComponent<RenderingPipeline>();
     __ecs->RegisterComponent<Model>();
     __ecs->RegisterComponent<Skybox>();

@@ -64,5 +64,7 @@ void Scene()
         }
     }
 
+    vc::Entity testt = vc::CreateEntity("fard");
+
     vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
 }

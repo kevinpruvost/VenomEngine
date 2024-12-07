@@ -13,6 +13,8 @@
 
 #include <vector>
 
+#include <venom/common/ECS.h>
+
 namespace venom
 {
 namespace common
@@ -45,13 +47,15 @@ private:
 
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
-class VENOM_COMMON_API Model : public PluginObjectImplWrapper
+class VENOM_COMMON_API Model : public PluginObjectImplWrapper, public Component
 {
 public:
     Model();
     Model(const char * path);
     ~Model();
 
+    void _GUI() override;
+    vc::String _GetComponentTitle() override;
     inline void Draw() { _impl->As<ModelImpl>()->Draw(); }
     inline vc::Error ImportModel(const char * path) { return _impl->As<ModelImpl>()->ImportModel(path); }
     inline const vc::Vector<vc::Mesh> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }

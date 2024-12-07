@@ -35,6 +35,8 @@ public:
     Light();
     ~Light() override;
 
+    void _GUI() override;
+
     inline void SetType(const LightType type) { __type = type; }
     inline const LightType & GetType() const { return __type; }
     inline void SetColor(const vcm::Vec3 & color) { __color = color; }

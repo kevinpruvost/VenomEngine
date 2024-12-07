@@ -47,6 +47,9 @@ protected:
     bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) override;
     bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power);
 
+    bool _InputFloat(const char* label, float* v, float step, float step_fast, const char* format, vc::GUIColorEditFlags flags) override;
+    bool _InputFloat3(const char* label, float v[3], const char* format, vc::GUIColorEditFlags flags) override;
+
     void _ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags) override;
 
     bool _CollapsingHeader(const char* label, vc::GUITreeNodeFlags flags) override;

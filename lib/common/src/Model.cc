@@ -50,6 +50,15 @@ Model::~Model()
 {
 }
 
+void Model::_GUI()
+{
+}
+
+vc::String Model::_GetComponentTitle()
+{
+    return "Model";
+}
+
 static MaterialComponentType GetMaterialComponentTypeFromAiTextureType(const aiTextureType type)
 {
     switch (type)

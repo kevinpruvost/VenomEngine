@@ -7,10 +7,15 @@
 ///
 #include <venom/common/plugin/graphics/GUI.h>
 
-#include "venom/common/ECS.h"
-#include "venom/common/SceneSettings.h"
-#include "venom/common/Transform3D.h"
-#include "venom/common/plugin/graphics/GraphicsApplication.h"
+#include <venom/common/ComponentManager.h>
+#include <venom/common/ECS.h>
+#include <venom/common/Light.h>
+#include <venom/common/SceneSettings.h>
+#include <venom/common/Transform3D.h>
+#include <venom/common/plugin/graphics/Camera.h>
+#include <venom/common/plugin/graphics/GraphicsApplication.h>
+#include <venom/common/plugin/graphics/Model.h>
+#include <venom/common/plugin/graphics/RenderingPipeline.h>
 
 namespace venom
 {
@@ -77,7 +82,7 @@ void GUI::EntitiesListCollapsingHeader()
         if (vc::GUI::BeginChild("##EntitiesList", vcm::Vec2(0, 300), GUIChildFlagsBits::GUIChildFlags_FrameStyle | GUIChildFlagsBits::GUIChildFlags_ResizeY))
         {
             int n = 0;
-            vc::ECS::ForEach<vc::Transform3D>([&](vc::Entity entity, vc::Transform3D & transform) {
+            vc::ECS::ForEach<vc::ComponentManager>([&](vc::Entity entity, vc::ComponentManager & cm) {
                 if (vc::GUI::Selectable(entity.name().c_str(), selected == n)) {
                     selected = n;
                     selectedEntity = entity;
@@ -99,6 +104,34 @@ void GUI::_EntityPropertiesWindow()
     {
         vc::GUI::Text(selectedEntity.name().c_str());
         vc::GUI::Text("ID: %d", selectedEntity.id());
+        // GUI for every component
+
+        selectedEntity.each([&](flecs::id componentID)
+        {
+            void * component = selectedEntity.get_mut(componentID);
+            int idTest = selectedEntity.raw_id();
+            //reinterpret_cast<Component*>(component)->GUI();
+        });
+        if (selectedEntity.has<Transform3D>()) {
+            Transform3D * transform = selectedEntity.get_mut<Transform3D>();
+            transform->_GUI();
+        }
+        // GUI for Light
+        if (selectedEntity.has<Light>()) {
+
+        }
+        // GUI for Model
+        if (selectedEntity.has<Model>()) {
+
+        }
+        // GUI for Rendering Pipeline
+        if (selectedEntity.has<RenderingPipeline>()) {
+
+        }
+        // GUI for Camera
+        if (selectedEntity.has<Camera>()) {
+
+        }
     }
     vc::GUI::End();
 }

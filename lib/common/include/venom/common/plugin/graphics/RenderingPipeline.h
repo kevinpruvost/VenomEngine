@@ -8,6 +8,8 @@
 #pragma once
 #include <venom/common/plugin/graphics/ShaderPipeline.h>
 
+#include <venom/common/ECS.h>
+
 namespace venom
 {
 namespace common
@@ -39,13 +41,15 @@ private:
 /**
  * @brief Interface with shader pipelines and shader settings
  */
-class VENOM_COMMON_API RenderingPipeline : public PluginObjectImplWrapper
+class VENOM_COMMON_API RenderingPipeline : public PluginObjectImplWrapper, public Component
 {
 public:
     RenderingPipeline();
     RenderingPipeline(const RenderingPipelineType type);
     ~RenderingPipeline() = default;
 
+    void _GUI() override;
+    vc::String _GetComponentTitle() override;
     inline void SetShaderType(const RenderingPipelineType type) { _impl->As<RenderingPipelineImpl>()->SetShaderType(type); }
     inline RenderingPipelineType GetShaderType() const { return _impl->As<RenderingPipelineImpl>()->GetShaderType(); }
     inline const ShaderPipelineList & GetRenderingPipelineCache() const { return _impl->As<RenderingPipelineImpl>()->GetRenderingPipelineCache(); }

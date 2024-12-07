@@ -114,6 +114,27 @@ Transform3D& Transform3D::operator=(Transform3D&& other) noexcept
     return *this;
 }
 
+void Transform3D::_GUI()
+{
+    vcm::Vec3 position = GetPosition();
+    if (vc::GUI::InputFloat3("Position", &position.x)) {
+        SetPosition(position);
+    }
+    vcm::Vec3 rotation = GetRotation();
+    if (vc::GUI::InputFloat3("Rotation", &rotation.x)) {
+        SetRotation(rotation);
+    }
+    vcm::Vec3 scale = GetScale();
+    if (vc::GUI::InputFloat3("Scale", &scale.x)) {
+        SetScale(scale);
+    }
+}
+
+vc::String Transform3D::_GetComponentTitle()
+{
+    return "Transform3D";
+}
+
 void Transform3D::SetPosition(const vcm::Vec3& position)
 {
     _position = position;
@@ -192,6 +213,11 @@ void Transform3D::Rotate(const vcm::Vec3& rotation)
 const vcm::Vec3& Transform3D::GetRotation()
 {
     return _3Drotation;
+}
+
+const vcm::Vec3& Transform3D::GetScale()
+{
+    return _scale;
 }
 
 void Transform3D::RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle)

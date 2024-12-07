@@ -5,15 +5,24 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <../include/venom/common/ECS.h>
+#include <venom/common/ECS.h>
 
-#include <../include/venom/common/Log.h>
+#include <venom/common/Log.h>
+#include <venom/common/ComponentManager.h>
 
 namespace venom
 {
 namespace common
 {
 ECS * ECS::s_ecs = nullptr;
+
+void VenomComponent::GUI()
+{
+    const vc::String title = _GetComponentTitle();
+    if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+        _GUI();
+    }
+}
 
 ECS::ECS()
     : __world()
@@ -34,17 +43,22 @@ Entity ECS::CreateEntity()
 
 Entity ECS::CreateEntity(const char* name)
 {
-    return __world.entity(name);
+    return __world.entity(name).emplace<ComponentManager>();
 }
 
 Entity ECS::CreatePrefab(const char* name)
 {
-    return __world.prefab(name);
+    return __world.prefab(name).emplace<ComponentManager>();
 }
 
 ECS* ECS::GetECS()
 {
     return s_ecs;
+}
+
+Component* ECS::__GetComponentFromID(flecs::id id)
+{
+
 }
 
 Entity CreatePrefab(const char* name)

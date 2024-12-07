@@ -42,6 +42,10 @@ file(GLOB_RECURSE VULKAN_LIBRARY $ENV{VULKAN_SDK}/lib/libvulkan.*.dylib)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${VULKAN_LIBRARY} ${CMAKE_BINARY_DIR}
 )
+# if VULKAN_LIBRARY is empty, then error
+if (NOT VULKAN_LIBRARY)
+    message(FATAL_ERROR "Vulkan library not found, check your environment variables")
+endif ()
 
 else ()
 

@@ -296,6 +296,17 @@ bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float 
     return ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
 }
 
+bool VulkanGUI::_InputFloat(const char* label, float* v, float step, float step_fast, const char* format,
+    vc::GUIColorEditFlags flags)
+{
+    return ImGui::InputFloat(label, v, step, step_fast, format, static_cast<ImGuiColorEditFlags>(flags));
+}
+
+bool VulkanGUI::_InputFloat3(const char* label, float v[3], const char* format, vc::GUIColorEditFlags flags)
+{
+    return ImGui::InputFloat3(label, v, format, static_cast<ImGuiColorEditFlags>(flags));
+}
+
 void VulkanGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags)
 {
     ImGui::ColorEdit3(label, col, static_cast<ImGuiColorEditFlags>(flags));
