@@ -31,7 +31,7 @@
 	branch = neon-compile-error
 [submodule "lib/external/flecs"]
 	path = lib/external/flecs
-	url = git@github.com:SanderMertens/flecs.git
+	url = git@github.com:kevinpruvost/VenomEngine_flecs.git
 [submodule "lib/external/openvdb"]
 	path = lib/external/openvdb
 	url = git@github.com:AcademySoftwareFoundation/openvdb.git
