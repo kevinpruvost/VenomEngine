@@ -21,6 +21,7 @@
 #include <filesystem>
 
 #include <mikktspace.h>
+#include <assimp/GltfMaterial.h>
 
 namespace venom
 {
@@ -209,7 +210,6 @@ vc::Error ModelImpl::ImportModel(const char * path)
 
                             Texture texture(path, textureIndex, reinterpret_cast<char*>(aiTexture->pcData), aiTexture->mWidth, aiTexture->mHeight);
                             material.SetComponent(matCompType, texture);
-                            continue;
                         } else {
                             Texture texture(texturePath.c_str());
                             material.SetComponent(matCompType, texture);
@@ -225,6 +225,26 @@ vc::Error ModelImpl::ImportModel(const char * path)
                     case MaterialComponentType::DIFFUSE:
                         material.SetComponent(MaterialComponentType::BASE_COLOR, material.GetComponent(MaterialComponentType::DIFFUSE));
                         break;
+                    case MaterialComponentType::ROUGHNESS: {
+                        if (valueType == MaterialComponentValueType::TEXTURE) {
+                            // Find corresponding channel
+                            aiString test;
+                            if (aimaterial->GetTexture(AI_MATKEY_GLTF_PBRMETALLICROUGHNESS_METALLICROUGHNESS_TEXTURE, &test) == AI_SUCCESS) {
+                                // Convention says that the roughness is in the G channel
+                                material.SetComponentChannels(MaterialComponentType::ROUGHNESS, MaterialComponentValueChannels::G);
+                            }
+                        }
+                    }
+                    case MaterialComponentType::METALLIC: {
+                        if (valueType == MaterialComponentValueType::TEXTURE) {
+                            // Find corresponding channel
+                            aiString test;
+                            if (aimaterial->GetTexture(AI_MATKEY_GLTF_PBRMETALLICROUGHNESS_METALLICROUGHNESS_TEXTURE, &test) == AI_SUCCESS) {
+                                // Convention says that the metallic is in the B channel
+                                material.SetComponentChannels(MaterialComponentType::METALLIC, MaterialComponentValueChannels::B);
+                            }
+                        }
+                    }
                 }
 
 #ifdef VENOM_DEBUG

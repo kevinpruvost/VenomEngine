@@ -85,6 +85,12 @@ public:
     inline void SetComponent(const MaterialComponentType type, const Texture & texture) {
         _impl->As<MaterialImpl>()->SetComponent(type, texture);
     }
+    inline void SetComponentChannels(const MaterialComponentType type, const MaterialComponentValueChannels channels) {
+        _impl->As<MaterialImpl>()->SetComponentChannels(type, channels);
+    }
+    inline void SetComponentChannelsFromIndex(const MaterialComponentType type, const int index) {
+        _impl->As<MaterialImpl>()->SetComponentChannelsFromIndex(type, index);
+    }
     inline void RemoveComponentTexture(const MaterialComponentType type) {
         _impl->As<MaterialImpl>()->RemoveComponentTexture(type);
     }
