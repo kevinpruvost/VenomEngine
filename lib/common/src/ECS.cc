@@ -18,9 +18,13 @@ ECS * ECS::s_ecs = nullptr;
 
 void VenomComponent::GUI()
 {
-    const vc::String title = _GetComponentTitle();
-    if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+    if (dynamic_cast<ComponentManager *>(this)) {
         _GUI();
+    } else {
+        const vc::String title = _GetComponentTitle();
+        if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+            _GUI();
+        }
     }
 }
 

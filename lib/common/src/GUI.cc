@@ -104,34 +104,15 @@ void GUI::_EntityPropertiesWindow()
     {
         vc::GUI::Text(selectedEntity.name().c_str());
         vc::GUI::Text("ID: %d", selectedEntity.id());
-        // GUI for every component
+        vc::GUI::SeparatorText("Components");
 
+        // GUI for every component
         selectedEntity.each([&](flecs::id componentID)
         {
             void * component = selectedEntity.get_mut(componentID);
             int idTest = selectedEntity.raw_id();
-            //reinterpret_cast<Component*>(component)->GUI();
+            reinterpret_cast<Component*>(component)->GUI();
         });
-        if (selectedEntity.has<Transform3D>()) {
-            Transform3D * transform = selectedEntity.get_mut<Transform3D>();
-            transform->_GUI();
-        }
-        // GUI for Light
-        if (selectedEntity.has<Light>()) {
-
-        }
-        // GUI for Model
-        if (selectedEntity.has<Model>()) {
-
-        }
-        // GUI for Rendering Pipeline
-        if (selectedEntity.has<RenderingPipeline>()) {
-
-        }
-        // GUI for Camera
-        if (selectedEntity.has<Camera>()) {
-
-        }
     }
     vc::GUI::End();
 }

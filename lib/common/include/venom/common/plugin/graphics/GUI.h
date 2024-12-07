@@ -52,10 +52,12 @@ public:
     static inline void TreePop() { s_gui->_TreePop(); }
     static inline void TreePush(const char* str_id) { s_gui->_TreePush(str_id); }
 
+    static inline void SeparatorText(const char* text) { s_gui->_SeparatorText(text); }
+    static inline void Separator() { s_gui->_Separator(); }
     static inline void Spacing() { s_gui->_Spacing(); }
 
-    static inline bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat(label, v, v_min, v_max, format, power); }
-    static inline bool SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f", float power = 1.0f) { return s_gui->_SliderFloat3(label, v, v_min, v_max, format, power); }
+    static inline bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f") { return s_gui->_SliderFloat(label, v, v_min, v_max, format); }
+    static inline bool SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f") { return s_gui->_SliderFloat3(label, v, v_min, v_max, format); }
 
     static inline bool InputFloat(const char* label, float* v, float step = 0.0f, float step_fast = 0.0f, const char* format = "%.3f", GUIColorEditFlags flags = 0) { return s_gui->_InputFloat(label, v, step, step_fast, format, flags); }
     static inline bool InputFloat3(const char* label, float v[3], const char* format = "%.3f", GUIColorEditFlags flags = 0) { return s_gui->_InputFloat3(label, v, format, flags); }
@@ -114,10 +116,12 @@ protected:
     virtual void _TreePop() = 0;
     virtual void _TreePush(const char* str_id) = 0;
 
+    virtual void _SeparatorText(const char* text) = 0;
+    virtual void _Separator() = 0;
     virtual void _Spacing() = 0;
 
-    virtual bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power) = 0;
-    virtual bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power) = 0;
+    virtual bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format) = 0;
+    virtual bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format) = 0;
 
     virtual bool _InputFloat(const char* label, float* v, float step, float step_fast, const char* format, GUIColorEditFlags flags) = 0;
     virtual bool _InputFloat3(const char* label, float v[3], const char* format, GUIColorEditFlags flags) = 0;

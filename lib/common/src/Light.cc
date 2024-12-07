@@ -49,8 +49,14 @@ void Light::_GUI()
 
     // Other properties
     vc::GUI::InputFloat("Intensity", &__intensity);
-    vc::GUI::InputFloat("Radius", &__radius);
+    if (__type != LightType::Directional)
+        vc::GUI::InputFloat("Radius", &__radius);
     vc::GUI::ColorEdit3("Color", &__color.x);
+}
+
+vc::String Light::_GetComponentTitle()
+{
+    return "Light";
 }
 
 LightManager::LightManager()

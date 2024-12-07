@@ -36,6 +36,7 @@ public:
     ~Light() override;
 
     void _GUI() override;
+    vc::String _GetComponentTitle() override;
 
     inline void SetType(const LightType type) { __type = type; }
     inline const LightType & GetType() const { return __type; }

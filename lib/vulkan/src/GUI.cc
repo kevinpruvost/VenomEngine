@@ -281,19 +281,29 @@ void VulkanGUI::_TreePush(const char* str_id)
     ImGui::TreePush(str_id);
 }
 
+void VulkanGUI::_SeparatorText(const char* text)
+{
+    ImGui::SeparatorText(text);
+}
+
+void VulkanGUI::_Separator()
+{
+    ImGui::Separator();
+}
+
 void VulkanGUI::_Spacing()
 {
     ImGui::Spacing();
 }
 
-bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format, float power)
+bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format)
 {
-    return ImGui::SliderFloat(label, v, v_min, v_max, format, power);
+    return ImGui::SliderFloat(label, v, v_min, v_max, format);
 }
 
-bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format, float power)
+bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format)
 {
-    return ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
+    return ImGui::SliderFloat3(label, v, v_min, v_max, format, ImGuiSliderFlags_Logarithmic);
 }
 
 bool VulkanGUI::_InputFloat(const char* label, float* v, float step, float step_fast, const char* format,
