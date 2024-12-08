@@ -55,6 +55,9 @@ public:
     virtual vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) = 0;
     inline void SetTexturePeakLuminance(float peakLuminance) { __luminance = peakLuminance; }
     inline const float & GetTexturePeakLuminance() const { return __luminance; }
+    inline const vc::String & GetName() { return _resource->GetName(); }
+    bool operator==(const GraphicsCachedResource * res) const;
+
 protected:
     virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
     virtual vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) = 0;
@@ -84,11 +87,15 @@ public:
     Texture(const char * path, int id, char * bgraData, unsigned int width, unsigned int height);
     ~Texture();
 
+    bool operator==(const GraphicsCachedResource * res) const { return _impl->As<TextureImpl>()->operator==(res); }
+    bool operator==(const vc::SPtr<GraphicsCachedResource> & res) const { return _impl->As<TextureImpl>()->operator==(res.get()); }
     inline vc::Error LoadImageFromFile(const char * path) { return _impl->As<TextureImpl>()->LoadImageFromFile(path); }
     inline vc::Error LoadImage(const char * path, int id, char * bgraData, unsigned int width, unsigned int height) { return _impl->As<TextureImpl>()->LoadImage(path, id, bgraData, width, height); }
+    inline void LoadImageFromCachedResource(const SPtr<GraphicsCachedResource> res) { _impl->As<TextureImpl>()->SetResource(res); }
     inline vc::Error InitDepthBuffer(int width, int height) { return _impl->As<TextureImpl>()->InitDepthBuffer(width, height); }
     inline vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, imageCount, format); }
     inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
+    inline const vc::String & GetName() { return _impl->As<TextureImpl>()->GetName(); }
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif

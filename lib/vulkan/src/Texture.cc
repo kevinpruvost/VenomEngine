@@ -25,7 +25,7 @@ VulkanTextureResource::VulkanTextureResource()
 VulkanTexture::VulkanTexture()
     : TextureImpl()
 {
-    _resource.reset(new VulkanTextureResource());
+    _ResetResource();
 }
 
 VulkanTexture::~VulkanTexture()
@@ -41,6 +41,11 @@ VulkanTexture* VulkanTexture::GetDummyTexture()
 void VulkanTexture::SetDummyTexture(VulkanTexture* texture)
 {
     s_dummyTexture = texture;
+}
+
+void VulkanTexture::_ResetResource()
+{
+    _resource.reset(new VulkanTextureResource());
 }
 
 vc::Error VulkanTexture::LoadImage(unsigned char* pixels, int width, int height, int channels)

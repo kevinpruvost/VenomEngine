@@ -14,11 +14,16 @@ namespace vulkan
 VulkanModel::VulkanModel()
     : vc::ModelImpl()
 {
-    _resource.reset(new VulkanModelResource());
+    _ResetResource();
 }
 
 VulkanModel::~VulkanModel()
 {
+}
+
+void VulkanModel::_ResetResource()
+{
+    _resource.reset(new VulkanModelResource());
 }
 
 void VulkanModel::Draw()

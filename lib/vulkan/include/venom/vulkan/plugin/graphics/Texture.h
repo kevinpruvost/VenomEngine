@@ -37,6 +37,8 @@ public:
     static VulkanTexture * GetDummyTexture();
     static void SetDummyTexture(VulkanTexture * texture);
 
+    void _ResetResource() override;
+
     vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) override;
     vc::Error LoadImageRGBA(unsigned char * pixels, int width, int height, int channels) override;
     vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) override;

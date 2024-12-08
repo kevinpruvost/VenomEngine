@@ -11,6 +11,8 @@
 #include <venom/common/math/Matrix.h>
 #include <venom/common/plugin/graphics/GUI_Enum.h>
 
+#include "Texture.h"
+
 namespace venom
 {
 namespace common
@@ -47,6 +49,8 @@ public:
     static inline void Text(const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_Text(fmt, args); va_end(args); }
     static inline void TextColored(const vcm::Vec4 & col, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_TextColored(col, fmt, args); va_end(args); }
     static inline void LabelText(const char* label, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_LabelText(label, fmt, args); va_end(args); }
+
+    static inline bool InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags = 0) { return s_gui->_InputText(label, buf, buf_size, flags); }
 
     static inline bool TreeNode(const char* label) { return s_gui->_TreeNode(label); }
     static inline void TreePop() { s_gui->_TreePop(); }
@@ -96,6 +100,8 @@ public:
     static void GraphicsSettingsCollaspingHeader();
 
     static void EntitiesListCollapsingHeader();
+
+    static bool EditableTexture(vc::Texture & texture, vc::String & path);
 private:
     static void _EntityPropertiesWindow();
 
@@ -111,6 +117,8 @@ protected:
     virtual void _Text(const char* fmt, ...) = 0;
     virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
     virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
+
+    virtual bool _InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags) = 0;
 
     virtual bool _TreeNode(const char* label) = 0;
     virtual void _TreePop() = 0;

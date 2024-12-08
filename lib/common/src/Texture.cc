@@ -186,6 +186,7 @@ vc::Error TextureImpl::LoadImageFromFile(const char* path)
         }
     }
 
+    _ResetResource();
     UPtr<TextureLoader> loader(CreateTextureLoader(realPath.c_str()));
     if (!loader || loader->Load(this, realPath.c_str()) != vc::Error::Success) {
         vc::Log::Error("Failed to load image from file: %s", path);
@@ -209,6 +210,7 @@ vc::Error TextureImpl::LoadImage(const char* path, int id, char* bgraData, unsig
         }
     }
 
+    _ResetResource();
     int realWidth, realHeight;
     int channels;
     unsigned char* imageData = stbi_load_from_memory(
@@ -234,6 +236,12 @@ vc::Error TextureImpl::LoadImage(const char* path, int id, char* bgraData, unsig
 }
 
 static TextureImpl * s_dummyTexture = nullptr;
+
+bool TextureImpl::operator==(const GraphicsCachedResource* res) const
+{
+    return _GetResourceToCache().get() == res;
+}
+
 void TextureImpl::__CreateDummyTexture()
 {
     venom_assert(s_dummyTexture == nullptr, "Dummy texture already created");

@@ -91,7 +91,7 @@ void VulkanShaderResource::DestroyShaderModules()
 
 VulkanShaderPipeline::VulkanShaderPipeline()
 {
-    _resource.reset(new VulkanShaderResource(this));
+    _ResetResource();
 }
 
 VulkanShaderPipeline::~VulkanShaderPipeline()
@@ -109,6 +109,11 @@ VulkanShaderPipeline& VulkanShaderPipeline::operator=(VulkanShaderPipeline&& oth
         _resource = std::move(other._resource);
     }
     return *this;
+}
+
+void VulkanShaderPipeline::_ResetResource()
+{
+    _resource.reset(new VulkanShaderResource(this));
 }
 
 vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)

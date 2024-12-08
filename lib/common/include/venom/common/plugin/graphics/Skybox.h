@@ -23,7 +23,9 @@ public:
     virtual ~SkyboxImpl() = default;
 
     vc::Error LoadSkybox(const char * texturePath);
+    vc::Error LoadSkybox(const SPtr<GraphicsCachedResource> res);
     inline const vc::Texture & GetPanorama() const { return __panorama; }
+    inline vc::Texture & GetPanoramaMut() { return __panorama; }
 protected:
     virtual vc::Error _LoadSkybox(const Texture & texture) = 0;
 private:
@@ -40,6 +42,8 @@ public:
     void _GUI() override;
     vc::String _GetComponentTitle() override;
     inline vc::Error LoadSkybox(const char * path) { return _impl->As<SkyboxImpl>()->LoadSkybox(path); }
+    inline vc::Error LoadSkybox(const SPtr<GraphicsCachedResource> res) { return _impl->As<SkyboxImpl>()->LoadSkybox(res); }
+    inline vc::Texture & GetPanoramaMut() { return _impl->As<SkyboxImpl>()->GetPanoramaMut(); }
 };
 }
 }

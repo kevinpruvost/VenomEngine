@@ -168,3 +168,38 @@ target_include_directories(MikkTSpace INTERFACE
 set_target_properties(MikkTSpace PROPERTIES
         FOLDER "ExternalLibraries"
 )
+
+# nativefiledialog
+## Set the source files
+set(NFD_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/nfd_common.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/nfd_common.h"
+)
+
+if (WIN32)
+    list(APPEND NFD_SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/nfd_win.cpp"
+    )
+elseif (APPLE)
+    find_library(APPKIT_FRAMEWORK AppKit)
+    list(APPEND NFD_SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/nfd_cocoa.m"
+    )
+elseif (UNIX)
+    list(APPEND NFD_SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/nfd_gtk.c"
+    )
+endif ()
+
+add_library(nfd SHARED
+    ${NFD_SOURCES}
+)
+
+target_include_directories(nfd PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/include/"
+)
+
+if (APPLE)
+    # nfd needs AppKit
+    target_link_libraries(nfd "-framework AppKit")
+endif ()

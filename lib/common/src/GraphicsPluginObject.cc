@@ -105,6 +105,7 @@ void GraphicsPluginObject::_SetInCache(const std::string& path, const std::share
     if (!validPath(path, realPath))
         realPath = path;
     venom_assert(GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath) == GraphicsPlugin::__GetGraphicsResourceCache()->end(), "Object already in cache");
+    object->SetName(realPath);
     GraphicsPlugin::__GetGraphicsResourceCache()->operator[](realPath) = object;
 }
 

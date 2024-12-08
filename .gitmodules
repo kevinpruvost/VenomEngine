@@ -44,3 +44,6 @@
 [submodule "lib/external/MikkTSpace"]
 	path = lib/external/MikkTSpace
 	url = git@github.com:mmikk/MikkTSpace.git
+[submodule "lib/external/nativefiledialog"]
+	path = lib/external/nativefiledialog
+	url = git@github.com:mlabbe/nativefiledialog.git

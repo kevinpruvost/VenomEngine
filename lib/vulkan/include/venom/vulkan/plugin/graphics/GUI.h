@@ -38,6 +38,8 @@ protected:
     void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) override;
     void _LabelText(const char* label, const char* fmt, ...) override;
 
+    bool _InputText(const char* label, char* buf, size_t buf_size, common::GUIInputTextFlags flags) override;
+
     bool _TreeNode(const char* label) override;
     void _TreePop() override;
     void _TreePush(const char* str_id) override;

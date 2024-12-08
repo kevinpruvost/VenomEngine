@@ -40,6 +40,24 @@ RenderingPipeline::RenderingPipeline(const RenderingPipelineType type)
 
 void RenderingPipeline::_GUI()
 {
+    // Select type of Rendering Pipeline
+    const vc::String renderingTypes[] = {"GUI", "Text3D", "Skybox", "PBRModel", "ComputeForwardPlusLightCulling", "ComputeCascadedShadowMapping"};
+    int type = static_cast<int>(GetShaderType());
+    vc::GUI::Text(renderingTypes[type].c_str());
+    // if (vc::GUI::BeginCombo("Type", renderingTypes[type].c_str())) {
+    //     for (int i = 0; i < std::size(renderingTypes); i++) {
+    //         bool isSelected = (type == i);
+    //         // if (vc::GUI::Selectable(renderingTypes[i].c_str(), isSelected)) {
+    //         //     // TODO: Changable rendering pipeline
+    //         //     // type = i;
+    //         //     // SetShaderType(static_cast<RenderingPipelineType>(i));
+    //         // }
+    //         // if (isSelected) {
+    //         //     vc::GUI::SetItemDefaultFocus();
+    //         // }
+    //     }
+    //     vc::GUI::EndCombo();
+    // }
 }
 
 vc::String RenderingPipeline::_GetComponentTitle()

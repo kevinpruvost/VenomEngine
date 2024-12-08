@@ -111,6 +111,42 @@ enum GUIColorEditFlagsBits
 };
 typedef int GUIColorEditFlags;
 
+enum GUIInputTextFlagsBits
+{
+    // Basic filters (also see GUIInputTextFlags_CallbackCharFilter)
+    GUIInputTextFlags_None                = 0,
+    GUIInputTextFlags_CharsDecimal        = 1 << 0,   // Allow 0123456789.+-*/
+    GUIInputTextFlags_CharsHexadecimal    = 1 << 1,   // Allow 0123456789ABCDEFabcdef
+    GUIInputTextFlags_CharsScientific     = 1 << 2,   // Allow 0123456789.+-*/eE (Scientific notation input)
+    GUIInputTextFlags_CharsUppercase      = 1 << 3,   // Turn a..z into A..Z
+    GUIInputTextFlags_CharsNoBlank        = 1 << 4,   // Filter out spaces, tabs
+
+    // Inputs
+    GUIInputTextFlags_AllowTabInput       = 1 << 5,   // Pressing TAB input a '\t' character into the text field
+    GUIInputTextFlags_EnterReturnsTrue    = 1 << 6,   // Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider using IsItemDeactivatedAfterEdit() instead!
+    GUIInputTextFlags_EscapeClearsAll     = 1 << 7,   // Escape key clears content if not empty, and deactivate otherwise (contrast to default behavior of Escape to revert)
+    GUIInputTextFlags_CtrlEnterForNewLine = 1 << 8,   // In multi-line mode, validate with Enter, add new line with Ctrl+Enter (default is opposite: validate with Ctrl+Enter, add line with Enter).
+
+    // Other options
+    GUIInputTextFlags_ReadOnly            = 1 << 9,   // Read-only mode
+    GUIInputTextFlags_Password            = 1 << 10,  // Password mode, display all characters as '*', disable copy
+    GUIInputTextFlags_AlwaysOverwrite     = 1 << 11,  // Overwrite mode
+    GUIInputTextFlags_AutoSelectAll       = 1 << 12,  // Select entire text when first taking mouse focus
+    GUIInputTextFlags_ParseEmptyRefVal    = 1 << 13,  // InputFloat(), InputInt(), InputScalar() etc. only: parse empty string as zero value.
+    GUIInputTextFlags_DisplayEmptyRefVal  = 1 << 14,  // InputFloat(), InputInt(), InputScalar() etc. only: when value is zero, do not display it. Generally used with GUIInputTextFlags_ParseEmptyRefVal.
+    GUIInputTextFlags_NoHorizontalScroll  = 1 << 15,  // Disable following the cursor horizontally
+    GUIInputTextFlags_NoUndoRedo          = 1 << 16,  // Disable undo/redo. Note that input text owns the text data while active, if you want to provide your own undo/redo stack you need e.g. to call ClearActiveID().
+
+    // Callback features
+    GUIInputTextFlags_CallbackCompletion  = 1 << 17,  // Callback on pressing TAB (for completion handling)
+    GUIInputTextFlags_CallbackHistory     = 1 << 18,  // Callback on pressing Up/Down arrows (for history handling)
+    GUIInputTextFlags_CallbackAlways      = 1 << 19,  // Callback on each iteration. User code may query cursor position, modify text buffer.
+    GUIInputTextFlags_CallbackCharFilter  = 1 << 20,  // Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.
+    GUIInputTextFlags_CallbackResize      = 1 << 21,  // Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/GUI_stdlib.h for an example of using this)
+    GUIInputTextFlags_CallbackEdit        = 1 << 22,  // Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active)
+};
+typedef int GUIInputTextFlags;
+
 enum GuiComboFlagsBits
 {
     GUIComboFlags_None                    = 0,

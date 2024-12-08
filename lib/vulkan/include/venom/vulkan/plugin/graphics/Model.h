@@ -24,6 +24,8 @@ public:
     VulkanModel();
     virtual ~VulkanModel();
 
+    void _ResetResource() override;
+
     void Draw() override;
 };
 }

@@ -17,6 +17,8 @@
 #include <venom/common/plugin/graphics/Model.h>
 #include <venom/common/plugin/graphics/RenderingPipeline.h>
 
+#include <nfd.h>
+
 namespace venom
 {
 namespace common
@@ -97,12 +99,50 @@ void GUI::EntitiesListCollapsingHeader()
     }
 }
 
+bool GUI::EditableTexture(vc::Texture& texture, vc::String & path)
+{
+    bool ret = false;
+    // Can see list but should filter out later
+    // const auto & graphicObjects = GraphicsPluginObject::GetCachedObjects();
+    // if (vc::GUI::BeginCombo("Texture", texture.GetName().c_str())) {
+    //     for (const auto & [name, graphicsObject] : graphicObjects) {
+    //         if (graphicsObject->As<TextureResource>()) {
+    //             bool isSelected = texture == graphicsObject;
+    //             if (vc::GUI::Selectable(name.c_str(), isSelected)) {
+    //                 texture.LoadImageFromCachedResource(graphicsObject);
+    //                 ret = true;
+    //             }
+    //             if (isSelected) {
+    //                 vc::GUI::SetItemDefaultFocus();
+    //             }
+    //         }
+    //     }
+    //     vc::GUI::EndCombo();
+    // }
+    if (vc::GUI::Button("Load other Texture")) {
+        nfdchar_t *outPath = nullptr;
+        const char * filter = "png,jpg,jpeg,tga,bmp,gif,psd,hdr,exr";
+        nfdresult_t result = NFD_OpenDialog(filter, nullptr, &outPath);
+        if (result == NFD_OKAY) {
+            path = outPath;
+            ret = true;
+            free(outPath);
+        }
+    }
+    return ret;
+}
+
 void GUI::_EntityPropertiesWindow()
 {
     vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
     vc::GUI::Begin("Entity Properties");
     {
-        vc::GUI::Text(selectedEntity.name().c_str());
+        char buffer[128] = {0};
+        vc::String entityName(selectedEntity.name().c_str());
+        memcpy(buffer, entityName.c_str(), entityName.size());
+        if (vc::GUI::InputText("Name", buffer, 128 - 1)) {
+            selectedEntity.set_name(buffer);
+        }
         vc::GUI::Text("ID: %d", selectedEntity.id());
         vc::GUI::SeparatorText("Components");
 

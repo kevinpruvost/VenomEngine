@@ -137,6 +137,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
         }
     }
 
+    _ResetResource();
     // Get Parent folder for relative paths when we will load textures
     auto parentFolder = std::filesystem::path(realPath).parent_path();
 

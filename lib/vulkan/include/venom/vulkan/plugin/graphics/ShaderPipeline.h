@@ -63,6 +63,7 @@ public:
     VulkanShaderPipeline(VulkanShaderPipeline&& other) noexcept;
     VulkanShaderPipeline& operator=(VulkanShaderPipeline&& other) noexcept;
 
+    void _ResetResource() override;
     vc::Error _LoadShader(const std::string & path) override;
     void SetMultiSamplingCount(const int samples) override;
     void _SetLineWidth(const float width) override;

@@ -266,6 +266,11 @@ void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
     va_end(args);
 }
 
+bool VulkanGUI::_InputText(const char* label, char* buf, size_t buf_size, common::GUIInputTextFlags flags)
+{
+    return ImGui::InputText(label, buf, buf_size, static_cast<ImGuiInputTextFlags>(flags));
+}
+
 bool VulkanGUI::_TreeNode(const char* label)
 {
     return ImGui::TreeNode(label);

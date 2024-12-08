@@ -32,6 +32,7 @@ target_link_libraries(${PROJECT_NAME}
     OpenEXR::OpenEXR
     openvdb_static
     MikkTSpace
+    nfd
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
@@ -66,6 +67,10 @@ if (APPLE)
         glm
         stb_image
         flecs::flecs
+        OpenEXR::OpenEXR
+        openvdb_static
+        MikkTSpace
+        nfd
     )
 
     target_compile_definitions(${PROJECT_NAME_PACKAGE} PRIVATE

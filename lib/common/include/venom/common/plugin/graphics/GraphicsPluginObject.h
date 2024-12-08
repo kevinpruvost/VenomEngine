@@ -41,8 +41,12 @@ public:
 
     inline void SetHolder(GraphicsCachedResourceHolder * h) { __holder = h; }
     inline GraphicsCachedResourceHolder * GetHolder() const { return __holder; }
+
+    inline void SetName(const vc::String & name) { __name = name; }
+    inline const vc::String & GetName() const { return __name; }
 private:
     GraphicsCachedResourceHolder * __holder;
+    vc::String __name;
 };
 
 // Must not inherit GraphicsCachedResource and GraphicsPluginObject at the same time
@@ -68,6 +72,10 @@ protected:
     inline const SPtr<GraphicsCachedResource> & _GetResourceToCache() const { return _resource; }
     inline SPtr<GraphicsCachedResource> & _GetResourceToCache() { return _resource; }
     inline void _LoadFromCache(const SPtr<GraphicsCachedResource> & cache) { _resource = cache; }
+    /**
+     * @brief Resets the resource, should be implemented by the final class, i.e. VulkanTextureResource
+     */
+    virtual void _ResetResource() = 0;
 
     SPtr<GraphicsCachedResource> _resource;
 };
