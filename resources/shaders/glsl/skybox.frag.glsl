@@ -6,14 +6,19 @@
 
 layout(location = 0) in vec3 viewDir;
 
+vec4 ToneMapReinhard(vec4 color) {
+    return color / (color + vec4(1.0));
+}
+
 // Function to sample from the panorama texture
 vec4 GetPanoramaColor(vec2 uv) {
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
-    // if (graphicsSettings.hdrEnabled == 0)
-    //     color = fromLinear(color);
-    float exposure = sceneSettings.targetLuminance * 0.4 / 100.0f;
-    return vec4(color.rgb * exposure, color.a); // Applying exposure factor
+    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    color = vec4(color.rgb * exposure, color.a); // Applying exposure factor
+    if (graphicsSettings.hdrEnabled == 1)
+        color = ToneMapReinhard(color); // Tone mapping
+    return (color);
 }
 
 float atan2_custom(in float y, in float x)
@@ -33,6 +38,9 @@ void main() {
     vec2 uv;
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination
+
+    finalColor = GetPanoramaColor(uv);
+    return;
 
     // Box Blur Parameters
     uint width, height;

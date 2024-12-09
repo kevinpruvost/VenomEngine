@@ -62,7 +62,8 @@ TextureResource::~TextureResource()
 }
 
 TextureImpl::TextureImpl()
-    : __luminance(0.0f)
+    : __peakLuminance(0.0f)
+    , __averageLuminance(0.0f)
 {
 }
 
@@ -138,15 +139,18 @@ public:
         }
 
         // Calculate peak luminance
-        float peakLuminance = 0.0f, luminance;
+        float peakLuminance = 0.0f, luminance, averageLuminance = 0.0f;
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
                 const Imf_3_4::Rgba & rgba = pixelData[y][x];
                 luminance = rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722;
                 peakLuminance = std::max(peakLuminance, luminance);
+                averageLuminance += luminance;
             }
         }
+        averageLuminance /= width * height;
 
+        impl->SetTextureAverageLuminance(averageLuminance);
         impl->SetTexturePeakLuminance(peakLuminance);
         return err;
     }

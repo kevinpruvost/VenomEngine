@@ -53,8 +53,10 @@ public:
     virtual vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
     virtual vc::Error LoadImageRGBA(unsigned char * pixels, int width, int height, int channels) = 0;
     virtual vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) = 0;
-    inline void SetTexturePeakLuminance(float peakLuminance) { __luminance = peakLuminance; }
-    inline const float & GetTexturePeakLuminance() const { return __luminance; }
+    inline void SetTexturePeakLuminance(float peakLuminance) { __peakLuminance = peakLuminance; }
+    inline void SetTextureAverageLuminance(float averageLuminance) { __averageLuminance = averageLuminance; }
+    inline const float & GetTexturePeakLuminance() const { return __peakLuminance; }
+    inline const float & GetTextureAverageLuminance() const { return __averageLuminance; }
     inline const vc::String & GetName() { return _resource->GetName(); }
     bool operator==(const GraphicsCachedResource * res) const;
 
@@ -66,7 +68,7 @@ private:
     void __CreateDummyTexture();
 
 private:
-    float __luminance;
+    float __peakLuminance, __averageLuminance;
 };
 
 enum ColorAttachmentType

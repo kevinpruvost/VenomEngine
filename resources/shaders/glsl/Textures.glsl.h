@@ -32,4 +32,5 @@ vec4 toLinear(vec4 sRGB)
 layout(binding = 0, set = 6) uniform texture2D panoramaTexture;
 layout(binding = 1, set = 6) uniform panoramaProps {
     float panoramaPeakLuminance;
+    float panoramaAverageLuminance;
 };

@@ -40,8 +40,8 @@ vc::Error VulkanSkybox::_LoadSkybox(const vc::Texture& texture)
 {
     // Init Descriptor Set
     __descriptorSet->GroupUpdateTexture(texture.GetConstImpl()->ConstAs<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
-    float lum = texture.GetConstImpl()->ConstAs<VulkanTexture>()->GetTexturePeakLuminance();
     __uniformBuffer.WriteToBuffer(&texture.GetConstImpl()->ConstAs<VulkanTexture>()->GetTexturePeakLuminance(), sizeof(float));
+    __uniformBuffer.WriteToBuffer(&texture.GetConstImpl()->ConstAs<VulkanTexture>()->GetTextureAverageLuminance(), sizeof(float), sizeof(float));
     __descriptorSet->GroupUpdateBuffer(__uniformBuffer, 0, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
     return vc::Error::Success;
 }
