@@ -56,7 +56,7 @@ Skybox::~Skybox()
 void Skybox::_GUI()
 {
     vc::String newPath;
-    if (vc::GUI::EditableTexture(GetPanoramaMut(), newPath)) {
+    if (vc::GUI::EditableTexture(&GetPanoramaMut(), newPath)) {
         if (vc::Error err = LoadSkybox(newPath.c_str()); err != vc::Error::Success) {
             vc::Log::Error("Failed to load skybox from file: %s", newPath.c_str());
         } else {

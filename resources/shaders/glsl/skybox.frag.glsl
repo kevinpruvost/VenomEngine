@@ -34,17 +34,8 @@ vec4 GetPanoramaColor(vec2 uv) {
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
     float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
-    if (graphicsSettings.hdrEnabled == 1) {
-        //color = toLinear(color);
-    }
-    color = vec4(color.rgb, 1.0); // Applying exposure factor
+    color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
     return (color);
-}
-
-float atan2_custom(in float y, in float x)
-{
-    bool s = (abs(x) > abs(y));
-    return mix(M_PI/2.0 - atan(x,y), atan(y,x), s);
 }
 
 void main() {
@@ -59,7 +50,7 @@ void main() {
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination
 
-    finalColor = GetPanoramaColor(uv);
+    finalColor = GetPanoramaTexture(viewDir);
     return;
 
     // Box Blur Parameters

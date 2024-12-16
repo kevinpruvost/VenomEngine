@@ -33,6 +33,12 @@ void GraphicsCachedResource::ReleaseFromCache()
     }
 }
 
+void GraphicsCachedResource::SetName(const vc::String& name)
+{
+    __name = name;
+    __shortName = std::filesystem::path(name).filename().string();
+}
+
 GraphicsCachedResourceHolder::GraphicsCachedResourceHolder()
 {
 }

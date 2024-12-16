@@ -52,10 +52,10 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
     // Depth bias is just adding a constant value or a value proportional to the slope of the polygon
     // Can be used for shadow mapping
     // https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias
-    rasterizerCreateInfo.depthBiasEnable = VK_FALSE;
-    //rasterizer.depthBiasConstantFactor = 0.0f;
-    //rasterizer.depthBiasClamp = 0.0f;
-    //rasterizer.depthBiasSlopeFactor = 0.0f;
+    rasterizerCreateInfo.depthBiasEnable = VK_TRUE;
+    rasterizerCreateInfo.depthBiasConstantFactor = 0.001f;
+    //rasterizerCreateInfo.depthBiasClamp = 0.0f;
+    //rasterizerCreateInfo.depthBiasSlopeFactor = 0.0f;
 
     // Stencil & Depth testing
     depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;

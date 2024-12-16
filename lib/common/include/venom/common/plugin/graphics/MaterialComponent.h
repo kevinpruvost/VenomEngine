@@ -96,7 +96,6 @@ public:
     inline void SetValue(const vcm::Vec3 & value)
     {
         __valueType = MaterialComponentValueType::FLOAT3D | (__valueType & MaterialComponentValueType::TEXTURE);
-        __channels = MaterialComponentValueChannels::RGB;
         __value.emplace<vcm::Vec3>(value);
     }
     /**
@@ -106,7 +105,6 @@ public:
     inline void SetValue(const vcm::Vec4 & value)
     {
         __valueType = MaterialComponentValueType::FLOAT4D | (__valueType & MaterialComponentValueType::TEXTURE);
-        __channels = MaterialComponentValueChannels::RGBA;
         __value.emplace<vcm::Vec4>(value);
     }
     /**
@@ -116,7 +114,6 @@ public:
     inline void SetValue(const float value)
     {
         __valueType = MaterialComponentValueType::FLOAT1D | (__valueType & MaterialComponentValueType::TEXTURE);
-        __channels = MaterialComponentValueChannels::R;
         __value.emplace<float>(value);
     }
     /**

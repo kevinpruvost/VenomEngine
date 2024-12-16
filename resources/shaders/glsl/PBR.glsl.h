@@ -49,6 +49,22 @@ float luminance(vec3 color) {
     return dot(color, vec3(0.3, 0.6, 0.1));
 }
 
+vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness) {
+    // Simplified Fresnel-weighted reflection
+    vec3 R = reflect(-V, N);
+    vec3 specularReflectionColor = GetPanoramaTexture(R).rgb;
+    vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);
+    vec3 specularReflection = specularReflectionBaseColor * specularReflectionColor * (1.0 - roughness);
+
+    // TODO: with irradiance
+    vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
+    vec3 diffuseReflection = diffuseLight;
+    // vec3 diffuseReflection = diffuseLight * irradiance;
+    return specularReflection
+     //      + diffuseReflection
+        ;
+}
+
 // Disney Principled BSDF Function
 vec3 DisneyPrincipledBSDF(
     vec3 L, vec3 V, vec3 N, vec3 X, vec3 Y,
@@ -91,6 +107,7 @@ vec3 DisneyPrincipledBSDF(
     vec3 Fs = mix(Cspec0, vec3(1.0, 1.0, 1.0), FH);
     float Gs = smithG_GGX_aniso(NdotL, dot(L, X), dot(L, Y), ax, ay) *
                smithG_GGX_aniso(NdotV, dot(V, X), dot(V, Y), ax, ay);
+    vec3 specularRes = Fs * Ds * Gs;
 
     // Sheen
     vec3 Fsheen = FH * sheen * Csheen;
@@ -101,6 +118,6 @@ vec3 DisneyPrincipledBSDF(
     float Gr = smithG_GGX(NdotL, 0.25) * smithG_GGX(NdotV, 0.25);
 
     return ((1.0 / PI) * mix(Fd, ss, subsurface) * Cdlin + Fsheen) * (1.0 - metallic)
-           + Gs * Fs * Ds
+           + specularRes
            + 0.25 * clearcoat * Gr * Fr * Dr;
 }

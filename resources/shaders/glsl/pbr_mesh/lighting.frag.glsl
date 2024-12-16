@@ -82,6 +82,7 @@ void main()
     float ao = 1.0;
     vec4 emissive;
     vec3 position = worldPos;
+    float opacity = 1.0;
 
     baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
 
@@ -131,6 +132,10 @@ void main()
     else
         emissive = vec4(0.0, 0.0, 0.0, 0.0);
 
+   // Opacity
+   if (material.components[MaterialComponentType_OPACITY].valueType != MaterialComponentValueType_NONE)
+        opacity = MaterialComponentGetValue1(MaterialComponentType_OPACITY, uv);
+
     // Define additional material parameters for the Disney BRDF
     float subsurface = 0.0;  // Subsurface scattering amount
     float specularVal = 0.4; // Specular intensity
@@ -156,9 +161,9 @@ void main()
 
         vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
 
-        if (tangentSpace)
+        if (tangentSpace) {
             finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-        else
+        } else
             finalColor.r = finalColor.g = finalColor.b = clamp(abs(dot(normal, viewDir)), 0.0001, 1.0);
         // finalColor.rgb = normal;
         // position.y = -position.y;
@@ -179,6 +184,7 @@ void main()
         //finalColor.rgb = vec3(TBN[0][0], TBN[1][1], TBN[2][2]);
         finalColor.rgb += emissive.rgb * emissive.a;
     }
+    finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness);
 
     // Set transparency
     finalColor.a = baseColor.a;
@@ -195,4 +201,10 @@ void main()
     // finalColor = toLinear(finalColor);
     // finalColor = vec4(pow(finalColor.rgb, vec3(1.0 / 2.2)), finalColor.a);
     // finalColor.rgb = pow(finalColor.rgb, vec3(1.0 / 1.5));
+
+    // Ambient Occlusion
+    float occlusionStrength = 1.0;
+    finalColor = mix(finalColor, finalColor * ao, occlusionStrength);
+
+    finalColor.a = opacity;
 }

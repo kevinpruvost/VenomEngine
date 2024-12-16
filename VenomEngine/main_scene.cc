@@ -14,14 +14,25 @@ void Scene()
             .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
 
-    vc::Entity balls_hd = vc::CreateEntity("Gun")
+    vc::Entity balls_hd = vc::CreateEntity("Onion")
         .emplace<vc::Transform3D>()
-//            .emplace<vc::Model>("eye/eye.obj")
-//            .emplace<vc::Model>("dead_space_gun/plasmagun_txt.fbx")
-        .emplace<vc::Model>("dead_space_gun/gun.glb")
+        .emplace<vc::Model>("onion/onion.glb")
         .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
         ;
+
+    vc::Entity gun_hd = vc::CreateEntity("Gun")
+        .emplace<vc::Transform3D>()
+        .emplace<vc::Model>("dead_space_gun/gun.glb")
+        .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+
+    vc::Entity eye_hd = vc::CreateEntity("Eye")
+        .emplace<vc::Transform3D>()
+        .emplace<vc::Model>("eye/eye.glb")
+        .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+
+    gun_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(6.0f, 4.0f, 0.0f));
     balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-8.0f, 4.0f, 0.0f));
+    eye_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(0.0f, 4.0f, 6.0f));
 
     vc::Entity face_hd = vc::CreateEntity("Face")
         .emplace<vc::Transform3D>()

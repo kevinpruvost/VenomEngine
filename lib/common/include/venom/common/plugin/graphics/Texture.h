@@ -57,7 +57,6 @@ public:
     inline void SetTextureAverageLuminance(float averageLuminance) { __averageLuminance = averageLuminance; }
     inline const float & GetTexturePeakLuminance() const { return __peakLuminance; }
     inline const float & GetTextureAverageLuminance() const { return __averageLuminance; }
-    inline const vc::String & GetName() { return _resource->GetName(); }
     bool operator==(const GraphicsCachedResource * res) const;
 
 protected:
@@ -97,7 +96,8 @@ public:
     inline vc::Error InitDepthBuffer(int width, int height) { return _impl->As<TextureImpl>()->InitDepthBuffer(width, height); }
     inline vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, imageCount, format); }
     inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
-    inline const vc::String & GetName() { return _impl->As<TextureImpl>()->GetName(); }
+    inline const vc::String & GetName() { return _impl->As<TextureImpl>()->GetResourceName(); }
+    inline const vc::String & GetShortName() { return _impl->As<TextureImpl>()->GetResourceShortName(); }
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif

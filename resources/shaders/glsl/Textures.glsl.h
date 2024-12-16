@@ -1,3 +1,5 @@
+#include "Scene.glsl.h"
+
 #extension GL_EXT_nonuniform_qualifier : enable
 
 // Bindless textures
@@ -34,3 +36,29 @@ layout(binding = 1, set = 6) uniform panoramaProps {
     float panoramaPeakLuminance;
     float panoramaAverageLuminance;
 };
+
+float atan2_custom(in float y, in float x)
+{
+    bool s = (abs(x) > abs(y));
+    return mix(M_PI/2.0 - atan(x,y), atan(y,x), s);
+}
+
+vec4 GetPanoramaTexture(vec3 dir) {
+    // Normalize the view direction
+    vec3 viewDir = normalize(dir);
+    // Convert the view direction to spherical coordinates
+    float phi = atan2_custom(viewDir.z, viewDir.x); // Azimuth angle
+    float theta = asin(viewDir.y);                 // Inclination angle
+
+    // Map spherical coordinates to UVs in the range [0, 1]ts
+    vec2 uv;
+    uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
+    uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination
+
+    // Sample the texture using the provided UV coordinates
+    vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
+    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
+
+    return color;
+}

@@ -42,11 +42,13 @@ public:
     inline void SetHolder(GraphicsCachedResourceHolder * h) { __holder = h; }
     inline GraphicsCachedResourceHolder * GetHolder() const { return __holder; }
 
-    inline void SetName(const vc::String & name) { __name = name; }
+    void SetName(const vc::String & name);
     inline const vc::String & GetName() const { return __name; }
+    inline const vc::String & GetShortName() const { return __shortName; }
 private:
     GraphicsCachedResourceHolder * __holder;
     vc::String __name;
+    vc::String __shortName;
 };
 
 // Must not inherit GraphicsCachedResource and GraphicsPluginObject at the same time
@@ -68,6 +70,8 @@ public:
 
     inline void SetResource(const GraphicsCachedResourceHolder & resource) { _resource = resource._resource; }
     inline void SetResource(const SPtr<GraphicsCachedResource> & resource) { _resource = resource; }
+    inline const vc::String & GetResourceName() const { return _resource->GetName(); }
+    inline const vc::String & GetResourceShortName() const { return _resource->GetShortName(); }
 protected:
     inline const SPtr<GraphicsCachedResource> & _GetResourceToCache() const { return _resource; }
     inline SPtr<GraphicsCachedResource> & _GetResourceToCache() { return _resource; }

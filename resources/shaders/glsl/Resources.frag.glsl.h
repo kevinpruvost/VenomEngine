@@ -1,5 +1,4 @@
 #include "Textures.glsl.h"
-#include "Scene.glsl.h"
 
 layout(location = 0) out vec4 finalColor;
 

@@ -99,7 +99,7 @@ void GUI::EntitiesListCollapsingHeader()
     }
 }
 
-bool GUI::EditableTexture(vc::Texture& texture, vc::String & path)
+bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
 {
     bool ret = false;
     // Can see list but should filter out later
@@ -119,16 +119,38 @@ bool GUI::EditableTexture(vc::Texture& texture, vc::String & path)
     //     }
     //     vc::GUI::EndCombo();
     // }
-    if (vc::GUI::Button("Load other Texture")) {
+
+    if (vc::GUI::Button(texture->GetShortName().c_str())) {
         nfdchar_t *outPath = nullptr;
-        const char * filter = "png,jpg,jpeg,tga,bmp,gif,psd,hdr,exr";
-        nfdresult_t result = NFD_OpenDialog(filter, nullptr, &outPath);
+        const char * filterTextures = "png;jpg;tga;bmp;gif;psd;hdr;exr;jpeg";
+        nfdresult_t result = NFD_OpenDialog(filterTextures, nullptr, &outPath);
         if (result == NFD_OKAY) {
             path = outPath;
             ret = true;
             free(outPath);
         }
     }
+    vc::GUI::SameLine();
+    vc::GUI::Text("Texture");
+    return ret;
+}
+
+bool GUI::EditableModel(vc::Model * model, vc::String& path)
+{
+    bool ret = false;
+
+    if (vc::GUI::Button(model->GetShortName().c_str())) {
+        nfdchar_t *outPath = nullptr;
+        const char * filterModels = "obj;glb;fbx;gltf";
+        nfdresult_t result = NFD_OpenDialog(filterModels, nullptr, &outPath);
+        if (result == NFD_OKAY) {
+            path = outPath;
+            ret = true;
+            free(outPath);
+        }
+    }
+    vc::GUI::SameLine();
+    vc::GUI::Text("Model");
     return ret;
 }
 

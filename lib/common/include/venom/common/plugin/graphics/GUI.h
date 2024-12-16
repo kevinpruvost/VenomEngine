@@ -11,14 +11,15 @@
 #include <venom/common/math/Matrix.h>
 #include <venom/common/plugin/graphics/GUI_Enum.h>
 
-#include "Texture.h"
-
 namespace venom
 {
 namespace common
 {
 class GraphicsApplication;
 class VenomEngine;
+
+class Model;
+class Texture;
 
 typedef void(*GUIDrawCallback)();
 class VENOM_COMMON_API GUI : public GraphicsPluginObject
@@ -101,7 +102,8 @@ public:
 
     static void EntitiesListCollapsingHeader();
 
-    static bool EditableTexture(vc::Texture & texture, vc::String & path);
+    static bool EditableTexture(vc::Texture * texture, vc::String & path);
+    static bool EditableModel(vc::Model * model, vc::String & path);
 private:
     static void _EntityPropertiesWindow();
 

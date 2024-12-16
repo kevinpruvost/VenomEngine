@@ -202,6 +202,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
             DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
             DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
             DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>(), VK_PIPELINE_BIND_POINT_GRAPHICS);
             vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
             {
                 int index;
