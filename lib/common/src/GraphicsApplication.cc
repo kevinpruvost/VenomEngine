@@ -101,6 +101,7 @@ void GraphicsApplication::__LoadRenderingPipelines()
             {vc::ShaderVertexFormat::Vec3, 3, 3, 0}, // Tangent
             {vc::ShaderVertexFormat::Vec3, 4, 4, 0}, // Bitangent
         });
+        gbuffer_shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Graphics);
         gbuffer_shader.SetRenderingPipelineType(RenderingPipelineType::PBRModel);
         gbuffer_shader.SetRenderingPipelineIndex(0);
         gbuffer_shader.LoadShaderFromFile("pbr_mesh/lighting");
@@ -112,20 +113,44 @@ void GraphicsApplication::__LoadRenderingPipelines()
     {
         ShaderPipelineList lightCullingShaders;
         ShaderPipeline & shader = lightCullingShaders.emplace_back();
-        shader.SetRenderingPipelineType(RenderingPipelineType::ComputeForwardPlusLightCulling);
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Compute);
+        shader.SetRenderingPipelineType(RenderingPipelineType::ForwardPlusLightCulling);
         shader.LoadShaderFromFile("pbr_mesh/forwardplus_lightculling");
 
-        RenderingPipelineImpl::SetRenderingPipelineCache(lightCullingShaders, RenderingPipelineType::ComputeForwardPlusLightCulling);
+        RenderingPipelineImpl::SetRenderingPipelineCache(lightCullingShaders, RenderingPipelineType::ForwardPlusLightCulling);
     }
 
     // Loading compute shader for Cascaded Shadow Mapping
     {
         ShaderPipelineList csmShaders;
         ShaderPipeline & shader = csmShaders.emplace_back();
-        shader.SetRenderingPipelineType(RenderingPipelineType::ComputeCascadedShadowMapping);
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Compute);
+        shader.SetRenderingPipelineType(RenderingPipelineType::CascadedShadowMapping);
         shader.LoadShaderFromFile("pbr_mesh/csm");
 
-        RenderingPipelineImpl::SetRenderingPipelineCache(csmShaders, RenderingPipelineType::ComputeCascadedShadowMapping);
+        RenderingPipelineImpl::SetRenderingPipelineCache(csmShaders, RenderingPipelineType::CascadedShadowMapping);
+    }
+
+    // Loading compute shader for BRDF LUT
+    {
+        ShaderPipelineList brdfLUTShaders;
+        ShaderPipeline & shader = brdfLUTShaders.emplace_back();
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Compute);
+        shader.SetRenderingPipelineType(RenderingPipelineType::BRDF_LUT);
+        shader.LoadShaderFromFile("pbr_mesh/brdf_lut");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(brdfLUTShaders, RenderingPipelineType::BRDF_LUT);
+    }
+
+    // Loading compute shader for Irradiance Map
+    {
+        ShaderPipelineList irradianceMapShaders;
+        ShaderPipeline & shader = irradianceMapShaders.emplace_back();
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Compute);
+        shader.SetRenderingPipelineType(RenderingPipelineType::IrradianceMap);
+        shader.LoadShaderFromFile("pbr_mesh/irradiance_map");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(irradianceMapShaders, RenderingPipelineType::IrradianceMap);
     }
 
     // Loading skybox shaders
@@ -134,6 +159,7 @@ void GraphicsApplication::__LoadRenderingPipelines()
         ShaderPipeline & shader = skyboxShaders.emplace_back();
         shader.AddVertexBufferToLayout(vc::ShaderVertexFormat::Vec3, 0, 0, 0);
         shader.SetDepthWrite(false);
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Graphics);
         shader.SetRenderingPipelineType(RenderingPipelineType::Skybox);
         shader.SetRenderingPipelineIndex(0);
         shader.LoadShaderFromFile("skybox");

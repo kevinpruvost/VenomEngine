@@ -68,6 +68,10 @@ vc::Error VulkanApplication::__InitializeSets()
     // Material properties (4.0)
     DescriptorPool::GetPool()->GetOrCreateDescriptorSetLayout(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL)
         .AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
+        // BRDF LUT
+        .AddBinding(1, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
+        // Irradiance Map
+        .AddBinding(2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
         .SetMaxSets(VENOM_MAX_ENTITIES);
 
     // Scene settings & Graphics Settings

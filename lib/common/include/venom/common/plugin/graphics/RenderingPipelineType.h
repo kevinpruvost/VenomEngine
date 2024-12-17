@@ -11,6 +11,14 @@ namespace venom
 {
 namespace common
 {
+enum class RenderingPipelineShaderType
+{
+    None = -1,
+    Graphics = 0,
+    Compute,
+    Count,
+};
+
 enum class RenderingPipelineType
 {
     None = -1,
@@ -18,8 +26,10 @@ enum class RenderingPipelineType
     Text3D,
     Skybox,
     PBRModel,
-    ComputeForwardPlusLightCulling,
-    ComputeCascadedShadowMapping,
+    ForwardPlusLightCulling,
+    CascadedShadowMapping,
+    BRDF_LUT,
+    IrradianceMap,
     Count,
 };
 }

@@ -59,6 +59,9 @@ layout(binding = 0, set = 4) uniform materialProps {
     Material material;
 };
 
+layout(binding = 1, set = 4, rgba16f) uniform image2D brdfLUT;
+layout(binding = 2, set = 4, rgba16f) uniform image2D irradianceMap;
+
 // Function to get a texture value from a material component
 vec4 GetMaterialTexture(int componentType, vec2 uv) {
     // All the textures are in linear color space whether HDR is enabled or not, why ???

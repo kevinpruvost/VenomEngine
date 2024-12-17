@@ -88,6 +88,7 @@ public:
     inline vc::Error OpenAndReloadShader() { return _OpenShaders(); }
 
     inline void SetRenderingPipelineType(const RenderingPipelineType type) { _renderingPipelineType = type; }
+    inline void SetRenderingPipelineShaderType(const RenderingPipelineShaderType type) { _renderingPipelineShaderType = type; }
     inline void SetRenderingPipelineIndex(const uint32_t index) { _renderingPipelineIndex = index; }
 
 protected:
@@ -105,6 +106,7 @@ protected:
     }
 protected:
     RenderingPipelineType _renderingPipelineType;
+    RenderingPipelineShaderType _renderingPipelineShaderType;
     uint32_t _renderingPipelineIndex;
     bool _loaded;
 };
@@ -121,6 +123,7 @@ public:
     inline vc::Error OpenAndReloadShader() { return _impl->As<ShaderPipelineImpl>()->OpenAndReloadShader(); }
     inline void SetRenderingPipelineIndex(const uint32_t index) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineIndex(index); }
     inline void SetRenderingPipelineType(const RenderingPipelineType type) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineType(type); }
+    inline void SetRenderingPipelineShaderType(const RenderingPipelineShaderType type) { _impl->As<ShaderPipelineImpl>()->SetRenderingPipelineShaderType(type); }
     inline vc::Error LoadShaderFromFile(const char * path) { return _impl->As<ShaderPipelineImpl>()->LoadShaderFromFile(path); }
     inline void AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding, const uint32_t location, const uint32_t offset) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(format, binding, location, offset); }
     inline void AddVertexBufferToLayout(const ShaderPipelineImpl::VertexBufferLayout & layout) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layout); }

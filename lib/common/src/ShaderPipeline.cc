@@ -26,6 +26,7 @@ ShaderResource::ShaderResource(GraphicsCachedResourceHolder* holder)
 
 ShaderPipelineImpl::ShaderPipelineImpl()
     : _renderingPipelineType(RenderingPipelineType::None)
+    , _renderingPipelineShaderType(RenderingPipelineShaderType::None)
     , _renderingPipelineIndex(std::numeric_limits<uint32_t>::max())
     , _loaded(false)
 {
@@ -33,6 +34,8 @@ ShaderPipelineImpl::ShaderPipelineImpl()
 
 vc::Error ShaderPipelineImpl::LoadShaderFromFile(const std::string & path)
 {
+    venom_assert(_renderingPipelineType != RenderingPipelineType::None, "RenderingPipelineType is not set");
+    venom_assert(_renderingPipelineShaderType != RenderingPipelineShaderType::None, "RenderingPipelineShaderType is not set");
     // Check if path contains shaders
     {
         // Load from cache if already loaded
