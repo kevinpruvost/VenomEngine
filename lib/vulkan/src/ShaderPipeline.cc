@@ -139,8 +139,16 @@ vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)
             }
         }
     }
+
     if (_resource->As<VulkanShaderResource>()->shaderPaths.empty()) return vc::Error::Failure;
-    return LoadShaders();
+    vc::Error err = LoadShaders();
+
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to load shaders: %s", path.c_str());
+        return err;
+    }
+
+    return err;
 }
 
 void VulkanShaderPipeline::_SetLineWidth(const float width)
@@ -336,6 +344,24 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
             return vc::Error::Failure;
         }
     }
+
+    switch (_renderingPipelineType) {
+        case vc::RenderingPipelineType::BRDF_LUT: {
+            // Generating BRDF LUT
+            SingleTimeCommandBuffer cmdBuffer;
+            if (CommandPoolManager::GetComputeCommandPool()->CreateSingleTimeCommandBuffer(cmdBuffer) != vc::Error::Success) {
+                vc::Log::Error("Failed to create single time command buffer for generating BRDF LUT");
+                return vc::Error::Failure;
+            }
+            cmdBuffer.BindPipeline(this);
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL, cmdBuffer, this);
+            cmdBuffer.Dispatch(1024, 1024, 1);
+            break;
+        }
+        default:
+            break;
+    };
+
     _resource->As<VulkanShaderResource>()->shaderDirty = false;
     return vc::Error::Success;
 }

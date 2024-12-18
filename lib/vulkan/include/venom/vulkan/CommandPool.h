@@ -82,6 +82,7 @@ public:
     * @return true if the pipeline was already bound, false otherwise
     */
     bool BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPoint);
+    bool BindPipeline(const VulkanShaderPipeline * pipeline);
     void SetViewport(const VkViewport& viewport) const;
     void SetScissor(const VkRect2D& scissor) const;
     void Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) const;

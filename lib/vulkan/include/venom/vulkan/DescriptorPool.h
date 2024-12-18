@@ -59,6 +59,7 @@ public:
     inline void GroupUpdate(const VkWriteDescriptorSet &write) { DSGA_GROUP_UPDATE(GroupUpdate(write)); }
     inline void GroupUpdateBuffer(UniformBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateBuffer(StorageBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateBuffer(buffer, bufferOffset, binding, descriptorType, descriptorCount, arrayElement)); }
+    inline void GroupUpdateStorageImage(const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateTexture(texture, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateTexture(const VulkanTexture * texture, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateTexture(texture, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateSampler(const Sampler &sampler, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateSampler(sampler, binding, descriptorType, descriptorCount, arrayElement)); }
     inline void GroupUpdateImageView(const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0) { DSGA_GROUP_UPDATE(GroupUpdateImageView(imageView, binding, descriptorType, descriptorCount, arrayElement)); }
@@ -148,7 +149,7 @@ public:
     * @param shaderPipeline Shader Pipeline we are binding the descriptor sets to
     * @param bindPoint
     */
-    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint);
+    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShaderPipeline * pipeline);
     /**
     * @brief Bind all descriptor sets to the pipeline for the current image
     * @param descriptorSetIndex
@@ -157,7 +158,7 @@ public:
     * @param bindPoint
     * @param dynamicOffsets
     */
-    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint, const std::vector<uint32_t> & dynamicOffsets);
+    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShaderPipeline * pipeline, const std::vector<uint32_t> & dynamicOffsets);
 
     inline VkDescriptorPool GetVkDescriptorPool() const { return __pool; }
 

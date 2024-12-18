@@ -98,6 +98,18 @@ bool CommandBuffer::BindPipeline(VkPipeline pipeline, VkPipelineBindPoint bindPo
     return false;
 }
 
+bool CommandBuffer::BindPipeline(const VulkanShaderPipeline* p)
+{
+    venom_assert(p != nullptr, "Pipeline is nullptr");
+    venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
+    const VkPipeline pipeline = p->GetPipeline();
+    const VkPipelineBindPoint bindPoint = p->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
+    if (_lastBoundPipeline == pipeline) return true;
+    vkCmdBindPipeline(_commandBuffer, bindPoint, pipeline);
+    _lastBoundPipeline = pipeline;
+    return false;
+}
+
 void CommandBuffer::SetViewport(const VkViewport& viewport) const
 {
     venom_assert(_commandBuffer != VK_NULL_HANDLE, "Command buffer not initialized");
@@ -174,13 +186,13 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
     BindPipeline(shader->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
 
     // Bind camera & sampler
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *this, shader);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *this, shader);
 
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *this, shader);
 
     // Bind textures (when not bindless)
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *this, *shader, VK_PIPELINE_BIND_POINT_GRAPHICS);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *this, shader);
 
     VkDeviceSize offsets[] = {0};
     vkCmdBindVertexBuffers(_commandBuffer, 0, 1, vulkanSkybox->GetVertexBuffer().GetVkBufferPtr(), offsets);

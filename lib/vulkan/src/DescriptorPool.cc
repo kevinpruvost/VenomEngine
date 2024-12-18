@@ -233,25 +233,26 @@ std::vector<DescriptorSetGroup> DescriptorPool::AllocateSets(const std::vector<V
     return sets;
 }
 
-void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint)
+void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShaderPipeline * pipeline)
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
     const int currentFrame = VulkanApplication::GetCurrentFrame();
+    const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
-        pipeline.GetPipelineLayout(), descriptorSetIndex, 1,
+        pipeline->GetPipelineLayout(), descriptorSetIndex, 1,
         __descriptorSets[descriptorSetIndex][0][currentFrame].GetVkDescriptorSetPtr(),
         0, nullptr);
 }
 
-void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShaderPipeline & pipeline, const VkPipelineBindPoint bindPoint,
-    const std::vector<uint32_t>& dynamicOffsets)
+void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer& commandBuffer, const VulkanShaderPipeline * pipeline, const std::vector<uint32_t>& dynamicOffsets)
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
     const int currentFrame = VulkanApplication::GetCurrentFrame();
+    const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
-        pipeline.GetPipelineLayout(), descriptorSetIndex, 1,
+        pipeline->GetPipelineLayout(), descriptorSetIndex, 1,
         __descriptorSets[descriptorSetIndex][0][currentFrame].GetVkDescriptorSetPtr(),
         static_cast<uint32_t>(dynamicOffsets.size()), dynamicOffsets.data());
 }

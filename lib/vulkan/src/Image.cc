@@ -179,35 +179,5 @@ void Image::SetImageLayout(VkImageLayout layout)
         __layout = layout;
     }
 }
-
-VkFormat Image::GetFormat() const
-{
-    return __imageInfo.format;
-}
-
-VkImage Image::GetVkImage() const
-{
-    return __image;
-}
-
-Image::operator VkImage() const
-{
-    return __image;
-}
-
-uint32_t Image::GetWidth() const
-{
-    return __width;
-}
-
-uint32_t Image::GetHeight() const
-{
-    return __height;
-}
-
-VkImageLayout Image::GetLayout() const
-{
-    return __layout;
-}
 }
 }

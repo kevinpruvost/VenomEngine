@@ -120,7 +120,7 @@ void DescriptorSet::UpdateImageView(const ImageView& imageView, uint32_t binding
 {
     VkDescriptorImageInfo imageInfo = {
         .imageView = imageView.GetVkImageView(),
-        .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+        .imageLayout = imageView.GetLayout()
     };
 
     VkWriteDescriptorSet write = {

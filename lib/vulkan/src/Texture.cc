@@ -60,7 +60,7 @@ vc::Error VulkanTexture::LoadImage(unsigned char* pixels, int width, int height,
         return vc::Error::Failure;
 
     // Create Image View
-    if (GetImageView().Create(GetImage().GetVkImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (GetImageView().Create(GetImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -76,7 +76,7 @@ vc::Error VulkanTexture::LoadImageRGBA(unsigned char* pixels, int width, int hei
     ) != vc::Error::Success)
         return vc::Error::Failure;
 
-    if (GetImageView().Create(GetImage().GetVkImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (GetImageView().Create(GetImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -94,7 +94,7 @@ vc::Error VulkanTexture::LoadImage(uint16_t* pixels, int width, int height, int 
         return vc::Error::Failure;
 
     // Create Image View
-    if (GetImageView().Create(GetImage().GetVkImage(), VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (GetImageView().Create(GetImage(), VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -107,7 +107,7 @@ vc::Error VulkanTexture::_InitDepthBuffer(int width, int height)
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height) != vc::Error::Success)
         return vc::Error::Failure;
-    if (GetImageView().Create(GetImage().GetVkImage(), depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT,
+    if (GetImageView().Create(GetImage(), depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
@@ -139,7 +139,7 @@ vc::Error VulkanTexture::_CreateAttachment(int width, int height, int imageCount
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height, imageCount) != vc::Error::Success)
         return vc::Error::Failure;
-    if (GetImageView().Create(GetImage().GetVkImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (GetImageView().Create(GetImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, imageCount) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);

@@ -91,6 +91,9 @@ public:
     inline void SetRenderingPipelineShaderType(const RenderingPipelineShaderType type) { _renderingPipelineShaderType = type; }
     inline void SetRenderingPipelineIndex(const uint32_t index) { _renderingPipelineIndex = index; }
 
+    inline RenderingPipelineType GetRenderingPipelineType() const { return _renderingPipelineType; }
+    inline RenderingPipelineShaderType GetRenderingPipelineShaderType() const { return _renderingPipelineShaderType; }
+
 protected:
     virtual void _SetLineWidth(const float width) = 0;
     virtual void _SetDepthTest(const bool enable) = 0;

@@ -16,6 +16,7 @@ namespace vulkan
 {
 ImageView::ImageView()
     : __imageView(VK_NULL_HANDLE)
+    , __image(nullptr)
 {
 }
 
@@ -27,22 +28,34 @@ ImageView::~ImageView()
 
 ImageView::ImageView(ImageView&& other)
     : __imageView(other.__imageView)
+    , __image(other.__image)
 {
     other.__imageView = VK_NULL_HANDLE;
+    other.__image = nullptr;
 }
 
 ImageView& ImageView::operator=(ImageView&& other)
 {
     if (this != &other) {
-        __imageView = other.__imageView;
-        other.__imageView = VK_NULL_HANDLE;
+        __imageView = std::move(other.__imageView);
+        __image = std::move(other.__image);
     }
     return *this;
 }
 
+vc::Error ImageView::Create(Image& image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType,
+    uint32_t baseMipLevel, uint32_t levelCount, uint32_t baseArrayLayer, uint32_t layerCount)
+{
+    vc::Error error = Create(image.GetVkImage(), format, aspectFlags, viewType, baseMipLevel, levelCount, baseArrayLayer, layerCount);
+    if (error != vc::Error::Success) {
+        return error;
+    }
+    __image = &image;
+    return error;
+}
+
 vc::Error ImageView::Create(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType,
-                            uint32_t baseMipLevel, uint32_t levelCount,
-                            uint32_t baseArrayLayer, uint32_t layerCount)
+                            uint32_t baseMipLevel, uint32_t levelCount, uint32_t baseArrayLayer, uint32_t layerCount)
 {
     if (layerCount > 1) {
         if (viewType == VK_IMAGE_VIEW_TYPE_1D) viewType = VK_IMAGE_VIEW_TYPE_1D_ARRAY;
@@ -73,16 +86,6 @@ vc::Error ImageView::Create(VkImage image, VkFormat format, VkImageAspectFlags a
         return vc::Error::Failure;
     }
     return vc::Error::Success;
-}
-
-VkImageView ImageView::GetVkImageView() const
-{
-    return __imageView;
-}
-
-ImageView::operator VkImageView() const
-{
-    return __imageView;
 }
 }
 }

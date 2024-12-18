@@ -51,10 +51,16 @@ float luminance(vec3 color) {
 
 vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness) {
     // Simplified Fresnel-weighted reflection
+    float NDotV = dot(N, V);
+
+    ivec2 imageSize = imageSize(brdfLUT);
+    ivec2 coords = ivec2(NDotV * imageSize.x, roughness * imageSize.y);
+    vec2 brdf = imageLoad(brdfLUT, coords).rg;
+
     vec3 R = reflect(-V, N);
     vec3 specularReflectionColor = GetPanoramaTexture(R).rgb;
     vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);
-    vec3 specularReflection = specularReflectionBaseColor * specularReflectionColor * (1.0 - roughness);
+    vec3 specularReflection = specularReflectionBaseColor * (specularReflectionColor * brdf.x + brdf.y);
 
     // TODO: with irradiance
     vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);

@@ -84,7 +84,7 @@ vec2 BRDF(float NoV, float roughness)
 	return LUT / float(NUM_SAMPLES);
 }
 
-layout(local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
+layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 void main()
 {
     ivec2 coords = ivec2(gl_GlobalInvocationID.xy);

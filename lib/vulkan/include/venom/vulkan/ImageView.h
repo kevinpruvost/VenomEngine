@@ -24,18 +24,22 @@ public:
     ImageView(ImageView && other);
     ImageView & operator=(ImageView && other);
 
+    vc::Error Create(Image & image, VkFormat format, VkImageAspectFlags aspectFlags,
+        VkImageViewType viewType = VK_IMAGE_VIEW_TYPE_2D,
+        uint32_t baseMipLevel = 0, uint32_t levelCount = 1,
+        uint32_t baseArrayLayer = 0, uint32_t layerCount = 1);
     vc::Error Create(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags,
         VkImageViewType viewType = VK_IMAGE_VIEW_TYPE_2D,
         uint32_t baseMipLevel = 0, uint32_t levelCount = 1,
         uint32_t baseArrayLayer = 0, uint32_t layerCount = 1);
 
-    VkImageView GetVkImageView() const;
-    explicit operator VkImageView() const;
+    inline VkImageView GetVkImageView() const { return __imageView; }
+    inline const Image * GetImage() const { return __image; }
+    inline const VkImageLayout GetLayout() const { venom_assert(__image != nullptr, "Image is nullptr"); return __image->GetLayout(); }
 
 private:
     VkImageView __imageView;
+    Image * __image;
 };
-
-static_assert(sizeof(ImageView) == sizeof(VkImageView), "ImageView size doesn't align with VkImageView");
 }
 }

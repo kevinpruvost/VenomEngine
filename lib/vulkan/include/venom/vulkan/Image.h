@@ -33,13 +33,12 @@ public:
     void SetSamples(int samples);
     void SetImageLayout(VkImageLayout layout);
 
-    VkFormat GetFormat() const;
-    VkImage GetVkImage() const;
-    explicit operator VkImage() const;
+    inline VkFormat GetFormat() const { return __imageInfo.format; }
+    inline VkImage GetVkImage() const { return __image; }
 
-    uint32_t GetWidth() const;
-    uint32_t GetHeight() const;
-    VkImageLayout GetLayout() const;
+    inline uint32_t GetWidth() const { return __width; }
+    inline uint32_t GetHeight() const { return __height; }
+    inline VkImageLayout GetLayout() const { return __layout; }
 
     friend class CommandBuffer;
 private:
