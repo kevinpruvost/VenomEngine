@@ -53,8 +53,8 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
     // Simplified Fresnel-weighted reflection
     float NDotV = dot(N, V);
 
-    ivec2 imageSize = imageSize(brdfLUT);
-    ivec2 coords = ivec2(NDotV * imageSize.x, roughness * imageSize.y);
+    ivec2 imageSizeBrdfLUT = imageSize(brdfLUT);
+    ivec2 coords = ivec2(NDotV * imageSizeBrdfLUT.x, roughness * imageSizeBrdfLUT.y);
     vec2 brdf = imageLoad(brdfLUT, coords).rg;
 
     vec3 R = reflect(-V, N);
@@ -64,10 +64,13 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
 
     // TODO: with irradiance
     vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
-    vec3 diffuseReflection = diffuseLight;
-    // vec3 diffuseReflection = diffuseLight * irradiance;
+    vec2 irradianceUvF = PanoramaUvFromDir(N);
+    ivec2 irradianceMapSize = imageSize(irradianceMap);
+    ivec2 irradianceUV = ivec2(irradianceUvF.x * irradianceMapSize.x, irradianceUvF.y * irradianceMapSize.y);
+    vec3 irradiance = imageLoad(irradianceMap, irradianceUV).rgb;
+    vec3 diffuseReflection = diffuseLight * irradiance;
     return specularReflection
-     //      + diffuseReflection
+           + diffuseReflection
         ;
 }
 

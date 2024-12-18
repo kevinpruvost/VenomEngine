@@ -43,7 +43,7 @@ float atan2_custom(in float y, in float x)
     return mix(M_PI/2.0 - atan(x,y), atan(y,x), s);
 }
 
-vec4 GetPanoramaTexture(vec3 dir) {
+vec2 PanoramaUvFromDir(vec3 dir) {
     // Normalize the view direction
     vec3 viewDir = normalize(dir);
     // Convert the view direction to spherical coordinates
@@ -55,6 +55,11 @@ vec4 GetPanoramaTexture(vec3 dir) {
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination
 
+    return uv;
+}
+
+vec4 GetPanoramaTexture(vec3 dir) {
+    vec2 uv = PanoramaUvFromDir(dir);
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
     float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;

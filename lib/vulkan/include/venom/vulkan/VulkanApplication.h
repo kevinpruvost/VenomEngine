@@ -106,8 +106,8 @@ private:
     UniformBuffer __lightsBuffer;
     UniformBuffer __lightCountBuffer;
     StorageBuffer __forwardPlusPropsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
-    Image __brdfLut;
-    ImageView __brdfLutView;
+    Image __brdfLut, __irradianceMap;
+    ImageView __brdfLutView, __irradianceMapView;
 
     VertexBuffer __screenQuadVertexBuffer;
 
