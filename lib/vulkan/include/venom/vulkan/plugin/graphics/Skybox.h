@@ -24,6 +24,7 @@ public:
     inline const DescriptorSet& GetPanormaDescriptorSet() const { return __descriptorSet->GetCurrentSet(); }
 
     vc::Error _LoadSkybox(const vc::Texture & texture) override;
+    vc::Error _LoadIrradianceMap(const vc::Texture& texture) override;
 private:
     VertexBuffer __vertexBuffer;
     UniformBuffer __uniformBuffer;

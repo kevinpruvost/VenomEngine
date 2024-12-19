@@ -26,7 +26,10 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
         return err;
     }
     err = _LoadSkybox(__panorama);
-    return err;
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to load skybox from file: %s", texturePath);
+    }
+    return _LoadIrradianceMap(__panorama);
 }
 
 vc::Error SkyboxImpl::LoadSkybox(const SPtr<GraphicsCachedResource> res)

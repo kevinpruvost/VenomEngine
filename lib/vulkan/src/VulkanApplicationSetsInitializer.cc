@@ -113,7 +113,7 @@ vc::Error VulkanApplication::__InitializeSets()
     DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL).GroupUpdateImageView(__brdfLutView, 1, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, 0);
 
     // Irradiance Map
-    if (err = __irradianceMap.Create(VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_TILING_LINEAR, VK_IMAGE_USAGE_STORAGE_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 512, 256); err != vc::Error::Success)
+    if (err = __irradianceMap.Create(VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_TILING_LINEAR, VK_IMAGE_USAGE_STORAGE_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 256, 128); err != vc::Error::Success)
         return err;
     if (err = __irradianceMapView.Create(__irradianceMap, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1); err != vc::Error::Success)
         return err;

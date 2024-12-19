@@ -28,6 +28,7 @@ public:
     inline vc::Texture & GetPanoramaMut() { return __panorama; }
 protected:
     virtual vc::Error _LoadSkybox(const Texture & texture) = 0;
+    virtual vc::Error _LoadIrradianceMap(const Texture & texture) = 0;
 private:
     Texture __panorama;
 };

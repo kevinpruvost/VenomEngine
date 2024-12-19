@@ -64,13 +64,14 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
 
     // TODO: with irradiance
     vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
-    vec2 irradianceUvF = PanoramaUvFromDir(N);
+    vec2 irradianceUvF = mod(PanoramaUvFromDir(N), vec2(1.0));
     ivec2 irradianceMapSize = imageSize(irradianceMap);
     ivec2 irradianceUV = ivec2(irradianceUvF.x * irradianceMapSize.x, irradianceUvF.y * irradianceMapSize.y);
     vec3 irradiance = imageLoad(irradianceMap, irradianceUV).rgb;
     vec3 diffuseReflection = diffuseLight * irradiance;
-    return specularReflection
-           + diffuseReflection
+    return
+        specularReflection
+        + diffuseReflection
         ;
 }
 

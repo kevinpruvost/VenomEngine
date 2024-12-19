@@ -84,6 +84,8 @@ void main()
     vec3 position = worldPos;
     float opacity = 1.0;
 
+    vec2 invertedUv = vec2(uv.x, 1.0 - uv.y);
+
     baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
 
     // Reverse normal if back face
@@ -150,8 +152,6 @@ void main()
 
     // Loop over lights
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
-    // metallic = 1;
-    // roughness = 0.5;
     for (uint i = 0; i < 1; ++i) {
         Light light = lights[i];
 
