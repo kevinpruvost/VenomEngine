@@ -43,8 +43,8 @@ void main()
 	const float HALF_PI = PI * 0.5;
 
     vec3 irradiance = vec3(0.0);
-    float deltaPhi = (2.0 * float(PI)) / 160.0f;
-    float deltaTheta = (0.5 * float(PI)) / 160.0f;
+    float deltaPhi = (2.0 * float(PI)) / 320.0f;
+    float deltaTheta = (0.5 * float(PI)) / 320.0f;
     uint sampleCount = 0u;
 	for (float samplePhi = 0.0; samplePhi < TWO_PI; samplePhi += deltaPhi) {
 		for (float sampleTheta = 0.0; sampleTheta < HALF_PI; sampleTheta += deltaTheta) {

@@ -95,7 +95,7 @@ vec3 DisneyPrincipledBSDF(
     float NdotH = dot(N,H);
     float LdotH = dot(L,H);
 
-    vec3 Cdlin = mon2lin(baseColor);
+    vec3 Cdlin = (baseColor);
     float Cdlum = 0.3 * Cdlin.x + 0.6 * Cdlin.y + 0.1 * Cdlin.z; // Luminance approximation
 
     vec3 Ctint = (Cdlum > 0.0) ? Cdlin / Cdlum : vec3(1.0, 1.0, 1.0); // Normalize luminance

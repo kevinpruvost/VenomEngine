@@ -78,7 +78,7 @@ void main()
     vec3 normal;
     vec4 specular;
     float metallic = 0.0;
-    float roughness = 0.5;
+    float roughness = 1.0;
     float ao = 1.0;
     vec4 emissive;
     vec3 position = worldPos;
@@ -87,6 +87,7 @@ void main()
     vec2 invertedUv = vec2(uv.x, 1.0 - uv.y);
 
     baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
+    baseColor = toLinear(baseColor);
 
     // Reverse normal if back face
     vec3 realNormal = outNormal;
@@ -118,8 +119,6 @@ void main()
     // Roughness (if PBR, then ROUGHNESS otherwise square of 2/(SPECULAR+2))
     if (material.components[MaterialComponentType_ROUGHNESS].valueType != MaterialComponentValueType_NONE)
         roughness = MaterialComponentGetValue1(MaterialComponentType_ROUGHNESS, uv);
-    else if (material.components[MaterialComponentType_SHININESS].valueType != MaterialComponentValueType_NONE)
-        roughness = MaterialComponentGetValue1(MaterialComponentType_SHININESS, uv);
     // Ambient occlusion
     if (material.components[MaterialComponentType_AMBIENT_OCCLUSION].valueType != MaterialComponentValueType_NONE)
         ao = MaterialComponentGetValue1(MaterialComponentType_AMBIENT_OCCLUSION, uv);
@@ -158,8 +157,7 @@ void main()
 
         if (tangentSpace) {
             finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-        } else
-            finalColor.r = finalColor.g = finalColor.b = clamp(abs(dot(normal, viewDir)), 0.0001, 1.0);
+        }
         // finalColor.rgb = normal;
         // position.y = -position.y;
         // vec3 q1 = dFdx(position);
