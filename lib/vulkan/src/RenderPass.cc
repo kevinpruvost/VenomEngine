@@ -282,7 +282,7 @@ vc::Error RenderPass::__CreateNormalRenderPass(const SwapChain* swapChain)
 
         // Create MultiSampled Image if needed
         if (multisampled) {
-            attachments[0] = AttachmentsManager::Get()->attachments[i][vc::ColorAttachmentType::Present].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+            attachments[0] = AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
         } else {
             attachments[0] = swapChain->__swapChainImages[i].GetVkImageView();
         }
@@ -427,7 +427,7 @@ vc::Error RenderPass::__CreateGuiRenderPass(const SwapChain* swapChain)
             vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(swapChain->GetSamples()));
             colorTexture.CreateAttachment(swapChain->extent.width, swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
             //attachments[0] = vkTexture->GetImageView().GetVkImageView();
-            attachments[0] = AttachmentsManager::Get()->attachments[i][vc::ColorAttachmentType::Present].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+            attachments[0] = AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
             attachments[2] = swapChain->__swapChainImages[i].GetVkImageView();
         } else {
             attachments[0] = swapChain->__swapChainImages[i].GetVkImageView();
@@ -525,7 +525,7 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass(const SwapChain* swapChai
 
         // Create MultiSampled Image if needed
         if (multisampled) {
-            attachments[0] = AttachmentsManager::Get()->attachments[i][vc::ColorAttachmentType::Present].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+            attachments[0] = AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
         } else {
             attachments[0] = swapChain->__swapChainImages[i].GetVkImageView();
         }

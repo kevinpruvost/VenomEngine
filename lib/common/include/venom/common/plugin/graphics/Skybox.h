@@ -16,6 +16,15 @@ namespace venom
 {
 namespace common
 {
+
+// Panoramic Skyboxes are always 2/1 ratio
+#define SKYBOX_IRRADIANCE_HEIGHT 128
+#define SKYBOX_IRRADIANCE_WIDTH (SKYBOX_IRRADIANCE_HEIGHT * 2)
+
+#define SKYBOX_RADIANCE_HEIGHT 1024
+#define SKYBOX_RADIANCE_WIDTH SKYBOX_RADIANCE_HEIGHT
+#define SKYBOX_RADIANCE_MIP_LEVELS 10
+
 class VENOM_COMMON_API SkyboxImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
@@ -28,9 +37,12 @@ public:
     inline vc::Texture & GetPanoramaMut() { return __panorama; }
 protected:
     virtual vc::Error _LoadSkybox(const Texture & texture) = 0;
-    virtual vc::Error _LoadIrradianceMap(const Texture & texture) = 0;
+    virtual vc::Error _LoadIrradianceMap(const Texture & texture, vc::Texture & irradianceMap) = 0;
+    virtual vc::Error _LoadRadianceMap(const Texture & texture, Texture & radianceMap) = 0;
 private:
     Texture __panorama;
+    Texture __radianceMap;
+    Texture __irradianceMap;
 };
 
 class VENOM_COMMON_API Skybox : public PluginObjectImplWrapper, public Component

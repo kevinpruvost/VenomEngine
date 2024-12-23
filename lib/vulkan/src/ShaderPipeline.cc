@@ -354,7 +354,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
                 return vc::Error::Failure;
             }
             cmdBuffer.BindPipeline(this);
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL, cmdBuffer, this);
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Material, cmdBuffer, this);
             cmdBuffer.Dispatch(1024, 1024, 1);
             break;
         }

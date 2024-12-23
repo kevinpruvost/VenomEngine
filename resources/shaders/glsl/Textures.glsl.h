@@ -36,6 +36,8 @@ layout(binding = 1, set = 6) uniform panoramaProps {
     float panoramaPeakLuminance;
     float panoramaAverageLuminance;
 };
+layout(binding = 2, set = 6) uniform texture2D panoramaIrradianceMap;
+layout(binding = 3, set = 6) uniform texture2D panoramaRadianceMap;
 
 float atan2_custom(in float y, in float x)
 {
@@ -62,6 +64,26 @@ vec4 GetPanoramaTexture(vec3 dir) {
     vec2 uv = PanoramaUvFromDir(dir);
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
+    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
+
+    return color;
+}
+
+vec4 GetPanoramaRadiance(vec3 dir, float roughness) {
+    vec2 uv = PanoramaUvFromDir(dir);
+    // CHECK LOD
+    float lod = min((roughness * 10.0), 10.0);
+    vec4 color = textureLod(sampler2D(panoramaRadianceMap, g_sampler), uv, lod);
+    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
+
+    return color;
+}
+
+vec4 GetPanoramaIrradiance(vec3 dir) {
+    vec2 uv = PanoramaUvFromDir(dir);
+    vec4 color = texture(sampler2D(panoramaIrradianceMap, g_sampler), uv);
     float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
     color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
 

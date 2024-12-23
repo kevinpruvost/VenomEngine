@@ -30,6 +30,7 @@ enum class RenderingPipelineType
     CascadedShadowMapping,
     BRDF_LUT,
     IrradianceMap,
+    RadianceMap,
     Count,
 };
 }

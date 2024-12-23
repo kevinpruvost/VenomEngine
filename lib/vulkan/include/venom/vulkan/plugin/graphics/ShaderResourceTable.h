@@ -20,6 +20,7 @@ public:
 
 private:
     void __UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0) override;
+    void __UpdateDescriptor(const SetsIndex index, const int binding, vc::Texture * texture) override;
 };
 }
 }

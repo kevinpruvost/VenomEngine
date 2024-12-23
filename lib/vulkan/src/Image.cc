@@ -2,7 +2,7 @@
 /// Project: VenomEngine
 /// @file Image.cc
 /// @date Sep, 24 2024
-/// @brief 
+/// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/Image.h>
@@ -47,6 +47,7 @@ Image::Image(Image&& image) noexcept
     , __imageMemory(image.__imageMemory)
     , __width(image.__width), __height(image.__height)
     , __layout(image.__layout)
+    , __mipLevels(image.__mipLevels)
 {
     image.__image = VK_NULL_HANDLE;
     image.__imageMemory = VK_NULL_HANDLE;
@@ -61,6 +62,7 @@ Image& Image::operator=(Image&& image) noexcept
         image.__imageMemory = VK_NULL_HANDLE;
         __width = image.__width;
         __height = image.__height;
+        __mipLevels = image.__mipLevels;
         __layout = image.__layout;
     }
     return *this;
@@ -153,6 +155,7 @@ vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags
     vkBindImageMemory(LogicalDevice::GetVkDevice(), __image, __imageMemory, 0);
     __width  = static_cast<uint32_t>(width);
     __height = static_cast<uint32_t>(height);
+    __mipLevels = mipLevels;
     return vc::Error::Success;
 }
 
@@ -169,6 +172,9 @@ void Image::SetSamples(int samples)
 
 void Image::SetImageLayout(VkImageLayout layout)
 {
+    if (__layout == layout)
+        return;
+
     if (__image == VK_NULL_HANDLE) {
         __imageInfo.initialLayout = __layout = layout;
     } else {

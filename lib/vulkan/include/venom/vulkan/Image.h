@@ -2,7 +2,7 @@
 /// Project: VenomEngine
 /// @file Image.h
 /// @date Sep, 24 2024
-/// @brief 
+/// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
@@ -39,6 +39,7 @@ public:
     inline uint32_t GetWidth() const { return __width; }
     inline uint32_t GetHeight() const { return __height; }
     inline VkImageLayout GetLayout() const { return __layout; }
+    inline uint32_t GetMipLevels() const { return __mipLevels; }
 
     friend class CommandBuffer;
 private:
@@ -46,7 +47,7 @@ private:
     VkImage __image;
     VkImageLayout __layout;
     VkDeviceMemory __imageMemory;
-    uint32_t __width, __height;
+    uint32_t __width, __height, __mipLevels;
 };
 }
 }

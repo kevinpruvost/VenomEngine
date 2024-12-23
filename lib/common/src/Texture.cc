@@ -64,6 +64,9 @@ TextureResource::~TextureResource()
 TextureImpl::TextureImpl()
     : __peakLuminance(0.0f)
     , __averageLuminance(0.0f)
+    , __memoryAccess(TextureMemoryAccess::None)
+    , _textureType(TextureType::Texture2D)
+    , _textureUsage(TextureUsage::None)
 {
 }
 
@@ -198,6 +201,8 @@ vc::Error TextureImpl::LoadImageFromFile(const char* path)
     }
     // Set In Cache
     _SetInCache(realPath, _GetResourceToCache());
+    _textureType = TextureType::Texture2D;
+    _textureUsage = TextureUsage::Sampled;
     return vc::Error::Success;
 }
 
@@ -236,6 +241,8 @@ vc::Error TextureImpl::LoadImage(const char* path, int id, char* bgraData, unsig
     }
     _SetInCache(realPath, _GetResourceToCache());
     stbi_image_free(imageData);
+    _textureType = TextureType::Texture2D;
+    _textureUsage = TextureUsage::Sampled;
     return vc::Error::Success;
 }
 
@@ -252,6 +259,8 @@ void TextureImpl::__CreateDummyTexture()
     unsigned char pixels[4] = { 255, 255, 255, 255 };
     LoadImage(pixels, 1, 1, 4);
     s_dummyTexture = this;
+    _textureType = TextureType::Texture2D;
+    _textureUsage = TextureUsage::Sampled;
 }
 
 const TextureImpl* TextureImpl::GetDummyTexture()
@@ -260,14 +269,53 @@ const TextureImpl* TextureImpl::GetDummyTexture()
     return s_dummyTexture;
 }
 
+vc::Error TextureImpl::SetMemoryAccess(const TextureMemoryAccess access)
+{
+    if (access == __memoryAccess) return vc::Error::Success;
+    vc::Error err = _SetMemoryAccess(access);
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to set memory access");
+        return vc::Error::Failure;
+    }
+    __memoryAccess = access;
+    return err;
+}
+
 vc::Error TextureImpl::InitDepthBuffer(int width, int height)
 {
-    return _InitDepthBuffer(width, height);
+    vc::Error err = _InitDepthBuffer(width, height);
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to create depth buffer");
+        return vc::Error::Failure;
+    }
+    _textureType = TextureType::Texture2D;
+    _textureUsage = TextureUsage::DepthStencil;
+    return err;
+}
+
+vc::Error TextureImpl::CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels)
+{
+    vc::Error err = _CreateReadWriteTexture(width, height, format, mipLevels);
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to create read write texture");
+        return vc::Error::Failure;
+    }
+    _textureType = TextureType::Texture2D;
+    _textureUsage = TextureUsage::Storage;
+    __memoryAccess = TextureMemoryAccess::ReadWrite;
+    return err;
 }
 
 vc::Error TextureImpl::CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format)
 {
-    return _CreateAttachment(width, height, imageCount, format);
+    vc::Error err = _CreateAttachment(width, height, imageCount, format);
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to create attachment");
+        return vc::Error::Failure;
+    }
+    _textureType = TextureType::Texture2D;
+    _textureUsage = TextureUsage::Attachment;
+    return err;
 }
 }
 }

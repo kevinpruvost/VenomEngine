@@ -95,20 +95,15 @@ void main()
 
     // mat3 TBN = mat3(inputTangent, inputBitangent, realNormal);
     bool tangentSpace = material.components[MaterialComponentType_NORMAL].valueType == MaterialComponentValueType_TEXTURE;
-    vec3 q1 = dFdx(position);
-    vec3 q2 = dFdy(position);
-    vec2 st1 = dFdx(uv);
-    vec2 st2 = dFdy(uv);
-
     normal = normalize(realNormal);
-    vec3 T = normalize(q1 * st2.t - q2 * st1.t);
-    vec3 B = -normalize(cross(normal, T));
-    T = inputTangent;
-    B = inputBitangent;
+    vec3 T = inputTangent;
+    vec3 B = inputBitangent;
     mat3 TBN = mat3(T, B, normal);
     if (tangentSpace) {
         vec3 N = GetMaterialTexture(MaterialComponentType_NORMAL, uv).rgb * 2.0 - 1.0;
         normal = normalize(TBN * N);
+    } else {
+
     }
 
     // Specular

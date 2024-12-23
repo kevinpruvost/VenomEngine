@@ -15,7 +15,7 @@ namespace venom
 namespace vulkan
 {
 VulkanSkybox::VulkanSkybox()
-    : __descriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA).AllocateSet())
+    : __descriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama).AllocateSet())
 {
     // Init Vertex Buffer
     const vcm::Vec3 vertices[] = {
@@ -49,21 +49,69 @@ vc::Error VulkanSkybox::_LoadSkybox(const vc::Texture& texture)
     return vc::Error::Success;
 }
 
-vc::Error VulkanSkybox::_LoadIrradianceMap(const vc::Texture& texture)
+vc::Error VulkanSkybox::_LoadIrradianceMap(const vc::Texture& texture, vc::Texture & irradianceMap)
 {
     const auto & computeShader = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::IrradianceMap);
-    SingleTimeCommandBuffer cmdBuffer;
-    if (CommandPoolManager::GetComputeCommandPool()->CreateSingleTimeCommandBuffer(cmdBuffer) != vc::Error::Success)
     {
-        vc::Log::Error("Failed to create single time command buffer for generating irradiance map");
-        return vc::Error::Failure;
+        SingleTimeCommandBuffer cmdBuffer;
+        if (CommandPoolManager::GetComputeCommandPool()->CreateSingleTimeCommandBuffer(cmdBuffer) != vc::Error::Success)
+        {
+            vc::Log::Error("Failed to create single time command buffer for generating irradiance map");
+            return vc::Error::Failure;
+        }
+        cmdBuffer.BindPipeline(computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_SAMPLER, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        cmdBuffer.Dispatch(SKYBOX_IRRADIANCE_WIDTH, SKYBOX_IRRADIANCE_HEIGHT, 1);
     }
-    cmdBuffer.BindPipeline(computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-    cmdBuffer.Dispatch(256, 128, 1);
     return vc::Error::Success;
 }
+
+vc::Error VulkanSkybox::_LoadRadianceMap(const vc::Texture& texture, vc::Texture & radianceMap)
+{
+    const auto & computeShader = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::RadianceMap);
+    {
+        // Create Radiance Map Texture and then bind to descriptor sets
+        uint32_t originalWidth = texture.GetWidth();
+        uint32_t originalHeight = texture.GetHeight();
+        radianceMap.CreateReadWriteTexture(originalWidth, originalHeight, vc::ShaderVertexFormat::Vec4, SKYBOX_RADIANCE_MIP_LEVELS);
+        Image & radianceImg = radianceMap.GetImpl()->As<VulkanTexture>()->GetImage();
+
+        VkRect2D scissor = {{0, 0}, {originalWidth, originalHeight}};
+        for (int i = 0; i < SKYBOX_RADIANCE_MIP_LEVELS; ++i)
+        {
+            // ImageView must be created first as it should be destroyed last
+            ImageView imageView;
+            // Image View for each mip level
+            imageView.Create(radianceImg, VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, i, 1, 0, 1);
+
+            uint32_t width = std::max(1u, originalWidth >> i);
+            uint32_t height = std::max(1u, originalHeight >> i);
+            
+            SingleTimeCommandBuffer cmdBuffer;
+            if (CommandPoolManager::GetComputeCommandPool()->CreateSingleTimeCommandBuffer(cmdBuffer) != vc::Error::Success)
+            {
+                vc::Log::Error("Failed to create single time command buffer for generating irradiance map");
+                return vc::Error::Failure;
+            }
+            cmdBuffer.BindPipeline(computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_SAMPLER, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+
+            VkViewport viewport = {0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, 1.0f};
+            cmdBuffer.SetViewport(viewport);
+            cmdBuffer.SetScissor(scissor);
+
+            DescriptorPool::GetPool()->GetDescriptorSets(DSETS_INDEX_MATERIAL).GroupUpdateImageView(imageView, 2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, 0);
+            float roughness = (1.0f / static_cast<float>(SKYBOX_RADIANCE_MIP_LEVELS) * i);
+            vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 3, &roughness, sizeof(float));
+            cmdBuffer.Dispatch(width, height, 1);
+        }
+    }
+    return vc::Error::Success;
+}
+
 }
 }

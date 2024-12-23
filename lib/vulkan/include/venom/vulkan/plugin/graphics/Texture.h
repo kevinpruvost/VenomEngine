@@ -44,6 +44,12 @@ public:
     vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) override;
     vc::Error _InitDepthBuffer(int width, int height) override;
     vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) override;
+    vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels) override;
+    vc::Error _SetMemoryAccess(const vc::TextureMemoryAccess access) override;
+
+    int GetHeight() const override;
+    int GetWidth() const override;
+    void SetDimensions(int width, int height) override;
 
     bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }
 

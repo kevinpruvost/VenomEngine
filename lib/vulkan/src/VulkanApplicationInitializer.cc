@@ -304,7 +304,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         .compareEnable = VK_FALSE,
         .compareOp = VK_COMPARE_OP_ALWAYS,
         .minLod = 0.0f,
-        .maxLod = 0.0f,
+        .maxLod = 10.0f,
         .borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK,
         .unnormalizedCoordinates = VK_FALSE
     });
@@ -367,9 +367,9 @@ void VulkanApplication::__CreateAttachments()
     AttachmentsManager::Get()->resolveAttachments.clear();
     AttachmentsManager::Get()->resolveAttachments.resize(VENOM_MAX_FRAMES_IN_FLIGHT);
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        AttachmentsManager::Get()->attachments[i].reserve(vc::ColorAttachmentType::Count);
-        AttachmentsManager::Get()->resolveAttachments[i].reserve(vc::ColorAttachmentType::Count);
-        for (int j = 0; j < vc::ColorAttachmentType::Count; ++j) {
+        AttachmentsManager::Get()->attachments[i].reserve(static_cast<size_t>(vc::ColorAttachmentType::Count));
+        AttachmentsManager::Get()->resolveAttachments[i].reserve(static_cast<size_t>(vc::ColorAttachmentType::Count));
+        for (int j = 0; j < static_cast<int>(vc::ColorAttachmentType::Count); ++j) {
             AttachmentsManager::Get()->attachments[i].emplace_back().GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(__swapChain.GetSamples());
             AttachmentsManager::Get()->attachments[i][j].CreateAttachment(__swapChain.extent.width, __swapChain.extent.height, 1, vc::ShaderVertexFormat::Vec4);
             AttachmentsManager::Get()->resolveAttachments[i].emplace_back().CreateAttachment(__swapChain.extent.width, __swapChain.extent.height, 1, vc::ShaderVertexFormat::Vec4);

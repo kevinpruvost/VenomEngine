@@ -49,7 +49,8 @@ float luminance(vec3 color) {
     return dot(color, vec3(0.3, 0.6, 0.1));
 }
 
-vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness) {
+vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
+{
     // Simplified Fresnel-weighted reflection
     float NDotV = dot(N, V);
 
@@ -57,18 +58,21 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
     ivec2 coords = ivec2(NDotV * imageSizeBrdfLUT.x, roughness * imageSizeBrdfLUT.y);
     vec2 brdf = imageLoad(brdfLUT, coords).rg;
 
-    vec3 R = reflect(-V, N);
-    vec3 specularReflectionColor = GetPanoramaTexture(R).rgb;
+    vec3 R = normalize(reflect(-V, N));
+    vec3 specularReflectionColor = GetPanoramaRadiance(R, roughness).rgb;
     vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);
-    vec3 specularReflection = specularReflectionBaseColor * (specularReflectionColor * brdf.x + brdf.y);
+    vec3 specularReflection = specularReflectionColor * (specularReflectionBaseColor * brdf.x + brdf.y);
 
-    // TODO: with irradiance
     vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
-    vec2 irradianceUvF = mod(PanoramaUvFromDir(N), vec2(1.0));
-    ivec2 irradianceMapSize = imageSize(irradianceMap);
-    ivec2 irradianceUV = ivec2(irradianceUvF.x * irradianceMapSize.x, irradianceUvF.y * irradianceMapSize.y);
-    vec3 irradiance = imageLoad(irradianceMap, irradianceUV).rgb;
+//    vec2 irradianceUvF = mod(PanoramaUvFromDir(N), vec2(1.0));
+//    ivec2 irradianceMapSize = imageSize(irradianceMap);
+//    ivec2 irradianceUV = ivec2(irradianceUvF.x * irradianceMapSize.x, irradianceUvF.y * irradianceMapSize.y);
+//    vec3 irradiance = imageLoad(irradianceMap, irradianceUV).rgb;
+    vec3 irradiance = GetPanoramaIrradiance(N).rgb;
     vec3 diffuseReflection = diffuseLight * irradiance;
+
+    // TODO: Make specular reflection more blurry with roughness
+
     return
         specularReflection
         + diffuseReflection

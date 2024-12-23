@@ -197,12 +197,12 @@ vc::Error VulkanApplication::__GraphicsOperations()
             // Draw Shadow Models
             // Lighting Pass
             __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MODEL_MATRICES, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Sampler, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama, *__graphicsSecondCheckpointCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
             vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
             {
                 int index;
@@ -272,9 +272,9 @@ vc::Error VulkanApplication::__ComputeOperations()
         const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::ForwardPlusLightCulling);
         // Forward+ Light Culling compute
         __computeCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_LIGHT, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
         __computeCommandBuffers[_currentFrame]->Dispatch(1, 1, 1);
 
     if (err = __computeCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)

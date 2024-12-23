@@ -13,12 +13,12 @@ namespace venom
 namespace vulkan
 {
 VulkanMaterial::VulkanMaterial()
-    : __materialDescriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL).AllocateSet())
+    : __materialDescriptorSet(DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Material).AllocateSet())
     , __textureDescriptorSet(
         vc::ShaderResourceTable::UsingLargeBindlessTextures() ?
         nullptr
         :
-        DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES).AllocateSet()
+        DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Textures).AllocateSet()
     )
 {
     __uniformBuffer.Init(sizeof(MaterialResourceTable));
@@ -27,9 +27,9 @@ VulkanMaterial::VulkanMaterial()
 
 VulkanMaterial::~VulkanMaterial()
 {
-    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL).FreeSet(__materialDescriptorSet);
+    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Material).FreeSet(__materialDescriptorSet);
     if (__textureDescriptorSet) {
-        DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES).FreeSet(__textureDescriptorSet);
+        DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Textures).FreeSet(__textureDescriptorSet);
     }
 }
 

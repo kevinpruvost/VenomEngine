@@ -154,10 +154,10 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
             // WARNING: Order is important because GetMaterialDescriptorSet() may update the uniform buffer and the textures at the same time
 
             // Bind material
-            BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SETS_INDEX_MATERIAL, 1, material->GetMaterialDescriptorSet().GetVkDescriptorSetPtr());
+            BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SetsIndex_Material, 1, material->GetMaterialDescriptorSet().GetVkDescriptorSetPtr());
 
             // Bind textures (when not bindless)
-            BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SETS_INDEX_TEXTURES, 1, material->GetTextureDescriptorSet().GetVkDescriptorSetPtr());
+            BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SetsIndex_Textures, 1, material->GetTextureDescriptorSet().GetVkDescriptorSetPtr());
         }
     }
 
@@ -186,13 +186,13 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
     BindPipeline(shader->GetPipeline(), VK_PIPELINE_BIND_POINT_GRAPHICS);
 
     // Bind camera & sampler
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_CAMERA, *this, shader);
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SAMPLER, *this, shader);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *this, shader);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Sampler, *this, shader);
 
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_SCENE, *this, shader);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *this, shader);
 
     // Bind textures (when not bindless)
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SETS_INDEX_PANORAMA, *this, shader);
+    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama, *this, shader);
 
     VkDeviceSize offsets[] = {0};
     vkCmdBindVertexBuffers(_commandBuffer, 0, 1, vulkanSkybox->GetVertexBuffer().GetVkBufferPtr(), offsets);
@@ -305,7 +305,7 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
         .subresourceRange = {
             .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
             .baseMipLevel = 0,
-            .levelCount = 1,
+            .levelCount = image.GetMipLevels(),
             .baseArrayLayer = 0,
             .layerCount = 1
         },
@@ -396,57 +396,55 @@ void CommandBuffer::__TransitionImageLayout(VkImageMemoryBarrier& barrier, VkIma
     VkPipelineStageFlags sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
     VkPipelineStageFlags destinationStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
 
-    if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED) {
-        if (newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
-            barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-            destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-        } else if (newLayout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) {
-            barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-            destinationStage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-        } else if (newLayout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) {
-            barrier.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-            destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-        } else if (newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
-            barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-            destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-        } else if (newLayout == VK_IMAGE_LAYOUT_GENERAL) {
-            barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
-            destinationStage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
-        } else {
-            goto unsupported_layout;
+    const auto assignMasksAndStage = [&](VkImageLayout layout, VkAccessFlags & accessMask, VkPipelineStageFlags & stage) {
+        switch (layout) {
+            case VK_IMAGE_LAYOUT_UNDEFINED:
+                accessMask = 0;
+                stage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
+                accessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+                stage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL:
+                accessMask = VK_ACCESS_TRANSFER_READ_BIT;
+                stage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
+                accessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+                stage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:
+                accessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+                stage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
+                accessMask = VK_ACCESS_SHADER_READ_BIT;
+                stage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
+                accessMask = VK_ACCESS_MEMORY_READ_BIT;
+                stage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_GENERAL:
+                accessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
+                stage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL:
+                accessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT;
+                stage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+                break;
+            case VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL:
+                accessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT;
+                stage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+                break;
+            default:
+                venom_assert(false, "Unsupported layout transition");
+                break;
         }
-    } else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
-        barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-        barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-
-        sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-        destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-    } else if (oldLayout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) {
-        if (newLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
-            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-            barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-
-            sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-            destinationStage = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
-        } else if (newLayout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-            barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
-
-            sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-            destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-        } else if (newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-            barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-
-            sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-            destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-        } else {
-            goto unsupported_layout;
-        }
-    } else {
-        unsupported_layout:
-        venom_assert(false, "Unsupported layout transition");
-    }
+    };
+    assignMasksAndStage(oldLayout, barrier.srcAccessMask, sourceStage);
+    assignMasksAndStage(newLayout, barrier.dstAccessMask, destinationStage);
 
     vkCmdPipelineBarrier(_commandBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
 }

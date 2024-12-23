@@ -21,6 +21,36 @@ namespace common
 class GraphicsApplication;
 class Texture;
 
+enum class TextureMemoryAccess
+{
+    None = -1,
+    ReadOnly = 0,
+    WriteOnly,
+    ReadWrite,
+    Count
+};
+
+enum class TextureType
+{
+    None = -1,
+    Texture2D = 0,
+    TextureCube,
+    Texture3D,
+    Count
+};
+
+enum TextureUsage
+{
+    None = -1,
+    Sampled = 0x1,
+    Storage = 0x2,
+    RenderTarget = 0x4,
+    Attachment = RenderTarget,
+    DepthStencil = 0x8,
+    Immutable = 0x10,
+    TextureUsageCount
+};
+
 class VENOM_COMMON_API TextureResource : public GraphicsCachedResource
 {
 public:
@@ -43,12 +73,24 @@ public:
     vc::Error LoadImageFromFile(const char * path);
     vc::Error LoadImage(const char * path, int id, char * bgraData, unsigned int width, unsigned int height);
     vc::Error InitDepthBuffer(int width, int height);
+    /**
+     * @brief Corresponds to Storage Images / Sampled Images for Vulkan for instance
+     * Switch between layouts or types is handled automatically
+     * @param width
+     * @param height
+     * @param format
+     * @param mipMapeLevels
+     * @return
+     */
+    vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels);
     vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format);
     static const TextureImpl * GetDummyTexture();
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
 #endif
     virtual bool HasTexture() const = 0;
+
+    vc::Error SetMemoryAccess(const TextureMemoryAccess access);
 
     virtual vc::Error LoadImage(unsigned char * pixels, int width, int height, int channels) = 0;
     virtual vc::Error LoadImageRGBA(unsigned char * pixels, int width, int height, int channels) = 0;
@@ -57,20 +99,32 @@ public:
     inline void SetTextureAverageLuminance(float averageLuminance) { __averageLuminance = averageLuminance; }
     inline const float & GetTexturePeakLuminance() const { return __peakLuminance; }
     inline const float & GetTextureAverageLuminance() const { return __averageLuminance; }
+    inline const TextureMemoryAccess & GetMemoryAccess() const { return __memoryAccess; }
     bool operator==(const GraphicsCachedResource * res) const;
+
+    virtual int GetWidth() const = 0;
+    virtual int GetHeight() const = 0;
+    virtual void SetDimensions(int width, int height) = 0;
 
 protected:
     virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
     virtual vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) = 0;
+    virtual vc::Error _SetMemoryAccess(const TextureMemoryAccess access) = 0;
+    virtual vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels) = 0;
 private:
     friend class Texture;
     void __CreateDummyTexture();
 
+protected:
+    TextureType _textureType;
+    TextureUsage _textureUsage;
+
 private:
+    TextureMemoryAccess __memoryAccess;
     float __peakLuminance, __averageLuminance;
 };
 
-enum ColorAttachmentType
+enum class ColorAttachmentType
 {
     Present = 0,
     NormalSpecular = 1,
@@ -95,9 +149,14 @@ public:
     inline void LoadImageFromCachedResource(const SPtr<GraphicsCachedResource> res) { _impl->As<TextureImpl>()->SetResource(res); }
     inline vc::Error InitDepthBuffer(int width, int height) { return _impl->As<TextureImpl>()->InitDepthBuffer(width, height); }
     inline vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, imageCount, format); }
+    inline vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels) { return _impl->As<TextureImpl>()->CreateReadWriteTexture(width, height, format, mipMapLevels); }
+    inline vc::Error SetMemoryAccess(const TextureMemoryAccess access) { return _impl->As<TextureImpl>()->SetMemoryAccess(access); }
     inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
     inline const vc::String & GetName() { return _impl->As<TextureImpl>()->GetResourceName(); }
     inline const vc::String & GetShortName() { return _impl->As<TextureImpl>()->GetResourceShortName(); }
+    inline int GetWidth() const { return _impl->As<TextureImpl>()->GetWidth(); }
+    inline int GetHeight() const { return _impl->As<TextureImpl>()->GetHeight(); }
+    inline const TextureMemoryAccess & GetMemoryAccess() const { return _impl->As<TextureImpl>()->GetMemoryAccess(); }
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif

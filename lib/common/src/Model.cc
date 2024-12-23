@@ -381,14 +381,14 @@ vc::Error ModelImpl::ImportModel(const char * path)
             }
         }
 
-        // if (aimesh->HasTangentsAndBitangents()) {
-        //     mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
-        //     mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
-        //     for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
-        //         mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
-        //         mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
-        //     }
-        // } else
+        if (aimesh->HasTangentsAndBitangents()) {
+            mesh._impl->As<MeshImpl>()->_tangents.reserve(aimesh->mNumVertices);
+            mesh._impl->As<MeshImpl>()->_bitangents.reserve(aimesh->mNumVertices);
+            for (uint32_t x = 0; x < aimesh->mNumVertices; ++x) {
+                mesh._impl->As<MeshImpl>()->_tangents.emplace_back(aimesh->mTangents[x].x, aimesh->mTangents[x].y, aimesh->mTangents[x].z);
+                mesh._impl->As<MeshImpl>()->_bitangents.emplace_back(aimesh->mBitangents[x].x, aimesh->mBitangents[x].y, aimesh->mBitangents[x].z);
+            }
+        } else
         {
             // MikkTSpace
             // Tangents & Bitangents

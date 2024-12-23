@@ -78,7 +78,7 @@ void DescriptorSet::UpdateTexture(const VulkanTexture* texture, uint32_t binding
 {
     VkDescriptorImageInfo imageInfo = {
         .imageView = texture ? texture->GetImageView().GetVkImageView() : VK_NULL_HANDLE,
-        .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+        .imageLayout = texture->GetImageView().GetLayout()
     };
 
     VkWriteDescriptorSet write = {

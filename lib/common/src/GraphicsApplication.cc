@@ -153,6 +153,17 @@ void GraphicsApplication::__LoadRenderingPipelines()
         RenderingPipelineImpl::SetRenderingPipelineCache(irradianceMapShaders, RenderingPipelineType::IrradianceMap);
     }
 
+    // Loading compute shader for Radiance Map
+    {
+        ShaderPipelineList radianceMapShaders;
+        ShaderPipeline & shader = radianceMapShaders.emplace_back();
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Compute);
+        shader.SetRenderingPipelineType(RenderingPipelineType::RadianceMap);
+        shader.LoadShaderFromFile("pbr_mesh/radiance_map");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(radianceMapShaders, RenderingPipelineType::RadianceMap);
+    }
+
     // Loading skybox shaders
     {
         ShaderPipelineList skyboxShaders;

@@ -2,7 +2,7 @@
 /// Project: VenomEngineWorkspace
 /// @file ShaderResourceTable.h
 /// @date Oct, 22 2024
-/// @brief 
+/// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #pragma once
@@ -24,6 +24,8 @@ namespace venom
 {
 namespace common
 {
+class Texture;
+
 
 class ShaderResourceTable : public GraphicsPluginObject
 {
@@ -33,16 +35,26 @@ public:
 
     enum SetsIndex
     {
-        SETS_INDEX_MODEL_MATRICES = 0,
-        SETS_INDEX_CAMERA = 1,
-        SETS_INDEX_TEXTURES = 2,
-        SETS_INDEX_SAMPLER = 3,
-        SETS_INDEX_MATERIAL = 4,
-        SETS_INDEX_SCENE = 5,
-        SETS_INDEX_PANORAMA = 6,
-        SETS_INDEX_LIGHT = 7,
+        SetsIndex_ModelMatrices = 0,
+        SetsIndex_Camera = 1,
+        SetsIndex_Textures = 2,
+        SetsIndex_Sampler = 3,
+        SetsIndex_Material = 4,
+        SetsIndex_Scene = 5,
+        SetsIndex_Panorama = 6,
+        SetsIndex_Light = 7
     };
 
+// Descriptor Sets Indices
+#define DSETS_INDEX_MODEL_MATRICES venom::common::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices
+#define DSETS_INDEX_CAMERA venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Camera
+#define DSETS_INDEX_TEXTURES venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Textures
+#define DSETS_INDEX_SAMPLER venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Sampler
+#define DSETS_INDEX_MATERIAL venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Material
+#define DSETS_INDEX_SCENE venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Scene
+#define DSETS_INDEX_PANORAMA venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Panorama
+#define DSETS_INDEX_LIGHT venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Light
+    
     class Descriptor
     {
     public:
@@ -51,6 +63,7 @@ public:
     };
 
     static void UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0);
+    static void UpdateDescriptor(const SetsIndex index, const int binding, vc::Texture * texture);
 
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     static vcm::Mat4 * GetAllModelMatrixBuffer();
@@ -68,6 +81,7 @@ public:
 
 private:
     virtual void __UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0) = 0;
+    virtual void __UpdateDescriptor(const SetsIndex index, const int binding, vc::Texture * texture) = 0;
 
 private:
     static int __maxTextures;
