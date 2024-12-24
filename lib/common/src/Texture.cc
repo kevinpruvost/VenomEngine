@@ -20,6 +20,7 @@ namespace venom
 {
 namespace common
 {
+
 Texture::Texture()
     : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
 {
@@ -67,7 +68,15 @@ TextureImpl::TextureImpl()
     , __memoryAccess(TextureMemoryAccess::None)
     , _textureType(TextureType::Texture2D)
     , _textureUsage(TextureUsage::None)
+    , __guiTexture(nullptr)
 {
+}
+
+TextureImpl::~TextureImpl()
+{
+    if (__guiTexture) {
+        __guiTexture->UnloadTextureFromGUI();
+    }
 }
 
 class TextureLoader
@@ -253,6 +262,29 @@ bool TextureImpl::operator==(const GraphicsCachedResource* res) const
     return _GetResourceToCache().get() == res;
 }
 
+static vc::Vector<UPtr<TextureImpl::GUITexture> *> s_guiTextures;
+void TextureImpl::UnloadAllGuiTextures()
+{
+    for (auto& guiTexture : s_guiTextures) {
+        if (guiTexture->get() == nullptr) continue;
+        guiTexture->get()->UnloadTextureFromGUI();
+        guiTexture->reset();
+    }
+    s_guiTextures.clear();
+}
+
+vc::Error TextureImpl::GetGUITextureID(void** ptrToTextureId)
+{
+    if (__guiTexture == nullptr) {
+        __guiTexture.reset(_NewGuiTextureInstance());
+        s_guiTextures.emplace_back(&__guiTexture);
+        __guiTexture->LoadTextureToGUI(this);
+    }
+    venom_assert(__guiTexture != nullptr, "Failed to create GUI texture");
+    *ptrToTextureId = __guiTexture->GetTextureId();
+    return vc::Error::Success;
+}
+
 void TextureImpl::__CreateDummyTexture()
 {
     venom_assert(s_dummyTexture == nullptr, "Dummy texture already created");
@@ -261,6 +293,31 @@ void TextureImpl::__CreateDummyTexture()
     s_dummyTexture = this;
     _textureType = TextureType::Texture2D;
     _textureUsage = TextureUsage::Sampled;
+}
+
+TextureImpl::GUITexture::GUITexture()
+    : __guiTextureId(nullptr)
+{
+}
+
+void* TextureImpl::GUITexture::GetTextureId()
+{
+    return __guiTextureId;
+}
+
+vc::Error TextureImpl::GUITexture::LoadTextureToGUI(vc::TextureImpl* impl)
+{
+    vc::Error err = _LoadTextureToGUI(impl, &__guiTextureId);
+    if (err != vc::Error::Success) {
+        vc::Log::Error("Failed to load texture to GUI");
+        return vc::Error::Failure;
+    }
+    return vc::Error::Success;
+}
+
+vc::Error TextureImpl::GUITexture::UnloadTextureFromGUI()
+{
+    return _UnloadTextureFromGUI(__guiTextureId);
 }
 
 const TextureImpl* TextureImpl::GetDummyTexture()

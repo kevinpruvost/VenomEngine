@@ -41,6 +41,9 @@ public:
     void SetCreateInfo(const VkSamplerCreateInfo& createInfo);
     vc::Error Create();
 
+    void SetAsMainSampler();
+    static Sampler * GetMainSampler();
+
     VkSampler GetVkSampler() const;
     explicit operator VkSampler() const;
 private:

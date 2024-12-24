@@ -51,6 +51,8 @@ public:
     static inline void TextColored(const vcm::Vec4 & col, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_TextColored(col, fmt, args); va_end(args); }
     static inline void LabelText(const char* label, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_LabelText(label, fmt, args); va_end(args); }
 
+    static inline void Image(vc::Texture * texture, const vcm::Vec2 & size) { s_gui->_Image(texture, size); }
+
     static inline bool InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags = 0) { return s_gui->_InputText(label, buf, buf_size, flags); }
 
     static inline bool TreeNode(const char* label) { return s_gui->_TreeNode(label); }
@@ -119,6 +121,8 @@ protected:
     virtual void _Text(const char* fmt, ...) = 0;
     virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
     virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
+
+    virtual void _Image(vc::Texture * texture, const vcm::Vec2 & size) = 0;
 
     virtual bool _InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags) = 0;
 

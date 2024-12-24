@@ -310,6 +310,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     });
     if (err = __sampler.Create(); err != vc::Error::Success)
         return err;
+    __sampler.SetAsMainSampler();
     return vc::Error::Success;
 }
 

@@ -68,7 +68,7 @@ class VENOM_COMMON_API TextureImpl : public PluginObjectImpl, public GraphicsPlu
 {
 public:
     TextureImpl();
-    virtual ~TextureImpl() = default;
+    virtual ~TextureImpl();
 
     vc::Error LoadImageFromFile(const char * path);
     vc::Error LoadImage(const char * path, int id, char * bgraData, unsigned int width, unsigned int height);
@@ -102,6 +102,8 @@ public:
     inline const TextureMemoryAccess & GetMemoryAccess() const { return __memoryAccess; }
     bool operator==(const GraphicsCachedResource * res) const;
 
+    vc::Error GetGUITextureID(void ** ptrToTextureId);
+
     virtual int GetWidth() const = 0;
     virtual int GetHeight() const = 0;
     virtual void SetDimensions(int width, int height) = 0;
@@ -111,6 +113,7 @@ protected:
     virtual vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) = 0;
     virtual vc::Error _SetMemoryAccess(const TextureMemoryAccess access) = 0;
     virtual vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels) = 0;
+
 private:
     friend class Texture;
     void __CreateDummyTexture();
@@ -119,9 +122,37 @@ protected:
     TextureType _textureType;
     TextureUsage _textureUsage;
 
+public:
+    /**
+     * Has to be specialized by the Graphics API
+     * Contains GUI Texture ID, especially for IMGUI
+     */
+    class VENOM_COMMON_API GUITexture
+    {
+    public:
+        GUITexture();
+        virtual ~GUITexture() = default;
+
+        void * GetTextureId();
+        vc::Error LoadTextureToGUI(vc::TextureImpl * impl);
+        vc::Error UnloadTextureFromGUI();
+
+    protected:
+        virtual vc::Error _UnloadTextureFromGUI(void * guiTextureId) = 0;
+        virtual vc::Error _LoadTextureToGUI(vc::TextureImpl * impl, void ** ptrToGuiTextureId) = 0;
+
+    private:
+        void * __guiTextureId;
+    };
+protected:
+    virtual GUITexture * _NewGuiTextureInstance() = 0;
+    static void UnloadAllGuiTextures();
+
 private:
     TextureMemoryAccess __memoryAccess;
     float __peakLuminance, __averageLuminance;
+
+    UPtr<GUITexture> __guiTexture;
 };
 
 enum class ColorAttachmentType
@@ -157,9 +188,13 @@ public:
     inline int GetWidth() const { return _impl->As<TextureImpl>()->GetWidth(); }
     inline int GetHeight() const { return _impl->As<TextureImpl>()->GetHeight(); }
     inline const TextureMemoryAccess & GetMemoryAccess() const { return _impl->As<TextureImpl>()->GetMemoryAccess(); }
+
+    inline vc::Error GetGUITextureID(void ** ptrToTextureId) { return _impl->As<TextureImpl>()->GetGUITextureID(ptrToTextureId); }
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif
+
+    inline static void UnloadAllGuiTextures() { TextureImpl::UnloadAllGuiTextures(); }
 private:
     friend class GraphicsApplication;
     inline void __CreateDummyTexture() { _impl->As<TextureImpl>()->__CreateDummyTexture(); }

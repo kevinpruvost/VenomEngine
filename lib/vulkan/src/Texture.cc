@@ -5,6 +5,7 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
+#include <imgui_impl_vulkan.h>
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
 #include <venom/vulkan/Allocator.h>
@@ -196,6 +197,29 @@ vc::Error VulkanTexture::_SetMemoryAccess(const vc::TextureMemoryAccess access)
         GetImage().SetImageLayout(layout);
     }
     return vc::Error::Success;
+}
+
+vc::Error VulkanTexture::VulkanGUITexture::_LoadTextureToGUI(vc::TextureImpl* impl, void** ptrToGuiTextureId)
+{
+    const VulkanTexture * vulkanTexture = impl->ConstAs<VulkanTexture>();
+    *ptrToGuiTextureId = ImGui_ImplVulkan_AddTexture(Sampler::GetMainSampler()->GetVkSampler(), vulkanTexture->GetImageView().GetVkImageView(), vulkanTexture->GetImage().GetLayout());
+    if (!*ptrToGuiTextureId) {
+        vc::Log::Error("Failed to load texture to GUI");
+        return vc::Error::Failure;
+    }
+    return vc::Error::Success;
+}
+
+vc::Error VulkanTexture::VulkanGUITexture::_UnloadTextureFromGUI(void* guiTextureId)
+{
+    VkDescriptorSet descriptorSet = static_cast<VkDescriptorSet>(guiTextureId);
+    ImGui_ImplVulkan_RemoveTexture(descriptorSet);
+    return vc::Error::Success;
+}
+
+vc::TextureImpl::GUITexture* VulkanTexture::_NewGuiTextureInstance()
+{
+    return new VulkanGUITexture();
 }
 
 int VulkanTexture::GetHeight() const

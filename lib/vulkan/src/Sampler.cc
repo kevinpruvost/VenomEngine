@@ -45,7 +45,6 @@ Sampler::~Sampler()
     if (__sampler != VK_NULL_HANDLE) {
         vkDestroySampler(LogicalDevice::GetVkDevice(), __sampler, Allocator::GetVKAllocationCallbacks());
     }
-    VkSamplerCreateInfo createInfo;
 }
 
 Sampler::Sampler(Sampler&& other)
@@ -152,6 +151,17 @@ vc::Error Sampler::Create()
         return vc::Error::Failure;
     }
     return vc::Error::Success;
+}
+
+static Sampler* s_mainSampler = nullptr;
+void Sampler::SetAsMainSampler()
+{
+    s_mainSampler = this;
+}
+
+Sampler* Sampler::GetMainSampler()
+{
+    return s_mainSampler;
 }
 
 VkSampler Sampler::GetVkSampler() const

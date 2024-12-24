@@ -83,6 +83,10 @@ void SceneGUI()
     vc::GUI::SetNextWindowPos(vcm::Vec2(0, 20), vc::GUICondBits::GUICond_Always);
     vc::GUI::Begin("VenomEngine");
     {
+        if (vc::GUI::CollapsingHeader("Test:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+            static vc::Texture textureTest("hank_happy.png");
+            vc::GUI::Image(&textureTest, {200, 200});
+        }
         if (vc::GUI::CollapsingHeader("Scene Settings:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
             vc::GUI::Checkbox("Camera Locked", &cameraLocked);
             vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();

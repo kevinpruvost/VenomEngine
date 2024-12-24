@@ -47,6 +47,17 @@ public:
     vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels) override;
     vc::Error _SetMemoryAccess(const vc::TextureMemoryAccess access) override;
 
+    class VulkanGUITexture : public vc::TextureImpl::GUITexture
+    {
+    public:
+        VulkanGUITexture() = default;
+        ~VulkanGUITexture() override = default;
+
+        vc::Error _LoadTextureToGUI(vc::TextureImpl* impl, void** ptrToGuiTextureId) override;
+        vc::Error _UnloadTextureFromGUI(void* guiTextureId) override;
+    };
+    GUITexture * _NewGuiTextureInstance() override;
+
     int GetHeight() const override;
     int GetWidth() const override;
     void SetDimensions(int width, int height) override;

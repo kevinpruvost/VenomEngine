@@ -142,41 +142,6 @@ vc::Error VulkanGUI::Initialize()
 
     ImGui::StyleColorsLight();
 
-    ImGui_ImplGlfw_InitForVulkan(vc::Context::Get()->GetWindow(), true);
-    initInfo.Instance = Instance::GetVkInstance();
-    initInfo.PhysicalDevice = PhysicalDevice::GetUsedVkPhysicalDevice();
-    initInfo.Device = LogicalDevice::GetInstance().GetVkDevice();
-    initInfo.QueueFamily = QueueManager::GetGraphicsQueue().GetQueueFamilyIndex();
-    initInfo.Queue = QueueManager::GetGraphicsQueue().GetVkQueue();
-    //initInfo.PipelineCache = g_PipelineCache;
-    initInfo.DescriptorPool = app->GetDescriptorPool()->GetVkDescriptorPool();
-    initInfo.RenderPass = app->GetGuiRenderPass()->GetVkRenderPass();
-    initInfo.Subpass = 0;
-    initInfo.MinImageCount = app->GetSwapChain()->surface->GetCapabilities().minImageCount;
-    initInfo.ImageCount = VENOM_MAX_FRAMES_IN_FLIGHT;
-    initInfo.MSAASamples = static_cast<VkSampleCountFlagBits>(app->GetSwapChain()->GetSamples());
-    initInfo.Allocator = Allocator::GetVKAllocationCallbacks();
-#ifdef VENOM_DEBUG
-    initInfo.CheckVkResultFn = [](VkResult err)
-    {
-        if (err != 0)
-            vc::Log::Error("ImGui_ImplVulkan_Init failed with error code %d", err);
-    };
-#endif
-    if (!ImGui_ImplVulkan_Init(&initInfo))
-        return vc::Error::Failure;
-
-    __SetStyle();
-    return vc::Error::Success;
-}
-
-vc::Error VulkanGUI::Reset()
-{
-    const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
-
-    ImGui_ImplVulkan_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-
     // Setup Platform/Renderer backends
 
     ImGui_ImplGlfw_InitForVulkan(vc::Context::Get()->GetWindow(), true);
@@ -205,7 +170,20 @@ vc::Error VulkanGUI::Reset()
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
 
+    __SetStyle();
     return vc::Error::Success;
+}
+
+vc::Error VulkanGUI::Reset()
+{
+    const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
+
+    vc::Texture::UnloadAllGuiTextures();
+    ImGui_ImplVulkan_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    return Initialize();
 }
 
 void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const vcm::Vec2& pivot)
@@ -264,6 +242,16 @@ void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
     va_start(args, fmt);
     ImGui::LabelTextV(label, fmt, args);
     va_end(args);
+}
+
+void VulkanGUI::_Image(vc::Texture* texture, const vcm::Vec2 & size)
+{
+    void * textureId;
+    if (texture->GetGUITextureID(&textureId) != vc::Error::Success) {
+        vc::Log::Error("Failed to get GUI texture ID");
+        return;
+    }
+    ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
 }
 
 bool VulkanGUI::_InputText(const char* label, char* buf, size_t buf_size, common::GUIInputTextFlags flags)
