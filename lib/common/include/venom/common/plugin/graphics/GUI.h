@@ -42,8 +42,10 @@ public:
 
     static inline void SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond = GUICondBits::GUICond_None, const vcm::Vec2 & pivot = vcm::Vec2(0, 0)) { s_gui->_SetNextWindowPos(pos, cond, pivot); }
 
-    static inline const vcm::Vec2 & GetWindowSize() { return s_gui->_GetWindowSize(); }
-    static inline const vcm::Vec2 & GetWindowPos() { return s_gui->_GetWindowPos(); }
+    static inline vcm::Vec2 GetContentRegionAvail() { return s_gui->_GetContentRegionAvail(); }
+
+    static inline vcm::Vec2 GetWindowSize() { return s_gui->_GetWindowSize(); }
+    static inline vcm::Vec2 GetWindowPos() { return s_gui->_GetWindowPos(); }
     static inline void NewFrame() { s_gui->_NewFrame(); }
     static inline void Begin(const char * name, bool * p_open = nullptr, GUIWindowFlags flags = 0) { s_gui->_Begin(name, p_open, flags); }
     static inline void End() { s_gui->_End(); }
@@ -100,6 +102,9 @@ public:
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
 
+    static inline void PushWindowPadding(const vcm::Vec2 & padding) { s_gui->_PushWindowPadding(padding); }
+    static inline void PopStyleVar() { s_gui->_PopStyleVar(); }
+
     static void GraphicsSettingsCollaspingHeader();
 
     static void EntitiesListCollapsingHeader();
@@ -112,8 +117,10 @@ private:
 protected:
     virtual void _SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond, const vcm::Vec2 & pivot) = 0;
 
-    virtual const vcm::Vec2 & _GetWindowSize() = 0;
-    virtual const vcm::Vec2 & _GetWindowPos() = 0;
+    virtual vcm::Vec2 _GetContentRegionAvail() = 0;
+
+    virtual vcm::Vec2 _GetWindowSize() = 0;
+    virtual vcm::Vec2 _GetWindowPos() = 0;
 
     virtual void _NewFrame() = 0;
     virtual void _Begin(const char * name, bool * p_open, GUIWindowFlags flags) = 0;
@@ -170,6 +177,9 @@ protected:
     virtual void _SetItemDefaultFocus() = 0;
 
     virtual void _SameLine(float offset_from_start_x, float spacing) = 0;
+
+    virtual void _PushWindowPadding(const vcm::Vec2 & padding) = 0;
+    virtual void _PopStyleVar() = 0;
 
     virtual void _Render() = 0;
     virtual vc::Error _PreUpdate() = 0;

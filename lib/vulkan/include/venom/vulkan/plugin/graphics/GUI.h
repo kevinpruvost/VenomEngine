@@ -28,8 +28,10 @@ public:
 protected:
     void _SetNextWindowPos(const vcm::Vec2 & pos, vc::GUICond cond, const vcm::Vec2 & pivot);
 
-    const vcm::Vec2 & _GetWindowSize() override;
-    const vcm::Vec2 & _GetWindowPos() override;
+    vcm::Vec2 _GetContentRegionAvail() override;
+
+    vcm::Vec2 _GetWindowSize() override;
+    vcm::Vec2 _GetWindowPos() override;
 
     void _NewFrame() override;
     void _Begin(const char * name, bool * p_open, vc::GUIWindowFlags flags) override;
@@ -86,6 +88,9 @@ protected:
     void _SetItemDefaultFocus() override;
 
     void _SameLine(float offset_from_start_x, float spacing) override;
+
+    void _PushWindowPadding(const vcm::Vec2& padding) override;
+    void _PopStyleVar() override;
 
     vc::Error _PreUpdate() override;
     void _Render() override;

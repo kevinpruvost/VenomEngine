@@ -191,13 +191,19 @@ void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const 
     ImGui::SetNextWindowPos(ImVec2(pos.x, pos.y), static_cast<ImGuiCond>(cond), ImVec2(pivot.x, pivot.y));
 }
 
-const vcm::Vec2 & VulkanGUI::_GetWindowSize()
+vcm::Vec2 VulkanGUI::_GetContentRegionAvail()
+{
+    const auto& size = ImGui::GetContentRegionAvail();
+    return {size.x, size.y};
+}
+
+vcm::Vec2 VulkanGUI::_GetWindowSize()
 {
     const auto& size = ImGui::GetWindowSize();
     return {size.x, size.y};
 }
 
-const vcm::Vec2 & VulkanGUI::_GetWindowPos()
+vcm::Vec2 VulkanGUI::_GetWindowPos()
 {
     const auto& pos = ImGui::GetWindowPos();
     return {pos.x, pos.y};
@@ -251,6 +257,7 @@ void VulkanGUI::_Image(vc::Texture* texture, const vcm::Vec2 & size)
         vc::Log::Error("Failed to get GUI texture ID");
         return;
     }
+    // Remove padding from the window
     ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
 }
 
@@ -404,6 +411,16 @@ void VulkanGUI::_SetItemDefaultFocus()
 void VulkanGUI::_SameLine(float offset_from_start_x, float spacing)
 {
     ImGui::SameLine(offset_from_start_x, spacing);
+}
+
+void VulkanGUI::_PushWindowPadding(const vcm::Vec2& padding)
+{
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(padding.x, padding.y));
+}
+
+void VulkanGUI::_PopStyleVar()
+{
+    ImGui::PopStyleVar();
 }
 
 vc::Error VulkanGUI::_PreUpdate()
