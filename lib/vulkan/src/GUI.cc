@@ -96,7 +96,7 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
     _style->Colors[ImGuiCol_WindowBg] = ImVec4(0.13f, 0.14f, 0.17f, 1.00f);
     _style->Colors[ImGuiCol_Border] = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
-    _style->Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+    _style->Colors[ImGuiCol_BorderShadow] = ImVec4(1.00f, 0.00f, 0.00f, 0.00f);
     _style->Colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
     _style->Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
     _style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.20f, 0.22f, 0.27f, 0.75f);
@@ -131,6 +131,13 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
     _style->Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
     _style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.12f, 0.59f, 0.18f, 0.43f);
+
+    _style->Colors[ImGuiCol_Tab] = ImVec4(0.0f, 0.3f, 0.0f, 1.0f);           // Dark green for an inactive tab
+    _style->Colors[ImGuiCol_TabHovered] = ImVec4(0.0f, 0.5f, 0.0f, 1.0f);    // Brighter green when the tab is hovered
+    _style->Colors[ImGuiCol_TabActive] = ImVec4(0.0f, 0.4f, 0.0f, 1.0f);     // Brighter green for the active tab
+    _style->Colors[ImGuiCol_TabUnfocused] = ImVec4(0.0f, 0.3f, 0.0f, 0.8f);  // Dark green for an unfocused inactive tab
+    _style->Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.0f, 0.4f, 0.0f, 0.9f); // Green for an active tab in an unfocused window
+    _style->Colors[ImGuiCol_TabSelectedOverline] = ImVec4(0.0f, 0.4f, 0.0f, 0.9f); // Green for an active tab in an unfocused window
 }
 
 vc::Error VulkanGUI::Initialize()
@@ -169,6 +176,7 @@ vc::Error VulkanGUI::Initialize()
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
     __SetStyle();
     return vc::Error::Success;
@@ -181,7 +189,6 @@ vc::Error VulkanGUI::Reset()
     vc::Texture::UnloadAllGuiTextures();
     ImGui_ImplVulkan_Shutdown();
     ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 
     return Initialize();
 }
@@ -189,6 +196,16 @@ vc::Error VulkanGUI::Reset()
 void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const vcm::Vec2& pivot)
 {
     ImGui::SetNextWindowPos(ImVec2(pos.x, pos.y), static_cast<ImGuiCond>(cond), ImVec2(pivot.x, pivot.y));
+}
+
+void VulkanGUI::_SetNextWindowSize(const vcm::Vec2& size, vc::GUICond cond)
+{
+    ImGui::SetNextWindowSize(ImVec2(size.x, size.y), static_cast<ImGuiCond>(cond));
+}
+
+void VulkanGUI::_SetNextWindowViewport(vc::GUIViewport viewport)
+{
+    ImGui::SetNextWindowViewport(reinterpret_cast<ImGuiViewport*>(viewport)->ID);
 }
 
 vcm::Vec2 VulkanGUI::_GetContentRegionAvail()
@@ -207,6 +224,11 @@ vcm::Vec2 VulkanGUI::_GetWindowPos()
 {
     const auto& pos = ImGui::GetWindowPos();
     return {pos.x, pos.y};
+}
+
+vc::GUIViewport VulkanGUI::_GetMainViewport()
+{
+    return ImGui::GetMainViewport();
 }
 
 void VulkanGUI::_NewFrame()
@@ -261,7 +283,7 @@ void VulkanGUI::_Image(vc::Texture* texture, const vcm::Vec2 & size)
     ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
 }
 
-bool VulkanGUI::_InputText(const char* label, char* buf, size_t buf_size, common::GUIInputTextFlags flags)
+bool VulkanGUI::_InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags)
 {
     return ImGui::InputText(label, buf, buf_size, static_cast<ImGuiInputTextFlags>(flags));
 }
@@ -423,6 +445,58 @@ void VulkanGUI::_PopStyleVar()
     ImGui::PopStyleVar();
 }
 
+vc::GUIId VulkanGUI::_DockSpace(vc::GUIId id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags)
+{
+    return ImGui::DockSpace(id, ImVec2(size.x, size.y), static_cast<ImGuiDockNodeFlags>(flags));
+}
+
+vc::GUIId VulkanGUI::_DockSpace(const char* id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags)
+{
+    vc::GUIId guiId = ImGui::GetID(id);
+    return ImGui::DockSpace(guiId, ImVec2(size.x, size.y), static_cast<ImGuiDockNodeFlags>(flags));
+}
+
+vc::GUIId VulkanGUI::_DockSpaceOverViewport()
+{
+    return ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+}
+
+vc::GUIId VulkanGUI::_DockSpaceAddNode(vc::GUIId id, vc::GUIDockNodeFlags flags)
+{
+    return ImGui::DockBuilderAddNode(id, static_cast<ImGuiDockNodeFlags>(flags));
+}
+
+void VulkanGUI::_DockSpaceRemoveNode(vc::GUIId id)
+{
+    ImGui::DockBuilderRemoveNode(id);
+}
+
+void VulkanGUI::_DockSpaceSetNodeSize(vc::GUIId id, const vcm::Vec2& size)
+{
+    ImGui::DockBuilderSetNodeSize(id, ImVec2(size.x, size.y));
+}
+
+vc::GUIId VulkanGUI::_DockSpaceSplitNode(vc::GUIId id, vc::GUIDir split_dir, float size_ratio, vc::GUIId* out_id_at_dir,
+    vc::GUIId* out_id_at_opposite_dir)
+{
+    return ImGui::DockBuilderSplitNode(id, static_cast<ImGuiDir>(split_dir), size_ratio, out_id_at_dir, out_id_at_opposite_dir);
+}
+
+void VulkanGUI::_DockWindow(const char* str_id, vc::GUIId id)
+{
+    ImGui::DockBuilderDockWindow(str_id, id);
+}
+
+void VulkanGUI::_DockFinish(vc::GUIId id)
+{
+    ImGui::DockBuilderFinish(id);
+}
+
+vc::GUIId VulkanGUI::_GetID(const char* str_id)
+{
+    return ImGui::GetID(str_id);
+}
+
 vc::Error VulkanGUI::_PreUpdate()
 {
     return vc::Error::Success;
@@ -437,5 +511,56 @@ void VulkanGUI::_Render()
     ImGui_ImplVulkan_RenderDrawData(draw_data, app->GetCurrentGraphicsCommandBuffer()->GetVkCommandBuffer());
 }
 
+void VulkanGUI::_Test()
+{
+    static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_NoCloseButton;
+    static bool dockspaceOpen = true;
+
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoMove;
+
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->Pos);
+    ImGui::SetNextWindowSize(viewport->Size);
+    ImGui::SetNextWindowViewport(viewport->ID);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+    ImGui::Begin("MainWindow", &dockspaceOpen, window_flags);
+    ImGui::PopStyleVar();
+
+    ImGuiID mainDockSpaceId = ImGui::GetID("MainDockSpace");
+    ImGui::DockSpace(mainDockSpaceId, ImVec2(0.0f, 0.0f), dockspace_flags);
+
+    ImGui::Begin("AAA", nullptr, ImGuiWindowFlags_NoCollapse);
+    {
+
+    }
+    ImGui::End();
+
+    ImGui::Begin("BBB", nullptr, ImGuiWindowFlags_NoCollapse);
+    {
+
+    }
+    ImGui::End();
+
+    static bool sFirstFrame = true;
+    if (sFirstFrame)
+    {
+        sFirstFrame = false;
+
+        const ImVec2 dockspace_size = ImGui::GetContentRegionAvail();
+        ImGui::DockBuilderRemoveNode(mainDockSpaceId);
+        ImGui::DockBuilderAddNode(mainDockSpaceId, ImGuiDockNodeFlags_DockSpace);
+        ImGui::DockBuilderSetNodeSize(mainDockSpaceId, dockspace_size);
+
+        ImGuiID dock_id_left;
+        ImGuiID dock_id_right = ImGui::DockBuilderSplitNode(mainDockSpaceId, ImGuiDir_Right, 0.5f, NULL, &dock_id_left);
+
+        ImGui::DockBuilderDockWindow("AAA", dock_id_left);
+        ImGui::DockBuilderDockWindow("BBB", dock_id_right);
+
+        ImGui::DockBuilderFinish(mainDockSpaceId);
+    }
+
+    ImGui::End();
+}
 }
 }

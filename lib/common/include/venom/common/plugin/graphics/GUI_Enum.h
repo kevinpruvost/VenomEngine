@@ -16,36 +16,37 @@ namespace common
  */
 enum GUIWindowFlagsBits
 {
-    WindowFlags_None                   = 0,
-    WindowFlags_NoTitleBar             = 1 << 0,   // Disable title-bar
-    WindowFlags_NoResize               = 1 << 1,   // Disable user resizing with the lower-right grip
-    WindowFlags_NoMove                 = 1 << 2,   // Disable user moving the window
-    WindowFlags_NoScrollbar            = 1 << 3,   // Disable scrollbars (window can still scroll with mouse or programmatically)
-    WindowFlags_NoScrollWithMouse      = 1 << 4,   // Disable user vertically scrolling with mouse wheel. On child window, mouse wheel will be forwarded to the parent unless NoScrollbar is also set.
-    WindowFlags_NoCollapse             = 1 << 5,   // Disable user collapsing window by double-clicking on it. Also referred to as Window Menu Button (e.g. within a docking node).
-    WindowFlags_AlwaysAutoResize       = 1 << 6,   // Resize every window to its content every frame
-    WindowFlags_NoBackground           = 1 << 7,   // Disable drawing background color (WindowBg, etc.) and outside border. Similar as using SetNextWindowBgAlpha(0.0f).
-    WindowFlags_NoSavedSettings        = 1 << 8,   // Never load/save settings in .ini file
-    WindowFlags_NoMouseInputs          = 1 << 9,   // Disable catching mouse, hovering test with pass through.
-    WindowFlags_MenuBar                = 1 << 10,  // Has a menu-bar
-    WindowFlags_HorizontalScrollbar    = 1 << 11,  // Allow horizontal scrollbar to appear (off by default). You may use SetNextWindowContentSize(ImVec2(width,0.0f)); prior to calling Begin() to specify width. Read code in GUI_demo in the "Horizontal Scrolling" section.
-    WindowFlags_NoFocusOnAppearing     = 1 << 12,  // Disable taking focus when transitioning from hidden to visible state
-    WindowFlags_NoBringToFrontOnFocus  = 1 << 13,  // Disable bringing window to front when taking focus (e.g. clicking on it or programmatically giving it focus)
-    WindowFlags_AlwaysVerticalScrollbar= 1 << 14,  // Always show vertical scrollbar (even if ContentSize.y < Size.y)
-    WindowFlags_AlwaysHorizontalScrollbar=1<< 15,  // Always show horizontal scrollbar (even if ContentSize.x < Size.x)
-    WindowFlags_NoNavInputs            = 1 << 16,  // No keyboard/gamepad navigation within the window
-    WindowFlags_NoNavFocus             = 1 << 17,  // No focusing toward this window with keyboard/gamepad navigation (e.g. skipped by CTRL+TAB)
-    WindowFlags_UnsavedDocument        = 1 << 18,  // Display a dot next to the title. When used in a tab/docking context, tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
-    WindowFlags_NoNav                  = WindowFlags_NoNavInputs | WindowFlags_NoNavFocus,
-    WindowFlags_NoDecoration           = WindowFlags_NoTitleBar | WindowFlags_NoResize | WindowFlags_NoScrollbar | WindowFlags_NoCollapse,
-    WindowFlags_NoInputs               = WindowFlags_NoMouseInputs | WindowFlags_NoNavInputs | WindowFlags_NoNavFocus,
+    GUIWindowFlags_None                   = 0,
+    GUIWindowFlags_NoTitleBar             = 1 << 0,   // Disable title-bar
+    GUIWindowFlags_NoResize               = 1 << 1,   // Disable user resizing with the lower-right grip
+    GUIWindowFlags_NoMove                 = 1 << 2,   // Disable user moving the window
+    GUIWindowFlags_NoScrollbar            = 1 << 3,   // Disable scrollbars (window can still scroll with mouse or programmatically)
+    GUIWindowFlags_NoScrollWithMouse      = 1 << 4,   // Disable user vertically scrolling with mouse wheel. On child window, mouse wheel will be forwarded to the parent unless NoScrollbar is also set.
+    GUIWindowFlags_NoCollapse             = 1 << 5,   // Disable user collapsing window by double-clicking on it. Also referred to as Window Menu Button (e.g. within a docking node).
+    GUIWindowFlags_AlwaysAutoResize       = 1 << 6,   // Resize every window to its content every frame
+    GUIWindowFlags_NoBackground           = 1 << 7,   // Disable drawing background color (WindowBg, etc.) and outside border. Similar as using SetNextWindowBgAlpha(0.0f).
+    GUIWindowFlags_NoSavedSettings        = 1 << 8,   // Never load/save settings in .ini file
+    GUIWindowFlags_NoMouseInputs          = 1 << 9,   // Disable catching mouse, hovering test with pass through.
+    GUIWindowFlags_MenuBar                = 1 << 10,  // Has a menu-bar
+    GUIWindowFlags_HorizontalScrollbar    = 1 << 11,  // Allow horizontal scrollbar to appear (off by default). You may use SetNextWindowContentSize(ImVec2(width,0.0f)); prior to calling Begin() to specify width. Read code in GUI_demo in the "Horizontal Scrolling" section.
+    GUIWindowFlags_NoFocusOnAppearing     = 1 << 12,  // Disable taking focus when transitioning from hidden to visible state
+    GUIWindowFlags_NoBringToFrontOnFocus  = 1 << 13,  // Disable bringing window to front when taking focus (e.g. clicking on it or programmatically giving it focus)
+    GUIWindowFlags_AlwaysVerticalScrollbar= 1 << 14,  // Always show vertical scrollbar (even if ContentSize.y < Size.y)
+    GUIWindowFlags_AlwaysHorizontalScrollbar=1<< 15,  // Always show horizontal scrollbar (even if ContentSize.x < Size.x)
+    GUIWindowFlags_NoNavInputs            = 1 << 16,  // No keyboard/gamepad navigation within the window
+    GUIWindowFlags_NoNavFocus             = 1 << 17,  // No focusing toward this window with keyboard/gamepad navigation (e.g. skipped by CTRL+TAB)
+    GUIWindowFlags_UnsavedDocument        = 1 << 18,  // Display a dot next to the title. When used in a tab/docking context, tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
+    GUIWindowFlags_NoDocking           = 1 << 19,  // Disable docking of this window
+    GUIWindowFlags_NoNav                  = GUIWindowFlags_NoNavInputs | GUIWindowFlags_NoNavFocus,
+    GUIWindowFlags_NoDecoration           = GUIWindowFlags_NoTitleBar | GUIWindowFlags_NoResize | GUIWindowFlags_NoScrollbar | GUIWindowFlags_NoCollapse,
+    GUIWindowFlags_NoInputs               = GUIWindowFlags_NoMouseInputs | GUIWindowFlags_NoNavInputs | GUIWindowFlags_NoNavFocus,
 
     // [Internal]
-    WindowFlags_ChildWindow            = 1 << 24,  // Don't use! For internal use by BeginChild()
-    WindowFlags_Tooltip                = 1 << 25,  // Don't use! For internal use by BeginTooltip()
-    WindowFlags_Popup                  = 1 << 26,  // Don't use! For internal use by BeginPopup()
-    WindowFlags_Modal                  = 1 << 27,  // Don't use! For internal use by BeginPopupModal()
-    WindowFlags_ChildMenu              = 1 << 28,  // Don't use! For internal use by BeginMenu()
+    GUIWindowFlags_ChildWindow            = 1 << 24,  // Don't use! For internal use by BeginChild()
+    GUIWindowFlags_Tooltip                = 1 << 25,  // Don't use! For internal use by BeginTooltip()
+    GUIWindowFlags_Popup                  = 1 << 26,  // Don't use! For internal use by BeginPopup()
+    GUIWindowFlags_Modal                  = 1 << 27,  // Don't use! For internal use by BeginPopupModal()
+    GUIWindowFlags_ChildMenu              = 1 << 28,  // Don't use! For internal use by BeginMenu()
 };
 typedef int GUIWindowFlags;
 
@@ -54,7 +55,7 @@ enum GUIChildFlagsBits
     GUIChildFlags_None                    = 0,
     GUIChildFlags_Borders                 = 1 << 0,   // Show an outer border and enable WindowPadding. (IMPORTANT: this is always == 1 == true for legacy reason)
     GUIChildFlags_AlwaysUseWindowPadding  = 1 << 1,   // Pad with style.WindowPadding even if no border are drawn (no padding by default for non-bordered child windows because it makes more sense)
-    GUIChildFlags_ResizeX                 = 1 << 2,   // Allow resize from right border (layout direction). Enable .ini saving (unless GUIWindowFlags_NoSavedSettings passed to window flags)
+    GUIChildFlags_ResizeX                 = 1 << 2,   // Allow resize from right border (layout direction). Enable .ini saving (unless GUIGUIWindowFlags_NoSavedSettings passed to window flags)
     GUIChildFlags_ResizeY                 = 1 << 3,   // Allow resize from bottom border (layout direction). "
     GUIChildFlags_AutoResizeX             = 1 << 4,   // Enable auto-resizing width. Read "IMPORTANT: Size measurement" details above.
     GUIChildFlags_AutoResizeY             = 1 << 5,   // Enable auto-resizing height. Read "IMPORTANT: Size measurement" details above.
@@ -206,6 +207,57 @@ enum GUITreeNodeFlagsBits
     GUITreeNodeFlags_CollapsingHeader     = GUITreeNodeFlags_Framed | GUITreeNodeFlags_NoTreePushOnOpen | GUITreeNodeFlags_NoAutoOpenOnLog,
 };
 typedef int GUITreeNodeFlags;
+
+enum GUIDockNodeFlagsBits
+{
+    GUIDockNodeFlags_None                         = 0,
+    GUIDockNodeFlags_KeepAliveOnly                = 1 << 0,   //       // Don't display the dockspace node but keep it alive. Windows docked into this dockspace node won't be undocked.
+    //GUIDockNodeFlags_NoCentralNode              = 1 << 1,   //       // Disable Central Node (the node which can stay empty)
+    GUIDockNodeFlags_NoDockingOverCentralNode     = 1 << 2,   //       // Disable docking over the Central Node, which will be always kept empty.
+    GUIDockNodeFlags_PassthruCentralNode          = 1 << 3,   //       // Enable passthru dockspace: 1) DockSpace() will render a GUICol_WindowBg background covering everything excepted the Central Node when empty. Meaning the host window should probably use SetNextWindowBgAlpha(0.0f) prior to Begin() when using this. 2) When Central Node is empty: let inputs pass-through + won't display a DockingEmptyBg background. See demo for details.
+    GUIDockNodeFlags_NoDockingSplit               = 1 << 4,   //       // Disable other windows/nodes from splitting this node.
+    GUIDockNodeFlags_NoResize                     = 1 << 5,   // Saved // Disable resizing node using the splitter/separators. Useful with programmatically setup dockspaces.
+    GUIDockNodeFlags_AutoHideTabBar               = 1 << 6,   //       // Tab bar will automatically hide when there is a single window in the dock node.
+    // [Internal]
+    GUIDockNodeFlags_DockSpace                = 1 << 10,  // Saved // A dockspace is a node that occupy space within an existing user window. Otherwise the node is floating and create its own window.
+    GUIDockNodeFlags_CentralNode              = 1 << 11,  // Saved // The central node has 2 main properties: stay visible when empty, only use "remaining" spaces from its neighbor.
+    GUIDockNodeFlags_NoTabBar                 = 1 << 12,  // Saved // Tab bar is completely unavailable. No triangle in the corner to enable it back.
+    GUIDockNodeFlags_HiddenTabBar             = 1 << 13,  // Saved // Tab bar is hidden, with a triangle in the corner to show it again (NB: actual tab-bar instance may be destroyed as this is only used for single-window tab bar)
+    GUIDockNodeFlags_NoWindowMenuButton       = 1 << 14,  // Saved // Disable window/docking menu (that one that appears instead of the collapse button)
+    GUIDockNodeFlags_NoCloseButton            = 1 << 15,  // Saved // Disable close button
+    GUIDockNodeFlags_NoResizeX                = 1 << 16,  //       //
+    GUIDockNodeFlags_NoResizeY                = 1 << 17,  //       //
+    GUIDockNodeFlags_DockedWindowsInFocusRoute= 1 << 18,  //       // Any docked window will be automatically be focus-route chained (window->ParentGUIWindowForFocusRoute set to this) so Shortcut() in this window can run when any docked window is focused.
+    // Disable docking/undocking actions in this dockspace or individual node (existing docked nodes will be preserved)
+    // Those are not exposed in public because the desirable sharing/inheriting/copy-flag-on-split behaviors are quite difficult to design and understand.
+    // The two public flags GUIDockNodeFlags_NoDockingOverCentralNode/GUIDockNodeFlags_NoDockingSplit don't have those issues.
+    GUIDockNodeFlags_NoDockingSplitOther      = 1 << 19,  //       // Disable this node from splitting other windows/nodes.
+    GUIDockNodeFlags_NoDockingOverMe          = 1 << 20,  //       // Disable other windows/nodes from being docked over this node.
+    GUIDockNodeFlags_NoDockingOverOther       = 1 << 21,  //       // Disable this node from being docked over another window or non-empty node.
+    GUIDockNodeFlags_NoDockingOverEmpty       = 1 << 22,  //       // Disable this node from being docked over an empty node (e.g. DockSpace with no other windows)
+    GUIDockNodeFlags_NoDocking                = GUIDockNodeFlags_NoDockingOverMe | GUIDockNodeFlags_NoDockingOverOther | GUIDockNodeFlags_NoDockingOverEmpty | GUIDockNodeFlags_NoDockingSplit | GUIDockNodeFlags_NoDockingSplitOther,
+    // Masks
+    GUIDockNodeFlags_SharedFlagsInheritMask_  = ~0,
+    GUIDockNodeFlags_NoResizeFlagsMask_       = (int)GUIDockNodeFlags_NoResize | GUIDockNodeFlags_NoResizeX | GUIDockNodeFlags_NoResizeY,
+
+    // When splitting, those local flags are moved to the inheriting child, never duplicated
+    GUIDockNodeFlags_LocalFlagsTransferMask_  = (int)GUIDockNodeFlags_NoDockingSplit | GUIDockNodeFlags_NoResizeFlagsMask_ | (int)GUIDockNodeFlags_AutoHideTabBar | GUIDockNodeFlags_CentralNode | GUIDockNodeFlags_NoTabBar | GUIDockNodeFlags_HiddenTabBar | GUIDockNodeFlags_NoWindowMenuButton | GUIDockNodeFlags_NoCloseButton,
+    GUIDockNodeFlags_SavedFlagsMask_          = GUIDockNodeFlags_NoResizeFlagsMask_ | GUIDockNodeFlags_DockSpace | GUIDockNodeFlags_CentralNode | GUIDockNodeFlags_NoTabBar | GUIDockNodeFlags_HiddenTabBar | GUIDockNodeFlags_NoWindowMenuButton | GUIDockNodeFlags_NoCloseButton,
+};
+typedef int GUIDockNodeFlags;
+
+typedef unsigned int GUIId;
+
+// A cardinal direction
+enum GUIDir : int
+{
+    GUIDir_None    = -1,
+    GUIDir_Left    = 0,
+    GUIDir_Right   = 1,
+    GUIDir_Up      = 2,
+    GUIDir_Down    = 3,
+    GUIDir_COUNT
+};
 
 }
 }

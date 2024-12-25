@@ -22,6 +22,7 @@ class Model;
 class Texture;
 
 typedef void(*GUIDrawCallback)();
+typedef void * GUIViewport;
 class VENOM_COMMON_API GUI : public GraphicsPluginObject
 {
 public:
@@ -41,9 +42,12 @@ public:
     static inline GUI * Get() { return s_gui; }
 
     static inline void SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond = GUICondBits::GUICond_None, const vcm::Vec2 & pivot = vcm::Vec2(0, 0)) { s_gui->_SetNextWindowPos(pos, cond, pivot); }
+    static inline void SetNextWindowSize(const vcm::Vec2 & size, GUICond cond = GUICondBits::GUICond_None) { s_gui->_SetNextWindowSize(size, cond); }
+    static inline void SetNextWindowViewport(GUIViewport viewport) { s_gui->_SetNextWindowViewport(viewport); }
 
     static inline vcm::Vec2 GetContentRegionAvail() { return s_gui->_GetContentRegionAvail(); }
 
+    static inline GUIViewport GetMainViewport() { return s_gui->_GetMainViewport(); }
     static inline vcm::Vec2 GetWindowSize() { return s_gui->_GetWindowSize(); }
     static inline vcm::Vec2 GetWindowPos() { return s_gui->_GetWindowPos(); }
     static inline void NewFrame() { s_gui->_NewFrame(); }
@@ -105,6 +109,21 @@ public:
     static inline void PushWindowPadding(const vcm::Vec2 & padding) { s_gui->_PushWindowPadding(padding); }
     static inline void PopStyleVar() { s_gui->_PopStyleVar(); }
 
+    static inline GUIId DockSpace(GUIId id, const vcm::Vec2 & size, GUIDockNodeFlags flags) { return s_gui->_DockSpace(id, size, flags); }
+    static inline GUIId DockSpace(const char * id, const vcm::Vec2 & size, GUIDockNodeFlags flags) { return s_gui->_DockSpace(id, size, flags); }
+    static inline GUIId DockSpaceOverViewport() { return s_gui->_DockSpaceOverViewport(); }
+    static inline GUIId DockSpaceAddNode(GUIId id, GUIDockNodeFlags flags) { return s_gui->_DockSpaceAddNode(id, flags); }
+    static inline void DockSpaceRemoveNode(GUIId id) { s_gui->_DockSpaceRemoveNode(id); }
+    static inline void DockSpaceSetNodeSize(GUIId id, const vcm::Vec2 & size) { s_gui->_DockSpaceSetNodeSize(id, size); }
+    static inline GUIId DockSpaceSplitNode(GUIId id, GUIDir split_dir, float size_ratio, GUIId * out_id_at_dir, GUIId * out_id_at_opposite_dir) { return s_gui->_DockSpaceSplitNode(id, split_dir, size_ratio, out_id_at_dir, out_id_at_opposite_dir); }
+    static inline void DockWindow(const char * str_id, GUIId id) { s_gui->_DockWindow(str_id, id); }
+    static inline void DockFinish(GUIId id) { s_gui->_DockFinish(id); }
+
+
+    static inline GUIId GetID(const char * str_id) { return s_gui->_GetID(str_id); }
+
+    static inline void Test() { s_gui->_Test(); }
+
     static void GraphicsSettingsCollaspingHeader();
 
     static void EntitiesListCollapsingHeader();
@@ -116,11 +135,14 @@ private:
 
 protected:
     virtual void _SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond, const vcm::Vec2 & pivot) = 0;
+    virtual void _SetNextWindowSize(const vcm::Vec2 & size, GUICond cond) = 0;
+    virtual void _SetNextWindowViewport(GUIViewport viewport) = 0;
 
     virtual vcm::Vec2 _GetContentRegionAvail() = 0;
 
     virtual vcm::Vec2 _GetWindowSize() = 0;
     virtual vcm::Vec2 _GetWindowPos() = 0;
+    virtual GUIViewport _GetMainViewport() = 0;
 
     virtual void _NewFrame() = 0;
     virtual void _Begin(const char * name, bool * p_open, GUIWindowFlags flags) = 0;
@@ -181,8 +203,22 @@ protected:
     virtual void _PushWindowPadding(const vcm::Vec2 & padding) = 0;
     virtual void _PopStyleVar() = 0;
 
+    virtual GUIId _DockSpace(GUIId id, const vcm::Vec2 & size, GUIDockNodeFlags flags) = 0;
+    virtual GUIId _DockSpace(const char * id, const vcm::Vec2 & size, GUIDockNodeFlags flags) = 0;
+    virtual GUIId _DockSpaceOverViewport() = 0;
+    virtual GUIId _DockSpaceAddNode(GUIId id, GUIDockNodeFlags flags) = 0;
+    virtual void _DockSpaceRemoveNode(GUIId id) = 0;
+    virtual void _DockSpaceSetNodeSize(GUIId id, const vcm::Vec2 & size) = 0;
+    virtual GUIId _DockSpaceSplitNode(GUIId id, GUIDir split_dir, float size_ratio, GUIId * out_id_at_dir, GUIId * out_id_at_opposite_dir) = 0;
+    virtual void _DockWindow(const char * str_id, GUIId id) = 0;
+    virtual void _DockFinish(GUIId id) = 0;
+
+    virtual GUIId _GetID(const char * str_id) = 0;
+
     virtual void _Render() = 0;
     virtual vc::Error _PreUpdate() = 0;
+
+    virtual void _Test() = 0;
 
 protected:
     GraphicsApplication * _app;

@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include "MainScene.h"
+#include "../lib/external/imgui/imgui.h"
 
 bool cameraLocked = true;
 bool automaticTurn = true;
@@ -80,37 +81,66 @@ void SceneGUI()
         vc::GUI::EndMainMenuBar();
     }
 
-    vc::GUI::SetNextWindowPos(vcm::Vec2(0, 20), vc::GUICondBits::GUICond_Always);
-    vc::GUI::Begin("VenomEngine");
-    {
-        if (vc::GUI::CollapsingHeader("Scene Settings:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
-            vc::GUI::Checkbox("Camera Locked", &cameraLocked);
-            vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
-            // if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
-            //     vc::Camera::GetMainCamera()->SetPosition(cameraPos);
-            // }
-            vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
-            // vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
-            // vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
-        }
-        vc::GUI::GraphicsSettingsCollaspingHeader();
-        vc::GUI::EntitiesListCollapsingHeader();
-    }
-    vc::GUI::End();
+    static vc::GUIDockNodeFlags dockspaceFlags = vc::GUIDockNodeFlags_NoCloseButton | vc::GUIDockNodeFlags_NoWindowMenuButton;
+    static bool dockspaceOpen = true;
 
+    vc::GUIWindowFlags window_flags = vc::GUIWindowFlags_MenuBar | vc::GUIWindowFlags_NoDocking | vc::GUIWindowFlags_NoCollapse | vc::GUIWindowFlags_NoTitleBar | vc::GUIWindowFlags_NoDecoration | vc::GUIWindowFlags_NoResize | vc::GUIWindowFlags_NoNavFocus | vc::GUIWindowFlags_NoMove;
+
+    vc::GUIViewport mainViewport = vc::GUI::GetMainViewport();
+    vc::GUI::SetNextWindowViewport(mainViewport);
+    vc::GUI::SetNextWindowPos(vcm::Vec2(0, 0), vc::GUICondBits::GUICond_Always);
+    vc::GUI::SetNextWindowSize(vcm::Vec2(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight()), vc::GUICondBits::GUICond_Always);
     vc::GUI::PushWindowPadding({0, 0});
-    vc::GUI::Begin("Test");
-    {
-        static vc::Texture textureTest("hank_happy.png");
-        vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
-    }
-    vc::GUI::End();
+    vc::GUI::Begin("DockSpace", &dockspaceOpen, window_flags);
     vc::GUI::PopStyleVar();
 
-    // vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
-    // vc::GUI::Begin("TestWindow");
-    // {
-    //     vc::GUI::Text("Hello, world!");
-    // }
-    // vc::GUI::End();
+    vc::GUIId mainDockSpaceId = vc::GUI::GetID("MainViewport");
+    vc::GUI::DockSpace(mainDockSpaceId, vcm::Vec2(0.0f, 0.0f), dockspaceFlags);
+    {
+        vc::GUI::Begin("Settings & Objects", nullptr, vc::GUIWindowFlags_NoCollapse);
+        {
+            if (vc::GUI::CollapsingHeader("Scene Settings:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+                vc::GUI::Checkbox("Camera Locked", &cameraLocked);
+                vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
+                // if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
+                //     vc::Camera::GetMainCamera()->SetPosition(cameraPos);
+                // }
+                vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
+                // vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
+                // vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
+            }
+            vc::GUI::GraphicsSettingsCollaspingHeader();
+            vc::GUI::EntitiesListCollapsingHeader();
+        }
+        vc::GUI::End();
+
+        vc::GUI::PushWindowPadding({0, 0});
+        vc::GUI::Begin("Test", nullptr, vc::GUIWindowFlags_NoSavedSettings);
+        {
+            static vc::Texture textureTest("hank_happy.png");
+            vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
+        }
+        vc::GUI::End();
+        vc::GUI::PopStyleVar();
+
+        static bool sFirstFrame = true;
+        if (sFirstFrame)
+        {
+            sFirstFrame = false;
+
+            const vcm::Vec2 dockspaceSize = vc::GUI::GetContentRegionAvail();
+            vc::GUI::DockSpaceRemoveNode(mainDockSpaceId);
+            vc::GUI::DockSpaceAddNode(mainDockSpaceId, vc::GUIDockNodeFlags_DockSpace | vc::GUIDockNodeFlags_NoWindowMenuButton);
+            vc::GUI::DockSpaceSetNodeSize(mainDockSpaceId, dockspaceSize);
+
+            vc::GUIId dock_id_left;
+            vc::GUIId dock_id_right = vc::GUI::DockSpaceSplitNode(mainDockSpaceId, vc::GUIDir_Right, 0.25f, NULL, &dock_id_left);
+
+            vc::GUI::DockWindow("Settings & Objects", dock_id_left);
+            vc::GUI::DockWindow("Test", dock_id_right);
+
+            vc::GUI::DockFinish(mainDockSpaceId);
+        }
+    }
+    vc::GUI::End();
 }

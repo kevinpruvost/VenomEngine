@@ -26,12 +26,15 @@ public:
     vc::Error Reset() override;
 
 protected:
-    void _SetNextWindowPos(const vcm::Vec2 & pos, vc::GUICond cond, const vcm::Vec2 & pivot);
+    void _SetNextWindowPos(const vcm::Vec2 & pos, vc::GUICond cond, const vcm::Vec2 & pivot) override;
+    void _SetNextWindowSize(const vcm::Vec2& size, vc::GUICond cond) override;
+    void _SetNextWindowViewport(vc::GUIViewport viewport) override;
 
     vcm::Vec2 _GetContentRegionAvail() override;
 
     vcm::Vec2 _GetWindowSize() override;
     vcm::Vec2 _GetWindowPos() override;
+    vc::GUIViewport _GetMainViewport() override;
 
     void _NewFrame() override;
     void _Begin(const char * name, bool * p_open, vc::GUIWindowFlags flags) override;
@@ -42,7 +45,7 @@ protected:
 
     void _Image(vc::Texture* texture, const vcm::Vec2 & size) override;
 
-    bool _InputText(const char* label, char* buf, size_t buf_size, common::GUIInputTextFlags flags) override;
+    bool _InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags) override;
 
     bool _TreeNode(const char* label) override;
     void _TreePop() override;
@@ -92,8 +95,25 @@ protected:
     void _PushWindowPadding(const vcm::Vec2& padding) override;
     void _PopStyleVar() override;
 
+    vc::GUIId _DockSpace(vc::GUIId id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags) override;
+    vc::GUIId _DockSpace(const char* id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags) override;
+    vc::GUIId _DockSpaceOverViewport() override;
+
+    vc::GUIId _DockSpaceAddNode(vc::GUIId id, vc::GUIDockNodeFlags flags) override;
+    void _DockSpaceRemoveNode(vc::GUIId id) override;
+    void _DockSpaceSetNodeSize(vc::GUIId id, const vcm::Vec2& size) override;
+
+    vc::GUIId _DockSpaceSplitNode(vc::GUIId id, vc::GUIDir split_dir, float size_ratio, vc::GUIId* out_id_at_dir, vc::GUIId* out_id_at_opposite_dir) override;
+
+    void _DockWindow(const char* str_id, vc::GUIId id) override;
+    void _DockFinish(vc::GUIId id) override;
+
+    vc::GUIId _GetID(const char* str_id) override;
+
     vc::Error _PreUpdate() override;
     void _Render() override;
+
+    void _Test() override;
 
 private:
     void __SetStyle();
