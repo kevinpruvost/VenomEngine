@@ -46,19 +46,22 @@ void main() {
     uint tileMaxY = min(tileMinY + 32, graphicsSettings.screenHeight);
 
     // Now calculate which lights affect this tile
-    int relevantLights = 0;
+    LightBlock relevantLights = initLightBlock();
 
     // Loop through all lights (we are limiting to 65536 lights here)
     for (int i = 0; i < lightCount; ++i) {
         // Fetch the light from the bindless buffer (this is an offset-based access)
         Light light = lights[i];
 
+        int intIndex = getLightBlockIntIndex(i);
+        int bitIndex = getLightBlockBitIndex(i);
+
         if (light.type == LightType_Directional)
-            relevantLights |= (1 << i); // Mark this light as affecting all tiles
+            relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
         else if (light.type == LightType_Point) {
             // Perform the culling test (for simplicity, let's use point light radius check)
             if (isLightPointAffectingTile(light, tileMinX, tileMinY, tileMaxX, tileMaxY)) {
-                relevantLights |= (1 << i); // Mark this light as affecting this tile
+                relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
             }
         }
     }

@@ -142,7 +142,7 @@ vc::Error VulkanApplication::__InitializeSets()
 
     // Forward Plus
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
-        if (err = __forwardPlusPropsBuffer[i].Init(32 * 32 * sizeof(int)); err != vc::Error::Success)
+        if (err = __forwardPlusPropsBuffer[i].Init(32 * 32 * VENOM_NUM_FORWARD_PLUS_INTS * sizeof(int)); err != vc::Error::Success)
             return err;
         DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateBuffer(__forwardPlusPropsBuffer[i], 0, 2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
     }

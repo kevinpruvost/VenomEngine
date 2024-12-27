@@ -49,8 +49,12 @@ void Light::_GUI()
 
     // Other properties
     vc::GUI::InputFloat("Intensity", &__intensity);
-    if (__type != LightType::Directional)
+    if (__type == LightType::Point || __type == LightType::Spot) {
         vc::GUI::InputFloat("Radius", &__radius);
+    }
+    if (__type == LightType::Directional || __type == LightType::Spot) {
+        vc::GUI::InputFloat3("Direction", &__direction.x);
+    }
     vc::GUI::ColorEdit3("Color", &__color.x);
 }
 

@@ -152,7 +152,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
         __UpdateUniformBuffers();
 
         // Draw Skybox
-        __skyboxRenderPass.BeginRenderPass(&__swapChain, __graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        __skyboxRenderPass.BeginRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
             vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
             {
                 const auto & shaders = pipeline.GetRenderingPipelineCache();
@@ -196,7 +196,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         // Draw Shadowed Models (Forward+)
         const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::PBRModel);
-        __shadowRenderPass.BeginRenderPass(&__swapChain, __graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        __shadowRenderPass.BeginRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
             // Draw Shadow Models
             // Lighting Pass
             __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
@@ -237,7 +237,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
         }
 
         // Draw GUI
-        __guiRenderPass.BeginRenderPass(&__swapChain, __graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        __guiRenderPass.BeginRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
             _gui->Render();
         __guiRenderPass.EndRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
 

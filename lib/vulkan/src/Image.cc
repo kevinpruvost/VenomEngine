@@ -83,6 +83,7 @@ void Image::CreateFromSwapChainImage(VkImage img, const VkSwapchainCreateInfoKHR
     __imageInfo.arrayLayers = 1;
     __imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
     __noDestroy = true;
+}
 
 vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels,
                       VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties)

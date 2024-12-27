@@ -17,6 +17,8 @@ layout(location = 3) out vec4 fragColor;
 layout(location = 4) out vec3 tangent;
 layout(location = 5) out vec3 bitangent;
 
+layout(location = 6) out vec2 screenPos;
+
 void main() {
     gl_Position = models[gl_InstanceIndex] * vec4(inPosition, 1.0); // Apply the model matrix
     worldPos = gl_Position.xyz / gl_Position.w; // Store the world position for later use
@@ -37,4 +39,5 @@ void main() {
     bitangent = B;
 
     fragTexCoord = inTexCoord; // Pass the texture
+    screenPos = gl_Position.xy / gl_Position.w; // Store the screen position for later use
 }

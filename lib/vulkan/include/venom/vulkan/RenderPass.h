@@ -44,8 +44,8 @@ public:
 
     void SetRenderingType(const vc::RenderingPipelineType type);
     vc::Error InitRenderPass(const SwapChain * swapChain);
-    vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
-    vc::Error BeginRenderPassCustomFramebuffer(SwapChain * swapChain, CommandBuffer * commandBuffer, Framebuffer * framebuffer);
+    vc::Error BeginRenderPass(CommandBuffer * commandBuffer, int framebufferIndex);
+    vc::Error BeginRenderPassCustomFramebuffer(CommandBuffer * commandBuffer, Framebuffer * framebuffer);
     void NextSubpass(CommandBuffer * commandBuffer);
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);
     VkRenderPass GetVkRenderPass() const;

@@ -56,10 +56,16 @@ void Scene()
     vc::Entity light1 = vc::CreateEntity("Light1")
         .emplace<vc::Light>();
     light1.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
-    light1.get_mut<vc::Light>()->SetPosition({6.0f, 10.0f, 2.0f});
-    light1.get_mut<vc::Light>()->SetDirection({0.053f, -0.230f, 1.0f});
-    light1.get_mut<vc::Light>()->SetColor({1.0f, 1.0f, 1.0f});
-    light1.get_mut<vc::Light>()->SetIntensity(10.0f);
+    light1.get_mut<vc::Light>()->SetDirection({0.5f, 0.0f, 0.0f});
+    light1.get_mut<vc::Light>()->SetColor({0.37f, 0.0f, 0.17f});
+    light1.get_mut<vc::Light>()->SetIntensity(4.0f);
+
+    vc::Entity light2 = vc::CreateEntity("Light2")
+    .emplace<vc::Light>();
+    light2.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
+    light2.get_mut<vc::Light>()->SetDirection({-0.5f, 0.0f, 0.0f});
+    light2.get_mut<vc::Light>()->SetColor({0.0f, 0.5f, 0.01f});
+    light2.get_mut<vc::Light>()->SetIntensity(6.0f);
 
     for (int i = 0; i < 1; i++) {
         for (int j = 0; j < 1; j++) {
@@ -75,4 +81,5 @@ void Scene()
     }
 
     vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
+    vc::SceneSettings::SetTargetLuminance(10.0f);
 }

@@ -72,6 +72,8 @@ layout(location = 3) in vec4 fragColor;
 layout(location = 4) in vec3 inputTangent;
 layout(location = 5) in vec3 inputBitangent;
 
+layout(location = 6) in vec2 screenPos;
+
 void main()
 {
     vec4 baseColor;
@@ -146,8 +148,11 @@ void main()
 
     // Loop over lights
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
-    for (uint i = 0; i < 1; ++i) {
+    for (int i = 0; i < lightCount; ++i) {
         Light light = lights[i];
+
+        if (isLightInBlock(screenPos, i) == false)
+            continue;
 
         // Compute BRDF for this light
         vec3 lightColor = GetLightColor(light, position);

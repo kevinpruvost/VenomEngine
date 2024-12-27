@@ -144,13 +144,12 @@ vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
     return vc::Error::Success;
 }
 
-vc::Error RenderPass::BeginRenderPass(SwapChain* __swapChain, CommandBuffer* commandBuffer, int framebufferIndex)
+vc::Error RenderPass::BeginRenderPass(CommandBuffer* commandBuffer, int framebufferIndex)
 {
-    return BeginRenderPassCustomFramebuffer(__swapChain, commandBuffer, &__framebuffers[framebufferIndex]);
+    return BeginRenderPassCustomFramebuffer(commandBuffer, &__framebuffers[framebufferIndex]);
 }
 
-vc::Error RenderPass::BeginRenderPassCustomFramebuffer(SwapChain* __swapChain, CommandBuffer* commandBuffer,
-    Framebuffer* framebuffer)
+vc::Error RenderPass::BeginRenderPassCustomFramebuffer(CommandBuffer* commandBuffer, Framebuffer* framebuffer)
 {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -435,8 +434,6 @@ vc::Error RenderPass::__CreateGuiRenderPass()
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
-        //vc::Vector<VkImageView> attachments(multisampled ? 3 : 2, VK_NULL_HANDLE);
-
         // Create Depth Image
         __attachments[i].resize(attachments.size() - 1);
         vc::Texture & depthTexture = __attachments[i][0];
@@ -445,19 +442,11 @@ vc::Error RenderPass::__CreateGuiRenderPass()
 
         // Create MultiSampled Image if needed
         if (multisampled) {
-            vc::Texture & colorTexture = __attachments[i][1];
-            VulkanTexture * vkTexture = colorTexture.GetImpl()->As<VulkanTexture>();
-            vkTexture->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples()));
-            colorTexture.CreateAttachment(__swapChain->extent.width, __swapChain->extent.height, 1, vc::ShaderVertexFormat::Vec4);
-            __framebuffers[i].SetAttachment(0, vkTexture);
+            __framebuffers[i].SetAttachment(0, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>());
             __framebuffers[i].SetAttachment(2, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
-            //attachments[0] = AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
-            //attachments[2] = __swapChain->__swapChainImageViews[i].GetVkImageView();
         } else {
             __framebuffers[i].SetAttachment(0, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
-            //attachments[0] = __swapChain->__swapChainImageViews[i].GetVkImageView();
         }
-        //attachments[1] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
         __framebuffers[i].SetAttachment(1, depthTexture.GetImpl()->As<VulkanTexture>());
 
