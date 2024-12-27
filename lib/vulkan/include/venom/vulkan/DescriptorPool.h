@@ -40,7 +40,7 @@ public:
     void GroupUpdateImageViewPerFrame(int frameIndex, const ImageView &imageView, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);
 
     inline DescriptorSet & operator[](const uint32_t index) { return __descriptorSets[index]; }
-    inline DescriptorSet & GetCurrentSet() { return __descriptorSets[vc::GraphicsApplication::GetCurrentFrame()]; }
+    inline DescriptorSet & GetCurrentSet() { return __descriptorSets[vc::GraphicsApplication::GetCurrentFrameInFlight()]; }
 
 private:
     std::array<DescriptorSet, VENOM_MAX_FRAMES_IN_FLIGHT> __descriptorSets;

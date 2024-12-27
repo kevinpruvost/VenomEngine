@@ -21,6 +21,7 @@ Image::Image()
     , __imageMemory(VK_NULL_HANDLE)
     , __width(0), __height(0)
     , __layout(VK_IMAGE_LAYOUT_UNDEFINED)
+    , __noDestroy(false)
 {
     // Image
     __imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -36,8 +37,10 @@ Image::Image()
 
 Image::~Image()
 {
-    if (__image != VK_NULL_HANDLE)
-        vkDestroyImage(LogicalDevice::GetVkDevice(), __image, Allocator::GetVKAllocationCallbacks());
+    if (__noDestroy == false) {
+        if (__image != VK_NULL_HANDLE)
+            vkDestroyImage(LogicalDevice::GetVkDevice(), __image, Allocator::GetVKAllocationCallbacks());
+    }
     if (__imageMemory != VK_NULL_HANDLE)
         vkFreeMemory(LogicalDevice::GetVkDevice(), __imageMemory, Allocator::GetVKAllocationCallbacks());
 }
@@ -68,8 +71,21 @@ Image& Image::operator=(Image&& image) noexcept
     return *this;
 }
 
+void Image::CreateFromSwapChainImage(VkImage img, const VkSwapchainCreateInfoKHR & swapChainInfo)
+{
+    __image = img;
+    __layout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    __imageInfo.format = swapChainInfo.imageFormat;
+    __width = __imageInfo.extent.width = swapChainInfo.imageExtent.width;
+    __height = __imageInfo.extent.height = swapChainInfo.imageExtent.height;
+    __imageInfo.extent.depth = 1;
+    __mipLevels = __imageInfo.mipLevels = 1;
+    __imageInfo.arrayLayers = 1;
+    __imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+    __noDestroy = true;
+
 vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels,
-    VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties)
+                      VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties)
 {
     // Buffer
     Buffer stagingBuffer;

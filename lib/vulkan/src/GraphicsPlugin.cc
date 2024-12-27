@@ -15,6 +15,7 @@
 #include <venom/vulkan/plugin/graphics/Camera.h>
 #include <venom/vulkan/plugin/graphics/GUI.h>
 #include <venom/vulkan/plugin/graphics/RenderingPipeline.h>
+#include <venom/vulkan/plugin/graphics/RenderTarget.h>
 #include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
@@ -67,6 +68,11 @@ vc::RenderingPipelineImpl* VulkanGraphicsPlugin::CreateRenderingPipeline()
 vc::SkyboxImpl* VulkanGraphicsPlugin::CreateSkybox()
 {
     return new VulkanSkybox();
+}
+
+vc::RenderTargetImpl* VulkanGraphicsPlugin::CreateRenderTarget()
+{
+    return new VulkanRenderTarget();
 }
 
 vc::ShaderResourceTable* VulkanGraphicsPlugin::CreateShaderResourceTable()

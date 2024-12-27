@@ -20,6 +20,7 @@ namespace venom::common
 {
 
 int GraphicsApplication::_currentFrame = 0;
+vcm::Vec2 GraphicsApplication::_currentExtent = {0, 0};
 static GraphicsApplication * s_graphicsApplication = nullptr;
 
 GraphicsApplication::GraphicsApplication()

@@ -8,6 +8,10 @@
 #pragma once
 #include <venom/vulkan/Debug.h>
 
+#include "ImageView.h"
+#include "plugin/graphics/Texture.h"
+#include "venom/common/Containers.h"
+
 namespace venom
 {
 namespace vulkan
@@ -24,7 +28,11 @@ public:
 
     vc::Error Init();
     void SetRenderPass(const RenderPass * renderPass);
-    void SetAttachments(const std::vector<VkImageView_T*>& vector);
+    const vc::Vector<VkImageView>& GetAttachmentVkImageViews() const { return __attachments; }
+    const vc::Vector<const Image *>& GetAttachmentImages() const { return __images; }
+    const vc::Vector<const ImageView *>& GetAttachmentImageViews() const { return __imageViews  ; }
+    void SetAttachment(int i, const Image & image, const ImageView & imageView);
+    void SetAttachment(int i, const VulkanTexture * texture);
     inline void SetExtent(const VkExtent2D & extent) { __framebufferCreateInfo.width = extent.width; __framebufferCreateInfo.height = extent.height; }
     inline void SetLayers(const uint32_t layers) { __framebufferCreateInfo.layers = layers; }
     inline VkFramebuffer GetVkFramebuffer() const { return __framebuffer; }
@@ -33,6 +41,9 @@ public:
 private:
     VkFramebuffer __framebuffer;
     VkFramebufferCreateInfo __framebufferCreateInfo;
+    vc::Vector<VkImageView> __attachments;
+    vc::Vector<const Image *> __images;
+    vc::Vector<const ImageView *> __imageViews;
 };
 }
 }

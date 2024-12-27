@@ -44,6 +44,7 @@ protected:
     void _LabelText(const char* label, const char* fmt, ...) override;
 
     void _Image(vc::Texture* texture, const vcm::Vec2 & size) override;
+    void _Image(const vc::RenderTarget* renderTarget, const vcm::Vec2& size) override;
 
     bool _InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags) override;
 

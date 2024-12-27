@@ -2,7 +2,7 @@
 /// Project: VenomEngineWorkspace
 /// @file main_input.cc
 /// @date Nov, 08 2024
-/// @brief 
+/// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include "MainScene.h"
@@ -67,24 +67,10 @@ void SceneGUI()
 
     vc::GUI::NewFrame();
 
-    if (vc::GUI::BeginMainMenuBar()) {
-        if (vc::GUI::BeginMenu("Shaders")) {
-            if (vc::GUI::MenuItem("Recompile & Reload Shaders", "Ctrl+Shift+C")) {
-                vc::ShaderPipeline::RecompileAllShaders();
-                vc::ShaderPipeline::ReloadAllShaders();
-            }
-            if (vc::GUI::MenuItem("Reload Shaders")) {
-                vc::ShaderPipeline::ReloadAllShaders();
-            }
-            vc::GUI::EndMenu();
-        }
-        vc::GUI::EndMainMenuBar();
-    }
-
     static vc::GUIDockNodeFlags dockspaceFlags = vc::GUIDockNodeFlags_NoCloseButton | vc::GUIDockNodeFlags_NoWindowMenuButton;
     static bool dockspaceOpen = true;
 
-    vc::GUIWindowFlags window_flags = vc::GUIWindowFlags_MenuBar | vc::GUIWindowFlags_NoDocking | vc::GUIWindowFlags_NoCollapse | vc::GUIWindowFlags_NoTitleBar | vc::GUIWindowFlags_NoDecoration | vc::GUIWindowFlags_NoResize | vc::GUIWindowFlags_NoNavFocus | vc::GUIWindowFlags_NoMove;
+    vc::GUIWindowFlags window_flags = vc::GUIWindowFlags_MenuBar | vc::GUIWindowFlags_NoDocking |  vc::GUIWindowFlags_NoCollapse | vc::GUIWindowFlags_NoTitleBar | vc::GUIWindowFlags_NoDecoration | vc::GUIWindowFlags_NoResize | vc::GUIWindowFlags_NoNavFocus | vc::GUIWindowFlags_NoMove;
 
     vc::GUIViewport mainViewport = vc::GUI::GetMainViewport();
     vc::GUI::SetNextWindowViewport(mainViewport);
@@ -97,6 +83,20 @@ void SceneGUI()
     vc::GUIId mainDockSpaceId = vc::GUI::GetID("MainViewport");
     vc::GUI::DockSpace(mainDockSpaceId, vcm::Vec2(0.0f, 0.0f), dockspaceFlags);
     {
+        if (vc::GUI::BeginMenuBar()) {
+            if (vc::GUI::BeginMenu("Shaders")) {
+                if (vc::GUI::MenuItem("Recompile & Reload Shaders", "Ctrl+Shift+C")) {
+                    vc::ShaderPipeline::RecompileAllShaders();
+                    vc::ShaderPipeline::ReloadAllShaders();
+                }
+                if (vc::GUI::MenuItem("Reload Shaders")) {
+                    vc::ShaderPipeline::ReloadAllShaders();
+                }
+                vc::GUI::EndMenu();
+            }
+            vc::GUI::EndMenuBar();
+        }
+
         vc::GUI::Begin("Settings & Objects", nullptr, vc::GUIWindowFlags_NoCollapse);
         {
             if (vc::GUI::CollapsingHeader("Scene Settings:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
@@ -115,10 +115,12 @@ void SceneGUI()
         vc::GUI::End();
 
         vc::GUI::PushWindowPadding({0, 0});
-        vc::GUI::Begin("Test", nullptr, vc::GUIWindowFlags_NoSavedSettings);
+        vc::GUI::Begin("Scene", nullptr, vc::GUIWindowFlags_NoSavedSettings);
         {
-            static vc::Texture textureTest("hank_happy.png");
-            vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
+            static vc::RenderTarget renderTarget(vc::RenderingPipelineType::PBRModel, vc::ShaderVertexFormat::Vec4);
+            vc::GUI::Image(&renderTarget, vc::GUI::GetContentRegionAvail());
+            //static vc::Texture textureTest("hank_happy.png");
+            //vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
         }
         vc::GUI::End();
         vc::GUI::PopStyleVar();
@@ -128,16 +130,21 @@ void SceneGUI()
         {
             sFirstFrame = false;
 
-            const vcm::Vec2 dockspaceSize = vc::GUI::GetContentRegionAvail();
+            const vcm::Vec2 dockspaceSize = vc::GUI::GetWindowSize();
             vc::GUI::DockSpaceRemoveNode(mainDockSpaceId);
             vc::GUI::DockSpaceAddNode(mainDockSpaceId, vc::GUIDockNodeFlags_DockSpace | vc::GUIDockNodeFlags_NoWindowMenuButton);
             vc::GUI::DockSpaceSetNodeSize(mainDockSpaceId, dockspaceSize);
 
-            vc::GUIId dock_id_left;
-            vc::GUIId dock_id_right = vc::GUI::DockSpaceSplitNode(mainDockSpaceId, vc::GUIDir_Right, 0.25f, NULL, &dock_id_left);
+            vc::GUIId dockIdSettingsObjects;
+            vc::GUIId dockIdSceneRendering;
+            vc::GUIId dockIdEntitiesProps;
 
-            vc::GUI::DockWindow("Settings & Objects", dock_id_left);
-            vc::GUI::DockWindow("Test", dock_id_right);
+            dockIdSettingsObjects = vc::GUI::DockSpaceSplitNode(mainDockSpaceId, vc::GUIDir_Left, 0.2, NULL, &dockIdSceneRendering);
+            dockIdEntitiesProps = vc::GUI::DockSpaceSplitNode(dockIdSceneRendering, vc::GUIDir_Right, 0.25f, NULL, &dockIdEntitiesProps);
+
+            vc::GUI::DockWindow("Settings & Objects", dockIdSettingsObjects);
+            vc::GUI::DockWindow("Scene", dockIdSceneRendering);
+            vc::GUI::DockWindow("Entity Properties", dockIdEntitiesProps);
 
             vc::GUI::DockFinish(mainDockSpaceId);
         }

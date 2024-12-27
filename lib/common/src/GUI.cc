@@ -94,9 +94,7 @@ void GUI::EntitiesListCollapsingHeader()
         }
         vc::GUI::EndChild();
     }
-    if (selectedEntity.is_valid() && selectedEntity.is_alive()) {
-        _EntityPropertiesWindow();
-    }
+    _EntityPropertiesWindow();
 }
 
 bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
@@ -156,25 +154,26 @@ bool GUI::EditableModel(vc::Model * model, vc::String& path)
 
 void GUI::_EntityPropertiesWindow()
 {
-    vc::GUI::SetNextWindowPos(vcm::Vec2{vc::Context::GetWindowWidth(), 20}, vc::GUICondBits::GUICond_Always, vcm::Vec2(1.0f, 0));
     vc::GUI::Begin("Entity Properties");
     {
-        char buffer[128] = {0};
-        vc::String entityName(selectedEntity.name().c_str());
-        memcpy(buffer, entityName.c_str(), entityName.size());
-        if (vc::GUI::InputText("Name", buffer, 128 - 1)) {
-            selectedEntity.set_name(buffer);
-        }
-        vc::GUI::Text("ID: %d", selectedEntity.id());
-        vc::GUI::SeparatorText("Components");
+        if (selectedEntity) {
+            char buffer[128] = {0};
+            vc::String entityName(selectedEntity.name().c_str());
+            memcpy(buffer, entityName.c_str(), entityName.size());
+            if (vc::GUI::InputText("Name", buffer, 128 - 1)) {
+                selectedEntity.set_name(buffer);
+            }
+            vc::GUI::Text("ID: %d", selectedEntity.id());
+            vc::GUI::SeparatorText("Components");
 
-        // GUI for every component
-        selectedEntity.each([&](flecs::id componentID)
-        {
-            void * component = selectedEntity.get_mut(componentID);
-            int idTest = selectedEntity.raw_id();
-            reinterpret_cast<Component*>(component)->GUI();
-        });
+            // GUI for every component
+            selectedEntity.each([&](flecs::id componentID)
+            {
+                void * component = selectedEntity.get_mut(componentID);
+                int idTest = selectedEntity.raw_id();
+                reinterpret_cast<Component*>(component)->GUI();
+            });
+        }
     }
     vc::GUI::End();
 }

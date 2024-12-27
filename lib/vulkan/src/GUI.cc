@@ -11,6 +11,7 @@
 #include <venom/vulkan/plugin/graphics/GUI.h>
 
 #include <venom/vulkan/VulkanApplication.h>
+#include <venom/vulkan/plugin/graphics/RenderTarget.h>
 
 namespace venom
 {
@@ -168,8 +169,8 @@ vc::Error VulkanGUI::Initialize()
 #ifdef VENOM_DEBUG
     initInfo.CheckVkResultFn = [](VkResult err)
     {
-        if (err != 0)
-            vc::Log::Error("ImGui_ImplVulkan_Init failed with error code %d", err);
+        if (err != VK_SUCCESS)
+            vc::Log::Error("ImGui function failed with error code %d", err);
     };
 #endif
     if (!ImGui_ImplVulkan_Init(&initInfo))
@@ -276,6 +277,17 @@ void VulkanGUI::_Image(vc::Texture* texture, const vcm::Vec2 & size)
 {
     void * textureId;
     if (texture->GetGUITextureID(&textureId) != vc::Error::Success) {
+        vc::Log::Error("Failed to get GUI texture ID");
+        return;
+    }
+    // Remove padding from the window
+    ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
+}
+
+void VulkanGUI::_Image(const vc::RenderTarget* renderTarget, const vcm::Vec2& size)
+{
+    void * textureId;
+    if (renderTarget->GetTexture()->GetGUITextureID(&textureId) != vc::Error::Success) {
         vc::Log::Error("Failed to get GUI texture ID");
         return;
     }

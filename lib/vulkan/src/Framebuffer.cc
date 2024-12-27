@@ -45,6 +45,12 @@ void Framebuffer::Destroy()
 
 vc::Error Framebuffer::Init()
 {
+    for (const auto & imageView : __imageViews) {
+        __attachments.emplace_back(imageView->GetVkImageView());
+    }
+
+    __framebufferCreateInfo.attachmentCount = static_cast<uint32_t>(__attachments.size());
+    __framebufferCreateInfo.pAttachments = __attachments.data();
     if (vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &__framebufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__framebuffer) != VK_SUCCESS) {
         vc::Log::Error("Failed to create framebuffer");
         return vc::Error::InitializationFailed;
@@ -57,10 +63,19 @@ void Framebuffer::SetRenderPass(const RenderPass* renderPass)
     __framebufferCreateInfo.renderPass = renderPass->GetVkRenderPass();
 }
 
-void Framebuffer::SetAttachments(const std::vector<VkImageView_T*>& arr)
+void Framebuffer::SetAttachment(int i, const Image& image, const ImageView& imageView)
 {
-    __framebufferCreateInfo.attachmentCount = static_cast<uint32_t>(arr.size());
-    __framebufferCreateInfo.pAttachments = arr.data();
+    if (i >= __images.size()) {
+        __images.resize(i + 1);
+        __imageViews.resize(i + 1);
+    }
+    __images[i] = &image;
+    __imageViews[i] = &imageView;
+}
+
+void Framebuffer::SetAttachment(int i, const VulkanTexture* texture)
+{
+    SetAttachment(i, texture->GetImage(), texture->GetImageView());
 }
 }
 }

@@ -30,7 +30,8 @@ protected:
 public:
     static GraphicsApplication * Get();
     static GraphicsApplication * Create();
-    static inline int GetCurrentFrame() { return _currentFrame; }
+    static inline int GetCurrentFrameInFlight() { return _currentFrame; }
+    static inline vcm::Vec2 GetCurrentExtent() { return _currentExtent; }
     ~GraphicsApplication() override;
     Error Init();
     virtual Error __Init() = 0;
@@ -46,6 +47,7 @@ protected:
     GUI * _gui;
     UPtr<vc::Texture> _dummyTexture;
     static int _currentFrame;
+    static vcm::Vec2 _currentExtent;
 };
 }
 }

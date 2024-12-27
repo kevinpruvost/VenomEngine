@@ -44,8 +44,7 @@ enum TextureUsage
     None = -1,
     Sampled = 0x1,
     Storage = 0x2,
-    RenderTarget = 0x4,
-    Attachment = RenderTarget,
+    Attachment = 0x4,
     DepthStencil = 0x8,
     Immutable = 0x10,
     TextureUsageCount
@@ -79,7 +78,7 @@ public:
      * @param width
      * @param height
      * @param format
-     * @param mipMapeLevels
+     * @param mipMapLevels
      * @return
      */
     vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels);
@@ -189,7 +188,7 @@ public:
     inline int GetHeight() const { return _impl->As<TextureImpl>()->GetHeight(); }
     inline const TextureMemoryAccess & GetMemoryAccess() const { return _impl->As<TextureImpl>()->GetMemoryAccess(); }
 
-    inline vc::Error GetGUITextureID(void ** ptrToTextureId) { return _impl->As<TextureImpl>()->GetGUITextureID(ptrToTextureId); }
+    inline vc::Error GetGUITextureID(void ** ptrToTextureId) const { return _impl->As<TextureImpl>()->GetGUITextureID(ptrToTextureId); }
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif

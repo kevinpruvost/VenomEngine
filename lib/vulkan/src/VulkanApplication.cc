@@ -29,6 +29,7 @@
 #include "venom/common/SceneSettings.h"
 #include "venom/common/plugin/graphics/GUI.h"
 #include "venom/common/plugin/graphics/RenderingPipeline.h"
+#include "venom/common/plugin/graphics/RenderTarget.h"
 
 namespace venom::vulkan
 {
@@ -139,6 +140,8 @@ void VulkanApplication::__UpdateUniformBuffers()
 
 vc::Error VulkanApplication::__GraphicsOperations()
 {
+    const auto & renderTargets = vc::RenderTargetImpl::GetAllRenderTargets();
+
     if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
@@ -213,6 +216,25 @@ vc::Error VulkanApplication::__GraphicsOperations()
             });
 
         __shadowRenderPass.EndRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
+
+        // Copy to render target if any
+        // TODO: It is a test, so should replace
+        Image * attachmentImage;
+        if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
+            attachmentImage = const_cast<Image *>(*__shadowRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().rbegin());
+        else
+            attachmentImage = const_cast<Image *>(*__shadowRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().begin());
+        for (auto & renderTarget : renderTargets) {
+            if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
+                continue;
+            if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
+                __graphicsSecondCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+            __graphicsSecondCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(renderTarget->GetTexture()->GetImpl()->ConstAs<VulkanTexture>()->GetImage(), renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+            __graphicsSecondCheckpointCommandBuffers[_currentFrame]->CopyImage(*attachmentImage, renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage());
+            __graphicsSecondCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(renderTarget->GetTexture()->GetImpl()->ConstAs<VulkanTexture>()->GetImage(), renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+            if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
+                __graphicsSecondCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+        }
 
         // Draw GUI
         __guiRenderPass.BeginRenderPass(&__swapChain, __graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);

@@ -202,7 +202,7 @@ vc::Error VulkanTexture::_SetMemoryAccess(const vc::TextureMemoryAccess access)
 vc::Error VulkanTexture::VulkanGUITexture::_LoadTextureToGUI(vc::TextureImpl* impl, void** ptrToGuiTextureId)
 {
     const VulkanTexture * vulkanTexture = impl->ConstAs<VulkanTexture>();
-    *ptrToGuiTextureId = ImGui_ImplVulkan_AddTexture(Sampler::GetMainSampler()->GetVkSampler(), vulkanTexture->GetImageView().GetVkImageView(), vulkanTexture->GetImage().GetLayout());
+    *ptrToGuiTextureId = ImGui_ImplVulkan_AddTexture(Sampler::GetMainSampler()->GetVkSampler(), vulkanTexture->GetImageView().GetVkImageView(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);//, vulkanTexture->GetImage().GetLayout());
     if (!*ptrToGuiTextureId) {
         vc::Log::Error("Failed to load texture to GUI");
         return vc::Error::Failure;

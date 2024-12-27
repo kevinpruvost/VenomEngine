@@ -59,7 +59,7 @@ public:
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
     inline const RenderPass * GetHDRRenderPass() const { return &__skyboxRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }
-    inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSecondCheckpointCommandBuffers[GetCurrentFrame()]; }
+    inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSecondCheckpointCommandBuffers[GetCurrentFrameInFlight()]; }
 
 protected:
     vc::Error _LoadGfxSettings() override;

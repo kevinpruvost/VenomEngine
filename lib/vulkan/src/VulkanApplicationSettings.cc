@@ -30,13 +30,15 @@ vc::Error VulkanApplication::_LoadGfxSettings()
                 if (!shader->IsType<VulkanShaderResource>()) continue;
                 shader->GetHolder()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(GetActiveSamplesMultisampling());
                 shader->GetHolder()->As<VulkanShaderPipeline>()->LoadShaders();
-                //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetResource(shader);
-                //vkShader.GetImpl()->As<VulkanShaderPipeline>()->SetMultiSamplingCount(_samples);
-                //vkShader.GetImpl()->As<VulkanShaderPipeline>()->LoadShaders();
             }
         if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
             return err;
     }
+
+    // Reset Render Targets
+    for (auto & rt : vc::RenderTargetImpl::GetAllRenderTargets())
+        if (err = rt->Reset(); err != vc::Error::Success)
+            return err;
     return err;
 }
 

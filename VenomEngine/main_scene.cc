@@ -49,7 +49,6 @@ void Scene()
     helmet.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-4.0f, 4.0f, 0.0f));
 
     vc::Entity camera = vc::CreateEntity("Camera")
-        .emplace<vc::Transform3D>()
         .emplace<vc::Camera>();
     camera.get_mut<vc::Camera>()->SetPosition(vcm::Vec3(-5.2f, 4.8f, -4.7f));
     camera.get_mut<vc::Camera>()->LookAt(helmet.get<vc::Transform3D>()->GetPosition());

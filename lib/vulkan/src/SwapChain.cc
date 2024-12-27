@@ -39,7 +39,7 @@ SwapChain::~SwapChain()
 SwapChain::SwapChain(SwapChain&& other)
     : swapChain(other.swapChain)
     , swapChainImageHandles(std::move(other.swapChainImageHandles))
-    , __swapChainImages(std::move(other.__swapChainImages))
+    , __swapChainImageViews(std::move(other.__swapChainImageViews))
     , surface(std::move(other.surface))
     , activeSurfaceFormat(other.activeSurfaceFormat)
     , activePresentMode(other.activePresentMode)
@@ -53,7 +53,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
     if (this != &other) {
         swapChain = other.swapChain;
         swapChainImageHandles = std::move(other.swapChainImageHandles);
-        __swapChainImages = std::move(other.__swapChainImages);
+        __swapChainImageViews = std::move(other.__swapChainImageViews);
         surface = std::move(other.surface);
         activeSurfaceFormat = other.activeSurfaceFormat;
         activePresentMode = other.activePresentMode;
@@ -65,7 +65,7 @@ SwapChain& SwapChain::operator=(SwapChain&& other)
 
 void SwapChain::CleanSwapChain()
 {
-    __swapChainImages.clear();
+    __swapChainImageViews.clear();
 
     if (swapChain != VK_NULL_HANDLE) {
         vkDestroySwapchainKHR(LogicalDevice::GetVkDevice(), swapChain, Allocator::GetVKAllocationCallbacks());
@@ -151,7 +151,7 @@ vc::Error SwapChain::InitSwapChain()
     createInfo.imageColorSpace = activeSurfaceFormat.colorSpace;
     createInfo.imageExtent = extent;
     createInfo.imageArrayLayers = 1; // Always 1 unless stereoscopic 3D
-    createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
 
     createInfo.imageSharingMode = QueueManager::GetGraphicsComputeTransferSharingMode();
     vc::Vector<uint32_t> queueFamilyIndices;
@@ -219,10 +219,13 @@ vc::Error SwapChain::InitSwapChain()
     vkGetSwapchainImagesKHR(LogicalDevice::GetVkDevice(), swapChain, &imageCount, swapChainImageHandles.data());
 
     // Create ImageViews
+    __swapChainImageViews.clear();
+    __swapChainImageViews.resize(imageCount);
     __swapChainImages.clear();
     __swapChainImages.resize(imageCount);
     for (size_t i = 0; i < imageCount; ++i) {
-        if (__swapChainImages[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
+        __swapChainImages[i].CreateFromSwapChainImage(swapChainImageHandles[i], createInfo);
+        if (__swapChainImageViews[i].Create(swapChainImageHandles[i], activeSurfaceFormat.format, VK_IMAGE_ASPECT_COLOR_BIT) != vc::Error::Success) {
             vc::Log::Error("Failed to create image view");
             return vc::Error::InitializationFailed;
         }

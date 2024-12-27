@@ -14,6 +14,7 @@ namespace venom
 namespace vulkan
 {
 class CommandBuffer;
+class SwapChain;
 class Image
 {
 public:
@@ -24,6 +25,7 @@ public:
     Image(Image&& image) noexcept;
     Image& operator=(Image&& image) noexcept;
 
+    void CreateFromSwapChainImage(VkImage img, const VkSwapchainCreateInfoKHR & swapChainInfo);
     vc::Error Load(unsigned char* pixels, int width, int height, int channels,
         VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
     vc::Error Load(uint16_t * pixels, int width, int height, int channels,
@@ -48,6 +50,9 @@ private:
     VkImageLayout __layout;
     VkDeviceMemory __imageMemory;
     uint32_t __width, __height, __mipLevels;
+    bool __noDestroy;
+
+    friend class SwapChain;
 };
 }
 }

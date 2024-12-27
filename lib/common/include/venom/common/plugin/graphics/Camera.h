@@ -18,7 +18,7 @@ namespace venom
 {
 namespace common
 {
-class CameraImpl : public PluginObjectImpl, public GraphicsPluginObject, public Transform3D
+class VENOM_COMMON_API CameraImpl : public PluginObjectImpl, public GraphicsPluginObject, public Transform3D
 {
 public:
     CameraImpl();

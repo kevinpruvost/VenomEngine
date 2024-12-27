@@ -31,16 +31,16 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
     __irradianceMap.CreateReadWriteTexture(256, 128, vc::ShaderVertexFormat::Vec4, 1);
     __irradianceMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadWrite);
     vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 2, &__irradianceMap);
-    // if (err = _LoadIrradianceMap(__panorama, __irradianceMap); err != vc::Error::Success) {
-    //     vc::Log::Error("Failed to load irradiance map from file: %s", texturePath);
-    // }
+    if (err = _LoadIrradianceMap(__panorama, __irradianceMap); err != vc::Error::Success) {
+        vc::Log::Error("Failed to load irradiance map from file: %s", texturePath);
+    }
     __irradianceMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadOnly);
-    // if (err = _LoadRadianceMap(__panorama, __radianceMap); err != vc::Error::Success) {
-    //     vc::Log::Error("Failed to load radiance map from file: %s", texturePath);
-    // }
+    if (err = _LoadRadianceMap(__panorama, __radianceMap); err != vc::Error::Success) {
+        vc::Log::Error("Failed to load radiance map from file: %s", texturePath);
+    }
     __radianceMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadOnly);
-    // vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 2, &__irradianceMap);
-    // vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 3, &__radianceMap);
+    vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 2, &__irradianceMap);
+    vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 3, &__radianceMap);
     return err;
 }
 

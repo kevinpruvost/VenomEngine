@@ -251,6 +251,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __swapChain.SetSamples(GetActiveSamplesMultisampling());
     if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
+    _currentExtent = {__swapChain.extent.width, __swapChain.extent.height};
 
     // Get Graphics Queue
     __graphicsQueue = QueueManager::GetGraphicsQueue();
@@ -389,6 +390,7 @@ vc::Error VulkanApplication::__RecreateSwapChain()
         return err;
     if (err = __swapChain.InitSwapChain(); err != vc::Error::Success)
         return err;
+    _currentExtent = {__swapChain.extent.width, __swapChain.extent.height};
     // ReCreate Attachments and Render Pass
     __CreateAttachments();
     for (const auto renderPass : RenderPass::GetRenderPasses()) {

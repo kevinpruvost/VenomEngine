@@ -45,9 +45,13 @@ public:
     void SetRenderingType(const vc::RenderingPipelineType type);
     vc::Error InitRenderPass(const SwapChain * swapChain);
     vc::Error BeginRenderPass(SwapChain * swapChain, CommandBuffer * commandBuffer, int framebufferIndex);
+    vc::Error BeginRenderPassCustomFramebuffer(SwapChain * swapChain, CommandBuffer * commandBuffer, Framebuffer * framebuffer);
     void NextSubpass(CommandBuffer * commandBuffer);
     vc::Error EndRenderPass(CommandBuffer * commandBuffer);
     VkRenderPass GetVkRenderPass() const;
+
+    Framebuffer * GetFramebuffer(const int index);
+    Framebuffer * GetCurrentFramebuffer();
 
     inline const vc::Vector<VkSubpassDescription> & GetSubpassDescriptions() const { return __subpassDescriptions; }
     inline vc::Vector<vc::Vector<vc::Texture>> & GetAttachments() { return __attachments; }
@@ -56,14 +60,15 @@ public:
     static vc::Vector<RenderPass *> GetRenderPasses();
 
 private:
-    vc::Error __CreateNormalRenderPass(const SwapChain * swapChain);
-    vc::Error __CreateGuiRenderPass(const SwapChain * swapChain);
-    vc::Error __CreateDeferredShadowRenderPass(const SwapChain * swapChain);
+    vc::Error __CreateNormalRenderPass();
+    vc::Error __CreateGuiRenderPass();
+    vc::Error __CreateDeferredShadowRenderPass();
 
-    void __AddAttachment(const SwapChain* swapChain, const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp,  const VkImageLayout initalLayout);
+    void __AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp,  const VkImageLayout initalLayout, bool resolve);
     void __SolveAttachmentReferences();
 
 private:
+    const SwapChain * __swapChain;
     VkRenderPass __renderPass;
     vc::RenderingPipelineType __type;
     // By image count then attachments

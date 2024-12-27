@@ -176,7 +176,7 @@ vc::Error DescriptorPool::Create(VkDescriptorPoolCreateFlags flags, uint32_t max
         }
     }
     // For GUI
-    __poolInfo.maxSets += VENOM_MAX_FRAMES_IN_FLIGHT;
+    __poolInfo.maxSets += VENOM_MAX_FRAMES_IN_FLIGHT * 64;
     if (auto err = vkCreateDescriptorPool(LogicalDevice::GetVkDevice(), &__poolInfo, Allocator::GetVKAllocationCallbacks(), &__pool); err != VK_SUCCESS) {
         vc::Log::Error("Failed to create descriptor pool: %d", err);
         return vc::Error::Failure;
@@ -237,7 +237,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
-    const int currentFrame = VulkanApplication::GetCurrentFrame();
+    const int currentFrame = VulkanApplication::GetCurrentFrameInFlight();
     const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
         pipeline->GetPipelineLayout(), descriptorSetIndex, 1,
@@ -249,7 +249,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
 {
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
-    const int currentFrame = VulkanApplication::GetCurrentFrame();
+    const int currentFrame = VulkanApplication::GetCurrentFrameInFlight();
     const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
         pipeline->GetPipelineLayout(), descriptorSetIndex, 1,
