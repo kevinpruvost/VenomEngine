@@ -18,6 +18,8 @@ struct GraphicsSettingsData
 {
     int screenWidth;
     int screenHeight;
+    int extentWidth;
+    int extentHeight;
     int multisamplingMode;
     int multisamplingSamples;
     int hdrEnabled;
@@ -64,6 +66,7 @@ public:
 
     static const GraphicsSettingsData * GetGfxSettingsDataPtr();
     static void SetWindowResolution(int width, int height);
+    static void SetWindowExtent(int width, int height);
 
     static void ReloadGFXSettings();
 

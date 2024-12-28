@@ -135,3 +135,37 @@ vec3 DisneyPrincipledBSDF(
            + specularRes
            + 0.25 * clearcoat * Gr * Fr * Dr;
 }
+
+vec3 LambertCookTorrance(
+    vec3 L, vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness
+) {
+    float NdotL = dot(N, L);
+    float NdotV = dot(N, V);
+    if (NdotL <= 0.0 || NdotV <= 0.0) return vec3(0.0);
+
+    vec3 H = normalize(L + V);
+    float NdotH = dot(N, H);
+    float LdotH = dot(L, H);
+
+    // Fresnel-Schlick Approximation
+    vec3 F0 = mix(vec3(0.04), baseColor, metallic); // Fresnel at normal incidence
+    vec3 F = F0 + (1.0 - F0) * pow(1.0 - LdotH, 5.0);
+
+    // Geometry term (GGX)
+    float alpha = roughness * roughness;
+    float G_NdotL = smithG_GGX(NdotL, alpha);
+    float G_NdotV = smithG_GGX(NdotV, alpha);
+    float G = G_NdotL * G_NdotV;
+
+    // Distribution term (GGX Normal Distribution Function)
+    float D = GTR2(NdotH, alpha);
+
+    // Cook-Torrance Specular
+    vec3 specular = (D * F * G) / max(4.0 * NdotL * NdotV, 0.001);
+
+    // Lambertian Diffuse
+    vec3 diffuse = (1.0 - metallic) * baseColor / PI;
+
+    // Combine diffuse and specular
+    return (diffuse + specular) * NdotL;
+}

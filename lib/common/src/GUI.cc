@@ -46,6 +46,8 @@ void GUI::SetGraphicsApplication(GraphicsApplication* app)
 void GUI::GraphicsSettingsCollaspingHeader()
 {
     if (vc::GUI::CollapsingHeader("Graphics Settings", GUITreeNodeFlagsBits::GUITreeNodeFlags_None)) {
+        // Graphics Settings
+        vc::GUI::SeparatorText("General");
         // Multisampling
         const vc::Vector<vc::String> & msaaModes = vc::GraphicsSettings::GetAvailableMultisamplingCountOptionsStrings();
         int msaaMode = vc::GraphicsSettings::GetActiveMultisamplingCountIndex();
@@ -67,9 +69,12 @@ void GUI::GraphicsSettingsCollaspingHeader()
         if (vc::GUI::Checkbox("HDR (High Dynamic Range)", &hdrEnabled)) {
             vc::GraphicsSettings::SetHDR(hdrEnabled);
         }
+        // Scene Graphics Settings
+        vc::GUI::SeparatorText("Scene-Related");
         // Background Target Luminance
         static float targetLuminance;
         targetLuminance = vc::SceneSettings::GetTargetLuminance();
+        vc::GUI::SetNextItemWidth(100.0f);
         if (vc::GUI::SliderFloat("Target Luminance", &targetLuminance, 0.0f, 1000.0f)) {
             vc::SceneSettings::SetTargetLuminance(targetLuminance);
         }
@@ -80,6 +85,7 @@ static vc::Entity selectedEntity;
 void GUI::EntitiesListCollapsingHeader()
 {
     if (vc::GUI::CollapsingHeader("Entities", GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+        vc::GUI::SeparatorText("Hierarchy");
         static int selected = -1;
         if (vc::GUI::BeginChild("##EntitiesList", vcm::Vec2(0, 300), GUIChildFlagsBits::GUIChildFlags_FrameStyle | GUIChildFlagsBits::GUIChildFlags_ResizeY))
         {
@@ -157,6 +163,7 @@ void GUI::_EntityPropertiesWindow()
     vc::GUI::Begin("Entity Properties");
     {
         if (selectedEntity) {
+            vc::GUI::SeparatorText("Entity");
             char buffer[128] = {0};
             vc::String entityName(selectedEntity.name().c_str());
             memcpy(buffer, entityName.c_str(), entityName.size());

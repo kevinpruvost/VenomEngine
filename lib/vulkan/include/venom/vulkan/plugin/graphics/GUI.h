@@ -43,8 +43,7 @@ protected:
     void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) override;
     void _LabelText(const char* label, const char* fmt, ...) override;
 
-    void _Image(vc::Texture* texture, const vcm::Vec2 & size) override;
-    void _Image(const vc::RenderTarget* renderTarget, const vcm::Vec2& size) override;
+    void _Image(const vc::Texture* texture, const vcm::Vec2 & size) override;
 
     bool _InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags) override;
 
@@ -89,6 +88,7 @@ protected:
 
     bool _MenuItem(const char* str, const char* text) override;
 
+    void _SetNextItemWidth(float item_width) override;
     void _SetItemDefaultFocus() override;
 
     void _SameLine(float offset_from_start_x, float spacing) override;

@@ -59,8 +59,8 @@ public:
     static inline void TextColored(const vcm::Vec4 & col, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_TextColored(col, fmt, args); va_end(args); }
     static inline void LabelText(const char* label, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_LabelText(label, fmt, args); va_end(args); }
 
-    static inline void Image(vc::Texture * texture, const vcm::Vec2 & size) { s_gui->_Image(texture, size); }
-    static inline void Image(const vc::RenderTarget * renderTarget, const vcm::Vec2 & size) { s_gui->_Image(renderTarget, size); }
+    static inline void Image(const vc::Texture * texture, const vcm::Vec2 & size) { s_gui->_Image(texture, size); }
+    static inline void Image(const vc::RenderTarget * renderTarget, const vcm::Vec2 & size) { s_gui->_Image(renderTarget->GetTexture(), size); }
 
     static inline bool InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags = 0) { return s_gui->_InputText(label, buf, buf_size, flags); }
 
@@ -105,6 +105,7 @@ public:
 
     static inline bool MenuItem(const char* str, const char* text = nullptr) { return s_gui->_MenuItem(str, text); }
 
+    static inline void SetNextItemWidth(float item_width) { s_gui->_SetNextItemWidth(item_width); }
     static inline void SetItemDefaultFocus() { s_gui->_SetItemDefaultFocus(); }
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
@@ -154,8 +155,7 @@ protected:
     virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
     virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
 
-    virtual void _Image(vc::Texture * texture, const vcm::Vec2 & size) = 0;
-    virtual void _Image(const vc::RenderTarget * renderTarget, const vcm::Vec2 & size) = 0;
+    virtual void _Image(const vc::Texture * texture, const vcm::Vec2 & size) = 0;
 
     virtual bool _InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags) = 0;
 
@@ -200,6 +200,7 @@ protected:
 
     virtual bool _MenuItem(const char* str, const char* text) = 0;
 
+    virtual void _SetNextItemWidth(float item_width) = 0;
     virtual void _SetItemDefaultFocus() = 0;
 
     virtual void _SameLine(float offset_from_start_x, float spacing) = 0;

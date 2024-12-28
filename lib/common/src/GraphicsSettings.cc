@@ -154,6 +154,13 @@ void GraphicsSettings::SetWindowResolution(int width, int height)
     s_graphicsSettings->__gfxSettingsDataDirty = true;
 }
 
+void GraphicsSettings::SetWindowExtent(int width, int height)
+{
+    s_graphicsSettings->__gfxSettingsData.extentWidth = width;
+    s_graphicsSettings->__gfxSettingsData.extentHeight = height;
+    s_graphicsSettings->__gfxSettingsDataDirty = true;
+}
+
 void GraphicsSettings::ReloadGFXSettings()
 {
     s_graphicsSettings->__AddLoadGFXSettingsToQueue();

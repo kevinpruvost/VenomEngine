@@ -37,6 +37,8 @@ struct SceneSettings {
 struct GraphicsSettings {
     int screenWidth;
     int screenHeight;
+    int extentWidth;
+    int extentHeight;
     int multisamplingMode;
     int multisamplingSamples;
     int hdrEnabled;
@@ -100,7 +102,7 @@ bool isLightInBlock(vec2 uv, int lightIndex) {
     int intIndex = getLightBlockIntIndex(lightIndex);
     int bitIndex = getLightBlockBitIndex(lightIndex);
 
-    uv = vec2((uv.x + 1.0) / 2.0, (uv.y + 1.0) / 2.0);
+    uv = vec2(uv.x / graphicsSettings.extentWidth, uv.y / graphicsSettings.extentHeight);
     int blockIndex = int(uv.x * FORWARD_PLUS_BLOCK_SIZE) + int(uv.y * FORWARD_PLUS_BLOCK_SIZE) * FORWARD_PLUS_BLOCK_SIZE;
     return (forwardPlusResultBuffer[blockIndex].block[intIndex] & (1 << bitIndex)) != 0;
 }

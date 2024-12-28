@@ -74,6 +74,8 @@ layout(location = 5) in vec3 inputBitangent;
 
 layout(location = 6) in vec2 screenPos;
 
+layout(origin_upper_left) in vec4 gl_FragCoord;
+
 void main()
 {
     vec4 baseColor;
@@ -82,7 +84,7 @@ void main()
     float metallic = 0.0;
     float roughness = 1.0;
     float ao = 1.0;
-    vec4 emissive;
+    vec4 emissive = vec4(0.0, 0.0, 0.0, 0.0);
     vec3 position = worldPos;
     float opacity = 1.0;
 
@@ -111,7 +113,7 @@ void main()
 
     // Specular
     if (material.components[MaterialComponentType_SPECULAR].valueType != MaterialComponentValueType_NONE)
-        specular = MaterialComponentGetValue4(MaterialComponentType_SPECULAR, uv);
+        specular = toLinear(MaterialComponentGetValue4(MaterialComponentType_SPECULAR, uv));
     else
         specular = vec4(0.5, 0.5, 0.5, 1.0);
 
@@ -126,9 +128,7 @@ void main()
         ao = MaterialComponentGetValue1(MaterialComponentType_AMBIENT_OCCLUSION, uv);
     // Emissive
     if (material.components[MaterialComponentType_EMISSIVE].valueType != MaterialComponentValueType_NONE)
-        emissive = MaterialComponentGetValue4(MaterialComponentType_EMISSIVE, uv);
-    else
-        emissive = vec4(0.0, 0.0, 0.0, 0.0);
+        emissive = toLinear(MaterialComponentGetValue4(MaterialComponentType_EMISSIVE, uv));
 
    // Opacity
    if (material.components[MaterialComponentType_OPACITY].valueType != MaterialComponentValueType_NONE)
@@ -151,7 +151,7 @@ void main()
     for (int i = 0; i < lightCount; ++i) {
         Light light = lights[i];
 
-        if (isLightInBlock(screenPos, i) == false)
+        if (isLightInBlock(gl_FragCoord.xy, i) == false)
             continue;
 
         // Compute BRDF for this light
@@ -162,26 +162,11 @@ void main()
 
         if (tangentSpace) {
             finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+        } else {
+            finalColor.rgb += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
         }
-        // finalColor.rgb = normal;
-        // position.y = -position.y;
-        // vec3 q1 = dFdx(position);
-        // vec3 q2 = dFdy(position);
-        // vec2 st1 = dFdx(uv);
-        // vec2 st2 = dFdy(uv);
-        // vec3 T = normalize(q1 * st2.t - q2 * st1.t);
-        // vec3 N = normalize(realNormal);
-        // vec3 B = -normalize(cross(N, T));
-        // mat3 TBN_ = mat3(T, B, N);
-        // vec3 normalTest = graphicsSettings.hdrEnabled == 1 ? fromLinear(GetMaterialTexture(MaterialComponentType_NORMAL, uv)).rgb : GetMaterialTexture(MaterialComponentType_NORMAL, uv).rgb;
-        // normalTest = normalTest * 2.0 - 1.0;
-        // normalTest = normalize(TBN_ * normalTest);
-
-        // finalColor.rgb = normalTest;
-        //finalColor.rgb = vec3(dot(normalTest, viewDir));
-        //finalColor.rgb = vec3(TBN[0][0], TBN[1][1], TBN[2][2]);
-        finalColor.rgb += emissive.rgb * emissive.a;
     }
+    finalColor.rgb += emissive.rgb * emissive.a;
     finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness);
 
     // Set transparency

@@ -79,12 +79,16 @@ void VulkanGUI::__SetStyle()
     //_style->Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
     //_style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 
+    _style->WindowBorderSize = 0.0f;
+    _style->ChildBorderSize = 1.0f;
+    _style->WindowPadding = ImVec2(3, 3);
+
     _style->WindowMinSize = ImVec2(160, 20);
     _style->FramePadding = ImVec2(4, 2);
     _style->ItemSpacing = ImVec2(6, 2);
     _style->ItemInnerSpacing = ImVec2(6, 4);
     _style->Alpha = 1.0f;
-    _style->WindowRounding = 4.0f;
+    _style->WindowRounding = 0.0f;
     _style->FrameRounding = 2.0f;
     _style->IndentSpacing = 6.0f;
     _style->ItemInnerSpacing = ImVec2(2, 4);
@@ -96,7 +100,6 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_Text] = ImVec4(0.86f, 0.93f, 0.89f, 0.78f);
     _style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
     _style->Colors[ImGuiCol_WindowBg] = ImVec4(0.13f, 0.14f, 0.17f, 1.00f);
-    _style->Colors[ImGuiCol_Border] = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
     _style->Colors[ImGuiCol_BorderShadow] = ImVec4(1.00f, 0.00f, 0.00f, 0.00f);
     _style->Colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
     _style->Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
@@ -109,6 +112,8 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_PlotLines] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
     _style->Colors[ImGuiCol_PlotHistogram] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
     _style->Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
+
+    _style->Colors[ImGuiCol_Border] = ImVec4(0.00f, 0.00f, 0.00f, 0.350f);
 
     // Colored ones
     _style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
@@ -125,6 +130,7 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_Header] = ImVec4(0.12f, 0.59f, 0.18f, 0.76f);
     _style->Colors[ImGuiCol_HeaderHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.86f);
     _style->Colors[ImGuiCol_HeaderActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_Separator] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
     _style->Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
     _style->Colors[ImGuiCol_SeparatorActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
     _style->Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
@@ -273,24 +279,36 @@ void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
     va_end(args);
 }
 
-void VulkanGUI::_Image(vc::Texture* texture, const vcm::Vec2 & size)
+void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size)
 {
     void * textureId;
     if (texture->GetGUITextureID(&textureId) != vc::Error::Success) {
         vc::Log::Error("Failed to get GUI texture ID");
         return;
     }
-    // Remove padding from the window
-    ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
-}
+    ImVec2 availableSpace = ImGui::GetContentRegionAvail();
 
-void VulkanGUI::_Image(const vc::RenderTarget* renderTarget, const vcm::Vec2& size)
-{
-    void * textureId;
-    if (renderTarget->GetTexture()->GetGUITextureID(&textureId) != vc::Error::Success) {
-        vc::Log::Error("Failed to get GUI texture ID");
-        return;
+    float verticalOffset = (availableSpace.y - size.y) * 0.5f;
+
+    // Draw a black background if a vertical offset is applied
+    if (verticalOffset > 0.0f) {
+        // Get the current cursor position in screen space
+        ImVec2 cursorScreenPos = ImGui::GetCursorScreenPos();
+
+        ImVec2 bgMin = cursorScreenPos;
+        ImVec2 bgMax = ImVec2(cursorScreenPos.x + size.x, cursorScreenPos.y + availableSpace.y);
+
+        // Access the window's draw list and draw the background rectangle
+        ImGui::GetWindowDrawList()->AddRectFilled(
+            bgMin,
+            bgMax,
+            IM_COL32(4, 4, 4, 255) // Black color
+        );
+
+        // Adjust cursor position for vertical centering
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + verticalOffset);
     }
+
     // Remove padding from the window
     ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
 }
@@ -435,6 +453,11 @@ void VulkanGUI::_EndChild()
 bool VulkanGUI::_MenuItem(const char* str, const char* text)
 {
     return ImGui::MenuItem(str, text);
+}
+
+void VulkanGUI::_SetNextItemWidth(float item_width)
+{
+    ImGui::SetNextItemWidth(item_width);
 }
 
 void VulkanGUI::_SetItemDefaultFocus()

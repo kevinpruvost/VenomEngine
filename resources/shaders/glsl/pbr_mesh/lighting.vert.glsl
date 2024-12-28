@@ -39,5 +39,5 @@ void main() {
     bitangent = B;
 
     fragTexCoord = inTexCoord; // Pass the texture
-    screenPos = gl_Position.xy / gl_Position.w; // Store the screen position for later use
+    screenPos = gl_Position.xy; // Store the screen position for later use
 }

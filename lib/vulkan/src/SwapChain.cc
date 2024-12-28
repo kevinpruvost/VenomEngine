@@ -126,6 +126,7 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     // Scissor is a rectangle that defines the pixels that the rasterizer will use from the framebuffer
     scissor.offset = {0, 0};
     scissor.extent = extent;
+    vc::GraphicsSettings::SetWindowExtent(extent.width, extent.height);
     return vc::Error::Success;
 }
 

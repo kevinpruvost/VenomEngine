@@ -118,7 +118,10 @@ void SceneGUI()
         vc::GUI::Begin("Scene", nullptr, vc::GUIWindowFlags_NoSavedSettings);
         {
             static vc::RenderTarget renderTarget(vc::RenderingPipelineType::PBRModel, vc::ShaderVertexFormat::Vec4);
-            vc::GUI::Image(&renderTarget, vc::GUI::GetContentRegionAvail());
+            // 16/9 size
+            vcm::Vec2 renderingSize = vc::GUI::GetContentRegionAvail();
+            renderingSize.y = std::min(renderingSize.x * 9.0f / 16.0f, renderingSize.y);
+            vc::GUI::Image(&renderTarget, renderingSize);
             //static vc::Texture textureTest("hank_happy.png");
             //vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
         }
