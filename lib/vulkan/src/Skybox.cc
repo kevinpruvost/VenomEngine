@@ -37,6 +37,7 @@ VulkanSkybox::VulkanSkybox()
 
 VulkanSkybox::~VulkanSkybox()
 {
+    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama).FreeSet(__descriptorSet);
 }
 
 vc::Error VulkanSkybox::_LoadSkybox(const vc::Texture& texture)

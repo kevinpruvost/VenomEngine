@@ -19,6 +19,10 @@ DescriptorPool * DescriptorPool::s_pool = nullptr;
 
 #define GROUP_UPDATE(func) for (int i = 0; i < __descriptorSets.size(); ++i) { __descriptorSets[i].func; }
 
+DescriptorSetGroup::~DescriptorSetGroup()
+{
+}
+
 void DescriptorSetGroup::GroupUpdate(const VkWriteDescriptorSet& write)
 {
     GROUP_UPDATE(Update(write));

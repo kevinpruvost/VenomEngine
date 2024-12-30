@@ -15,6 +15,10 @@ namespace common
 {
 static vc::Vector<ShaderPipelineList> __renderingPipelineCache(static_cast<int>(RenderingPipelineType::Count));
 
+RenderingPipelineImpl::~RenderingPipelineImpl()
+{
+}
+
 const ShaderPipelineList& RenderingPipelineImpl::GetRenderingPipelineCache(const RenderingPipelineType type)
 {
     venom_assert(type != RenderingPipelineType::None || type != RenderingPipelineType::Count, "Rendering Pipeline Type is None or Count.");

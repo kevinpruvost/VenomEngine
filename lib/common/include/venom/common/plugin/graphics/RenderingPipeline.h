@@ -20,7 +20,7 @@ class VENOM_COMMON_API RenderingPipelineImpl : public PluginObjectImpl, public G
 {
 public:
     RenderingPipelineImpl(const RenderingPipelineType type = RenderingPipelineType::None) : __type(type) {}
-    ~RenderingPipelineImpl() = default;
+    virtual ~RenderingPipelineImpl();
 
     inline void SetShaderType(const RenderingPipelineType type) { __type = type; }
     inline RenderingPipelineType GetShaderType() const { return __type; }

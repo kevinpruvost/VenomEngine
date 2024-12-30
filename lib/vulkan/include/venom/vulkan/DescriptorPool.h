@@ -25,6 +25,7 @@ class DescriptorSetGroup
 {
 public:
     DescriptorSetGroup() = default;
+    ~DescriptorSetGroup();
 
     void GroupUpdate(const VkWriteDescriptorSet &write);
     void GroupUpdateBuffer(UniformBuffer & buffer, uint32_t bufferOffset, uint32_t binding, VkDescriptorType descriptorType, uint32_t descriptorCount, uint32_t arrayElement = 0);

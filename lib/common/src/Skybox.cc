@@ -18,6 +18,10 @@ SkyboxImpl::SkyboxImpl()
 {
 }
 
+SkyboxImpl::~SkyboxImpl()
+{
+}
+
 vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
 {
     vc::Error err =  __panorama.LoadImageFromFile(texturePath);

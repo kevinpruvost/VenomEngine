@@ -18,6 +18,8 @@ Plugin::Plugin(const PluginType type)
     : __type(type)
     , __objects()
     , __objectsToRemove()
+    , __objectsToRemoveLocked(false)
+    , __objectsToRemoveNext()
 {
 }
 
@@ -33,14 +35,22 @@ void Plugin::RemovePluginObject(IPluginObject* object)
     if (ite != __objects.end())
     {
         // Move to remove list
-        __objectsToRemove.push_back(std::move(*ite));
+        if (__objectsToRemoveLocked)
+            __objectsToRemoveNext.emplace_back(std::move(*ite));
+        else
+            __objectsToRemove.emplace_back(std::move(*ite));
         __objects.erase(ite);
     }
 }
 
 void Plugin::CleanPluginObjects()
 {
-    __objectsToRemove.clear();
+    while (!__objectsToRemove.empty()) {
+        __objectsToRemoveLocked = true;
+        __objectsToRemove.clear();
+        __objectsToRemoveLocked = false;
+        __objectsToRemove = std::move(__objectsToRemoveNext);
+    }
 }
 
 Plugin::~Plugin()

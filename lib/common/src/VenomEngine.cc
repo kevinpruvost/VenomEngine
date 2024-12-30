@@ -58,7 +58,6 @@ VenomEngine::VenomEngine()
         Log::Error("VenomEngine::VenomEngine() : Failed to create memory pool");
         abort();
     }
-    __LoadECS();
 }
 
 VenomEngine::~VenomEngine()
@@ -103,6 +102,7 @@ Error VenomEngine::RunEngine(int argc, char** argv)
     if (err = app->Init(); err != vc::Error::Success) {
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
     } else {
+        s_instance->__LoadECS();
         s_sceneCallback();
         vc::Timer::ResetLoopTimer();
         while (!app->ShouldClose())
@@ -158,6 +158,9 @@ void VenomEngine::__LoadECS()
     __ecs->RegisterComponent<Model>();
     __ecs->RegisterComponent<Skybox>();
     __ecs->RegisterComponent<Light>();
+
+    // Need to clean ECS objects that were instantiated
+    pluginManager->CleanPluginsObjets();
 }
 }
 }

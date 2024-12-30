@@ -22,13 +22,14 @@ typedef flecs::entity Entity;
 
 typedef flecs::system System;
 
-class VenomComponent
+class VENOM_COMMON_API VenomComponent
 {
 public:
     VenomComponent() = default;
     virtual ~VenomComponent() = default;
 
     void GUI();
+    inline vc::String GetComponentTitle() { return _GetComponentTitle(); }
 protected:
     virtual void _GUI() = 0;
     virtual vc::String _GetComponentTitle() = 0;
@@ -55,11 +56,12 @@ public:
     template <InheritsFromComponent T>
     void RegisterComponent() {
         __world.component<T>();
-        // T component;
-        // vc::String name = component._GetComponentTitle();
+        vc::VenomComponent * component = new T();
+        vc::String name = component->GetComponentTitle();
         // __componentsCreateFuncs[name] = []() -> VenomComponent* {
         //     return new T();
         // };
+        delete component;
     }
 
     Entity CreateEntity();

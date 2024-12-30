@@ -29,7 +29,7 @@ class VENOM_COMMON_API SkyboxImpl : public PluginObjectImpl, public GraphicsPlug
 {
 public:
     SkyboxImpl();
-    virtual ~SkyboxImpl() = default;
+    virtual ~SkyboxImpl();
 
     vc::Error LoadSkybox(const char * texturePath);
     vc::Error LoadSkybox(const SPtr<GraphicsCachedResource> res);
