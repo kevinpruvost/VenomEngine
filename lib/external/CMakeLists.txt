@@ -203,3 +203,9 @@ if (APPLE)
     # nfd needs AppKit
     target_link_libraries(nfd "-framework AppKit")
 endif ()
+
+# IconFontCppHeaders
+add_library(IconFontCppHeaders INTERFACE)
+target_include_directories(IconFontCppHeaders INTERFACE
+    "${CMAKE_CURRENT_SOURCE_DIR}/IconFontCppHeaders/"
+)

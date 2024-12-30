@@ -31,54 +31,6 @@ void VulkanGUI::__SetStyle()
 {
     auto _style = &ImGui::GetStyle();
 
-    //_style->WindowPadding = ImVec2(15, 15);
-    //_style->WindowRounding = 5.0f;
-    //_style->FramePadding = ImVec2(5, 5);
-    //_style->FrameRounding = 4.0f;
-    //_style->ItemSpacing = ImVec2(12, 8);
-    //_style->ItemInnerSpacing = ImVec2(8, 6);
-    //_style->IndentSpacing = 25.0f;
-    //_style->ScrollbarSize = 15.0f;
-    //_style->ScrollbarRounding = 9.0f;
-    //_style->GrabMinSize = 5.0f;
-    //_style->GrabRounding = 3.0f;
-
-    //_style->Colors[ImGuiCol_Text] = ImVec4(0.80f, 0.80f, 0.83f, 1.00f);
-    //_style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-    //_style->Colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-    //_style->Colors[ImGuiCol_ChildBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-    //_style->Colors[ImGuiCol_PopupBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-    //_style->Colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-    //_style->Colors[ImGuiCol_BorderShadow] = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);
-    //_style->Colors[ImGuiCol_FrameBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-    //_style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-    //_style->Colors[ImGuiCol_FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-    //_style->Colors[ImGuiCol_TitleBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-    //_style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
-    //_style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-    //_style->Colors[ImGuiCol_MenuBarBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-    //_style->Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-    //_style->Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-    //_style->Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-    //_style->Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-    //_style->Colors[ImGuiCol_CheckMark] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-    //_style->Colors[ImGuiCol_SliderGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-    //_style->Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-    //_style->Colors[ImGuiCol_Button] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-    //_style->Colors[ImGuiCol_ButtonHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-    //_style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-    //_style->Colors[ImGuiCol_Header] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-    //_style->Colors[ImGuiCol_HeaderHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-    //_style->Colors[ImGuiCol_HeaderActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-    //_style->Colors[ImGuiCol_ResizeGrip] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-    //_style->Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-    //_style->Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-    //_style->Colors[ImGuiCol_PlotLines] = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
-    //_style->Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
-    //_style->Colors[ImGuiCol_PlotHistogram] = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
-    //_style->Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
-    //_style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
-
     _style->WindowBorderSize = 0.0f;
     _style->ChildBorderSize = 1.0f;
     _style->WindowPadding = ImVec2(3, 3);
@@ -97,47 +49,47 @@ void VulkanGUI::__SetStyle()
     _style->GrabRounding = 16.0f;
     _style->ScrollbarSize = 12.0f;
     _style->ScrollbarRounding = 16.0f;
-    _style->Colors[ImGuiCol_Text] = ImVec4(0.86f, 0.93f, 0.89f, 0.78f);
-    _style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
-    _style->Colors[ImGuiCol_WindowBg] = ImVec4(0.13f, 0.14f, 0.17f, 1.00f);
-    _style->Colors[ImGuiCol_BorderShadow] = ImVec4(1.00f, 0.00f, 0.00f, 0.00f);
-    _style->Colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
-    _style->Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
-    _style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.20f, 0.22f, 0.27f, 0.75f);
-    _style->Colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.47f);
-    _style->Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
-    _style->Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.09f, 0.15f, 0.16f, 1.00f);
-    _style->Colors[ImGuiCol_Separator] = ImVec4(0.14f, 0.16f, 0.19f, 1.00f);
-    _style->Colors[ImGuiCol_ResizeGrip] = ImVec4(0.47f, 0.77f, 0.83f, 0.04f);
-    _style->Colors[ImGuiCol_PlotLines] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
-    _style->Colors[ImGuiCol_PlotHistogram] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
-    _style->Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
+    _style->Colors[ImGuiCol_Text] = ImVec4(0.86f, 0.93f, 0.89f, 0.78f); // Light text
+    _style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.55f, 0.58f, 0.28f); // Muted text
+    _style->Colors[ImGuiCol_WindowBg] = ImVec4(0.025f, 0.025f, 0.025f, 1.00f); // Very dark background
+    _style->Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.50f);
+    _style->Colors[ImGuiCol_FrameBg] = ImVec4(0.12f, 0.12f, 0.12f, 1.00f); // Darker gray
+    _style->Colors[ImGuiCol_TitleBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f); // Dark gray
+    _style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.10f, 0.10f, 0.10f, 0.75f);
+    _style->Colors[ImGuiCol_MenuBarBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.90f); // Near black
+    _style->Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+    _style->Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+    _style->Colors[ImGuiCol_Separator] = ImVec4(0.15f, 0.15f, 0.15f, 1.00f);
+    _style->Colors[ImGuiCol_ResizeGrip] = ImVec4(0.25f, 0.25f, 0.25f, 0.04f);
+    _style->Colors[ImGuiCol_PlotLines] = ImVec4(0.50f, 0.55f, 0.58f, 0.63f);
+    _style->Colors[ImGuiCol_PlotHistogram] = ImVec4(0.50f, 0.55f, 0.58f, 0.63f);
+    _style->Colors[ImGuiCol_PopupBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.95f); // Near black
 
-    _style->Colors[ImGuiCol_Border] = ImVec4(0.00f, 0.00f, 0.00f, 0.350f);
+    _style->Colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 0.0f, 0.50f); // Subtle border
 
     // Colored ones
-    _style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
-    _style->Colors[ImGuiCol_FrameBgActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
-    _style->Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.12f, 0.4f, 0.18f, 0.78f);
+    _style->Colors[ImGuiCol_FrameBgActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.12f, 0.4f, 0.18f, 0.78f);
+    _style->Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
     _style->Colors[ImGuiCol_CheckMark] = ImVec4(0.14f, 0.45f, 0.17f, 1.00f);
     _style->Colors[ImGuiCol_SliderGrab] = ImVec4(0.09f, 0.53f, 0.30f, 0.14f);
-    _style->Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
     _style->Colors[ImGuiCol_Button] = ImVec4(0.09f, 0.53f, 0.30f, 0.14f);
-    _style->Colors[ImGuiCol_ButtonHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.86f);
-    _style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_Header] = ImVec4(0.12f, 0.59f, 0.18f, 0.76f);
-    _style->Colors[ImGuiCol_HeaderHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.86f);
-    _style->Colors[ImGuiCol_HeaderActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_Separator] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
-    _style->Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
-    _style->Colors[ImGuiCol_SeparatorActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.12f, 0.59f, 0.18f, 0.78f);
-    _style->Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.12f, 0.59f, 0.18f, 1.00f);
-    _style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.12f, 0.59f, 0.18f, 0.43f);
+    _style->Colors[ImGuiCol_ButtonHovered] = ImVec4(0.12f, 0.4f, 0.18f, 0.86f);
+    _style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_Header] = ImVec4(0.12f, 0.4f, 0.18f, 0.76f);
+    _style->Colors[ImGuiCol_HeaderHovered] = ImVec4(0.12f, 0.4f, 0.18f, 0.86f);
+    _style->Colors[ImGuiCol_HeaderActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_Separator] = ImVec4(0.12f, 0.4f, 0.18f, 0.78f);
+    _style->Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.12f, 0.4f, 0.18f, 0.78f);
+    _style->Colors[ImGuiCol_SeparatorActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.12f, 0.4f, 0.18f, 0.78f);
+    _style->Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.12f, 0.4f, 0.18f, 1.00f);
+    _style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.12f, 0.4f, 0.18f, 0.43f);
 
     _style->Colors[ImGuiCol_Tab] = ImVec4(0.0f, 0.3f, 0.0f, 1.0f);           // Dark green for an inactive tab
     _style->Colors[ImGuiCol_TabHovered] = ImVec4(0.0f, 0.5f, 0.0f, 1.0f);    // Brighter green when the tab is hovered
@@ -184,12 +136,13 @@ vc::Error VulkanGUI::Initialize()
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.Fonts->AddFontDefault();
 
     __SetStyle();
     return vc::Error::Success;
 }
 
-vc::Error VulkanGUI::Reset()
+vc::Error VulkanGUI::_Reset()
 {
     const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
 
@@ -198,6 +151,33 @@ vc::Error VulkanGUI::Reset()
     ImGui_ImplGlfw_Shutdown();
 
     return Initialize();
+}
+
+void VulkanGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    ImFontConfig iconsConfig;
+    iconsConfig.MergeMode = true;
+    iconsConfig.GlyphOffset.y = 2.0f;
+    //iconsConfig.PixelSnapH = true;
+    iconsConfig.GlyphMinAdvanceX = fontSize;
+    iconsConfig.OversampleH = 3;
+    iconsConfig.OversampleV = 3;
+    io.Fonts->AddFontFromFileTTF(fontPath, fontSize, &iconsConfig, glyphRanges);
+}
+
+void VulkanGUI::_AddFont(const char* fontPath, float fontSize)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    ImFontConfig iconsConfig;
+    iconsConfig.OversampleH = 3;
+    iconsConfig.OversampleV = 3;
+    ImFont * font = io.Fonts->AddFontFromFileTTF(fontPath, fontSize, &iconsConfig);
+    if (font == nullptr) {
+        vc::Log::Error("Failed to load font: %s", fontPath);
+    } else {
+        io.FontDefault = font;
+    }
 }
 
 void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const vcm::Vec2& pivot)
@@ -279,34 +259,37 @@ void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
     va_end(args);
 }
 
-void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size)
+void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size, bool centering)
 {
     void * textureId;
     if (texture->GetGUITextureID(&textureId) != vc::Error::Success) {
         vc::Log::Error("Failed to get GUI texture ID");
         return;
     }
-    ImVec2 availableSpace = ImGui::GetContentRegionAvail();
 
-    float verticalOffset = (availableSpace.y - size.y) * 0.5f;
+    if (centering) {
+        ImVec2 availableSpace = ImGui::GetContentRegionAvail();
 
-    // Draw a black background if a vertical offset is applied
-    if (verticalOffset > 0.0f) {
-        // Get the current cursor position in screen space
-        ImVec2 cursorScreenPos = ImGui::GetCursorScreenPos();
+        float verticalOffset = (availableSpace.y - size.y) * 0.5f;
 
-        ImVec2 bgMin = cursorScreenPos;
-        ImVec2 bgMax = ImVec2(cursorScreenPos.x + size.x, cursorScreenPos.y + availableSpace.y);
+        // Draw a black background if a vertical offset is applied
+        if (verticalOffset > 0.0f) {
+            // Get the current cursor position in screen space
+            ImVec2 cursorScreenPos = ImGui::GetCursorScreenPos();
 
-        // Access the window's draw list and draw the background rectangle
-        ImGui::GetWindowDrawList()->AddRectFilled(
-            bgMin,
-            bgMax,
-            IM_COL32(4, 4, 4, 255) // Black color
-        );
+            ImVec2 bgMin = cursorScreenPos;
+            ImVec2 bgMax = ImVec2(cursorScreenPos.x + size.x, cursorScreenPos.y + availableSpace.y);
 
-        // Adjust cursor position for vertical centering
-        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + verticalOffset);
+            // Access the window's draw list and draw the background rectangle
+            ImGui::GetWindowDrawList()->AddRectFilled(
+                bgMin,
+                bgMax,
+                IM_COL32(4, 4, 4, 255) // Black color
+            );
+
+            // Adjust cursor position for vertical centering
+            ImGui::SetCursorPosY(ImGui::GetCursorPosY() + verticalOffset);
+        }
     }
 
     // Remove padding from the window
@@ -468,6 +451,21 @@ void VulkanGUI::_SetItemDefaultFocus()
 void VulkanGUI::_SameLine(float offset_from_start_x, float spacing)
 {
     ImGui::SameLine(offset_from_start_x, spacing);
+}
+
+void VulkanGUI::_PushItemWidth(float item_width)
+{
+    ImGui::PushItemWidth(item_width);
+}
+
+void VulkanGUI::_PopItemWidth()
+{
+    ImGui::PopItemWidth();
+}
+
+void VulkanGUI::_PushButtonTextAlign(const vcm::Vec2& padding)
+{
+    ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, ImVec2(padding.x, padding.y));
 }
 
 void VulkanGUI::_PushWindowPadding(const vcm::Vec2& padding)

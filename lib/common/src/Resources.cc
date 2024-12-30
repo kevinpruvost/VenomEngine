@@ -106,6 +106,11 @@ std::string Resources::GetTexturesResourcePath(const std::string& resourcePath)
     return __GetResourcePath(resourcePath, GetResourcePath("textures/"));
 }
 
+std::string Resources::GetFontsResourcePath(const std::string& resourcePath)
+{
+    return __GetResourcePath(resourcePath, GetResourcePath("fonts/"));
+}
+
 std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
 {
     return __GetResourcePath(resourcePath, GetResourcePath("shaders/"));

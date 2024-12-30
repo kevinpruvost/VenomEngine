@@ -33,6 +33,7 @@ target_link_libraries(${PROJECT_NAME}
     openvdb_static
     MikkTSpace
     nfd
+    IconFontCppHeaders
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE

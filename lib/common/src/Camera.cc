@@ -59,7 +59,7 @@ void Camera::_GUI()
 
 vc::String Camera::_GetComponentTitle()
 {
-    return "Camera";
+    return ICON_MS_PHOTO_CAMERA " Camera";
 }
 
 const vcm::Mat4& CameraImpl::GetViewMatrix()

@@ -82,7 +82,7 @@ void Skybox::_GUI()
 
 vc::String Skybox::_GetComponentTitle()
 {
-    return "Skybox";
+    return ICON_MS_VRPANO " Skybox";
 }
 }
 }

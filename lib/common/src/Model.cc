@@ -64,7 +64,7 @@ void Model::_GUI()
 
 vc::String Model::_GetComponentTitle()
 {
-    return "Model";
+    return ICON_MS_VIEW_IN_AR " Model";
 }
 
 static MaterialComponentType GetMaterialComponentTypeFromAiTextureType(const aiTextureType type)

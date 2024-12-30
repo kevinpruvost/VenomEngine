@@ -63,6 +63,13 @@ void SceneInput(vc::Context * context)
 
 void SceneGUI()
 {
+    if (vc::GUI::isFirstFrame())
+    {
+        vc::GUI::AddFont("NotoSans-Regular.ttf", 16.0f);
+        uint16_t ranges[] = {ICON_MIN_MS, ICON_MAX_16_MS, 0};
+        vc::GUI::AddFont("MaterialSymbolsOutlined.ttf", 16.0f, ranges);
+    }
+
     vc::Entity light1 = vc::ECS::GetEntity("light1");
 
     vc::GUI::NewFrame();
@@ -84,6 +91,8 @@ void SceneGUI()
     vc::GUI::DockSpace(mainDockSpaceId, vcm::Vec2(0.0f, 0.0f), dockspaceFlags);
     {
         if (vc::GUI::BeginMenuBar()) {
+            static vc::Texture venomIcon("VenomEngineLogo_Small.png");
+            vc::GUI::Image(&venomIcon, {16, 16}, false);
             if (vc::GUI::BeginMenu("Shaders")) {
                 if (vc::GUI::MenuItem("Recompile & Reload Shaders", "Ctrl+Shift+C")) {
                     vc::ShaderPipeline::RecompileAllShaders();
@@ -97,9 +106,9 @@ void SceneGUI()
             vc::GUI::EndMenuBar();
         }
 
-        vc::GUI::Begin("Settings & Objects", nullptr, vc::GUIWindowFlags_NoCollapse);
+        vc::GUI::Begin(ICON_MS_SETTINGS " Settings & Objects", nullptr, vc::GUIWindowFlags_NoCollapse);
         {
-            if (vc::GUI::CollapsingHeader("Scene Settings:", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+            if (vc::GUI::CollapsingHeader("Scene Settings", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
                 vc::GUI::Checkbox("Camera Locked", &cameraLocked);
                 vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
                 // if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
@@ -115,7 +124,7 @@ void SceneGUI()
         vc::GUI::End();
 
         vc::GUI::PushWindowPadding({0, 0});
-        vc::GUI::Begin("Scene", nullptr, vc::GUIWindowFlags_NoSavedSettings);
+        vc::GUI::Begin(ICON_MS_FOREST " Scene", nullptr, vc::GUIWindowFlags_NoSavedSettings);
         {
             static vc::RenderTarget renderTarget(vc::RenderingPipelineType::PBRModel, vc::ShaderVertexFormat::Vec4);
             // 16/9 size
@@ -128,11 +137,8 @@ void SceneGUI()
         vc::GUI::End();
         vc::GUI::PopStyleVar();
 
-        static bool sFirstFrame = true;
-        if (sFirstFrame)
+        if (vc::GUI::isFirstFrame())
         {
-            sFirstFrame = false;
-
             const vcm::Vec2 dockspaceSize = vc::GUI::GetWindowSize();
             vc::GUI::DockSpaceRemoveNode(mainDockSpaceId);
             vc::GUI::DockSpaceAddNode(mainDockSpaceId, vc::GUIDockNodeFlags_DockSpace | vc::GUIDockNodeFlags_NoWindowMenuButton);
@@ -142,12 +148,12 @@ void SceneGUI()
             vc::GUIId dockIdSceneRendering;
             vc::GUIId dockIdEntitiesProps;
 
-            dockIdSettingsObjects = vc::GUI::DockSpaceSplitNode(mainDockSpaceId, vc::GUIDir_Left, 0.2, NULL, &dockIdSceneRendering);
-            dockIdEntitiesProps = vc::GUI::DockSpaceSplitNode(dockIdSceneRendering, vc::GUIDir_Right, 0.25f, NULL, &dockIdEntitiesProps);
+            dockIdSettingsObjects = vc::GUI::DockSpaceSplitNode(mainDockSpaceId, vc::GUIDir_Left, 0.25f, NULL, &dockIdSceneRendering);
+            dockIdEntitiesProps = vc::GUI::DockSpaceSplitNode(dockIdSceneRendering, vc::GUIDir_Right, 0.3f, NULL, &dockIdEntitiesProps);
 
-            vc::GUI::DockWindow("Settings & Objects", dockIdSettingsObjects);
-            vc::GUI::DockWindow("Scene", dockIdSceneRendering);
-            vc::GUI::DockWindow("Entity Properties", dockIdEntitiesProps);
+            vc::GUI::DockWindow(ICON_MS_SETTINGS " Settings & Objects", dockIdSettingsObjects);
+            vc::GUI::DockWindow(ICON_MS_FOREST " Scene", dockIdSceneRendering);
+            vc::GUI::DockWindow(ICON_MS_INFO " Inspector", dockIdEntitiesProps);
 
             vc::GUI::DockFinish(mainDockSpaceId);
         }

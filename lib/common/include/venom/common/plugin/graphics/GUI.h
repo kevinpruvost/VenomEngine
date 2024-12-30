@@ -12,6 +12,7 @@
 #include <venom/common/plugin/graphics/GUI_Enum.h>
 
 #include <venom/common/plugin/graphics/RenderTarget.h>
+#include <IconsMaterialSymbols.h>
 
 namespace venom
 {
@@ -34,14 +35,18 @@ public:
     void SetGraphicsApplication(GraphicsApplication * app);
 
     virtual vc::Error Initialize() = 0;
-    virtual vc::Error Reset() = 0;
+    vc::Error Reset();
 
     inline void DrawCallback() { if (s_guiDrawCallback) s_guiDrawCallback(); }
     static inline void SetGUIDrawCallback(GUIDrawCallback guiDrawCallback) { s_guiDrawCallback = guiDrawCallback; }
 
-    inline void Render() { DrawCallback(); s_gui->_Render(); }
+    void Render();
 
     static inline GUI * Get() { return s_gui; }
+
+    static void AddFont(const char * fontPath, float fontSize, const uint16_t * glyphRanges);
+    static void AddFont(const char * fontPath, float fontSize);
+    static void ClearFonts();
 
     static inline void SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond = GUICondBits::GUICond_None, const vcm::Vec2 & pivot = vcm::Vec2(0, 0)) { s_gui->_SetNextWindowPos(pos, cond, pivot); }
     static inline void SetNextWindowSize(const vcm::Vec2 & size, GUICond cond = GUICondBits::GUICond_None) { s_gui->_SetNextWindowSize(size, cond); }
@@ -59,8 +64,8 @@ public:
     static inline void TextColored(const vcm::Vec4 & col, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_TextColored(col, fmt, args); va_end(args); }
     static inline void LabelText(const char* label, const char* fmt, ...) { va_list args; va_start(args, fmt); s_gui->_LabelText(label, fmt, args); va_end(args); }
 
-    static inline void Image(const vc::Texture * texture, const vcm::Vec2 & size) { s_gui->_Image(texture, size); }
-    static inline void Image(const vc::RenderTarget * renderTarget, const vcm::Vec2 & size) { s_gui->_Image(renderTarget->GetTexture(), size); }
+    static inline void Image(const vc::Texture * texture, const vcm::Vec2 & size, bool centering = true) { s_gui->_Image(texture, size, centering); }
+    static inline void Image(const vc::RenderTarget * renderTarget, const vcm::Vec2 & size, bool centering = true) { s_gui->_Image(renderTarget->GetTexture(), size, centering); }
 
     static inline bool InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags = 0) { return s_gui->_InputText(label, buf, buf_size, flags); }
 
@@ -110,6 +115,10 @@ public:
 
     static inline void SameLine(float offset_from_start_x = 0.0f, float spacing = -1.0f) { s_gui->_SameLine(offset_from_start_x, spacing); }
 
+    static inline void PushItemWidth(float item_width) { s_gui->_PushItemWidth(item_width); }
+    static inline void PopItemWidth() { s_gui->_PopItemWidth(); }
+
+    static inline void PushButtonTextAlign(const vcm::Vec2 & padding) { s_gui->_PushButtonTextAlign(padding); }
     static inline void PushWindowPadding(const vcm::Vec2 & padding) { s_gui->_PushWindowPadding(padding); }
     static inline void PopStyleVar() { s_gui->_PopStyleVar(); }
 
@@ -123,6 +132,7 @@ public:
     static inline void DockWindow(const char * str_id, GUIId id) { s_gui->_DockWindow(str_id, id); }
     static inline void DockFinish(GUIId id) { s_gui->_DockFinish(id); }
 
+    static bool isFirstFrame();
 
     static inline GUIId GetID(const char * str_id) { return s_gui->_GetID(str_id); }
 
@@ -138,6 +148,11 @@ private:
     static void _EntityPropertiesWindow();
 
 protected:
+    virtual vc::Error _Reset() = 0;
+
+    virtual void _AddFont(const char * fontPath, float fontSize, const uint16_t * glyphRanges) = 0;
+    virtual void _AddFont(const char * fontPath, float fontSize) = 0;
+
     virtual void _SetNextWindowPos(const vcm::Vec2 & pos, GUICond cond, const vcm::Vec2 & pivot) = 0;
     virtual void _SetNextWindowSize(const vcm::Vec2 & size, GUICond cond) = 0;
     virtual void _SetNextWindowViewport(GUIViewport viewport) = 0;
@@ -155,7 +170,7 @@ protected:
     virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
     virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
 
-    virtual void _Image(const vc::Texture * texture, const vcm::Vec2 & size) = 0;
+    virtual void _Image(const vc::Texture * texture, const vcm::Vec2 & size, bool centering) = 0;
 
     virtual bool _InputText(const char* label, char* buf, size_t buf_size, GUIInputTextFlags flags) = 0;
 
@@ -205,6 +220,10 @@ protected:
 
     virtual void _SameLine(float offset_from_start_x, float spacing) = 0;
 
+    virtual void _PushItemWidth(float item_width) = 0;
+    virtual void _PopItemWidth() = 0;
+
+    virtual void _PushButtonTextAlign(const vcm::Vec2 & padding) = 0;
     virtual void _PushWindowPadding(const vcm::Vec2 & padding) = 0;
     virtual void _PopStyleVar() = 0;
 
@@ -227,6 +246,13 @@ protected:
 
 protected:
     GraphicsApplication * _app;
+    struct FontData
+    {
+        const std::string path;
+        float size;
+        const uint16_t * glyphRanges;
+    };
+    vc::Vector<FontData> _fonts;
 
 private:
     /**
@@ -237,6 +263,7 @@ private:
 
 private:
     static GUI * s_gui;
+    bool __firstFrame;
 
 private:
     static GUIDrawCallback s_guiDrawCallback;

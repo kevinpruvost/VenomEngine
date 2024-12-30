@@ -132,7 +132,7 @@ void Transform3D::_GUI()
 
 vc::String Transform3D::_GetComponentTitle()
 {
-    return "Transform3D";
+    return ICON_MS_TRANSFORM " Transform3D";
 }
 
 void Transform3D::SetPosition(const vcm::Vec3& position)

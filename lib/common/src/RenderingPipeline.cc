@@ -62,7 +62,7 @@ void RenderingPipeline::_GUI()
 
 vc::String RenderingPipeline::_GetComponentTitle()
 {
-    return "Rendering Pipeline";
+    return ICON_MS_TABLE_EYE " Rendering Pipeline";
 }
 }
 }

@@ -19,6 +19,8 @@
 
 #include <nfd.h>
 
+#include "venom/common/Resources.h"
+
 namespace venom
 {
 namespace common
@@ -28,6 +30,7 @@ GUIDrawCallback GUI::s_guiDrawCallback = nullptr;
 
 GUI::GUI()
     : _app(nullptr)
+    , __firstFrame(true)
 {
     venom_assert(s_gui == nullptr, "GUI::GUI() : s_gui is not nullptr");
     s_gui = this;
@@ -41,6 +44,39 @@ GUI::~GUI()
 void GUI::SetGraphicsApplication(GraphicsApplication* app)
 {
     _app = app;
+}
+
+vc::Error GUI::Reset()
+{
+    vc::Error err = _Reset();
+    if (err != vc::Error::Success) return err;
+
+    __firstFrame = true;
+    return vc::Error::Success;
+}
+
+void GUI::Render()
+{
+    DrawCallback();
+    s_gui->_Render();
+    vc::GUI::Get()->__firstFrame = false;
+}
+
+void GUI::AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
+{
+    auto realPath = Resources::GetFontsResourcePath(fontPath);
+    s_gui->_AddFont(realPath.c_str(), fontSize, glyphRanges);
+}
+
+void GUI::AddFont(const char* fontPath, float fontSize)
+{
+    auto realPath = Resources::GetFontsResourcePath(fontPath);
+    s_gui->_AddFont(realPath.c_str(), fontSize);
+}
+
+bool GUI::isFirstFrame()
+{
+    return s_gui->__firstFrame;
 }
 
 void GUI::GraphicsSettingsCollaspingHeader()
@@ -91,7 +127,9 @@ void GUI::EntitiesListCollapsingHeader()
         {
             int n = 0;
             vc::ECS::ForEach<vc::ComponentManager>([&](vc::Entity entity, vc::ComponentManager & cm) {
-                if (vc::GUI::Selectable(entity.name().c_str(), selected == n)) {
+                vc::String name = ICON_MS_DEPLOYED_CODE " ";
+                name += entity.name();
+                if (vc::GUI::Selectable(name.c_str(), selected == n)) {
                     selected = n;
                     selectedEntity = entity;
                 }
@@ -124,7 +162,10 @@ bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
     //     vc::GUI::EndCombo();
     // }
 
-    if (vc::GUI::Button(texture->GetShortName().c_str())) {
+    float totalWidth = vc::GUI::GetContentRegionAvail().x;
+
+    vc::GUI::PushButtonTextAlign({0.0f, 0.5f});
+    if (vc::GUI::Button(texture->GetShortName().c_str(), {totalWidth * 2.0f / 3.0f, 0.0f})) {
         nfdchar_t *outPath = nullptr;
         const char * filterTextures = "png;jpg;tga;bmp;gif;psd;hdr;exr;jpeg";
         nfdresult_t result = NFD_OpenDialog(filterTextures, nullptr, &outPath);
@@ -134,8 +175,9 @@ bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
             free(outPath);
         }
     }
+    vc::GUI::PopStyleVar();
     vc::GUI::SameLine();
-    vc::GUI::Text("Texture");
+    vc::GUI::Text("Texture File");
     return ret;
 }
 
@@ -143,7 +185,10 @@ bool GUI::EditableModel(vc::Model * model, vc::String& path)
 {
     bool ret = false;
 
-    if (vc::GUI::Button(model->GetShortName().c_str())) {
+    float totalWidth = vc::GUI::GetContentRegionAvail().x;
+
+    vc::GUI::PushButtonTextAlign({0.0f, 0.5f});
+    if (vc::GUI::Button(model->GetShortName().c_str(), {totalWidth * 2.0f / 3.0f, 0.0f})) {
         nfdchar_t *outPath = nullptr;
         const char * filterModels = "obj;glb;fbx;gltf";
         nfdresult_t result = NFD_OpenDialog(filterModels, nullptr, &outPath);
@@ -153,14 +198,15 @@ bool GUI::EditableModel(vc::Model * model, vc::String& path)
             free(outPath);
         }
     }
+    vc::GUI::PopStyleVar();
     vc::GUI::SameLine();
-    vc::GUI::Text("Model");
+    vc::GUI::Text("File");
     return ret;
 }
 
 void GUI::_EntityPropertiesWindow()
 {
-    vc::GUI::Begin("Entity Properties");
+    vc::GUI::Begin(ICON_MS_INFO " Inspector");
     {
         if (selectedEntity) {
             vc::GUI::SeparatorText("Entity");

@@ -60,7 +60,7 @@ void Light::_GUI()
 
 vc::String Light::_GetComponentTitle()
 {
-    return "Light";
+    return  ICON_MS_EMOJI_OBJECTS" Light";
 }
 
 LightManager::LightManager()

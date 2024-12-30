@@ -10,7 +10,7 @@
 #include <venom/common/DLL.h>
 #include <venom/common/plugin/graphics/GUI.h>
 #include <flecs.h>
-#include <functional>
+#include <venom/common/Functional.h>
 
 #include <venom/common/Containers.h>
 
@@ -36,10 +36,14 @@ protected:
 
 typedef VenomComponent Component;
 
+template<typename T>
+concept InheritsFromComponent = std::derived_from<T, vc::VenomComponent>;
+
 /**
  * @brief Entity Component System
  * Will mainly encapsulate the fabulous flecs library (https://github.com/SanderMertens/flecs.git)
  * This class will be contained in the VenomEngine class.
+ * Also manages/lists all components types for browsing.
  */
 class VENOM_COMMON_API ECS
 {
@@ -47,9 +51,15 @@ public:
     ECS();
     ~ECS();
 
-    template <typename T>
+
+    template <InheritsFromComponent T>
     void RegisterComponent() {
         __world.component<T>();
+        // T component;
+        // vc::String name = component._GetComponentTitle();
+        // __componentsCreateFuncs[name] = []() -> VenomComponent* {
+        //     return new T();
+        // };
     }
 
     Entity CreateEntity();
@@ -101,6 +111,7 @@ private:
 
 private:
     flecs::world __world;
+    vc::UMap<vc::String, vc::Function<VenomComponent*>> __componentsCreateFuncs;
 };
 
 Entity CreatePrefab(const char* name);

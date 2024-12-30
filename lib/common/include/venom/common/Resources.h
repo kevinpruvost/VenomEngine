@@ -26,6 +26,7 @@ public:
     VENOM_COMMON_API static void FreeFilesystem();
     VENOM_COMMON_API static std::string GetResourcePath(const std::string & resourcePath);
     VENOM_COMMON_API static std::string GetTexturesResourcePath(const std::string & resourcePath);
+    VENOM_COMMON_API static std::string GetFontsResourcePath(const std::string & resourcePath);
     VENOM_COMMON_API static std::string GetShadersResourcePath(const std::string & resourcePath);
     VENOM_COMMON_API static std::string GetShadersFolderPath();
     VENOM_COMMON_API static std::string GetModelsResourcePath(const std::string & resourcePath);

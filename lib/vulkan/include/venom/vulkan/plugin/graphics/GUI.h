@@ -23,9 +23,12 @@ public:
     ~VulkanGUI() override;
 
     vc::Error Initialize() override;
-    vc::Error Reset() override;
 
 protected:
+    vc::Error _Reset() override;
+    void _AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges) override;
+    void _AddFont(const char* fontPath, float fontSize) override;
+
     void _SetNextWindowPos(const vcm::Vec2 & pos, vc::GUICond cond, const vcm::Vec2 & pivot) override;
     void _SetNextWindowSize(const vcm::Vec2& size, vc::GUICond cond) override;
     void _SetNextWindowViewport(vc::GUIViewport viewport) override;
@@ -43,7 +46,7 @@ protected:
     void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) override;
     void _LabelText(const char* label, const char* fmt, ...) override;
 
-    void _Image(const vc::Texture* texture, const vcm::Vec2 & size) override;
+    void _Image(const vc::Texture* texture, const vcm::Vec2 & size, bool centering) override;
 
     bool _InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags) override;
 
@@ -93,6 +96,10 @@ protected:
 
     void _SameLine(float offset_from_start_x, float spacing) override;
 
+    void _PushItemWidth(float item_width) override;
+    void _PopItemWidth() override;
+
+    void _PushButtonTextAlign(const vcm::Vec2& padding) override;
     void _PushWindowPadding(const vcm::Vec2& padding) override;
     void _PopStyleVar() override;
 
