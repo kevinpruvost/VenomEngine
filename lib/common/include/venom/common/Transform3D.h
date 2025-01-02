@@ -24,7 +24,9 @@ public:
     Transform3D(Transform3D && other) noexcept;
     Transform3D & operator=(Transform3D && other) noexcept;
 
-    void _GUI() override;
+    void Update(Entity entity) override;
+    void Init(Entity entity) override;
+    void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
 
     // Basic movement

@@ -35,7 +35,8 @@ public:
     Light();
     ~Light() override;
 
-    void _GUI() override;
+    void Update(Entity entity) override;
+    void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
 
     inline void SetType(const LightType type) { __type = type; }
@@ -59,21 +60,6 @@ private:
     float __radius;
     uint32_t __lightID;
     vcm::Vec3 __direction;
-};
-
-class VENOM_COMMON_API LightManager
-{
-public:
-    LightManager();
-    ~LightManager();
-
-    static const vc::Vector<Light *> & GetLights();
-    static LightManager * Get();
-
-private:
-    vc::Vector<Light *> __lights;
-
-    friend class Light;
 };
 }
 }

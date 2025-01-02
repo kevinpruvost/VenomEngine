@@ -42,7 +42,11 @@ RenderingPipeline::RenderingPipeline(const RenderingPipelineType type)
     SetShaderType(type);
 }
 
-void RenderingPipeline::_GUI()
+void RenderingPipeline::Update(Entity entity)
+{
+}
+
+void RenderingPipeline::_GUI(const Entity entity)
 {
     // Select type of Rendering Pipeline
     const vc::String renderingTypes[] = {"GUI", "Text3D", "Skybox", "PBRModel", "ComputeForwardPlusLightCulling", "ComputeCascadedShadowMapping"};

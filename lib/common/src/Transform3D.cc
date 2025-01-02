@@ -8,6 +8,9 @@
 #include <venom/common/Transform3D.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
 
+#include <venom/common/Light.h>
+#include <venom/common/plugin/graphics/Camera.h>
+
 namespace venom
 {
 namespace common
@@ -114,7 +117,18 @@ Transform3D& Transform3D::operator=(Transform3D&& other) noexcept
     return *this;
 }
 
-void Transform3D::_GUI()
+void Transform3D::Update(Entity entity)
+{
+}
+
+void Transform3D::Init(Entity entity)
+{
+    if (entity.has<vc::Light>() || entity.has<vc::Camera>()) {
+        entity.remove<Transform3D>();
+    }
+}
+
+void Transform3D::_GUI(const Entity entity)
 {
     vcm::Vec3 position = GetPosition();
     if (vc::GUI::InputFloat3("Position", &position.x)) {

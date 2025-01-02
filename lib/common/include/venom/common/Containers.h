@@ -27,5 +27,11 @@ template<typename T, typename U>
 using Map = std::map<T, U>;
 template<typename T, typename U>
 using UMap = std::unordered_map<T, U>;
+
+template<typename... Args>
+using Tuple = std::tuple<Args...>;
+
+template<class... Args>
+using MakeTuple = decltype(std::make_tuple(std::declval<Args>()...));
 }
 }

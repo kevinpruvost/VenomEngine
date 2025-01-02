@@ -132,6 +132,11 @@ public:
     static inline void DockWindow(const char * str_id, GUIId id) { s_gui->_DockWindow(str_id, id); }
     static inline void DockFinish(GUIId id) { s_gui->_DockFinish(id); }
 
+    static inline void OpenPopup(const char * str_id, GUIPopupFlags flags = 0) { s_gui->_OpenPopup(str_id, flags); }
+    static inline bool BeginPopup(const char * str_id, GUIWindowFlags flags = 0) { return s_gui->_BeginPopup(str_id, flags); }
+    static inline void EndPopup() { s_gui->_EndPopup(); }
+    static inline void CloseCurrentPopup() { s_gui->_CloseCurrentPopup(); }
+
     static bool isFirstFrame();
 
     static inline GUIId GetID(const char * str_id) { return s_gui->_GetID(str_id); }
@@ -166,9 +171,9 @@ protected:
     virtual void _NewFrame() = 0;
     virtual void _Begin(const char * name, bool * p_open, GUIWindowFlags flags) = 0;
     virtual void _End() = 0;
-    virtual void _Text(const char* fmt, ...) = 0;
-    virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) = 0;
-    virtual void _LabelText(const char* label, const char* fmt, ...) = 0;
+    virtual void _Text(const char* fmt, va_list args) = 0;
+    virtual void _TextColored(const vcm::Vec4 & col, const char* fmt, va_list args) = 0;
+    virtual void _LabelText(const char* label, const char* fmt, va_list args) = 0;
 
     virtual void _Image(const vc::Texture * texture, const vcm::Vec2 & size, bool centering) = 0;
 
@@ -236,6 +241,11 @@ protected:
     virtual GUIId _DockSpaceSplitNode(GUIId id, GUIDir split_dir, float size_ratio, GUIId * out_id_at_dir, GUIId * out_id_at_opposite_dir) = 0;
     virtual void _DockWindow(const char * str_id, GUIId id) = 0;
     virtual void _DockFinish(GUIId id) = 0;
+
+    virtual void _OpenPopup(const char * str_id, GUIPopupFlags flags) = 0;
+    virtual bool _BeginPopup(const char * str_id, GUIWindowFlags flags) = 0;
+    virtual void _EndPopup() = 0;
+    virtual void _CloseCurrentPopup() = 0;
 
     virtual GUIId _GetID(const char * str_id) = 0;
 

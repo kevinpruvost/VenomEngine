@@ -72,7 +72,11 @@ Skybox::~Skybox()
 {
 }
 
-void Skybox::_GUI()
+void Skybox::Update(Entity entity)
+{
+}
+
+void Skybox::_GUI(const Entity entity)
 {
     vc::String newPath;
     if (vc::GUI::EditableTexture(&GetPanoramaMut(), newPath)) {

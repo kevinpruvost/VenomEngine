@@ -90,7 +90,6 @@ private:
     UPtr<DLL_Cache> __dllCache;
     UPtr<ECS> __ecs;
     UPtr<VenomSettings> __settings;
-    UPtr<LightManager> __lightManager;
     UPtr<SceneSettings> __sceneSettings;
 };
 }

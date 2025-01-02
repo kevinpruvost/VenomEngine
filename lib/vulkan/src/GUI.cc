@@ -235,28 +235,19 @@ void VulkanGUI::_End()
     ImGui::End();
 }
 
-void VulkanGUI::_Text(const char* fmt, ...)
+void VulkanGUI::_Text(const char* fmt, va_list args)
 {
-    va_list args;
-    va_start(args, fmt);
     ImGui::TextV(fmt, args);
-    va_end(args);
 }
 
-void VulkanGUI::_TextColored(const vcm::Vec4& col, const char* fmt, ...)
+void VulkanGUI::_TextColored(const vcm::Vec4& col, const char* fmt, va_list args)
 {
-    va_list args;
-    va_start(args, fmt);
     ImGui::TextColoredV(ImVec4(col.x, col.y, col.z, col.w), fmt, args);
-    va_end(args);
 }
 
-void VulkanGUI::_LabelText(const char* label, const char* fmt, ...)
+void VulkanGUI::_LabelText(const char* label, const char* fmt, va_list args)
 {
-    va_list args;
-    va_start(args, fmt);
     ImGui::LabelTextV(label, fmt, args);
-    va_end(args);
 }
 
 void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size, bool centering)
@@ -523,6 +514,26 @@ void VulkanGUI::_DockWindow(const char* str_id, vc::GUIId id)
 void VulkanGUI::_DockFinish(vc::GUIId id)
 {
     ImGui::DockBuilderFinish(id);
+}
+
+void VulkanGUI::_OpenPopup(const char* str_id, vc::GUIPopupFlags flags)
+{
+    ImGui::OpenPopup(str_id, static_cast<ImGuiPopupFlags>(flags));
+}
+
+bool VulkanGUI::_BeginPopup(const char* str_id, common::GUIWindowFlags flags)
+{
+    return ImGui::BeginPopup(str_id, static_cast<ImGuiWindowFlags>(flags));
+}
+
+void VulkanGUI::_EndPopup()
+{
+    ImGui::EndPopup();
+}
+
+void VulkanGUI::_CloseCurrentPopup()
+{
+    ImGui::CloseCurrentPopup();
 }
 
 vc::GUIId VulkanGUI::_GetID(const char* str_id)

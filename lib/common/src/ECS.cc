@@ -16,15 +16,32 @@ namespace common
 {
 ECS * ECS::s_ecs = nullptr;
 
-void VenomComponent::GUI()
+VenomComponent::VenomComponent()
+    : __initialized(false)
+{
+}
+
+void VenomComponent::GUI(const Entity entity)
 {
     if (dynamic_cast<ComponentManager *>(this)) {
-        _GUI();
+        _GUI(entity);
     } else {
         const vc::String title = _GetComponentTitle();
         if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
-            _GUI();
+            _GUI(entity);
         }
+    }
+}
+
+void VenomComponent::Init(Entity entity)
+{
+}
+
+void VenomComponent::__Init(Entity entity)
+{
+    if (!__initialized) {
+        Init(entity);
+        __initialized = true;
     }
 }
 
@@ -42,7 +59,7 @@ ECS::~ECS()
 
 Entity ECS::CreateEntity()
 {
-    return __world.entity();
+    return __world.entity().emplace<ComponentManager>();
 }
 
 Entity ECS::CreateEntity(const char* name)
@@ -52,7 +69,7 @@ Entity ECS::CreateEntity(const char* name)
 
 Entity ECS::CreatePrefab(const char* name)
 {
-    return __world.prefab(name).emplace<ComponentManager>();
+    return __world.entity(name).emplace<ComponentManager>();
 }
 
 ECS* ECS::GetECS()
@@ -60,9 +77,21 @@ ECS* ECS::GetECS()
     return s_ecs;
 }
 
-Component* ECS::__GetComponentFromID(flecs::id id)
+void ECS::UpdateWorld()
 {
-
+    ECS::ForEach<ComponentManager>([&](Entity entity, ComponentManager & cm) {
+        entity.each([&](flecs::id componentID) {
+            Component * component = reinterpret_cast<Component *>(entity.get_mut(componentID));
+            component->__Init(entity);
+        });
+    });
+    // In case Init removes a component
+    ECS::ForEach<ComponentManager>([&](Entity entity, ComponentManager & cm) {
+    entity.each([&](flecs::id componentID) {
+        Component * component = reinterpret_cast<Component *>(entity.get_mut(componentID));
+        component->Update(entity);
+    });
+});
 }
 
 Entity CreatePrefab(const char* name)

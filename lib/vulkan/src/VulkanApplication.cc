@@ -123,12 +123,13 @@ void VulkanApplication::__UpdateUniformBuffers()
 
     // Lights
     static vc::Array<vc::LightShaderStruct, VENOM_MAX_LIGHTS> lightShaderStructs;
-    const auto & lights = vc::LightManager::GetLights();
-    for (int i = 0; i < lights.size(); ++i) {
-        lightShaderStructs[i] = lights[i]->GetShaderStruct();
-    }
+    int lightI = 0;
+    vc::ECS::ForEach<vc::Light>([&](vc::Entity entity, vc::Light & light)
+    {
+        lightShaderStructs[lightI++] = light.GetShaderStruct();
+    });
     __lightsBuffer.WriteToBuffer(lightShaderStructs.data(), sizeof(vc::LightShaderStruct) * lightShaderStructs.size());
-    uint32_t lightCount = lights.size();
+    uint32_t lightCount = lightI;
     __lightCountBuffer.WriteToBuffer(&lightCount, sizeof(uint32_t));
     if (vc::SceneSettings::IsDataDirty()) {
         __sceneSettingsBuffer.WriteToBuffer(vc::SceneSettings::GetCurrentSettingsData(), sizeof(vc::SceneSettingsData));
@@ -153,8 +154,13 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         // Draw Skybox
         __skyboxRenderPass.BeginRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
+            int skyboxI = 0;
             vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
             {
+                if (skyboxI++ > 0) {
+                    vc::Log::Error("Only one skybox is supported");
+                    return;
+                }
                 const auto & shaders = pipeline.GetRenderingPipelineCache();
                 shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
                 __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());

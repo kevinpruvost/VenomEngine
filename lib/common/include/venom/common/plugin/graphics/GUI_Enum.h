@@ -246,6 +246,24 @@ enum GUIDockNodeFlagsBits
 };
 typedef int GUIDockNodeFlags;
 
+enum GUIPopupFlagsBits
+{
+    GUIPopupFlags_None                    = 0,
+    GUIPopupFlags_MouseButtonLeft         = 0,        // For BeginPopupContext*(): open on Left Mouse release. Guaranteed to always be == 0 (same as GUIMouseButton_Left)
+    GUIPopupFlags_MouseButtonRight        = 1,        // For BeginPopupContext*(): open on Right Mouse release. Guaranteed to always be == 1 (same as GUIMouseButton_Right)
+    GUIPopupFlags_MouseButtonMiddle       = 2,        // For BeginPopupContext*(): open on Middle Mouse release. Guaranteed to always be == 2 (same as GUIMouseButton_Middle)
+    GUIPopupFlags_MouseButtonMask_        = 0x1F,
+    GUIPopupFlags_MouseButtonDefault_     = 1,
+    GUIPopupFlags_NoReopen                = 1 << 5,   // For OpenPopup*(), BeginPopupContext*(): don't reopen same popup if already open (won't reposition, won't reinitialize navigation)
+    //GUIPopupFlags_NoReopenAlwaysNavInit = 1 << 6,   // For OpenPopup*(), BeginPopupContext*(): focus and initialize navigation even when not reopening.
+    GUIPopupFlags_NoOpenOverExistingPopup = 1 << 7,   // For OpenPopup*(), BeginPopupContext*(): don't open if there's already a popup at the same level of the popup stack
+    GUIPopupFlags_NoOpenOverItems         = 1 << 8,   // For BeginPopupContextWindow(): don't return true when hovering items, only when hovering empty space
+    GUIPopupFlags_AnyPopupId              = 1 << 10,  // For IsPopupOpen(): ignore the GUIID parameter and test for any popup.
+    GUIPopupFlags_AnyPopupLevel           = 1 << 11,  // For IsPopupOpen(): search/test at any level of the popup stack (default test in the current level)
+    GUIPopupFlags_AnyPopup                = GUIPopupFlags_AnyPopupId | GUIPopupFlags_AnyPopupLevel,
+};
+typedef int GUIPopupFlags;
+
 typedef unsigned int GUIId;
 
 // A cardinal direction

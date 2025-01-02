@@ -7,6 +7,8 @@
 ///
 #include <venom/common/ComponentManager.h>
 
+#include <venom/common/ECS.h>
+
 namespace venom
 {
 namespace common
@@ -19,11 +21,34 @@ ComponentManager::~ComponentManager()
 {
 }
 
-void ComponentManager::_GUI()
+void ComponentManager::Update(Entity entity)
+{
+}
+
+void ComponentManager::_GUI(const Entity entity)
 {
     if (vc::GUI::Button("+ Add Component", vcm::Vec2(-1, 0)))
     {
-        // TODO: Add component system
+        // Show all components
+        vc::GUI::OpenPopup("add_component_popup");
+    }
+    if (vc::GUI::BeginPopup("add_component_popup"))
+    {
+        vc::GUI::SeparatorText("Components");
+
+        const auto & componentCreateFuncs = ECS::s_ecs->__componentsCreateAndHasFuncs;
+        for (const auto & [name, funcCreate, funcHas] : componentCreateFuncs)
+        {
+            if (funcHas(entity))
+                continue;
+            if (vc::GUI::Button(name.c_str(), vcm::Vec2(-1, 0)))
+            {
+                funcCreate(entity);
+                vc::GUI::CloseCurrentPopup();
+            }
+        }
+
+        vc::GUI::EndPopup();
     }
 }
 

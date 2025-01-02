@@ -42,9 +42,9 @@ protected:
     void _NewFrame() override;
     void _Begin(const char * name, bool * p_open, vc::GUIWindowFlags flags) override;
     void _End() override;
-    void _Text(const char* fmt, ...) override;
-    void _TextColored(const vcm::Vec4 & col, const char* fmt, ...) override;
-    void _LabelText(const char* label, const char* fmt, ...) override;
+    void _Text(const char* fmt, va_list args) override;
+    void _TextColored(const vcm::Vec4 & col, const char* fmt, va_list args) override;
+    void _LabelText(const char* label, const char* fmt, va_list args) override;
 
     void _Image(const vc::Texture* texture, const vcm::Vec2 & size, bool centering) override;
 
@@ -115,6 +115,11 @@ protected:
 
     void _DockWindow(const char* str_id, vc::GUIId id) override;
     void _DockFinish(vc::GUIId id) override;
+
+    void _OpenPopup(const char* str_id, vc::GUIPopupFlags flags) override;
+    bool _BeginPopup(const char* str_id, common::GUIWindowFlags flags) override;
+    void _EndPopup() override;
+    void _CloseCurrentPopup() override;
 
     vc::GUIId _GetID(const char* str_id) override;
 

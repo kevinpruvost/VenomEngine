@@ -18,7 +18,8 @@ public:
     ComponentManager();
     ~ComponentManager();
 
-    void _GUI() override;
+    void Update(Entity entity) override;
+    void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
 };
 }

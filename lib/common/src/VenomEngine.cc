@@ -43,7 +43,6 @@ VenomEngine::VenomEngine()
     : pluginManager(new PluginManager())
     , __dllCache(new DLL_Cache())
     , __ecs(new ECS())
-    , __lightManager(new LightManager())
     , __sceneSettings(new SceneSettings())
 {
     venom_assert(__dllCache, "VenomEngine::VenomEngine() : __dllCache is nullptr");
@@ -108,6 +107,7 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         while (!app->ShouldClose())
         {
             vc::GUI::Get()->__PreUpdate();
+            ECS::UpdateWorld();
             app->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 

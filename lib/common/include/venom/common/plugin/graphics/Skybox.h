@@ -45,15 +45,17 @@ private:
     Texture __irradianceMap;
 };
 
-class VENOM_COMMON_API Skybox : public PluginObjectImplWrapper, public Component
+class VENOM_COMMON_API Skybox : public Component, public PluginObjectImplWrapper
 {
 public:
     Skybox();
     Skybox(const char * path);
     ~Skybox();
 
-    void _GUI() override;
+    void Update(Entity entity) override;
+    void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+
     inline vc::Error LoadSkybox(const char * path) { return _impl->As<SkyboxImpl>()->LoadSkybox(path); }
     inline vc::Error LoadSkybox(const SPtr<GraphicsCachedResource> res) { return _impl->As<SkyboxImpl>()->LoadSkybox(res); }
     inline vc::Texture & GetPanoramaMut() { return _impl->As<SkyboxImpl>()->GetPanoramaMut(); }

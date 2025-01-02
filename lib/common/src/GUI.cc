@@ -122,16 +122,19 @@ void GUI::EntitiesListCollapsingHeader()
 {
     if (vc::GUI::CollapsingHeader("Entities", GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
         vc::GUI::SeparatorText("Hierarchy");
-        static int selected = -1;
+        int selected = -1;
         if (vc::GUI::BeginChild("##EntitiesList", vcm::Vec2(0, 300), GUIChildFlagsBits::GUIChildFlags_FrameStyle | GUIChildFlagsBits::GUIChildFlags_ResizeY))
         {
             int n = 0;
             vc::ECS::ForEach<vc::ComponentManager>([&](vc::Entity entity, vc::ComponentManager & cm) {
                 vc::String name = ICON_MS_DEPLOYED_CODE " ";
                 name += entity.name();
-                if (vc::GUI::Selectable(name.c_str(), selected == n)) {
+                if (selectedEntity == entity) {
                     selected = n;
+                }
+                if (vc::GUI::Selectable(name.c_str(), selected == n)) {
                     selectedEntity = entity;
+                    selected = n;
                 }
                 ++n;
             });
@@ -216,15 +219,15 @@ void GUI::_EntityPropertiesWindow()
             if (vc::GUI::InputText("Name", buffer, 128 - 1)) {
                 selectedEntity.set_name(buffer);
             }
-            vc::GUI::Text("ID: %d", selectedEntity.id());
+            int id = static_cast<uint32_t>(selectedEntity.id());
+            vc::GUI::Text("ID: %d", id);
             vc::GUI::SeparatorText("Components");
 
             // GUI for every component
             selectedEntity.each([&](flecs::id componentID)
             {
                 void * component = selectedEntity.get_mut(componentID);
-                int idTest = selectedEntity.raw_id();
-                reinterpret_cast<Component*>(component)->GUI();
+                reinterpret_cast<Component*>(component)->GUI(selectedEntity);
             });
         }
     }

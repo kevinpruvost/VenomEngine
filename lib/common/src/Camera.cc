@@ -52,9 +52,13 @@ Camera * Camera::GetMainCamera()
     return s_mainCamera.get();
 }
 
-void Camera::_GUI()
+void Camera::_GUI(const Entity entity)
 {
-    GetImpl()->As<CameraImpl>()->_GUI();
+    GetImpl()->As<CameraImpl>()->_GUI(entity);
+}
+
+void Camera::Update(Entity entity)
+{
 }
 
 vc::String Camera::_GetComponentTitle()

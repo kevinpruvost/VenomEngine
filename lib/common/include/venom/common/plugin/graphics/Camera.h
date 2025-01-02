@@ -68,7 +68,7 @@ private:
  * @brief Camera class
  * Classic layout with position, rotation and projection matrices
  */
-class VENOM_COMMON_API Camera : public PluginObjectImplWrapper, public Component
+class VENOM_COMMON_API Camera : public Component, public PluginObjectImplWrapper
 {
 public:
     Camera();
@@ -76,7 +76,8 @@ public:
     static void SetMainCamera(const Camera & camera);
     static Camera * GetMainCamera();
 
-    void _GUI() override;
+    void _GUI(const Entity entity) override;
+    void Update(Entity entity) override;
     vc::String _GetComponentTitle() override;
 
     inline void SetPosition(const vcm::Vec3& position) { _impl->As<CameraImpl>()->SetPosition(position); }

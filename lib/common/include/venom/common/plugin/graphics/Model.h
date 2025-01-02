@@ -47,15 +47,18 @@ private:
 
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
-class VENOM_COMMON_API Model : public PluginObjectImplWrapper, public Component
+class VENOM_COMMON_API Model : public Component, public PluginObjectImplWrapper
 {
 public:
     Model();
     Model(const char * path);
     ~Model();
 
-    void _GUI() override;
+    void Init(Entity entity) override;
+    void Update(Entity entity) override;
+    void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+
     inline void Draw() { _impl->As<ModelImpl>()->Draw(); }
     inline vc::Error ImportModel(const char * path) { return _impl->As<ModelImpl>()->ImportModel(path); }
     inline const vc::Vector<vc::Mesh> & GetMeshes() const { return _impl->As<ModelImpl>()->GetMeshes(); }

@@ -50,7 +50,18 @@ Model::~Model()
 {
 }
 
-void Model::_GUI()
+void Model::Init(Entity entity)
+{
+    if (!entity.has<Transform3D>()) {
+        entity.emplace<Transform3D>();
+    }
+}
+
+void Model::Update(Entity entity)
+{
+}
+
+void Model::_GUI(const Entity entity)
 {
     vc::String newPath;
     if (vc::GUI::EditableModel(this, newPath)) {

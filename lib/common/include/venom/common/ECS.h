@@ -18,21 +18,39 @@ namespace venom
 {
 namespace common
 {
-typedef flecs::entity Entity;
+class ComponentManager;
+class ECS;
+
+using Entity = flecs::entity;
 
 typedef flecs::system System;
 
+enum GUIComponentAction
+{
+    GUIComponentAction_None,
+    GUIComponentAction_Add,
+    GUIComponentAction_Remove
+};
 class VENOM_COMMON_API VenomComponent
 {
 public:
-    VenomComponent() = default;
+    VenomComponent();
     virtual ~VenomComponent() = default;
 
-    void GUI();
+    void GUI(const Entity entity);
     inline vc::String GetComponentTitle() { return _GetComponentTitle(); }
 protected:
-    virtual void _GUI() = 0;
+    virtual void _GUI(const Entity entity) = 0;
     virtual vc::String _GetComponentTitle() = 0;
+
+    virtual void Init(Entity entity);
+    virtual void Update(Entity entity) = 0;
+
+private:
+    void __Init(Entity entity);
+    bool __initialized;
+
+    friend class ECS;
 };
 
 typedef VenomComponent Component;
@@ -52,15 +70,20 @@ public:
     ECS();
     ~ECS();
 
-
     template <InheritsFromComponent T>
     void RegisterComponent() {
         __world.component<T>();
         vc::VenomComponent * component = new T();
         vc::String name = component->GetComponentTitle();
-        // __componentsCreateFuncs[name] = []() -> VenomComponent* {
-        //     return new T();
-        // };
+        __componentsCreateAndHasFuncs.emplace_back(MakeTuple<vc::String, vc::Function<void, Entity>, vc::Function<bool, Entity>>(
+            name,
+            [](Entity entity) {
+                entity.emplace<T>();
+            },
+            [](Entity entity) {
+                return entity.has<T>();
+            }
+        ));
         delete component;
     }
 
@@ -85,11 +108,9 @@ public:
         ECS::GetECS()->__Each(func);
     }
 
-    static inline Component * GetComponentFromID(flecs::id id) {
-        return ECS::GetECS()->__GetComponentFromID(id);
-    }
-
     static ECS * GetECS();
+
+    static void UpdateWorld();
 
 private:
     template <typename... Args>
@@ -109,11 +130,16 @@ private:
         return __world.lookup(name);
     }
 
-    Component * __GetComponentFromID(flecs::id id);
-
 private:
+    static Entity __currentEntity;
     flecs::world __world;
-    vc::UMap<vc::String, vc::Function<VenomComponent*>> __componentsCreateFuncs;
+    vc::Vector<vc::Tuple<vc::String,
+        vc::Function<void, Entity>,
+        vc::Function<bool, Entity>
+    >> __componentsCreateAndHasFuncs;
+
+    friend class ComponentManager;
+    friend class VenomComponent;
 };
 
 Entity CreatePrefab(const char* name);
