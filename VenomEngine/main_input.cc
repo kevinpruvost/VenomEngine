@@ -131,7 +131,7 @@ void SceneGUI()
             static vc::RenderTarget renderTarget(vc::RenderingPipelineType::PBRModel, vc::ShaderVertexFormat::Vec4);
             // 16/9 size
             vcm::Vec2 renderingSize = vc::GUI::GetContentRegionAvail();
-            renderingSize.y = std::min(renderingSize.x * 9.0f / 16.0f, renderingSize.y);
+            renderingSize.y = std::min(std::floor(renderingSize.x * 9.0f / 16.0f), renderingSize.y);
             vc::GUI::Image(&renderTarget, renderingSize);
             //static vc::Texture textureTest("hank_happy.png");
             //vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
