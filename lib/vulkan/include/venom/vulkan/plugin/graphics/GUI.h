@@ -22,7 +22,7 @@ public:
     VulkanGUI();
     ~VulkanGUI() override;
 
-    vc::Error Initialize() override;
+    vc::Error _Initialize() override;
 
 protected:
     vc::Error _Reset() override;

@@ -36,7 +36,7 @@ public:
 
     void SetGraphicsApplication(GraphicsApplication * app);
 
-    virtual vc::Error Initialize() = 0;
+    vc::Error Initialize();
     vc::Error Reset();
 
     inline void DrawCallback() { if (s_guiDrawCallback) s_guiDrawCallback(); }
@@ -143,6 +143,7 @@ public:
     static inline void CloseCurrentPopup() { s_gui->_CloseCurrentPopup(); }
 
     static bool isFirstFrame();
+    static bool isFirstInitialization();
 
     static inline GUIId GetID(const char * str_id) { return s_gui->_GetID(str_id); }
 
@@ -158,6 +159,7 @@ private:
     static void _EntityPropertiesWindow();
 
 protected:
+    virtual vc::Error _Initialize() = 0;
     virtual vc::Error _Reset() = 0;
 
     virtual void _AddFont(const char * fontPath, float fontSize, const uint16_t * glyphRanges) = 0;
@@ -279,6 +281,8 @@ private:
      */
     vc::Error __PreUpdate();
 
+protected:
+    bool _firstInit;
 private:
     static GUI * s_gui;
     bool __firstFrame;

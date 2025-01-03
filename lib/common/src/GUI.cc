@@ -30,6 +30,7 @@ GUIDrawCallback GUI::s_guiDrawCallback = nullptr;
 GUI::GUI()
     : _app(nullptr)
     , __firstFrame(true)
+    , _firstInit(true)
 {
     venom_assert(s_gui == nullptr, "GUI::GUI() : s_gui is not nullptr");
     s_gui = this;
@@ -45,6 +46,13 @@ void GUI::SetGraphicsApplication(GraphicsApplication* app)
     _app = app;
 }
 
+vc::Error GUI::Initialize()
+{
+    vc::Error err = _Initialize();
+    if (err != vc::Error::Success) return err;
+    return vc::Error::Success;
+}
+
 vc::Error GUI::Reset()
 {
     vc::Error err = _Reset();
@@ -58,7 +66,8 @@ void GUI::Render()
 {
     DrawCallback();
     s_gui->_Render();
-    vc::GUI::Get()->__firstFrame = false;
+    __firstFrame = false;
+    _firstInit = false;
 }
 
 void GUI::AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
@@ -76,6 +85,11 @@ void GUI::AddFont(const char* fontPath, float fontSize)
 bool GUI::isFirstFrame()
 {
     return s_gui->__firstFrame;
+}
+
+bool GUI::isFirstInitialization()
+{
+    return s_gui->_firstInit;
 }
 
 void GUI::GraphicsSettingsCollaspingHeader()

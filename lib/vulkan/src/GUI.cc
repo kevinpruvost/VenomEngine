@@ -99,14 +99,15 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_TabSelectedOverline] = ImVec4(0.0f, 0.4f, 0.0f, 0.9f); // Green for an active tab in an unfocused window
 }
 
-vc::Error VulkanGUI::Initialize()
+vc::Error VulkanGUI::_Initialize()
 {
     const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
 
     // Setup Platform/Renderer backends
-    ImGui::CreateContext();
-
-    ImGui::StyleColorsLight();
+    if (_firstInit) {
+        ImGui::CreateContext();
+        ImGui::StyleColorsLight();
+    }
 
     // Setup Platform/Renderer backends
 
@@ -150,7 +151,7 @@ vc::Error VulkanGUI::_Reset()
     ImGui_ImplVulkan_Shutdown();
     ImGui_ImplGlfw_Shutdown();
 
-    return Initialize();
+    return _Initialize();
 }
 
 void VulkanGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
