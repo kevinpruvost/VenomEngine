@@ -52,9 +52,11 @@ public:
     Skybox(const char * path);
     ~Skybox();
 
+    void Init(Entity entity) override;
     void Update(Entity entity) override;
     void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+    bool CanRemove(Entity entity) override;
 
     inline vc::Error LoadSkybox(const char * path) { return _impl->As<SkyboxImpl>()->LoadSkybox(path); }
     inline vc::Error LoadSkybox(const SPtr<GraphicsCachedResource> res) { return _impl->As<SkyboxImpl>()->LoadSkybox(res); }

@@ -9,6 +9,8 @@
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 
+#include <venom/common/plugin/graphics/Model.h>
+
 namespace venom
 {
 namespace common
@@ -71,6 +73,11 @@ void RenderingPipeline::_GUI(const Entity entity)
 vc::String RenderingPipeline::_GetComponentTitle()
 {
     return ICON_MS_TABLE_EYE " Rendering Pipeline";
+}
+
+bool RenderingPipeline::CanRemove(Entity entity)
+{
+    return !entity.has<Model>();
 }
 }
 }

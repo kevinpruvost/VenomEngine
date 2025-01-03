@@ -78,6 +78,11 @@ vc::String Model::_GetComponentTitle()
     return ICON_MS_VIEW_IN_AR " Model";
 }
 
+bool Model::CanRemove(Entity entity)
+{
+    return true;
+}
+
 static MaterialComponentType GetMaterialComponentTypeFromAiTextureType(const aiTextureType type)
 {
     switch (type)

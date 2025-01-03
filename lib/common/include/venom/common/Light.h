@@ -39,6 +39,7 @@ public:
     void Update(Entity entity) override;
     void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+    bool CanRemove(Entity entity) override;
 
     inline void SetType(const LightType type) { __type = type; }
     inline const LightType & GetType() const { return __type; }

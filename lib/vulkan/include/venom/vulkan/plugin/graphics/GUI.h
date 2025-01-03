@@ -57,6 +57,7 @@ protected:
     void _SeparatorText(const char* text) override;
     void _Separator() override;
     void _Spacing() override;
+    void _Dummy(const vcm::Vec2& size) override;
 
     bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format) override;
     bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format) override;
@@ -117,7 +118,9 @@ protected:
     void _DockFinish(vc::GUIId id) override;
 
     void _OpenPopup(const char* str_id, vc::GUIPopupFlags flags) override;
-    bool _BeginPopup(const char* str_id, common::GUIWindowFlags flags) override;
+    bool _BeginPopup(const char* str_id, vc::GUIWindowFlags flags) override;
+    bool _BeginPopupModal(const char* name, bool* p_open, vc::GUIWindowFlags flags) override;
+    bool _BeginPopupContextItem(const char* str_id, common::GUIPopupFlags flags) override;
     void _EndPopup() override;
     void _CloseCurrentPopup() override;
 

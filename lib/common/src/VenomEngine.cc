@@ -154,11 +154,11 @@ void VenomEngine::__LoadECS()
 {
     // Reserve entities
 
-    __ecs->RegisterComponent<Transform3D>();
-    __ecs->RegisterComponent<RenderingPipeline>();
-    __ecs->RegisterComponent<Model>();
-    __ecs->RegisterComponent<Skybox>();
-    __ecs->RegisterComponent<Light>();
+    REGISTER_COMPONENT(Transform3D);
+    REGISTER_COMPONENT(RenderingPipeline);
+    REGISTER_COMPONENT(Model);
+    REGISTER_COMPONENT(Skybox);
+    REGISTER_COMPONENT(Light);
 
     // Need to clean ECS objects that were instantiated
     pluginManager->CleanPluginsObjets();

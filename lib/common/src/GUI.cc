@@ -139,6 +139,13 @@ void GUI::EntitiesListCollapsingHeader()
             });
         }
         vc::GUI::EndChild();
+        // Adding entity context menu
+        if (vc::GUI::BeginPopupContextItem(nullptr, GUIPopupFlagsBits::GUIPopupFlags_MouseButtonRight)) {
+            if (vc::GUI::MenuItem(ICON_MS_DEPLOYED_CODE " Create Entity")) {
+                vc::CreateEntity();
+            }
+            vc::GUI::EndPopup();
+        }
     }
     _EntityPropertiesWindow();
 }
@@ -216,7 +223,9 @@ void GUI::_EntityPropertiesWindow()
             vc::String entityName(selectedEntity.name().c_str());
             memcpy(buffer, entityName.c_str(), entityName.size());
             if (vc::GUI::InputText("Name", buffer, 128 - 1)) {
-                selectedEntity.set_name(buffer);
+                if (vc::ECS::IsNameAvailable(buffer)) {
+                    selectedEntity.set_name(buffer);
+                }
             }
             int id = static_cast<uint32_t>(selectedEntity.id());
             vc::GUI::Text("ID: %d", id);
@@ -226,8 +235,21 @@ void GUI::_EntityPropertiesWindow()
             selectedEntity.each([&](flecs::id componentID)
             {
                 void * component = selectedEntity.get_mut(componentID);
-                reinterpret_cast<Component*>(component)->GUI(selectedEntity);
+                vc::VenomComponent::GUIComponentAction action = reinterpret_cast<Component*>(component)->__GUI(selectedEntity);
+                switch (action)
+                {
+                    case vc::VenomComponent::GUIComponentAction::Remove:
+                        selectedEntity.remove(componentID);
+                        break;
+                    default:
+                        break;
+                }
+                vc::GUI::Dummy(vcm::Vec2(0, 2));
             });
+
+            // Padding
+            vc::GUI::Separator();
+            vc::GUI::Dummy(vcm::Vec2(0, 2));
 
             // Add Component Button
             if (vc::GUI::Button("+ Add Component", vcm::Vec2(-1, 0)))
@@ -240,11 +262,15 @@ void GUI::_EntityPropertiesWindow()
                 vc::GUI::SeparatorText("Components");
 
                 const auto & componentCreateFuncs = ECS::s_ecs->__componentsCreateAndHasFuncs;
-                for (const auto & [name, funcCreate, funcHas] : componentCreateFuncs)
+                const auto & componentCanCreateFuncs = ECS::s_ecs->__GetComponentCanCreateFuncs();
+                for (const auto & [name, displayName, funcCreate, funcHas] : componentCreateFuncs)
                 {
                     if (funcHas(selectedEntity))
                         continue;
-                    if (vc::GUI::Button(name.c_str(), vcm::Vec2(-1, 0)))
+                    const auto & canCreateFunc = componentCanCreateFuncs.find(name);
+                    if (canCreateFunc != componentCanCreateFuncs.end() && !canCreateFunc->second(selectedEntity))
+                        continue;
+                    if (vc::GUI::Button(displayName.c_str(), vcm::Vec2(-1, 0)))
                     {
                         funcCreate(selectedEntity);
                         vc::GUI::CloseCurrentPopup();

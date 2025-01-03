@@ -58,6 +58,7 @@ public:
     void Update(Entity entity) override;
     void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+    bool CanRemove(Entity entity) override;
 
     inline void Draw() { _impl->As<ModelImpl>()->Draw(); }
     inline vc::Error ImportModel(const char * path) { return _impl->As<ModelImpl>()->ImportModel(path); }

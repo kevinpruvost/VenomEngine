@@ -146,6 +146,11 @@ vc::String Transform3D::_GetComponentTitle()
     return ICON_MS_TRANSFORM " Transform3D";
 }
 
+bool Transform3D::CanRemove(Entity entity)
+{
+    return false;
+}
+
 void Transform3D::SetPosition(const vcm::Vec3& position)
 {
     _position = position;

@@ -13,13 +13,19 @@ namespace venom
 {
 namespace common
 {
+static SkyboxImpl * s_skybox = nullptr;
+
 SkyboxImpl::SkyboxImpl()
     : __panorama()
 {
+    if (s_skybox == nullptr)
+        s_skybox = this;
 }
 
 SkyboxImpl::~SkyboxImpl()
 {
+    if (s_skybox == this)
+        s_skybox = nullptr;
 }
 
 vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
@@ -60,7 +66,7 @@ Skybox::Skybox()
 }
 
 Skybox::Skybox(const char* path)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateSkybox())
+    : Skybox()
 {
     if (Error err = LoadSkybox(path); err != Error::Success) {
         Destroy();
@@ -69,6 +75,10 @@ Skybox::Skybox(const char* path)
 }
 
 Skybox::~Skybox()
+{
+}
+
+void Skybox::Init(Entity entity)
 {
 }
 
@@ -92,5 +102,14 @@ vc::String Skybox::_GetComponentTitle()
 {
     return ICON_MS_VRPANO " Skybox";
 }
+
+bool Skybox::CanRemove(Entity entity)
+{
+    return false;
+}
+
+COMPONENT_CAN_ADD_DEFINITION(Skybox,
+    return s_skybox == nullptr;
+);
 }
 }

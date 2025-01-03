@@ -66,5 +66,10 @@ vc::String Light::_GetComponentTitle()
 {
     return  ICON_MS_EMOJI_OBJECTS" Light";
 }
+
+bool Light::CanRemove(Entity entity)
+{
+    return true;
+}
 }
 }

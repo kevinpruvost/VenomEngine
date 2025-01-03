@@ -51,6 +51,7 @@ public:
     void Update(Entity entity) override;
     void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+    bool CanRemove(Entity entity) override;
 
     inline void SetShaderType(const RenderingPipelineType type) { _impl->As<RenderingPipelineImpl>()->SetShaderType(type); }
     inline RenderingPipelineType GetShaderType() const { return _impl->As<RenderingPipelineImpl>()->GetShaderType(); }

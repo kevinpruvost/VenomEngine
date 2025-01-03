@@ -118,7 +118,9 @@ void SceneGUI()
                 // vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
                 // vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
             }
+            vc::GUI::Dummy(vcm::Vec2(0, 2));
             vc::GUI::GraphicsSettingsCollaspingHeader();
+            vc::GUI::Dummy(vcm::Vec2(0, 2));
             vc::GUI::EntitiesListCollapsingHeader();
         }
         vc::GUI::End();

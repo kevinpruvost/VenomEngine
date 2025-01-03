@@ -19,24 +19,37 @@ namespace venom
 namespace common
 {
 class ECS;
+class GUI;
 
 using Entity = flecs::entity;
 
 typedef flecs::system System;
 
-enum GUIComponentAction
+class VENOM_COMMON_API StaticVenomCanCreateComponent
 {
-    GUIComponentAction_None,
-    GUIComponentAction_Add,
-    GUIComponentAction_Remove
+public:
+    StaticVenomCanCreateComponent(const vc::String & componentName, vc::Function<bool, Entity> canCreateFunc);
 };
+
+#define COMPONENT_CAN_ADD_DEFINITION(COMPONENT_NAME, BODY) \
+    class COMPONENT_NAME##_CanAdd : public StaticVenomCanCreateComponent \
+    { \
+    public: \
+        COMPONENT_NAME##_CanAdd() \
+            : StaticVenomCanCreateComponent(#COMPONENT_NAME, [](Entity entity) { \
+                BODY \
+            }) \
+        { \
+        } \
+    }; \
+    static COMPONENT_NAME##_CanAdd s_##COMPONENT_NAME##_CanAdd;
+
 class VENOM_COMMON_API VenomComponent
 {
 public:
     VenomComponent();
     virtual ~VenomComponent() = default;
 
-    void GUI(const Entity entity);
     inline vc::String GetComponentTitle() { return _GetComponentTitle(); }
 protected:
     virtual void _GUI(const Entity entity) = 0;
@@ -44,12 +57,22 @@ protected:
 
     virtual void Init(Entity entity);
     virtual void Update(Entity entity) = 0;
+    virtual bool CanRemove(Entity entity) = 0;
+
+private:
+    enum class GUIComponentAction
+    {
+        None,
+        Remove
+    };
+    GUIComponentAction __GUI(const Entity entity);
 
 private:
     void __Init(Entity entity);
     bool __initialized;
 
     friend class ECS;
+    friend class GUI;
 };
 
 typedef VenomComponent Component;
@@ -70,12 +93,13 @@ public:
     ~ECS();
 
     template <InheritsFromComponent T>
-    void RegisterComponent() {
+    void RegisterComponent(const vc::String & name) {
         __world.component<T>();
         vc::VenomComponent * component = new T();
-        vc::String name = component->GetComponentTitle();
-        __componentsCreateAndHasFuncs.emplace_back(MakeTuple<vc::String, vc::Function<void, Entity>, vc::Function<bool, Entity>>(
+        vc::String displayName = component->GetComponentTitle();
+        __componentsCreateAndHasFuncs.emplace_back(MakeTuple<vc::String, vc::String, vc::Function<void, Entity>, vc::Function<bool, Entity>>(
             name,
+            displayName,
             [](Entity entity) {
                 entity.emplace<T>();
             },
@@ -85,6 +109,7 @@ public:
         ));
         delete component;
     }
+#define REGISTER_COMPONENT(T) vc::ECS::GetECS()->RegisterComponent<T>(#T)
 
     Entity CreateEntity();
     Entity CreateEntity(const char * name);
@@ -107,6 +132,9 @@ public:
         ECS::GetECS()->__Each(func);
     }
 
+    static vc::String GenerateUniqueEntityName();
+    static bool IsNameAvailable(const char * name);
+
     static ECS * GetECS();
 
     static void UpdateWorld();
@@ -128,17 +156,20 @@ private:
     Entity __GetEntity(const char * name) {
         return __world.lookup(name);
     }
+    static const vc::UMap<vc::String, vc::Function<bool, Entity>> & __GetComponentCanCreateFuncs();
 
 private:
     static Entity __currentEntity;
     flecs::world __world;
     vc::Vector<vc::Tuple<vc::String,
+        vc::String,
         vc::Function<void, Entity>,
         vc::Function<bool, Entity>
     >> __componentsCreateAndHasFuncs;
 
     friend class GUI;
     friend class VenomComponent;
+    friend class StaticVenomCanCreateComponent;
 };
 
 Entity CreatePrefab(const char* name);

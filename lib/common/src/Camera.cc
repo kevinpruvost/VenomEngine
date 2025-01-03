@@ -66,6 +66,11 @@ void Camera::Update(Entity entity)
 {
 }
 
+bool Camera::CanRemove(Entity entity)
+{
+    return true;
+}
+
 vc::String Camera::_GetComponentTitle()
 {
     return ICON_MS_PHOTO_CAMERA " Camera";

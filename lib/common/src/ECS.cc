@@ -17,17 +17,36 @@ namespace common
 {
 ECS * ECS::s_ecs = nullptr;
 
+static vc::UMap<vc::String, vc::Function<bool, Entity>> s_componentsCanCreateFuncs;
+
+StaticVenomCanCreateComponent::StaticVenomCanCreateComponent(const vc::String& componentName,
+    vc::Function<bool, Entity> canCreateFunc)
+{
+    s_componentsCanCreateFuncs[componentName] = canCreateFunc;
+}
+
 VenomComponent::VenomComponent()
     : __initialized(false)
 {
 }
 
-void VenomComponent::GUI(const Entity entity)
+vc::VenomComponent::GUIComponentAction VenomComponent::__GUI(const Entity entity)
 {
     const vc::String title = _GetComponentTitle();
     if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+        if (vc::GUI::BeginPopupContextItem(nullptr, GUIPopupFlagsBits::GUIPopupFlags_MouseButtonRight)) {
+            if (CanRemove(entity)) {
+                if (vc::GUI::MenuItem(ICON_MS_DELETE " Delete Component")) {
+                    return GUIComponentAction::Remove;
+                }
+            } else {
+                vc::GUI::Text(ICON_MS_WARNING " Unable to remove this component!");
+            }
+            vc::GUI::EndPopup();
+        }
         _GUI(entity);
     }
+    return GUIComponentAction::None;
 }
 
 void VenomComponent::Init(Entity entity)
@@ -56,7 +75,8 @@ ECS::~ECS()
 
 Entity ECS::CreateEntity()
 {
-    return __world.entity().emplace<Transform3D>();
+    vc::String name = GenerateUniqueEntityName();
+    return __world.entity(name.c_str()).emplace<Transform3D>();
 }
 
 Entity ECS::CreateEntity(const char* name)
@@ -67,6 +87,20 @@ Entity ECS::CreateEntity(const char* name)
 Entity ECS::CreatePrefab(const char* name)
 {
     return __world.prefab(name).emplace<Transform3D>();
+}
+
+vc::String ECS::GenerateUniqueEntityName()
+{
+    vc::String ret = "Entity" + std::to_string(rand());
+    while ((s_ecs->__world.lookup(ret.c_str())).is_valid()) {
+        ret = "Entity" + std::to_string(rand());
+    }
+    return ret;
+}
+
+bool ECS::IsNameAvailable(const char* name)
+{
+    return !s_ecs->__world.lookup(name).is_valid();
 }
 
 ECS* ECS::GetECS()
@@ -89,6 +123,11 @@ void ECS::UpdateWorld()
         component->Update(entity);
     });
 });
+}
+
+const vc::UMap<vc::String, vc::Function<bool, Entity>>& ECS::__GetComponentCanCreateFuncs()
+{
+    return s_componentsCanCreateFuncs;
 }
 
 Entity CreatePrefab(const char* name)

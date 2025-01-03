@@ -157,13 +157,8 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         // Draw Skybox
         __skyboxRenderPass.BeginRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
-            int skyboxI = 0;
             vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
             {
-                if (skyboxI++ > 0) {
-                    vc::Log::Error("Only one skybox is supported");
-                    return;
-                }
                 const auto & shaders = pipeline.GetRenderingPipelineCache();
                 shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
                 __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());

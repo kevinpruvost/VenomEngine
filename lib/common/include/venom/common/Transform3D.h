@@ -28,6 +28,7 @@ public:
     void Init(Entity entity) override;
     void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
+    bool CanRemove(Entity entity) override;
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera

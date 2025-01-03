@@ -85,6 +85,7 @@ public:
     void _GUI(const Entity entity) override;
     void Init(Entity entity) override;
     void Update(Entity entity) override;
+    bool CanRemove(Entity entity) override;
     vc::String _GetComponentTitle() override;
 
     inline void SetPosition(const vcm::Vec3& position) { _impl->As<CameraImpl>()->__transform->SetPosition(position); }

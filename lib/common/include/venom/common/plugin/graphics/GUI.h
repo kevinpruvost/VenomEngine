@@ -12,6 +12,8 @@
 #include <venom/common/plugin/graphics/GUI_Enum.h>
 
 #include <venom/common/plugin/graphics/RenderTarget.h>
+
+// Check https://fonts.google.com/icons?icon.set=Material+Symbols
 #include <IconsMaterialSymbols.h>
 
 namespace venom
@@ -76,6 +78,7 @@ public:
     static inline void SeparatorText(const char* text) { s_gui->_SeparatorText(text); }
     static inline void Separator() { s_gui->_Separator(); }
     static inline void Spacing() { s_gui->_Spacing(); }
+    static inline void Dummy(const vcm::Vec2 & size) { s_gui->_Dummy(size); }
 
     static inline bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.3f") { return s_gui->_SliderFloat(label, v, v_min, v_max, format); }
     static inline bool SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format = "%.3f") { return s_gui->_SliderFloat3(label, v, v_min, v_max, format); }
@@ -134,6 +137,8 @@ public:
 
     static inline void OpenPopup(const char * str_id, GUIPopupFlags flags = 0) { s_gui->_OpenPopup(str_id, flags); }
     static inline bool BeginPopup(const char * str_id, GUIWindowFlags flags = 0) { return s_gui->_BeginPopup(str_id, flags); }
+    static inline bool BeginPopupModal(const char * name, bool * p_open = nullptr, GUIWindowFlags flags = 0) { return s_gui->_BeginPopupModal(name, p_open, flags); }
+    static inline bool BeginPopupContextItem(const char * str_id = nullptr, GUIPopupFlags flags = 0) { return s_gui->_BeginPopupContextItem(str_id, flags); }
     static inline void EndPopup() { s_gui->_EndPopup(); }
     static inline void CloseCurrentPopup() { s_gui->_CloseCurrentPopup(); }
 
@@ -186,6 +191,7 @@ protected:
     virtual void _SeparatorText(const char* text) = 0;
     virtual void _Separator() = 0;
     virtual void _Spacing() = 0;
+    virtual void _Dummy(const vcm::Vec2 & size) = 0;
 
     virtual bool _SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format) = 0;
     virtual bool _SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format) = 0;
@@ -244,6 +250,8 @@ protected:
 
     virtual void _OpenPopup(const char * str_id, GUIPopupFlags flags) = 0;
     virtual bool _BeginPopup(const char * str_id, GUIWindowFlags flags) = 0;
+    virtual bool _BeginPopupModal(const char * name, bool * p_open, GUIWindowFlags flags) = 0;
+    virtual bool _BeginPopupContextItem(const char * str_id, GUIPopupFlags flags) = 0;
     virtual void _EndPopup() = 0;
     virtual void _CloseCurrentPopup() = 0;
 

@@ -322,6 +322,11 @@ void VulkanGUI::_Spacing()
     ImGui::Spacing();
 }
 
+void VulkanGUI::_Dummy(const vcm::Vec2& size)
+{
+    ImGui::Dummy(ImVec2(size.x, size.y));
+}
+
 bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format)
 {
     return ImGui::SliderFloat(label, v, v_min, v_max, format);
@@ -521,9 +526,19 @@ void VulkanGUI::_OpenPopup(const char* str_id, vc::GUIPopupFlags flags)
     ImGui::OpenPopup(str_id, static_cast<ImGuiPopupFlags>(flags));
 }
 
-bool VulkanGUI::_BeginPopup(const char* str_id, common::GUIWindowFlags flags)
+bool VulkanGUI::_BeginPopup(const char* str_id, vc::GUIWindowFlags flags)
 {
     return ImGui::BeginPopup(str_id, static_cast<ImGuiWindowFlags>(flags));
+}
+
+bool VulkanGUI::_BeginPopupModal(const char* name, bool* p_open, vc::GUIWindowFlags flags)
+{
+    return ImGui::BeginPopupModal(name, p_open, static_cast<ImGuiWindowFlags>(flags));
+}
+
+bool VulkanGUI::_BeginPopupContextItem(const char* str_id, common::GUIPopupFlags flags)
+{
+    return ImGui::BeginPopupContextItem(str_id, static_cast<ImGuiPopupFlags>(flags));
 }
 
 void VulkanGUI::_EndPopup()
