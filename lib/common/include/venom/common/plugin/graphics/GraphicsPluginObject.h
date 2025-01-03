@@ -28,8 +28,8 @@ concept ValidGraphicsCachedResource = std::is_base_of<GraphicsCachedResource, T>
 class VENOM_COMMON_API GraphicsCachedResource
 {
 public:
-    GraphicsCachedResource() {}
-    GraphicsCachedResource(GraphicsCachedResourceHolder * h) : __holder(h) {}
+    GraphicsCachedResource();
+    GraphicsCachedResource(GraphicsCachedResourceHolder * h);
     virtual ~GraphicsCachedResource();
     GraphicsCachedResource(const GraphicsCachedResource &) = delete;
     GraphicsCachedResource & operator=(const GraphicsCachedResource &) = delete;

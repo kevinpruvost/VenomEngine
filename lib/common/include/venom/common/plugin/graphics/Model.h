@@ -66,7 +66,7 @@ public:
     inline const vc::Vector<vc::Material> & GetMaterials() const { return _impl->As<ModelImpl>()->GetMaterials(); }
     inline vc::Vector<vc::Material> & GetMaterials() { return _impl->As<ModelImpl>()->GetMaterials(); }
     inline const vc::String & GetName() { return _impl->As<ModelImpl>()->GetResourceName(); }
-    inline const vc::String & GetShortName() { return _impl->As<TextureImpl>()->GetResourceShortName(); }
+    inline const vc::String & GetShortName() { return _impl->As<ModelImpl>()->GetResourceShortName(); }
 };
 
 

@@ -19,13 +19,11 @@ vec3 GetLightColor(Light light, vec3 position) {
         float attenuation = 1.0 / (distance * distance + 1.0);
         return light.color * light.intensity * attenuation;
     } else if (light.type == LightType_Spot) {
-        // float distance = length(light.position - position);
-        // float attenuation = 1.0 / (distance * distance + 1.0);
-        // vec3 lightDir = normalize(light.position - position);
-        // float spotFactor = dot(lightDir, light.direction);
-        // float spotAttenuation = smoothstep(light.innerCutoff, light.outerCutoff, spotFactor);
-        // return light.color * light.intensity * attenuation * spotAttenuation;
-        return vec3(0.0, 0.0, 0.0);
+        float distance = length(light.position - position);
+        float attenuation = 1.0 / (distance * distance + 1.0);
+        float spotFactor = dot(normalize(light.direction), normalize(light.position - position));
+        spotFactor = max(spotFactor, 0.0);
+        return light.color * light.intensity * attenuation * spotFactor;
     }
     return vec3(0.0, 0.0, 0.0);
 }

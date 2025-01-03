@@ -33,11 +33,12 @@ VenomComponent::VenomComponent()
 vc::VenomComponent::GUIComponentAction VenomComponent::__GUI(const Entity entity)
 {
     const vc::String title = _GetComponentTitle();
+    vc::VenomComponent::GUIComponentAction action = GUIComponentAction::None;
     if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
         if (vc::GUI::BeginPopupContextItem(nullptr, GUIPopupFlagsBits::GUIPopupFlags_MouseButtonRight)) {
             if (CanRemove(entity)) {
                 if (vc::GUI::MenuItem(ICON_MS_DELETE " Delete Component")) {
-                    return GUIComponentAction::Remove;
+                    action = GUIComponentAction::Remove;
                 }
             } else {
                 vc::GUI::Text(ICON_MS_WARNING " Unable to remove this component!");
@@ -46,7 +47,7 @@ vc::VenomComponent::GUIComponentAction VenomComponent::__GUI(const Entity entity
         }
         _GUI(entity);
     }
-    return GUIComponentAction::None;
+    return action;
 }
 
 void VenomComponent::Init(Entity entity)

@@ -25,11 +25,11 @@ Light::~Light()
 
 void Light::Init(Entity entity)
 {
-    __transform = entity.get_mut<Transform3D>();
 }
 
 void Light::Update(Entity entity)
 {
+    __transform = entity.get_mut<Transform3D>();
 }
 
 void Light::_GUI(const Entity entity)

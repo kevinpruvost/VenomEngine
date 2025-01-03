@@ -60,9 +60,16 @@ void main() {
             relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
         else if (light.type == LightType_Point) {
             // Perform the culling test (for simplicity, let's use point light radius check)
-            if (isLightPointAffectingTile(light, tileMinX, tileMinY, tileMaxX, tileMaxY)) {
-                relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
-            }
+            //if (isLightPointAffectingTile(light, tileMinX, tileMinY, tileMaxX, tileMaxY)) {
+             //   relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
+            //}
+            relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
+        } else if (light.type == LightType_Spot) {
+            // Perform the culling test (for simplicity, let's use spot light radius check)
+            //if (isLightSpotAffectingTile(light, tileMinX, tileMinY, tileMaxX, tileMaxY)) {
+             //   relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
+            //}
+            relevantLights.block[intIndex] |= (1 << bitIndex); // Mark this light as affecting all tiles
         }
     }
 

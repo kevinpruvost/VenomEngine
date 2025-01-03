@@ -19,6 +19,18 @@ namespace venom
 {
 namespace common
 {
+GraphicsCachedResource::GraphicsCachedResource()
+    : __name("Not laoded")
+    , __shortName("Not loaded")
+{
+}
+
+GraphicsCachedResource::GraphicsCachedResource(GraphicsCachedResourceHolder* h)
+    : GraphicsCachedResource()
+{
+    __holder = h;
+}
+
 GraphicsCachedResource::~GraphicsCachedResource()
 {
 }

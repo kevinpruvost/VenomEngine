@@ -59,11 +59,11 @@ void Camera::_GUI(const Entity entity)
 
 void Camera::Init(Entity entity)
 {
-    GetImpl()->As<CameraImpl>()->__transform = entity.get_mut<Transform3D>();
 }
 
 void Camera::Update(Entity entity)
 {
+    GetImpl()->As<CameraImpl>()->__transform = entity.get_mut<Transform3D>();
 }
 
 bool Camera::CanRemove(Entity entity)
