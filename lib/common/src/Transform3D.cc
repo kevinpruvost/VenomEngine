@@ -123,9 +123,6 @@ void Transform3D::Update(Entity entity)
 
 void Transform3D::Init(Entity entity)
 {
-    if (entity.has<vc::Light>() || entity.has<vc::Camera>()) {
-        entity.remove<Transform3D>();
-    }
 }
 
 void Transform3D::_GUI(const Entity entity)
@@ -197,6 +194,14 @@ void Transform3D::SetPitch(float angle)
 void Transform3D::SetRoll(float angle)
 {
     _roll = angle;
+    _UpdateRotationQuat();
+}
+
+void Transform3D::SetYawPitchRoll(float yaw, float pitch, float roll)
+{
+    _yaw = yaw;
+    _pitch = pitch;
+    _roll = roll;
     _UpdateRotationQuat();
 }
 

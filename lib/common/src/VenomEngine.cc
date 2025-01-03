@@ -22,8 +22,6 @@
 #include <venom/common/plugin/graphics/ShaderPipeline.h>
 #include <venom/common/plugin/graphics/Skybox.h>
 
-#include <venom/common/ComponentManager.h>
-
 #include <filesystem>
 #include <thread>
 #include <chrono>
@@ -102,12 +100,15 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
     } else {
         s_instance->__LoadECS();
-        s_sceneCallback();
+        s_sceneCallback(vc::ScenePhase::Initialization);
+        ECS::UpdateWorld();
+        s_sceneCallback(vc::ScenePhase::Activation);
         vc::Timer::ResetLoopTimer();
         while (!app->ShouldClose())
         {
             vc::GUI::Get()->__PreUpdate();
             ECS::UpdateWorld();
+            s_sceneCallback(vc::ScenePhase::Update);
             app->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 
@@ -121,6 +122,7 @@ Error VenomEngine::RunEngine(int argc, char** argv)
             vc::Timer::__PassFrame();
         }
     }
+    s_sceneCallback(vc::ScenePhase::Destruction);
     s_instance.reset();
     vc::Resources::FreeFilesystem();
     return err;
@@ -152,7 +154,6 @@ void VenomEngine::__LoadECS()
 {
     // Reserve entities
 
-    __ecs->RegisterComponent<ComponentManager>();
     __ecs->RegisterComponent<Transform3D>();
     __ecs->RegisterComponent<RenderingPipeline>();
     __ecs->RegisterComponent<Model>();

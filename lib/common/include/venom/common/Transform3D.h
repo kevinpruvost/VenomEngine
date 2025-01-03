@@ -44,6 +44,7 @@ public:
     void SetYaw(float angle);                     // Set camera yaw
     void SetPitch(float angle);                   // Set camera pitch
     void SetRoll(float angle);                    // Set camera roll
+    void SetYawPitchRoll(float yaw, float pitch, float roll); // Set camera yaw, pitch and roll
     void RotateYaw(float angle);                  // Rotate camera around Y axis by angle
     void RotatePitch(float angle);                // Rotate camera around X axis by angle
     void RotateRoll(float angle);                 // Rotate camera around Z axis by angle

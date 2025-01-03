@@ -54,7 +54,12 @@ Camera * Camera::GetMainCamera()
 
 void Camera::_GUI(const Entity entity)
 {
-    GetImpl()->As<CameraImpl>()->_GUI(entity);
+    GetImpl()->As<CameraImpl>()->__transform->_GUI(entity);
+}
+
+void Camera::Init(Entity entity)
+{
+    GetImpl()->As<CameraImpl>()->__transform = entity.get_mut<Transform3D>();
 }
 
 void Camera::Update(Entity entity)
@@ -68,8 +73,8 @@ vc::String Camera::_GetComponentTitle()
 
 const vcm::Mat4& CameraImpl::GetViewMatrix()
 {
-    if (HasPositionChanged()) {
-        __viewMatrix = vcm::LookAt(_position, _position + GetForwardVector(), GetUpVector());
+    if (__transform->HasPositionChanged()) {
+        __viewMatrix = vcm::LookAt(__transform->GetPosition(), __transform->GetPosition() + __transform->GetForwardVector(), __transform->GetUpVector());
     }
     return __viewMatrix;
 }
@@ -140,12 +145,13 @@ float CameraImpl::GetFarPlane() const
 
 void CameraImpl::LookAt(const vcm::Vec3& target)
 {
-    __viewMatrix = vcm::LookAt(_position, target, GetUpVector());
+    __viewMatrix = vcm::LookAt(__transform->GetPosition(), target, __transform->GetUpVector());
 
-    _yaw = std::atan2(__viewMatrix[0][2], __viewMatrix[2][2]);
-    _pitch = std::asin(-__viewMatrix[1][2]);
-    _roll = 0.0f;
-    _UpdateRotationQuat();
+    __transform->SetYawPitchRoll(
+        std::atan2(__viewMatrix[0][2], __viewMatrix[2][2]),
+        std::asin(-__viewMatrix[1][2]),
+        0.0f
+    );
 }
 }
 }

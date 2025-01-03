@@ -18,14 +18,16 @@ namespace venom
 {
 namespace common
 {
-class VENOM_COMMON_API CameraImpl : public PluginObjectImpl, public GraphicsPluginObject, public Transform3D
+class Camera;
+
+class VENOM_COMMON_API CameraImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
     CameraImpl();
     virtual ~CameraImpl();
 
     // View matrix generation
-    const vcm::Mat4 & GetViewMatrix();              // Generate and return the view matrix
+    const vcm::Mat4 & GetViewMatrix();  // Generate and return the view matrix
 
     // Projection matrix generation
     void SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane); // Set perspective projection
@@ -47,6 +49,8 @@ public:
     void LookAt(const vcm::Vec3& target);  // Point camera towards a specific target
 
 private:
+    Transform3D * __transform;
+
     vcm::Mat4 __viewMatrix;
     vcm::Mat4 __projectionMatrix;
 
@@ -62,6 +66,8 @@ private:
 
     void __UpdateViewMatrix();
     void __UpdateProjectionMatrix();
+
+    friend class Camera;
 };
 
 /**
@@ -77,26 +83,33 @@ public:
     static Camera * GetMainCamera();
 
     void _GUI(const Entity entity) override;
+    void Init(Entity entity) override;
     void Update(Entity entity) override;
     vc::String _GetComponentTitle() override;
 
-    inline void SetPosition(const vcm::Vec3& position) { _impl->As<CameraImpl>()->SetPosition(position); }
-    inline void Move(const vcm::Vec3& delta) { _impl->As<CameraImpl>()->Move(delta); }
-    inline void MoveForward(const float delta) { _impl->As<CameraImpl>()->MoveForward(delta); }
-    inline void MoveRight(const float delta) { _impl->As<CameraImpl>()->MoveRight(delta); }
-    inline void MoveUp(const float delta) { _impl->As<CameraImpl>()->MoveUp(delta); }
-    inline const vcm::Vec3 & GetPosition() const { return _impl->As<CameraImpl>()->GetPosition(); }
+    inline void SetPosition(const vcm::Vec3& position) { _impl->As<CameraImpl>()->__transform->SetPosition(position); }
+    inline void Move(const vcm::Vec3& delta) { _impl->As<CameraImpl>()->__transform->Move(delta); }
+    inline void MoveForward(const float delta) { _impl->As<CameraImpl>()->__transform->MoveForward(delta); }
+    inline void MoveRight(const float delta) { _impl->As<CameraImpl>()->__transform->MoveRight(delta); }
+    inline void MoveUp(const float delta) { _impl->As<CameraImpl>()->__transform->MoveUp(delta); }
+    inline const vcm::Vec3 & GetPosition() const { return _impl->As<CameraImpl>()->__transform->GetPosition(); }
 
-    inline void SetYaw(float angle) { _impl->As<CameraImpl>()->SetYaw(angle); }
-    inline void SetPitch(float angle) { _impl->As<CameraImpl>()->SetPitch(angle); }
-    inline void SetRoll(float angle) { _impl->As<CameraImpl>()->SetRoll(angle); }
-    inline void SetRotation(const vcm::Vec3& rotation) { _impl->As<CameraImpl>()->SetRotation(rotation); }
-    inline void RotateYaw(float angle) { _impl->As<CameraImpl>()->RotateYaw(angle); }
-    inline void RotatePitch(float angle) { _impl->As<CameraImpl>()->RotatePitch(angle); }
-    inline void RotateRoll(float angle) { _impl->As<CameraImpl>()->RotateRoll(angle); }
-    inline void Rotate(const vcm::Vec3 & rotation) { _impl->As<CameraImpl>()->Rotate(rotation); }
-    inline const vcm::Quat & GetRotationQuat() const { return _impl->As<CameraImpl>()->GetRotationQuat(); }
-    inline const vcm::Vec3 & GetRotation() const { return _impl->As<CameraImpl>()->GetRotation(); }
+    inline void SetYaw(float angle) { _impl->As<CameraImpl>()->__transform->SetYaw(angle); }
+    inline void SetPitch(float angle) { _impl->As<CameraImpl>()->__transform->SetPitch(angle); }
+    inline void SetRoll(float angle) { _impl->As<CameraImpl>()->__transform->SetRoll(angle); }
+    inline void SetRotation(const vcm::Vec3& rotation) { _impl->As<CameraImpl>()->__transform->SetRotation(rotation); }
+    inline void RotateYaw(float angle) { _impl->As<CameraImpl>()->__transform->RotateYaw(angle); }
+    inline void RotatePitch(float angle) { _impl->As<CameraImpl>()->__transform->RotatePitch(angle); }
+    inline void RotateRoll(float angle) { _impl->As<CameraImpl>()->__transform->RotateRoll(angle); }
+    inline void Rotate(const vcm::Vec3 & rotation) { _impl->As<CameraImpl>()->__transform->Rotate(rotation); }
+    inline const vcm::Quat & GetRotationQuat() const { return _impl->As<CameraImpl>()->__transform->GetRotationQuat(); }
+    inline const vcm::Vec3 & GetRotation() const { return _impl->As<CameraImpl>()->__transform->GetRotation(); }
+
+    inline vcm::Vec3 GetForwardVector() const { return _impl->As<CameraImpl>()->__transform->GetForwardVector(); }
+    inline vcm::Vec3 GetUpVector() const { return _impl->As<CameraImpl>()->__transform->GetUpVector(); }
+    inline vcm::Vec3 GetRightVector() const { return _impl->As<CameraImpl>()->__transform->GetRightVector(); }
+
+    inline void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle) { _impl->As<CameraImpl>()->__transform->RotateAround(target, planeNormal, angle); }
 
     inline const vcm::Mat4 & GetViewMatrix() { return _impl->As<CameraImpl>()->GetViewMatrix(); }
     inline void SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane) { _impl->As<CameraImpl>()->SetPerspective(fovY, aspectRatio, nearPlane, farPlane); }
@@ -115,11 +128,6 @@ public:
     inline float GetFarPlane() const { return _impl->As<CameraImpl>()->GetFarPlane(); }
 
     inline void LookAt(const vcm::Vec3& target) { _impl->As<CameraImpl>()->LookAt(target); }
-    inline vcm::Vec3 GetForwardVector() const { return _impl->As<CameraImpl>()->GetForwardVector(); }
-    inline vcm::Vec3 GetUpVector() const { return _impl->As<CameraImpl>()->GetUpVector(); }
-    inline vcm::Vec3 GetRightVector() const { return _impl->As<CameraImpl>()->GetRightVector(); }
-
-    inline void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle) { _impl->As<CameraImpl>()->RotateAround(target, planeNormal, angle); }
 };
 }
 }

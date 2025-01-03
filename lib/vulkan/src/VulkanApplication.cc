@@ -103,10 +103,13 @@ void VulkanApplication::__UpdateUniformBuffers()
         vcm::Vec3 direction;
     };
     CameraData camProps;
-    camProps.viewAndProj[0] = vc::Camera::GetMainCamera()->GetViewMatrix();
-    camProps.viewAndProj[1] = vc::Camera::GetMainCamera()->GetProjectionMatrix();
-    camProps.cameraPos = vc::Camera::GetMainCamera()->GetPosition();
-    camProps.direction = vc::Camera::GetMainCamera()->GetForwardVector();
+    vc::ECS::ForEach<vc::Camera, vc::Transform3D>([&](vc::Entity entity, vc::Camera & camera, vc::Transform3D & transform)
+    {
+        camProps.viewAndProj[0] = camera.GetViewMatrix();
+        camProps.viewAndProj[1] = camera.GetProjectionMatrix();
+        camProps.cameraPos = transform.GetPosition();
+        camProps.direction = transform.GetForwardVector();
+    });
 
     // Uniform buffers
     // Model Matrices

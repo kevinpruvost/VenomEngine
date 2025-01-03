@@ -18,7 +18,6 @@ namespace venom
 {
 namespace common
 {
-class ComponentManager;
 class ECS;
 
 using Entity = flecs::entity;
@@ -138,7 +137,7 @@ private:
         vc::Function<bool, Entity>
     >> __componentsCreateAndHasFuncs;
 
-    friend class ComponentManager;
+    friend class GUI;
     friend class VenomComponent;
 };
 

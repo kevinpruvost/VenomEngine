@@ -29,12 +29,13 @@ struct LightShaderStruct
     float radius;
 };
 
-class VENOM_COMMON_API Light : public Transform3D
+class VENOM_COMMON_API Light : public Component
 {
 public:
     Light();
     ~Light() override;
 
+    void Init(Entity entity) override;
     void Update(Entity entity) override;
     void _GUI(const Entity entity) override;
     vc::String _GetComponentTitle() override;
@@ -51,9 +52,10 @@ public:
     inline void SetDirection(const vcm::Vec3 & direction) { __direction = direction; }
     inline float * GetDirectionPtr() { return &__direction.x; }
     inline const vcm::Vec3 & GetDirection() const { return __direction; }
-    inline LightShaderStruct GetShaderStruct() const { return {GetPosition(), __type, __color, __intensity, __direction, __radius}; }
+    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __type, __color, __intensity, __direction, __radius}; }
 
 private:
+    Transform3D * __transform;
     vcm::Vec3 __color;
     LightType __type;
     float __intensity;

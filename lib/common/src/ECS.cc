@@ -8,7 +8,8 @@
 #include <venom/common/ECS.h>
 
 #include <venom/common/Log.h>
-#include <venom/common/ComponentManager.h>
+
+#include "venom/common/Transform3D.h"
 
 namespace venom
 {
@@ -23,13 +24,9 @@ VenomComponent::VenomComponent()
 
 void VenomComponent::GUI(const Entity entity)
 {
-    if (dynamic_cast<ComponentManager *>(this)) {
+    const vc::String title = _GetComponentTitle();
+    if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
         _GUI(entity);
-    } else {
-        const vc::String title = _GetComponentTitle();
-        if (vc::GUI::CollapsingHeader(title.c_str(), GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
-            _GUI(entity);
-        }
     }
 }
 
@@ -59,17 +56,17 @@ ECS::~ECS()
 
 Entity ECS::CreateEntity()
 {
-    return __world.entity().emplace<ComponentManager>();
+    return __world.entity().emplace<Transform3D>();
 }
 
 Entity ECS::CreateEntity(const char* name)
 {
-    return __world.entity(name).emplace<ComponentManager>();
+    return __world.entity(name).emplace<Transform3D>();
 }
 
 Entity ECS::CreatePrefab(const char* name)
 {
-    return __world.entity(name).emplace<ComponentManager>();
+    return __world.prefab(name).emplace<Transform3D>();
 }
 
 ECS* ECS::GetECS()
@@ -79,14 +76,14 @@ ECS* ECS::GetECS()
 
 void ECS::UpdateWorld()
 {
-    ECS::ForEach<ComponentManager>([&](Entity entity, ComponentManager & cm) {
+    ECS::ForEach<Transform3D>([&](Entity entity, Transform3D & cm) {
         entity.each([&](flecs::id componentID) {
             Component * component = reinterpret_cast<Component *>(entity.get_mut(componentID));
             component->__Init(entity);
         });
     });
     // In case Init removes a component
-    ECS::ForEach<ComponentManager>([&](Entity entity, ComponentManager & cm) {
+    ECS::ForEach<Transform3D>([&](Entity entity, Transform3D & cm) {
     entity.each([&](flecs::id componentID) {
         Component * component = reinterpret_cast<Component *>(entity.get_mut(componentID));
         component->Update(entity);

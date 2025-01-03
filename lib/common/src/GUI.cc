@@ -7,7 +7,6 @@
 ///
 #include <venom/common/plugin/graphics/GUI.h>
 
-#include <venom/common/ComponentManager.h>
 #include <venom/common/ECS.h>
 #include <venom/common/Light.h>
 #include <venom/common/SceneSettings.h>
@@ -126,7 +125,7 @@ void GUI::EntitiesListCollapsingHeader()
         if (vc::GUI::BeginChild("##EntitiesList", vcm::Vec2(0, 300), GUIChildFlagsBits::GUIChildFlags_FrameStyle | GUIChildFlagsBits::GUIChildFlags_ResizeY))
         {
             int n = 0;
-            vc::ECS::ForEach<vc::ComponentManager>([&](vc::Entity entity, vc::ComponentManager & cm) {
+            vc::ECS::ForEach<vc::Transform3D>([&](vc::Entity entity, vc::Transform3D & cm) {
                 vc::String name = ICON_MS_DEPLOYED_CODE " ";
                 name += entity.name();
                 if (selectedEntity == entity) {
@@ -229,6 +228,31 @@ void GUI::_EntityPropertiesWindow()
                 void * component = selectedEntity.get_mut(componentID);
                 reinterpret_cast<Component*>(component)->GUI(selectedEntity);
             });
+
+            // Add Component Button
+            if (vc::GUI::Button("+ Add Component", vcm::Vec2(-1, 0)))
+            {
+                // Show all components
+                vc::GUI::OpenPopup("add_component_popup");
+            }
+            if (vc::GUI::BeginPopup("add_component_popup"))
+            {
+                vc::GUI::SeparatorText("Components");
+
+                const auto & componentCreateFuncs = ECS::s_ecs->__componentsCreateAndHasFuncs;
+                for (const auto & [name, funcCreate, funcHas] : componentCreateFuncs)
+                {
+                    if (funcHas(selectedEntity))
+                        continue;
+                    if (vc::GUI::Button(name.c_str(), vcm::Vec2(-1, 0)))
+                    {
+                        funcCreate(selectedEntity);
+                        vc::GUI::CloseCurrentPopup();
+                    }
+                }
+
+                vc::GUI::EndPopup();
+            }
         }
     }
     vc::GUI::End();

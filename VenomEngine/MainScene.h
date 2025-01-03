@@ -22,6 +22,6 @@
 
 #include <thread>
 
-void Scene();
+void Scene(const vc::ScenePhase phase);
 void SceneInput(vc::Context * context);
 void SceneGUI();

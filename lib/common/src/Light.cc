@@ -23,14 +23,17 @@ Light::~Light()
 {
 }
 
+void Light::Init(Entity entity)
+{
+    __transform = entity.get_mut<Transform3D>();
+}
+
 void Light::Update(Entity entity)
 {
 }
 
 void Light::_GUI(const Entity entity)
 {
-    Transform3D::_GUI(entity);
-
     // Select type of light
     const vc::Array<vc::String, 3> lightTypes = {"Directional", "Point", "Spot"};
     int type = static_cast<int>(__type);

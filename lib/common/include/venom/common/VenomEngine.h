@@ -19,9 +19,15 @@ namespace venom
 {
 namespace common
 {
+enum class ScenePhase {
+    Initialization,  // First phase: Only entity creation and adding components
+    Activation,      // Second phase: Entity and component methods can be used
+    Update,          // Third phase: Update during loops
+    Destruction      // Third phase: Cleanup and removal of entities/components
+};
 // Scenes are callbacks that will be called by the engine to load a scene
 // Can either be a file or a function
-typedef void (*SceneCallback)();
+typedef void (*SceneCallback)(const ScenePhase);
 typedef void (*LoopCallback)();
 typedef void (*InputCallback)(Context *);
 
