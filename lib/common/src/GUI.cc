@@ -153,9 +153,14 @@ void GUI::EntitiesListCollapsingHeader()
             });
         }
         vc::GUI::EndChild();
-        // Adding entity context menu
-        if (vc::GUI::BeginPopupContextItem(nullptr, GUIPopupFlagsBits::GUIPopupFlags_MouseButtonRight)) {
-            if (vc::GUI::MenuItem(ICON_MS_DEPLOYED_CODE " Create Entity")) {
+        // Adding entities context menu
+        if (vc::GUI::BeginPopupContextItem("EntityCreationPopup", GUIPopupFlagsBits::GUIPopupFlags_MouseButtonRight)) {
+            if (selectedEntity.is_valid()) {
+                if (vc::GUI::MenuItem(ICON_MS_DELETE " Delete")) {
+                    selectedEntity.destruct();
+                }
+            }
+            if (vc::GUI::MenuItem(ICON_MS_DEPLOYED_CODE " Create New Entity")) {
                 vc::CreateEntity();
             }
             vc::GUI::EndPopup();
