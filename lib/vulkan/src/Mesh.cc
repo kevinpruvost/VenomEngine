@@ -75,8 +75,17 @@ vc::Error VulkanMesh::AddIndexBuffer(const void* data, const uint32_t indexCount
     return vc::Error::Success;
 }
 
-const std::vector<VulkanMesh::BoundVkBuffer> & VulkanMesh::GetVkVertexBuffers() const
+// std::string operator+(char c, const std::string & str)
+// {
+//     std::string ret(&c);
+//     ret += str;
+//     return ret;
+// }
+
+const vc::Vector<VulkanMesh::BoundVkBuffer> & VulkanMesh::GetVkVertexBuffers() const
 {
+    char test = 'c';
+    std::string tt = test + "test";
     return __vkVertexBuffers;
 }
 

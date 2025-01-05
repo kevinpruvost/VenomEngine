@@ -37,12 +37,12 @@ public:
         int binding;
         VkBuffer buffer;
     };
-    const std::vector<BoundVkBuffer> & GetVkVertexBuffers() const;
+    const vc::Vector<BoundVkBuffer> & GetVkVertexBuffers() const;
 
 private:
-    std::vector<VertexBuffer> __vertexBuffers;
-    std::vector<BoundVkBuffer> __vkVertexBuffers;
-    std::vector<VkDeviceSize> __offsets;
+    vc::Vector<VertexBuffer> __vertexBuffers;
+    vc::Vector<BoundVkBuffer> __vkVertexBuffers;
+    vc::Vector<VkDeviceSize> __offsets;
     IndexBuffer __indexBuffer;
 };
 }

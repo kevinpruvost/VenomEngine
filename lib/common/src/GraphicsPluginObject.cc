@@ -20,8 +20,8 @@ namespace venom
 namespace common
 {
 GraphicsCachedResource::GraphicsCachedResource()
-    : __name("Not laoded")
-    , __shortName("Not loaded")
+    : __name("None")
+    , __shortName("None")
 {
 }
 

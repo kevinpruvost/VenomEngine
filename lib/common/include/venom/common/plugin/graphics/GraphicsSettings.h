@@ -23,6 +23,7 @@ struct GraphicsSettingsData
     int multisamplingMode;
     int multisamplingSamples;
     int hdrEnabled;
+    int debugVisualizationMode;
 };
 
 /**
@@ -35,6 +36,9 @@ public:
     GraphicsSettings();
     virtual ~GraphicsSettings();
 
+    /**
+     * Multisampling
+     */
     enum class MultiSamplingModeOption
     {
         None = 1,
@@ -50,21 +54,42 @@ public:
         Samples32 = 32,
     };
     static vc::Error SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples);
-
-    static vc::Error SetHDR(bool enable);
-    static bool IsHDREnabled();
-    static bool IsHDRSupported();
-
-    static void StartGfxSettingsChange();
-    static vc::Error EndGfxSettingsChange();
-    static int GetActiveSamplesMultisampling();
     static MultiSamplingModeOption GetActiveMultisamplingMode();
     static MultiSamplingCountOption GetActiveMultisamplingCount();
     static int GetActiveMultisamplingCountIndex();
     static const vc::Vector<MultiSamplingCountOption> & GetAvailableMultisamplingCountOptions();
     static const vc::Vector<vc::String> & GetAvailableMultisamplingCountOptionsStrings();
+    static int GetActiveSamplesMultisampling();
 
+    /**
+    * HDR
+    */
+    static vc::Error SetHDR(bool enable);
+    static bool IsHDREnabled();
+    static bool IsHDRSupported();
+
+    /**
+     * General GFX Settings
+     */
+    static void StartGfxSettingsChange();
+    static vc::Error EndGfxSettingsChange();
     static const GraphicsSettingsData * GetGfxSettingsDataPtr();
+
+    /**
+     * Debug
+     */
+    enum class DebugVisualizationMode
+    {
+        None = 0,
+        Depth = 1,
+        Normals = 2,
+        ForwardPlus = 3,
+        Count
+    };
+    static const vc::Vector<vc::String> & GetDebugVisualizerStrings();
+    static void SetDebugVisualizationMode(DebugVisualizationMode mode);
+    static DebugVisualizationMode GetDebugVisualizationMode();
+
     static void SetWindowResolution(int width, int height);
     static void SetWindowExtent(int width, int height);
 
@@ -104,6 +129,7 @@ private:
     bool __gfxSettingsDataDirty;
 
     vc::Vector<vc::String> __availableMultisamplingCountsStrings;
+    const vc::Vector<vc::String> __debugVisualizerStrings;
 
 private:
     vc::Vector<MultiSamplingCountOption> __availableMultisamplingOptions;

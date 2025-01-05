@@ -121,11 +121,28 @@ void GUI::GraphicsSettingsCollaspingHeader()
         // Scene Graphics Settings
         vc::GUI::SeparatorText("Scene-Related");
         // Background Target Luminance
-        static float targetLuminance;
-        targetLuminance = vc::SceneSettings::GetTargetLuminance();
+        float targetLuminance = vc::SceneSettings::GetTargetLuminance();
         vc::GUI::SetNextItemWidth(100.0f);
         if (vc::GUI::SliderFloat("Target Luminance", &targetLuminance, 0.0f, 1000.0f)) {
             vc::SceneSettings::SetTargetLuminance(targetLuminance);
+        }
+
+        // Debug Graphics Settings
+        vc::GUI::SeparatorText("Debug");
+        const vc::Vector<vc::String> & debugVisualizerModes = vc::GraphicsSettings::GetDebugVisualizerStrings();
+        int debugVisualizerMode = static_cast<int>(vc::GraphicsSettings::GetDebugVisualizationMode());
+        if (vc::GUI::BeginCombo("Visualizer", debugVisualizerModes[debugVisualizerMode].c_str())) {
+            for (int i = 0; i < debugVisualizerModes.size(); i++) {
+                bool isSelected = (debugVisualizerMode == i);
+                if (vc::GUI::Selectable(debugVisualizerModes[i].c_str(), isSelected)) {
+                    debugVisualizerMode = i;
+                    vc::GraphicsSettings::SetDebugVisualizationMode(static_cast<vc::GraphicsSettings::DebugVisualizationMode>(i));
+                }
+                if (isSelected) {
+                    vc::GUI::SetItemDefaultFocus();
+                }
+            }
+            vc::GUI::EndCombo();
         }
     }
 }

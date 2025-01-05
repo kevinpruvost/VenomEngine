@@ -22,9 +22,16 @@ GraphicsSettings::GraphicsSettings()
     , __gfxSettingsData{
         .multisamplingMode = static_cast<int>(MultiSamplingModeOption::MSAA),
         .multisamplingSamples = 4,
-        .hdrEnabled = 0, // TODO: Disable by default
+        .hdrEnabled = 0,
+        .debugVisualizationMode = 0
     }
     , __gfxSettingsDataDirty(true)
+    , __debugVisualizerStrings{
+        "None",
+        "Depth",
+        "Normals",
+        "ForwardPlus"
+    }
 {
     venom_assert(s_graphicsSettings == nullptr, "GraphicsSettings is a singleton.");
     s_graphicsSettings = this;
@@ -140,11 +147,28 @@ const GraphicsSettingsData* GraphicsSettings::GetGfxSettingsDataPtr()
     return &s_graphicsSettings->__gfxSettingsData;
 }
 
+const vc::Vector<vc::String>& GraphicsSettings::GetDebugVisualizerStrings()
+{
+    return s_graphicsSettings->__debugVisualizerStrings;
+}
+
 bool GraphicsSettings::_IsGfxSettingsDataDirty()
 {
     const bool dirty = s_graphicsSettings->__gfxSettingsDataDirty;
     s_graphicsSettings->__gfxSettingsDataDirty = false;
     return dirty;
+}
+
+void GraphicsSettings::SetDebugVisualizationMode(DebugVisualizationMode mode)
+{
+    venom_assert(static_cast<int>(mode) < static_cast<int>(DebugVisualizationMode::Count), "Invalid DebugVisualizationMode");
+    s_graphicsSettings->__gfxSettingsData.debugVisualizationMode = static_cast<int>(mode);
+    s_graphicsSettings->__gfxSettingsDataDirty = true;
+}
+
+GraphicsSettings::DebugVisualizationMode GraphicsSettings::GetDebugVisualizationMode()
+{
+    return static_cast<DebugVisualizationMode>(s_graphicsSettings->__gfxSettingsData.debugVisualizationMode);
 }
 
 void GraphicsSettings::SetWindowResolution(int width, int height)

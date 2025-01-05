@@ -15,12 +15,17 @@ vec3 GetLightColor(Light light, vec3 position) {
     if (light.type == LightType_Directional) {
         return light.color * light.intensity;
     } else if (light.type == LightType_Point) {
-        float distance = length(light.position - position);
-        float attenuation = 1.0 / (distance * distance + 1.0);
-        return light.color * light.intensity * attenuation;
+        float distance = max(0.01, length(light.position - position));
+        float attenuation = min(100.0, 1.0 / (distance * distance));
+        attenuation *= light.intensity;
+        if (attenuation <= PointLight_Threshold)
+            return vec3(0.0, 0.0, 0.0);
+        return light.color * attenuation;
     } else if (light.type == LightType_Spot) {
         float distance = length(light.position - position);
-        float attenuation = 1.0 / (distance * distance + 1.0);
+        if (distance <= 0.001)
+            return vec3(0.0, 0.0, 0.0);
+        float attenuation = 1.0 / (distance * distance + 0.01);
         float spotFactor = dot(normalize(light.direction), normalize(light.position - position));
         spotFactor = max(spotFactor, 0.0);
         return light.color * light.intensity * attenuation * spotFactor;
@@ -146,46 +151,62 @@ void main()
 
     // Loop over lights
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
-    for (int i = 0; i < lightCount; ++i) {
-        Light light = lights[i];
 
-        if (isLightInBlock(gl_FragCoord.xy, i) == false)
-            continue;
+    if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None) {
+        for (int i = 0; i < lightCount; ++i) {
+            Light light = lights[i];
 
-        // Compute BRDF for this light
-        vec3 lightColor = GetLightColor(light, position);
-        vec3 lightDir = GetLightDirection(light, position);
+            if (isLightInBlock(gl_FragCoord.xy, i) == false)
+                continue;
 
-        vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
+            // Compute BRDF for this light
+            vec3 lightColor = GetLightColor(light, position);
+            if (length(lightColor) < 0.01)
+                continue;
+            vec3 lightDir = GetLightDirection(light, position);
 
-        if (tangentSpace) {
-            finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-        } else {
-            finalColor.rgb += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
+            vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
+
+            if (tangentSpace) {
+                finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+            } else {
+                finalColor.rgb += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
+            }
+        }
+        finalColor.rgb += emissive.rgb * emissive.a;
+        finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness);
+
+        // Set transparency
+        finalColor.a = baseColor.a;
+        finalColor.a = 1.0;
+
+        // Add ambient light
+        // finalColor.rgb += ComputeAmbient(baseColor.rgb, normal, viewDir, metallic, roughness, vec3(0.1, 0.1, 0.1), 0.03);
+
+        // Calculate shadow factor
+        // float shadow = ComputeShadow(position, normal, lightDir);
+
+        // finalColor.rgb *= shadow;
+        // finalColor.rgb *= ao;
+        // finalColor = toLinear(finalColor);
+        // finalColor = vec4(pow(finalColor.rgb, vec3(1.0 / 2.2)), finalColor.a);
+        // finalColor.rgb = pow(finalColor.rgb, vec3(1.0 / 1.5));
+
+        // Ambient Occlusion
+        float occlusionStrength = 1.0;
+        finalColor = mix(finalColor, finalColor * ao, occlusionStrength);
+
+        finalColor.a = opacity;
+    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
+        finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
+    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
+        finalColor = vec4(normal * 0.5 + 0.5, 1.0);
+    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
+        finalColor = vec4(0.0, 0.0, 0.0, 1.0);
+        for (int i = 0; i < lightCount; ++i) {
+            if (isLightInBlock(gl_FragCoord.xy, i) == false)
+                continue;
+            finalColor.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     }
-    finalColor.rgb += emissive.rgb * emissive.a;
-    finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness);
-
-    // Set transparency
-    finalColor.a = baseColor.a;
-    finalColor.a = 1.0;
-
-    // Add ambient light
-    // finalColor.rgb += ComputeAmbient(baseColor.rgb, normal, viewDir, metallic, roughness, vec3(0.1, 0.1, 0.1), 0.03);
-
-    // Calculate shadow factor
-    // float shadow = ComputeShadow(position, normal, lightDir);
-
-    // finalColor.rgb *= shadow;
-    // finalColor.rgb *= ao;
-    // finalColor = toLinear(finalColor);
-    // finalColor = vec4(pow(finalColor.rgb, vec3(1.0 / 2.2)), finalColor.a);
-    // finalColor.rgb = pow(finalColor.rgb, vec3(1.0 / 1.5));
-
-    // Ambient Occlusion
-    float occlusionStrength = 1.0;
-    finalColor = mix(finalColor, finalColor * ao, occlusionStrength);
-
-    finalColor.a = opacity;
 }

@@ -34,6 +34,11 @@ struct SceneSettings {
     float targetLuminance;
 };
 
+const int DebugVisualizationMode_None = 0;
+const int DebugVisualizationMode_Depth = 1;
+const int DebugVisualizationMode_Normals = 2;
+const int DebugVisualizationMode_ForwardPlus = 3;
+
 struct GraphicsSettings {
     int screenWidth;
     int screenHeight;
@@ -42,6 +47,7 @@ struct GraphicsSettings {
     int multisamplingMode;
     int multisamplingSamples;
     int hdrEnabled;
+    int debugVisualizationMode;
 };
 
 layout(binding = 0, set = 5) uniform cb1 {
@@ -55,6 +61,8 @@ layout(binding = 1, set = 5) uniform cb2 {
 const int LightType_Directional = 0;
 const int LightType_Point = 1;
 const int LightType_Spot = 2;
+
+const float PointLight_Threshold = 0.2;
 
 struct Light {
     vec3 position;
