@@ -26,7 +26,7 @@ struct LightShaderStruct
     vcm::Vec3 color;
     float intensity;
     vcm::Vec3 direction;
-    float radius;
+    float angle;
 };
 
 class VENOM_COMMON_API Light : public Component
@@ -48,21 +48,17 @@ public:
     inline void SetIntensity(const float intensity) { __intensity = intensity; }
     inline const float & GetIntensity() const { return __intensity; }
     inline float * GetIntensityPtr() { return &__intensity; }
-    inline void SetRadius(const float radius) { __radius = radius; }
-    inline const float & GetRadius() const { return __radius; }
-    inline void SetDirection(const vcm::Vec3 & direction) { __direction = direction; }
-    inline float * GetDirectionPtr() { return &__direction.x; }
-    inline const vcm::Vec3 & GetDirection() const { return __direction; }
-    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __type, __color, __intensity, __direction, __radius}; }
+    inline void SetAngle(const float angle) { __angle = angle; }
+    inline const float & GetAngle() const { return __angle; }
+    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __type, __color, __intensity, __transform->GetRotation(), __angle}; }
 
 private:
     Transform3D * __transform;
     vcm::Vec3 __color;
     LightType __type;
     float __intensity;
-    float __radius;
+    float __angle;
     uint32_t __lightID;
-    vcm::Vec3 __direction;
 };
 }
 }

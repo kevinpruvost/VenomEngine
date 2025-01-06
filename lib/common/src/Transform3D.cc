@@ -132,7 +132,7 @@ void Transform3D::_GUI(const Entity entity)
         SetPosition(position);
     }
     vcm::Vec3 rotation = GetRotation();
-    if (vc::GUI::SliderFloat3("Rotation", &rotation.x, -180.0f, 180.0f)) {
+    if (vc::GUI::SliderFloat3("Rotation", &rotation.x, 0.0f, M_PI * 2)) {
         SetRotation(rotation);
     }
     vcm::Vec3 scale = GetScale();

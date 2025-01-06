@@ -335,7 +335,7 @@ bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_m
 
 bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format)
 {
-    return ImGui::SliderFloat3(label, v, v_min, v_max, format, ImGuiSliderFlags_Logarithmic);
+    return ImGui::SliderFloat3(label, v, v_min, v_max, format, ImGuiSliderFlags_None);
 }
 
 bool VulkanGUI::_InputFloat(const char* label, float* v, float step, float step_fast, const char* format,

@@ -15,7 +15,6 @@ Light::Light()
     : __type(LightType::Directional)
     , __color(vcm::Vec3(1.0f, 1.0f, 1.0f))
     , __intensity(1.0f)
-    , __radius(10.0f)
 {
 }
 
@@ -53,11 +52,8 @@ void Light::_GUI(const Entity entity)
 
     // Other properties
     vc::GUI::InputFloat("Intensity", &__intensity);
-    if (__type == LightType::Point || __type == LightType::Spot) {
-        vc::GUI::InputFloat("Radius", &__radius);
-    }
-    if (__type == LightType::Directional || __type == LightType::Spot) {
-        vc::GUI::InputFloat3("Direction", &__direction.x);
+    if (__type == LightType::Spot) {
+        vc::GUI::SliderFloat("Angle", &__angle, 0.0f, 180.0f);
     }
     vc::GUI::ColorEdit3("Color", &__color.x);
 }

@@ -70,7 +70,7 @@ struct Light {
     vec3 color;
     float intensity;
     vec3 direction;
-    float radius;
+    float angle;
 };
 
 layout(binding = 0, set = 7) uniform cl1 {

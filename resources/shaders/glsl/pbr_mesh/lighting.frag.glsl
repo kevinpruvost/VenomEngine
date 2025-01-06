@@ -11,7 +11,46 @@ float ComputeShadow(vec3 position, vec3 normal, vec3 lightDir) {
     return clamp(ndl, 0.0, 1.0); // Shadow factor based on light direction and surface normal
 }
 
-vec3 GetLightColor(Light light, vec3 position) {
+mat3 GetRotationMatrixFromDirection(vec3 direction) {
+    mat3 Rx = mat3(1.0, 0.0, 0.0, 0.0, cos(direction.x), -sin(direction.x), 0.0, sin(direction.x), cos(direction.x));
+    mat3 Ry = mat3(cos(direction.y), 0.0, sin(direction.y), 0.0, 1.0, 0.0, -sin(direction.y), 0.0, cos(direction.y));
+    mat3 Rz = mat3(cos(direction.z), -sin(direction.z), 0.0, sin(direction.z), cos(direction.z), 0.0, 0.0, 0.0, 1.0);
+    return Rx * Ry * Rz;
+}
+
+vec3 SpotAndDirectionalDirection(vec3 direction) {
+    // Rotate the default light direction (0, -1, 0) using the light's direction as Euler angles
+    float cx = cos(direction.x);
+    float sx = sin(direction.x);
+    float cy = cos(direction.y);
+    float sy = sin(direction.y);
+    float cz = cos(direction.z);
+    float sz = sin(direction.z);
+
+    // Direct computation of the rotated direction
+    vec3 dir;
+    dir.x = -cy * sz;
+    dir.y = -sx * sy * sz - cx * cz;
+    dir.z = -cx * sy * sz + sx * cz;
+
+    return -normalize(dir);
+}
+
+vec3 GetLightDirection(Light light, vec3 position)
+{
+    // If no rotation at all, then light direction is towards bottom (0.0, -1.0, 0.0)
+    if (light.type == LightType_Directional) {
+        return SpotAndDirectionalDirection(light.direction);
+    } else if (light.type == LightType_Point) {
+        return normalize(light.position - position);
+    } else if (light.type == LightType_Spot) {
+        return SpotAndDirectionalDirection(light.direction);
+    }
+    return vec3(0.0, 0.0, 0.0);
+}
+
+vec3 GetLightColor(Light light, vec3 position, vec3 direction)
+{
     if (light.type == LightType_Directional) {
         return light.color * light.intensity;
     } else if (light.type == LightType_Point) {
@@ -26,20 +65,14 @@ vec3 GetLightColor(Light light, vec3 position) {
         if (distance <= 0.001)
             return vec3(0.0, 0.0, 0.0);
         float attenuation = 1.0 / (distance * distance + 0.01);
-        float spotFactor = dot(normalize(light.direction), normalize(light.position - position));
+        float spotFactor = dot(normalize(direction), normalize(light.position - position));
         spotFactor = max(spotFactor, 0.0);
+        float spotAngle = cos(light.angle / 180.0 * M_PI);
+        if (spotFactor < spotAngle)
+            return vec3(0.0, 0.0, 0.0);
+        // Make spot factor lerp between 0 and spotAngle
+        spotFactor = smoothstep(spotAngle, 1.0, spotFactor);
         return light.color * light.intensity * attenuation * spotFactor;
-    }
-    return vec3(0.0, 0.0, 0.0);
-}
-
-vec3 GetLightDirection(Light light, vec3 position) {
-    if (light.type == LightType_Directional) {
-        return -normalize(light.direction);
-    } else if (light.type == LightType_Point) {
-        return normalize(light.position - position);
-    } else if (light.type == LightType_Spot) {
-        return normalize(light.position - position);
     }
     return vec3(0.0, 0.0, 0.0);
 }
@@ -160,10 +193,10 @@ void main()
                 continue;
 
             // Compute BRDF for this light
-            vec3 lightColor = GetLightColor(light, position);
+            vec3 lightDir = GetLightDirection(light, position);
+            vec3 lightColor = GetLightColor(light, position, lightDir);
             if (length(lightColor) < 0.01)
                 continue;
-            vec3 lightDir = GetLightDirection(light, position);
 
             vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
 

@@ -9,7 +9,7 @@
 
 void Scene(const vc::ScenePhase phase)
 {
-    static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, helmet, camera, light1, light2;
+    static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, helmet, camera, light1, light2, light3;
     int nbTiles = 1;
     switch (phase) {
         case vc::ScenePhase::Initialization: {
@@ -50,6 +50,10 @@ void Scene(const vc::ScenePhase phase)
             light2 = vc::CreateEntity("Light2")
             .emplace<vc::Light>();
 
+            light3 = vc::CreateEntity("Light3")
+            .emplace<vc::Light>()
+            .emplace<vc::Model>("onion/onion.glb");
+
             for (int i = 0; i < nbTiles; i++) {
                 for (int j = 0; j < nbTiles; j++) {
                     auto name = "ground" + std::to_string(i) + "_" + std::to_string(j);
@@ -77,14 +81,22 @@ void Scene(const vc::ScenePhase phase)
             camera.get_mut<vc::Camera>()->LookAt(helmet.get<vc::Transform3D>()->GetPosition());
 
             light1.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
-            light1.get_mut<vc::Light>()->SetDirection({0.5f, 0.0f, 0.0f});
+            light1.get_mut<vc::Transform3D>()->SetRotation({0.5f, 0.0f, 0.0f});
             light1.get_mut<vc::Light>()->SetColor({0.37f, 0.0f, 0.17f});
             light1.get_mut<vc::Light>()->SetIntensity(4.0f);
 
-            light2.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
-            light2.get_mut<vc::Light>()->SetDirection({-0.5f, 0.0f, 0.0f});
+            light2.get_mut<vc::Light>()->SetType(vc::LightType::Point);
+            light2.get_mut<vc::Transform3D>()->SetPosition({0.0f, 0.3f, 0.0f});
+            light2.get_mut<vc::Transform3D>()->SetRotation({-0.5f, 0.0f, 0.0f});
             light2.get_mut<vc::Light>()->SetColor({0.0f, 0.5f, 0.01f});
-            light2.get_mut<vc::Light>()->SetIntensity(6.0f);
+            light2.get_mut<vc::Light>()->SetIntensity(5.0f);
+
+            light3.get_mut<vc::Light>()->SetType(vc::LightType::Spot);
+            light3.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(1.0f, 3.0f, -3.0f));
+            light3.get_mut<vc::Transform3D>()->SetRotation({0.867f, 5.416f, 0.419f});
+            light3.get_mut<vc::Light>()->SetColor({0.0f, 0.15f, 1.0f});
+            light3.get_mut<vc::Light>()->SetIntensity(100.0f);
+            light3.get_mut<vc::Light>()->SetAngle(6.0f);
 
             for (int i = 0; i < nbTiles; i++) {
                 for (int j = 0; j < nbTiles; j++) {
