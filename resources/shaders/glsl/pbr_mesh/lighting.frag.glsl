@@ -18,24 +18,6 @@ mat3 GetRotationMatrixFromDirection(vec3 direction) {
     return Rx * Ry * Rz;
 }
 
-vec3 SpotAndDirectionalDirection(vec3 direction) {
-    // Rotate the default light direction (0, -1, 0) using the light's direction as Euler angles
-    float cx = cos(direction.x);
-    float sx = sin(direction.x);
-    float cy = cos(direction.y);
-    float sy = sin(direction.y);
-    float cz = cos(direction.z);
-    float sz = sin(direction.z);
-
-    // Direct computation of the rotated direction
-    vec3 dir;
-    dir.x = -cy * sz;
-    dir.y = -sx * sy * sz - cx * cz;
-    dir.z = -cx * sy * sz + sx * cz;
-
-    return -normalize(dir);
-}
-
 vec3 GetLightDirection(Light light, vec3 position)
 {
     // If no rotation at all, then light direction is towards bottom (0.0, -1.0, 0.0)

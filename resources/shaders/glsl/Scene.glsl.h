@@ -63,6 +63,25 @@ const int LightType_Point = 1;
 const int LightType_Spot = 2;
 
 const float PointLight_Threshold = 0.2;
+const float SpotLight_Threshold = 0.2;
+
+vec3 SpotAndDirectionalDirection(vec3 direction) {
+    // Rotate the default light direction (0, -1, 0) using the light's direction as Euler angles
+    float cx = cos(direction.x);
+    float sx = sin(direction.x);
+    float cy = cos(direction.y);
+    float sy = sin(direction.y);
+    float cz = cos(direction.z);
+    float sz = sin(direction.z);
+
+    // Direct computation of the rotated direction
+    vec3 dir;
+    dir.x = -cy * sz;
+    dir.y = -sx * sy * sz - cx * cz;
+    dir.z = -cx * sy * sz + sx * cz;
+
+    return -normalize(dir);
+}
 
 struct Light {
     vec3 position;
