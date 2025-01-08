@@ -50,7 +50,7 @@ bool intersectPlaneCone(vec3 planeOrigin, vec3 planeNormal,
     }
 
     // Case 2: Cone is parallel to the plane
-    float radius = (coneAngle >= M_PI - FLT_EPSILON) ? range : range * sin(halfAngle);
+    float radius = (coneAngle >= M_PI - FLT_EPSILON) ? range : range * sin(halfAngle * 0.75);
     if (dot_dn == 1.0) {
         // Intersection if the distance between the plane normal and the cone axis is inferior to the cone radius
         return abs(dist) <= radius;
@@ -67,15 +67,12 @@ bool intersectPlaneCone(vec3 planeOrigin, vec3 planeNormal,
         return true;
     }
 
-    a = abs(a);
-
     // Case 3b: Intersection happens outside of the range and the apex of the cone
     // Theta is the angle between the plane normal and the perpendicular vector to the cone direction
     float theta = acos(dot(planeNormal, w));
     float c = a / sin(theta);
     float b = sqrt(c * c - a * a);
-    if (b <= radius) return true;
-    return false;
+    return b <= radius;
 }
 
 bool intersectionSphereToPlane(vec3 sphereCenter, float sphereRadius, vec3 planeNormal)
