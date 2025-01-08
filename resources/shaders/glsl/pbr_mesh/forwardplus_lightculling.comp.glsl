@@ -32,10 +32,10 @@ float distanceOfPointFromPlane(vec3 planeNormal, vec3 planeOrigin, vec3 pointDir
 
 // Thanks to the book "Geometric Tools for Computer Graphics"
 // Function to calculate the intersection of a plane and cone
-bool intersectPlaneCone(vec3 planeOrigin, vec3 planeNormal,
-                        vec3 coneOrigin, vec3 coneDirection,
-                        float coneAngle, float range) {
+bool intersectPlaneCone(vec3 planeOrigin, vec3 planeNormal, vec3 coneOrigin, vec3 coneDirection, float coneAngle, float range)
+{
     planeNormal = cross(cross(planeNormal, coneDirection), planeNormal);
+    coneDirection = normalize(coneDirection);
 
     float dot_dn = abs(dot(-coneDirection, planeNormal));
     float halfAngle = coneAngle / 2;
@@ -50,7 +50,7 @@ bool intersectPlaneCone(vec3 planeOrigin, vec3 planeNormal,
     }
 
     // Case 2: Cone is parallel to the plane
-    float radius = (coneAngle >= M_PI - FLT_EPSILON) ? range : range * sin(halfAngle * 0.75);
+    float radius = (coneAngle >= M_PI - FLT_EPSILON) ? range : range * sin(halfAngle);
     if (dot_dn == 1.0) {
         // Intersection if the distance between the plane normal and the cone axis is inferior to the cone radius
         return abs(dist) <= radius;
@@ -123,7 +123,7 @@ bool isSpotLightAffectingTile(Light light, float tileMinX, float tileMinY, float
 {
     // Calculate the light's bounding box
     float angle = light.angle / 180.0 * M_PI;
-    float range = (light.intensity / SpotLight_Threshold) * 100;
+    float range = (light.intensity / SpotLight_Threshold) * 2;
     vec3 direction = -SpotAndDirectionalDirection(light.direction);
     if (isLightCentroidInFrustum(light, range, direction))
         return true;
