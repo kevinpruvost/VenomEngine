@@ -9,7 +9,7 @@
 #include "../lib/external/imgui/imgui.h"
 
 bool cameraLocked = true;
-bool automaticTurn = true;
+bool automaticTurn = false;
 
 static vc::Timer timer_uni;
 

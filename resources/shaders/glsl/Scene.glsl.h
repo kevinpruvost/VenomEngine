@@ -3,6 +3,7 @@
 #define BITS_PER_INT 32
 #define NUM_FORWARD_PLUS_INTS ((MAX_LIGHTS + BITS_PER_INT - 1) / BITS_PER_INT)
 #define FORWARD_PLUS_BLOCK_SIZE 32
+#define FLT_EPSILON 1.19209290e-7
 
 struct MaterialPBR {
     vec3 baseColor;

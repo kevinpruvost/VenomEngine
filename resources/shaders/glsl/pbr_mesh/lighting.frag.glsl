@@ -49,7 +49,7 @@ vec3 GetLightColor(Light light, vec3 position, vec3 direction)
         float attenuation = 1.0 / (distance * distance + 0.01);
         float spotFactor = dot(normalize(direction), normalize(light.position - position));
         spotFactor = max(spotFactor, 0.0);
-        float spotAngle = cos(light.angle / 180.0 * M_PI);
+        float spotAngle = cos(light.angle * 0.5 / 180.0 * M_PI);
         if (spotFactor < spotAngle)
             return vec3(0.0, 0.0, 0.0);
         // Make spot factor lerp between 0 and spotAngle
