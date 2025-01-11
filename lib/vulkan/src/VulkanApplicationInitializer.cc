@@ -286,6 +286,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
             return err;
         if (err = computeCommandPool->CreateCommandBuffer(&__computeCommandBuffers[i]); err != vc::Error::Success)
             return err;
+        for (int j = 0; j < VENOM_MAX_LIGHTS; ++j) {
+            if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapCommandBuffers[i][j]); err != vc::Error::Success)
+                return err;
+        }
     }
 
     // Create Sampler
@@ -401,8 +405,12 @@ vc::Error VulkanApplication::__RecreateSwapChain()
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         __imageAvailableSemaphores[i].InitSemaphore();
         __renderFinishedSemaphores[i].InitSemaphore();
-        __graphicsFirstCheckpointSemaphores[i].InitSemaphore();
+        __graphicsSkyboxDoneSemaphores[i].InitSemaphore();
         __computeShadersFinishedSemaphores[i].InitSemaphore();
+        for (int j = 0; j < VENOM_MAX_LIGHTS; ++j) {
+            if (err = __shadowMapsFinishedSemaphores[i][j].InitSemaphore(); err != vc::Error::Success)
+                return err;
+        }
     }
     // GUI
     if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)

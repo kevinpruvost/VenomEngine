@@ -52,6 +52,8 @@ public:
     inline const float & GetAngle() const { return __angle; }
     inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __type, __color, __intensity, __transform->GetRotation(), __angle}; }
 
+    static const size_t GetCountOfLights() { return __countOfLights; }
+
 private:
     Transform3D * __transform;
     vcm::Vec3 __color;
@@ -59,6 +61,8 @@ private:
     float __intensity;
     float __angle;
     uint32_t __lightID;
+
+    static size_t __countOfLights;
 };
 }
 }

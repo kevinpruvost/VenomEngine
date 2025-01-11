@@ -11,15 +11,18 @@ namespace venom
 {
 namespace common
 {
+size_t Light::__countOfLights = 0;
 Light::Light()
     : __type(LightType::Directional)
     , __color(vcm::Vec3(1.0f, 1.0f, 1.0f))
     , __intensity(1.0f)
 {
+    ++__countOfLights;
 }
 
 Light::~Light()
 {
+    --__countOfLights;
 }
 
 void Light::Init(Entity entity)

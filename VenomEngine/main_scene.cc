@@ -9,7 +9,7 @@
 
 void Scene(const vc::ScenePhase phase)
 {
-    static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, helmet, camera, light1, light2, light3;
+    static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, face_hd1, helmet, camera, light1, light2, light3;
     int nbTiles = 1;
     switch (phase) {
         case vc::ScenePhase::Initialization: {
@@ -32,6 +32,11 @@ void Scene(const vc::ScenePhase phase)
                 .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
 
             face_hd = vc::CreateEntity("Face")
+                .emplace<vc::Model>("face/face.obj")
+                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+            ;
+
+            face_hd1 = vc::CreateEntity("Face2")
                 .emplace<vc::Model>("face/face.obj")
                 .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
             ;
@@ -75,6 +80,7 @@ void Scene(const vc::ScenePhase phase)
             balls_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-8.0f, 4.0f, 0.0f));
             eye_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(0.0f, 4.0f, 6.0f));
             face_hd.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(0.0f, 2.0f, 0.0f));
+            face_hd1.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-0.5f, 1.0f, 4.0f));
             helmet.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-4.0f, 4.0f, 0.0f));
 
             camera.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-5.2f, 4.8f, -4.7f));
@@ -96,8 +102,8 @@ void Scene(const vc::ScenePhase phase)
             light3.get_mut<vc::Transform3D>()->SetRotation({0.867f, 5.416f, 0.419f});
             light3.get_mut<vc::Transform3D>()->SetScale({0.1f, 0.1f, 0.1f});
             light3.get_mut<vc::Light>()->SetColor({0.0f, 0.15f, 1.0f});
-            light3.get_mut<vc::Light>()->SetIntensity(100.0f);
-            light3.get_mut<vc::Light>()->SetAngle(6.0f);
+            light3.get_mut<vc::Light>()->SetIntensity(1000.0f);
+            light3.get_mut<vc::Light>()->SetAngle(20.0f);
 
             for (int i = 0; i < nbTiles; i++) {
                 for (int j = 0; j < nbTiles; j++) {

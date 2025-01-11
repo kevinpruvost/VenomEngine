@@ -5,17 +5,9 @@
 #include "../PBR.glsl.h"
 
 // Placeholder for shadow calculation
-float ComputeShadow(vec3 position, vec3 normal, vec3 lightDir) {
-    vec3 realNormal = normalize(position + normal);
-    float ndl = dot(normal, -lightDir);
-    return clamp(ndl, 0.0, 1.0); // Shadow factor based on light direction and surface normal
-}
-
-mat3 GetRotationMatrixFromDirection(vec3 direction) {
-    mat3 Rx = mat3(1.0, 0.0, 0.0, 0.0, cos(direction.x), -sin(direction.x), 0.0, sin(direction.x), cos(direction.x));
-    mat3 Ry = mat3(cos(direction.y), 0.0, sin(direction.y), 0.0, 1.0, 0.0, -sin(direction.y), 0.0, cos(direction.y));
-    mat3 Rz = mat3(cos(direction.z), -sin(direction.z), 0.0, sin(direction.z), cos(direction.z), 0.0, 0.0, 0.0, 1.0);
-    return Rx * Ry * Rz;
+float ComputeShadow(vec3 position, vec3 normal)
+{
+    return 0.0;
 }
 
 vec3 GetLightDirection(Light light, vec3 position)
@@ -59,30 +51,6 @@ vec3 GetLightColor(Light light, vec3 position, vec3 direction)
     return vec3(0.0, 0.0, 0.0);
 }
 
-vec3 ComputeAmbient(
-    vec3 baseColor,
-    vec3 normal,
-    vec3 viewDir,
-    float metallic,
-    float roughness,
-    vec3 ambientColor,
-    float ambientIntensity
-) {
-    vec3 f0 = mix(vec3(0.04, 0.04, 0.04), baseColor, metallic);
-    float NdotV = max(dot(normal, viewDir), 0.0);
-
-    // Simple fresnel for ambient
-    vec3 F = f0 + (1.0 - f0) * pow(1.0 - NdotV, 5.0);
-
-    // Ambient diffuse
-    vec3 ambientDiffuse = baseColor * (1.0 - metallic) * ambientColor * ambientIntensity;
-
-    // Ambient specular
-    vec3 ambientSpecular = F * ambientColor * ambientIntensity;
-
-    return ambientDiffuse + ambientSpecular;
-}
-
 layout(location = 0) in vec3 worldPos;
 layout(location = 1) in vec3 outNormal;
 layout(location = 2) in vec2 uv;
@@ -106,8 +74,6 @@ void main()
     vec3 position = worldPos;
     float opacity = 1.0;
 
-    vec2 invertedUv = vec2(uv.x, 1.0 - uv.y);
-
     baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
     baseColor = toLinear(baseColor);
 
@@ -125,8 +91,6 @@ void main()
     if (tangentSpace) {
         vec3 N = GetMaterialTexture(MaterialComponentType_NORMAL, uv).rgb * 2.0 - 1.0;
         normal = normalize(TBN * N);
-    } else {
-
     }
 
     // Specular
@@ -167,27 +131,36 @@ void main()
     // Loop over lights
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
 
-    if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None) {
-        for (int i = 0; i < lightCount; ++i) {
-            Light light = lights[i];
+    if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
+    {
+        // Calculate shadow factor
+        float shadow = ComputeShadow(position, normal);
 
-            if (isLightInBlock(gl_FragCoord.xy, i) == false)
-                continue;
+        if (shadow < 1.0 - FLT_EPSILON)
+        {
+            for (int i = 0; i < lightCount; ++i) {
+                Light light = lights[i];
 
-            // Compute BRDF for this light
-            vec3 lightDir = GetLightDirection(light, position);
-            vec3 lightColor = GetLightColor(light, position, lightDir);
-            if (length(lightColor) < 0.01)
-                continue;
+                if (isLightInBlock(gl_FragCoord.xy, i) == false)
+                    continue;
 
-            vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
+                // Compute BRDF for this light
+                vec3 lightDir = GetLightDirection(light, position);
+                vec3 lightColor = GetLightColor(light, position, lightDir);
+                if (length(lightColor) < 0.01)
+                    continue;
 
-            if (tangentSpace) {
-                finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-            } else {
-                finalColor.rgb += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
+                vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
+
+                if (tangentSpace) {
+                    finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+                } else {
+                    finalColor.rgb += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
+                }
             }
+            finalColor.rgb *= 1.0 - shadow;
         }
+
         finalColor.rgb += emissive.rgb * emissive.a;
         finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness);
 
@@ -195,17 +168,6 @@ void main()
         finalColor.a = baseColor.a;
         finalColor.a = 1.0;
 
-        // Add ambient light
-        // finalColor.rgb += ComputeAmbient(baseColor.rgb, normal, viewDir, metallic, roughness, vec3(0.1, 0.1, 0.1), 0.03);
-
-        // Calculate shadow factor
-        // float shadow = ComputeShadow(position, normal, lightDir);
-
-        // finalColor.rgb *= shadow;
-        // finalColor.rgb *= ao;
-        // finalColor = toLinear(finalColor);
-        // finalColor = vec4(pow(finalColor.rgb, vec3(1.0 / 2.2)), finalColor.a);
-        // finalColor.rgb = pow(finalColor.rgb, vec3(1.0 / 1.5));
 
         // Ambient Occlusion
         float occlusionStrength = 1.0;

@@ -165,6 +165,17 @@ void GraphicsApplication::__LoadRenderingPipelines()
         RenderingPipelineImpl::SetRenderingPipelineCache(radianceMapShaders, RenderingPipelineType::RadianceMap);
     }
 
+    // Loading compute shader for Shadow Maps
+    // {
+    //     ShaderPipelineList shadowMapShaders;
+    //     ShaderPipeline & shader = shadowMapShaders.emplace_back();
+    //     shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Graphics);
+    //     shader.SetRenderingPipelineType(RenderingPipelineType::CascadedShadowMapping);
+    //     shader.LoadShaderFromFile("pbr_mesh/shadow_map");
+    //
+    //     RenderingPipelineImpl::SetRenderingPipelineCache(shadowMapShaders, RenderingPipelineType::CascadedShadowMapping);
+    // }
+
     // Loading skybox shaders
     {
         ShaderPipelineList skyboxShaders;

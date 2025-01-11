@@ -180,7 +180,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
         submitInfo.commandBufferCount = 1;
         VkCommandBuffer commandBuffers[] = {__graphicsFirstCheckpointCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
         submitInfo.pCommandBuffers = commandBuffers;
-        VkSemaphore signalSemaphores[] = {__graphicsFirstCheckpointSemaphores[_currentFrame].GetSemaphore()};
+        VkSemaphore signalSemaphores[] = {__graphicsSkyboxDoneSemaphores[_currentFrame].GetSemaphore()};
         submitInfo.signalSemaphoreCount = 1;
         submitInfo.pSignalSemaphores = signalSemaphores;
 
@@ -191,6 +191,10 @@ vc::Error VulkanApplication::__GraphicsOperations()
             return vc::Error::Failure;
         }
     }
+
+    // Generate shadow maps
+    // if (auto err = __GraphicsShadowMapOperations(); err != vc::Error::Success)
+    //     return err;
 
     if (auto err = __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
@@ -253,11 +257,19 @@ vc::Error VulkanApplication::__GraphicsOperations()
         // Synchronization between the image being presented and the image being rendered
         VkSubmitInfo submitInfo{};
         submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-        VkSemaphore waitSemaphores[] = {__graphicsFirstCheckpointSemaphores[_currentFrame].GetSemaphore(), __computeShadersFinishedSemaphores[_currentFrame].GetSemaphore()};
-        VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-        submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
-        submitInfo.pWaitSemaphores = waitSemaphores;
-        submitInfo.pWaitDstStageMask = waitStages;
+
+        vc::Vector<VkSemaphore> waitSemaphores = {__graphicsSkyboxDoneSemaphores[_currentFrame].GetSemaphore(), __computeShadersFinishedSemaphores[_currentFrame].GetSemaphore()};
+        vc::Vector<VkPipelineStageFlags> waitStages = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+        // Add semaphores from shadow maps generation
+        // for (size_t i = 0; i < vc::Light::GetCountOfLights(); ++i) {
+        //     waitSemaphores.emplace_back(__shadowMapsFinishedSemaphores[_currentFrame][i].GetSemaphore());
+        //     waitStages.emplace_back(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
+        // }
+
+
+        submitInfo.waitSemaphoreCount = waitSemaphores.size();
+        submitInfo.pWaitSemaphores = waitSemaphores.data();
+        submitInfo.pWaitDstStageMask = waitStages.data();
         submitInfo.commandBufferCount = 1;
         VkCommandBuffer commandBuffers[] = {__graphicsSecondCheckpointCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
         submitInfo.pCommandBuffers = commandBuffers;
@@ -289,18 +301,66 @@ vc::Error VulkanApplication::__GraphicsOperations()
     return vc::Error::Success;
 }
 
+vc::Error VulkanApplication::__GraphicsShadowMapOperations()
+{
+    for (int l = 0; l < vc::Light::GetCountOfLights(); ++l)
+    {
+        if (auto err = __shadowMapCommandBuffers[_currentFrame][l]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
+            return err;
+
+        __shadowMapCommandBuffers[_currentFrame][l]->SetViewport(__swapChain.viewport);
+        __shadowMapCommandBuffers[_currentFrame][l]->SetScissor(__swapChain.scissor);
+
+        // Draw Shadowed Models
+        __skyboxRenderPass.BeginRenderPass(__shadowMapCommandBuffers[_currentFrame][l], __imageIndex);
+        vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
+        {
+            const auto & shaders = pipeline.GetRenderingPipelineCache();
+            shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
+            __shadowMapCommandBuffers[_currentFrame][l]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
+        });
+        __skyboxRenderPass.EndRenderPass(__shadowMapCommandBuffers[_currentFrame][l]);
+
+        if (auto err = __shadowMapCommandBuffers[_currentFrame][l]->EndCommandBuffer(); err != vc::Error::Success)
+            return err;
+
+        // {
+        //     // Synchronization between the image being presented and the image being rendered
+        //     VkSubmitInfo submitInfo{};
+        //     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+        //     VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[_currentFrame].GetSemaphore()};
+        //     VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+        //     submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
+        //     submitInfo.pWaitSemaphores = waitSemaphores;
+        //     submitInfo.pWaitDstStageMask = waitStages;
+        //     submitInfo.commandBufferCount = 1;
+        //     VkCommandBuffer commandBuffers[] = {__graphicsFirstCheckpointCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
+        //     submitInfo.pCommandBuffers = commandBuffers;
+        //     VkSemaphore signalSemaphores[] = {__graphicsSkyboxDoneSemaphores[_currentFrame].GetSemaphore()};
+        //     submitInfo.signalSemaphoreCount = 1;
+        //     submitInfo.pSignalSemaphores = signalSemaphores;
+        //
+        //     if (VkResult result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result != VK_SUCCESS) {
+        //         vc::Log::Error("Failed to submit draw command buffer");
+        //         return vc::Error::Failure;
+        //     }
+        // }
+    }
+    return vc::Error::Success;
+}
+
 vc::Error VulkanApplication::__ComputeOperations()
 {
     vc::Error err;
     if (err = __computeCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
-        const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::ForwardPlusLightCulling);
         // Forward+ Light Culling compute
-        __computeCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *__computeCommandBuffers[_currentFrame], shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        const auto & forwardPlusRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::ForwardPlusLightCulling);
+        __computeCommandBuffers[_currentFrame]->BindPipeline(forwardPlusRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__computeCommandBuffers[_currentFrame], forwardPlusRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__computeCommandBuffers[_currentFrame], forwardPlusRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *__computeCommandBuffers[_currentFrame], forwardPlusRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
         __computeCommandBuffers[_currentFrame]->Dispatch(1, 1, 1);
 
     if (err = __computeCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
@@ -338,6 +398,7 @@ vc::Error VulkanApplication::__DrawFrame()
             mesh.GetMaterial().GetImpl()->ConstAs<VulkanMaterial>()->GetMaterialDescriptorSet();
     });
     // Wait for the fence to be signaled
+    //vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __shadowMapsInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
     vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence(), VK_TRUE, UINT64_MAX);
 
@@ -354,6 +415,7 @@ vc::Error VulkanApplication::__DrawFrame()
     }
 
     // If we reset before, then it will wait endlessly as no work is done
+    //vkResetFences(LogicalDevice::GetVkDevice(), 1, __shadowMapsInFlightFences[_currentFrame].GetFence());
     vkResetFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[_currentFrame].GetFence());
     vkResetFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[_currentFrame].GetFence());
     __graphicsFirstCheckpointCommandBuffers[_currentFrame]->Reset(0);

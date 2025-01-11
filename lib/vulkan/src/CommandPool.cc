@@ -303,7 +303,7 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
         .dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
         .image = image.GetVkImage(),
         .subresourceRange = {
-            .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+            .aspectMask = image.GetAspectMask(),
             .baseMipLevel = 0,
             .levelCount = image.GetMipLevels(),
             .baseArrayLayer = 0,

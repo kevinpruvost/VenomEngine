@@ -22,6 +22,7 @@ Image::Image()
     , __width(0), __height(0)
     , __layout(VK_IMAGE_LAYOUT_UNDEFINED)
     , __noDestroy(false)
+    , __aspectMask(VK_IMAGE_ASPECT_COLOR_BIT)
 {
     // Image
     __imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -51,6 +52,7 @@ Image::Image(Image&& image) noexcept
     , __width(image.__width), __height(image.__height)
     , __layout(image.__layout)
     , __mipLevels(image.__mipLevels)
+    , __aspectMask(image.__aspectMask)
 {
     image.__image = VK_NULL_HANDLE;
     image.__imageMemory = VK_NULL_HANDLE;
@@ -67,6 +69,7 @@ Image& Image::operator=(Image&& image) noexcept
         __height = image.__height;
         __mipLevels = image.__mipLevels;
         __layout = image.__layout;
+        __aspectMask = image.__aspectMask;
     }
     return *this;
 }
@@ -83,6 +86,7 @@ void Image::CreateFromSwapChainImage(VkImage img, const VkSwapchainCreateInfoKHR
     __imageInfo.arrayLayers = 1;
     __imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
     __noDestroy = true;
+    __aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 }
 
 vc::Error Image::Load(unsigned char* pixels, int width, int height, int channels,
@@ -201,6 +205,11 @@ void Image::SetImageLayout(VkImageLayout layout)
         commandBuffer.TransitionImageLayout(*this, __imageInfo.format, __layout, layout);
         __layout = layout;
     }
+}
+
+void Image::SetAspectMask(VkImageAspectFlags aspectMask)
+{
+    __aspectMask = aspectMask;
 }
 }
 }

@@ -350,9 +350,9 @@ vc::Error TextureImpl::InitDepthBuffer(int width, int height)
     return err;
 }
 
-vc::Error TextureImpl::CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels)
+vc::Error TextureImpl::CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels, int arrayLayers)
 {
-    vc::Error err = _CreateReadWriteTexture(width, height, format, mipLevels);
+    vc::Error err = _CreateReadWriteTexture(width, height, format, mipLevels, arrayLayers);
     if (err != vc::Error::Success) {
         vc::Log::Error("Failed to create read write texture");
         return vc::Error::Failure;
@@ -373,6 +373,11 @@ vc::Error TextureImpl::CreateAttachment(int width, int height, int imageCount, v
     _textureType = TextureType::Texture2D;
     _textureUsage = TextureUsage::Attachment;
     return err;
+}
+
+vc::Error TextureImpl::CreateShadowMaps(int dimension, int arrayLayers)
+{
+    return _CreateShadowMaps(dimension, arrayLayers);
 }
 }
 }

@@ -79,10 +79,12 @@ public:
      * @param height
      * @param format
      * @param mipMapLevels
+     * @param arrayLayers
      * @return
      */
-    vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels);
+    vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arrayLayers = 1);
     vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format);
+    vc::Error CreateShadowMaps(int dimension, int arrayLayers);
     static const TextureImpl * GetDummyTexture();
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
@@ -111,7 +113,8 @@ protected:
     virtual vc::Error _InitDepthBuffer(int width, int height) = 0;
     virtual vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) = 0;
     virtual vc::Error _SetMemoryAccess(const TextureMemoryAccess access) = 0;
-    virtual vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels) = 0;
+    virtual vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arrayLayers) = 0;
+    virtual vc::Error _CreateShadowMaps(int dimension, int arrayLayers) = 0;
 
 private:
     friend class Texture;
@@ -179,7 +182,8 @@ public:
     inline void LoadImageFromCachedResource(const SPtr<GraphicsCachedResource> res) { _impl->As<TextureImpl>()->SetResource(res); }
     inline vc::Error InitDepthBuffer(int width, int height) { return _impl->As<TextureImpl>()->InitDepthBuffer(width, height); }
     inline vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, imageCount, format); }
-    inline vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels) { return _impl->As<TextureImpl>()->CreateReadWriteTexture(width, height, format, mipMapLevels); }
+    inline vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arraLayers = 1) { return _impl->As<TextureImpl>()->CreateReadWriteTexture(width, height, format, mipMapLevels, arraLayers); }
+    inline vc::Error CreateShadowMaps(int dimension, int arrayLayers) { return _impl->As<TextureImpl>()->CreateShadowMaps(dimension, arrayLayers); }
     inline vc::Error SetMemoryAccess(const TextureMemoryAccess access) { return _impl->As<TextureImpl>()->SetMemoryAccess(access); }
     inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
     inline const vc::String & GetName() { return _impl->As<TextureImpl>()->GetResourceName(); }

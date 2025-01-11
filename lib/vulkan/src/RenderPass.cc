@@ -127,6 +127,9 @@ vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
         case vc::RenderingPipelineType::GUI:
             err = __CreateGuiRenderPass();
             break;
+        case vc::RenderingPipelineType::CascadedShadowMapping:
+            err = __CreateShadowRenderPass();
+            break;
         case vc::RenderingPipelineType::Text3D: {
             vc::Log::Error("Text3D are not supported yet");
             return vc::Error::Failure;
@@ -203,6 +206,127 @@ vc::Vector<RenderPass*> RenderPass::GetRenderPasses()
 }
 
 vc::Error RenderPass::__CreateNormalRenderPass()
+{
+    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+
+    // Render Pass
+    VkAttachmentDescription colorAttachment{};
+    // Should match the format of the swap chain
+    colorAttachment.format = __swapChain->activeSurfaceFormat.format;
+    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    // What to do with the data before rendering
+    colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR; // OP_LOAD might be useful for deferred shading or temporal AA
+    // What to do with the data after rendering
+    colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE; // OP_STORE might be useful for post-processing
+    colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    // Layout of the image before and after the render pass
+    colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    colorAttachment.finalLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+    // Depth attachment
+    VkAttachmentDescription depthAttachment{};
+    depthAttachment.format = VK_FORMAT_D32_SFLOAT;
+    depthAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    depthAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    depthAttachment.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+
+    // Color attachment reference
+    VkAttachmentReference colorAttachmentRef{};
+    colorAttachmentRef.attachment = 0;
+    colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+    VkAttachmentReference depthAttachmentRef{};
+    depthAttachmentRef.attachment = 1;
+    depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+
+    // Subpass
+    VkSubpassDescription & subpass = __subpassDescriptions.emplace_back();
+    subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    subpass.colorAttachmentCount = 1;
+    subpass.pColorAttachments = &colorAttachmentRef;
+    subpass.pDepthStencilAttachment = &depthAttachmentRef; // Depth and stencil
+    subpass.inputAttachmentCount = 0;
+    subpass.pInputAttachments = nullptr; // Input attachments
+
+    // Subpass dependencies
+    VkSubpassDependency dependency{};
+    dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+    dependency.dstSubpass = 0;
+    dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+    dependency.srcAccessMask = 0;
+    dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+    dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+
+    // Attachments
+    vc::Vector<VkAttachmentDescription> attachments = {colorAttachment, depthAttachment};
+
+    // Dependencies
+    vc::Vector<VkSubpassDependency> dependencies = {dependency};
+
+    // Create Info
+    VkRenderPassCreateInfo renderPassInfo{};
+    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+    renderPassInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+    renderPassInfo.pAttachments = attachments.data();
+    renderPassInfo.subpassCount = __subpassDescriptions.size();
+    renderPassInfo.pSubpasses = __subpassDescriptions.data();
+    renderPassInfo.pDependencies = dependencies.data();
+    renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
+
+    if (vkCreateRenderPass(LogicalDevice::GetVkDevice(), &renderPassInfo, Allocator::GetVKAllocationCallbacks(), &__renderPass) != VK_SUCCESS)
+    {
+        vc::Log::Error("Failed to create render pass");
+        return vc::Error::Failure;
+    }
+
+    // Clear Values
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+    __clearValues.emplace_back(VkClearValue{.depthStencil ={1.0f, 0}});
+    if (multisampled)
+        __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+
+    // Framebuffers
+    const size_t framebufferCount = __swapChain->swapChainImageHandles.size();
+    __attachments.resize(framebufferCount);
+    __framebuffers.resize(framebufferCount);
+    for (int i = 0; i < framebufferCount; ++i) {
+        //vc::Vector<VkImageView> attachments(2, VK_NULL_HANDLE);
+
+        // Create Depth Image
+        __attachments[i].resize(attachments.size());
+        vc::Texture & depthTexture = __attachments[i][0];
+        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples()));
+        depthTexture.InitDepthBuffer(__swapChain->extent.width, __swapChain->extent.height);
+
+        // Create MultiSampled Image if needed
+        if (multisampled) {
+            __framebuffers[i].SetAttachment(0, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>());
+            //attachments[0] = AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+        } else {
+            __framebuffers[i].SetAttachment(0, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            //attachments[0] = __swapChain->__swapChainImageViews[i].GetVkImageView();
+        }
+        __framebuffers[i].SetAttachment(1, depthTexture.GetImpl()->As<VulkanTexture>());
+        //attachments[1] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
+
+        // Create Framebuffer
+        __framebuffers[i].SetExtent(__swapChain->extent);
+        __framebuffers[i].SetLayers(1);
+        __framebuffers[i].SetRenderPass(this);
+        if (__framebuffers[i].Init() != vc::Error::Success) {
+            vc::Log::Error("Failed to create framebuffer");
+            return vc::Error::Failure;
+        }
+    }
+    return vc::Error::Success;
+}
+
+vc::Error RenderPass::__CreateShadowRenderPass()
 {
     const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 

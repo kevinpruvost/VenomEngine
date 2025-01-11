@@ -1,5 +1,6 @@
 #define M_PI 3.14159265358979323846264
-#define MAX_LIGHTS 256
+#define MAX_LIGHTS 128
+#define CASCADE_COUNT 3
 #define BITS_PER_INT 32
 #define NUM_FORWARD_PLUS_INTS ((MAX_LIGHTS + BITS_PER_INT - 1) / BITS_PER_INT)
 #define FORWARD_PLUS_BLOCK_SIZE 32
@@ -134,3 +135,15 @@ bool isLightInBlock(vec2 uv, int lightIndex) {
     int blockIndex = int(uv.x * FORWARD_PLUS_BLOCK_SIZE) + int(uv.y * FORWARD_PLUS_BLOCK_SIZE) * FORWARD_PLUS_BLOCK_SIZE;
     return (forwardPlusResultBuffer[blockIndex].block[intIndex] & (1 << bitIndex)) != 0;
 }
+
+//
+// Shadow Mapping
+//
+
+layout(binding = 3, set = 7) buffer cl3 {
+    int shadowMapsLayerIndices[MAX_LIGHTS];
+};
+
+layout(binding = 4, set = 7) uniform sampler2DArray shadowMapsDirectional[CASCADE_COUNT];
+layout(binding = 5, set = 7) uniform sampler2DArray shadowMapsPoint[CASCADE_COUNT];
+layout(binding = 6, set = 7) uniform sampler2DArray shadowMapsSpot[CASCADE_COUNT];

@@ -25,7 +25,7 @@ public:
     VulkanTextureResource();
 
     Image image;
-    ImageView imageView;
+    vc::Vector<ImageView> imageViews;
 };
 
 class VulkanTexture : public vc::TextureImpl
@@ -44,7 +44,9 @@ public:
     vc::Error LoadImage(uint16_t * pixels, int width, int height, int channels) override;
     vc::Error _InitDepthBuffer(int width, int height) override;
     vc::Error _CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) override;
-    vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels) override;
+    vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels, int arrayLayers) override;
+    vc::Error _CreateShadowMaps(int dimension, int arrayLayers) override;
+
     vc::Error _SetMemoryAccess(const vc::TextureMemoryAccess access) override;
 
     class VulkanGUITexture : public vc::TextureImpl::GUITexture
@@ -66,8 +68,9 @@ public:
 
     inline const Image & GetImage() const { return _resource->As<VulkanTextureResource>()->image; }
     inline Image & GetImage() { return _resource->As<VulkanTextureResource>()->image; }
-    inline const ImageView & GetImageView() const { return _resource->As<VulkanTextureResource>()->imageView; }
-    inline ImageView & GetImageView() { return _resource->As<VulkanTextureResource>()->imageView; }
+    inline const ImageView & GetImageView(int index = 0) const { return _resource->As<VulkanTextureResource>()->imageViews[index]; }
+    inline ImageView & GetImageView(int index = 0) { return _resource->As<VulkanTextureResource>()->imageViews[index]; }
+    inline ImageView & CreateImageView() const { return _resource->As<VulkanTextureResource>()->imageViews.emplace_back(); }
 };
 
 }

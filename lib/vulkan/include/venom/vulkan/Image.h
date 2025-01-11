@@ -34,6 +34,9 @@ public:
     void SetSamples(VkSampleCountFlagBits samples);
     void SetSamples(int samples);
     void SetImageLayout(VkImageLayout layout);
+    void SetAspectMask(VkImageAspectFlags aspectMask);
+
+    VkImageAspectFlags GetAspectMask() const { return __aspectMask; }
 
     inline VkFormat GetFormat() const { return __imageInfo.format; }
     inline VkImage GetVkImage() const { return __image; }
@@ -48,6 +51,7 @@ private:
     VkImageCreateInfo __imageInfo;
     VkImage __image;
     VkImageLayout __layout;
+    VkImageAspectFlags __aspectMask;
     VkDeviceMemory __imageMemory;
     uint32_t __width, __height, __mipLevels;
     bool __noDestroy;

@@ -25,12 +25,19 @@ vc::Error VulkanApplication::__InitializeSets()
             return err;
         if (err = __computeShadersFinishedSemaphores[i].InitSemaphore(); err != vc::Error::Success)
             return err;
-        if (err = __graphicsFirstCheckpointSemaphores[i].InitSemaphore(); err != vc::Error::Success)
+        if (err = __graphicsSkyboxDoneSemaphores[i].InitSemaphore(); err != vc::Error::Success)
             return err;
         if (err = __graphicsInFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
         if (err = __computeInFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
+        if (err = __shadowMapsInFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
+            return err;
+        // Shadow Maps Semaphores
+        for (int j = 0; j < VENOM_MAX_LIGHTS; ++j) {
+            if (err = __shadowMapsFinishedSemaphores[i][j].InitSemaphore(); err != vc::Error::Success)
+                return err;
+        }
     }
 
     // Create Uniform Buffers
@@ -98,7 +105,17 @@ vc::Error VulkanApplication::__InitializeSets()
         // Light count
         .AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_ALL)
         // Forward Plus
-        .AddBinding(2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_ALL);
+        .AddBinding(2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_ALL)
+        // Shadow maps
+        // Indices
+        .AddBinding(3, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_ALL)
+        // Directional Shadow Maps Arrays
+        .AddBinding(4, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VENOM_CSM_TOTAL_CASCADES, VK_SHADER_STAGE_ALL)
+        // Point Shadow Maps Arrays
+        .AddBinding(5, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VENOM_CSM_TOTAL_CASCADES, VK_SHADER_STAGE_ALL)
+        // Spot Shadow Maps Arrays
+        .AddBinding(6, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VENOM_CSM_TOTAL_CASCADES, VK_SHADER_STAGE_ALL);
+
 
     // GUI needs VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT & VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER for fonts
     DescriptorPool::GetPool()->AddPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VENOM_MAX_FRAMES_IN_FLIGHT * 200);
@@ -145,6 +162,36 @@ vc::Error VulkanApplication::__InitializeSets()
         if (err = __forwardPlusPropsBuffer[i].Init(32 * 32 * VENOM_NUM_FORWARD_PLUS_INTS * sizeof(int)); err != vc::Error::Success)
             return err;
         DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateBuffer(__forwardPlusPropsBuffer[i], 0, 2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, 0);
+    }
+
+    // Shadow map indices
+    if (err = __shadowMapIndices.Init(VENOM_MAX_LIGHTS * sizeof(int)); err != vc::Error::Success)
+        return err;
+
+    auto size = vc::VenomSettings::GetTotalShadowMapGPUSize();
+    vc::Log::Print("Total shadow map GPU size: %d MB", size / 1024 / 1024);
+
+    // Shadow Maps
+    for (int x = 0; x < VENOM_MAX_FRAMES_IN_FLIGHT; ++x) {
+        for (int i = 0; i < VENOM_CSM_TOTAL_CASCADES; ++i) {
+            if (err = __shadowMapsDirectional[x][i].CreateShadowMaps(VENOM_CSM_DIRECTIONAL_DIMENSION >> i, VENOM_CSM_MAX_DIRECTIONAL_LIGHTS); err != vc::Error::Success)
+                return err;
+            if (err = __shadowMapsPoint[x][i].CreateShadowMaps(VENOM_CSM_POINT_DIMENSION >> i, VENOM_CSM_MAX_POINT_LIGHTS * 6); err != vc::Error::Success)
+                return err;
+            if (err = __shadowMapsSpot[x][i].CreateShadowMaps(VENOM_CSM_SPOT_DIMENSION >> i, VENOM_CSM_MAX_SPOT_LIGHTS); err != vc::Error::Success)
+                return err;
+            for (int j = 0; j < VENOM_CSM_MAX_DIRECTIONAL_LIGHTS; ++j)
+                __shadowMapDirectionalImageViews[x][i][j] = __shadowMapsDirectional[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j).GetVkImageView();
+            for (int j = 0; j < VENOM_CSM_MAX_POINT_LIGHTS; ++j) {
+                for (int k = 0; k < 6; ++k)
+                    __shadowMapPointImageViews[x][i][j * 6 + k] = __shadowMapsPoint[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j * 6 + k).GetVkImageView();
+            }
+            for (int j = 0; j < VENOM_CSM_MAX_SPOT_LIGHTS; ++j)
+                __shadowMapSpotImageViews[x][i][j] = __shadowMapsSpot[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j).GetVkImageView();
+            DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexture(__shadowMapsDirectional[x][i], 4, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+            DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexture(__shadowMapsPoint[x][i], 5, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+            DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexture(__shadowMapsSpot[x][i], 6, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+        }
     }
 
     // Radiance roughness

@@ -52,7 +52,7 @@ vec2 PanoramaUvFromDir(vec3 dir) {
     float phi = atan2_custom(viewDir.z, viewDir.x); // Azimuth angle
     float theta = asin(viewDir.y);                 // Inclination angle
 
-    // Map spherical coordinates to UVs in the range [0, 1]ts
+    // Map spherical coordinates to UVs in the range [0, 1]
     vec2 uv;
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination

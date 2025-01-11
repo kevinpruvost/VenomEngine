@@ -61,7 +61,7 @@ vc::Error VulkanTexture::LoadImage(unsigned char* pixels, int width, int height,
         return vc::Error::Failure;
 
     // Create Image View
-    if (GetImageView().Create(GetImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (CreateImageView().Create(GetImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -77,7 +77,7 @@ vc::Error VulkanTexture::LoadImageRGBA(unsigned char* pixels, int width, int hei
     ) != vc::Error::Success)
         return vc::Error::Failure;
 
-    if (GetImageView().Create(GetImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (CreateImageView().Create(GetImage(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -95,7 +95,7 @@ vc::Error VulkanTexture::LoadImage(uint16_t* pixels, int width, int height, int 
         return vc::Error::Failure;
 
     // Create Image View
-    if (GetImageView().Create(GetImage(), VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (CreateImageView().Create(GetImage(), VK_FORMAT_R16G16B16A16_SFLOAT, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -109,7 +109,7 @@ vc::Error VulkanTexture::_InitDepthBuffer(int width, int height)
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
-    if (GetImageView().Create(GetImage(), depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT,
+    if (CreateImageView().Create(GetImage(), depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
@@ -141,13 +141,13 @@ vc::Error VulkanTexture::_CreateAttachment(int width, int height, int imageCount
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height, imageCount) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-    if (GetImageView().Create(GetImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
+    if (CreateImageView().Create(GetImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
         VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, imageCount) != vc::Error::Success)
         return vc::Error::Failure;
     return vc::Error::Success;
 }
 
-vc::Error VulkanTexture::_CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels)
+vc::Error VulkanTexture::_CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels, int arrayLayers)
 {
     VkFormat vkFormat;
     switch (format) {
@@ -169,13 +169,33 @@ vc::Error VulkanTexture::_CreateReadWriteTexture(int width, int height, vc::Shad
     };
 
     if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
-        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height, 1, mipLevels) != vc::Error::Success)
+        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height, arrayLayers, mipLevels) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_GENERAL);
-    if (GetImageView().Create(GetImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
-        VK_IMAGE_VIEW_TYPE_2D, 0, mipLevels, 0, 1) != vc::Error::Success)
+    for (int i = 0; i < arrayLayers; ++i) {
+        if (CreateImageView().Create(GetImage(), vkFormat, VK_IMAGE_ASPECT_COLOR_BIT,
+            VK_IMAGE_VIEW_TYPE_2D, 0, mipLevels, i, 1) != vc::Error::Success)
+            return vc::Error::Failure;
+    }
+    return vc::Error::Success;
+}
+
+vc::Error VulkanTexture::_CreateShadowMaps(int dimension, int arrayLayers)
+{
+    VkFormat vkFormat = VK_FORMAT_D16_UNORM;
+
+    if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
+        VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, dimension, dimension, arrayLayers, 1) != vc::Error::Success)
         return vc::Error::Failure;
+    GetImage().SetAspectMask(VK_IMAGE_ASPECT_DEPTH_BIT);
+    GetImage().SetImageLayout(VK_IMAGE_LAYOUT_GENERAL);
+    for (int i = 0; i < arrayLayers; ++i) {
+        if (CreateImageView().Create(GetImage(), vkFormat, GetImage().GetAspectMask(),
+            VK_IMAGE_VIEW_TYPE_2D, 0, 1, i, 1) != vc::Error::Success)
+            return vc::Error::Failure;
+    }
     return vc::Error::Success;
 }
 

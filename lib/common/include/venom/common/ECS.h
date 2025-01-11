@@ -9,9 +9,9 @@
 
 #include <venom/common/DLL.h>
 #include <venom/common/plugin/graphics/GUI.h>
+
 #include <flecs.h>
 #include <venom/common/Functional.h>
-
 #include <venom/common/Containers.h>
 
 namespace venom
