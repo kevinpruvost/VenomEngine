@@ -39,6 +39,7 @@ namespace venom
 namespace vulkan
 {
 class VulkanShaderResourceTable;
+class VulkanLight;
 
 class VulkanApplication
     : public vc::GraphicsApplication
@@ -99,7 +100,7 @@ private:
     Surface __surface;
     SwapChain __swapChain;
     AttachmentsManager __attachmentsManager;
-    RenderPass __skyboxRenderPass, __shadowRenderPass, __guiRenderPass;
+    RenderPass __skyboxRenderPass, __graphicsRenderPass, __guiRenderPass, __shadowMapRenderPass;
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
 
@@ -113,9 +114,9 @@ private:
     vc::Texture __shadowMapsDirectional[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES];
     vc::Texture __shadowMapsPoint[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES];
     vc::Texture __shadowMapsSpot[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES];
-    VkImageView __shadowMapDirectionalImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_DIRECTIONAL_LIGHTS];
-    VkImageView __shadowMapPointImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS * 6];
-    VkImageView __shadowMapSpotImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_SPOT_LIGHTS];
+    ImageView * __shadowMapDirectionalImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_DIRECTIONAL_LIGHTS];
+    ImageView * __shadowMapPointImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS * 6];
+    ImageView * __shadowMapSpotImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_SPOT_LIGHTS];
 
     UniformBuffer __radianceRoughness;
     Image __brdfLut, __irradianceMap;
@@ -154,6 +155,7 @@ private:
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
 
     friend class VulkanShaderResourceTable;
+    friend class VulkanLight;
 };
 }
 }

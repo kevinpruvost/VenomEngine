@@ -8,7 +8,7 @@
 #include <venom/common/plugin/graphics/GUI.h>
 
 #include <venom/common/ECS.h>
-#include <venom/common/Light.h>
+#include <venom/common/plugin/graphics/Light.h>
 #include <venom/common/SceneSettings.h>
 #include <venom/common/Transform3D.h>
 #include <venom/common/plugin/graphics/Camera.h>

@@ -61,7 +61,7 @@ public:
 
 private:
     vc::Error __CreateNormalRenderPass();
-    vc::Error __CreateShadowRenderPass();
+    vc::Error __CreateCSMRenderPass();
     vc::Error __CreateGuiRenderPass();
     vc::Error __CreateDeferredShadowRenderPass();
 

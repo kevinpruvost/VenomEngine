@@ -19,6 +19,8 @@
 
 #include <venom/vulkan/VulkanApplication.h>
 
+#include "venom/common/plugin/graphics/Light.h"
+
 namespace venom::vulkan
 {
 VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
@@ -217,19 +219,24 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
 
     if (_resource->As<VulkanShaderResource>()->shaderDirty == false || _resource->As<VulkanShaderResource>()->shaderStages.empty()) return vc::Error::Success;
 
-    // Push constants
-    VkPushConstantRange pushConstantRange{};
-    pushConstantRange.offset = 0;
-    //pushConstantRange.size = 2 * sizeof(vcm::Mat4); // View and Projection matrices
-    //pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
-
     // Pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     pipelineLayoutInfo.setLayoutCount = DescriptorPool::GetPool()->GetDescriptorSetLayouts().size(); // Optional
     pipelineLayoutInfo.pSetLayouts = DescriptorPool::GetPool()->GetVkDescriptorSetLayouts().data(); // Optional
-    //pipelineLayoutInfo.pushConstantRangeCount = 1; // Optional
-    //pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Optional
+
+    // Push constants
+    vc::Vector<VkPushConstantRange> pushConstantRanges;
+    if (_renderingPipelineType == vc::RenderingPipelineType::CascadedShadowMapping)
+    {
+        pushConstantRanges.emplace_back(
+            VK_SHADER_STAGE_VERTEX_BIT,
+            0,
+            sizeof(vc::LightCascadedShadowMapConstantsStruct)
+        );
+    }
+    pipelineLayoutInfo.pushConstantRangeCount = pushConstantRanges.size();
+    pipelineLayoutInfo.pPushConstantRanges = pushConstantRanges.data();
 
     if (_resource->As<VulkanShaderResource>()->pipelineLayout != VK_NULL_HANDLE) {
         vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipelineLayout, Allocator::GetVKAllocationCallbacks());

@@ -12,7 +12,7 @@
 #include <venom/common/MemoryPool.h>
 #include <venom/common/Resources.h>
 #include <venom/common/Timer.h>
-#include <venom/common/Light.h>
+#include <venom/common/plugin/graphics/Light.h>
 
 #include <venom/common/plugin/graphics/Camera.h>
 #include <venom/common/plugin/graphics/GraphicsApplication.h>

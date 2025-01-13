@@ -144,7 +144,8 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
     const VkDeviceSize * offsets = vulkanMesh->GetOffsets();
 
     // Material
-    if (vulkanMesh->HasMaterial()) {
+    if (vulkanMesh->HasMaterial())
+    {
         VulkanMaterial * material = vulkanMesh->GetMaterial().GetImpl()->ConstAs<VulkanMaterial>();
 
 #ifdef VENOM_BINDLESS_TEXTURES

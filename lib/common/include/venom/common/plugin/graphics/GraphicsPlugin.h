@@ -25,6 +25,7 @@ class ShaderPipelineImpl;
 class RenderingPipelineImpl;
 class SkyboxImpl;
 class RenderTargetImpl;
+class LightImpl;
 
 class ShaderResourceTable;
 class GUI;
@@ -57,6 +58,7 @@ public:
     virtual RenderingPipelineImpl * CreateRenderingPipeline() = 0;
     virtual SkyboxImpl * CreateSkybox() = 0;
     virtual RenderTargetImpl * CreateRenderTarget() = 0;
+    virtual LightImpl * CreateLight() = 0;
 
     // Global instances
     virtual ShaderResourceTable * CreateShaderResourceTable() = 0;

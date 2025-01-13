@@ -25,7 +25,7 @@
 #include "venom/common/ECS.h"
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 
-#include "venom/common/Light.h"
+#include "venom/common/plugin/graphics/Light.h"
 #include "venom/common/SceneSettings.h"
 #include "venom/common/plugin/graphics/GUI.h"
 #include "venom/common/plugin/graphics/RenderingPipeline.h"
@@ -204,7 +204,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         // Draw Shadowed Models (Forward+)
         const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::PBRModel);
-        __shadowRenderPass.BeginRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        __graphicsRenderPass.BeginRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame], __imageIndex);
             // Draw Shadow Models
             // Lighting Pass
             __graphicsSecondCheckpointCommandBuffers[_currentFrame]->BindPipeline(shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
@@ -223,15 +223,15 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 __graphicsSecondCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shadowRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
             });
 
-        __shadowRenderPass.EndRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
+        __graphicsRenderPass.EndRenderPass(__graphicsSecondCheckpointCommandBuffers[_currentFrame]);
 
-        // Copy to render target if any
+        // Copy to render target if any (for GUI)
         // TODO: It is a test, so should replace
         Image * attachmentImage;
         if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
-            attachmentImage = const_cast<Image *>(*__shadowRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().rbegin());
+            attachmentImage = const_cast<Image *>(*__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().rbegin());
         else
-            attachmentImage = const_cast<Image *>(*__shadowRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().begin());
+            attachmentImage = const_cast<Image *>(*__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().begin());
         for (auto & renderTarget : renderTargets) {
             if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
                 continue;

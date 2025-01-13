@@ -17,7 +17,7 @@
 #include <venom/common/plugin/graphics/Skybox.h>
 #include <venom/common/plugin/graphics/RenderTarget.h>
 #include <venom/common/Timer.h>
-#include <venom/common/Light.h>
+#include <venom/common/plugin/graphics/Light.h>
 #include <venom/common/SceneSettings.h>
 
 #include <thread>

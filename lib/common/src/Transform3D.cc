@@ -8,7 +8,7 @@
 #include <venom/common/Transform3D.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
 
-#include <venom/common/Light.h>
+#include <venom/common/plugin/graphics/Light.h>
 #include <venom/common/plugin/graphics/Camera.h>
 
 namespace venom

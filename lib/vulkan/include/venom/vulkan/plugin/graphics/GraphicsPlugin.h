@@ -27,6 +27,7 @@ public:
     vc::RenderingPipelineImpl * CreateRenderingPipeline() override;
     vc::SkyboxImpl * CreateSkybox() override;
     vc::RenderTargetImpl * CreateRenderTarget() override;
+    vc::LightImpl * CreateLight() override;
 
     vc::ShaderResourceTable * CreateShaderResourceTable() override;
     vc::GUI * CreateGUI() override;

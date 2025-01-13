@@ -7,7 +7,7 @@
 ///
 #include <venom/vulkan/VulkanApplication.h>
 
-#include "venom/common/Light.h"
+#include "venom/common/plugin/graphics/Light.h"
 #include "venom/common/SceneSettings.h"
 
 namespace venom
@@ -181,13 +181,13 @@ vc::Error VulkanApplication::__InitializeSets()
             if (err = __shadowMapsSpot[x][i].CreateShadowMaps(VENOM_CSM_SPOT_DIMENSION >> i, VENOM_CSM_MAX_SPOT_LIGHTS); err != vc::Error::Success)
                 return err;
             for (int j = 0; j < VENOM_CSM_MAX_DIRECTIONAL_LIGHTS; ++j)
-                __shadowMapDirectionalImageViews[x][i][j] = __shadowMapsDirectional[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j).GetVkImageView();
+                __shadowMapDirectionalImageViews[x][i][j] = &__shadowMapsDirectional[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j);
             for (int j = 0; j < VENOM_CSM_MAX_POINT_LIGHTS; ++j) {
                 for (int k = 0; k < 6; ++k)
-                    __shadowMapPointImageViews[x][i][j * 6 + k] = __shadowMapsPoint[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j * 6 + k).GetVkImageView();
+                    __shadowMapPointImageViews[x][i][j * 6 + k] = &__shadowMapsPoint[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j * 6 + k);
             }
             for (int j = 0; j < VENOM_CSM_MAX_SPOT_LIGHTS; ++j)
-                __shadowMapSpotImageViews[x][i][j] = __shadowMapsSpot[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j).GetVkImageView();
+                __shadowMapSpotImageViews[x][i][j] = &__shadowMapsSpot[x][i].GetImpl()->As<VulkanTexture>()->GetImageView(j);
             DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexture(__shadowMapsDirectional[x][i], 4, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
             DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexture(__shadowMapsPoint[x][i], 5, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
             DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexture(__shadowMapsSpot[x][i], 6, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
