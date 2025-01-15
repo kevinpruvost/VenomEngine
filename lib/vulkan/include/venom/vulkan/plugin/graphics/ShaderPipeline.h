@@ -40,14 +40,14 @@ public:
     VkPipeline pipeline;
     VkPipelineLayout pipelineLayout;
 
-    std::vector<VkVertexInputBindingDescription> bindingDescriptions;
-    std::vector<VkVertexInputAttributeDescription> attributeDescriptions;
+    vc::Vector<VkVertexInputBindingDescription> bindingDescriptions;
+    vc::Vector<VkVertexInputAttributeDescription> attributeDescriptions;
 
     VkPipelineMultisampleStateCreateInfo multisamplingCreateInfo;
     VkPipelineRasterizationStateCreateInfo rasterizerCreateInfo;
     VkPipelineDepthStencilStateCreateInfo depthStencilCreateInfo;
 
-    std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
+    vc::Vector<VkPipelineShaderStageCreateInfo> shaderStages;
 
     bool shaderDirty;
     PipelineType pipelineType;
@@ -65,7 +65,7 @@ public:
 
     void _ResetResource() override;
     vc::Error _LoadShader(const std::string & path) override;
-    void SetMultiSamplingCount(const int samples) override;
+    void _SetMultiSamplingCount(const int samples) override;
     void _SetLineWidth(const float width) override;
     void _SetDepthTest(const bool enable) override;
     void _SetDepthWrite(const bool enable) override;

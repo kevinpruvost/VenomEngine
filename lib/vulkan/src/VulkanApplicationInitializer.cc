@@ -283,12 +283,24 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         if (err = graphicsCommandPool->CreateCommandBuffer(&__graphicsFirstCheckpointCommandBuffers[i]); err != vc::Error::Success)
             return err;
-        if (err = graphicsCommandPool->CreateCommandBuffer(&__graphicsSecondCheckpointCommandBuffers[i]); err != vc::Error::Success)
+        if (err = graphicsCommandPool->CreateCommandBuffer(&__graphicsSceneCheckpointCommandBuffers[i]); err != vc::Error::Success)
             return err;
         if (err = computeCommandPool->CreateCommandBuffer(&__computeCommandBuffers[i]); err != vc::Error::Success)
             return err;
-        for (int j = 0; j < VENOM_MAX_LIGHTS; ++j) {
-            if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapCommandBuffers[i][j]); err != vc::Error::Success)
+        for (int j = 0; j < std::size(__shadowMapDirectionalCommandBuffers[i]); ++j) {
+            for (int k = 0; k < std::size(__shadowMapDirectionalCommandBuffers[i][j]); ++k) {
+                if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapDirectionalCommandBuffers[i][j][k]); err != vc::Error::Success)
+                    return err;
+            }
+        }
+        for (int j = 0; j < std::size(__shadowMapPointCommandBuffers[i]); ++j) {
+            for (int k = 0; k < std::size(__shadowMapPointCommandBuffers[i][j]); ++k) {
+                if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapPointCommandBuffers[i][j][k]); err != vc::Error::Success)
+                    return err;
+            }
+        }
+        for (int j = 0; j < std::size(__shadowMapSpotCommandBuffers[i]); ++j) {
+            if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapSpotCommandBuffers[i][j]); err != vc::Error::Success)
                 return err;
         }
     }
@@ -408,9 +420,18 @@ vc::Error VulkanApplication::__RecreateSwapChain()
         __renderFinishedSemaphores[i].InitSemaphore();
         __graphicsSkyboxDoneSemaphores[i].InitSemaphore();
         __computeShadersFinishedSemaphores[i].InitSemaphore();
-        for (int j = 0; j < VENOM_MAX_LIGHTS; ++j) {
-            if (err = __shadowMapsFinishedSemaphores[i][j].InitSemaphore(); err != vc::Error::Success)
-                return err;
+        for (int j = 0; j < std::size(__shadowMapsDirectionalFinishedSemaphores[i]); ++j) {
+            for (int k = 0; k < std::size(__shadowMapsDirectionalFinishedSemaphores[i][j]); ++k) {
+                __shadowMapsDirectionalFinishedSemaphores[i][j][k].InitSemaphore();
+            }
+        }
+        for (int j = 0; j < std::size(__shadowMapsPointFinishedSemaphores[i]); ++j) {
+            for (int k = 0; k < std::size(__shadowMapsPointFinishedSemaphores[i][j]); ++k) {
+                __shadowMapsPointFinishedSemaphores[i][j][k].InitSemaphore();
+            }
+        }
+        for (int j = 0; j < std::size(__shadowMapsSpotFinishedSemaphores[i]); ++j) {
+            __shadowMapsSpotFinishedSemaphores[i][j].InitSemaphore();
         }
     }
     // GUI

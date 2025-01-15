@@ -292,5 +292,58 @@ void CameraImpl::LookAt(const vcm::Vec3& target)
         0.0f
     );
 }
+
+const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
+{
+    if (__csmDataDirty) {
+        // Update CSM Camera data
+        const auto inversedViewProj = vcm::Inverse(GetViewMatrix() * GetProjectionMatrix());
+        for (int cascade = 0; cascade < std::size(__csmData.cascadeFrustumsCorners); ++cascade)
+        {
+            // Frustum Corners
+            const vcm::Vec4 frustumNearCorners[4] = {
+                vcm::Vec4(-1.0f, -1.0f, 0.0f, 1.0f),
+                vcm::Vec4(1.0f, -1.0f, 0.0f, 1.0f),
+                vcm::Vec4(1.0f, 1.0f, 0.0f, 1.0f),
+                vcm::Vec4(-1.0f, 1.0f, 0.0f, 1.0f)
+            };
+            const vcm::Vec4 frustumFarCorners[4] = {
+                vcm::Vec4(-1.0f, -1.0f, 1.0f, 1.0f),
+                vcm::Vec4(1.0f, -1.0f, 1.0f, 1.0f),
+                vcm::Vec4(1.0f, 1.0f, 1.0f, 1.0f),
+                vcm::Vec4(-1.0f, 1.0f, 1.0f, 1.0f)
+            };
+            for (int i = 0; i < 4; ++i)
+            {
+                // Linear Split
+                // TODO: Logarithmic Split instead
+                vcm::Vec4 corner = frustumNearCorners[i] + (frustumFarCorners[i] - frustumNearCorners[i]) *
+                    static_cast<float>(cascade) / static_cast<float>(std::size(__csmData.cascadeFrustumsCorners)
+                );
+                corner = inversedViewProj * corner;
+                corner /= corner.w;
+                __csmData.cascadeFrustumsCorners[cascade][i] = corner;
+            }
+        }
+        for (int cascade = 0; cascade < VENOM_CSM_TOTAL_CASCADES; ++cascade)
+        {
+            // Frustum Centers
+            for (int i = 0; i < 4; ++i)
+            {
+                __csmData.cascadeFrustumsCenters[cascade] += __csmData.cascadeFrustumsCorners[cascade][i];
+                __csmData.cascadeFrustumsCenters[cascade] += __csmData.cascadeFrustumsCorners[cascade+1][i];
+            }
+            __csmData.cascadeFrustumsCenters[cascade] /= 8.0f;
+
+            // Frustum radius
+            __csmData.cascadeFrustumsRadius[cascade] = vcm::Length(__csmData.cascadeFrustumsCorners[cascade][0] - __csmData.cascadeFrustumsCenters[cascade]);
+
+            // Frustum Planes
+
+        }
+        __csmDataDirty = false;
+    }
+    return __csmData;
+}
 }
 }

@@ -29,6 +29,7 @@ ShaderPipelineImpl::ShaderPipelineImpl()
     , _renderingPipelineShaderType(RenderingPipelineShaderType::None)
     , _renderingPipelineIndex(std::numeric_limits<uint32_t>::max())
     , _loaded(false)
+    , __customSamples(false)
 {
 }
 
@@ -124,6 +125,18 @@ void ShaderPipelineImpl::AddVertexBufferToLayout(const std::vector<VertexBufferL
     for (const VertexBufferLayout& layout : layouts) {
         AddVertexBufferToLayout(layout);
     }
+}
+
+void ShaderPipelineImpl::SetCustomMultiSamplingCount(const int samples)
+{
+    __customSamples = true;
+    _SetMultiSamplingCount(samples);
+}
+
+void ShaderPipelineImpl::SetMultiSamplingCount(const int samples)
+{
+    if (__customSamples) return;
+    _SetMultiSamplingCount(samples);
 }
 
 ShaderPipeline::ShaderPipeline()

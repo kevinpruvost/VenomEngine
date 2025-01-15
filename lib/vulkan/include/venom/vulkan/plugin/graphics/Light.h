@@ -20,6 +20,8 @@ public:
     VulkanLight();
     virtual ~VulkanLight();
 
+    inline const vc::Vector<Framebuffer> & GetShadowMapFramebuffers(const int frameIndex, const int cascadeIndex) const { return __shadowMapFramebuffers[frameIndex][cascadeIndex]; }
+
 protected:
     vc::Error _SetType(const common::LightType type) override;
 

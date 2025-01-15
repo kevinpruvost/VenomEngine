@@ -34,8 +34,20 @@ vc::Error VulkanApplication::__InitializeSets()
         if (err = __shadowMapsInFlightFences[i].InitFence(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT); err != vc::Error::Success)
             return err;
         // Shadow Maps Semaphores
-        for (int j = 0; j < VENOM_MAX_LIGHTS; ++j) {
-            if (err = __shadowMapsFinishedSemaphores[i][j].InitSemaphore(); err != vc::Error::Success)
+        for (int j = 0; j < std::size(__shadowMapsDirectionalFinishedSemaphores[i]); ++j) {
+            for (int k = 0; k < std::size(__shadowMapsDirectionalFinishedSemaphores[i][j]); ++k) {
+                if (err = __shadowMapsDirectionalFinishedSemaphores[i][j][k].InitSemaphore(); err != vc::Error::Success)
+                    return err;
+            }
+        }
+        for (int j = 0; j < std::size(__shadowMapsPointFinishedSemaphores[i]); ++j) {
+            for (int k = 0; k < std::size(__shadowMapsPointFinishedSemaphores[i][j]); ++k) {
+                if (err = __shadowMapsPointFinishedSemaphores[i][j][k].InitSemaphore(); err != vc::Error::Success)
+                    return err;
+            }
+        }
+        for (int j = 0; j < std::size(__shadowMapsSpotFinishedSemaphores[i]); ++j) {
+            if (err = __shadowMapsSpotFinishedSemaphores[i][j].InitSemaphore(); err != vc::Error::Success)
                 return err;
         }
     }

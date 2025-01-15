@@ -48,6 +48,33 @@ Light::~Light()
     __lights.erase(std::remove(__lights.begin(), __lights.end(), this), __lights.end());
 }
 
+Light::Light(const Light& other)
+    : PluginObjectImplWrapper(other)
+{
+    __lights.emplace_back(this);
+}
+
+Light& Light::operator=(const Light& other)
+{
+    PluginObjectImplWrapper::operator=(other);
+    __lights.emplace_back(this);
+}
+
+Light::Light(Light&& other) noexcept
+    : PluginObjectImplWrapper(std::move(other))
+{
+    __lights.emplace_back(this);
+}
+
+Light& Light::operator=(Light&& other) noexcept
+{
+    if (this != &other) {
+        PluginObjectImplWrapper::operator=(std::move(other));
+        __lights.emplace_back(this);
+    }
+    return *this;
+}
+
 void Light::Init(Entity entity)
 {
 }
@@ -94,20 +121,30 @@ bool Light::CanRemove(Entity entity)
     return true;
 }
 
-LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(const int shadowMapIndex, const Camera * const camera) const
+LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera) const
 {
     LightCascadedShadowMapConstantsStruct ret;
-    ret.shadowMapIndex = shadowMapIndex;
+    ret.cascadeIndex = cascadeIndex;
     ret.lightType = static_cast<int>(__lightType);
 
+    const CameraCascadedShadowMapData & csmCameraData = camera->GetImpl()->As<CameraImpl>()->GetCascadedShadowMapData();
     switch (__lightType)
     {
-        case LightType::Directional:
+        case LightType::Directional: {
+            vcm::Vec3 lightPos = csmCameraData.cascadeFrustumsCenters[cascadeIndex] + __transform->GetForwardVector() * csmCameraData.cascadeFrustumsRadius[cascadeIndex];
+            vcm::Mat4 lightViewMatrix = vcm::LookAt(lightPos, csmCameraData.cascadeFrustumsCenters[cascadeIndex], vcm::Vec3(0.0f, 1.0f, 0.0f));
+            vcm::Mat4 lightProjMatrix = vcm::Orthographic(-csmCameraData.cascadeFrustumsRadius[cascadeIndex], csmCameraData.cascadeFrustumsRadius[cascadeIndex], -csmCameraData.cascadeFrustumsRadius[cascadeIndex], csmCameraData.cascadeFrustumsRadius[cascadeIndex], 0.0f, csmCameraData.cascadeFrustumsRadius[cascadeIndex] * 2.0f);
+            ret.lightSpaceMatrix = lightProjMatrix * lightViewMatrix;
             break;
+        }
         case LightType::Point:
             break;
         case LightType::Spot:
             break;
+        default: {
+            vc::Log::Error("Light type not supported");
+            break;
+        }
     }
     return ret;
 }
@@ -128,7 +165,7 @@ public:
         }
     }
 
-    int AllocateLightIndex(const LightType type)
+    inline int AllocateLightIndex(const LightType type)
     {
         venom_assert(!__lightIndexPerType[static_cast<int>(type)].empty(), "No more light index available");
         int ret = __lightIndexPerType[static_cast<int>(type)].top();
@@ -136,9 +173,28 @@ public:
         return ret;
     }
 
-    void DeallocateLightIndex(const LightType type, const int index)
+    inline void DeallocateLightIndex(const LightType type, const int index)
     {
         __lightIndexPerType[static_cast<int>(type)].push(index);
+    }
+
+    inline const size_t GetCountOfLightsOfType(const LightType type)
+    {
+        switch (type)
+        {
+            case LightType::Directional:
+                return VENOM_CSM_MAX_DIRECTIONAL_LIGHTS - __lightIndexPerType[static_cast<int>(type)].size();
+                break;
+            case LightType::Point:
+                return VENOM_CSM_MAX_POINT_LIGHTS - __lightIndexPerType[static_cast<int>(type)].size();
+                break;
+            case LightType::Spot:
+                return VENOM_CSM_MAX_SPOT_LIGHTS - __lightIndexPerType[static_cast<int>(type)].size();
+                break;
+            default:
+                break;
+        }
+        return __lightIndexPerType[static_cast<int>(type)].size();
     }
 
 private:
@@ -155,6 +211,11 @@ void LightImpl::__DeallocateLightType()
 {
     s_lightIndexAllocator.DeallocateLightIndex(__lightType, _lightIndexPerType);
     _lightIndexPerType = -1;
+}
+
+const size_t Light::GetCountOfLightsOfType(const LightType type)
+{
+    return s_lightIndexAllocator.GetCountOfLightsOfType(type);
 }
 }
 }

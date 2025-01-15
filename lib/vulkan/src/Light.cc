@@ -34,21 +34,21 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
             switch (type)
             {
                 case vc::LightType::Directional: {
-                    VkExtent2D extent = {VENOM_CSM_DIRECTIONAL_DIMENSION, VENOM_CSM_DIRECTIONAL_DIMENSION};
+                    VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_DIRECTIONAL_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_DIRECTIONAL_DIMENSION) >> j};
                     Framebuffer & fb = __shadowMapFramebuffers[i][j].emplace_back();
                     if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapDirectionalImageViews[i][j][_lightIndexPerType], extent) != vc::Error::Success)
                         return vc::Error::Failure;
                     break;
                 }
                 case vc::LightType::Spot: {
-                    VkExtent2D extent = {VENOM_CSM_SPOT_DIMENSION, VENOM_CSM_SPOT_DIMENSION};
+                    VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_SPOT_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_SPOT_DIMENSION) >> j};
                     Framebuffer & fb = __shadowMapFramebuffers[i][j].emplace_back();
                     if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapSpotImageViews[i][j][_lightIndexPerType], extent) != vc::Error::Success)
                         return vc::Error::Failure;
                     break;
                 }
                 case vc::LightType::Point: {
-                    VkExtent2D extent = {VENOM_CSM_POINT_DIMENSION, VENOM_CSM_POINT_DIMENSION};
+                    VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_POINT_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_POINT_DIMENSION) >> j};
                     for (int k = 0; k < 6; ++k)
                     {
                         Framebuffer & fb = __shadowMapFramebuffers[i][j].emplace_back();

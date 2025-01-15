@@ -67,6 +67,17 @@ inline Mat4 Perspective(const float fov, const float aspect, const float nearPla
 #endif
 }
 
+VENOM_COMMON_API Mat4 OrthographicLH(const float left, const float right, const float bottom, const float top, const float nearPlane, const float farPlane);
+VENOM_COMMON_API Mat4 OrthographicRH(const float left, const float right, const float bottom, const float top, const float nearPlane, const float farPlane);
+inline Mat4 Orthographic(const float left, const float right, const float bottom, const float top, const float nearPlane, const float farPlane)
+{
+#if defined (VENOM_COORDINATE_LEFT_HAND)
+    return OrthographicLH(left, right, bottom, top, nearPlane, farPlane);
+#elif defined (VENOM_COORDINATE_RIGHT_HAND)
+    return OrthographicRH(left, right, bottom, top, nearPlane, farPlane);
+#endif
+}
+
 VENOM_COMMON_API Mat4 Inverse(const Mat4& matrix);
 }
 }

@@ -160,6 +160,8 @@ VENOM_COMMON_API void Normalize(Vec3& vec);
 
 vcm::Quat FromEulerAngles(const float yaw, const float pitch, const float roll);
 
+float Length(const Vec3& vec);
+
 }
 }
 }

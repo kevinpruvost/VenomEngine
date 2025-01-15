@@ -25,7 +25,7 @@ public:
 
     void DestroySemaphore();
     vc::Error InitSemaphore();
-    VkSemaphore GetSemaphore() const;
+    inline VkSemaphore GetVkSemaphore() const { return __semaphore; }
 
 private:
     VkSemaphore __semaphore;

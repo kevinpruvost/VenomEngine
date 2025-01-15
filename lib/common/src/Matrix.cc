@@ -102,6 +102,24 @@ Mat4 PerspectiveRH(const float fov, const float aspect, const float nearPlane, c
 #endif
 }
 
+Mat4 OrthographicLH(const float left, const float right, const float bottom, const float top, const float nearPlane, const float farPlane)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return DirectX::XMMatrixOrthographicLH(right - left, top - bottom, nearPlane, farPlane);
+#elif defined(VENOM_MATH_GLM)
+    return glm::ortho(left, right, bottom, top, nearPlane, farPlane);
+#endif
+}
+
+Mat4 OrthographicRH(const float left, const float right, const float bottom, const float top, const float nearPlane, const float farPlane)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return DirectX::XMMatrixOrthographicRH(right - left, top - bottom, nearPlane, farPlane);
+#elif defined(VENOM_MATH_GLM)
+    return glm::orthoRH(left, right, bottom, top, nearPlane, farPlane);
+#endif
+}
+
 Mat4 Inverse(const Mat4& matrix)
 {
 #if defined(VENOM_MATH_DXMATH)

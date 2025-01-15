@@ -38,7 +38,7 @@ struct LightCascadedShadowMapConstantsStruct
 {
     vcm::Mat4 lightSpaceMatrix;
     int lightType;
-    int shadowMapIndex;
+    int cascadeIndex;
 };
 
 class VENOM_COMMON_API LightImpl : public PluginObjectImpl, public GraphicsPluginObject
@@ -58,7 +58,8 @@ public:
     inline const float & GetAngle() const { return __angle; }
     inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, __transform->GetRotation(), __angle}; }
     inline vc::Error Reinit() { return _SetType(__lightType); }
-    LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int shadowMapIndex, const Camera * const camera) const;
+    LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera) const;
+    inline int GetLightIndexPerType() const { return _lightIndexPerType; }
 
 protected:
     virtual vc::Error _SetType(const LightType type) = 0;
@@ -76,7 +77,6 @@ private:
     LightType __lightType;
     float __intensity;
     float __angle;
-    uint32_t __lightID;
 
     friend class Light;
 };
@@ -86,6 +86,10 @@ class VENOM_COMMON_API Light : public Component, public PluginObjectImplWrapper
 public:
     Light();
     ~Light() override;
+    Light(const Light & other);
+    Light & operator=(const Light & other);
+    Light(Light && other) noexcept;
+    Light & operator=(Light && other) noexcept;
 
     void Init(Entity entity) override;
     void Update(Entity entity) override;
@@ -102,10 +106,12 @@ public:
     inline void SetAngle(const float angle) { _impl->As<LightImpl>()->SetAngle(angle); }
     inline const float & GetAngle() const { return _impl->As<LightImpl>()->GetAngle(); }
     inline LightShaderStruct GetShaderStruct() const { return _impl->As<LightImpl>()->GetShaderStruct(); }
-    inline LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int shadowMapIndex, const Camera * const camera) const { return _impl->As<LightImpl>()->GetShadowMapConstantsStruct(shadowMapIndex, camera); }
+    inline LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int shadowMapIndex, const int faceIndex, Camera * const camera) const { return _impl->As<LightImpl>()->GetShadowMapConstantsStruct(shadowMapIndex, faceIndex, camera); }
 
     static const size_t GetCountOfLights() { return __lights.size(); }
     static const vc::Vector<Light *> & GetLights() { return __lights; }
+
+    static const size_t GetCountOfLightsOfType(const LightType type);
 
 private:
     static vc::Vector<Light *> __lights;

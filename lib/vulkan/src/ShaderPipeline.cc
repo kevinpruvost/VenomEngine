@@ -160,7 +160,7 @@ void VulkanShaderPipeline::_SetLineWidth(const float width)
     _resource->As<VulkanShaderResource>()->shaderDirty = true;
 }
 
-void VulkanShaderPipeline::SetMultiSamplingCount(const int samples)
+void VulkanShaderPipeline::_SetMultiSamplingCount(const int samples)
 {
     if (_resource->As<VulkanShaderResource>()->multisamplingCreateInfo.rasterizationSamples == static_cast<VkSampleCountFlagBits>(samples)) return;
     _resource->As<VulkanShaderResource>()->multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(samples);

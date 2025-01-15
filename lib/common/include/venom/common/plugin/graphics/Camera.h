@@ -23,11 +23,12 @@ class Camera;
 struct CameraCascadedShadowMapData
 {
     // Frustums and positions of near and far corners of each cascade
-    vcm::Vec3 cascadeFrustumsCorners[4 * VENOM_CSM_TOTAL_CASCADES];
-    vcm::Vec3 cascadeFrustumsCenter[VENOM_CSM_TOTAL_CASCADES];
-    // The ones delimiting each cascade and the near and far (-1 because for 3 cascades, we have 2 delimiter planes)
-    // (+2 because we need the near and far planes of the camera)
-    vcm::Vec3 cascadeFrustumsPlanes[VENOM_CSM_TOTAL_CASCADES - 1 + 2];
+    vcm::Vec3 cascadeFrustumsCorners[VENOM_CSM_TOTAL_CASCADES + 1][4];
+    vcm::Vec3 cascadeFrustumsCenters[VENOM_CSM_TOTAL_CASCADES];
+    // The ones delimiting each cascade and the near and far planes
+    vcm::Vec3 cascadeFrustumsPlanes[VENOM_CSM_TOTAL_CASCADES][4];
+    // As in the name, the radius of each cascade (max distance from the center at it still has effect)
+    float cascadeFrustumsRadius[VENOM_CSM_TOTAL_CASCADES];
 };
 
 class VENOM_COMMON_API CameraImpl : public PluginObjectImpl, public GraphicsPluginObject
@@ -82,6 +83,8 @@ public:
 
     void LookAt(const vcm::Vec3& target);  // Point camera towards a specific target
 
+    const CameraCascadedShadowMapData & GetCascadedShadowMapData();
+
 private:
     Transform3D * __transform;
 
@@ -101,6 +104,8 @@ private:
 
     void __UpdateViewMatrix();
     void __UpdateProjectionMatrix();
+
+    CameraCascadedShadowMapData __csmData;
 
     friend class Camera;
 };

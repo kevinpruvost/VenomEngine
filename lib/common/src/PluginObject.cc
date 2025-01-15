@@ -60,7 +60,7 @@ PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(PluginObjectImplWrap
 
 PluginObjectImplWrapper::~PluginObjectImplWrapper()
 {
-    _impl->DecRefCount();
+    if (_impl) _impl->DecRefCount();
 }
 
 bool PluginObjectImplWrapper::IsImplInitialized() const

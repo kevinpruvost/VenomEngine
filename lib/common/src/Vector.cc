@@ -194,4 +194,13 @@ vcm::Quat FromEulerAngles(const float yaw, const float pitch, const float roll)
     vcm::Quat rollQuat{ std::cos(roll / 2), 0.0f, 0.0f, std::sin(roll / 2) };
     return yawQuat * pitchQuat * rollQuat;
 }
+
+float Length(const Vec3& vec)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMLoadFloat3(&vec)));
+#elif defined(VENOM_MATH_GLM)
+    return glm::length(vec);
+#endif
+}
 }

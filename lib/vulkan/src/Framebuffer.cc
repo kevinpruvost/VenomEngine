@@ -34,6 +34,30 @@ Framebuffer::~Framebuffer()
     Destroy();
 }
 
+Framebuffer::Framebuffer(Framebuffer&& other)
+    : __framebuffer(other.__framebuffer)
+    , __framebufferCreateInfo(other.__framebufferCreateInfo)
+    , __attachments(std::move(other.__attachments))
+    , __images(std::move(other.__images))
+    , __imageViews(std::move(other.__imageViews))
+{
+    other.__framebuffer = VK_NULL_HANDLE;
+}
+
+Framebuffer& Framebuffer::operator=(Framebuffer&& other)
+{
+    if (this != &other)
+    {
+        __framebuffer = other.__framebuffer;
+        __framebufferCreateInfo = other.__framebufferCreateInfo;
+        __attachments = std::move(other.__attachments);
+        __images = std::move(other.__images);
+        __imageViews = std::move(other.__imageViews);
+        other.__framebuffer = VK_NULL_HANDLE;
+    }
+    return *this;
+}
+
 void Framebuffer::Destroy()
 {
     if (__framebuffer != VK_NULL_HANDLE)

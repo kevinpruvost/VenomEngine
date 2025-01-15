@@ -81,7 +81,13 @@ public:
      */
     void AddVertexBufferToLayout(const std::vector<VertexBufferLayout> & layouts);
 
-    virtual void SetMultiSamplingCount(const int samples) = 0;
+    
+    /**
+     * @brief To separate from Swap Chain multisampling
+     * @param samples
+     */
+    void SetCustomMultiSamplingCount(const int samples);
+    void SetMultiSamplingCount(const int samples);
     inline vc::Error SetLineWidth(const float width) { _SetLineWidth(width); return _ReloadShaderAfterSettings(); }
     inline vc::Error SetDepthTest(const bool enable) { _SetDepthTest(enable); return _ReloadShaderAfterSettings(); }
     inline vc::Error SetDepthWrite(const bool enable) { _SetDepthWrite(enable); return _ReloadShaderAfterSettings(); }
@@ -95,6 +101,7 @@ public:
     inline RenderingPipelineShaderType GetRenderingPipelineShaderType() const { return _renderingPipelineShaderType; }
 
 protected:
+    virtual void _SetMultiSamplingCount(const int samples) = 0;
     virtual void _SetLineWidth(const float width) = 0;
     virtual void _SetDepthTest(const bool enable) = 0;
     virtual void _SetDepthWrite(const bool enable) = 0;
@@ -112,6 +119,9 @@ protected:
     RenderingPipelineShaderType _renderingPipelineShaderType;
     uint32_t _renderingPipelineIndex;
     bool _loaded;
+
+private:
+    bool __customSamples;
 };
 
 class VENOM_COMMON_API ShaderPipeline : public PluginObjectImplWrapper
@@ -134,6 +144,8 @@ public:
     inline void SetLineWidth(const float width) { _impl->As<ShaderPipelineImpl>()->SetLineWidth(width); }
     inline void SetDepthTest(const bool enable) { _impl->As<ShaderPipelineImpl>()->SetDepthTest(enable); }
     inline void SetDepthWrite(const bool enable) { _impl->As<ShaderPipelineImpl>()->SetDepthWrite(enable); }
+
+    inline void SetCustomMultiSamplingCount(const int samples) { _impl->As<ShaderPipelineImpl>()->SetCustomMultiSamplingCount(samples); }
 };
 }
 }

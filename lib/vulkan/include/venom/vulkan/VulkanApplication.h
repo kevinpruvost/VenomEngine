@@ -33,6 +33,8 @@
 
 #include <venom/vulkan/plugin/graphics/Camera.h>
 
+#include "venom/common/plugin/graphics/Light.h"
+
 namespace venom
 {
 /// @brief Encapsulation of Vulkan for the front end of VenomEngine.
@@ -60,7 +62,7 @@ public:
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
     inline const RenderPass * GetHDRRenderPass() const { return &__skyboxRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }
-    inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSecondCheckpointCommandBuffers[GetCurrentFrameInFlight()]; }
+    inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSceneCheckpointCommandBuffers[GetCurrentFrameInFlight()]; }
 
 protected:
     vc::Error _LoadGfxSettings() override;
@@ -74,6 +76,10 @@ private:
     void __UpdateUniformBuffers();
     vc::Error __GraphicsOperations();
     vc::Error __GraphicsShadowMapOperations();
+    vc::Error __GraphicsShadowMapOperationPerLight(const vc::Light * light, const int lightIndex,
+        const vc::LightCascadedShadowMapConstantsStruct & constants,
+        const Framebuffer * const framebuffer, const Semaphore * const semaphore, CommandBuffer * const commandBuffer,
+        const vc::ShaderPipeline * const shaderPipeline);
     vc::Error __ComputeOperations();
     vc::Error __DrawFrame();
     vc::Error __InitVulkan();
@@ -136,15 +142,19 @@ private:
     vc::ShaderPipeline __shaderPipeline;
 
     CommandBuffer * __graphicsFirstCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    CommandBuffer * __graphicsSecondCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    CommandBuffer * __graphicsSceneCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     CommandBuffer * __computeCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    CommandBuffer * __shadowMapCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_LIGHTS];
+    CommandBuffer * __shadowMapDirectionalCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_DIRECTIONAL_LIGHTS][VENOM_CSM_TOTAL_CASCADES];
+    CommandBuffer * __shadowMapPointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_POINT_LIGHTS][6];
+    CommandBuffer * __shadowMapSpotCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_SPOT_LIGHTS];
 
     Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __graphicsSkyboxDoneSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __computeShadersFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
-    Semaphore __shadowMapsFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_LIGHTS];
+    Semaphore __shadowMapsDirectionalFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_DIRECTIONAL_LIGHTS][VENOM_CSM_TOTAL_CASCADES];
+    Semaphore __shadowMapsPointFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_POINT_LIGHTS][6];
+    Semaphore __shadowMapsSpotFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_SPOT_LIGHTS];
 
     Fence __graphicsInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
     Fence __computeInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];

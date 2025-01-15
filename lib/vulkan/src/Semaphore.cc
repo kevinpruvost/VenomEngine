@@ -59,9 +59,4 @@ vc::Error Semaphore::InitSemaphore()
     }
     return vc::Error::Success;
 }
-
-VkSemaphore Semaphore::GetSemaphore() const
-{
-    return __semaphore;
-}
 }

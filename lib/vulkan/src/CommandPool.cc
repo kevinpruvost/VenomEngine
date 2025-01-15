@@ -263,10 +263,9 @@ void CommandBuffer::ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspec
     vkCmdClearAttachments(_commandBuffer, 1, &clearAttachment, 0, nullptr);
 }
 
-void CommandBuffer::PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, uint32_t offset,
-                                  uint32_t size, const void* pValues) const
+void CommandBuffer::PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32_t offset, uint32 size) const
 {
-    vkCmdPushConstants(_commandBuffer, shaderPipeline->GetPipelineLayout(), stageFlags, offset, size, pValues);
+    vkCmdPushConstants(_commandBuffer, shaderPipeline->GetImpl()->As<VulkanShaderPipeline>()->GetPipelineLayout(), stageFlags, offset, size, pValues);
 }
 
 void CommandBuffer::CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage)

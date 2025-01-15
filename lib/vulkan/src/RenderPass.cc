@@ -158,14 +158,14 @@ vc::Error RenderPass::BeginRenderPass(CommandBuffer* commandBuffer, int framebuf
     return BeginRenderPassCustomFramebuffer(commandBuffer, &__framebuffers[framebufferIndex]);
 }
 
-vc::Error RenderPass::BeginRenderPassCustomFramebuffer(CommandBuffer* commandBuffer, Framebuffer* framebuffer)
+vc::Error RenderPass::BeginRenderPassCustomFramebuffer(CommandBuffer* commandBuffer, const Framebuffer * const framebuffer)
 {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = __renderPass;
     renderPassInfo.framebuffer = framebuffer->GetVkFramebuffer();
     renderPassInfo.renderArea.offset = {0, 0};
-    renderPassInfo.renderArea.extent = __swapChain->extent;
+    renderPassInfo.renderArea.extent = framebuffer->GetFramebufferExtent();
 
     renderPassInfo.clearValueCount = __clearValues.size();
     renderPassInfo.pClearValues = __clearValues.data();
@@ -334,6 +334,8 @@ vc::Error RenderPass::__CreateNormalRenderPass()
 
 vc::Error RenderPass::__CreateCSMRenderPass()
 {
+    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+
     // Depth attachment
     VkAttachmentDescription depthAttachment{};
     depthAttachment.format = VK_FORMAT_D16_UNORM;
@@ -350,7 +352,7 @@ vc::Error RenderPass::__CreateCSMRenderPass()
     depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
     // Subpass
-    VkSubpassDescription subpass{};
+    VkSubpassDescription & subpass = __subpassDescriptions.emplace_back();
     subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpass.colorAttachmentCount = 0;
     subpass.pColorAttachments = nullptr;
