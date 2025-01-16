@@ -360,17 +360,27 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
     if (vc::Error err = commandBuffer->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
-    commandBuffer->SetViewport(__swapChain.viewport);
-    commandBuffer->SetScissor(__swapChain.scissor);
+    VkExtent2D extent = framebuffer->GetFramebufferExtent();
+    VkViewport viewport{};
+    viewport.width = static_cast<float>(extent.width);
+    viewport.height = static_cast<float>(extent.height);
+    viewport.minDepth = 0.0f;
+    viewport.maxDepth = 1.0f;
+    commandBuffer->SetViewport(viewport);
+
+    VkRect2D scissor{};
+    scissor.offset = {0, 0};
+    scissor.extent = extent;
+    commandBuffer->SetScissor(scissor);
 
     // Draw Shadowed Models
     // Lighting Pass
     __shadowMapRenderPass.BeginRenderPassCustomFramebuffer(commandBuffer, framebuffer);
 
-    // Push constants for each light
+    commandBuffer->BindPipeline(shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
     commandBuffer->PushConstants(shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, &lightPushConstants);
 
-    commandBuffer->BindPipeline(shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
+    // Push constants for each light
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices, *commandBuffer, shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *commandBuffer, shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *commandBuffer, shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());

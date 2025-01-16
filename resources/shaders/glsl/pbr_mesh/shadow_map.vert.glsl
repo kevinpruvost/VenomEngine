@@ -18,7 +18,14 @@ layout(location = 2) in vec2 inTexCoord;
 layout(location = 3) in vec3 inTangent;
 layout(location = 4) in vec3 inBitangent;
 
+layout(push_constant, std430) uniform LightData
+{
+    mat4 lightSpaceMatrix;
+    int lightType;
+    int cascadeIndex;
+} lightData;
+
 void main() {
     gl_Position = models[gl_InstanceIndex] * vec4(inPosition, 1.0); // Apply the model matrix
-    gl_Position = proj * view * vec4(gl_Position.xyz / gl_Position.w, 1.0);  // Apply the view matrix
+    gl_Position = lightData.lightSpaceMatrix * vec4(gl_Position.xyz / gl_Position.w, 1.0);  // Apply the view matrix
 }

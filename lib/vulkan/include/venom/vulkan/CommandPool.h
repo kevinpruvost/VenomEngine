@@ -116,7 +116,7 @@ public:
     void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32 offset, uint32_t size) const;
     template<typename T>
     inline void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const T * value, uint32 offset = 0) const {
-        PushConstants(shaderPipeline, stageFlags, &value, offset, sizeof(T));
+        PushConstants(shaderPipeline, stageFlags, value, offset, sizeof(T));
     }
 
     void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,

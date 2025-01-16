@@ -113,7 +113,7 @@ void Light::_GUI(const Entity entity)
 
 vc::String Light::_GetComponentTitle()
 {
-    return  ICON_MS_EMOJI_OBJECTS" LightImpl";
+    return  ICON_MS_EMOJI_OBJECTS" Light";
 }
 
 bool Light::CanRemove(Entity entity)
