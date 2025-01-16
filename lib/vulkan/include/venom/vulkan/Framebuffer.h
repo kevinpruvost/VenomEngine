@@ -41,7 +41,7 @@ public:
     inline void SetLayers(const uint32_t layers) { __framebufferCreateInfo.layers = layers; }
     inline VkFramebuffer GetVkFramebuffer() const { return __framebuffer; }
     inline const VkFramebufferCreateInfo * GetVkFramebufferCreateInfo() const { return &__framebufferCreateInfo; }
-    inline const VkExtent2D & GetFramebufferExtent() const { return {__framebufferCreateInfo.width, __framebufferCreateInfo.height}; }
+    inline VkExtent2D GetFramebufferExtent() const { return {__framebufferCreateInfo.width, __framebufferCreateInfo.height}; }
 
 private:
     VkFramebuffer __framebuffer;
