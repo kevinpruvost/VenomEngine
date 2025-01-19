@@ -117,7 +117,7 @@ void VulkanApplication::__UpdateUniformBuffers()
 #ifndef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
 #error ("VENOM_EXTERNAL_PACKED_MODEL_MATRIX must be defined for Vulkan")
 #else
-    __objectStorageBuffers[_currentFrame].WriteToBuffer(vc::ShaderResourceTable::GetAllModelMatrixBuffer(), vc::ShaderResourceTable::GetAllModelMatrixBytesSize());
+    __modelMatricesStorageBuffers[_currentFrame].WriteToBuffer(vc::ShaderResourceTable::GetAllModelMatrixBuffer(), vc::ShaderResourceTable::GetAllModelMatrixBytesSize());
     //__objectStorageBuffers[_currentFrame].WriteToBuffer(&model, sizeof(vcm::Mat4));
 #endif
     // View and Projection
@@ -209,6 +209,9 @@ vc::Error VulkanApplication::__GraphicsOperations()
     if (auto err = __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
+        // Change image layouts of shadow maps
+        // __ChangeShadowMapsLayout(VK_IMAGE_LAYOUT_GENERAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, __graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+
         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
 
@@ -253,6 +256,8 @@ vc::Error VulkanApplication::__GraphicsOperations()
             if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
                 __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
         }
+        // Change shadow maps layout back
+        // __ChangeShadowMapsLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_IMAGE_LAYOUT_GENERAL, __graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
         // Draw GUI
         __guiRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
@@ -274,7 +279,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
         for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Directional); ++i) {
             for (size_t j = 0; j < std::size(__shadowMapsDirectionalFinishedSemaphores[_currentFrame][i]); ++j) {
                 waitSemaphores.emplace_back(__shadowMapsDirectionalFinishedSemaphores[_currentFrame][i][j].GetVkSemaphore());
-                waitStages.emplace_back(VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
+                waitStages.emplace_back(VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
             }
         }
         // for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Point); ++i) {
@@ -325,21 +330,24 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
     const auto & shadowRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::CascadedShadowMapping);
     const auto & lights = vc::Light::GetLights();
     vc::Camera * camera = vc::Camera::GetMainCamera();
+    vcm::Vec3 lightPos;
 
     for (int l = 0; l < lights.size(); ++l)
     {
         const int shadowMapIndex = lights[l]->GetImpl()->As<vc::LightImpl>()->GetLightIndexPerType();
+        __shadowMapIndices[l] = shadowMapIndex;
         switch (lights[l]->GetLightType())
         {
             case vc::LightType::Directional: {
                 for (int cascade = 0; cascade < VENOM_CSM_TOTAL_CASCADES; ++cascade)
                 {
-                    const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascade, 0, camera);
+                    const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascade, 0, camera, &lightPos);
                     if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], l, lightConstants,
                         &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascade)[0],
                         &__shadowMapsDirectionalFinishedSemaphores[_currentFrame][l][cascade], __shadowMapDirectionalCommandBuffers[_currentFrame][l][cascade],
                         &shadowRenderingPipeline[0]); err != vc::Error::Success)
                         return err;
+                    __shadowMapDirectionalLightSpaceMatrices[shadowMapIndex * VENOM_CSM_TOTAL_CASCADES + cascade] = lightConstants.lightSpaceMatrix;
                 }
                 break;
             }
@@ -351,6 +359,12 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                 break;
         }
     }
+    // Update uniform buffer of indices
+    __shadowMapsIndicesBuffers[_currentFrame].WriteToBuffer(__shadowMapIndices, sizeof(int) * std::size(__shadowMapIndices));
+    // Update uniform buffers of light space matrices
+    __shadowMapDirectionalLightSpaceMatricesBuffers[_currentFrame].WriteToBuffer(__shadowMapDirectionalLightSpaceMatrices, sizeof(vcm::Mat4) * std::size(__shadowMapDirectionalLightSpaceMatrices));
+    __shadowMapPointLightSpaceMatricesBuffers[_currentFrame].WriteToBuffer(__shadowMapPointLightSpaceMatrices, sizeof(vcm::Mat4) * std::size(__shadowMapPointLightSpaceMatrices));
+    __shadowMapSpotLightSpaceMatricesBuffers[_currentFrame].WriteToBuffer(__shadowMapSpotLightSpaceMatrices, sizeof(vcm::Mat4) * std::size(__shadowMapSpotLightSpaceMatrices));
     return vc::Error::Success;
 }
 

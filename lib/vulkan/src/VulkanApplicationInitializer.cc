@@ -364,6 +364,16 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
     return true;
 }
 
+void VulkanApplication::__ChangeShadowMapsLayout(VkImageLayout oldLayout, VkImageLayout newLayout, CommandBuffer* commandBuffer)
+{
+    for (int i = 0; i < std::size(__shadowMapsDirectional[_currentFrame]); ++i) {
+        __shadowMapsDirectional[_currentFrame][i].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(newLayout);
+    }
+    for (int i = 0; i < std::size(__shadowMapsPoint[_currentFrame]); ++i) {
+        __shadowMapsPoint[_currentFrame][i].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(newLayout);
+    }
+}
+
 vc::Error VulkanApplication::__CreateInstance()
 {
     vc::Error err;

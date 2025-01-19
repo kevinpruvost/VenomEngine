@@ -28,4 +28,5 @@ layout(push_constant, std430) uniform LightData
 void main() {
     gl_Position = models[gl_InstanceIndex] * vec4(inPosition, 1.0); // Apply the model matrix
     gl_Position = lightData.lightSpaceMatrix * vec4(gl_Position.xyz / gl_Position.w, 1.0);  // Apply the view matrix
+    gl_Position.y = -gl_Position.y; // Invert the Y axis
 }

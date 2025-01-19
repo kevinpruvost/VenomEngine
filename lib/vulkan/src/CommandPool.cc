@@ -307,7 +307,7 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkFormat format, VkImage
             .baseMipLevel = 0,
             .levelCount = image.GetMipLevels(),
             .baseArrayLayer = 0,
-            .layerCount = 1
+            .layerCount = image.GetArrayLayers()
         },
     };
 
@@ -338,9 +338,9 @@ void CommandBuffer::TransitionImageLayout(Image& image, VkImageLayout oldLayout,
         .subresourceRange = {
             .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
             .baseMipLevel = 0,
-            .levelCount = 1,
+            .levelCount = image.GetMipLevels(),
             .baseArrayLayer = 0,
-            .layerCount = 1
+            .layerCount = image.GetArrayLayers()
         },
     };
     __TransitionImageLayout(barrier, oldLayout, newLayout);

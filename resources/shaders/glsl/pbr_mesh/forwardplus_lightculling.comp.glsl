@@ -124,7 +124,7 @@ bool isSpotLightAffectingTile(Light light, float tileMinX, float tileMinY, float
     // Calculate the light's bounding box
     float angle = light.angle / 180.0 * M_PI;
     float range = (light.intensity / SpotLight_Threshold) * 2;
-    vec3 direction = -SpotAndDirectionalDirection(light.direction);
+    vec3 direction = light.direction;
     if (isLightCentroidInFrustum(light, range, direction))
         return true;
 

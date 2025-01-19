@@ -90,6 +90,8 @@ private:
     vc::Error __InitRenderingPipeline();
     bool __IsDeviceSuitable(const VkDeviceCreateInfo * createInfo);
 
+    void __ChangeShadowMapsLayout(VkImageLayout oldLayout, VkImageLayout newLayout, CommandBuffer * commandBuffer);
+
     vc::Error __CreateInstance();
 
     void __CreateAttachments();
@@ -115,7 +117,6 @@ private:
     UniformBuffer __lightCountBuffer;
     StorageBuffer __forwardPlusPropsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
     vc::Texture __brdfLutTexture, __irradianceMapTexture, __radianceMapTexture;
-    UniformBuffer __shadowMapIndices;
 
     vc::Texture __shadowMapsDirectional[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES];
     vc::Texture __shadowMapsPoint[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES];
@@ -123,6 +124,15 @@ private:
     ImageView * __shadowMapDirectionalImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_DIRECTIONAL_LIGHTS];
     ImageView * __shadowMapPointImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS * 6];
     ImageView * __shadowMapSpotImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_SPOT_LIGHTS];
+
+    StorageBuffer __shadowMapsIndicesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    StorageBuffer __shadowMapDirectionalLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    StorageBuffer __shadowMapPointLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    StorageBuffer __shadowMapSpotLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    int __shadowMapIndices[VENOM_MAX_LIGHTS];
+    vcm::Mat4 __shadowMapDirectionalLightSpaceMatrices[VENOM_CSM_TOTAL_CASCADES * VENOM_MAX_DIRECTIONAL_LIGHTS];
+    vcm::Mat4 __shadowMapPointLightSpaceMatrices[6 * VENOM_MAX_POINT_LIGHTS];
+    vcm::Mat4 __shadowMapSpotLightSpaceMatrices[VENOM_MAX_SPOT_LIGHTS];
 
     UniformBuffer __radianceRoughness;
     Image __brdfLut, __irradianceMap;
@@ -161,7 +171,7 @@ private:
     Fence __shadowMapsInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
 
     bool __framebufferChanged;
-    StorageBuffer __objectStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    StorageBuffer __modelMatricesStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
 
     friend class VulkanShaderResourceTable;

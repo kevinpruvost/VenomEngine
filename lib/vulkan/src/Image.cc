@@ -207,6 +207,19 @@ void Image::SetImageLayout(VkImageLayout layout)
     }
 }
 
+void Image::SetImageLayout(VkImageLayout layout, CommandBuffer& commandBuffer)
+{
+    if (__layout == layout)
+        return;
+
+    if (__image == VK_NULL_HANDLE) {
+        __imageInfo.initialLayout = __layout = layout;
+    } else {
+        commandBuffer.TransitionImageLayout(*this, __imageInfo.format, __layout, layout);
+        __layout = layout;
+    }
+}
+
 void Image::SetAspectMask(VkImageAspectFlags aspectMask)
 {
     __aspectMask = aspectMask;

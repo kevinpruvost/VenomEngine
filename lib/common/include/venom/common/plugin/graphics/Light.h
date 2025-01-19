@@ -56,10 +56,12 @@ public:
     inline float * GetIntensityPtr() { return &__intensity; }
     inline void SetAngle(const float angle) { __angle = angle; }
     inline const float & GetAngle() const { return __angle; }
-    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, __transform->GetRotation(), __angle}; }
+    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, GetDirection(), __angle}; }
     inline vc::Error Reinit() { return _SetType(__lightType); }
-    LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera) const;
+    LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera, vcm::Vec3 * lightPos) const;
     inline int GetLightIndexPerType() const { return _lightIndexPerType; }
+
+    vcm::Vec3 GetDirection() const;
 
 protected:
     virtual vc::Error _SetType(const LightType type) = 0;
@@ -106,7 +108,7 @@ public:
     inline void SetAngle(const float angle) { _impl->As<LightImpl>()->SetAngle(angle); }
     inline const float & GetAngle() const { return _impl->As<LightImpl>()->GetAngle(); }
     inline LightShaderStruct GetShaderStruct() const { return _impl->As<LightImpl>()->GetShaderStruct(); }
-    inline LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int shadowMapIndex, const int faceIndex, Camera * const camera) const { return _impl->As<LightImpl>()->GetShadowMapConstantsStruct(shadowMapIndex, faceIndex, camera); }
+    inline LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int shadowMapIndex, const int faceIndex, Camera * const camera, vcm::Vec3 * lightPos) const { return _impl->As<LightImpl>()->GetShadowMapConstantsStruct(shadowMapIndex, faceIndex, camera, lightPos); }
 
     static const size_t GetCountOfLights() { return __lights.size(); }
     static const vc::Vector<Light *> & GetLights() { return __lights; }

@@ -2,7 +2,7 @@
 /// Project: VenomEngineWorkspace
 /// @file Camera.cc
 /// @date Oct, 11 2024
-/// @brief 
+/// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/plugin/graphics/Camera.h>
@@ -297,32 +297,41 @@ const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
 {
     if (__csmDataDirty) {
         // Update CSM Camera data
-        const auto inversedViewProj = vcm::Inverse(GetViewMatrix() * GetProjectionMatrix());
+        const auto inversedViewProj = vcm::Inverse(GetProjectionMatrix() * GetViewMatrix());
+        const auto zIncrement = 1.0f / VENOM_CSM_TOTAL_CASCADES;
+        vcm::Vec4 frustumNearCorners[4] = {
+            vcm::Vec4(-1.0f, -1.0f, 0.0f, 1.0f),
+            vcm::Vec4(1.0f, -1.0f, 0.0f, 1.0f),
+            vcm::Vec4(1.0f, 1.0f, 0.0f, 1.0f),
+            vcm::Vec4(-1.0f, 1.0f, 0.0f, 1.0f)
+        };
+        vcm::Vec4 frustumFarCorners[4] = {
+            vcm::Vec4(-1.0f, -1.0f, 1.0f, 1.0f),
+            vcm::Vec4(1.0f, -1.0f, 1.0f, 1.0f),
+            vcm::Vec4(1.0f, 1.0f, 1.0f, 1.0f),
+            vcm::Vec4(-1.0f, 1.0f, 1.0f, 1.0f)
+        };
+        for (int i = 0; i < 4; ++i) {
+            frustumNearCorners[i] = inversedViewProj * frustumNearCorners[i];
+            frustumNearCorners[i] /= frustumNearCorners[i].w;
+            frustumFarCorners[i] = inversedViewProj * frustumFarCorners[i];
+            frustumFarCorners[i] /= frustumFarCorners[i].w;
+        }
+        vcm::Vec4 frustumDistances[4] = {
+            frustumFarCorners[0] - frustumNearCorners[0],
+            frustumFarCorners[1] - frustumNearCorners[1],
+            frustumFarCorners[2] - frustumNearCorners[2],
+            frustumFarCorners[3] - frustumNearCorners[3]
+        };
+
         for (int cascade = 0; cascade < std::size(__csmData.cascadeFrustumsCorners); ++cascade)
         {
-            // Frustum Corners
-            const vcm::Vec4 frustumNearCorners[4] = {
-                vcm::Vec4(-1.0f, -1.0f, 0.0f, 1.0f),
-                vcm::Vec4(1.0f, -1.0f, 0.0f, 1.0f),
-                vcm::Vec4(1.0f, 1.0f, 0.0f, 1.0f),
-                vcm::Vec4(-1.0f, 1.0f, 0.0f, 1.0f)
-            };
-            const vcm::Vec4 frustumFarCorners[4] = {
-                vcm::Vec4(-1.0f, -1.0f, 1.0f, 1.0f),
-                vcm::Vec4(1.0f, -1.0f, 1.0f, 1.0f),
-                vcm::Vec4(1.0f, 1.0f, 1.0f, 1.0f),
-                vcm::Vec4(-1.0f, 1.0f, 1.0f, 1.0f)
-            };
-            for (int i = 0; i < 4; ++i)
-            {
+            for (int i = 0; i < 4; ++i) {
                 // Linear Split
                 // TODO: Logarithmic Split instead
-                vcm::Vec4 corner = frustumNearCorners[i] + (frustumFarCorners[i] - frustumNearCorners[i]) *
-                    static_cast<float>(cascade) / static_cast<float>(std::size(__csmData.cascadeFrustumsCorners)
-                );
-                corner = inversedViewProj * corner;
-                corner /= corner.w;
-                __csmData.cascadeFrustumsCorners[cascade][i] = corner;
+                vcm::Vec4 corner = frustumNearCorners[i] + (frustumDistances[i] * (cascade * zIncrement));
+                __csmData.cascadeFrustumsCorners[cascade][i] = vcm::Vec3(corner.x, corner.y, corner.z);
+                DEBUG_PRINT("Cascade %d, Corner %d: %f, %f, %f", cascade, i, corner.x, corner.y, corner.z);
             }
         }
         for (int cascade = 0; cascade < VENOM_CSM_TOTAL_CASCADES; ++cascade)
@@ -336,7 +345,12 @@ const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
             __csmData.cascadeFrustumsCenters[cascade] /= 8.0f;
 
             // Frustum radius
-            __csmData.cascadeFrustumsRadius[cascade] = vcm::Length(__csmData.cascadeFrustumsCorners[cascade][0] - __csmData.cascadeFrustumsCenters[cascade]);
+            for (int i = 0; i < 4; ++i)
+            {
+                __csmData.cascadeFrustumsRadius[cascade] = std::max(__csmData.cascadeFrustumsRadius[cascade], vcm::Length(__csmData.cascadeFrustumsCorners[cascade][i] - __csmData.cascadeFrustumsCenters[cascade]));
+                __csmData.cascadeFrustumsRadius[cascade] = std::max(__csmData.cascadeFrustumsRadius[cascade], vcm::Length(__csmData.cascadeFrustumsCorners[cascade+1][i] - __csmData.cascadeFrustumsCenters[cascade]));
+            }
+            __csmData.cascadeFrustumsRadius[cascade] = std::ceil(__csmData.cascadeFrustumsRadius[cascade]);
 
             // Frustum Planes
 

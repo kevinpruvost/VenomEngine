@@ -34,6 +34,7 @@ public:
     void SetSamples(VkSampleCountFlagBits samples);
     void SetSamples(int samples);
     void SetImageLayout(VkImageLayout layout);
+    void SetImageLayout(VkImageLayout layout, CommandBuffer & commandBuffer);
     void SetAspectMask(VkImageAspectFlags aspectMask);
 
     VkImageAspectFlags GetAspectMask() const { return __aspectMask; }
@@ -45,6 +46,7 @@ public:
     inline uint32_t GetHeight() const { return __height; }
     inline VkImageLayout GetLayout() const { return __layout; }
     inline uint32_t GetMipLevels() const { return __mipLevels; }
+    inline uint32_t GetArrayLayers() const { return __imageInfo.arrayLayers; }
 
     friend class CommandBuffer;
 private:

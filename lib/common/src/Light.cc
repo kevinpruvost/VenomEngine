@@ -58,6 +58,7 @@ Light& Light::operator=(const Light& other)
 {
     PluginObjectImplWrapper::operator=(other);
     __lights.emplace_back(this);
+    return *this;
 }
 
 Light::Light(Light&& other) noexcept
@@ -121,7 +122,7 @@ bool Light::CanRemove(Entity entity)
     return true;
 }
 
-LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera) const
+LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera, vcm::Vec3 * lightPos) const
 {
     LightCascadedShadowMapConstantsStruct ret;
     ret.cascadeIndex = cascadeIndex;
@@ -131,9 +132,20 @@ LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(con
     switch (__lightType)
     {
         case LightType::Directional: {
-            vcm::Vec3 lightPos = csmCameraData.cascadeFrustumsCenters[cascadeIndex] + __transform->GetForwardVector() * csmCameraData.cascadeFrustumsRadius[cascadeIndex];
-            vcm::Mat4 lightViewMatrix = vcm::LookAt(lightPos, csmCameraData.cascadeFrustumsCenters[cascadeIndex], vcm::Vec3(0.0f, 1.0f, 0.0f));
-            vcm::Mat4 lightProjMatrix = vcm::Orthographic(-csmCameraData.cascadeFrustumsRadius[cascadeIndex], csmCameraData.cascadeFrustumsRadius[cascadeIndex], -csmCameraData.cascadeFrustumsRadius[cascadeIndex], csmCameraData.cascadeFrustumsRadius[cascadeIndex], 0.0f, csmCameraData.cascadeFrustumsRadius[cascadeIndex] * 2.0f);
+            vcm::Vec3 lightDir = GetDirection();
+            vcm::Vec3 upVec(0.0f, 1.0f, 0.0f);
+            if (fabs(vcm::DotProduct(lightDir, upVec)) > 0.99f) {
+                upVec = vcm::Vec3(1.0f, 0.0f, 0.0f);
+            }
+            *lightPos = csmCameraData.cascadeFrustumsCenters[cascadeIndex] + (lightDir * csmCameraData.cascadeFrustumsRadius[cascadeIndex]);
+            vcm::Mat4 lightViewMatrix = vcm::LookAt(*lightPos, csmCameraData.cascadeFrustumsCenters[cascadeIndex], upVec);
+            vcm::Mat4 lightProjMatrix = vcm::Orthographic(
+                -csmCameraData.cascadeFrustumsRadius[cascadeIndex],
+                csmCameraData.cascadeFrustumsRadius[cascadeIndex],
+                -csmCameraData.cascadeFrustumsRadius[cascadeIndex],
+                csmCameraData.cascadeFrustumsRadius[cascadeIndex],
+                0.0f, csmCameraData.cascadeFrustumsRadius[cascadeIndex] * 2.0f
+            );
             ret.lightSpaceMatrix = lightProjMatrix * lightViewMatrix;
             break;
         }
@@ -147,6 +159,33 @@ LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(con
         }
     }
     return ret;
+}
+
+vcm::Vec3 SpotAndDirectionalDirection(const vcm::Vec3& direction)
+{
+    // Rotate the default light direction (0, -1, 0) using the light's direction as Euler angles
+    float cx = cos(direction.x);
+    float sx = sin(direction.x);
+    float cy = cos(direction.y);
+    float sy = sin(direction.y);
+    float cz = cos(direction.z);
+    float sz = sin(direction.z);
+
+    // Direct computation of the rotated direction
+    vcm::Vec3 dir;
+    dir.x = -cy * sz;
+    dir.y = -sx * sy * sz - cx * cz;
+    dir.z = -cx * sy * sz + sx * cz;
+
+    vcm::Normalize(dir);
+    return -dir;
+}
+
+vcm::Vec3 LightImpl::GetDirection() const
+{
+    vcm::Vec3 dir = __transform->GetRotation();
+    // Default dir is going towards bottom (0, -1.0, 0), so apply rotation
+    return SpotAndDirectionalDirection(dir);
 }
 
 class LightIndexAllocator

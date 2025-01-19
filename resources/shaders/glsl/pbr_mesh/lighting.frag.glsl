@@ -5,20 +5,41 @@
 #include "../PBR.glsl.h"
 
 // Placeholder for shadow calculation
-float ComputeShadow(vec3 position, vec3 normal)
+float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
 {
-    return 0.0;
+    float shadow = 0.0;
+
+    int shadowMapIndex = shadowMapsLayerIndices[lightIndex];
+    if (light.type == LightType_Directional) {
+        for (int i = 0; i < CASCADE_COUNT; ++i) {
+           vec4 clipSpace = shadowMapsDirectionalLightSpaceMatrices[i + (CASCADE_COUNT * shadowMapIndex)] * vec4(position, 1.0);
+           vec3 uvShadow = clipSpace.xyz / clipSpace.w;
+           uvShadow.y = -uvShadow.y;
+           uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
+           if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
+               continue;
+           vec3 shadowVal = texture(sampler2D(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], g_sampler), uvShadow.xy).rgb;
+           if (shadowVal.r < uvShadow.z)
+               return 1.0;
+           break;
+        }
+    } else if (light.type == LightType_Point) {
+        shadow = 0.0;
+    } else if (light.type == LightType_Spot) {
+        shadow = 0.0;
+    }
+    return shadow;
 }
 
 vec3 GetLightDirection(Light light, vec3 position)
 {
     // If no rotation at all, then light direction is towards bottom (0.0, -1.0, 0.0)
     if (light.type == LightType_Directional) {
-        return SpotAndDirectionalDirection(light.direction);
+        return (light.direction);
     } else if (light.type == LightType_Point) {
         return normalize(light.position - position);
     } else if (light.type == LightType_Spot) {
-        return SpotAndDirectionalDirection(light.direction);
+        return (light.direction);
     }
     return vec3(0.0, 0.0, 0.0);
 }
@@ -131,34 +152,36 @@ void main()
     // Loop over lights
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
 
-    if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
+    //if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
     {
         // Calculate shadow factor
-        float shadow = ComputeShadow(position, normal);
 
-        if (shadow < 1.0 - FLT_EPSILON)
-        {
-            for (int i = 0; i < lightCount; ++i) {
-                Light light = lights[i];
+        for (int i = 0; i < lightCount; ++i) {
+            Light light = lights[i];
+            float shadow = ComputeShadow(position, normal, light, i);
 
-                if (isLightInBlock(gl_FragCoord.xy, i) == false)
-                    continue;
+            if (shadow >= 0.995)
+                continue;
 
-                // Compute BRDF for this light
-                vec3 lightDir = GetLightDirection(light, position);
-                vec3 lightColor = GetLightColor(light, position, lightDir);
-                if (length(lightColor) < 0.01)
-                    continue;
+            if (isLightInBlock(gl_FragCoord.xy, i) == false)
+                continue;
 
-                vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
+            // Compute BRDF for this light
+            vec3 lightDir = GetLightDirection(light, position);
+            vec3 lightColor = GetLightColor(light, position, lightDir);
+            if (length(lightColor) < 0.01)
+                continue;
 
-                if (tangentSpace) {
-                    finalColor.rgb += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
-                } else {
-                    finalColor.rgb += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
-                }
+            vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
+            vec3 colorToAdd = vec3(0.0, 0.0, 0.0);
+
+            if (tangentSpace) {
+                colorToAdd += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
+            } else {
+                colorToAdd += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
             }
-            finalColor.rgb *= 1.0 - shadow;
+            colorToAdd *= (1.0 - shadow);
+            finalColor.rgb += colorToAdd;
         }
 
         finalColor.rgb += emissive.rgb * emissive.a;
@@ -166,7 +189,7 @@ void main()
 
         // Set transparency
         finalColor.a = baseColor.a;
-        finalColor.a = 1.0;
+        //finalColor.a = 1.0;
 
 
         // Ambient Occlusion
@@ -174,16 +197,17 @@ void main()
         finalColor = mix(finalColor, finalColor * ao, occlusionStrength);
 
         finalColor.a = opacity;
-    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
-        finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
-    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
-        finalColor = vec4(normal * 0.5 + 0.5, 1.0);
-    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
-        finalColor = vec4(0.0, 0.0, 0.0, 1.0);
-        for (int i = 0; i < lightCount; ++i) {
-            if (isLightInBlock(gl_FragCoord.xy, i) == false)
-                continue;
-            finalColor.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
-        }
     }
+//    else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
+//        finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
+//    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
+//        finalColor = vec4(normal * 0.5 + 0.5, 1.0);
+//    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
+//        finalColor = vec4(0.0, 0.0, 0.0, 1.0);
+//        for (int i = 0; i < lightCount; ++i) {
+//            if (isLightInBlock(gl_FragCoord.xy, i) == false)
+//                continue;
+//            finalColor.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
+//        }
+//    }
 }
