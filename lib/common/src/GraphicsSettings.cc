@@ -30,7 +30,8 @@ GraphicsSettings::GraphicsSettings()
         "None",
         "Depth",
         "Normals",
-        "ForwardPlus"
+        "ForwardPlus",
+        "ShadowMapping"
     }
 {
     venom_assert(s_graphicsSettings == nullptr, "GraphicsSettings is a singleton.");

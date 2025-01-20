@@ -118,6 +118,8 @@ void GUI::GraphicsSettingsCollaspingHeader()
         if (vc::GUI::Checkbox("HDR (High Dynamic Range)", &hdrEnabled)) {
             vc::GraphicsSettings::SetHDR(hdrEnabled);
         }
+        // Shadow Bias
+
         // Scene Graphics Settings
         vc::GUI::SeparatorText("Scene-Related");
         // Background Target Luminance

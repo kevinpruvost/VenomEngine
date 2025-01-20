@@ -40,6 +40,7 @@ const int DebugVisualizationMode_None = 0;
 const int DebugVisualizationMode_Depth = 1;
 const int DebugVisualizationMode_Normals = 2;
 const int DebugVisualizationMode_ForwardPlus = 3;
+const int DebugVisualizationMode_ShadowMapping = 4;
 
 struct GraphicsSettings {
     int screenWidth;

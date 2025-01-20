@@ -84,6 +84,7 @@ public:
         Depth = 1,
         Normals = 2,
         ForwardPlus = 3,
+        ShadowMapping = 4,
         Count
     };
     static const vc::Vector<vc::String> & GetDebugVisualizerStrings();

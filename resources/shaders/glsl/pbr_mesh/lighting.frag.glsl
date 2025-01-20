@@ -4,6 +4,61 @@
 
 #include "../PBR.glsl.h"
 
+float pcf(texture2D map, vec2 uv, float depth)
+{
+    ivec2 tSize = textureSize(sampler2D(map, g_sampler), 0);
+    float shadow = 0.0;
+    const int gap = 3;
+    const float bias = max(depth * 0.001, 0.005);
+    for (int x = -gap; x <= gap; ++x) {
+        for (int y = -gap; y <= gap; ++y) {
+            float pcfDepth = texture(sampler2D(map, g_sampler), uv + vec2(x, y) / tSize.x).r;
+            shadow += pcfDepth < (depth - bias) ? 1.0 : 0.0;
+        }
+    }
+    return shadow / ((1 + gap * 2) * (1 + gap * 2));
+}
+
+const vec2 poissonSamples[16] = vec2[](
+    vec2( 0.00,  0.00),
+    vec2( 0.25,  0.25),
+    vec2(-0.25,  0.25),
+    vec2( 0.25, -0.25),
+    vec2(-0.25, -0.25),
+    vec2( 0.50,  0.00),
+    vec2( 0.00,  0.50),
+    vec2( 0.50,  0.50),
+    vec2(-0.50,  0.00),
+    vec2( 0.00, -0.50),
+    vec2(-0.50, -0.50),
+    vec2( 0.75,  0.25),
+    vec2( 0.25,  0.75),
+    vec2(-0.75,  0.25),
+    vec2(-0.25,  0.75),
+    vec2( 0.75, -0.25)
+);
+
+float pcfPoisson(texture2D map, vec2 uv, float depth)
+{
+    ivec2 tSize = textureSize(sampler2D(map, g_sampler), 0);
+    float shadow = 0.0;
+    const float bias = max(depth * 0.001, 0.005);
+    const int sampleCount = 16; // Number of samples in the Poisson disk pattern
+
+    // Iterate through Poisson disk sample points
+    for (int i = 0; i < sampleCount; ++i) {
+        vec2 sampleOffset = poissonSamples[i]; // Get the sample offset
+        vec2 sampleCoord = uv + sampleOffset / vec2(tSize); // Apply offset to UV coordinates
+        float pcfDepth = texture(sampler2D(map, g_sampler), sampleCoord).r; // Sample shadow map
+
+        // Compare depth values with a small bias to avoid shadow acne
+        shadow += pcfDepth < (depth - bias) ? 1.0 : 0.0;
+    }
+
+    // Return the average shadow result
+    return shadow / float(sampleCount);
+}
+
 // Placeholder for shadow calculation
 float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
 {
@@ -19,8 +74,10 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
            if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
                continue;
            vec3 shadowVal = texture(sampler2D(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], g_sampler), uvShadow.xy).rgb;
-           if (shadowVal.r < uvShadow.z)
-               return 1.0;
+           float shadowPCF = pcf(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], uvShadow.xy, uvShadow.z);
+           shadow += shadowPCF;
+           //if (shadowVal.r < uvShadow.z)
+             //  return 1.0;
            break;
         }
     } else if (light.type == LightType_Point) {
@@ -150,12 +207,10 @@ void main()
     vec3 viewDir = normalize(cameraPos - position);
 
     // Loop over lights
-    finalColor = vec4(0.0, 0.0, 0.0, 0.0);
+    finalColor = vec4(0.0, 0.0, 0.0, 1.0);
 
-    //if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
+    if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
     {
-        // Calculate shadow factor
-
         for (int i = 0; i < lightCount; ++i) {
             Light light = lights[i];
             float shadow = ComputeShadow(position, normal, light, i);
@@ -191,23 +246,28 @@ void main()
         finalColor.a = baseColor.a;
         //finalColor.a = 1.0;
 
-
         // Ambient Occlusion
         float occlusionStrength = 1.0;
         finalColor = mix(finalColor, finalColor * ao, occlusionStrength);
 
         finalColor.a = opacity;
     }
-//    else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
-//        finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
-//    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
-//        finalColor = vec4(normal * 0.5 + 0.5, 1.0);
-//    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
-//        finalColor = vec4(0.0, 0.0, 0.0, 1.0);
-//        for (int i = 0; i < lightCount; ++i) {
-//            if (isLightInBlock(gl_FragCoord.xy, i) == false)
-//                continue;
-//            finalColor.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
-//        }
-//    }
+    else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
+        finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
+    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
+        finalColor = vec4(normal * 0.5 + 0.5, 1.0);
+    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
+        for (int i = 0; i < lightCount; ++i) {
+            if (isLightInBlock(gl_FragCoord.xy, i) == false)
+                continue;
+            finalColor.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
+        }
+    } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ShadowMapping) {
+        for (int i = 0; i < lightCount; ++i) {
+            Light light = lights[i];
+            float shadow = ComputeShadow(position, normal, light, i);
+            finalColor.rgb += vec3(1.0 - shadow);
+            break;
+        }
+    }
 }
