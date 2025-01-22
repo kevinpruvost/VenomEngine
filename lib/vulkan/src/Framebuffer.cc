@@ -75,8 +75,8 @@ vc::Error Framebuffer::Init()
 
     __framebufferCreateInfo.attachmentCount = static_cast<uint32_t>(__attachments.size());
     __framebufferCreateInfo.pAttachments = __attachments.data();
-    if (vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &__framebufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__framebuffer) != VK_SUCCESS) {
-        vc::Log::Error("Failed to create framebuffer");
+    if (VkResult res = vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &__framebufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__framebuffer); res != VK_SUCCESS) {
+        vc::Log::Error("Failed to create framebuffer: %d", res);
         return vc::Error::InitializationFailed;
     }
     return vc::Error::Success;

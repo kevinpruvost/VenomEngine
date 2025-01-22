@@ -162,6 +162,10 @@ vcm::Quat FromEulerAngles(const float yaw, const float pitch, const float roll);
 
 float Length(const Vec3& vec);
 
+inline float Distance(const Vec3& a, const Vec3& b)
+{
+    return Length(a - b);
+}
 }
 }
 }

@@ -41,6 +41,9 @@ struct LightCascadedShadowMapConstantsStruct
     int cascadeIndex;
 };
 
+#define POINTLIGHT_THRESHHOLD 0.2
+#define SPOTLIGHT_THRESHHOLD 0.2
+
 class VENOM_COMMON_API LightImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
@@ -59,6 +62,7 @@ public:
     inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, GetDirection(), __angle}; }
     inline vc::Error Reinit() { return _SetType(__lightType); }
     LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera, vcm::Vec3 * lightPos) const;
+    int GetCascadeIndex(Camera * const camera) const;
     inline int GetLightIndexPerType() const { return _lightIndexPerType; }
 
     vcm::Vec3 GetDirection() const;

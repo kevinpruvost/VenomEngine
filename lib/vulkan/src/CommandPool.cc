@@ -552,8 +552,8 @@ vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkComm
     allocInfo.commandBufferCount = 1;
 
     std::unique_ptr<CommandBuffer> & newCommandBuffer = __commandBuffers.emplace_back(new CommandBuffer());
-    if (vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->_commandBuffer) != VK_SUCCESS) {
-        vc::Log::Error("Failed to allocate command buffer");
+    if (VkResult res = vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->_commandBuffer); res != VK_SUCCESS) {
+        vc::Log::Error("Failed to allocate command buffer: %d", res);
         return vc::Error::Failure;
     }
     newCommandBuffer->_queue = __queue;

@@ -9,7 +9,7 @@
 
 void Scene(const vc::ScenePhase phase)
 {
-    static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, face_hd1, helmet, camera, light1, light2, light3;
+    static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, face_hd1, helmet, camera, light1, light2, light3, light4;
     int nbTiles = 1;
     switch (phase) {
         case vc::ScenePhase::Initialization: {
@@ -56,8 +56,10 @@ void Scene(const vc::ScenePhase phase)
             .emplace<vc::Light>();
 
             light3 = vc::CreateEntity("Light3")
-            .emplace<vc::Light>()
-            .emplace<vc::Model>("onion/onion.glb");
+            .emplace<vc::Light>();
+
+            light4 = vc::CreateEntity("Light4")
+            .emplace<vc::Light>();
 
             for (int i = 0; i < nbTiles; i++) {
                 for (int j = 0; j < nbTiles; j++) {
@@ -104,6 +106,11 @@ void Scene(const vc::ScenePhase phase)
             light3.get_mut<vc::Light>()->SetColor({0.0f, 0.15f, 1.0f});
             light3.get_mut<vc::Light>()->SetIntensity(1000.0f);
             light3.get_mut<vc::Light>()->SetAngle(20.0f);
+
+            light4.get_mut<vc::Light>()->SetType(vc::LightType::Point);
+            light4.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-3.0f, 3.0f, 3.0f));
+            light4.get_mut<vc::Transform3D>()->SetRotation({0.3f, 0.0f, 0.6f});
+            light4.get_mut<vc::Light>()->SetIntensity(8.0f);
 
             for (int i = 0; i < nbTiles; i++) {
                 for (int j = 0; j < nbTiles; j++) {

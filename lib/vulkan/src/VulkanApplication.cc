@@ -209,9 +209,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
     if (auto err = __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
 
-        // Change image layouts of shadow maps
-        // __ChangeShadowMapsLayout(VK_IMAGE_LAYOUT_GENERAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, __graphicsSceneCheckpointCommandBuffers[_currentFrame]);
-
         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
 
@@ -245,7 +242,8 @@ vc::Error VulkanApplication::__GraphicsOperations()
             attachmentImage = const_cast<Image *>(*__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().rbegin());
         else
             attachmentImage = const_cast<Image *>(*__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().begin());
-        for (auto & renderTarget : renderTargets) {
+        for (auto & renderTarget : renderTargets)
+        {
             if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
                 continue;
             if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
@@ -256,9 +254,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
             if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
                 __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
         }
-        // Change shadow maps layout back
-        // __ChangeShadowMapsLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_IMAGE_LAYOUT_GENERAL, __graphicsSceneCheckpointCommandBuffers[_currentFrame]);
-
         // Draw GUI
         __guiRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
             _gui->Render();
@@ -276,20 +271,11 @@ vc::Error VulkanApplication::__GraphicsOperations()
         vc::Vector<VkSemaphore> waitSemaphores = {__graphicsSkyboxDoneSemaphores[_currentFrame].GetVkSemaphore(), __computeShadersFinishedSemaphores[_currentFrame].GetVkSemaphore()};
         vc::Vector<VkPipelineStageFlags> waitStages = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
         // Add semaphores from shadow maps generation
-        for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Directional); ++i) {
-            for (size_t j = 0; j < std::size(__shadowMapsDirectionalFinishedSemaphores[_currentFrame][i]); ++j) {
-                waitSemaphores.emplace_back(__shadowMapsDirectionalFinishedSemaphores[_currentFrame][i][j].GetVkSemaphore());
-                waitStages.emplace_back(VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
-            }
+        for (const auto & semaphore : __shadowMapsFinishedSemaphores[_currentFrame]) {
+            waitSemaphores.emplace_back(semaphore->GetVkSemaphore());
+            waitStages.emplace_back(VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
         }
-        // for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Point); ++i) {
-        //     waitSemaphores.emplace_back(__shadowMapsPointFinishedSemaphores[_currentFrame][i].GetSemaphore());
-        //     waitStages.emplace_back(VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
-        // }
-        // for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Spot); ++i) {
-        //     waitSemaphores.emplace_back(__shadowMapsSpotFinishedSemaphores[_currentFrame][i].GetSemaphore());
-        //     waitStages.emplace_back(VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
-        // }
+        __shadowMapsFinishedSemaphores[_currentFrame].clear();
 
         submitInfo.waitSemaphoreCount = waitSemaphores.size();
         submitInfo.pWaitSemaphores = waitSemaphores.data();
@@ -342,19 +328,44 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                 for (int cascade = 0; cascade < VENOM_CSM_TOTAL_CASCADES; ++cascade)
                 {
                     const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascade, 0, camera, &lightPos);
-                    if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], l, lightConstants,
+                    if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], shadowMapIndex, lightConstants,
                         &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascade)[0],
-                        &__shadowMapsDirectionalFinishedSemaphores[_currentFrame][l][cascade], __shadowMapDirectionalCommandBuffers[_currentFrame][l][cascade],
+                        &__shadowMapsDirectionalFinishedSemaphores[_currentFrame][shadowMapIndex][cascade], __shadowMapDirectionalCommandBuffers[_currentFrame][shadowMapIndex][cascade],
                         &shadowRenderingPipeline[0]); err != vc::Error::Success)
                         return err;
                     __shadowMapDirectionalLightSpaceMatrices[shadowMapIndex * VENOM_CSM_TOTAL_CASCADES + cascade] = lightConstants.lightSpaceMatrix;
                 }
                 break;
             }
-            case vc::LightType::Point:
+            case vc::LightType::Point: {
+                int cascadeIndex = lights[l]->GetImpl()->As<vc::LightImpl>()->GetCascadeIndex(camera);
+                if (cascadeIndex == -1)
+                    break;
+                for (int face = 0; face < 6; ++face)
+                {
+                    const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascadeIndex, face, camera, &lightPos);
+                    if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], shadowMapIndex, lightConstants,
+                        &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascadeIndex)[face],
+                        &__shadowMapsPointFinishedSemaphores[_currentFrame][shadowMapIndex][face], __shadowMapPointCommandBuffers[_currentFrame][shadowMapIndex][face],
+                        &shadowRenderingPipeline[0]); err != vc::Error::Success)
+                        return err;
+                    __shadowMapPointLightSpaceMatrices[shadowMapIndex * 6 + face] = lightConstants.lightSpaceMatrix;
+                }
                 break;
-            case vc::LightType::Spot:
+            }
+            case vc::LightType::Spot: {
+                int cascadeIndex = lights[l]->GetImpl()->As<vc::LightImpl>()->GetCascadeIndex(camera);
+                if (cascadeIndex == -1)
+                    break;
+                const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascadeIndex, 0, camera, &lightPos);
+                if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], shadowMapIndex, lightConstants,
+                    &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascadeIndex)[0],
+                    &__shadowMapsSpotFinishedSemaphores[_currentFrame][shadowMapIndex], __shadowMapSpotCommandBuffers[_currentFrame][shadowMapIndex],
+                    &shadowRenderingPipeline[0]); err != vc::Error::Success)
+                    return err;
+                __shadowMapSpotLightSpaceMatrices[shadowMapIndex] = lightConstants.lightSpaceMatrix;
                 break;
+            }
             default:
                 break;
         }
@@ -369,7 +380,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
 }
 
 vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Light* light, const int lightIndex, const vc::LightCascadedShadowMapConstantsStruct & lightPushConstants,
-    const Framebuffer * const framebuffer, const Semaphore * const semaphore, CommandBuffer * const commandBuffer, const vc::ShaderPipeline * const shaderPipeline)
+    const Framebuffer * const framebuffer, Semaphore * semaphore, CommandBuffer * const commandBuffer, const vc::ShaderPipeline * const shaderPipeline)
 {
     if (vc::Error err = commandBuffer->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
         return err;
@@ -431,6 +442,8 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
             return vc::Error::Failure;
         }
     }
+    __shadowMapsFinishedSemaphores[_currentFrame].emplace_back(semaphore);
+    __shadowMapCommandBuffersToReset[_currentFrame].emplace_back(commandBuffer);
     return vc::Error::Success;
 }
 
@@ -504,19 +517,10 @@ vc::Error VulkanApplication::__DrawFrame()
     __graphicsFirstCheckpointCommandBuffers[_currentFrame]->Reset(0);
     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->Reset(0);
     __computeCommandBuffers[_currentFrame]->Reset(0);
-    for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Directional); ++i) {
-        for (size_t j = 0; j < std::size(__shadowMapDirectionalCommandBuffers[_currentFrame][i]); ++j) {
-            __shadowMapDirectionalCommandBuffers[_currentFrame][i][j]->Reset(0);
-        }
+    for (auto & commandBuffer : __shadowMapCommandBuffersToReset[_currentFrame]) {
+        commandBuffer->Reset(0);
     }
-    for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Point); ++i) {
-        for (size_t j = 0; j < std::size(__shadowMapPointCommandBuffers[_currentFrame][i]); ++j) {
-            __shadowMapPointCommandBuffers[_currentFrame][i][j]->Reset(0);
-        }
-    }
-    for (size_t i = 0; i < vc::Light::GetCountOfLightsOfType(vc::LightType::Spot); ++i) {
-        __shadowMapSpotCommandBuffers[_currentFrame][i]->Reset(0);
-    }
+    __shadowMapCommandBuffersToReset[_currentFrame].clear();
 
     if (err = __ComputeOperations(); err != vc::Error::Success)
         return err;

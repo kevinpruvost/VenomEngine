@@ -4,11 +4,10 @@
 
 #include "../PBR.glsl.h"
 
-float pcf(texture2D map, vec2 uv, float depth)
+float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
     ivec2 tSize = textureSize(sampler2D(map, g_sampler), 0);
     float shadow = 0.0;
-    const int gap = 3;
     const float bias = max(depth * 0.001, 0.005);
     for (int x = -gap; x <= gap; ++x) {
         for (int y = -gap; y <= gap; ++y) {
@@ -74,16 +73,21 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
            if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
                continue;
            vec3 shadowVal = texture(sampler2D(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], g_sampler), uvShadow.xy).rgb;
-           float shadowPCF = pcf(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], uvShadow.xy, uvShadow.z);
+           float shadowPCF = pcf(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], uvShadow.xy, uvShadow.z, 3);
            shadow += shadowPCF;
-           //if (shadowVal.r < uvShadow.z)
-             //  return 1.0;
            break;
         }
     } else if (light.type == LightType_Point) {
         shadow = 0.0;
     } else if (light.type == LightType_Spot) {
-        shadow = 0.0;
+        vec4 clipSpace = shadowMapsSpotLightSpaceMatrices[shadowMapIndex] * vec4(position, 1.0);
+        vec3 uvShadow = clipSpace.xyz / clipSpace.w;
+        uvShadow.y = -uvShadow.y;
+        if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
+            return 0.0;
+        vec3 shadowVal = texture(sampler2D(shadowMapsSpotShadowMaps[shadowMapIndex], g_sampler), uvShadow.xy).rgb;
+        float shadowPCF = pcf(shadowMapsSpotShadowMaps[shadowMapIndex], uvShadow.xy, uvShadow.z, 1);
+        shadow = shadowPCF;
     }
     return shadow;
 }
@@ -266,8 +270,7 @@ void main()
         for (int i = 0; i < lightCount; ++i) {
             Light light = lights[i];
             float shadow = ComputeShadow(position, normal, light, i);
-            finalColor.rgb += vec3(1.0 - shadow);
-            break;
+            finalColor.rgb += vec3(1.0 - shadow) * vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     }
 }

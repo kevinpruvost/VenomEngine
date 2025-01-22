@@ -46,15 +46,14 @@ PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(const PluginObjectIm
 PluginObjectImplWrapper::PluginObjectImplWrapper(PluginObjectImplWrapper&& other)
     : _impl(other._impl)
 {
-    other._impl = nullptr;
+    _impl->IncRefCount();
 }
 
 PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(PluginObjectImplWrapper&& other)
 {
-    if (_impl != other._impl) {
-        _impl = other._impl;
-        other._impl = nullptr;
-    }
+    if (_impl) _impl->DecRefCount();
+    _impl = other._impl;
+    _impl->IncRefCount();
     return *this;
 }
 

@@ -123,6 +123,7 @@ void ECS::UpdateWorld()
         Component * component = reinterpret_cast<Component *>(entity.get_mut(componentID));
         component->Update(entity);
     });
+    s_ecs->__world.progress();
 });
 }
 

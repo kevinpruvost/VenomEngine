@@ -78,7 +78,7 @@ private:
     vc::Error __GraphicsShadowMapOperations();
     vc::Error __GraphicsShadowMapOperationPerLight(const vc::Light * light, const int lightIndex,
         const vc::LightCascadedShadowMapConstantsStruct & constants,
-        const Framebuffer * const framebuffer, const Semaphore * const semaphore, CommandBuffer * const commandBuffer,
+        const Framebuffer * const framebuffer, Semaphore * semaphore, CommandBuffer * const commandBuffer,
         const vc::ShaderPipeline * const shaderPipeline);
     vc::Error __ComputeOperations();
     vc::Error __DrawFrame();
@@ -154,17 +154,22 @@ private:
     CommandBuffer * __graphicsFirstCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     CommandBuffer * __graphicsSceneCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     CommandBuffer * __computeCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+
     CommandBuffer * __shadowMapDirectionalCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_DIRECTIONAL_LIGHTS][VENOM_CSM_TOTAL_CASCADES];
     CommandBuffer * __shadowMapPointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_POINT_LIGHTS][6];
     CommandBuffer * __shadowMapSpotCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_SPOT_LIGHTS];
+    vc::Vector<CommandBuffer *> __shadowMapCommandBuffersToReset[VENOM_MAX_FRAMES_IN_FLIGHT];
 
     Semaphore __imageAvailableSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __renderFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __graphicsSkyboxDoneSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
     Semaphore __computeShadersFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
+
     Semaphore __shadowMapsDirectionalFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_DIRECTIONAL_LIGHTS][VENOM_CSM_TOTAL_CASCADES];
     Semaphore __shadowMapsPointFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_POINT_LIGHTS][6];
     Semaphore __shadowMapsSpotFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_MAX_SPOT_LIGHTS];
+    // Keeps the only ones active
+    vc::Vector<Semaphore *> __shadowMapsFinishedSemaphores[VENOM_MAX_FRAMES_IN_FLIGHT];
 
     Fence __graphicsInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];
     Fence __computeInFlightFences[VENOM_MAX_FRAMES_IN_FLIGHT];

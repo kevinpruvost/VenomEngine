@@ -53,8 +53,8 @@ vc::Error Semaphore::InitSemaphore()
     semaphoreInfo.pNext = nullptr;
     semaphoreInfo.flags = 0;
 
-    if (vkCreateSemaphore(LogicalDevice::GetVkDevice(), &semaphoreInfo, Allocator::GetVKAllocationCallbacks(), &__semaphore) != VK_SUCCESS) {
-        vc::Log::Error("Failed to create semaphore");
+    if (VkResult res = vkCreateSemaphore(LogicalDevice::GetVkDevice(), &semaphoreInfo, Allocator::GetVKAllocationCallbacks(), &__semaphore); res != VK_SUCCESS) {
+        vc::Log::Error("Failed to create semaphore: %d", res);
         return vc::Error::Failure;
     }
     return vc::Error::Success;

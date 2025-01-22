@@ -289,18 +289,18 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
             return err;
         for (int j = 0; j < std::size(__shadowMapDirectionalCommandBuffers[i]); ++j) {
             for (int k = 0; k < std::size(__shadowMapDirectionalCommandBuffers[i][j]); ++k) {
-                if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapDirectionalCommandBuffers[i][j][k]); err != vc::Error::Success)
+                if (err = graphicsCommandPool->CreateCommandBuffer(&__shadowMapDirectionalCommandBuffers[i][j][k]); err != vc::Error::Success)
                     return err;
             }
         }
         for (int j = 0; j < std::size(__shadowMapPointCommandBuffers[i]); ++j) {
             for (int k = 0; k < std::size(__shadowMapPointCommandBuffers[i][j]); ++k) {
-                if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapPointCommandBuffers[i][j][k]); err != vc::Error::Success)
+                if (err = graphicsCommandPool->CreateCommandBuffer(&__shadowMapPointCommandBuffers[i][j][k]); err != vc::Error::Success)
                     return err;
             }
         }
         for (int j = 0; j < std::size(__shadowMapSpotCommandBuffers[i]); ++j) {
-            if (err = computeCommandPool->CreateCommandBuffer(&__shadowMapSpotCommandBuffers[i][j]); err != vc::Error::Success)
+            if (err = graphicsCommandPool->CreateCommandBuffer(&__shadowMapSpotCommandBuffers[i][j]); err != vc::Error::Success)
                 return err;
         }
     }

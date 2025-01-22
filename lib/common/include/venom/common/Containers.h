@@ -23,6 +23,9 @@ using Stack = std::stack<T>;
 template<typename T, size_t N>
 using Array = std::array<T, N>;
 
+template<typename T, size_t N1, size_t N2>
+using Array2D = std::array<std::array<T, N2>, N1>;
+
 template<typename T, typename U>
 using Map = std::map<T, U>;
 template<typename T, typename U>

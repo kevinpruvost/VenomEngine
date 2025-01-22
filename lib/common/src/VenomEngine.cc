@@ -42,6 +42,7 @@ VenomEngine::VenomEngine()
     , __dllCache(new DLL_Cache())
     , __ecs(new ECS())
     , __sceneSettings(new SceneSettings())
+    , __deferredTrash(new DeferredTrashBin())
 {
     venom_assert(__dllCache, "VenomEngine::VenomEngine() : __dllCache is nullptr");
     DLL_Cache::SetCache(__dllCache.get());
@@ -61,6 +62,7 @@ VenomEngine::~VenomEngine()
 {
     // Order of destruction is important
     __ecs.reset();
+    __deferredTrash.reset();
     pluginManager.reset();
     __dllCache.reset();
 }
@@ -92,11 +94,11 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         vc::Log::Error("Failed to initialize context: %d", err);
         return vc::Error::InitializationFailed;
     }
-    vc::GraphicsApplication * app = vc::GraphicsApplication::Create();
+    vc::GraphicsApplication * graphicsApp = vc::GraphicsApplication::Create();
 
     vc::GraphicsSettings::SetWindowResolution(s_instance->__context->GetWindowWidth(), s_instance->__context->GetWindowWidth());
 
-    if (err = app->Init(); err != vc::Error::Success) {
+    if (err = graphicsApp->Init(); err != vc::Error::Success) {
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
     } else {
         s_instance->__LoadECS();
@@ -104,12 +106,13 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         ECS::UpdateWorld();
         s_sceneCallback(vc::ScenePhase::Activation);
         vc::Timer::ResetLoopTimer();
-        while (!app->ShouldClose())
+        while (!graphicsApp->ShouldClose())
         {
             vc::GUI::Get()->__PreUpdate();
             ECS::UpdateWorld();
             s_sceneCallback(vc::ScenePhase::Update);
-            app->Loop();
+            s_instance->__deferredTrash->EmptyDeferredTrash();
+            graphicsApp->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 
             for (const auto& loopCallback : s_loopCallbacks) {

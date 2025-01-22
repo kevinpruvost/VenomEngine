@@ -173,7 +173,10 @@ vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags
         return vc::Error::Failure;
     }
 
-    vkBindImageMemory(LogicalDevice::GetVkDevice(), __image, __imageMemory, 0);
+    if (VkResult vkErr = vkBindImageMemory(LogicalDevice::GetVkDevice(), __image, __imageMemory, 0); vkErr != VK_SUCCESS) {
+        vc::Log::Error("Failed to bind image memory: %d", vkErr);
+        return vc::Error::Failure;
+    }
     __width  = static_cast<uint32_t>(width);
     __height = static_cast<uint32_t>(height);
     __mipLevels = mipLevels;

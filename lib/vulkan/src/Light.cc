@@ -14,6 +14,7 @@ namespace venom
 namespace vulkan
 {
 VulkanLight::VulkanLight()
+    : __shadowMapFramebuffers{nullptr}
 {
 }
 
@@ -26,23 +27,23 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
     VulkanApplication * app = vc::GraphicsApplication::Get()->DAs<VulkanApplication>();
 
     RenderPass & csmRenderPass = app->__shadowMapRenderPass;
+    __shadowMapFramebuffers.Reset(new vc::Array2D<vc::Vector<Framebuffer>, VENOM_MAX_FRAMES_IN_FLIGHT, VENOM_CSM_TOTAL_CASCADES>());
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i)
     {
         for (int j = 0; j < VENOM_CSM_TOTAL_CASCADES; ++j)
         {
-            __shadowMapFramebuffers[i][j].clear();
             switch (type)
             {
                 case vc::LightType::Directional: {
                     VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_DIRECTIONAL_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_DIRECTIONAL_DIMENSION) >> j};
-                    Framebuffer & fb = __shadowMapFramebuffers[i][j].emplace_back();
+                    Framebuffer & fb = (*__shadowMapFramebuffers)[i][j].emplace_back();
                     if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapDirectionalImageViews[i][j][_lightIndexPerType], extent) != vc::Error::Success)
                         return vc::Error::Failure;
                     break;
                 }
                 case vc::LightType::Spot: {
                     VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_SPOT_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_SPOT_DIMENSION) >> j};
-                    Framebuffer & fb = __shadowMapFramebuffers[i][j].emplace_back();
+                    Framebuffer & fb = (*__shadowMapFramebuffers)[i][j].emplace_back();
                     if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapSpotImageViews[i][j][_lightIndexPerType], extent) != vc::Error::Success)
                         return vc::Error::Failure;
                     break;
@@ -51,7 +52,7 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
                     VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_POINT_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_POINT_DIMENSION) >> j};
                     for (int k = 0; k < 6; ++k)
                     {
-                        Framebuffer & fb = __shadowMapFramebuffers[i][j].emplace_back();
+                        Framebuffer & fb = (*__shadowMapFramebuffers)[i][j].emplace_back();
                         if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapPointImageViews[i][j][_lightIndexPerType * 6 + k], extent) != vc::Error::Success)
                             return vc::Error::Failure;
                     }

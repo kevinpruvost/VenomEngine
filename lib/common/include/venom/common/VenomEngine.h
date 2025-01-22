@@ -15,6 +15,8 @@
 #include <venom/common/plugin/graphics/Light.h>
 #include <venom/common/SceneSettings.h>
 
+#include <venom/common/DeferredTrash.h>
+
 namespace venom
 {
 namespace common
@@ -97,6 +99,7 @@ private:
     UPtr<ECS> __ecs;
     UPtr<VenomSettings> __settings;
     UPtr<SceneSettings> __sceneSettings;
+    UPtr<DeferredTrashBin> __deferredTrash;
 };
 }
 }

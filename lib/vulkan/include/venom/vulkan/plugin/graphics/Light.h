@@ -9,6 +9,7 @@
 #include <venom/common/plugin/graphics/Light.h>
 #include <venom/vulkan/Framebuffer.h>
 #include <venom/vulkan/RenderPass.h>
+#include <venom/common/DeferredTrash.h>
 
 namespace venom
 {
@@ -20,7 +21,7 @@ public:
     VulkanLight();
     virtual ~VulkanLight();
 
-    inline const vc::Vector<Framebuffer> & GetShadowMapFramebuffers(const int frameIndex, const int cascadeIndex) const { return __shadowMapFramebuffers[frameIndex][cascadeIndex]; }
+    inline const vc::Vector<Framebuffer> & GetShadowMapFramebuffers(const int frameIndex, const int cascadeIndex) const { return (*__shadowMapFramebuffers)[frameIndex][cascadeIndex]; }
 
 protected:
     vc::Error _SetType(const common::LightType type) override;
@@ -28,7 +29,7 @@ protected:
 private:
     vc::Error __CreateFramebuffer(Framebuffer & framebuffer, RenderPass & csmRenderPass, ImageView & imageView, VkExtent2D & extent);
 private:
-    vc::Vector<Framebuffer> __shadowMapFramebuffers[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES];
+    vc::DeferredTrash<vc::Array2D<vc::Vector<Framebuffer>, VENOM_CSM_TOTAL_CASCADES, VENOM_MAX_FRAMES_IN_FLIGHT>> __shadowMapFramebuffers;
 };
 }
 }
