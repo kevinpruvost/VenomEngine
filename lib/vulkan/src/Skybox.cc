@@ -63,7 +63,7 @@ vc::Error VulkanSkybox::_LoadIrradianceMap(const vc::Texture& texture, vc::Textu
         cmdBuffer.BindPipeline(computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
         DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
         DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_SAMPLER, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_CAMERA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
         cmdBuffer.Dispatch(SKYBOX_IRRADIANCE_WIDTH, SKYBOX_IRRADIANCE_HEIGHT, 1);
     }
     return vc::Error::Success;
@@ -97,7 +97,7 @@ vc::Error VulkanSkybox::_LoadRadianceMap(const vc::Texture& texture, vc::Texture
                 return vc::Error::Failure;
             }
             cmdBuffer.BindPipeline(computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-            DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_SAMPLER, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+            DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_CAMERA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
             DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
             DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
 

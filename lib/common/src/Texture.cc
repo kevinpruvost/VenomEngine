@@ -375,9 +375,9 @@ vc::Error TextureImpl::CreateAttachment(int width, int height, int imageCount, v
     return err;
 }
 
-vc::Error TextureImpl::CreateShadowMaps(int dimension, int arrayLayers)
+vc::Error TextureImpl::CreateShadowMaps(int dimension)
 {
-    return _CreateShadowMaps(dimension, arrayLayers);
+    return _CreateShadowMaps(dimension);
 }
 }
 }

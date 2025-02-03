@@ -181,21 +181,19 @@ vc::Error VulkanTexture::_CreateReadWriteTexture(int width, int height, vc::Shad
     return vc::Error::Success;
 }
 
-vc::Error VulkanTexture::_CreateShadowMaps(int dimension, int arrayLayers)
+vc::Error VulkanTexture::_CreateShadowMaps(int dimension)
 {
     VkFormat vkFormat = VK_FORMAT_D16_UNORM;
 
     if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, dimension, dimension, arrayLayers, 1) != vc::Error::Success)
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, dimension, dimension, 1, 1) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetAspectMask(VK_IMAGE_ASPECT_DEPTH_BIT);
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_GENERAL);
-    for (int i = 0; i < arrayLayers; ++i) {
-        if (CreateImageView().Create(GetImage(), vkFormat, GetImage().GetAspectMask(),
-            VK_IMAGE_VIEW_TYPE_2D, 0, 1, i, 1) != vc::Error::Success)
-            return vc::Error::Failure;
-    }
+    if (CreateImageView().Create(GetImage(), vkFormat, GetImage().GetAspectMask(),
+        VK_IMAGE_VIEW_TYPE_2D, 0, 1, 0, 1) != vc::Error::Success)
+        return vc::Error::Failure;
     return vc::Error::Success;
 }
 

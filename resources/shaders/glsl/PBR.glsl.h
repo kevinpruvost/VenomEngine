@@ -1,6 +1,26 @@
 #include "Resources.frag.glsl.h"
 #include "Eevee.glsl.h"
 
+//
+// Shadow Mapping
+//
+
+layout(binding = 3, set = 7) buffer cl3 {
+    int shadowMapsLayerIndices[MAX_LIGHTS]; // If light 2 is Spot and it's the first spot light, then shadowMapsLayerIndices[2] = 0
+    // And to access it, we go to shadowMapsSpotShadowMaps[shadowMapsLayerIndices[2]]
+};
+
+layout(binding = 0, set = 3) uniform texture2D shadowMaps[];
+layout(binding = 7, set = 7) buffer cl7 {
+    mat4 shadowMapsDirectionalLightSpaceMatrices[];
+};
+layout(binding = 8, set = 7) buffer cl8 {
+    mat4 shadowMapsPointLightSpaceMatrices[];
+};
+layout(binding = 9, set = 7) buffer cl9 {
+    mat4 shadowMapsSpotLightSpaceMatrices[];
+};
+
 // Constants
 const float PI = 3.14159265358979323846;
 
@@ -47,36 +67,6 @@ vec3 mon2lin(vec3 x) {
 // Luminance approximation
 float luminance(vec3 color) {
     return dot(color, vec3(0.3, 0.6, 0.1));
-}
-
-vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
-{
-    // Simplified Fresnel-weighted reflection
-    float NDotV = dot(N, V);
-
-    ivec2 imageSizeBrdfLUT = imageSize(brdfLUT);
-    ivec2 coords = ivec2(NDotV * imageSizeBrdfLUT.x, roughness * imageSizeBrdfLUT.y);
-    vec2 brdf = imageLoad(brdfLUT, coords).rg;
-
-    vec3 R = normalize(reflect(-V, N));
-    vec3 specularReflectionColor = GetPanoramaRadiance(R, roughness).rgb;
-    vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);
-    vec3 specularReflection = specularReflectionColor * (specularReflectionBaseColor * brdf.x + brdf.y);
-
-    vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
-//    vec2 irradianceUvF = mod(PanoramaUvFromDir(N), vec2(1.0));
-//    ivec2 irradianceMapSize = imageSize(irradianceMap);
-//    ivec2 irradianceUV = ivec2(irradianceUvF.x * irradianceMapSize.x, irradianceUvF.y * irradianceMapSize.y);
-//    vec3 irradiance = imageLoad(irradianceMap, irradianceUV).rgb;
-    vec3 irradiance = GetPanoramaIrradiance(N).rgb;
-    vec3 diffuseReflection = diffuseLight * irradiance;
-
-    // TODO: Make specular reflection more blurry with roughness
-
-    return
-        specularReflection
-        + diffuseReflection
-        ;
 }
 
 // Disney Principled BSDF Function

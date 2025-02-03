@@ -106,7 +106,7 @@ public:
 
     void CopyImage(const Image& image, const Image& getImage);
     void CopySwapChainImage(const VkImage& image, const Image& getImage);
-    void ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue) const;
+    void ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue, const VkClearRect * rect, const int rectNumber) const;
     void CopyBufferToImage(const Buffer& srcBuffer, const Image& dstImage);
     void TransitionImageLayout(Image& image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
     void TransitionImageLayout(Image& image, VkImageLayout oldLayout, VkImageLayout newLayout);
@@ -117,6 +117,10 @@ public:
     template<typename T>
     inline void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const T * value, uint32 offset = 0) const {
         PushConstants(shaderPipeline, stageFlags, value, offset, sizeof(T));
+    }
+    void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32 offset, uint32_t size) const;
+    template<typename T>
+    inline void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32 offset, uint32_t size) const {
     }
 
     void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,

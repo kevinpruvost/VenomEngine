@@ -12,7 +12,7 @@ layout(binding = 2, set = 4, rgba16f) uniform image2D irradianceMap;
 layout(binding = 3, set = 4) uniform radianceMapVars {
     float roughness;
 };
-layout(binding = 0, set = 3) uniform sampler g_sampler;
+layout(binding = 1, set = 1) uniform sampler g_sampler;
 layout(binding = 0, set = 6) uniform texture2D panoramaTexture;
 
 #define PI 3.1415926535897932384626433832795

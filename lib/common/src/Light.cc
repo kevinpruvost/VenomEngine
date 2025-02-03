@@ -197,20 +197,22 @@ LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(con
     return ret;
 }
 
-int LightImpl::GetCascadeIndex(Camera* const camera) const
+int LightImpl::GetCascadeIndex(Camera* const camera)
 {
     const CameraCascadedShadowMapData & csmCameraData = camera->GetImpl()->As<CameraImpl>()->GetCascadedShadowMapData();
 
+    int cascadeIndex = -1;
     switch (__lightType) {
         case LightType::Point: {
             const vcm::Vec3 & lightCenter = __transform->GetPosition();
             const float lightRadius = sqrt(__intensity / POINTLIGHT_THRESHHOLD);
             for (int i = 0; i < VENOM_CSM_TOTAL_CASCADES; ++i) {
                 if (vcm::Distance(csmCameraData.cascadeFrustumsCenters[i], lightCenter) - lightRadius < csmCameraData.cascadeFrustumsRadius[i]) {
-                    return i;
+                    cascadeIndex = i;
+                    break;
                 }
             }
-            return -1;
+            break;
         }
         case LightType::Spot: {
             vcm::Vec3 lightCenter = __transform->GetPosition();
@@ -218,14 +220,19 @@ int LightImpl::GetCascadeIndex(Camera* const camera) const
             lightCenter += GetDirection() * lightRadius;
             for (int i = 0; i < VENOM_CSM_TOTAL_CASCADES; ++i) {
                 if (vcm::Distance(csmCameraData.cascadeFrustumsCenters[i], lightCenter) - lightRadius < csmCameraData.cascadeFrustumsRadius[i]) {
-                    return i;
+                    cascadeIndex = i;
+                    break;
                 }
             }
-            return -1;
+            break;
         }
         default:
-            return 0;
+            cascadeIndex = -1;
     }
+    if (cascadeIndex != -1) {
+        _SetDescriptorsFromCascade(cascadeIndex);
+    }
+    return cascadeIndex;
 }
 
 vcm::Vec3 SpotAndDirectionalDirection(const vcm::Vec3& direction)

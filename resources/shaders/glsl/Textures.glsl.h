@@ -6,7 +6,7 @@
 layout(binding = 0, set = 2) uniform texture2D bindlessTextures[];
 //layout(binding = 1, set = 2) uniform int isTextureHDR[];
 
-layout(binding = 0, set = 3) uniform sampler g_sampler;
+layout(binding = 1, set = 1) uniform sampler g_sampler;
 
 vec4 GetTexture(int u, vec2 texCoord) {
     return texture(sampler2D(bindlessTextures[u], g_sampler), texCoord);

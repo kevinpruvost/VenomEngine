@@ -62,13 +62,14 @@ public:
     inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, GetDirection(), __angle}; }
     inline vc::Error Reinit() { return _SetType(__lightType); }
     LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera, vcm::Vec3 * lightPos) const;
-    int GetCascadeIndex(Camera * const camera) const;
+    int GetCascadeIndex(Camera * const camera);
     inline int GetLightIndexPerType() const { return _lightIndexPerType; }
 
     vcm::Vec3 GetDirection() const;
 
 protected:
     virtual vc::Error _SetType(const LightType type) = 0;
+    virtual void _SetDescriptorsFromCascade(const int cascadeIndex) = 0;
 
 private:
     void __AllocateLightType();
@@ -116,6 +117,7 @@ public:
 
     static const size_t GetCountOfLights() { return __lights.size(); }
     static const vc::Vector<Light *> & GetLights() { return __lights; }
+    static vc::Vector<Light *> & GetLightsMut() { return __lights; }
 
     static const size_t GetCountOfLightsOfType(const LightType type);
 

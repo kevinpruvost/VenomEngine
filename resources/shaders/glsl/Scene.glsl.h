@@ -136,25 +136,3 @@ bool isLightInBlock(vec2 uv, int lightIndex) {
     int blockIndex = int(uv.x * FORWARD_PLUS_BLOCK_SIZE) + int(uv.y * FORWARD_PLUS_BLOCK_SIZE) * FORWARD_PLUS_BLOCK_SIZE;
     return (forwardPlusResultBuffer[blockIndex].block[intIndex] & (1 << bitIndex)) != 0;
 }
-
-//
-// Shadow Mapping
-//
-
-layout(binding = 3, set = 7) buffer cl3 {
-    int shadowMapsLayerIndices[MAX_LIGHTS]; // If light 2 is Spot and it's the first spot light, then shadowMapsLayerIndices[2] = 0
-    // And to access it, we go to shadowMapsSpotShadowMaps[shadowMapsLayerIndices[2]]
-};
-
-layout(binding = 4, set = 7) uniform texture2D shadowMapsDirectionalShadowMaps[];
-layout(binding = 5, set = 7) uniform texture2D shadowMapsPointShadowMaps[];
-layout(binding = 6, set = 7) uniform texture2D shadowMapsSpotShadowMaps[];
-layout(binding = 7, set = 7) buffer cl7 {
-    mat4 shadowMapsDirectionalLightSpaceMatrices[];
-};
-layout(binding = 8, set = 7) buffer cl8 {
-    mat4 shadowMapsPointLightSpaceMatrices[];
-};
-layout(binding = 9, set = 7) buffer cl9 {
-    mat4 shadowMapsSpotLightSpaceMatrices[];
-};

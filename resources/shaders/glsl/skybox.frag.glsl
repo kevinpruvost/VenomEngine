@@ -90,5 +90,4 @@ void main() {
 
     // Output the final color
     finalColor = color;
-    finalColor = (finalColor);
 }

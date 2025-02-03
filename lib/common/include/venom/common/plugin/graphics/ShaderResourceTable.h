@@ -38,7 +38,7 @@ public:
         SetsIndex_ModelMatrices = 0,
         SetsIndex_Camera = 1,
         SetsIndex_Textures = 2,
-        SetsIndex_Sampler = 3,
+        SetsIndex_LightIndividual = 3,
         SetsIndex_Material = 4,
         SetsIndex_Scene = 5,
         SetsIndex_Panorama = 6,
@@ -54,6 +54,7 @@ public:
 #define DSETS_INDEX_SCENE venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Scene
 #define DSETS_INDEX_PANORAMA venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Panorama
 #define DSETS_INDEX_LIGHT venom::common::ShaderResourceTable::SetsIndex::SetsIndex_Light
+#define DSETS_INDEX_LIGHT_INDIVIDUAL venom::common::ShaderResourceTable::SetsIndex::SetsIndex_LightIndividual
     
     class Descriptor
     {

@@ -186,5 +186,24 @@ void GraphicsApplication::__LoadRenderingPipelines()
         shader.LoadShaderFromFile("skybox");
         RenderingPipelineImpl::SetRenderingPipelineCache(skyboxShaders, RenderingPipelineType::Skybox);
     }
+
+    // Loading Reflection shaders
+    {
+        ShaderPipelineList reflectionShaders;
+        ShaderPipeline & shader = reflectionShaders.emplace_back();
+        shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0}, // Position
+            {vc::ShaderVertexFormat::Vec3, 1, 1, 0}, // Normal
+            {vc::ShaderVertexFormat::Vec2, 2, 2, 0}, // UV
+            {vc::ShaderVertexFormat::Vec3, 3, 3, 0}, // Tangent
+            {vc::ShaderVertexFormat::Vec3, 4, 4, 0}, // Bitangent
+        });
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Graphics);
+        shader.SetRenderingPipelineType(RenderingPipelineType::Reflection);
+        shader.SetRenderingPipelineIndex(0);
+        shader.LoadShaderFromFile("pbr_mesh/reflection");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(reflectionShaders, RenderingPipelineType::Reflection);
+    }
 }
 }

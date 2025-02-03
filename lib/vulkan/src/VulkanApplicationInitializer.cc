@@ -44,7 +44,7 @@ vc::Error VulkanApplication::__Init()
 vc::Error VulkanApplication::__PostInit()
 {
     // Separate Sampled Image & Sampler
-    DescriptorPool::GetPool()->GetDescriptorSets(3).GroupUpdateSampler(__sampler, 0, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+    DescriptorPool::GetPool()->GetDescriptorSets(1).GroupUpdateSampler(__sampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     return vc::Error::Success;
 }
 
@@ -366,12 +366,12 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
 
 void VulkanApplication::__ChangeShadowMapsLayout(VkImageLayout oldLayout, VkImageLayout newLayout, CommandBuffer* commandBuffer)
 {
-    for (int i = 0; i < std::size(__shadowMapsDirectional[_currentFrame]); ++i) {
-        __shadowMapsDirectional[_currentFrame][i].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(newLayout);
-    }
-    for (int i = 0; i < std::size(__shadowMapsPoint[_currentFrame]); ++i) {
-        __shadowMapsPoint[_currentFrame][i].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(newLayout);
-    }
+    // for (int i = 0; i < std::size(__shadowMapsDirectional[_currentFrame]); ++i) {
+    //     __shadowMapsDirectional[_currentFrame][i].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(newLayout);
+    // }
+    // for (int i = 0; i < std::size(__shadowMapsPoint[_currentFrame]); ++i) {
+    //     __shadowMapsPoint[_currentFrame][i].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(newLayout);
+    // }
 }
 
 vc::Error VulkanApplication::__CreateInstance()

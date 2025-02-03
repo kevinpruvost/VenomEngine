@@ -31,6 +31,8 @@ enum class RenderingPipelineType
     BRDF_LUT,
     IrradianceMap,
     RadianceMap,
+    Reflection,
+    AdditiveLighting,
     Count,
 };
 }

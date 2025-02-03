@@ -93,8 +93,10 @@ void RenderPass::SetRenderingType(const vc::RenderingPipelineType type)
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Skybox)] = this;
             break;
         }
-        case vc::RenderingPipelineType::PBRModel: {
+        case vc::RenderingPipelineType::PBRModel:
+        case vc::RenderingPipelineType::Reflection: {
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::PBRModel)] = this;
+            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Reflection)] = this;
             break;
         }
         case vc::RenderingPipelineType::GUI: {
@@ -291,10 +293,10 @@ vc::Error RenderPass::__CreateNormalRenderPass()
     }
 
     // Clear Values
-    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
     __clearValues.emplace_back(VkClearValue{.depthStencil ={1.0f, 0}});
     if (multisampled)
-        __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+        __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
     const size_t framebufferCount = __swapChain->swapChainImageHandles.size();
@@ -500,10 +502,10 @@ vc::Error RenderPass::__CreateGuiRenderPass()
     }
 
     // Clear Values
-    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
     __clearValues.emplace_back(VkClearValue{.depthStencil ={1.0f, 0}});
     if (multisampled)
-        __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+        __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
     const size_t framebufferCount = __swapChain->swapChainImageHandles.size();
@@ -555,17 +557,18 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     // 2 Subpasses for Forward+ Lighting
     vc::Vector<VkAttachmentReference> gBufferAttachmentDescriptions;
     gBufferAttachmentDescriptions.emplace_back(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(0, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
     VkAttachmentReference depthAttachmentRef{1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL};
 
     VkSubpassDescription & mainSubpass = __subpassDescriptions.emplace_back();
     mainSubpass.flags = 0;
     mainSubpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    mainSubpass.colorAttachmentCount = gBufferAttachmentDescriptions.size();
-    mainSubpass.pColorAttachments = gBufferAttachmentDescriptions.data();
+    mainSubpass.colorAttachmentCount = 1;
+    mainSubpass.pColorAttachments = &gBufferAttachmentDescriptions[0];
     mainSubpass.pDepthStencilAttachment = &depthAttachmentRef;
-    mainSubpass.inputAttachmentCount = 0;
-    mainSubpass.pInputAttachments = nullptr; // Input attachments
+    mainSubpass.inputAttachmentCount = 1;
+    mainSubpass.pInputAttachments = &gBufferAttachmentDescriptions[1];
     mainSubpass.preserveAttachmentCount = 0;
     mainSubpass.pPreserveAttachments = nullptr;
     mainSubpass.pResolveAttachments = nullptr;
@@ -602,11 +605,11 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
 
     // Clear Values
     // Final color
-    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
     // Depth
     __clearValues.emplace_back(VkClearValue{.depthStencil= {1.0f, 0}});
     // Resolve
-    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 1.0f});
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
     const size_t framebufferCount = __swapChain->swapChainImageHandles.size();

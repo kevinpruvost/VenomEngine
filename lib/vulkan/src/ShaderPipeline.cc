@@ -50,7 +50,7 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
     // Cull mode determines the type of face culling, back bit means to cull back faces
     rasterizerCreateInfo.cullMode = VK_CULL_MODE_NONE;
     // Front face is the vertex order that is considered front facing
-    rasterizerCreateInfo.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+    rasterizerCreateInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
     // Depth bias is just adding a constant value or a value proportional to the slope of the polygon
     // Can be used for shadow mapping
     // https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias
@@ -227,13 +227,24 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
 
     // Push constants
     vc::Vector<VkPushConstantRange> pushConstantRanges;
-    if (_renderingPipelineType == vc::RenderingPipelineType::CascadedShadowMapping)
-    {
-        pushConstantRanges.emplace_back(
-            VK_SHADER_STAGE_VERTEX_BIT,
-            0,
-            sizeof(vc::LightCascadedShadowMapConstantsStruct)
-        );
+    switch (_renderingPipelineType) {
+        case vc::RenderingPipelineType::CascadedShadowMapping: {
+            pushConstantRanges.emplace_back(
+                VK_SHADER_STAGE_VERTEX_BIT,
+                0,
+                sizeof(vc::LightCascadedShadowMapConstantsStruct)
+            );
+            break;
+        }
+        case vc::RenderingPipelineType::PBRModel: {
+            pushConstantRanges.emplace_back(
+                VK_SHADER_STAGE_FRAGMENT_BIT,
+                0,
+                sizeof(int)
+            );
+            break;
+        }
+        default: break;
     }
     pipelineLayoutInfo.pushConstantRangeCount = pushConstantRanges.size();
     pipelineLayoutInfo.pPushConstantRanges = pushConstantRanges.data();
@@ -242,6 +253,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
         vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipelineLayout, Allocator::GetVKAllocationCallbacks());
         _resource->As<VulkanShaderResource>()->pipelineLayout = VK_NULL_HANDLE;
     }
+
     if (vkCreatePipelineLayout(LogicalDevice::GetVkDevice(), &pipelineLayoutInfo, Allocator::GetVKAllocationCallbacks(), &_resource->As<VulkanShaderResource>()->pipelineLayout) != VK_SUCCESS)
     {
         vc::Log::Error("Failed to create pipeline layout");
@@ -275,6 +287,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
         VkPipelineColorBlendAttachmentState colorBlendAttachment{};
         colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
         colorBlendAttachment.blendEnable = VK_TRUE;
+        // No transparency, just additive for lighting
         colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
         colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
         colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;

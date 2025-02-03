@@ -4,6 +4,11 @@
 
 #include "../PBR.glsl.h"
 
+layout(push_constant, std430) uniform RenderData
+{
+    int i;
+} lightData;
+
 float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
     ivec2 tSize = textureSize(sampler2D(map, g_sampler), 0);
@@ -72,8 +77,8 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
            uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
            if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
                continue;
-           vec3 shadowVal = texture(sampler2D(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], g_sampler), uvShadow.xy).rgb;
-           float shadowPCF = pcf(shadowMapsDirectionalShadowMaps[i + (CASCADE_COUNT * shadowMapIndex)], uvShadow.xy, uvShadow.z, 3);
+           vec3 shadowVal = texture(sampler2D(shadowMaps[i], g_sampler), uvShadow.xy).rgb;
+           float shadowPCF = pcf(shadowMaps[i], uvShadow.xy, uvShadow.z, 3);
            shadow += shadowPCF;
            break;
         }
@@ -83,10 +88,11 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
         vec4 clipSpace = shadowMapsSpotLightSpaceMatrices[shadowMapIndex] * vec4(position, 1.0);
         vec3 uvShadow = clipSpace.xyz / clipSpace.w;
         uvShadow.y = -uvShadow.y;
+        uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
         if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
             return 0.0;
-        vec3 shadowVal = texture(sampler2D(shadowMapsSpotShadowMaps[shadowMapIndex], g_sampler), uvShadow.xy).rgb;
-        float shadowPCF = pcf(shadowMapsSpotShadowMaps[shadowMapIndex], uvShadow.xy, uvShadow.z, 1);
+        vec3 shadowVal = texture(sampler2D(shadowMaps[0], g_sampler), uvShadow.xy).rgb;
+        float shadowPCF = pcf(shadowMaps[0], uvShadow.xy, uvShadow.z, 1);
         shadow = shadowPCF;
     }
     return shadow;
@@ -211,25 +217,26 @@ void main()
     vec3 viewDir = normalize(cameraPos - position);
 
     // Loop over lights
-    finalColor = vec4(0.0, 0.0, 0.0, 1.0);
+    finalColor = vec4(0.0, 0.0, 0.0, 0.0);
 
     if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
     {
-        for (int i = 0; i < lightCount; ++i) {
-            Light light = lights[i];
-            float shadow = ComputeShadow(position, normal, light, i);
+        if (lightData.i < lightCount)
+        {
+            Light light = lights[lightData.i];
+            float shadow = ComputeShadow(position, normal, light, lightData.i);
 
             if (shadow >= 0.995)
-                continue;
+                return;
 
-            if (isLightInBlock(gl_FragCoord.xy, i) == false)
-                continue;
+            if (isLightInBlock(gl_FragCoord.xy, lightData.i) == false)
+                return;
 
             // Compute BRDF for this light
             vec3 lightDir = GetLightDirection(light, position);
             vec3 lightColor = GetLightColor(light, position, lightDir);
             if (length(lightColor) < 0.01)
-                continue;
+                return;
 
             vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
             vec3 colorToAdd = vec3(0.0, 0.0, 0.0);
@@ -241,20 +248,8 @@ void main()
             }
             colorToAdd *= (1.0 - shadow);
             finalColor.rgb += colorToAdd;
+            finalColor.a = opacity;
         }
-
-        finalColor.rgb += emissive.rgb * emissive.a;
-        finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness);
-
-        // Set transparency
-        finalColor.a = baseColor.a;
-        //finalColor.a = 1.0;
-
-        // Ambient Occlusion
-        float occlusionStrength = 1.0;
-        finalColor = mix(finalColor, finalColor * ao, occlusionStrength);
-
-        finalColor.a = opacity;
     }
     else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
         finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
@@ -273,4 +268,6 @@ void main()
             finalColor.rgb += vec3(1.0 - shadow) * vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     }
+    //finalColor.rgb = renderColor.rgb;
+    //finalColor.a = renderColor.a;
 }

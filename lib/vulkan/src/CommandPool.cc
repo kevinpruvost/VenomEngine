@@ -188,7 +188,6 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
 
     // Bind camera & sampler
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *this, shader);
-    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Sampler, *this, shader);
 
     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *this, shader);
 
@@ -252,15 +251,15 @@ void CommandBuffer::CopySwapChainImage(const VkImage& image, const Image& getIma
     vkCmdCopyImage(_commandBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, getImage.GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 }
 
-void CommandBuffer::ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits,
-                                     VkClearValue vkClearValue) const
+void CommandBuffer::ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue,
+    const VkClearRect * rect, const int rectNumber) const
 {
     VkClearAttachment clearAttachment {
         .aspectMask = vkImageAspectFlagBits,
         .colorAttachment = i,
         .clearValue = vkClearValue
     };
-    vkCmdClearAttachments(_commandBuffer, 1, &clearAttachment, 0, nullptr);
+    vkCmdClearAttachments(_commandBuffer, 1, &clearAttachment, rectNumber, rect);
 }
 
 void CommandBuffer::PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32_t offset, uint32 size) const
