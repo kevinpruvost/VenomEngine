@@ -233,6 +233,8 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *reflectionRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                 });
             }
+            __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+
             /// Lighting Pass
             {
                 const auto & lightingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::PBRModel);
@@ -240,6 +242,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 auto & lights = vc::Light::GetLightsMut();
                 for (int i = 0; i < lights.size(); ++i)
                 {
+                    __graphicsRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
@@ -272,15 +275,18 @@ vc::Error VulkanApplication::__GraphicsOperations()
                     #endif
                         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     });
+                    __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
                     // Adds lighting to the main texture
+                    __graphicsRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(addLightPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], addLightPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawVertices(__screenQuadVertexBuffer);
+                    __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
                 }
             }
 
-        __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+        //__graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
         // Copy to render target if any (for GUI)
         // TODO: It is a test, so should replace

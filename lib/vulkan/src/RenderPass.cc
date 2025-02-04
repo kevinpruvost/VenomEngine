@@ -543,9 +543,9 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     // Final Attachment : 0
     __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
     // Lighting Addition Attachment Write : 1
-    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, true);
     // Lighting Addition Attachment Read : 2
-    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, true);
     // Depth Attachment : 3
     __AddAttachment(VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, false);
 
@@ -557,8 +557,8 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     // 2 Subpasses for Forward+ Lighting
     vc::Vector<VkAttachmentReference> gBufferAttachmentDescriptions;
     gBufferAttachmentDescriptions.emplace_back(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-    gBufferAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-    gBufferAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_GENERAL);
+    gBufferAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_GENERAL);
 
     VkAttachmentReference depthAttachmentRef{3, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL};
 

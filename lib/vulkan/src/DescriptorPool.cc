@@ -242,7 +242,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
     const int currentFrame = VulkanApplication::GetCurrentFrameInFlight();
-    const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
+    const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == vc::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
         pipeline->GetPipelineLayout(), descriptorSetIndex, 1,
         __descriptorSets[descriptorSetIndex][0][currentFrame].GetVkDescriptorSetPtr(),
@@ -254,7 +254,7 @@ void DescriptorPool::BindDescriptorSets(const int descriptorSetIndex, const Comm
     venom_assert(descriptorSetIndex < __descriptorSets.size(), "Descriptor set index out of range");
     venom_assert(__descriptorSets[descriptorSetIndex].size(), "Multiple groups here, this function is meant for single group descriptor sets");
     const int currentFrame = VulkanApplication::GetCurrentFrameInFlight();
-    const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == common::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
+    const VkPipelineBindPoint bindPoint = pipeline->GetRenderingPipelineShaderType() == vc::RenderingPipelineShaderType::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE : VK_PIPELINE_BIND_POINT_GRAPHICS;
     vkCmdBindDescriptorSets(commandBuffer.GetVkCommandBuffer(), bindPoint,
         pipeline->GetPipelineLayout(), descriptorSetIndex, 1,
         __descriptorSets[descriptorSetIndex][0][currentFrame].GetVkDescriptorSetPtr(),
