@@ -32,7 +32,7 @@ protected:
 private:
     vc::Error __CreateFramebuffer(Framebuffer & framebuffer, RenderPass & csmRenderPass, ImageView & imageView, VkExtent2D & extent);
 private:
-    vc::DeferredTrash<vc::Array2D<vc::Vector<Framebuffer>, VENOM_CSM_TOTAL_CASCADES, VENOM_MAX_FRAMES_IN_FLIGHT>> __shadowMapFramebuffers;
+    vc::DeferredTrash<vc::Array2D<vc::Vector<Framebuffer>, VENOM_MAX_FRAMES_IN_FLIGHT, VENOM_CSM_TOTAL_CASCADES>> __shadowMapFramebuffers;
     DescriptorSetGroup * __shadowMapDescriptorSet;
     vc::Array<int, VENOM_MAX_FRAMES_IN_FLIGHT> __lastCascades;
 };

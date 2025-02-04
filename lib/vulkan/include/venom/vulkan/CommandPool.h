@@ -68,6 +68,7 @@ public:
     friend class RenderPass;
 
     VkCommandBuffer GetVkCommandBuffer() const;
+    const VkCommandBuffer * GetVkCommandBufferPtr() const;
     operator VkCommandBuffer() const;
 
 public:

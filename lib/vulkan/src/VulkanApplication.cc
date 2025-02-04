@@ -423,6 +423,12 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                 break;
         }
     }
+    // Submits queues
+    if (VkResult result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), __queueSubmitOrders.size(), __queueSubmitOrders.data(), VK_NULL_HANDLE); result != VK_SUCCESS) {
+        vc::Log::Error("Failed to submit draw command buffer");
+        return vc::Error::Failure;
+    }
+    __queueSubmitOrders.clear();
     // Update uniform buffer of indices
     __shadowMapsIndicesBuffers[_currentFrame].WriteToBuffer(__shadowMapIndices, sizeof(int) * std::size(__shadowMapIndices));
     // Update uniform buffers of light space matrices
@@ -484,16 +490,11 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
         submitInfo.pWaitSemaphores = nullptr;
         submitInfo.pWaitDstStageMask = nullptr;
         submitInfo.commandBufferCount = 1;
-        VkCommandBuffer commandBuffers[] = {commandBuffer->GetVkCommandBuffer()};
-        submitInfo.pCommandBuffers = commandBuffers;
-        VkSemaphore signalSemaphores[] = {semaphore->GetVkSemaphore()};
+        submitInfo.pCommandBuffers = commandBuffer->GetVkCommandBufferPtr();
         submitInfo.signalSemaphoreCount = 1;
-        submitInfo.pSignalSemaphores = signalSemaphores;
+        submitInfo.pSignalSemaphores = semaphore->GetVkSemaphorePtr();
 
-        if (VkResult result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result != VK_SUCCESS) {
-            vc::Log::Error("Failed to submit draw command buffer");
-            return vc::Error::Failure;
-        }
+        __SubmitToQueue(__graphicsQueue.GetVkQueue(), submitInfo);
     }
     __shadowMapsFinishedSemaphores[_currentFrame].emplace_back(semaphore);
     __shadowMapCommandBuffersToReset[_currentFrame].emplace_back(commandBuffer);
@@ -582,5 +583,10 @@ vc::Error VulkanApplication::__DrawFrame()
 
     _currentFrame = (_currentFrame + 1) % VENOM_MAX_FRAMES_IN_FLIGHT;
     return vc::Error::Success;
+}
+
+void VulkanApplication::__SubmitToQueue(const VkQueue queue, const VkSubmitInfo& submitInfo)
+{
+    __queueSubmitOrders.emplace_back(submitInfo);
 }
 }

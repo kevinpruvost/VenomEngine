@@ -49,6 +49,11 @@ VkCommandBuffer CommandBuffer::GetVkCommandBuffer() const
     return _commandBuffer;
 }
 
+const VkCommandBuffer* CommandBuffer::GetVkCommandBufferPtr() const
+{
+    return &_commandBuffer;
+}
+
 CommandBuffer::operator VkCommandBuffer() const
 {
     return _commandBuffer;

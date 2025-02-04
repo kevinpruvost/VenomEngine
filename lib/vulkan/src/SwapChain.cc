@@ -143,6 +143,7 @@ vc::Error SwapChain::InitSwapChain()
     // Image count, must be at least the minimum image count, but no more than the maximum image count
     // One more is recommeneded to avoid waiting on the driver
     uint32_t imageCount = std::clamp(capabilities.minImageCount + 1, capabilities.minImageCount, capabilities.maxImageCount);
+    imageCount = std::min<uint32_t>(VENOM_MAX_FRAMES_IN_FLIGHT, imageCount);
 
     VkSwapchainCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;

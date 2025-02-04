@@ -331,7 +331,7 @@ const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
                 // TODO: Logarithmic Split instead
                 vcm::Vec4 corner = frustumNearCorners[i] + (frustumDistances[i] * (cascade * zIncrement));
                 __csmData.cascadeFrustumsCorners[cascade][i] = vcm::Vec3(corner.x, corner.y, corner.z);
-                DEBUG_PRINT("Cascade %d, Corner %d: %f, %f, %f", cascade, i, corner.x, corner.y, corner.z);
+                //DEBUG_PRINT("Cascade %d, Corner %d: %f, %f, %f", cascade, i, corner.x, corner.y, corner.z);
             }
         }
         for (int cascade = 0; cascade < VENOM_CSM_TOTAL_CASCADES; ++cascade)

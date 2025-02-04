@@ -98,6 +98,8 @@ private:
     vc::Error __RecreateSwapChain();
     vc::Error __InitializeSets();
 
+    void __SubmitToQueue(const VkQueue queue, const VkSubmitInfo & submitInfo);
+
 private:
     Instance __instance;
     LogicalDevice __logicalDevice;
@@ -178,6 +180,8 @@ private:
     bool __framebufferChanged;
     StorageBuffer __modelMatricesStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+
+    vc::Vector<VkSubmitInfo> __queueSubmitOrders;
 
     friend class VulkanShaderResourceTable;
     friend class VulkanLight;

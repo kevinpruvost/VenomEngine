@@ -14,6 +14,7 @@ namespace venom
 {
 namespace vulkan
 {
+
 class Queue
 {
 public:
