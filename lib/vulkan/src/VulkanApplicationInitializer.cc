@@ -269,6 +269,25 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     __shadowMapRenderPass.SetRenderingType(vc::RenderingPipelineType::CascadedShadowMapping);
     __guiRenderPass.SetRenderingType(vc::RenderingPipelineType::GUI);
     __CreateAttachments();
+
+    // Initialize Screen Square Vertex Buffer
+    {
+        const vcm::Vec3 vertices[] = {
+            vcm::Vec3(-1.0f,  1.0f, 0.0f),
+            vcm::Vec3(-1.0f, -1.0f, 0.0f),
+            vcm::Vec3( 1.0f, -1.0f, 0.0f),
+
+            vcm::Vec3( 1.0f,  1.0f, 0.0f),
+            vcm::Vec3(-1.0f,  1.0f, 0.0f),
+            vcm::Vec3( 1.0f, -1.0f, 0.0f),
+        };
+        if (__screenQuadVertexBuffer.Init(6, sizeof(vcm::Vec3), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, vertices) != vc::Error::Success)
+        {
+            vc::Log::Error("Failed to create vertex buffer for screen draw operations");
+            return vc::Error::Failure;
+        }
+    }
+
     for (const auto renderPass : RenderPass::GetRenderPasses()) {
         if (renderPass == nullptr) continue;
         if (err = renderPass->InitRenderPass(&__swapChain); err != vc::Error::Success)
@@ -402,6 +421,17 @@ void VulkanApplication::__CreateAttachments()
             AttachmentsManager::Get()->attachments[i].emplace_back().GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(__swapChain.GetSamples());
             AttachmentsManager::Get()->attachments[i][j].CreateAttachment(__swapChain.extent.width, __swapChain.extent.height, 1, vc::ShaderVertexFormat::Vec4);
             AttachmentsManager::Get()->resolveAttachments[i].emplace_back().CreateAttachment(__swapChain.extent.width, __swapChain.extent.height, 1, vc::ShaderVertexFormat::Vec4);
+
+            // Update Descriptor Sets
+            switch (j) {
+                case static_cast<int>(vc::ColorAttachmentType::LightingAddition): {
+                    AttachmentsManager::Get()->attachments[i][j].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(VK_IMAGE_LAYOUT_GENERAL);
+                    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light)
+                        .GroupUpdateImageViewPerFrame(i, AttachmentsManager::Get()->attachments[i][j].GetImpl()->As<VulkanTexture>()->GetImageView(), 10, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, 0);
+                    break;
+                }
+                default: break;
+            }
         }
     }
 }

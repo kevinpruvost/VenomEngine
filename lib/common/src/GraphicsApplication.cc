@@ -205,5 +205,21 @@ void GraphicsApplication::__LoadRenderingPipelines()
 
         RenderingPipelineImpl::SetRenderingPipelineCache(reflectionShaders, RenderingPipelineType::Reflection);
     }
+
+    // Loading Additive Lighting shaders
+    {
+        ShaderPipelineList additiveLightingShaders;
+        ShaderPipeline & shader = additiveLightingShaders.emplace_back();
+        shader.AddVertexBufferToLayout({
+            {vc::ShaderVertexFormat::Vec3, 0, 0, 0}, // Position
+        });
+        shader.SetDepthWrite(false);
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Graphics);
+        shader.SetRenderingPipelineType(RenderingPipelineType::AdditiveLighting);
+        shader.SetRenderingPipelineIndex(0);
+        shader.LoadShaderFromFile("pbr_mesh/additive_lighting");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(additiveLightingShaders, RenderingPipelineType::AdditiveLighting);
+    }
 }
 }

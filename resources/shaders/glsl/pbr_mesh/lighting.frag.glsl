@@ -150,6 +150,8 @@ layout(location = 6) in vec2 screenPos;
 
 layout(origin_upper_left) in vec4 gl_FragCoord;
 
+layout(location = 1) out vec4 lightingResult;
+
 void main()
 {
     vec4 baseColor;
@@ -217,6 +219,7 @@ void main()
     vec3 viewDir = normalize(cameraPos - position);
 
     // Loop over lights
+    lightingResult = vec4(0.0, 0.0, 0.0, opacity);
     finalColor = vec4(0.0, 0.0, 0.0, 0.0);
 
     if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
@@ -247,27 +250,24 @@ void main()
                 colorToAdd += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
             }
             colorToAdd *= (1.0 - shadow);
-            finalColor.rgb += colorToAdd;
-            finalColor.a = opacity;
+            lightingResult.rgb += colorToAdd;
         }
     }
     else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
-        finalColor = vec4(vec3(gl_FragCoord.z), 1.0);
+        lightingResult = vec4(vec3(gl_FragCoord.z), 1.0);
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
-        finalColor = vec4(normal * 0.5 + 0.5, 1.0);
+        lightingResult = vec4(normal * 0.5 + 0.5, 1.0);
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
         for (int i = 0; i < lightCount; ++i) {
             if (isLightInBlock(gl_FragCoord.xy, i) == false)
                 continue;
-            finalColor.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
+            lightingResult.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ShadowMapping) {
         for (int i = 0; i < lightCount; ++i) {
             Light light = lights[i];
             float shadow = ComputeShadow(position, normal, light, i);
-            finalColor.rgb += vec3(1.0 - shadow) * vec3(1.0, 1.0, 1.0) / float(lightCount);
+            lightingResult.rgb += vec3(1.0 - shadow) * vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     }
-    //finalColor.rgb = renderColor.rgb;
-    //finalColor.a = renderColor.a;
 }

@@ -88,16 +88,16 @@ void Scene(const vc::ScenePhase phase)
             camera.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-5.2f, 4.8f, -4.7f));
             camera.get_mut<vc::Camera>()->LookAt(helmet.get<vc::Transform3D>()->GetPosition());
 
-            light1.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
-            light1.get_mut<vc::Transform3D>()->SetRotation({0.6f, 0.0f, 0.3f});
-            light1.get_mut<vc::Light>()->SetColor({0.37f, 0.0f, 0.17f});
-            light1.get_mut<vc::Light>()->SetIntensity(8.0f);
+            light2.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
+            light2.get_mut<vc::Transform3D>()->SetRotation({0.6f, 0.0f, 0.3f});
+            light2.get_mut<vc::Light>()->SetColor({0.37f, 0.0f, 0.17f});
+            light2.get_mut<vc::Light>()->SetIntensity(8.0f);
 
-            light2.get_mut<vc::Light>()->SetType(vc::LightType::Point);
-            light2.get_mut<vc::Transform3D>()->SetPosition({0.0f, 0.3f, 0.0f});
-            light2.get_mut<vc::Transform3D>()->SetRotation({-0.5f, 0.0f, 0.0f});
-            light2.get_mut<vc::Light>()->SetColor({0.0f, 0.5f, 0.01f});
-            light2.get_mut<vc::Light>()->SetIntensity(5.0f);
+            light1.get_mut<vc::Light>()->SetType(vc::LightType::Point);
+            light1.get_mut<vc::Transform3D>()->SetPosition({0.0f, 0.3f, 0.0f});
+            light1.get_mut<vc::Transform3D>()->SetRotation({-0.5f, 0.0f, 0.0f});
+            light1.get_mut<vc::Light>()->SetColor({0.0f, 0.5f, 0.01f});
+            light1.get_mut<vc::Light>()->SetIntensity(5.0f);
 
             light3.get_mut<vc::Light>()->SetType(vc::LightType::Spot);
             light3.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(1.0f, 3.0f, -3.0f));

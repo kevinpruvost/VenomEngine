@@ -165,7 +165,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
             vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
             {
                 const auto & shaders = pipeline.GetRenderingPipelineCache();
-                shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>()->SetDepthWrite(false);
                 __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
             });
         __skyboxRenderPass.EndRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame]);
@@ -236,28 +235,18 @@ vc::Error VulkanApplication::__GraphicsOperations()
             }
             /// Lighting Pass
             {
-                const auto & pipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::PBRModel);
+                const auto & lightingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::PBRModel);
+                const auto & addLightPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::AdditiveLighting);
                 auto & lights = vc::Light::GetLightsMut();
-                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-                DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                 for (int i = 0; i < lights.size(); ++i)
                 {
-                    const auto & lightIndividualDescriptorSet = lights[i]->GetImpl()->As<VulkanLight>()->GetShadowMapDescriptorSet();
-                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline[0].GetImpl()->As<VulkanShaderPipeline>()->GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SetsIndex_LightIndividual, 1, lightIndividualDescriptorSet.GetVkDescriptorSetPtr());
-                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->PushConstants(&pipeline[0], VK_SHADER_STAGE_FRAGMENT_BIT, &i);
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Scene, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
 
-                    vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
-                    {
-                        int index;
-                    #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
-                        index = transform.GetModelMatrixId();
-                    #endif
-                        __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *pipeline[0].GetImpl()->As<VulkanShaderPipeline>());
-                    });
                     // Clear depth buffer for next light
                     const VkClearRect clearRect = {
                         .rect = {
@@ -267,7 +256,27 @@ vc::Error VulkanApplication::__GraphicsOperations()
                         .baseArrayLayer = 0,
                         .layerCount = 1
                     };
-                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->ClearAttachments(1, VK_IMAGE_ASPECT_DEPTH_BIT, VkClearValue{.depthStencil = {1.0f, 0}}, &clearRect, 1);
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->ClearAttachments(3, VK_IMAGE_ASPECT_DEPTH_BIT, VkClearValue{.depthStencil = {1.0f, 0}}, &clearRect, 1);
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->ClearAttachments(1, VK_IMAGE_ASPECT_COLOR_BIT, VkClearValue{.color = {0.0f, 0.0f, 0.0f, 0.0f}}, &clearRect, 1);
+
+                    const auto & lightIndividualDescriptorSet = lights[i]->GetImpl()->As<VulkanLight>()->GetShadowMapDescriptorSet();
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>()->GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SetsIndex_LightIndividual, 1, lightIndividualDescriptorSet.GetVkDescriptorSetPtr());
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->PushConstants(&lightingPipeline[0], VK_SHADER_STAGE_FRAGMENT_BIT, &i);
+
+                    // Calculating lighting of the scene for the current light
+                    vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
+                    {
+                        int index;
+                    #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+                        index = transform.GetModelMatrixId();
+                    #endif
+                        __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    });
+
+                    // Adds lighting to the main texture
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(addLightPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], addLightPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawVertices(__screenQuadVertexBuffer);
                 }
             }
 
@@ -277,9 +286,9 @@ vc::Error VulkanApplication::__GraphicsOperations()
         // TODO: It is a test, so should replace
         Image * attachmentImage;
         if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
-            attachmentImage = const_cast<Image *>(*__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().rbegin());
+            attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[4]);
         else
-            attachmentImage = const_cast<Image *>(*__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages().begin());
+            attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[0]);
         for (auto & renderTarget : renderTargets)
         {
             if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)

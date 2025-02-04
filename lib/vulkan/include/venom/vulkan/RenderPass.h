@@ -21,7 +21,6 @@ class AttachmentsManager
 public:
     AttachmentsManager();
     ~AttachmentsManager();
-    void RecreateAttachments();
 
     static AttachmentsManager * Get();
 

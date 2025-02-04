@@ -164,6 +164,7 @@ enum class ColorAttachmentType
     MetallicRougnessAO = 2,
     Position = 3,
     Depth = 4,
+    LightingAddition = 5,
     Count
 };
 

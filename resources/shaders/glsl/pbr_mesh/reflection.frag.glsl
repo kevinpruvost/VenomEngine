@@ -45,6 +45,8 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness)
         ;
 }
 
+layout(location = 1) out vec4 lightingResult;
+
 void main()
 {
     vec4 baseColor;
@@ -121,7 +123,6 @@ void main()
 
         // Set transparency
         finalColor.a = opacity * baseColor.a;
-        finalColor.a *= baseColor.a;
 
         // Ambient Occlusion
         float occlusionStrength = 1.0;
@@ -136,4 +137,5 @@ void main()
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ShadowMapping) {
         return;
     }
+    lightingResult = finalColor;
 }

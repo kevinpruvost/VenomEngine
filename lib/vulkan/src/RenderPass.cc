@@ -30,10 +30,6 @@ AttachmentsManager::~AttachmentsManager()
 {
 }
 
-void AttachmentsManager::RecreateAttachments()
-{
-}
-
 AttachmentsManager* AttachmentsManager::Get()
 {
     return s_attachmentsManager;
@@ -93,10 +89,10 @@ void RenderPass::SetRenderingType(const vc::RenderingPipelineType type)
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Skybox)] = this;
             break;
         }
-        case vc::RenderingPipelineType::PBRModel:
-        case vc::RenderingPipelineType::Reflection: {
+        case vc::RenderingPipelineType::PBRModel: {
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::PBRModel)] = this;
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Reflection)] = this;
+            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::AdditiveLighting)] = this;
             break;
         }
         case vc::RenderingPipelineType::GUI: {
@@ -546,7 +542,11 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
 
     // Final Attachment : 0
     __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
-    // Depth Attachment : 1
+    // Lighting Addition Attachment Write : 1
+    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    // Lighting Addition Attachment Read : 2
+    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    // Depth Attachment : 3
     __AddAttachment(VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, false);
 
     if (multisampled)
@@ -557,18 +557,19 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     // 2 Subpasses for Forward+ Lighting
     vc::Vector<VkAttachmentReference> gBufferAttachmentDescriptions;
     gBufferAttachmentDescriptions.emplace_back(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-    gBufferAttachmentDescriptions.emplace_back(0, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(1, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    gBufferAttachmentDescriptions.emplace_back(2, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
-    VkAttachmentReference depthAttachmentRef{1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL};
+    VkAttachmentReference depthAttachmentRef{3, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL};
 
     VkSubpassDescription & mainSubpass = __subpassDescriptions.emplace_back();
     mainSubpass.flags = 0;
     mainSubpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    mainSubpass.colorAttachmentCount = 1;
+    mainSubpass.colorAttachmentCount = 2;
     mainSubpass.pColorAttachments = &gBufferAttachmentDescriptions[0];
     mainSubpass.pDepthStencilAttachment = &depthAttachmentRef;
     mainSubpass.inputAttachmentCount = 1;
-    mainSubpass.pInputAttachments = &gBufferAttachmentDescriptions[1];
+    mainSubpass.pInputAttachments = &gBufferAttachmentDescriptions[2];
     mainSubpass.preserveAttachmentCount = 0;
     mainSubpass.pPreserveAttachments = nullptr;
     mainSubpass.pResolveAttachments = nullptr;
@@ -606,9 +607,14 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     // Clear Values
     // Final color
     __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
+    // Lighting addition
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
     // Depth
     __clearValues.emplace_back(VkClearValue{.depthStencil= {1.0f, 0}});
-    // Resolve
+    // Resolves
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
+    __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
     __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
@@ -629,11 +635,17 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
         // Create MultiSampled Image if needed
         if (multisampled) {
             __framebuffers[i].SetAttachment(0, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>());
-            __framebuffers[i].SetAttachment(2, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(1, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
+            __framebuffers[i].SetAttachment(2, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
+            __framebuffers[i].SetAttachment(4, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(5, AttachmentsManager::Get()->resolveAttachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
+            __framebuffers[i].SetAttachment(6, AttachmentsManager::Get()->resolveAttachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
         } else {
             __framebuffers[i].SetAttachment(0, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(1, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
+            __framebuffers[i].SetAttachment(2, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
         }
-        __framebuffers[i].SetAttachment(1, depthTexture.GetImpl()->As<VulkanTexture>());
+        __framebuffers[i].SetAttachment(3, depthTexture.GetImpl()->As<VulkanTexture>());
 
 
         // Create Framebuffer
