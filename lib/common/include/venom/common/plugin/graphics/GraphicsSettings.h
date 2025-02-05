@@ -9,6 +9,7 @@
 #include <venom/common/Error.h>
 #include <venom/common/Export.h>
 #include <venom/common/Containers.h>
+#include <venom/common/Callback.h>
 
 namespace venom
 {
@@ -25,6 +26,8 @@ struct GraphicsSettingsData
     int hdrEnabled;
     int debugVisualizationMode;
 };
+
+typedef Callback<void> GraphicsCallback;
 
 /**
  * Interface of GraphicsApplication class to set the graphics settings.
@@ -96,6 +99,10 @@ public:
 
     static void ReloadGFXSettings();
 
+    static void CallbackAfterDraws(const GraphicsCallback callback);
+    inline bool HasCallbacksAfterDraws() const { return !__callbacksAfterDraws.empty(); }
+    void LaunchCallbacksAfterDraws();
+
 protected:
     static bool _IsGfxSettingsDataDirty();
 
@@ -131,6 +138,7 @@ private:
 
     vc::Vector<vc::String> __availableMultisamplingCountsStrings;
     const vc::Vector<vc::String> __debugVisualizerStrings;
+    vc::Vector<GraphicsCallback> __callbacksAfterDraws;
 
 private:
     vc::Vector<MultiSamplingCountOption> __availableMultisamplingOptions;

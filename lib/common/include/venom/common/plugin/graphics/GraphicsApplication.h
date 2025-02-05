@@ -39,6 +39,8 @@ public:
     Error Loop();
     virtual Error __Loop() = 0;
     virtual bool ShouldClose() = 0;
+    virtual void WaitForDraws() = 0;
+
 private:
     void __LoadRenderingPipelines();
 

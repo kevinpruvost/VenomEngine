@@ -153,6 +153,14 @@ const vc::Vector<vc::String>& GraphicsSettings::GetDebugVisualizerStrings()
     return s_graphicsSettings->__debugVisualizerStrings;
 }
 
+void GraphicsSettings::LaunchCallbacksAfterDraws()
+{
+    for (const auto & callback : __callbacksAfterDraws) {
+        callback();
+    }
+    __callbacksAfterDraws.clear();
+}
+
 bool GraphicsSettings::_IsGfxSettingsDataDirty()
 {
     const bool dirty = s_graphicsSettings->__gfxSettingsDataDirty;
@@ -189,6 +197,11 @@ void GraphicsSettings::SetWindowExtent(int width, int height)
 void GraphicsSettings::ReloadGFXSettings()
 {
     s_graphicsSettings->__AddLoadGFXSettingsToQueue();
+}
+
+void GraphicsSettings::CallbackAfterDraws(const GraphicsCallback callback)
+{
+    s_graphicsSettings->__callbacksAfterDraws.emplace_back(callback);
 }
 
 void GraphicsSettings::__AddLoadGFXSettingsToQueue()

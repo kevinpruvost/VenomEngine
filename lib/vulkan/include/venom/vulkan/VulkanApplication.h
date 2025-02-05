@@ -65,6 +65,7 @@ public:
     inline const RenderPass * GetHDRRenderPass() const { return &__skyboxRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }
     inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSceneCheckpointCommandBuffers[GetCurrentFrameInFlight()]; }
+    void WaitForDraws() override;
 
 protected:
     vc::Error _LoadGfxSettings() override;

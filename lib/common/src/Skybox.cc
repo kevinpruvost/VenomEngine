@@ -9,6 +9,8 @@
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 
+#include "venom/common/plugin/graphics/GraphicsSettings.h"
+
 namespace venom
 {
 namespace common
@@ -38,6 +40,10 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
     if (err = _LoadSkybox(__panorama); err != vc::Error::Success) {
         vc::Log::Error("Failed to load skybox from file: %s", texturePath);
     }
+    // Reset Irradiance and Radiance maps
+    __irradianceMap = vc::Texture();
+    __radianceMap = vc::Texture();
+
     __irradianceMap.CreateReadWriteTexture(256, 128, vc::ShaderVertexFormat::Vec4, 1);
     __irradianceMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadWrite);
     vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 2, &__irradianceMap);
@@ -90,11 +96,11 @@ void Skybox::_GUI(const Entity entity)
 {
     vc::String newPath;
     if (vc::GUI::EditableTexture(&GetPanoramaMut(), newPath)) {
-        if (vc::Error err = LoadSkybox(newPath.c_str()); err != vc::Error::Success) {
-            vc::Log::Error("Failed to load skybox from file: %s", newPath.c_str());
-        } else {
-
-        }
+        vc::GraphicsSettings::CallbackAfterDraws([newPath]() {
+            if (vc::Error err = s_skybox->LoadSkybox(newPath.c_str()); err != vc::Error::Success) {
+                vc::Log::Error("Failed to load skybox from file: %s", newPath.c_str());
+            }
+        });
     }
 }
 

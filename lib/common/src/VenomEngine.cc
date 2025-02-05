@@ -123,6 +123,12 @@ Error VenomEngine::RunEngine(int argc, char** argv)
             }
             // Reset timer at the end
             vc::Timer::__PassFrame();
+
+            // Waits for draws to finish then calls the callbacks
+            if (graphicsApp->HasCallbacksAfterDraws()) {
+                graphicsApp->WaitForDraws();
+                graphicsApp->LaunchCallbacksAfterDraws();
+            }
         }
     }
     s_sceneCallback(vc::ScenePhase::Destruction);

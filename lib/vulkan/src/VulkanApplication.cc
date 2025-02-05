@@ -61,6 +61,15 @@ VulkanApplication::~VulkanApplication()
 
 bool VulkanApplication::ShouldClose() { return __shouldClose; }
 
+void VulkanApplication::WaitForDraws()
+{
+    vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
+        vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __computeInFlightFences[i].GetFence(), VK_TRUE, UINT64_MAX);
+        vkWaitForFences(LogicalDevice::GetVkDevice(), 1, __graphicsInFlightFences[i].GetFence(), VK_TRUE, UINT64_MAX);
+    }
+}
+
 vc::Error VulkanApplication::__Loop()
 {
     vc::Error err;
@@ -196,12 +205,8 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
     //
     // SHADOW MAPS (Parallel to Skybox & Forward+)
-    //
-    vc::Timer timerTest;
     if (auto err = __GraphicsShadowMapOperations(); err != vc::Error::Success)
         return err;
-    vc::Log::Print("[1] Shadow Map Time: %lu", timerTest.GetMicroSeconds());
-    timerTest.Reset();
 
     //
     // SCENE AND GUI (Must wait for Skybox, Shadow Maps and Forward+)
@@ -340,15 +345,11 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        vc::Log::Print("[2] Check Map Time: %lu", timerTest.GetMicroSeconds());
-        timerTest.Reset();
         __SubmitToQueue(__graphicsQueue.GetVkQueue(), *__graphicsInFlightFences[_currentFrame].GetFence(), submitInfo);
         // if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result != VK_SUCCESS) {
         //     vc::Log::Error("Failed to submit draw command buffer");
         //     return vc::Error::Failure;
         // }
-        vc::Log::Print("[3] Real Map Time: %lu", timerTest.GetMicroSeconds());
-        timerTest.Reset();
         _UpdateTheoreticalFPS(theoreticalFpsCounter.GetMicroSeconds());
     }
 
@@ -365,8 +366,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
     //vkQueuePresentKHR(__presentQueue.GetVkQueue(), &presentInfo);
     __SubmitToQueue(__presentQueue.GetVkQueue(), presentInfo);
-    vc::Log::Print("[4] Present Map Time: %lu", timerTest.GetMicroSeconds());
-    timerTest.Reset();
     return vc::Error::Success;
 }
 
