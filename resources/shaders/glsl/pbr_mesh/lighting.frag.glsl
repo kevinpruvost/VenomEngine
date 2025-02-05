@@ -164,9 +164,6 @@ void main()
     vec3 position = worldPos;
     float opacity = 1.0;
 
-    baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
-    baseColor = toLinear(baseColor);
-
     // Reverse normal if back face
     vec3 realNormal = outNormal;
     if (gl_FrontFacing == false)
@@ -227,12 +224,13 @@ void main()
         if (lightData.i < lightCount)
         {
             Light light = lights[lightData.i];
+
+            if (isLightInBlock(gl_FragCoord.xy, lightData.i) == false)
+                return;
+
             float shadow = ComputeShadow(position, normal, light, lightData.i);
 
             if (shadow >= 0.995)
-                return;
-
-            if (isLightInBlock(gl_FragCoord.xy, lightData.i) == false)
                 return;
 
             // Compute BRDF for this light
@@ -244,6 +242,8 @@ void main()
             vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
             vec3 colorToAdd = vec3(0.0, 0.0, 0.0);
 
+            baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
+            baseColor = toLinear(baseColor);
             if (tangentSpace) {
                 colorToAdd += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
             } else {

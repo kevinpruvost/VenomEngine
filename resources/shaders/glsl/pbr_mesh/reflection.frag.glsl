@@ -59,8 +59,7 @@ void main()
     vec3 position = worldPos;
     float opacity = 1.0;
 
-    baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
-    baseColor = toLinear(baseColor);
+    baseColor = toLinear(MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv));
 
     // Reverse normal if back face
     vec3 realNormal = outNormal;

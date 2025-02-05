@@ -176,31 +176,32 @@ vc::Error VulkanApplication::__GraphicsOperations()
         // Synchronization between the image being presented and the image being rendered
         VkSubmitInfo submitInfo{};
         submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-        VkSemaphore waitSemaphores[] = {__imageAvailableSemaphores[_currentFrame].GetVkSemaphore()};
         VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-        submitInfo.waitSemaphoreCount = std::size(waitSemaphores);
-        submitInfo.pWaitSemaphores = waitSemaphores;
+        submitInfo.waitSemaphoreCount = 1;
+        submitInfo.pWaitSemaphores = __imageAvailableSemaphores[_currentFrame].GetVkSemaphorePtr();
         submitInfo.pWaitDstStageMask = waitStages;
         submitInfo.commandBufferCount = 1;
-        VkCommandBuffer commandBuffers[] = {__graphicsFirstCheckpointCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
-        submitInfo.pCommandBuffers = commandBuffers;
-        VkSemaphore signalSemaphores[] = {__graphicsSkyboxDoneSemaphores[_currentFrame].GetVkSemaphore()};
+        submitInfo.pCommandBuffers = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->GetVkCommandBufferPtr();
         submitInfo.signalSemaphoreCount = 1;
-        submitInfo.pSignalSemaphores = signalSemaphores;
+        submitInfo.pSignalSemaphores = __graphicsSkyboxDoneSemaphores[_currentFrame].GetVkSemaphorePtr();
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result != VK_SUCCESS) {
-            vc::Log::Error("Failed to submit draw command buffer");
-            return vc::Error::Failure;
-        }
+        __SubmitToQueue(__graphicsQueue.GetVkQueue(), VK_NULL_HANDLE, submitInfo);
+        // if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, VK_NULL_HANDLE); result != VK_SUCCESS) {
+        //     vc::Log::Error("Failed to submit draw command buffer");
+        //     return vc::Error::Failure;
+        // }
     }
 
     //
     // SHADOW MAPS (Parallel to Skybox & Forward+)
     //
+    vc::Timer timerTest;
     if (auto err = __GraphicsShadowMapOperations(); err != vc::Error::Success)
         return err;
+    vc::Log::Print("[1] Shadow Map Time: %lu", timerTest.GetMicroSeconds());
+    timerTest.Reset();
 
     //
     // SCENE AND GUI (Must wait for Skybox, Shadow Maps and Forward+)
@@ -259,8 +260,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
                         .baseArrayLayer = 0,
                         .layerCount = 1
                     };
-                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->ClearAttachments(3, VK_IMAGE_ASPECT_DEPTH_BIT, VkClearValue{.depthStencil = {1.0f, 0}}, &clearRect, 1);
-                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->ClearAttachments(1, VK_IMAGE_ASPECT_COLOR_BIT, VkClearValue{.color = {0.0f, 0.0f, 0.0f, 0.0f}}, &clearRect, 1);
 
                     const auto & lightIndividualDescriptorSet = lights[i]->GetImpl()->As<VulkanLight>()->GetShadowMapDescriptorSet();
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>()->GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SetsIndex_LightIndividual, 1, lightIndividualDescriptorSet.GetVkDescriptorSetPtr());
@@ -341,10 +340,15 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         VkResult result;
         vc::Timer theoreticalFpsCounter;
-        if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result != VK_SUCCESS) {
-            vc::Log::Error("Failed to submit draw command buffer");
-            return vc::Error::Failure;
-        }
+        vc::Log::Print("[2] Check Map Time: %lu", timerTest.GetMicroSeconds());
+        timerTest.Reset();
+        __SubmitToQueue(__graphicsQueue.GetVkQueue(), *__graphicsInFlightFences[_currentFrame].GetFence(), submitInfo);
+        // if (result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), 1, &submitInfo, *__graphicsInFlightFences[_currentFrame].GetFence()); result != VK_SUCCESS) {
+        //     vc::Log::Error("Failed to submit draw command buffer");
+        //     return vc::Error::Failure;
+        // }
+        vc::Log::Print("[3] Real Map Time: %lu", timerTest.GetMicroSeconds());
+        timerTest.Reset();
         _UpdateTheoreticalFPS(theoreticalFpsCounter.GetMicroSeconds());
     }
 
@@ -354,13 +358,15 @@ vc::Error VulkanApplication::__GraphicsOperations()
     presentInfo.waitSemaphoreCount = 1;
     presentInfo.pWaitSemaphores = signalSemaphores;
 
-    VkSwapchainKHR swapChains[] = {__swapChain.swapChain};
     presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = swapChains;
+    presentInfo.pSwapchains = &__swapChain.swapChain;
 
     presentInfo.pImageIndices = &__imageIndex;
 
-    vkQueuePresentKHR(__presentQueue.GetVkQueue(), &presentInfo);
+    //vkQueuePresentKHR(__presentQueue.GetVkQueue(), &presentInfo);
+    __SubmitToQueue(__presentQueue.GetVkQueue(), presentInfo);
+    vc::Log::Print("[4] Present Map Time: %lu", timerTest.GetMicroSeconds());
+    timerTest.Reset();
     return vc::Error::Success;
 }
 
@@ -423,12 +429,6 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                 break;
         }
     }
-    // Submits queues
-    if (VkResult result = vkQueueSubmit(__graphicsQueue.GetVkQueue(), __queueSubmitOrders.size(), __queueSubmitOrders.data(), VK_NULL_HANDLE); result != VK_SUCCESS) {
-        vc::Log::Error("Failed to submit draw command buffer");
-        return vc::Error::Failure;
-    }
-    __queueSubmitOrders.clear();
     // Update uniform buffer of indices
     __shadowMapsIndicesBuffers[_currentFrame].WriteToBuffer(__shadowMapIndices, sizeof(int) * std::size(__shadowMapIndices));
     // Update uniform buffers of light space matrices
@@ -494,7 +494,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
         submitInfo.signalSemaphoreCount = 1;
         submitInfo.pSignalSemaphores = semaphore->GetVkSemaphorePtr();
 
-        __SubmitToQueue(__graphicsQueue.GetVkQueue(), submitInfo);
+        __SubmitToQueue(__graphicsQueue.GetVkQueue(), VK_NULL_HANDLE, submitInfo);
     }
     __shadowMapsFinishedSemaphores[_currentFrame].emplace_back(semaphore);
     __shadowMapCommandBuffersToReset[_currentFrame].emplace_back(commandBuffer);
@@ -525,17 +525,16 @@ vc::Error VulkanApplication::__ComputeOperations()
     submitInfo.pWaitSemaphores = nullptr;
     submitInfo.pWaitDstStageMask = nullptr;
     submitInfo.commandBufferCount = 1;
-    VkCommandBuffer commandBuffers[] = {__computeCommandBuffers[_currentFrame]->GetVkCommandBuffer()};
-    submitInfo.pCommandBuffers = commandBuffers;
-    VkSemaphore signalSemaphores[] = {__computeShadersFinishedSemaphores[_currentFrame].GetVkSemaphore()};
+    submitInfo.pCommandBuffers = __computeCommandBuffers[_currentFrame]->GetVkCommandBufferPtr();
     submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = signalSemaphores;
+    submitInfo.pSignalSemaphores = __computeShadersFinishedSemaphores[_currentFrame].GetVkSemaphorePtr();
 
     VkResult result;
-    if (result = vkQueueSubmit(QueueManager::GetComputeQueue().GetVkQueue(), 1, &submitInfo, *__computeInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
-        vc::Log::Error("Error: %d", result);
-        return vc::Error::Failure;
-    }
+    __SubmitToQueue(QueueManager::GetComputeQueue().GetVkQueue(), *__computeInFlightFences[_currentFrame].GetFence(), submitInfo);
+    // if (result = vkQueueSubmit(QueueManager::GetComputeQueue().GetVkQueue(), 1, &submitInfo, *__computeInFlightFences[_currentFrame].GetFence()); result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || __framebufferChanged) {
+    //     vc::Log::Error("Error: %d", result);
+    //     return vc::Error::Failure;
+    // }
 
     return vc::Error::Success;
 }
@@ -585,8 +584,58 @@ vc::Error VulkanApplication::__DrawFrame()
     return vc::Error::Success;
 }
 
-void VulkanApplication::__SubmitToQueue(const VkQueue queue, const VkSubmitInfo& submitInfo)
+void VulkanApplication::__SubmitToQueue(const VkQueue queue, const VkFence fence, const VkSubmitInfo& submitInfo)
 {
-    __queueSubmitOrders.emplace_back(submitInfo);
+    QueueOrderPool::AllocatedSubmitInfo submitInfoAllocated;
+    submitInfoAllocated.waitSemaphores.reserve(submitInfo.waitSemaphoreCount);
+    submitInfoAllocated.waitDstStageMasks.reserve(submitInfo.waitSemaphoreCount);
+    for (int i = 0; i < submitInfo.waitSemaphoreCount; ++i) {
+        submitInfoAllocated.waitSemaphores.emplace_back(submitInfo.pWaitSemaphores[i]);
+        submitInfoAllocated.waitDstStageMasks.emplace_back(submitInfo.pWaitDstStageMask[i]);
+    }
+    submitInfoAllocated.commandBuffers.reserve(submitInfo.commandBufferCount);
+    for (int i = 0; i < submitInfo.commandBufferCount; ++i) {
+        submitInfoAllocated.commandBuffers.emplace_back(submitInfo.pCommandBuffers[i]);
+    }
+    submitInfoAllocated.signalSemaphores.reserve(submitInfo.signalSemaphoreCount);
+    for (int i = 0; i < submitInfo.signalSemaphoreCount; ++i) {
+        submitInfoAllocated.signalSemaphores.emplace_back(submitInfo.pSignalSemaphores[i]);
+    }
+
+    QueueOrderPool::QueueOrderInfo queueOrderInfo = {
+        .type = QueueOrderPool::QueueOrderInfoType::QueueOrderInfoType_Submit,
+    };
+    auto & subInfo = queueOrderInfo.info.emplace<QueueOrderPool::QueueSubmissionInfo>();
+    subInfo.queue = queue;
+    subInfo.submitInfo = std::move(submitInfoAllocated);
+    subInfo.fence = fence;
+    //__queueOrderPool->AddQueueOrder(_currentFrame, std::move(queueOrderInfo));
+    vkQueueSubmit(queue, 1, &submitInfo, fence);
+}
+
+void VulkanApplication::__SubmitToQueue(const VkQueue queue, const VkPresentInfoKHR& presentInfo)
+{
+    QueueOrderPool::AllocatedPresentInfo presentInfoAllocated;
+    presentInfoAllocated.waitSemaphores.reserve(presentInfo.waitSemaphoreCount);
+    for (int i = 0; i < presentInfo.waitSemaphoreCount; ++i) {
+        presentInfoAllocated.waitSemaphores.emplace_back(presentInfo.pWaitSemaphores[i]);
+    }
+    presentInfoAllocated.swapchains.reserve(presentInfo.swapchainCount);
+    for (int i = 0; i < presentInfo.swapchainCount; ++i) {
+        presentInfoAllocated.swapchains.emplace_back(presentInfo.pSwapchains[i]);
+    }
+    presentInfoAllocated.imageIndices.reserve(presentInfo.swapchainCount);
+    for (int i = 0; i < presentInfo.swapchainCount; ++i) {
+        presentInfoAllocated.imageIndices.emplace_back(presentInfo.pImageIndices[i]);
+    }
+
+    QueueOrderPool::QueueOrderInfo queueOrderInfo = {
+        .type = QueueOrderPool::QueueOrderInfoType::QueueOrderInfoType_Present,
+    };
+    auto & info = queueOrderInfo.info.emplace<QueueOrderPool::QueuePresentInfo>();
+    info.queue = queue;
+    info.presentInfo = std::move(presentInfoAllocated);
+    //__queueOrderPool->AddQueueOrder(_currentFrame, std::move(queueOrderInfo));
+    vkQueuePresentKHR(queue, &presentInfo);
 }
 }

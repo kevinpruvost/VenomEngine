@@ -73,7 +73,7 @@ void Scene(const vc::ScenePhase phase)
                 }
             }
 
-            vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples4);
+            vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples2);
             vc::SceneSettings::SetTargetLuminance(10.0f);
             break;
         }

@@ -48,7 +48,7 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
     rasterizerCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
     rasterizerCreateInfo.lineWidth = 1.0f;
     // Cull mode determines the type of face culling, back bit means to cull back faces
-    rasterizerCreateInfo.cullMode = VK_CULL_MODE_NONE;
+    rasterizerCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
     // Front face is the vertex order that is considered front facing
     rasterizerCreateInfo.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     // Depth bias is just adding a constant value or a value proportional to the slope of the polygon

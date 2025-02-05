@@ -24,6 +24,7 @@
 #include <venom/vulkan/UniformBuffer.h>
 #include <venom/vulkan/DescriptorPool.h>
 #include <venom/vulkan/StorageBuffer.h>
+#include <venom/vulkan/QueueOrderPool.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 #include <venom/common/Context.h>
@@ -33,6 +34,7 @@
 
 #include <venom/vulkan/plugin/graphics/Camera.h>
 
+#include "venom/common/Thread.h"
 #include "venom/common/plugin/graphics/Light.h"
 
 namespace venom
@@ -98,7 +100,8 @@ private:
     vc::Error __RecreateSwapChain();
     vc::Error __InitializeSets();
 
-    void __SubmitToQueue(const VkQueue queue, const VkSubmitInfo & submitInfo);
+    void __SubmitToQueue(const VkQueue queue, const VkFence fence, const VkSubmitInfo & submitInfo);
+    void __SubmitToQueue(const VkQueue queue, const VkPresentInfoKHR & presentInfo);
 
 private:
     Instance __instance;
@@ -143,6 +146,7 @@ private:
     VertexBuffer __screenQuadVertexBuffer;
 
     Queue __graphicsQueue, __presentQueue;
+    vc::UPtr<QueueOrderPool> __queueOrderPool;
 
     bool __shouldClose;
 
@@ -180,8 +184,6 @@ private:
     bool __framebufferChanged;
     StorageBuffer __modelMatricesStorageBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
     UniformBuffer __cameraUniformBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-
-    vc::Vector<VkSubmitInfo> __queueSubmitOrders;
 
     friend class VulkanShaderResourceTable;
     friend class VulkanLight;

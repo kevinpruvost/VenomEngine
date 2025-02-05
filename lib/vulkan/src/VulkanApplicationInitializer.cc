@@ -348,6 +348,9 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     if (err = __sampler.Create(); err != vc::Error::Success)
         return err;
     __sampler.SetAsMainSampler();
+
+    // Init Queue Order Pool
+    __queueOrderPool.reset(new QueueOrderPool());
     return vc::Error::Success;
 }
 

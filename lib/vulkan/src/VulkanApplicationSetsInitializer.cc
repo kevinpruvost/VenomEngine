@@ -245,18 +245,6 @@ vc::Error VulkanApplication::__InitializeSets()
         return err;
     DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Material).GroupUpdateBuffer(__radianceRoughness, 0, 3, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
 
-    // Screen Quad for Forward+
-    static vc::Array<vcm::Vec4, 6> screenQuadVertices = {
-        vcm::Vec4{-1.0f, -1.0f, 0.0f, 1.0f},
-        vcm::Vec4{1.0f, -1.0f, 0.0f, 1.0f},
-        vcm::Vec4{1.0f, 1.0f, 0.0f, 1.0f},
-        vcm::Vec4{-1.0f, 1.0f, 0.0f, 1.0f},
-        vcm::Vec4{-1.0f, -1.0f, 0.0f, 1.0f},
-        vcm::Vec4{1.0f, 1.0f, 0.0f, 1.0f},
-    };
-    if (err = __screenQuadVertexBuffer.Init(screenQuadVertices.size(), sizeof(vcm::Vec4), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, screenQuadVertices.data()); err != vc::Error::Success)
-        return err;
-
     return err;
 }
 }

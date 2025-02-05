@@ -95,11 +95,14 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     }
     // Triple Buffering (Mailbox) if possible, otherwise Double Buffering (FIFO), Single Buffering is Immediate
     for (const auto& presentMode : presentModes) {
-        if (presentMode == VK_PRESENT_MODE_FIFO_KHR)
+        if (presentMode == VK_PRESENT_MODE_IMMEDIATE_KHR)
             activePresentMode = presentMode;
-        if (presentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
+        if (presentMode == VK_PRESENT_MODE_FIFO_KHR) {
             activePresentMode = presentMode;
             break;
+        }
+        if (presentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
+            activePresentMode = presentMode;
         }
     }
     // Extent, if currentExtent is std::numeric_limits<uint32_t>::max(), then the extent can vary, else it's the currentExtent
