@@ -21,6 +21,49 @@ layout(binding = 9, set = 7) buffer cl9 {
     mat4 shadowMapsSpotLightSpaceMatrices[];
 };
 
+// Determine which face of the cube to sample
+int GetFaceIndex(vec3 dir) {
+    vec3 absDir = abs(dir);
+    if (absDir.x > absDir.y && absDir.x > absDir.z)
+        return (dir.x > 0.0) ? 0 : 1; // +X or -X
+    else if (absDir.y > absDir.z)
+        return (dir.y > 0.0) ? 2 : 3; // +Y or -Y
+    else
+        return (dir.z > 0.0) ? 4 : 5; // +Z or -Z
+}
+
+// Convert the 3D direction to 2D UV coordinates
+vec2 ConvertDirectionToUV(int face, vec3 dir) {
+    float absX = abs(dir.x);
+    float absY = abs(dir.y);
+    float absZ = abs(dir.z);
+    vec2 uv;
+
+    // Project onto the correct face
+    if (face == 0)       uv = vec2(-dir.z, dir.y) / absX; // +X
+    else if (face == 1)  uv = vec2(dir.z, dir.y) / absX;  // -X
+    else if (face == 2)  uv = vec2(dir.x, -dir.z) / absY; // +Y
+    else if (face == 3)  uv = vec2(dir.x, dir.z) / absY;  // -Y
+    else if (face == 4)  uv = vec2(dir.x, dir.y) / absZ;  // +Z
+    else                 uv = vec2(-dir.x, dir.y) / absZ; // -Z
+
+    // Map from [-1, 1] to [0, 1]
+    return 0.5 * (uv + 1.0);
+}
+
+vec4 GetColorFromPointShadowMap(vec3 dir) {
+    // Normalize to ensure consistent face selection
+    int face = GetFaceIndex(dir);
+    vec2 uv = ConvertDirectionToUV(face, dir);
+
+    // Clamp UVs slightly to avoid sampling outside borders
+    uv = clamp(uv, 0.001, 0.999);
+
+    // Sample the corresponding shadow map
+    return texture(sampler2D(shadowMaps[face], g_sampler), uv);
+}
+
+
 // Constants
 const float PI = 3.14159265358979323846;
 

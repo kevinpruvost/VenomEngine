@@ -11,6 +11,8 @@ namespace venom
 {
 namespace common
 {
-
+namespace math
+{
+}
 }
 }

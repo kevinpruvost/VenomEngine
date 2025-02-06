@@ -108,9 +108,9 @@ void Scene(const vc::ScenePhase phase)
             light3.get_mut<vc::Light>()->SetAngle(20.0f);
 
             light4.get_mut<vc::Light>()->SetType(vc::LightType::Point);
-            light4.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-3.0f, 3.0f, 3.0f));
+            light4.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-0.5f, 1.0f, 7.0f));
             light4.get_mut<vc::Transform3D>()->SetRotation({0.3f, 0.0f, 0.6f});
-            light4.get_mut<vc::Light>()->SetIntensity(8.0f);
+            light4.get_mut<vc::Light>()->SetIntensity(50.0f);
 
             for (int i = 0; i < nbTiles; i++) {
                 for (int j = 0; j < nbTiles; j++) {

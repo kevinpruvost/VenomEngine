@@ -158,12 +158,12 @@ LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(con
         case LightType::Point: {
             const float lightRadius = sqrt(__intensity / POINTLIGHT_THRESHHOLD);
             const vcm::Vec3 lightDirs[6] = {
-                {1.0f, 0.0f, 0.0f},
-                {-1.0f, 0.0f, 0.0f},
-                {0.0f, 1.0f, 0.0f},
-                {0.0f, -1.0f, 0.0f},
-                {0.0f, 0.0f, 1.0f},
-                {0.0f, 0.0f, -1.0f}
+                {1.0f, 0.0f, 0.0f}, // Right
+                {-1.0f, 0.0f, 0.0f}, // Left
+                {0.0f, 1.0f, 0.0f}, // Top
+                {0.0f, -1.0f, 0.0f}, // Bottom
+                {0.0f, 0.0f, 1.0f}, // Front
+                {0.0f, 0.0f, -1.0f} // Back
             };
             vcm::Vec3 upVec(0.0f, 1.0f, 0.0f);
             if (fabs(vcm::DotProduct(lightDirs[faceIndex], upVec)) > 0.99f) {
@@ -171,7 +171,7 @@ LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(con
             }
             *lightPos = __transform->GetPosition();
             vcm::Mat4 lightViewMatrix = vcm::LookAt(*lightPos, *lightPos + lightDirs[faceIndex], upVec);
-            vcm::Mat4 lightProjMatrix = vcm::Perspective(90.0f, 1.0f, 0.01f, lightRadius * 2.0f);
+            vcm::Mat4 lightProjMatrix = vcm::Perspective(vcm::Radians(90.0f), 1.0f, 0.01f, lightRadius * 2.0f);
             ret.lightSpaceMatrix = lightProjMatrix * lightViewMatrix;
             break;
         }
@@ -185,7 +185,7 @@ LightCascadedShadowMapConstantsStruct LightImpl::GetShadowMapConstantsStruct(con
                 upVector = vcm::Vec3(1.0f, 0.0f, 0.0f);
             }
             vcm::Mat4 lightViewMatrix = vcm::LookAt(*lightPos, focusPoint, upVector);
-            vcm::Mat4 lightProjMatrix = vcm::Perspective(__angle, 1.0f, 0.01f, lightRadius * 2.0f);
+            vcm::Mat4 lightProjMatrix = vcm::Perspective(vcm::Radians(__angle), 1.0f, 0.01f, lightRadius * 2.0f);
             ret.lightSpaceMatrix = lightProjMatrix * lightViewMatrix;
             break;
         }

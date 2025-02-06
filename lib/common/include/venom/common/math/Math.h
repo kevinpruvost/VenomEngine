@@ -41,6 +41,8 @@ namespace common
 {
 namespace math
 {
+constexpr inline float Radians(const float degrees) { return degrees * (M_PI / 180.0f); }
+constexpr inline float Degrees(const float radians) { return radians * (180.0f / M_PI); }
 }
 }
 }

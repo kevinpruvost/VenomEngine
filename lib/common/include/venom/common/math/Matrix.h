@@ -58,6 +58,15 @@ inline Mat4 LookAt(const Vec3& eye, const Vec3& center, const Vec3& up)
 };
 VENOM_COMMON_API Mat4 PerspectiveLH(const float fov, const float aspect, const float nearPlane, const float farPlane);
 VENOM_COMMON_API Mat4 PerspectiveRH(const float fov, const float aspect, const float nearPlane, const float farPlane);
+
+/**
+ * @brief Perspective matrix
+ * @param fov in radians
+ * @param aspect
+ * @param nearPlane
+ * @param farPlane
+ * @return
+ */
 inline Mat4 Perspective(const float fov, const float aspect, const float nearPlane, const float farPlane)
 {
 #if defined (VENOM_COORDINATE_LEFT_HAND)
