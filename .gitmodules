@@ -50,3 +50,6 @@
 [submodule "lib/external/IconFontCppHeaders"]
 	path = lib/external/IconFontCppHeaders
 	url = git@github.com:juliettef/IconFontCppHeaders.git
+[submodule "lib/external/imguizmo"]
+	path = lib/external/imguizmo
+	url = git@github.com:CedricGuillemet/ImGuizmo.git

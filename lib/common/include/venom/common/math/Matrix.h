@@ -88,6 +88,23 @@ inline Mat4 Orthographic(const float left, const float right, const float bottom
 }
 
 VENOM_COMMON_API Mat4 Inverse(const Mat4& matrix);
+
+inline const float * ValuePtr(const Mat4& matrix)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return (float*)DirectX::XMMatrixTranspose(matrix).r;
+#elif defined(VENOM_MATH_GLM)
+    return glm::value_ptr(matrix);
+#endif
+}
+inline float * ValuePtr(Mat4& matrix)
+{
+#if defined(VENOM_MATH_DXMATH)
+    return (float*)DirectX::XMMatrixTranspose(matrix).r;
+#elif defined(VENOM_MATH_GLM)
+    return glm::value_ptr(matrix);
+#endif
+}
 }
 }
 }

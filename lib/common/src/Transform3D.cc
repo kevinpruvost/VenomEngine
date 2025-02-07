@@ -128,7 +128,7 @@ void Transform3D::Init(Entity entity)
 void Transform3D::_GUI(const Entity entity)
 {
     vcm::Vec3 position = GetPosition();
-    if (vc::GUI::InputFloat3("Position", &position.x)) {
+    if (vc::GUI::SliderFloat3("Position", &position.x, -100.0f, 100.0f)) {
         SetPosition(position);
     }
     vcm::Vec3 rotation = GetRotation();
@@ -182,6 +182,12 @@ void Transform3D::SetRotation(const vcm::Vec3& rotation)
 {
     _3Drotation = rotation;
     _UpdateRotationQuat();
+}
+
+void Transform3D::SetRawRotation(const vcm::Vec3& rotation)
+{
+    _3Drotation = rotation;
+    _rotationQuat = vcm::FromEulerAngles(_yaw, _pitch, _roll);
 }
 
 void Transform3D::SetYaw(float angle)
@@ -262,6 +268,12 @@ void Transform3D::UpdateModelMatrix()
 }
 
 const vcm::Mat4& Transform3D::GetModelMatrix()
+{
+    UpdateModelMatrix();
+    return __GetModelMatrix();
+}
+
+vcm::Mat4& Transform3D::GetModelMatrixMut()
 {
     UpdateModelMatrix();
     return __GetModelMatrix();

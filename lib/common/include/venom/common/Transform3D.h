@@ -32,7 +32,9 @@ public:
 
     // Basic movement
     void SetPosition(const vcm::Vec3& position);  // Set position of the camera
+    inline void SetRawPosition(const vcm::Vec3& position) { _position = position; }  // Set position of the camera without updating the model matrix
     void SetScale(const vcm::Vec3& scale);        // Set scale of the camera
+    inline void SetRawScale(const vcm::Vec3& scale) { _scale = scale; } // Set scale of the camera without updating the model matrix
     void Move(const vcm::Vec3& delta);            // Move camera by delta
     inline void MoveForward(const float delta) { Move(GetForwardVector() * delta); } // Move camera forward by delta
     inline void MoveRight(const float delta) { Move(GetRightVector() * delta); } // Move camera right by delta
@@ -42,6 +44,7 @@ public:
 
     // Rotation and orientation
     void SetRotation(const vcm::Vec3& rotation);  // Set camera orientation with quaternion
+    void SetRawRotation(const vcm::Vec3& rotation); // Set camera orientation with quaternion without updating the model matrix
     void SetYaw(float angle);                     // Set camera yaw
     void SetPitch(float angle);                   // Set camera pitch
     void SetRoll(float angle);                    // Set camera roll
@@ -70,6 +73,7 @@ public:
 
     void UpdateModelMatrix();
     const vcm::Mat4 & GetModelMatrix(); // Get the model matrix of the camera
+    vcm::Mat4 & GetModelMatrixMut(); // Get the model matrix for mutation
 
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
     inline int GetModelMatrixId() {

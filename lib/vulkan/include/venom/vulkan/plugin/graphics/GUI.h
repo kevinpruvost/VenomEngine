@@ -25,6 +25,8 @@ public:
     vc::Error _Initialize() override;
 
 protected:
+    void _EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & renderingSize) override;
+
     vc::Error _Reset() override;
     void _AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges) override;
     void _AddFont(const char* fontPath, float fontSize) override;
@@ -133,6 +135,8 @@ protected:
 
 private:
     void __SetStyle();
+
+    float __imageVerticalOffset;
 
 private:
     ImGui_ImplVulkan_InitInfo initInfo;

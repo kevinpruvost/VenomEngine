@@ -25,6 +25,7 @@ class VenomEngine;
 
 class Model;
 class Texture;
+class Transform3D;
 
 typedef void(*GUIDrawCallback)();
 typedef void * GUIViewport;
@@ -155,10 +156,16 @@ public:
 
     static bool EditableTexture(vc::Texture * texture, vc::String & path);
     static bool EditableModel(vc::Model * model, vc::String & path);
+
+    static void EntityGuizmo(const vcm::Vec2 & renderingSize);
+
 private:
-    static void _EntityPropertiesWindow();
+    static void __EntityPropertiesWindow();
+    static void __EntityGuizmo(const vcm::Vec2 & renderingSize);
 
 protected:
+    virtual void _EntityGuizmo(vc::Transform3D * transform3D, const vcm::Vec2 & renderingSize) = 0;
+
     virtual vc::Error _Initialize() = 0;
     virtual vc::Error _Reset() = 0;
 

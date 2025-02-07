@@ -31,6 +31,7 @@ add_library(${PROJECT_NAME} SHARED
     ${IMGUI_VULKAN_SOURCE}
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+message(STATUS "IMGUI Sources: ${IMGUI_SOURCES}")
 
 # Find Vulkan
 find_package(Vulkan REQUIRED) # error

@@ -13,6 +13,8 @@
 #include <venom/vulkan/VulkanApplication.h>
 #include <venom/vulkan/plugin/graphics/RenderTarget.h>
 
+#include <ImGuizmo.h>
+
 namespace venom
 {
 namespace vulkan
@@ -143,6 +145,55 @@ vc::Error VulkanGUI::_Initialize()
     return vc::Error::Success;
 }
 
+void VulkanGUI::_EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & renderingSize)
+{
+    static ImGuizmo::OPERATION operation = ImGuizmo::TRANSLATE;
+    if (ImGui::IsKeyPressed(ImGuiKey_1)) // Press 'T' for translate
+        operation = ImGuizmo::TRANSLATE;
+    if (ImGui::IsKeyPressed(ImGuiKey_2)) // Press 'R' for rotate
+        operation = ImGuizmo::ROTATE;
+    if (ImGui::IsKeyPressed(ImGuiKey_3)) // Press 'S' for scale
+        operation = ImGuizmo::SCALE;
+
+    static ImGuizmo::MODE mode = ImGuizmo::LOCAL;
+    if (ImGui::IsKeyPressed(ImGuiKey_4)) // Press 'L' to toggle local/world mode
+        mode = (mode == ImGuizmo::LOCAL) ? ImGuizmo::WORLD : ImGuizmo::LOCAL;
+
+    vc::Camera * camera = vc::Camera::GetMainCamera();
+
+    float * viewMatrix = vcm::ValuePtr(camera->GetViewMatrixMut());
+    const float * projectionMatrix = vcm::ValuePtr(camera->GetProjectionMatrix());
+    float * modelMatrix = vcm::ValuePtr(transform3D->GetModelMatrixMut());
+
+    ImGuizmo::SetDrawlist();
+    //ImGuizmo::SetRect(0, 0, vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
+    ImVec2 pos = ImGui::GetWindowPos();
+    ImGuizmo::SetRect(pos.x, pos.y + __imageVerticalOffset, renderingSize.x, renderingSize.y);
+
+    static float cubeMatrix[16] = {
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    };
+
+    // ImGuizmo::DrawGrid(viewMatrix, projectionMatrix, modelMatrix, 10.0f);
+    // ImGuizmo::DrawCubes(viewMatrix, projectionMatrix, cubeMatrix, 1);
+
+    ImGuizmo::PushID(0);
+    if (ImGuizmo::Manipulate(viewMatrix, projectionMatrix, operation, mode, modelMatrix)) {
+        float matrixTranslation[3], matrixRotation[3], matrixScale[3];
+        ImGuizmo::DecomposeMatrixToComponents(modelMatrix, matrixTranslation, matrixRotation, matrixScale);
+        transform3D->SetRawPosition(vcm::Vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]));
+        transform3D->SetRawRotation(vcm::Vec3(matrixRotation[0], matrixRotation[1], matrixRotation[2]));
+        transform3D->SetRawScale(vcm::Vec3(matrixScale[0], matrixScale[1], matrixScale[2]));
+    }
+    ImGuizmo::PopID();
+    constexpr int cubeSize = 100;
+    ImGuizmo::ViewManipulate(viewMatrix, 1.0f, {pos.x + renderingSize.x - cubeSize, pos.y + __imageVerticalOffset}, {cubeSize, cubeSize}, 0x10101010);
+    // TODO: Take care of the view matrix change
+}
+
 vc::Error VulkanGUI::_Reset()
 {
     const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
@@ -224,6 +275,8 @@ void VulkanGUI::_NewFrame()
     ImGui_ImplVulkan_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::SetOrthographic(false);
+    ImGuizmo::BeginFrame();
 }
 
 void VulkanGUI::_Begin(const char* name, bool* p_open, vc::GUIWindowFlags flags)
@@ -280,7 +333,8 @@ void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size, bool 
             );
 
             // Adjust cursor position for vertical centering
-            ImGui::SetCursorPosY(ImGui::GetCursorPosY() + verticalOffset);
+            __imageVerticalOffset = ImGui::GetCursorPosY() + verticalOffset;
+            ImGui::SetCursorPosY(__imageVerticalOffset);
         }
     }
 

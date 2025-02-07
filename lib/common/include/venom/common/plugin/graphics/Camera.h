@@ -39,6 +39,7 @@ public:
 
     // View matrix generation
     const vcm::Mat4 & GetViewMatrix();  // Generate and return the view matrix
+    vcm::Mat4 & GetViewMatrixMut();  // Generate and return the view matrix
 
     // Projection matrix generation
     void SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane); // Set perspective projection
@@ -152,9 +153,10 @@ public:
 
     inline void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle) { _impl->As<CameraImpl>()->RotateAround(target, planeNormal, angle); }
 
-    inline const vcm::Mat4 & GetViewMatrix() { return _impl->As<CameraImpl>()->GetViewMatrix(); }
+    inline const vcm::Mat4 & GetViewMatrix() const { return _impl->As<CameraImpl>()->GetViewMatrix(); }
+    inline vcm::Mat4 & GetViewMatrixMut() { return _impl->As<CameraImpl>()->GetViewMatrixMut(); }
     inline void SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane) { _impl->As<CameraImpl>()->SetPerspective(fovY, aspectRatio, nearPlane, farPlane); }
-    inline const vcm::Mat4 & GetProjectionMatrix() { return _impl->As<CameraImpl>()->GetProjectionMatrix(); }
+    inline const vcm::Mat4 & GetProjectionMatrix() const { return _impl->As<CameraImpl>()->GetProjectionMatrix(); }
 
     inline void SetFieldOfView(float fovY) { _impl->As<CameraImpl>()->SetFieldOfView(fovY); }
     inline float GetFieldOfView() const { return _impl->As<CameraImpl>()->GetFieldOfView(); }

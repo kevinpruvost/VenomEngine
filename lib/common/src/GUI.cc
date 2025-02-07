@@ -18,8 +18,7 @@
 
 #include <nfd.h>
 
-#include "venom/common/Resources.h"
-
+#include <venom/common/Resources.h>
 namespace venom
 {
 namespace common
@@ -185,7 +184,7 @@ void GUI::EntitiesListCollapsingHeader()
             vc::GUI::EndPopup();
         }
     }
-    _EntityPropertiesWindow();
+    __EntityPropertiesWindow();
 }
 
 bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
@@ -251,7 +250,12 @@ bool GUI::EditableModel(vc::Model * model, vc::String& path)
     return ret;
 }
 
-void GUI::_EntityPropertiesWindow()
+void GUI::EntityGuizmo(const vcm::Vec2 & renderingSize)
+{
+    __EntityGuizmo(renderingSize);
+}
+
+void GUI::__EntityPropertiesWindow()
 {
     vc::GUI::Begin(ICON_MS_INFO " Inspector");
     {
@@ -320,6 +324,16 @@ void GUI::_EntityPropertiesWindow()
         }
     }
     vc::GUI::End();
+}
+
+void GUI::__EntityGuizmo(const vcm::Vec2 & renderingSize)
+{
+    if (!selectedEntity.is_valid()) return;
+
+    vc::Transform3D * transform = selectedEntity.get_mut<vc::Transform3D>();
+    if (!transform) return;
+
+    s_gui->_EntityGuizmo(transform, renderingSize);
 }
 
 vc::Error GUI::__PreUpdate()

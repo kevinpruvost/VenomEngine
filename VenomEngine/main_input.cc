@@ -133,6 +133,7 @@ void SceneGUI()
             vcm::Vec2 renderingSize = vc::GUI::GetContentRegionAvail();
             renderingSize.y = std::min(std::floor(renderingSize.x * 9.0f / 16.0f), renderingSize.y);
             vc::GUI::Image(&renderTarget, renderingSize);
+            vc::GUI::EntityGuizmo(renderingSize);
             //static vc::Texture textureTest("hank_happy.png");
             //vc::GUI::Image(&textureTest, vc::GUI::GetContentRegionAvail());
         }

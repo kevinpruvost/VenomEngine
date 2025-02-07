@@ -85,6 +85,14 @@ const vcm::Mat4& CameraImpl::GetViewMatrix()
     return __viewMatrix;
 }
 
+vcm::Mat4& CameraImpl::GetViewMatrixMut()
+{
+    if (__transform->HasPositionChanged()) {
+        __viewMatrix = vcm::LookAt(__transform->GetPosition(), __transform->GetPosition() + __transform->GetForwardVector(), __transform->GetUpVector());
+    }
+    return __viewMatrix;
+}
+
 void CameraImpl::SetPerspective(float fovY, float aspectRatio, float nearPlane, float farPlane)
 {
     __fov = fovY;
