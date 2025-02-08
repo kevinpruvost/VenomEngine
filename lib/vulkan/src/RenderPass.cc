@@ -93,6 +93,7 @@ void RenderPass::SetRenderingType(const vc::RenderingPipelineType type)
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::PBRModel)] = this;
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Reflection)] = this;
             s_renderPasses[static_cast<int>(vc::RenderingPipelineType::AdditiveLighting)] = this;
+            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::AdditiveLightingMS)] = this;
             break;
         }
         case vc::RenderingPipelineType::GUI: {

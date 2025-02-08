@@ -56,6 +56,7 @@ public:
     void SetPitch(float angle);
     void SetRoll(float angle);
     void SetRotation(const vcm::Vec3& rotation);
+    inline void SetRawRotation(const vcm::Vec3& rotation) { __transform->SetRawRotation(rotation); }
     void RotateYaw(float angle);
     void RotatePitch(float angle);
     void RotateRoll(float angle);
@@ -140,6 +141,7 @@ public:
     inline void SetPitch(float angle) { _impl->As<CameraImpl>()->SetPitch(angle); }
     inline void SetRoll(float angle) { _impl->As<CameraImpl>()->SetRoll(angle); }
     inline void SetRotation(const vcm::Vec3& rotation) { _impl->As<CameraImpl>()->SetRotation(rotation); }
+    inline void SetRawRotation(const vcm::Vec3& rotation) { _impl->As<CameraImpl>()->SetRawRotation(rotation); }
     inline void RotateYaw(float angle) { _impl->As<CameraImpl>()->RotateYaw(angle); }
     inline void RotatePitch(float angle) { _impl->As<CameraImpl>()->RotatePitch(angle); }
     inline void RotateRoll(float angle) { _impl->As<CameraImpl>()->RotateRoll(angle); }

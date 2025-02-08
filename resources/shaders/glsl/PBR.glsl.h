@@ -24,12 +24,12 @@ layout(binding = 9, set = 7) buffer cl9 {
 // Determine which face of the cube to sample
 int GetFaceIndex(vec3 dir) {
     vec3 absDir = abs(dir);
-    if (absDir.x > absDir.y && absDir.x > absDir.z)
+    if (absDir.x >= absDir.y && absDir.x >= absDir.z)
         return (dir.x > 0.0) ? 0 : 1; // +X or -X
-    else if (absDir.y > absDir.z)
-        return (dir.y > 0.0) ? 2 : 3; // +Y or -Y
+    else if (absDir.y >= absDir.z)
+        return (dir.y > 0.0) ? 3 : 2; // +Y or -Y
     else
-        return (dir.z > 0.0) ? 4 : 5; // +Z or -Z
+        return (dir.z > 0.0) ? 5 : 4; // +Z or -Z
 }
 
 // Convert the 3D direction to 2D UV coordinates

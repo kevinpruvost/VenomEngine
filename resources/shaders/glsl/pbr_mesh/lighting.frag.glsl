@@ -9,7 +9,7 @@ layout(push_constant, std430) uniform RenderData
     int i;
 } lightData;
 
-#define SHADOW_BIAS 0.0005
+#define SHADOW_BIAS 0.0001
 
 float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
@@ -18,7 +18,10 @@ float pcf(texture2D map, vec2 uv, float depth, int gap)
     const float bias = max(depth * 0.0001, SHADOW_BIAS);
     for (int x = -gap; x <= gap; ++x) {
         for (int y = -gap; y <= gap; ++y) {
-            float pcfDepth = texture(sampler2D(map, g_sampler), uv + vec2(x, y) / tSize.x).r;
+            vec2 newUv = uv + vec2(x, y) / vec2(tSize);
+            if (newUv.x > 1.0 || newUv.x < 0.0 || newUv.y > 1.0 || newUv.y < 0.0)
+                continue;
+            float pcfDepth = texture(sampler2D(map, g_sampler), newUv).r;
             shadow += pcfDepth < (depth - bias) ? 1.0 : 0.0;
         }
     }
@@ -92,7 +95,7 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
         uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
         if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
             return 0.0;
-        float shadowVal = pcf(shadowMaps[face], uvShadow.xy, uvShadow.z, 3);
+        float shadowVal = pcf(shadowMaps[face], uvShadow.xy, uvShadow.z, 1);
         //float shadowVal = texture(sampler2D(shadowMaps[face], g_sampler), uvShadow.xy).r;
         shadow = shadowVal;
     } else if (light.type == LightType_Spot) {

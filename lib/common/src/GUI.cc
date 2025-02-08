@@ -328,11 +328,7 @@ void GUI::__EntityPropertiesWindow()
 
 void GUI::__EntityGuizmo(const vcm::Vec2 & renderingSize)
 {
-    if (!selectedEntity.is_valid()) return;
-
-    vc::Transform3D * transform = selectedEntity.get_mut<vc::Transform3D>();
-    if (!transform) return;
-
+    vc::Transform3D * transform = selectedEntity.is_valid() ? selectedEntity.get_mut<vc::Transform3D>() : nullptr;
     s_gui->_EntityGuizmo(transform, renderingSize);
 }
 

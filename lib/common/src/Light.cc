@@ -252,7 +252,7 @@ vcm::Vec3 SpotAndDirectionalDirection(const vcm::Vec3& direction)
     dir.z = -cx * sy * sz + sx * cz;
 
     vcm::Normalize(dir);
-    return -dir;
+    return dir;
 }
 
 vcm::Vec3 LightImpl::GetDirection() const

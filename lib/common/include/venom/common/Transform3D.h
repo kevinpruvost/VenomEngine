@@ -106,7 +106,7 @@ protected:
         vcm::Vec3 _3Drotation;
         struct
         {
-            float _yaw, _pitch, _roll;
+            float _pitch,_yaw, _roll;
         };
     };
 #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX

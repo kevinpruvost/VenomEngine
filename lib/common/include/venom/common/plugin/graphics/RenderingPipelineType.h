@@ -32,6 +32,7 @@ enum class RenderingPipelineType
     IrradianceMap,
     RadianceMap,
     Reflection,
+    AdditiveLightingMS,
     AdditiveLighting,
     Count,
 };

@@ -48,7 +48,7 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
     rasterizerCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
     rasterizerCreateInfo.lineWidth = 1.0f;
     // Cull mode determines the type of face culling, back bit means to cull back faces
-    rasterizerCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
+    rasterizerCreateInfo.cullMode = VK_CULL_MODE_NONE;
     // Front face is the vertex order that is considered front facing
     rasterizerCreateInfo.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     // Depth bias is just adding a constant value or a value proportional to the slope of the polygon
@@ -127,8 +127,10 @@ vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)
     {
         // Gets relative path from ShadersFolderPath
         auto relativePath = entry.path().string().substr(basePath.size());
+        // Remove extension
+        relativePath = relativePath.substr(0, relativePath.find_first_of('.'));
 
-        if (relativePath.starts_with(path) == false) continue;
+        if (relativePath != path) continue;
 
         if (entry.is_regular_file())
         {
@@ -298,7 +300,8 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
                 colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_MAX;
                 break;
             }
-            case common::RenderingPipelineType::AdditiveLighting: {
+            case common::RenderingPipelineType::AdditiveLighting:
+            case common::RenderingPipelineType::AdditiveLightingMS: {
                 // Additive Lighting
                 colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
                 colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;

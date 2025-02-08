@@ -244,7 +244,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
             /// Lighting Pass
             {
                 const auto & lightingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::PBRModel);
-                const auto & addLightPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::AdditiveLighting);
+                const auto & addLightPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(GetActiveSamplesMultisampling() == 1 ? vc::RenderingPipelineType::AdditiveLighting : vc::RenderingPipelineType::AdditiveLightingMS);
                 auto & lights = vc::Light::GetLightsMut();
                 for (int i = 0; i < lights.size(); ++i)
                 {
