@@ -30,7 +30,7 @@ public:
         VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
     vc::Error Load(uint16_t * pixels, int width, int height, int channels,
         VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
-    vc::Error Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t width, uint32_t height, uint32_t arrayLevels = 1, uint32_t mipLevels = 1);
+    vc::Error Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t width, uint32_t height, uint32_t arrayLevels = 1, uint32_t mipLevels = 1, VkImageCreateFlags createFlags = 0);
     void SetSamples(VkSampleCountFlagBits samples);
     void SetSamples(int samples);
     void SetImageLayout(VkImageLayout layout);

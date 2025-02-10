@@ -379,5 +379,10 @@ vc::Error TextureImpl::CreateShadowMaps(int dimension)
 {
     return _CreateShadowMaps(dimension);
 }
+
+vc::Error TextureImpl::CreateShadowCubeMaps(int dimension)
+{
+    return _CreateShadowCubeMaps(dimension);
+}
 }
 }

@@ -166,8 +166,8 @@ vc::Error ModelImpl::ImportModel(const char * path)
     auto parentFolder = std::filesystem::path(realPath).parent_path();
 
     // Create Logger
-    if (Assimp::DefaultLogger::isNullLogger())
-        Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
+    // if (Assimp::DefaultLogger::isNullLogger())
+    //     Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE, aiDefaultLogStream_STDOUT);
     Assimp::Importer importer;
     //importer.SetPropertyFloat(AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, 45.0f); // Example: 45 degrees
     // importer.SetPropertyInteger(AI_CONFIG_PP_CT_MAX_SMOOTHING_ANGLE, 30);

@@ -141,9 +141,9 @@ void VulkanApplication::__UpdateUniformBuffers()
     {
         lightShaderStructs[lightI++] = light.GetShaderStruct();
     });
-    __lightsBuffer.WriteToBuffer(lightShaderStructs.data(), sizeof(vc::LightShaderStruct) * lightShaderStructs.size());
+    __lightsBuffer[_currentFrame].WriteToBuffer(lightShaderStructs.data(), sizeof(vc::LightShaderStruct) * lightShaderStructs.size());
     uint32_t lightCount = lightI;
-    __lightCountBuffer.WriteToBuffer(&lightCount, sizeof(uint32_t));
+    __lightCountBuffer[_currentFrame].WriteToBuffer(&lightCount, sizeof(uint32_t));
     if (vc::SceneSettings::IsDataDirty()) {
         __sceneSettingsBuffer.WriteToBuffer(vc::SceneSettings::GetCurrentSettingsData(), sizeof(vc::SceneSettingsData));
     }
@@ -256,16 +256,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Panorama, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
 
-                    // Clear depth buffer for next light
-                    const VkClearRect clearRect = {
-                        .rect = {
-                            .offset = {0, 0},
-                            .extent = __swapChain.extent
-                        },
-                        .baseArrayLayer = 0,
-                        .layerCount = 1
-                    };
-
                     const auto & lightIndividualDescriptorSet = lights[i]->GetImpl()->As<VulkanLight>()->GetShadowMapDescriptorSet();
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindDescriptorSets(VK_PIPELINE_BIND_POINT_GRAPHICS, lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>()->GetPipelineLayout(), vc::ShaderResourceTable::SetsIndex::SetsIndex_LightIndividual, 1, lightIndividualDescriptorSet.GetVkDescriptorSetPtr());
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->PushConstants(&lightingPipeline[0], VK_SHADER_STAGE_FRAGMENT_BIT, &i);
@@ -330,7 +320,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
         // Add semaphores from shadow maps generation
         for (const auto & semaphore : __shadowMapsFinishedSemaphores[_currentFrame]) {
             waitSemaphores.emplace_back(semaphore->GetVkSemaphore());
-            waitStages.emplace_back(VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
+            waitStages.emplace_back(VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
         }
         __shadowMapsFinishedSemaphores[_currentFrame].clear();
 

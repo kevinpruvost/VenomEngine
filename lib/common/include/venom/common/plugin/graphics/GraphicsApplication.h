@@ -31,6 +31,7 @@ public:
     static GraphicsApplication * Get();
     static GraphicsApplication * Create();
     static inline int GetCurrentFrameInFlight() { return _currentFrame; }
+    static inline int GetPreviousFrameInFlight() { return (_currentFrame + VENOM_MAX_FRAMES_IN_FLIGHT - 1) % VENOM_MAX_FRAMES_IN_FLIGHT; }
     static inline vcm::Vec2 GetCurrentExtent() { return _currentExtent; }
     ~GraphicsApplication() override;
     Error Init();

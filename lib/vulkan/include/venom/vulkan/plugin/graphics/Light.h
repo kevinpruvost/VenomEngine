@@ -23,10 +23,10 @@ public:
     virtual ~VulkanLight();
 
     inline const vc::Vector<Framebuffer> & GetShadowMapFramebuffers(const int frameIndex, const int cascadeIndex) const { return (*__shadowMapFramebuffers)[frameIndex][cascadeIndex]; }
-    const DescriptorSet & GetShadowMapDescriptorSet();
+    inline const DescriptorSet & GetShadowMapDescriptorSet() { return __shadowMapDescriptorSet->GetCurrentSet(); }
 
 protected:
-    vc::Error _SetType(const common::LightType type) override;
+    vc::Error _SetType(const vc::LightType type) override;
     void _SetDescriptorsFromCascade(const int cascadeIndex) override;
 
 private:

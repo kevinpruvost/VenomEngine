@@ -94,7 +94,7 @@ void Scene(const vc::ScenePhase phase)
             light2.get_mut<vc::Light>()->SetIntensity(8.0f);
 
             light1.get_mut<vc::Light>()->SetType(vc::LightType::Point);
-            light1.get_mut<vc::Transform3D>()->SetPosition({0.0f, 0.3f, 0.0f});
+            light1.get_mut<vc::Transform3D>()->SetPosition({0.984f, 2.004f, -0.211f});
             light1.get_mut<vc::Transform3D>()->SetRotation({-0.5f, 0.0f, 0.0f});
             light1.get_mut<vc::Light>()->SetColor({0.0f, 0.5f, 0.01f});
             light1.get_mut<vc::Light>()->SetIntensity(5.0f);

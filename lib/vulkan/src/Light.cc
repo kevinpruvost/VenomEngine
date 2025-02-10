@@ -27,11 +27,6 @@ VulkanLight::~VulkanLight()
     DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_LightIndividual).FreeSet(__shadowMapDescriptorSet);
 }
 
-const DescriptorSet& VulkanLight::GetShadowMapDescriptorSet()
-{
-    return __shadowMapDescriptorSet->GetCurrentSet();
-}
-
 vc::Error VulkanLight::_SetType(const vc::LightType type)
 {
     VulkanApplication * app = vc::GraphicsApplication::Get()->DAs<VulkanApplication>();
@@ -103,13 +98,14 @@ void VulkanLight::_SetDescriptorsFromCascade(const int cascadeIndex)
             }
             case vc::LightType::Spot:
             {
-                set.UpdateImageView(*app->__shadowMapSpotImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, cascadeIndex);
+                set.UpdateImageView(*app->__shadowMapSpotImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
                 break;
             }
             case vc::LightType::Point:
             {
                 for (int i = 0; i < 6; ++i)
                     set.UpdateImageView(*app->__shadowMapPointImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType * 6 + i], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+                set.UpdateImageView(app->__shadowMapPointCubeImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType], 1, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
                 break;
             }
             default: break;

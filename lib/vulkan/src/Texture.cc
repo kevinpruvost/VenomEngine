@@ -197,6 +197,24 @@ vc::Error VulkanTexture::_CreateShadowMaps(int dimension)
     return vc::Error::Success;
 }
 
+vc::Error VulkanTexture::_CreateShadowCubeMaps(int dimension)
+{
+    VkFormat vkFormat = VK_FORMAT_D16_UNORM;
+
+    if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
+        VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, dimension, dimension, 6, 1, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT) != vc::Error::Success)
+        return vc::Error::Failure;
+    GetImage().SetAspectMask(VK_IMAGE_ASPECT_DEPTH_BIT);
+    GetImage().SetImageLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    for (int i = 0; i < 6; ++i) {
+        if (CreateImageView().Create(GetImage(), vkFormat, GetImage().GetAspectMask(),
+            VK_IMAGE_VIEW_TYPE_2D, 0, 1, i, 1) != vc::Error::Success)
+            return vc::Error::Failure;
+    }
+    return vc::Error::Success;
+}
+
 vc::Error VulkanTexture::_SetMemoryAccess(const vc::TextureMemoryAccess access)
 {
     if (_textureUsage & vc::TextureUsage::Storage) {

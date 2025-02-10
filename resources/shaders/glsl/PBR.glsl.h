@@ -11,6 +11,7 @@ layout(binding = 3, set = 7) buffer cl3 {
 };
 
 layout(binding = 0, set = 3) uniform texture2D shadowMaps[];
+layout(binding = 1, set = 3) uniform textureCube shadowMapCube;
 layout(binding = 7, set = 7) buffer cl7 {
     mat4 shadowMapsDirectionalLightSpaceMatrices[];
 };
@@ -27,9 +28,20 @@ int GetFaceIndex(vec3 dir) {
     if (absDir.x >= absDir.y && absDir.x >= absDir.z)
         return (dir.x > 0.0) ? 0 : 1; // +X or -X
     else if (absDir.y >= absDir.z)
-        return (dir.y > 0.0) ? 3 : 2; // +Y or -Y
+        return (dir.y > 0.0) ? 2 : 3; // +Y or -Y
     else
-        return (dir.z > 0.0) ? 5 : 4; // +Z or -Z
+        return (dir.z > 0.0) ? 4 : 5; // +Z or -Z
+}
+
+int GetFaceIndexFromSide(int faceIndex, vec3 dir)
+{
+    vec3 absDir = abs(dir);
+    if (faceIndex == 0 || faceIndex == 1)
+        return GetFaceIndex(vec3(0.0, dir.y, dir.z)); // +X or -X
+    else if (faceIndex == 2 || faceIndex == 3)
+        return GetFaceIndex(vec3(dir.x, 0.0, dir.z)); // +Y or -Y
+    else
+        return GetFaceIndex(vec3(dir.x, dir.y, 0.0)); // +Z or -Z
 }
 
 // Convert the 3D direction to 2D UV coordinates

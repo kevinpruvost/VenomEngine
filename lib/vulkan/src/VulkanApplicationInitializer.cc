@@ -44,7 +44,8 @@ vc::Error VulkanApplication::__Init()
 vc::Error VulkanApplication::__PostInit()
 {
     // Separate Sampled Image & Sampler
-    DescriptorPool::GetPool()->GetDescriptorSets(1).GroupUpdateSampler(__sampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera).GroupUpdateSampler(__repeatSampler, 1, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
+    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera).GroupUpdateSampler(__clampSampler, 2, VK_DESCRIPTOR_TYPE_SAMPLER, 1, 0);
     return vc::Error::Success;
 }
 
@@ -325,7 +326,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     }
 
     // Create Sampler
-    __sampler.SetCreateInfo({
+    __repeatSampler.SetCreateInfo({
         .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
         .pNext = nullptr,
         .flags = 0,
@@ -345,9 +346,32 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         .borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK,
         .unnormalizedCoordinates = VK_FALSE
     });
-    if (err = __sampler.Create(); err != vc::Error::Success)
+    if (err = __repeatSampler.Create(); err != vc::Error::Success)
         return err;
-    __sampler.SetAsMainSampler();
+    __repeatSampler.SetAsMainSampler();
+
+    __clampSampler.SetCreateInfo({
+    .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
+    .pNext = nullptr,
+    .flags = 0,
+    .magFilter = VK_FILTER_LINEAR,
+    .minFilter = VK_FILTER_LINEAR,
+    .mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR,
+    .addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE,
+    .addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE,
+    .addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE,
+    .mipLodBias = 0.0f,
+    .anisotropyEnable = VK_FALSE,
+    .maxAnisotropy = PhysicalDevice::GetUsedPhysicalDevice().GetProperties().limits.maxSamplerAnisotropy,
+    .compareEnable = VK_FALSE,
+    .compareOp = VK_COMPARE_OP_ALWAYS,
+    .minLod = 0.0f,
+    .maxLod = 1.0f,
+    .borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK,
+    .unnormalizedCoordinates = VK_FALSE
+    });
+    if (err = __clampSampler.Create(); err != vc::Error::Success)
+        return err;
 
     // Init Queue Order Pool
     __queueOrderPool.reset(new QueueOrderPool());

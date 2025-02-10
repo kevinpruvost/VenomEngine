@@ -119,16 +119,17 @@ private:
     QueueManager __queueManager;
 
     UniformBuffer __sceneSettingsBuffer, __graphicsSettingsBuffer;
-    UniformBuffer __lightsBuffer;
-    UniformBuffer __lightCountBuffer;
+    UniformBuffer __lightsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
+    UniformBuffer __lightCountBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
     StorageBuffer __forwardPlusPropsBuffer[VENOM_MAX_FRAMES_IN_FLIGHT];
     vc::Texture __brdfLutTexture, __irradianceMapTexture, __radianceMapTexture;
 
     vc::Texture __shadowMapsDirectional[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_DIRECTIONAL_LIGHTS];
-    vc::Texture __shadowMapsPoint[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_POINT_LIGHTS * 6];
+    vc::Texture __shadowMapsPoint[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_POINT_LIGHTS];
     vc::Texture __shadowMapsSpot[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_SPOT_LIGHTS];
     ImageView * __shadowMapDirectionalImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_DIRECTIONAL_LIGHTS];
     ImageView * __shadowMapPointImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS * 6];
+    ImageView __shadowMapPointCubeImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS];
     ImageView * __shadowMapSpotImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_SPOT_LIGHTS];
 
     StorageBuffer __shadowMapsIndicesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
@@ -155,7 +156,8 @@ private:
     // For test
     uint32_t __imageIndex;
     static int __bindlessSupported;
-    Sampler __sampler;
+    Sampler __repeatSampler;
+    Sampler __clampSampler;
     vc::ShaderPipeline __shaderPipeline;
 
     CommandBuffer * __graphicsFirstCheckpointCommandBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];

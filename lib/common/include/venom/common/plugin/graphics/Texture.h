@@ -85,6 +85,7 @@ public:
     vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arrayLayers = 1);
     vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format);
     vc::Error CreateShadowMaps(int dimension);
+    vc::Error CreateShadowCubeMaps(int dimension);
     static const TextureImpl * GetDummyTexture();
 #ifdef VENOM_BINDLESS_TEXTURES
     inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
@@ -115,6 +116,7 @@ protected:
     virtual vc::Error _SetMemoryAccess(const TextureMemoryAccess access) = 0;
     virtual vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arrayLayers) = 0;
     virtual vc::Error _CreateShadowMaps(int dimension) = 0;
+    virtual vc::Error _CreateShadowCubeMaps(int dimension) = 0;
 
 private:
     friend class Texture;
@@ -185,6 +187,7 @@ public:
     inline vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format) { return _impl->As<TextureImpl>()->CreateAttachment(width, height, imageCount, format); }
     inline vc::Error CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arraLayers = 1) { return _impl->As<TextureImpl>()->CreateReadWriteTexture(width, height, format, mipMapLevels, arraLayers); }
     inline vc::Error CreateShadowMaps(int dimension) { return _impl->As<TextureImpl>()->CreateShadowMaps(dimension); }
+    inline vc::Error CreateShadowCubeMaps(int dimension) { return _impl->As<TextureImpl>()->CreateShadowCubeMaps(dimension); }
     inline vc::Error SetMemoryAccess(const TextureMemoryAccess access) { return _impl->As<TextureImpl>()->SetMemoryAccess(access); }
     inline bool HasTexture() const { return _impl->As<TextureImpl>()->HasTexture(); }
     inline const vc::String & GetName() { return _impl->As<TextureImpl>()->GetResourceName(); }

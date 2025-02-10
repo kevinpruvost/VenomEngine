@@ -140,13 +140,14 @@ vc::Error Image::Load(uint16_t* pixels, int width, int height, int channels, VkF
 }
 
 vc::Error Image::Create(VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
-                        VkMemoryPropertyFlags properties, uint32_t width, uint32_t height, uint32_t arrayLayers, uint32_t mipLevels)
+                        VkMemoryPropertyFlags properties, uint32_t width, uint32_t height, uint32_t arrayLayers, uint32_t mipLevels, VkImageCreateFlags createFlags)
 {
     // Image
     __imageInfo.extent.width = static_cast<uint32_t>(width);
     __imageInfo.extent.height = static_cast<uint32_t>(height);
     __imageInfo.format = format;
     __imageInfo.tiling = tiling;
+    __imageInfo.flags = createFlags;
     // VK_IMAGE_USAGE_TRANSFER_DST_BIT: Image will be used as a destination for a transfer operation
     // VK_IMAGE_USAGE_SAMPLED_BIT: Image will be used to create a VkImageView suitable for occupying a texture unit
     // and be usable as a sampled image in a shader

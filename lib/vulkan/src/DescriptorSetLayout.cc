@@ -58,8 +58,7 @@ DescriptorSetLayout& DescriptorSetLayout::operator=(DescriptorSetLayout&& other)
     return *this;
 }
 
-DescriptorSetLayout & DescriptorSetLayout::AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count,
-                                     VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers)
+DescriptorSetLayout & DescriptorSetLayout::AddBinding(uint32_t binding, VkDescriptorType type, uint32_t count, VkShaderStageFlags stageFlags, const VkSampler* immutableSamplers)
 {
     __bindings.push_back({ binding, type, count, stageFlags, immutableSamplers });
     __descriptorSetLayoutInfo.bindingCount = __bindings.size();

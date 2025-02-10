@@ -21,11 +21,70 @@ float pcf(texture2D map, vec2 uv, float depth, int gap)
             vec2 newUv = uv + vec2(x, y) / vec2(tSize);
             if (newUv.x > 1.0 || newUv.x < 0.0 || newUv.y > 1.0 || newUv.y < 0.0)
                 continue;
-            float pcfDepth = texture(sampler2D(map, g_sampler), newUv).r;
+            float pcfDepth = texture(sampler2D(map, g_ClampSampler), newUv).r;
             shadow += pcfDepth < (depth - bias) ? 1.0 : 0.0;
         }
     }
     return shadow / ((1 + gap * 2) * (1 + gap * 2));
+}
+
+vec3 rotateX(vec3 dir, float angle)
+{
+    float cosA = cos(angle);
+    float sinA = sin(angle);
+
+    return vec3(
+        dir.x,                        // X remains unchanged
+        dir.y * cosA - dir.z * sinA,  // Y' = Y * cos(θ) - Z * sin(θ)
+        dir.y * sinA + dir.z * cosA   // Z' = Y * sin(θ) + Z * cos(θ)
+    );
+}
+
+vec3 rotateY(vec3 dir, float angle)
+{
+    float cosA = cos(angle);
+    float sinA = sin(angle);
+
+    return vec3(
+        dir.x * cosA + dir.z * sinA,  // X' = X * cos(θ) + Z * sin(θ)
+        dir.y,                        // Y remains unchanged
+        -dir.x * sinA + dir.z * cosA  // Z' = -X * sin(θ) + Z * cos(θ)
+    );
+}
+
+float pcfPoint(vec3 dir, vec3 position, vec3 lightPos, int shadowMapIndex, int gap)
+{
+    float tSize = 1.0 / textureSize(sampler2D(shadowMaps[0], g_sampler), 0).x;
+    float shadow = 0.0;
+    float length = distance(lightPos, position);
+    int loopNum = (gap * 2 + 1) * (gap * 2 + 1);
+
+    int faceBase = GetFaceIndex(dir);
+    vec4 clipSpaceBase = shadowMapsPointLightSpaceMatrices[faceBase + (6 * shadowMapIndex)] * vec4(position, 1.0);
+    vec3 uvShadowBase = clipSpaceBase.xyz / clipSpaceBase.w;
+    float depth = uvShadowBase.z;
+
+    float bias = tSize;
+
+    for (int x = -gap; x <= gap; ++x) {
+        for (int y = -gap; y <= gap; ++y) {
+            vec3 newDir = rotateX(rotateY(dir, x * tSize), y * tSize);
+            vec3 newPosition = lightPos + newDir * length;
+
+            int face = GetFaceIndex(newDir);
+            vec4 clipSpace = shadowMapsPointLightSpaceMatrices[face + (6 * shadowMapIndex)] * vec4(newPosition, 1.0);
+            vec3 uvShadow = clipSpace.xyz / clipSpace.w;
+            uvShadow.y = -uvShadow.y;
+            uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
+            if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0) {
+                continue;
+            } else {
+                float pcfDepth = texture(sampler2D(shadowMaps[face], g_ClampSampler), uvShadow.xy).r;
+                shadow += (pcfDepth < (depth - bias) ? 1.0 : 0.0) / loopNum;
+            }
+        }
+    }
+    return shadow;
 }
 
 const vec2 poissonSamples[16] = vec2[](
@@ -88,15 +147,8 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
         }
     } else if (light.type == LightType_Point) {
         vec3 dir = normalize(position - light.position);
-        int face = GetFaceIndex(dir);
-        vec4 clipSpace = shadowMapsPointLightSpaceMatrices[face + (6 * shadowMapIndex)] * vec4(position, 1.0);
-        vec3 uvShadow = clipSpace.xyz / clipSpace.w;
-        uvShadow.y = -uvShadow.y;
-        uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
-        if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
-            return 0.0;
-        float shadowVal = pcf(shadowMaps[face], uvShadow.xy, uvShadow.z, 1);
-        //float shadowVal = texture(sampler2D(shadowMaps[face], g_sampler), uvShadow.xy).r;
+        float shadowVal = pcfPoint(dir, position, light.position, shadowMapIndex, 1);
+        //float shadowVal = 0.0;
         shadow = shadowVal;
     } else if (light.type == LightType_Spot) {
         vec4 clipSpace = shadowMapsSpotLightSpaceMatrices[shadowMapIndex] * vec4(position, 1.0);
