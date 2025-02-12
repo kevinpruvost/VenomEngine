@@ -16,6 +16,7 @@ static GraphicsSettings * s_graphicsSettings = nullptr;
 GraphicsSettings::GraphicsSettings()
     : _gfxSettingsChangeState(GfxSettingsChangeState::Ended)
     , _multisamplingDirty(false)
+    , _hdrDirty(false)
     , _isHdrSupported(false)
     , _gfxSettingsChangeQueued(false)
     , _samplingMode(MultiSamplingModeOption::None)
@@ -68,6 +69,7 @@ vc::Error GraphicsSettings::SetHDR(bool enable)
         s_graphicsSettings->__AddLoadGFXSettingsToQueue();
     s_graphicsSettings->__gfxSettingsData.hdrEnabled = enable;
     s_graphicsSettings->__gfxSettingsDataDirty = true;
+    s_graphicsSettings->_hdrDirty = true;
     return err;
 }
 

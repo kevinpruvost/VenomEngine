@@ -157,7 +157,7 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
         uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
         if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
             return 0.0;
-        float shadowVal = pcf(shadowMaps[0], uvShadow.xy, uvShadow.z, 3);
+        float shadowVal = pcf(shadowMaps[0], uvShadow.xy, uvShadow.z, 1);
         //float shadowVal = texture(sampler2D(shadowMaps[0], g_sampler), uvShadow.xy).r;
         //shadow = shadowVal.r < (uvShadow.z - SHADOW_BIAS) ? 1.0 : 0.0;
         shadow = shadowVal;
@@ -227,7 +227,6 @@ void main()
     float metallic = 0.0;
     float roughness = 1.0;
     float ao = 1.0;
-    vec4 emissive = vec4(0.0, 0.0, 0.0, 0.0);
     vec3 position = worldPos;
     float opacity = 1.0;
 
@@ -262,9 +261,6 @@ void main()
     // Ambient occlusion
     if (material.components[MaterialComponentType_AMBIENT_OCCLUSION].valueType != MaterialComponentValueType_NONE)
         ao = MaterialComponentGetValue1(MaterialComponentType_AMBIENT_OCCLUSION, uv);
-    // Emissive
-    if (material.components[MaterialComponentType_EMISSIVE].valueType != MaterialComponentValueType_NONE)
-        emissive = toLinear(MaterialComponentGetValue4(MaterialComponentType_EMISSIVE, uv));
 
    // Opacity
    if (material.components[MaterialComponentType_OPACITY].valueType != MaterialComponentValueType_NONE)

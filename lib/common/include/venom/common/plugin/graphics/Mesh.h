@@ -7,6 +7,7 @@
 ///
 #pragma once
 
+#include <venom/common/String.h>
 #include <venom/common/math/Vector.h>
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 

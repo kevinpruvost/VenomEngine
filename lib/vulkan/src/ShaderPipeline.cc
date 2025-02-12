@@ -264,7 +264,10 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
     
     // Destroying the pipeline if it exists
     if (_resource->As<VulkanShaderResource>()->pipeline != VK_NULL_HANDLE) {
-        vkDestroyPipeline(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipeline, Allocator::GetVKAllocationCallbacks());
+        vc::DeferredTrashBin::AddDeferredTrash(_resource->As<VulkanShaderResource>()->pipeline, [](void* pipeline) {
+            vkDestroyPipeline(LogicalDevice::GetVkDevice(), reinterpret_cast<VkPipeline>(pipeline), Allocator::GetVKAllocationCallbacks());
+        });
+        //vkDestroyPipeline(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->pipeline, Allocator::GetVKAllocationCallbacks());
         _resource->As<VulkanShaderResource>()->pipeline = VK_NULL_HANDLE;
     }
 

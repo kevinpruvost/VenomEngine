@@ -11,6 +11,7 @@
 #include <venom/common/math/Vector.h>
 #include <venom/common/plugin/graphics/Mesh.h>
 #include <venom/vulkan/VertexBuffer.h>
+#include <venom/common/DeferredTrash.h>
 
 namespace venom
 {
@@ -40,8 +41,8 @@ public:
     const vc::Vector<BoundVkBuffer> & GetVkVertexBuffers() const;
 
 private:
-    vc::Vector<VertexBuffer> __vertexBuffers;
-    vc::Vector<BoundVkBuffer> __vkVertexBuffers;
+    vc::DeferredTrash<vc::Vector<VertexBuffer>> __vertexBuffers;
+    vc::DeferredTrash<vc::Vector<BoundVkBuffer>> __vkVertexBuffers;
     vc::Vector<VkDeviceSize> __offsets;
     IndexBuffer __indexBuffer;
 };

@@ -4,14 +4,16 @@ require 'fileutils'
 $hlsl_dir = './resources/shaders/hlsl'
 $glsl_dir = './resources/shaders/glsl'
 $msl_dir = './resources/shaders/msl'
-compiled_dir = './resources/shaders/compiled'
+compiled_debug_dir = './resources/shaders/Debug/compiled'
+compiled_release_dir = './resources/shaders/Release/compiled'
 dxc_folder_path = './cmake_build/dxc/Release/bin'
 dxc_path = "#{dxc_folder_path}/dxc"
 glslangValidator_path = '/usr/local/bin/glslangValidator'
+glslc_path = '/usr/local/bin/glslc'
 macos_flag = RUBY_PLATFORM =~ /darwin/ ? 'MACOS' : ''
 
 # Ensure the compiled directory exists
-FileUtils.mkdir_p(compiled_dir)
+FileUtils.mkdir_p(compiled_debug_dir)
 
 # Find all HLSL files in the HLSL directory
 hlsl_files = Dir.glob("#{$hlsl_dir}/**/*.hlsl")
@@ -23,7 +25,7 @@ hlsl_files = hlsl_files.reject { |file| file.include?('old/') }
 glsl_files = glsl_files.reject { |file| file.include?('old/') }
 msl_files = msl_files.reject { |file| file.include?('old/') }
 
-def output_file_create_name(file, compiled_dir)
+def output_file_create_name(file, compiled_debug_dir)
     filename_parts = File.basename(file).split('.')
     # try to keep subdirectory if any, e.g. "./resources/shaders/hlsl/pbr_mesh/gbuffer.ps.hlsl" keeps "pbr_mesh"
     # if hlsl, then remove hlsl_dir out of the path
@@ -40,10 +42,10 @@ def output_file_create_name(file, compiled_dir)
     if subdir.count('/') > 1
         subdir = subdir.split('/')[1] || ''
         # Create directory if does not exist
-        FileUtils.mkdir_p("#{compiled_dir}/#{subdir}")
-        "#{compiled_dir}/#{subdir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+        FileUtils.mkdir_p("#{compiled_debug_dir}/#{subdir}")
+        "#{compiled_debug_dir}/#{subdir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
     else
-        "#{compiled_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
+        "#{compiled_debug_dir}/#{filename_parts[0]}.#{filename_parts[1]}.spv"
     end
 end
 
@@ -75,16 +77,32 @@ def shader_type(file)
         end
 end
 
+def shader_type_glsl(file)
+    # as some files will have 2 '.' in their name, we need to split the name and remove the last element
+    filename_parts = File.basename(file).split('.')
+    stage = filename_parts[filename_parts.length - 2]
+    case stage
+        when /vert/
+            'vert'
+        when /frag/
+            'frag'
+        when /comp/
+            'comp'
+        else
+            raise "Unknown shader type for #{file}"
+        end
+end
+
 # if arg0 == clean, then remove compiled files, else if arg0 == compile, then compile
 if ARGV[0] == 'clean'
     puts 'Cleaning compiled shaders...'
-    FileUtils.rm_rf(compiled_dir)
+    FileUtils.rm_rf(compiled_debug_dir)
     exit
 # Disabling DXC, working with glsl directly as some features are just disabled when compiling to spirv from hlsl (like inverse or partial derivatives)
 # elsif ARGV[0] == 'compile'
 #     # Compile each HLSL file to SPIR-V
 #     hlsl_files.each do |file|
-#         output_file = output_file_create_name(file, compiled_dir)
+#         output_file = output_file_create_name(file, compiled_debug_dir)
 #         type = shader_type(file)
 #         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} -D#{macos_flag}"
 #         puts "Compiling #{file} to #{output_file} with command[#{cmd}]..."
@@ -93,7 +111,7 @@ if ARGV[0] == 'clean'
 elsif ARGV[0] == 'compile_debug'
     # Compile each HLSL file to SPIR-V
     hlsl_files.each do |file|
-        output_file = output_file_create_name(file, compiled_dir)
+        output_file = output_file_create_name(file, compiled_debug_dir)
         type = shader_type(file)
         cmd = "#{dxc_path} -T #{type} -spirv #{file} -Fo #{output_file} -O1 -Zi #{macos_flag} -Fh #{output_file}.pdb"
         puts "Compiling #{file} to #{output_file}..."
@@ -102,9 +120,17 @@ elsif ARGV[0] == 'compile_debug'
 elsif ARGV[0] == 'compile_glsl' or ARGV[0] == 'compile'
     # Compile each GLSL file to SPIR-V
     glsl_files.each do |file|
-        output_file = output_file_create_name(file, compiled_dir)
+        output_file = output_file_create_name(file, compiled_debug_dir)
         cmd = "#{glslangValidator_path} -V #{file} -o #{output_file} -U#{macos_flag}"
         puts "Compiling #{file} to #{output_file}... [#{cmd}]"
+        system(cmd)
+    end
+    # Compile in release mode
+    glsl_files.each do |file|
+        output_file = output_file_create_name(file, compiled_release_dir)
+        shader_stage = shader_type_glsl(file)
+        cmd = "#{glslc_path} -fshader-stage=#{shader_stage} -O #{file} -o #{output_file} -D#{macos_flag}"
+        puts "Compiling in release mode: #{file} to #{output_file}... [#{cmd}]"
         system(cmd)
     end
 else

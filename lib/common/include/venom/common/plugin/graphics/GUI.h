@@ -157,6 +157,9 @@ public:
     static bool EditableTexture(vc::Texture * texture, vc::String & path);
     static bool EditableModel(vc::Model * model, vc::String & path);
 
+    ///
+    /// GUIZMO
+    ///
     static void EntityGuizmo(const vcm::Vec2 & renderingSize);
 
 private:

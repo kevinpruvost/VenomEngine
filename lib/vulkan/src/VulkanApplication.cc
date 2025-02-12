@@ -168,7 +168,6 @@ vc::Error VulkanApplication::__GraphicsOperations()
         __graphicsFirstCheckpointCommandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
         __graphicsFirstCheckpointCommandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
 
-
         // Draw Skybox
         __skyboxRenderPass.BeginRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
             vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
@@ -463,6 +462,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
     #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
         index = transform.GetModelMatrixId();
     #endif
+        auto name = entity.name();
         commandBuffer->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
     });
 

@@ -32,7 +32,7 @@ class VENOM_COMMON_API ModelImpl : public PluginObjectImpl, public GraphicsPlugi
 {
 public:
     ModelImpl();
-    virtual ~ModelImpl() = default;
+    virtual ~ModelImpl();
 
     vc::Error ImportModel(const char * path);
     virtual void Draw() = 0;
@@ -43,6 +43,10 @@ public:
 
 private:
     friend class Model;
+
+#ifdef VENOM_DEBUG
+    vc::String __name;
+#endif
 };
 
 /// @brief Contains all the mesh's data and is the

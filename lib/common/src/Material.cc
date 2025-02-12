@@ -35,6 +35,7 @@ MaterialImpl::MaterialImpl()
     MaterialComponentType::EMISSION_COLOR,
     MaterialComponentType::TRANSMISSION,
     MaterialComponentType::SHEEN,
+    MaterialComponentType::IOR,
     MaterialComponentType::CLEARCOAT
     }
     , __textureRepeatingFactor(1.0f, 1.0f)

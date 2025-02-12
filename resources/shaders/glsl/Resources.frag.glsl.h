@@ -25,7 +25,8 @@ const int MaterialComponentType_EMISSION_COLOR = 17;
 const int MaterialComponentType_TRANSMISSION = 18;
 const int MaterialComponentType_SHEEN = 19;
 const int MaterialComponentType_CLEARCOAT = 20;
-const int MaterialComponentType_MAX_COMPONENT = 21;
+const int MaterialComponentType_IOR = 21;
+const int MaterialComponentType_MAX_COMPONENT = 22;
 
 const int MaterialComponentValueType_NONE = 0;
 const int MaterialComponentValueType_FLOAT3D = 1;

@@ -118,7 +118,13 @@ std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
 
 std::string Resources::GetShadersFolderPath()
 {
-    return GetResourcePath("shaders/");
+    return GetResourcePath(
+#ifdef VENOM_DEBUG
+        "shaders/Debug/"
+#else
+        "shaders/Release/"
+#endif
+    );
 }
 
 std::string Resources::GetModelsResourcePath(const std::string& resourcePath)

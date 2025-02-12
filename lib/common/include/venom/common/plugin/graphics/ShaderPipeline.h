@@ -91,7 +91,11 @@ public:
     inline vc::Error SetLineWidth(const float width) { _SetLineWidth(width); return _ReloadShaderAfterSettings(); }
     inline vc::Error SetDepthTest(const bool enable) { _SetDepthTest(enable); return _ReloadShaderAfterSettings(); }
     inline vc::Error SetDepthWrite(const bool enable) { _SetDepthWrite(enable); return _ReloadShaderAfterSettings(); }
-    inline vc::Error OpenAndReloadShader() { return _OpenShaders(); }
+    inline vc::Error OpenAndReloadShader()
+    {
+        if (_OpenShaders() != vc::Error::Success) return vc::Error::Failure;
+        return _ReloadShader();
+    }
 
     inline void SetRenderingPipelineType(const RenderingPipelineType type) { _renderingPipelineType = type; }
     inline void SetRenderingPipelineShaderType(const RenderingPipelineShaderType type) { _renderingPipelineShaderType = type; }

@@ -39,6 +39,16 @@ public:
             delete trash;
         }
     }
+    template<typename T>
+    static void AddDeferredTrash(T * trash, void (*destructor)(void *)) {
+        if (!trash) return;
+        // Important to check because s_instance is nullptr when the graphics engine is shutting down
+        if (s_instance) {
+            s_instance->__trash.emplace_back(VENOM_MAX_FRAMES_IN_FLIGHT, trash, destructor);
+        } else {
+            delete trash;
+        }
+    }
 
     void EmptyDeferredTrash();
 
@@ -59,8 +69,8 @@ public:
     {
         DeferredTrashBin::AddDeferredTrash(__trash);
     }
-    const T & operator->() const { return __trash; }
-    T & operator->() { return __trash; }
+    const T * operator->() const { return __trash; }
+    T * operator->() { return __trash; }
     T & operator*() { return *__trash; }
     const T & operator*() const { return *__trash; }
 

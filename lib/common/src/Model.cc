@@ -27,10 +27,24 @@ namespace venom
 {
 namespace common
 {
+#ifdef VENOM_DEBUG
+static vc::Vector<ModelImpl *> s_debugModels;
+#endif
+
 ModelImpl::ModelImpl()
     : GraphicsPluginObject()
     , PluginObjectImpl()
 {
+#ifdef VENOM_DEBUG
+    s_debugModels.emplace_back(this);
+#endif
+}
+
+ModelImpl::~ModelImpl()
+{
+#ifdef VENOM_DEBUG
+     s_debugModels.erase(std::remove(s_debugModels.begin(), s_debugModels.end(), this), s_debugModels.end());
+#endif
 }
 
 Model::Model()
@@ -134,7 +148,7 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
     if (name == "$clr.reflective") return MaterialComponentType::REFLECTION;
     if (name == "$mat.refracti") return MaterialComponentType::REFRACTION;
     if (name == "$mat.reflectivity") return MaterialComponentType::REFLECTIVITY;
-
+    if (name == "$mat.transmission.factor") return MaterialComponentType::TRANSMISSION;
 
     return MaterialComponentType::MAX_COMPONENT;
 }
@@ -177,6 +191,10 @@ vc::Error ModelImpl::ImportModel(const char * path)
         vc::Log::Error("Failed to load model: %s", realPath.c_str());
         return vc::Error::Failure;
     }
+
+#ifdef VENOM_DEBUG
+    __name = realPath;
+#endif
 
     // Load every material
     if (scene->HasMaterials()) {
@@ -254,11 +272,18 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         break;
                 }
 
-                switch (matCompType)
-                {
-                    case MaterialComponentType::DIFFUSE:
+                switch (matCompType) {
+                    case MaterialComponentType::DIFFUSE: {
                         material.SetComponent(MaterialComponentType::BASE_COLOR, material.GetComponent(MaterialComponentType::DIFFUSE));
                         break;
+                    }
+                    case MaterialComponentType::TRANSMISSION: {
+                        float ior = 1.5f;
+                        if (aimaterial->Get<float>(AI_MATKEY_REFRACTI, ior) == AI_SUCCESS) {
+                            material.SetComponent(MaterialComponentType::IOR, ior);
+                        }
+                        break;
+                    }
                     case MaterialComponentType::ROUGHNESS: {
                         if (valueType == MaterialComponentValueType::TEXTURE) {
                             // Find corresponding channel

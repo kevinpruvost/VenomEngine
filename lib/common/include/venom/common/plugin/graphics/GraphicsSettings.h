@@ -123,6 +123,7 @@ protected:
 
     MultiSamplingModeOption _samplingMode;
     bool _multisamplingDirty;
+    bool _hdrDirty;
     bool _isHdrSupported;
 
     bool _gfxSettingsChangeQueued;

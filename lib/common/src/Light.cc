@@ -111,7 +111,7 @@ void Light::_GUI(const Entity entity)
     }
 
     // Other properties
-    vc::GUI::InputFloat("Intensity", &GetImpl()->As<LightImpl>()->__intensity);
+    vc::GUI::SliderFloat("Intensity", &GetImpl()->As<LightImpl>()->__intensity, 0.0f, 100.0f);
     if (GetLightType() == LightType::Spot) {
         vc::GUI::SliderFloat("Angle", &GetImpl()->As<LightImpl>()->__angle, 0.0f, 180.0f);
     }

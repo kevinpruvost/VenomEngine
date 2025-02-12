@@ -23,7 +23,7 @@ vc::Error VulkanApplication::_LoadGfxSettings()
 
     if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
     // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders
-    if (_multisamplingDirty)
+    if (_multisamplingDirty || _hdrDirty)
     {
         static vc::ShaderPipeline vkShader;
             for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
@@ -33,6 +33,7 @@ vc::Error VulkanApplication::_LoadGfxSettings()
             }
         if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
             return err;
+        _multisamplingDirty = _hdrDirty = false;
     }
 
     // Reset Render Targets
@@ -73,11 +74,6 @@ vc::Vector<vc::GraphicsSettings::MultiSamplingCountOption> VulkanApplication::_G
 
 vc::Error VulkanApplication::_SetHDR(bool enable)
 {
-    if (enable) {
-
-    } else {
-
-    }
     return vc::Error::Success;
 }
 

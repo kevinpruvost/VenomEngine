@@ -165,9 +165,6 @@ void GraphicsApplication::__LoadRenderingPipelines()
         shader.AddVertexBufferToLayout({
             {vc::ShaderVertexFormat::Vec3, 0, 0, 0}, // Position
             {vc::ShaderVertexFormat::Vec3, 1, 1, 0}, // Normal
-            {vc::ShaderVertexFormat::Vec2, 2, 2, 0}, // UV
-            {vc::ShaderVertexFormat::Vec3, 3, 3, 0}, // Tangent
-            {vc::ShaderVertexFormat::Vec3, 4, 4, 0}, // Bitangent
         });
         shader.LoadShaderFromFile("pbr_mesh/shadow_map");
 

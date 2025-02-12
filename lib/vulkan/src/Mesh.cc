@@ -15,6 +15,8 @@ namespace venom
 namespace vulkan
 {
 VulkanMesh::VulkanMesh()
+    : __vertexBuffers(new vc::Vector<VertexBuffer>())
+    , __vkVertexBuffers(new vc::Vector<BoundVkBuffer>())
 {
 }
 
@@ -60,10 +62,10 @@ vc::Error VulkanMesh::__LoadMeshFromCurrentData()
 
 vc::Error VulkanMesh::AddVertexBuffer(const void* data, const uint32_t vertexCount, const uint32_t vertexSize, int binding)
 {
-    VertexBuffer & newVertexBuffer = __vertexBuffers.emplace_back();
+    VertexBuffer & newVertexBuffer = __vertexBuffers->emplace_back();
     if (newVertexBuffer.Init(vertexCount, vertexSize, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, data) != vc::Error::Success)
         return vc::Error::Failure;
-    __vkVertexBuffers.emplace_back(binding, newVertexBuffer.GetVkBuffer());
+    __vkVertexBuffers->emplace_back(binding, newVertexBuffer.GetVkBuffer());
     __offsets.emplace_back(0);
     return vc::Error::Success;
 }
@@ -84,9 +86,7 @@ vc::Error VulkanMesh::AddIndexBuffer(const void* data, const uint32_t indexCount
 
 const vc::Vector<VulkanMesh::BoundVkBuffer> & VulkanMesh::GetVkVertexBuffers() const
 {
-    char test = 'c';
-    std::string tt = test + "test";
-    return __vkVertexBuffers;
+    return *__vkVertexBuffers;
 }
 
 VkBuffer VulkanMesh::GetVkIndexBuffer() const
@@ -101,13 +101,13 @@ const IndexBuffer& VulkanMesh::GetIndexBuffer() const
 
 uint32_t VulkanMesh::GetBindingCount() const
 {
-    return static_cast<uint32_t>(__vertexBuffers.size());
+    return static_cast<uint32_t>(__vertexBuffers->size());
 }
 
 uint32_t VulkanMesh::GetVertexCount() const
 {
-    venom_assert(__vertexBuffers.size() > 0, "No vertex buffer");
-    return __vertexBuffers[0].GetVertexCount();
+    venom_assert(__vertexBuffers->size() > 0, "No vertex buffer");
+    return (*__vertexBuffers)[0].GetVertexCount();
 }
 
 VkDeviceSize* VulkanMesh::GetOffsets() const
