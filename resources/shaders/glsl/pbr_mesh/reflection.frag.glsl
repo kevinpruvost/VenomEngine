@@ -164,4 +164,8 @@ void main()
         return;
     }
     lightingResult = finalColor;
+    if (lightingResult.a < 0.2) {
+        // No depth write if alpha is low (transparent)
+        discard;
+    }
 }
