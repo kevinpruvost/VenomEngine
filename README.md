@@ -54,15 +54,19 @@ make release_run
 
 ## :classical_building: Features & Roadmap
 
-- [ ] Vulkan Renderer
+- [x] Vulkan Renderer
 - [ ] Metal Renderer
 - [ ] DirectX12 Renderer
-- [x] Bazel Build System
-- [ ] CMake Build System
+- [x] CMake Build System
 - [x] HLSL to SPIR-V Compilation
 - [x] Ruby Task Runner
+- [x] HDR
+- [x] Disney Principled BSDF
+- [x] Editing GUI
+- [x] ECS
 - [ ] Custom Renderer Debuggers
 - [ ] Protobuf Serialization
+- [ ] Virtual Shadow Mapping
 - [ ] ...
 
 ## :book: Documentation & User Guide
