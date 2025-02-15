@@ -16,7 +16,7 @@ layout(binding = 1, set = 1) uniform sampler g_sampler;
 layout(binding = 0, set = 6) uniform texture2D panoramaTexture;
 
 #define PI 3.1415926535897932384626433832795
-#define NUM_SAMPLES 256
+#define NUM_SAMPLES 64
 
 layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 

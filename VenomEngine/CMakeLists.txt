@@ -31,6 +31,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 # Depend on link_resources to symlink/copy
 add_dependencies(${PROJECT_NAME} link_resources VenomVulkan)
 
+if (APPLE)
+#add_dependencies(${PROJECT_NAME} VenomMetal)
+elseif (WIN32)
+#add_dependencies(${PROJECT_NAME} VenomDX12)
+endif ()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )

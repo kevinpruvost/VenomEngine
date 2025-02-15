@@ -1,0 +1,64 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Project name and version
+project(VenomMetal VERSION 1.0)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ObjC++")
+
+# Define the include directories
+include_directories(include)
+
+# Define platform-specific compile options
+add_compile_definitions(GLFW_DLL)
+add_compile_definitions(_GLFW_COCOA)
+
+# Define the source and header files
+file(GLOB_RECURSE venom_metal_srcs src/*.cc)
+file(GLOB_RECURSE venom_metal_hdrs include/venom/metal/**/**/**/*.h)
+
+# Create the static library target
+add_library(${PROJECT_NAME} SHARED
+    ${venom_metal_srcs} ${venom_metal_hdrs}
+    ${IMGUI_SOURCES}
+    ${IMGUI_METAL_SOURCE}
+)
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+message(STATUS "IMGUI Metal Sources: ${IMGUI_SOURCES}")
+
+# Find required libraries and frameworks
+find_library(METAL_FRAMEWORK Metal)
+find_library(COREGRAPHICS_FRAMEWORK CoreGraphics)
+find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
+find_library(CARBON_FRAMEWORK Carbon)  # Optional, depending on your needs
+
+target_link_libraries(${PROJECT_NAME}
+    VenomCommon   # Assuming venom_common_static is defined elsewhere
+    glm
+    ${METAL_FRAMEWORK}
+    ${COREGRAPHICS_FRAMEWORK}
+    ${COREFOUNDATION_FRAMEWORK}
+    ${CARBON_FRAMEWORK}
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${VULKAN_INCLUDE_DIRS}
+    ${IMGUI_INCLUDE_DIR}
+)
+
+# Installation
+if (APPLE)
+    install(TARGETS ${PROJECT_NAME}
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/VenomEngine.app/Contents/Frameworks
+    )
+
+    install(FILES ${VULKAN_LIBRARY}
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/VenomEngine.app/Contents/Frameworks
+    )
+
+#    set(CPACK_BUNDLE_APPLE_CODESIGN_FILES
+#        ${CPACK_BUNDLE_APPLE_CODESIGN_FILES}
+#        ${CMAKE_INSTALL_PREFIX}/libvulkan.1.dylib
+#        ${CMAKE_INSTALL_PREFIX}/libvulkan.1.3.290.dylib
+#        ${CMAKE_INSTALL_PREFIX}/VenomVulkan.dylib
+#    )
+endif()

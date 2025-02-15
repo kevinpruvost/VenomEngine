@@ -15,12 +15,13 @@ layout(location = 6) in vec2 screenPos;
 
 layout(origin_upper_left) in vec4 gl_FragCoord;
 
-vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness, float transmission, float ior)
+vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness, float transmission, float ior, vec3 specularTint)
 {
     // Simplified Fresnel-weighted reflection
     float NDotV = dot(N, V);
-    float F0 = 0.04;  // Reflectance at normal incidence (typical for non-metallic materials)
-    F0 = mix(F0, length(baseColor), metallic);  // Adjust for metallic materials
+    //float F0 = 0.04;  // Reflectance at normal incidence (typical for non-metallic materials)
+    float F0 = pow((ior - 1.0) / (ior + 1.0), 2.0);  // This part is correct for IOR
+    F0 = mix(F0, 1.0, metallic);  // Adjust for metallic materials
     float F = F0 + (1.0 - F0) * pow(1.0 - NDotV, 5.0);  // Fresnel-Schlick Approximation
 
     vec3 finalColor = vec3(0.0);
@@ -30,8 +31,15 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness,
         vec2 brdf = imageLoad(brdfLUT, coords).rg;
 
         vec3 R = normalize(reflect(-V, N));
+
+        // Specular reflection based on environment map sampling
         vec3 specularReflectionColor = GetPanoramaRadiance(R, roughness).rgb;
-        vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);
+
+        // For metallic materials, baseColor is used directly for reflection
+        // For non-metallic, baseColor affects the reflection based on specularTint
+        vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);  // For non-metallic materials
+        specularReflectionBaseColor = mix(specularReflectionBaseColor, baseColor, specularTint.r);  // Apply specular tint
+
         vec3 specularReflection = specularReflectionColor * (specularReflectionBaseColor * brdf.x + brdf.y);
 
         vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
@@ -42,7 +50,8 @@ vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness,
         vec3 irradiance = GetPanoramaIrradiance(N).rgb;
         vec3 diffuseReflection = diffuseLight * irradiance;
 
-        finalColor = mix(diffuseReflection, specularReflection, F);
+//        finalColor = mix(diffuseReflection, specularReflection, F);
+        finalColor = diffuseReflection + specularReflection * F;
     }
 
 
@@ -84,6 +93,7 @@ void main()
     float opacity = 1.0;
     float transmission = 0.0;
     float ior = 1.5;
+    vec3 specularTint = vec3(0.0);
 
     baseColor = toLinear(MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv));
 
@@ -120,17 +130,21 @@ void main()
     if (material.components[MaterialComponentType_TRANSMISSION].valueType != MaterialComponentValueType_NONE)
         transmission = MaterialComponentGetValue1(MaterialComponentType_TRANSMISSION, uv);
     // IOR
-    if (material.components[MaterialComponentType_IOR].valueType != MaterialComponentValueType_NONE)
-        ior = MaterialComponentGetValue1(MaterialComponentType_IOR, uv);
+    if (material.components[MaterialComponentType_REFRACTION].valueType != MaterialComponentValueType_NONE)
+        ior = MaterialComponentGetValue1(MaterialComponentType_REFRACTION, uv);
 
    // Opacity
    if (material.components[MaterialComponentType_OPACITY].valueType != MaterialComponentValueType_NONE)
         opacity = MaterialComponentGetValue1(MaterialComponentType_OPACITY, uv);
 
+    // Specular Tint
+    if (material.components[MaterialComponentType_SPECULAR].valueType != MaterialComponentValueType_NONE)
+        specularTint = MaterialComponentGetValue3(MaterialComponentType_SPECULAR, uv);
+
+
     // Define additional material parameters for the Disney BRDF
     float subsurface = 0.0;  // Subsurface scattering amount
     float specularVal = 0.4; // Specular intensity
-    float specularTint = 0.5; // Specular tint
     float anisotropic = 0.0; // Anisotropy
     float sheen = 0.0;       // Sheen amount
     float sheenTint = 0.0;   // Sheen tint
@@ -145,7 +159,7 @@ void main()
     if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
     {
         finalColor.rgb += emissive.rgb * emissive.a;
-        finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness, transmission, ior);
+        finalColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness, transmission, ior, specularTint);
 
         // Set transparency
         finalColor.a = opacity * baseColor.a;
@@ -164,6 +178,7 @@ void main()
         return;
     }
     lightingResult = finalColor;
+
     if (lightingResult.a < 0.2) {
         // No depth write if alpha is low (transparent)
         discard;

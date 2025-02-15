@@ -45,7 +45,6 @@ enum MaterialComponentType
     // For cloth
     SHEEN,
     CLEARCOAT,
-    IOR,
     MAX_COMPONENT
 };
 

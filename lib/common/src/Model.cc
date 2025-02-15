@@ -149,6 +149,7 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
     if (name == "$mat.refracti") return MaterialComponentType::REFRACTION;
     if (name == "$mat.reflectivity") return MaterialComponentType::REFLECTIVITY;
     if (name == "$mat.transmission.factor") return MaterialComponentType::TRANSMISSION;
+    if (name == "$mat.sheen") return MaterialComponentType::SHEEN;
 
     return MaterialComponentType::MAX_COMPONENT;
 }
@@ -278,10 +279,6 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         break;
                     }
                     case MaterialComponentType::TRANSMISSION: {
-                        float ior = 1.5f;
-                        if (aimaterial->Get<float>(AI_MATKEY_REFRACTI, ior) == AI_SUCCESS) {
-                            material.SetComponent(MaterialComponentType::IOR, ior);
-                        }
                         break;
                     }
                     case MaterialComponentType::ROUGHNESS: {

@@ -36,8 +36,11 @@ public:
     enum class GraphicsPluginType
     {
         Vulkan,
+#ifdef __APPLE__
         Metal,
+#elif defined(_WIN32)
         DirectX12
+#endif
     };
 
 public:

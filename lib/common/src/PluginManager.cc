@@ -92,6 +92,11 @@ Error PluginManager::LoadGraphicsPlugin()
     case GraphicsPlugin::GraphicsPluginType::Vulkan:
         libName = "VenomVulkan";
         break;
+#ifdef __APPLE__
+    case GraphicsPlugin::GraphicsPluginType::Metal:
+        libName = "VenomMetal";
+        break;
+#endif
     default:
         Log::Error("Unknown GraphicsPluginType");
         return Error::Failure;

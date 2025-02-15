@@ -25,8 +25,7 @@ const int MaterialComponentType_EMISSION_COLOR = 17;
 const int MaterialComponentType_TRANSMISSION = 18;
 const int MaterialComponentType_SHEEN = 19;
 const int MaterialComponentType_CLEARCOAT = 20;
-const int MaterialComponentType_IOR = 21;
-const int MaterialComponentType_MAX_COMPONENT = 22;
+const int MaterialComponentType_MAX_COMPONENT = 21;
 
 const int MaterialComponentValueType_NONE = 0;
 const int MaterialComponentValueType_FLOAT3D = 1;
@@ -130,7 +129,9 @@ vec3 MaterialComponentGetValue3(int componentType, vec2 uv) {
     vec3 ret;
     if ((material.components[componentType].valueType & MaterialComponentValueType_TEXTURE) != 0) {
        vec4 value = GetMaterialTexture(componentType, uv);
-       if (material.components[componentType].channels == MaterialComponentValueChannels_RGB)
+       if ((material.components[componentType].channels | MaterialComponentValueChannels_R) != 0 &&
+              (material.components[componentType].channels | MaterialComponentValueChannels_G) != 0 &&
+                (material.components[componentType].channels | MaterialComponentValueChannels_B) != 0)
            ret = value.rgb;
        else
            ret = value.gba; // Default fallback
