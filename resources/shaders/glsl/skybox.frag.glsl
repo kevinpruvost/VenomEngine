@@ -6,6 +6,67 @@
 
 layout(location = 0) in vec3 viewDir;
 
+float Gaussian(float x, float sigma) {
+    return exp(-0.5 * (x * x) / (sigma * sigma)) / (sigma * sqrt(2.0 * M_PI));
+}
+
+const int kernelSize = 45;
+const int halfSize = kernelSize / 2;
+
+void GenerateGaussianKernel(float sigma, out float kernel[kernelSize * kernelSize])
+{
+    float sum = 0.0;
+
+    // Generate the kernel
+    for (int i = -halfSize; i <= halfSize; ++i) {
+        for (int j = -halfSize; j <= halfSize; ++j) {
+            float value = Gaussian(float(i), sigma) * Gaussian(float(j), sigma);
+            kernel[(i + halfSize) * kernelSize + (j + halfSize)] = value;
+            sum += value;
+        }
+    }
+
+    // Normalize the kernel
+    for (int i = 0; i < kernelSize; ++i) {
+        for (int j = 0; j < kernelSize; ++j) {
+            kernel[i * kernelSize + j] /= sum;
+        }
+    }
+}
+
+// Function to apply precomputed Gaussian blur
+vec3 GaussianBlur(vec3 dir, int blurRadius)
+{
+    vec2 uv = PanoramaUvFromDir(dir);
+
+    // Calculate texel size (offset between each texel)
+    int width = textureSize(panoramaTexture, 0).x;
+    int height = textureSize(panoramaTexture, 0).y;
+    vec2 texelSize = vec2(1.0 / float(width), 1.0 / float(height));
+
+    // Gaussian weights for a 15x15 kernel
+
+    float kernel[kernelSize * kernelSize];
+    GenerateGaussianKernel(5.0, kernel);
+    vec3 finalColor = vec3(0.0);
+
+    float kernelSum = 0.0;
+
+    // Apply Gaussian blur
+    for (int i = -halfSize; i <= halfSize; ++i) {
+        for (int j = -halfSize; j <= halfSize; ++j) {
+            vec2 offset = vec2(float(i * 2), float(j * 2)) * texelSize;
+            vec2 sampleUv = uv + offset;
+            vec4 sampleColor = GetPanoramaTexture(sampleUv);
+            kernelSum += kernel[(i + halfSize) * kernelSize + (j + halfSize)];
+            finalColor += sampleColor.rgb * (kernel[(i + halfSize) * kernelSize + (j + halfSize)]);
+        }
+    }
+    finalColor /= kernelSum;
+
+    return finalColor; // Return the blurred color
+}
+
 vec4 ToneMapReinhard(vec4 color) {
     return color / (color + vec4(1.0));
 }
@@ -29,15 +90,6 @@ vec3 filmicToneMap(vec3 color) {
             (color * (A * color + B) + D * F)) - E / F;
 }
 
-// Function to sample from the panorama texture
-vec4 GetPanoramaColor(vec2 uv) {
-    // Sample the texture using the provided UV coordinates
-    vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
-    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
-    color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
-    return (color);
-}
-
 void main() {
     // Normalize the view direction
     vec3 viewDir = normalize(viewDir);
@@ -50,44 +102,7 @@ void main() {
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination
 
-    finalColor = GetPanoramaTexture(viewDir);
-    return;
-
-    // Box Blur Parameters
-    uint width, height;
-    ivec2 texDims = textureSize(panoramaTexture, 0); // Get texture dimensions
-    width = texDims.x;
-    height = texDims.y;
-
-    // Calculate texel size for sampling offsets
-    vec2 texelSize = vec2(1.0 / float(width), 1.0 / float(height));
-
-    vec4 color = vec4(0.0);
-    float weightSum = 0.0;
-
-    // Parameters for Gaussian kernel
-    const int radius = 4;
-    const float sigma = 4.0; // Adjust sigma based on desired blur
-
-    // Precompute constants for Gaussian function
-    float sigma2 = 2.0 * sigma * sigma;
-    float normalizationFactor = 1.0 / (M_PI * sigma2);
-
-    // Apply Gaussian weighted sampling
-    for (int i = -radius; i <= radius; i++) {
-        for (int j = -radius; j <= radius; j++) {
-            vec2 offset = texelSize * vec2(i, j);
-            float distanceSquared = float(i * i + j * j);
-            float weight = normalizationFactor * exp(-distanceSquared / sigma2);
-
-            color += GetPanoramaColor(uv + offset) * weight;
-            weightSum += weight;
-        }
-    }
-
-    // Normalize by the sum of weights
-    color /= weightSum;
-
-    // Output the final color
-    finalColor = color;
+    //finalColor = GetPanoramaTexture(viewDir);
+    finalColor.rgb = GaussianBlur(viewDir, 1);
+    finalColor.a = 1.0;
 }

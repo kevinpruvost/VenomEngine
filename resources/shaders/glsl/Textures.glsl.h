@@ -70,14 +70,19 @@ vec2 PanoramaUvFromDir(vec3 dir) {
     return uv;
 }
 
-vec4 GetPanoramaTexture(vec3 dir) {
-    vec2 uv = PanoramaUvFromDir(dir);
+vec4 GetPanoramaTexture(vec2 uv) {
     // Sample the texture using the provided UV coordinates
     vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
     float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
     color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
 
     return color;
+}
+
+vec4 GetPanoramaTexture(vec3 dir) {
+    vec2 uv = PanoramaUvFromDir(dir);
+    // Sample the texture using the provided UV coordinates
+    return GetPanoramaTexture(uv);
 }
 
 vec4 GetPanoramaRadiance(vec3 dir, float roughness) {
