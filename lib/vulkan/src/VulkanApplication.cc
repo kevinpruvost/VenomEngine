@@ -282,28 +282,29 @@ vc::Error VulkanApplication::__GraphicsOperations()
         //__graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
         // Copy to render target if any (for GUI)
-        // TODO: It is a test, so should replace
-        Image * attachmentImage;
-        if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
-            attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[4]);
-        else
-            attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[0]);
-        for (auto & renderTarget : renderTargets)
-        {
-            if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
-                continue;
-            if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
-                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
-            __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(renderTarget->GetTexture()->GetImpl()->ConstAs<VulkanTexture>()->GetImage(), renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-            __graphicsSceneCheckpointCommandBuffers[_currentFrame]->CopyImage(*attachmentImage, renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage());
-            __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(renderTarget->GetTexture()->GetImpl()->ConstAs<VulkanTexture>()->GetImage(), renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-            if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
-                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-        }
-        // Draw GUI
-        __guiRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        if (vc::GUI::IsGUIDraw()) {
+            Image * attachmentImage;
+            if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
+                attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[4]);
+            else
+                attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[0]);
+            for (auto & renderTarget : renderTargets)
+            {
+                if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
+                    continue;
+                if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(renderTarget->GetTexture()->GetImpl()->ConstAs<VulkanTexture>()->GetImage(), renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->CopyImage(*attachmentImage, renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage());
+                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(renderTarget->GetTexture()->GetImpl()->ConstAs<VulkanTexture>()->GetImage(), renderTarget->GetTexture()->GetImpl()->As<VulkanTexture>()->GetImage().GetLayout(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+                if (GraphicsSettings::GetActiveSamplesMultisampling() == 1)
+                    __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+            }
+            // Draw GUI
+            __guiRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
             _gui->Render();
-        __guiRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+            __guiRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+        }
 
     if (auto err = __graphicsSceneCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
         return err;

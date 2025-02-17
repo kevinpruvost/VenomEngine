@@ -37,6 +37,9 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
         vc::Log::Error("Failed to load skybox from file: %s", texturePath);
         return err;
     }
+    _shaderData.averageLuminance = __panorama.GetTextureAverageLuminance();
+    _shaderData.peakLuminance = __panorama.GetTexturePeakLuminance();
+    _shaderData.blurFactor = 0.0f;
     if (err = _LoadSkybox(__panorama); err != vc::Error::Success) {
         vc::Log::Error("Failed to load skybox from file: %s", texturePath);
     }
@@ -55,8 +58,17 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
         vc::Log::Error("Failed to load radiance map from file: %s", texturePath);
     }
     __radianceMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadOnly);
+    __blurMap.CreateReadWriteTexture(__panorama.GetWidth(), __panorama.GetHeight(), vc::ShaderVertexFormat::Vec4, 1);
+    __blurMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadWrite);
+
+    vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 2, &__blurMap);
+    if (err = _LoadBlurMap(__panorama, __blurMap); err != vc::Error::Success) {
+        vc::Log::Error("Failed to load blur map from file: %s", texturePath);
+    }
+    __blurMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadOnly);
     vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 2, &__irradianceMap);
     vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 3, &__radianceMap);
+    vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_PANORAMA, 4, &__blurMap);
     return err;
 }
 
@@ -64,6 +76,12 @@ vc::Error SkyboxImpl::LoadSkybox(const SPtr<GraphicsCachedResource> res)
 {
     __panorama.LoadImageFromCachedResource(res);
     return _LoadSkybox(__panorama);
+}
+
+vc::Error SkyboxImpl::ChangeBlurFactor(const float factor)
+{
+    _shaderData.blurFactor = factor;
+    return _ChangeBlurFactor(factor);
 }
 
 Skybox::Skybox()
@@ -99,6 +117,13 @@ void Skybox::_GUI(const Entity entity)
         vc::GraphicsSettings::CallbackAfterDraws([newPath]() {
             if (vc::Error err = s_skybox->LoadSkybox(newPath.c_str()); err != vc::Error::Success) {
                 vc::Log::Error("Failed to load skybox from file: %s", newPath.c_str());
+            }
+        });
+    }
+    if (vc::GUI::SliderFloat("Blur Factor", &s_skybox->_shaderData.blurFactor, 0.0f, 1.0f)) {
+        vc::GraphicsSettings::CallbackAfterDraws([]() {
+            if (vc::Error err = s_skybox->ChangeBlurFactor(s_skybox->_shaderData.blurFactor); err != vc::Error::Success) {
+                vc::Log::Error("Failed to change blur factor");
             }
         });
     }

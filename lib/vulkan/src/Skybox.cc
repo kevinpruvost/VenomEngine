@@ -32,7 +32,7 @@ VulkanSkybox::VulkanSkybox()
         vc::Log::Error("Failed to create vertex buffer for skybox");
         exit(1);
     }
-    __uniformBuffer.Init(sizeof(float));
+    __uniformBuffer.Init(sizeof(vc::SkyboxShaderData));
 }
 
 VulkanSkybox::~VulkanSkybox()
@@ -44,8 +44,7 @@ vc::Error VulkanSkybox::_LoadSkybox(const vc::Texture& texture)
 {
     // Init Descriptor Set
     __descriptorSet->GroupUpdateTexture(texture.GetConstImpl()->ConstAs<VulkanTexture>(), 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
-    __uniformBuffer.WriteToBuffer(&texture.GetConstImpl()->ConstAs<VulkanTexture>()->GetTexturePeakLuminance(), sizeof(float));
-    __uniformBuffer.WriteToBuffer(&texture.GetConstImpl()->ConstAs<VulkanTexture>()->GetTextureAverageLuminance(), sizeof(float), sizeof(float));
+    __uniformBuffer.WriteToBuffer(&_shaderData, sizeof(vc::SkyboxShaderData));
     __descriptorSet->GroupUpdateBuffer(__uniformBuffer, 0, 1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, 0);
     return vc::Error::Success;
 }
@@ -114,5 +113,29 @@ vc::Error VulkanSkybox::_LoadRadianceMap(const vc::Texture& texture, vc::Texture
     return vc::Error::Success;
 }
 
+vc::Error VulkanSkybox::_LoadBlurMap(const common::Texture& texture, common::Texture& blurMap)
+{
+    const auto & computeShader = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::BlurMap);
+    {
+        SingleTimeCommandBuffer cmdBuffer;
+        if (CommandPoolManager::GetComputeCommandPool()->CreateSingleTimeCommandBuffer(cmdBuffer) != vc::Error::Success)
+        {
+            vc::Log::Error("Failed to create single time command buffer for generating irradiance map");
+            return vc::Error::Failure;
+        }
+        cmdBuffer.BindPipeline(computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_CAMERA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
+        cmdBuffer.Dispatch(texture.GetWidth(), texture.GetHeight(), 1);
+    }
+    return vc::Error::Success;
+}
+
+vc::Error VulkanSkybox::_ChangeBlurFactor(const float factor)
+{
+    __uniformBuffer.WriteToBuffer(&_shaderData, sizeof(vc::SkyboxShaderData));
+    return vc::Error::Success;
+}
 }
 }

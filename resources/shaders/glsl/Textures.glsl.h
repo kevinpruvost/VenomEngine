@@ -42,12 +42,14 @@ vec3 toLinear(vec3 sRGB)
 }
 
 layout(binding = 0, set = 6) uniform texture2D panoramaTexture;
-layout(binding = 1, set = 6) uniform panoramaProps {
+layout(binding = 1, set = 6) uniform panoProps {
     float panoramaPeakLuminance;
     float panoramaAverageLuminance;
-};
+    float blurFactor;
+} panoramaProps;
 layout(binding = 2, set = 6) uniform texture2D panoramaIrradianceMap;
 layout(binding = 3, set = 6) uniform texture2D panoramaRadianceMap;
+layout(binding = 4, set = 6) uniform texture2D panoramaBlurMap;
 
 float atan2_custom(in float y, in float x)
 {
@@ -72,8 +74,10 @@ vec2 PanoramaUvFromDir(vec3 dir) {
 
 vec4 GetPanoramaTexture(vec2 uv) {
     // Sample the texture using the provided UV coordinates
-    vec4 color = texture(sampler2D(panoramaTexture, g_sampler), uv);
-    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    vec4 baseColor = texture(sampler2D(panoramaTexture, g_sampler), uv);
+    vec4 blurColor = texture(sampler2D(panoramaBlurMap, g_sampler), uv);
+    vec4 color = mix(baseColor, blurColor, panoramaProps.blurFactor);
+    float exposure = sceneSettings.targetLuminance / panoramaProps.panoramaPeakLuminance;
     color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
 
     return color;
@@ -90,7 +94,7 @@ vec4 GetPanoramaRadiance(vec3 dir, float roughness) {
     // CHECK LOD
     float lod = min((roughness * 10.0), 10.0);
     vec4 color = textureLod(sampler2D(panoramaRadianceMap, g_sampler), uv, lod);
-    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    float exposure = sceneSettings.targetLuminance / panoramaProps.panoramaPeakLuminance;
     color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
 
     return color;
@@ -99,7 +103,7 @@ vec4 GetPanoramaRadiance(vec3 dir, float roughness) {
 vec4 GetPanoramaIrradiance(vec3 dir) {
     vec2 uv = PanoramaUvFromDir(dir);
     vec4 color = texture(sampler2D(panoramaIrradianceMap, g_sampler), uv);
-    float exposure = sceneSettings.targetLuminance / panoramaPeakLuminance;
+    float exposure = sceneSettings.targetLuminance / panoramaProps.panoramaPeakLuminance;
     color = vec4(color.rgb * exposure, 1.0); // Applying exposure factor
 
     return color;

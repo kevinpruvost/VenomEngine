@@ -8,46 +8,79 @@
 
 #version 450
 
+layout(binding = 2, set = 4, rgba16f) uniform image2D blurMap;
 layout(binding = 1, set = 1) uniform sampler g_sampler;
 layout(binding = 0, set = 6) uniform texture2D panoramaTexture;
 
-layout(binding = 2, set = 4, rgba16f) uniform image2D irradianceMap;
+const float M_PI = 3.1415926535897932384626433832795;
+
+float Gaussian(float x, float sigma) {
+    return exp(-0.5 * (x * x) / (sigma * sigma)) / (sigma * sqrt(2.0 * M_PI));
+}
+
+const int kernelSize = 45;
+const int halfSize = kernelSize / 2;
+
+void GenerateGaussianKernel(float sigma, out float kernel[kernelSize * kernelSize])
+{
+    float sum = 0.0;
+
+    // Generate the kernel
+    for (int i = -halfSize; i <= halfSize; ++i) {
+        for (int j = -halfSize; j <= halfSize; ++j) {
+            float value = Gaussian(float(i), sigma) * Gaussian(float(j), sigma);
+            kernel[(i + halfSize) * kernelSize + (j + halfSize)] = value;
+            sum += value;
+        }
+    }
+
+    // Normalize the kernel
+    for (int i = 0; i < kernelSize; ++i) {
+        for (int j = 0; j < kernelSize; ++j) {
+            kernel[i * kernelSize + j] /= sum;
+        }
+    }
+}
+
+// Function to apply precomputed Gaussian blur
+vec3 GaussianBlur(vec2 uv)
+{
+    // Calculate texel size (offset between each texel)
+    int width = textureSize(sampler2D(panoramaTexture, g_sampler), 0).x;
+    int height = textureSize(sampler2D(panoramaTexture, g_sampler), 0).y;
+    vec2 texelSize = vec2(1.0 / float(width), 1.0 / float(height));
+
+    // Gaussian weights for a 15x15 kernel
+
+    float kernel[kernelSize * kernelSize];
+    GenerateGaussianKernel(5.0, kernel);
+    vec3 finalColor = vec3(0.0);
+
+    float kernelSum = 0.0;
+
+    // Apply Gaussian blur
+    for (int i = -halfSize; i <= halfSize; ++i) {
+        for (int j = -halfSize; j <= halfSize; ++j) {
+            vec2 offset = vec2(float(i * 2), float(j * 2)) * texelSize;
+            vec2 sampleUv = uv + offset;
+            vec4 sampleColor = texture(sampler2D(panoramaTexture, g_sampler), sampleUv);
+            kernelSum += kernel[(i + halfSize) * kernelSize + (j + halfSize)];
+            finalColor += sampleColor.rgb * (kernel[(i + halfSize) * kernelSize + (j + halfSize)]);
+        }
+    }
+    finalColor /= kernelSum;
+
+    return finalColor; // Return the blurred color
+}
 
 layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 void main()
 {
     ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
-    ivec2 size = imageSize(irradianceMap);
+    ivec2 size = imageSize(blurMap);
 
     vec2 uv = vec2(coords) / vec2(size);
-    uv = vec2(1.0) - uv;
 
-    // Map UV to hemisphere directions (Lambert equal-area projection)
-    float phi = uv.x * 2.0 * PI - PI;  // Longitude
-    float theta = PI - uv.y * PI;      // Latitude
-
-	vec3 N = vec3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
-	vec3 up = vec3(0.0, 1.0, 0.0);
-	vec3 right = normalize(cross(up, N));
-	up = cross(N, right);
-
-	const float TWO_PI = PI * 2.0;
-	const float HALF_PI = PI * 0.5;
-
-    vec3 irradiance = vec3(0.0);
-    float deltaPhi = (2.0 * float(PI)) / 320.0f;
-    float deltaTheta = (0.5 * float(PI)) / 320.0f;
-    uint sampleCount = 0u;
-	for (float samplePhi = 0.0; samplePhi < TWO_PI; samplePhi += deltaPhi) {
-		for (float sampleTheta = 0.0; sampleTheta < HALF_PI; sampleTheta += deltaTheta) {
-		    vec3 tempVec = cos(samplePhi) * right + sin(samplePhi) * up;
-			vec3 sampleVector = cos(sampleTheta) * N + sin(sampleTheta) * tempVec;
-
-            irradiance += sampleEnvironment(sampleVector) * cos(sampleTheta) * sin(sampleTheta);
-            sampleCount++;
-        }
-    }
-    irradiance = PI * irradiance / float(sampleCount);
-
-	imageStore(irradianceMap, coords, vec4(irradiance, 1.0));
+    vec3 blur = GaussianBlur(uv);
+	imageStore(blurMap, coords, vec4(blur, 1.0));
 }

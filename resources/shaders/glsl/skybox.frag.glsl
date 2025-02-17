@@ -102,7 +102,6 @@ void main() {
     uv.x = phi / (2.0 * M_PI) + 0.5;  // Horizontal, azimuth
     uv.y = 1.0 - theta / M_PI + 0.5;   // Vertical, inclination
 
-    //finalColor = GetPanoramaTexture(viewDir);
-    finalColor.rgb = GaussianBlur(viewDir, 1);
+    finalColor = GetPanoramaTexture(viewDir);
     finalColor.a = 1.0;
 }

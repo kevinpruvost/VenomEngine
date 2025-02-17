@@ -89,7 +89,7 @@ vc::Error VulkanApplication::__InitializeSets()
         .AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
         // BRDF LUT
         .AddBinding(1, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, VK_SHADER_STAGE_ALL)
-        // Irradiance Map / Radiance Map for calculations
+        // Irradiance Map / Radiance Map / Blur Map for calculations
         .AddBinding(2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, VK_SHADER_STAGE_ALL)
         // Roughness for calculations
         .AddBinding(3, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_ALL)
@@ -108,6 +108,8 @@ vc::Error VulkanApplication::__InitializeSets()
         .AddBinding(2, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
         // Radiance
         .AddBinding(3, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
+        // Blur Map
+        .AddBinding(4, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, VK_SHADER_STAGE_FRAGMENT_BIT)
     ;
 
     // Lights

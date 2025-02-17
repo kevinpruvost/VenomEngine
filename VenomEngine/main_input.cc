@@ -59,6 +59,11 @@ void SceneInput(vc::Context * context)
         vc::ShaderPipeline::RecompileAllShaders();
         vc::ShaderPipeline::ReloadAllShaders();
     }
+
+    // Fullscreen mode (no GUI)
+    if (context->IsKeyReleased(vc::KeyboardInput::KeyboardF)) {
+        vc::GUI::ToggleGUIDraw();
+    }
 }
 
 void SceneGUI()
@@ -109,6 +114,7 @@ void SceneGUI()
         vc::GUI::Begin(ICON_MS_SETTINGS " Settings & Objects", nullptr, vc::GUIWindowFlags_NoCollapse);
         {
             if (vc::GUI::CollapsingHeader("Scene Settings", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
+                vc::GUI::Checkbox("Fullscreen (press F to toggle)", &vc::GUI::IsGUIDrawRef());
                 vc::GUI::Checkbox("Camera Locked", &cameraLocked);
                 vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
                 // if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {

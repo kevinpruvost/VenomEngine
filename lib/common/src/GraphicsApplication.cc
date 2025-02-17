@@ -154,6 +154,17 @@ void GraphicsApplication::__LoadRenderingPipelines()
         RenderingPipelineImpl::SetRenderingPipelineCache(radianceMapShaders, RenderingPipelineType::RadianceMap);
     }
 
+    // Loading compute shader for Blur Map
+    {
+        ShaderPipelineList blurMapShaders;
+        ShaderPipeline & shader = blurMapShaders.emplace_back();
+        shader.SetRenderingPipelineShaderType(RenderingPipelineShaderType::Compute);
+        shader.SetRenderingPipelineType(RenderingPipelineType::BlurMap);
+        shader.LoadShaderFromFile("pbr_mesh/blur_map");
+
+        RenderingPipelineImpl::SetRenderingPipelineCache(blurMapShaders, RenderingPipelineType::BlurMap);
+    }
+
     // Loading compute shader for Shadow Maps
     {
         ShaderPipelineList shadowMapShaders;

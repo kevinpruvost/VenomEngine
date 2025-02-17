@@ -25,6 +25,7 @@ namespace common
 {
 GUI * GUI::s_gui = nullptr;
 GUIDrawCallback GUI::s_guiDrawCallback = nullptr;
+bool GUI::s_guiDraw = true;
 
 GUI::GUI()
     : _app(nullptr)

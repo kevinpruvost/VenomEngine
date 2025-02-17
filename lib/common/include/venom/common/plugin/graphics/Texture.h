@@ -195,6 +195,8 @@ public:
     inline int GetWidth() const { return _impl->As<TextureImpl>()->GetWidth(); }
     inline int GetHeight() const { return _impl->As<TextureImpl>()->GetHeight(); }
     inline const TextureMemoryAccess & GetMemoryAccess() const { return _impl->As<TextureImpl>()->GetMemoryAccess(); }
+    inline const float & GetTexturePeakLuminance() const { return _impl->As<TextureImpl>()->GetTexturePeakLuminance(); }
+    inline const float & GetTextureAverageLuminance() const { return _impl->As<TextureImpl>()->GetTextureAverageLuminance(); }
 
     inline vc::Error GetGUITextureID(void ** ptrToTextureId) const { return _impl->As<TextureImpl>()->GetGUITextureID(ptrToTextureId); }
 #ifdef VENOM_BINDLESS_TEXTURES
