@@ -127,7 +127,7 @@ vc::Error VulkanSkybox::_LoadBlurMap(const common::Texture& texture, common::Tex
         DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_PANORAMA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
         DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_MATERIAL, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
         DescriptorPool::GetPool()->BindDescriptorSets(DSETS_INDEX_CAMERA, cmdBuffer, computeShader[0].GetImpl()->As<VulkanShaderPipeline>());
-        cmdBuffer.Dispatch(texture.GetWidth(), texture.GetHeight(), 1);
+        cmdBuffer.Dispatch(blurMap.GetWidth(), blurMap.GetHeight(), 1);
     }
     return vc::Error::Success;
 }

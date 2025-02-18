@@ -6,7 +6,9 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image.h>
+#include <stb_image_write.h>
 
 #include <ImfRgbaFile.h>
 #include <ImfArray.h>
@@ -15,6 +17,7 @@
 #include <venom/common/plugin/graphics/Texture.h>
 #include <venom/common/Log.h>
 #include <venom/common/Resources.h>
+#include <filesystem>
 
 namespace venom
 {
@@ -62,6 +65,41 @@ TextureResource::~TextureResource()
 #endif
 }
 
+vc::Error SaveImageToExr(const void* data, const char* path, int width, int height, int channels)
+{
+    vc::String strPath = path;
+    // Check if path has the right extension
+    if (strPath.find(".exr") == vc::String::npos) {
+        // Adds extension or replace the current extension
+        strPath = strPath.substr(0, strPath.find_last_of('.')) + ".exr";
+    }
+
+    const uint16_t* imageData = static_cast<const uint16_t*>(data); // assuming float RGBA format
+
+    // Create an image with RGBA channels
+    Imf::Array2D<Imf::Rgba> pixels(width, height);
+    memcpy(&pixels[0][0], imageData, width * height * channels * sizeof(uint16_t));
+
+    // Create a file header
+    Imf::RgbaOutputFile file(strPath.c_str(), width, height, Imf::WRITE_RGBA);
+    file.setFrameBuffer(&pixels[0][0], 1, width);
+    file.writePixels(height);
+    return vc::Error::Success;
+}
+
+vc::Error SaveImageToPng(const void* data, const char* path, int width, int height, int channels)
+{
+    vc::String strPath = path;
+    // Check if path has the right extension
+    if (strPath.find(".png") == vc::String::npos) {
+        // Adds extension or replace the current extension
+        strPath = strPath.substr(0, strPath.find_last_of('.')) + ".png";
+    }
+
+    // Save image to file
+    stbi_write_png(strPath.c_str(), width, height, channels, data, width * channels);
+}
+
 TextureImpl::TextureImpl()
     : __peakLuminance(0.0f)
     , __averageLuminance(0.0f)
@@ -77,6 +115,16 @@ TextureImpl::~TextureImpl()
     if (__guiTexture) {
         __guiTexture->UnloadTextureFromGUI();
     }
+}
+
+vc::Error TextureImpl::SaveImageToFile(const char* path)
+{
+    // Verify if there is already a file at this path
+//    if (std::filesystem::exists(path)) {
+//        vc::Log::Error("File already exists at path: %s", path);
+//        return vc::Error::Failure;
+//    }
+    return _SaveImageToFile(path);
 }
 
 class TextureLoader

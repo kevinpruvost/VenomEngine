@@ -34,6 +34,9 @@ public:
     static uint64_t GetLambdaMicroseconds();
     static uint64_t GetLambdaMilliseconds();
     static double GetLambdaSeconds();
+    static uint64_t GetTotalMicroseconds();
+    static uint64_t GetTotalMilliseconds();
+    static double GetTotalSeconds();
 private:
     std::chrono::time_point<std::chrono::steady_clock> __start;
 

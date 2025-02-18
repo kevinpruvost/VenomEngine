@@ -43,13 +43,14 @@ void Scene(const vc::ScenePhase phase)
         case vc::ScenePhase::Activation: {
             helmet.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(0.0f, 2.0f, 0.0f));
 
-            camera.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-0.939f, 2.122f, -3.423f));
-            camera.get_mut<vc::Transform3D>()->SetRotation({-0.066f, -2.622f, 0.0f});
+            camera.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(-0.680f, 2.370f, -3.758f));
+            camera.get_mut<vc::Transform3D>()->SetRotation({-0.079f, -2.751f, 0.0f});
             //camera.get_mut<vc::Camera>()->LookAt(helmet.get<vc::Transform3D>()->GetPosition());
+            camera.get_mut<vc::Camera>()->SetFieldOfView(35.0f);
 
             light3.get_mut<vc::Light>()->SetType(vc::LightType::Directional);
             light3.get_mut<vc::Transform3D>()->SetRotation({2.094f, 0.078f, -0.304f});
-            light3.get_mut<vc::Light>()->SetColor({1.0f, 1.0f, 1.0f});
+            light3.get_mut<vc::Light>()->SetColor({0.05f, 0.05f, 0.05f});
             light3.get_mut<vc::Light>()->SetIntensity(200.0f);
 
             light4.get_mut<vc::Light>()->SetType(vc::LightType::Spot);
@@ -61,7 +62,11 @@ void Scene(const vc::ScenePhase phase)
 
             break;
         }
-        case vc::ScenePhase::Update: break;
+        case vc::ScenePhase::Update: {
+            light3.get_mut<vc::Transform3D>()->RotateYaw(0.001f * vc::Timer::GetLambdaMicroseconds());
+            light4.get_mut<vc::Light>()->SetIntensity(vcm::PingPongLerp(0.0f, 25.0f, vc::Timer::GetTotalMilliseconds() * 0.0005f));
+            break;
+        }
         case vc::ScenePhase::Destruction: break;
         default: break;
     }

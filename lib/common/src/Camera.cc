@@ -55,7 +55,16 @@ Camera * Camera::GetMainCamera()
 
 void Camera::_GUI(const Entity entity)
 {
-    GetImpl()->As<CameraImpl>()->__transform->_GUI(entity);
+    // FOV
+    float fov = GetFieldOfView();
+    if (vc::GUI::SliderFloat("Field of View", &fov, 1.0f, 160.0f)) {
+        SetFieldOfView(fov);
+    }
+    // Aspect Ratio
+    float aspect = GetAspectRatio();
+    if (vc::GUI::SliderFloat("Aspect Ratio", &aspect, 0.1f, 10.0f)) {
+        SetAspectRatio(aspect);
+    }
 }
 
 void Camera::Init(Entity entity)
@@ -108,7 +117,7 @@ const vcm::Mat4& CameraImpl::GetProjectionMatrix()
 {
     if (__projectionMatrixDirty)
     {
-        __projectionMatrix = vcm::Perspective(__fov, __aspect, __near, __far);
+        __projectionMatrix = vcm::Perspective(vcm::Radians(__fov), __aspect, __near, __far);
         __projectionMatrixDirty = false;
     }
     return __projectionMatrix;
@@ -124,6 +133,9 @@ void CameraImpl::SetPosition(const vcm::Vec3& position)
 void CameraImpl::Move(const vcm::Vec3& delta)
 {
     __transform->Move(delta);
+    if (__focusData.entity.is_valid()) {
+        LookAt(__focusData.entity.get<Transform3D>()->GetPosition());
+    }
     __viewMatrixDirty = true;
     __csmDataDirty = true;
 }
@@ -131,12 +143,20 @@ void CameraImpl::Move(const vcm::Vec3& delta)
 void CameraImpl::MoveForward(const float delta)
 {
     __transform->Move(__transform->GetForwardVector() * delta);
+    if (__focusData.entity.is_valid()) {
+        LookAt(__focusData.entity.get<Transform3D>()->GetPosition());
+    }
     __viewMatrixDirty = true;
     __csmDataDirty = true;
 }
 
 void CameraImpl::MoveRight(const float delta)
 {
+    if (__focusData.entity.is_valid()) {
+        RotateAround(__focusData.entity.get<Transform3D>()->GetPosition(), __focusData.planeNormal, delta * 10.0f);
+        LookAt(__focusData.entity.get<Transform3D>()->GetPosition());
+        return;
+    }
     __transform->Move(__transform->GetRightVector() * delta);
     __viewMatrixDirty = true;
     __csmDataDirty = true;
@@ -145,6 +165,9 @@ void CameraImpl::MoveRight(const float delta)
 void CameraImpl::MoveUp(const float delta)
 {
     __transform->Move(__transform->GetUpVector() * delta);
+    if (__focusData.entity.is_valid()) {
+        LookAt(__focusData.entity.get<Transform3D>()->GetPosition());
+    }
     __viewMatrixDirty = true;
     __csmDataDirty = true;
 }
@@ -240,6 +263,24 @@ void CameraImpl::RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNor
     __transform->RotateAround(target, planeNormal, angle);
     __viewMatrixDirty = true;
     __csmDataDirty = true;
+}
+
+void CameraImpl::SetFocusEntity(vc::Entity entity)
+{
+    const vcm::Vec3 & pos = entity.get<vc::Transform3D>()->GetPosition();
+    LookAt(pos);
+    __focusData.entity = entity;
+    __focusData.planeNormal = vcm::Vec3(0.0f, 1.0f, 0.0f);
+}
+
+vc::Entity CameraImpl::GetFocusEntity()
+{
+    return __focusData.entity;
+}
+
+void CameraImpl::RemoveFocusEntity()
+{
+    __focusData.entity = vc::Entity();
 }
 
 void CameraImpl::SetFieldOfView(float fovY)

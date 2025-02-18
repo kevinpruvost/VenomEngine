@@ -46,8 +46,9 @@ void GenerateGaussianKernel(float sigma, out float kernel[kernelSize * kernelSiz
 vec3 GaussianBlur(vec2 uv)
 {
     // Calculate texel size (offset between each texel)
-    int width = textureSize(sampler2D(panoramaTexture, g_sampler), 0).x;
-    int height = textureSize(sampler2D(panoramaTexture, g_sampler), 0).y;
+    ivec2 size = imageSize(blurMap);
+    int width = size.x;
+    int height = size.y;
     vec2 texelSize = vec2(1.0 / float(width), 1.0 / float(height));
 
     // Gaussian weights for a 15x15 kernel

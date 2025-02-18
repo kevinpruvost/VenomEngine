@@ -9,13 +9,13 @@ layout(push_constant, std430) uniform RenderData
     int i;
 } lightData;
 
-#define SHADOW_BIAS 0.0001
+#define SHADOW_BIAS 0.0005
 
 float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
     ivec2 tSize = textureSize(sampler2D(map, g_sampler), 0);
     float shadow = 0.0;
-    const float bias = max(depth * 0.0001, SHADOW_BIAS);
+    const float bias = SHADOW_BIAS;
     for (int x = -gap; x <= gap; ++x) {
         for (int y = -gap; y <= gap; ++y) {
             vec2 newUv = uv + vec2(x, y) / vec2(tSize);

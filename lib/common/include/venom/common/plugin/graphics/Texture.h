@@ -63,12 +63,16 @@ private:
 #endif
 };
 
+vc::Error VENOM_COMMON_API SaveImageToExr(const void * data, const char * path, int width, int height, int channels = 4);
+vc::Error VENOM_COMMON_API SaveImageToPng(const void * data, const char * path, int width, int height, int channels = 4);
+
 class VENOM_COMMON_API TextureImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
     TextureImpl();
     virtual ~TextureImpl();
 
+    vc::Error SaveImageToFile(const char * path);
     vc::Error LoadImageFromFile(const char * path);
     vc::Error LoadImage(const char * path, int id, char * bgraData, unsigned int width, unsigned int height);
     vc::Error InitDepthBuffer(int width, int height);
@@ -117,6 +121,7 @@ protected:
     virtual vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipMapLevels, int arrayLayers) = 0;
     virtual vc::Error _CreateShadowMaps(int dimension) = 0;
     virtual vc::Error _CreateShadowCubeMaps(int dimension) = 0;
+    virtual vc::Error _SaveImageToFile(const char * path) = 0;
 
 private:
     friend class Texture;
@@ -197,6 +202,7 @@ public:
     inline const TextureMemoryAccess & GetMemoryAccess() const { return _impl->As<TextureImpl>()->GetMemoryAccess(); }
     inline const float & GetTexturePeakLuminance() const { return _impl->As<TextureImpl>()->GetTexturePeakLuminance(); }
     inline const float & GetTextureAverageLuminance() const { return _impl->As<TextureImpl>()->GetTextureAverageLuminance(); }
+    inline vc::Error SaveImageToFile(const char * path) { return _impl->As<TextureImpl>()->SaveImageToFile(path); }
 
     inline vc::Error GetGUITextureID(void ** ptrToTextureId) const { return _impl->As<TextureImpl>()->GetGUITextureID(ptrToTextureId); }
 #ifdef VENOM_BINDLESS_TEXTURES

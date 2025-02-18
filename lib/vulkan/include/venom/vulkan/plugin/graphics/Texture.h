@@ -47,6 +47,7 @@ public:
     vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels, int arrayLayers) override;
     vc::Error _CreateShadowMaps(int dimension) override;
     vc::Error _CreateShadowCubeMaps(int dimension) override;
+    vc::Error _SaveImageToFile(const char* path) override;
 
     vc::Error _SetMemoryAccess(const vc::TextureMemoryAccess access) override;
 

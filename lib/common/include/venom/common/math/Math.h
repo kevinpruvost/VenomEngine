@@ -44,6 +44,9 @@ namespace math
 constexpr inline float Radians(const float degrees) { return degrees * (M_PI / 180.0f); }
 constexpr inline float Degrees(const float radians) { return radians * (180.0f / M_PI); }
 
+float Lerp(const float a, const float b, const float t);
+float PingPongLerp(const float a, const float b, const float t);
+
 }
 }
 }

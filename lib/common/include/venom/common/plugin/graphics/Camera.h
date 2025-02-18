@@ -31,6 +31,12 @@ struct CameraCascadedShadowMapData
     float cascadeFrustumsRadius[VENOM_CSM_TOTAL_CASCADES];
 };
 
+struct CameraFocusData
+{
+    vc::Entity entity;
+    vcm::Vec3 planeNormal;
+};
+
 class VENOM_COMMON_API CameraImpl : public PluginObjectImpl, public GraphicsPluginObject
 {
 public:
@@ -70,6 +76,10 @@ public:
 
     void RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNormal, float angle);
 
+    void SetFocusEntity(vc::Entity entity);
+    vc::Entity GetFocusEntity();
+    void RemoveFocusEntity();
+
     // Camera configuration
     void SetFieldOfView(float fovY);              // Set field of view (vertical)
     float GetFieldOfView() const;                 // Get field of view
@@ -89,6 +99,8 @@ public:
 
 private:
     Transform3D * __transform;
+
+    CameraFocusData __focusData;
 
     vcm::Mat4 __viewMatrix;
     vcm::Mat4 __projectionMatrix;
@@ -173,6 +185,10 @@ public:
     inline float GetFarPlane() const { return _impl->As<CameraImpl>()->GetFarPlane(); }
 
     inline void LookAt(const vcm::Vec3& target) { _impl->As<CameraImpl>()->LookAt(target); }
+
+    inline void SetFocusEntity(vc::Entity entity) { _impl->As<CameraImpl>()->SetFocusEntity(entity); }
+    inline vc::Entity GetFocusEntity() const { return _impl->As<CameraImpl>()->GetFocusEntity(); }
+    inline void RemoveFocusEntity() { _impl->As<CameraImpl>()->RemoveFocusEntity(); }
 };
 }
 }

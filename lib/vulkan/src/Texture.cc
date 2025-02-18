@@ -9,6 +9,8 @@
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
 #include <venom/vulkan/Allocator.h>
+#include <venom/vulkan/CommandPool.h>
+#include <venom/vulkan/CommandPoolManager.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/QueueManager.h>
 #include <venom/vulkan/PhysicalDevice.h>
@@ -169,7 +171,7 @@ vc::Error VulkanTexture::_CreateReadWriteTexture(int width, int height, vc::Shad
     };
 
     if (GetImage().Create(vkFormat, VK_IMAGE_TILING_OPTIMAL,
-        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, width, height, arrayLayers, mipLevels) != vc::Error::Success)
         return vc::Error::Failure;
     GetImage().SetImageLayout(VK_IMAGE_LAYOUT_GENERAL);
@@ -212,6 +214,89 @@ vc::Error VulkanTexture::_CreateShadowCubeMaps(int dimension)
             VK_IMAGE_VIEW_TYPE_2D, 0, 1, i, 1) != vc::Error::Success)
             return vc::Error::Failure;
     }
+    return vc::Error::Success;
+}
+
+vc::Error VulkanTexture::_SaveImageToFile(const char* path)
+{
+    VkImageLayout originalLayout = GetImage().GetLayout();
+    VkFormat format = GetImage().GetFormat();
+
+    // Transition image layout for transfer
+    GetImage().SetImageLayout(VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+
+    // Create staging buffer
+    Buffer stagingBuffer;
+    size_t pixelSize = 0;
+    switch (format) {
+        case VK_FORMAT_R8G8B8A8_SRGB:
+            pixelSize = sizeof(unsigned char) * 4;
+            break;
+        case VK_FORMAT_R16G16B16A16_SFLOAT:
+            pixelSize = sizeof(uint16_t) * 4;
+            break;
+        default:
+            vc::Log::Error("Unsupported format for saving image to file");
+            return vc::Error::Failure;
+    };
+    vc::Error err = stagingBuffer.CreateBuffer(GetWidth() * GetHeight() * pixelSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+        VK_SHARING_MODE_EXCLUSIVE, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+    if (err != vc::Error::Success) return err;
+
+    // Copy to buffer
+    {
+        SingleTimeCommandBuffer commandBuffer;
+        if (CommandPoolManager::GetTransferCommandPool()->CreateSingleTimeCommandBuffer(commandBuffer) != vc::Error::Success)
+        {
+            vc::Log::Error("Failed to create single time command buffer for generating irradiance map");
+            return vc::Error::Failure;
+        }
+        VkBufferImageCopy region = {};
+        region.bufferOffset = 0;
+        region.bufferRowLength = 0;
+        region.bufferImageHeight = 0;
+        region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        region.imageSubresource.mipLevel = 0;
+        region.imageSubresource.baseArrayLayer = 0;
+        region.imageSubresource.layerCount = 1;
+        region.imageOffset = { 0, 0, 0 };
+        region.imageExtent = { static_cast<uint32_t>(GetWidth()), static_cast<uint32_t>(GetHeight()), 1 };
+        
+        vkCmdCopyImageToBuffer(
+                               commandBuffer,
+                               GetImage().GetVkImage(),
+                               VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                               stagingBuffer.GetVkBuffer(),
+                               1,
+                               &region
+                               );
+    }
+
+    void * data;
+    vkMapMemory(LogicalDevice::GetVkDevice(), stagingBuffer.GetVkDeviceMemory(), 0, stagingBuffer.GetSize(), 0, &data);
+
+    // Write image to file
+    switch (format)
+    {
+        case VK_FORMAT_R8G8B8A8_SRGB:
+        {
+            vc::SaveImageToPng(data, path, GetWidth(), GetHeight(), 4);
+            break;
+        }
+        case VK_FORMAT_R16G16B16A16_SFLOAT:
+        {
+            vc::SaveImageToExr(data, path, GetWidth(), GetHeight(), 4);
+            break;
+        }
+        default:
+            vc::Log::Error("Unsupported format for saving image to file");
+            return vc::Error::Failure;
+    };
+
+    vkUnmapMemory(LogicalDevice::GetVkDevice(), stagingBuffer.GetVkDeviceMemory());
+
+    // Transition image layout back to original
+    GetImage().SetImageLayout(originalLayout);
     return vc::Error::Success;
 }
 

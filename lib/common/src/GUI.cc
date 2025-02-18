@@ -113,11 +113,13 @@ void GUI::GraphicsSettingsCollaspingHeader()
             }
             vc::GUI::EndCombo();
         }
+
         // HDR
         bool hdrEnabled = vc::GraphicsSettings::IsHDREnabled();
         if (vc::GUI::Checkbox("HDR (High Dynamic Range)", &hdrEnabled)) {
             vc::GraphicsSettings::SetHDR(hdrEnabled);
         }
+
         // Shadow Bias
 
         // Scene Graphics Settings
@@ -177,6 +179,15 @@ void GUI::EntitiesListCollapsingHeader()
             if (selectedEntity.is_valid()) {
                 if (vc::GUI::MenuItem(ICON_MS_DELETE " Delete")) {
                     selectedEntity.destruct();
+                }
+                if (vc::Camera::GetMainCamera()->GetFocusEntity() == selectedEntity) {
+                    if (vc::GUI::MenuItem(ICON_MS_VISIBILITY_LOCK " Remove Focus")) {
+                        vc::Camera::GetMainCamera()->RemoveFocusEntity();
+                    }
+                } else {
+                    if (vc::GUI::MenuItem(ICON_MS_VISIBILITY_LOCK " Focus Entity")) {
+                        vc::Camera::GetMainCamera()->SetFocusEntity(selectedEntity);
+                    }
                 }
             }
             if (vc::GUI::MenuItem(ICON_MS_DEPLOYED_CODE " Create New Entity")) {

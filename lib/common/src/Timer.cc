@@ -64,9 +64,11 @@ void Timer::Reset()
 }
 
 static UPtr<Timer> s_loopTimer(nullptr);
+static UPtr<Timer> s_totalTimer(nullptr);
 void Timer::ResetLoopTimer()
 {
     s_loopTimer.reset(new Timer());
+    s_totalTimer.reset(new Timer());
 }
 
 uint64_t Timer::GetLambdaMicroseconds()
@@ -82,6 +84,21 @@ uint64_t Timer::GetLambdaMilliseconds()
 double Timer::GetLambdaSeconds()
 {
     return (double)(s_loopTimer->GetMilliSeconds()) / 1000.0f;
+}
+
+uint64_t Timer::GetTotalMicroseconds()
+{
+    return s_totalTimer->GetMicroSeconds();
+}
+
+uint64_t Timer::GetTotalMilliseconds()
+{
+    return s_totalTimer->GetMilliSeconds();
+}
+
+double Timer::GetTotalSeconds()
+{
+    return (double)(s_totalTimer->GetMilliSeconds()) / 1000.0f;
 }
 
 void Timer::__PassFrame()

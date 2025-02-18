@@ -12,6 +12,7 @@ bool cameraLocked = true;
 bool automaticTurn = false;
 
 static vc::Timer timer_uni;
+static float cameraSpeed = 5.0f;
 
 void SceneInput(vc::Context * context)
 {
@@ -19,28 +20,29 @@ void SceneInput(vc::Context * context)
     timer_uni.Reset();
     if (cameraLocked == false) {
         // Camera controls
-        const float speed = 5.0f;
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardW)) {
-            vc::Camera::GetMainCamera()->MoveForward(speed * vc::Timer::GetLambdaSeconds());
+            vc::Camera::GetMainCamera()->MoveForward(cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardS)) {
-            vc::Camera::GetMainCamera()->MoveForward(-speed * vc::Timer::GetLambdaSeconds());
+            vc::Camera::GetMainCamera()->MoveForward(-cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardA)) {
-            vc::Camera::GetMainCamera()->MoveRight(-speed * vc::Timer::GetLambdaSeconds());
+            vc::Camera::GetMainCamera()->MoveRight(-cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardD)) {
-            vc::Camera::GetMainCamera()->MoveRight(speed * vc::Timer::GetLambdaSeconds());
+            vc::Camera::GetMainCamera()->MoveRight(cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardQ)) {
-            vc::Camera::GetMainCamera()->MoveUp(-speed * vc::Timer::GetLambdaSeconds());
+            vc::Camera::GetMainCamera()->MoveUp(-cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardE)) {
-            vc::Camera::GetMainCamera()->MoveUp(speed * vc::Timer::GetLambdaSeconds());
+            vc::Camera::GetMainCamera()->MoveUp(cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
-        vcm::Vec2 mouseMov = context->GetMouseMove();
-        vc::Camera::GetMainCamera()->RotateYaw( -mouseMov.x * 0.0025f);
-        vc::Camera::GetMainCamera()->RotatePitch(-mouseMov.y * 0.0025f);
+        if (!vc::Camera::GetMainCamera()->GetFocusEntity().is_valid()) {
+            vcm::Vec2 mouseMov = context->GetMouseMove();
+            vc::Camera::GetMainCamera()->RotateYaw( -mouseMov.x * 0.0025f);
+            vc::Camera::GetMainCamera()->RotatePitch(-mouseMov.y * 0.0025f);
+        }
     }
 
     if (automaticTurn) {
@@ -114,12 +116,11 @@ void SceneGUI()
         vc::GUI::Begin(ICON_MS_SETTINGS " Settings & Objects", nullptr, vc::GUIWindowFlags_NoCollapse);
         {
             if (vc::GUI::CollapsingHeader("Scene Settings", vc::GUITreeNodeFlagsBits::GUITreeNodeFlags_DefaultOpen)) {
-                vc::GUI::Checkbox("Fullscreen (press F to toggle)", &vc::GUI::IsGUIDrawRef());
+                vc::GUI::Checkbox("Draw GUI (press F to toggle)", &vc::GUI::IsGUIDrawRef());
                 vc::GUI::Checkbox("Camera Locked", &cameraLocked);
                 vcm::Vec3 cameraPos = vc::Camera::GetMainCamera()->GetPosition();
-                // if (vc::GUI::SliderFloat3("Camera Position", &cameraPos[0], -100.0f, 100.0f)) {
-                //     vc::Camera::GetMainCamera()->SetPosition(cameraPos);
-                // }
+                // Camera speed
+                vc::GUI::SliderFloat("Camera Speed", &cameraSpeed, 0.1f, 20.0f);
                 vc::GUI::Checkbox("Automatic Turn", &automaticTurn);
                 // vc::GUI::SliderFloat("Light Intensity", light1.get_mut<vc::Light>()->GetIntensityPtr(), 0.0f, 100.0f);
                 // vc::GUI::SliderFloat3("Light Direction", light1.get_mut<vc::Light>()->GetDirectionPtr(), -1.0f, 1.0f);
