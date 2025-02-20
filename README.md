@@ -88,6 +88,12 @@ make release_run
 - [x] Vulkan Renderer
 - [ ] Metal Renderer
 - [ ] DirectX12 Renderer
+- [ ] Global Illumination
+- [ ] Deferred Rendering
+- [ ] Custom Renderer Debuggers
+- [ ] Protobuf Serialization
+- [ ] Virtual Shadow Mapping
+- [x] Forward+ Rendering
 - [x] CMake Build System
 - [x] HLSL to SPIR-V Compilation
 - [x] Ruby Task Runner
@@ -95,9 +101,6 @@ make release_run
 - [x] Disney Principled BSDF
 - [x] Editing GUI
 - [x] ECS
-- [ ] Custom Renderer Debuggers
-- [ ] Protobuf Serialization
-- [ ] Virtual Shadow Mapping
 - [ ] ...
 
 ## :book: Documentation & User Guide
