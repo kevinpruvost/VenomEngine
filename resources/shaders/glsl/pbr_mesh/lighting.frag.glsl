@@ -9,7 +9,7 @@ layout(push_constant, std430) uniform RenderData
     int i;
 } lightData;
 
-#define SHADOW_BIAS 0.0005
+#define SHADOW_BIAS 0.001
 
 float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
@@ -180,6 +180,8 @@ vec3 GetLightDirection(Light light, vec3 position)
 
 vec3 GetLightColor(Light light, vec3 position, vec3 direction)
 {
+    if (light.intensity <= 0.0)
+        return vec3(0.0, 0.0, 0.0);
     if (light.type == LightType_Directional) {
         return light.color * light.intensity;
     } else if (light.type == LightType_Point) {

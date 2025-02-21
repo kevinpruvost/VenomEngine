@@ -28,6 +28,9 @@ public:
     uint64_t GetNanoSeconds() const;
     uint64_t GetMicroSeconds() const;
     uint64_t GetMilliSeconds() const;
+    uint64_t GetLastNanoSeconds() const;
+    uint64_t GetLastMicroSeconds() const;
+    uint64_t GetLastMilliSeconds() const;
     void Reset();
 
     static void ResetLoopTimer();
@@ -39,6 +42,7 @@ public:
     static double GetTotalSeconds();
 private:
     std::chrono::time_point<std::chrono::steady_clock> __start;
+    std::chrono::time_point<std::chrono::steady_clock> __lastStart;
 
     friend class VenomEngine;
     static void __PassFrame();

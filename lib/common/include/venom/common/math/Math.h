@@ -46,6 +46,7 @@ constexpr inline float Degrees(const float radians) { return radians * (180.0f /
 
 float Lerp(const float a, const float b, const float t);
 float PingPongLerp(const float a, const float b, const float t);
+float LinearPingPongLerp(const float a, const float b, const float t);
 
 }
 }

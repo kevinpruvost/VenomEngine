@@ -17,6 +17,8 @@ namespace common
 Timer::Timer()
     : __start(std::chrono::steady_clock::now())
 {
+    // DO NOT INITIALIZER LIST, INIT ORDER IS RANDOM
+    __lastStart = __start;
 }
 Timer::~Timer()
 {
@@ -58,8 +60,24 @@ uint64_t Timer::GetMilliSeconds() const
     return res;
 }
 
+uint64_t Timer::GetLastNanoSeconds() const
+{
+    return std::chrono::duration_cast<std::chrono::nanoseconds>(__start - __lastStart).count();
+}
+
+uint64_t Timer::GetLastMicroSeconds() const
+{
+    return std::chrono::duration_cast<std::chrono::microseconds>(__start - __lastStart).count();
+}
+
+uint64_t Timer::GetLastMilliSeconds() const
+{
+    return std::chrono::duration_cast<std::chrono::milliseconds>(__start - __lastStart).count();
+}
+
 void Timer::Reset()
 {
+    __lastStart = __start;
     __start = std::chrono::steady_clock::now();
 }
 
@@ -73,17 +91,17 @@ void Timer::ResetLoopTimer()
 
 uint64_t Timer::GetLambdaMicroseconds()
 {
-    return s_loopTimer->GetMicroSeconds();
+    return s_loopTimer->GetLastMicroSeconds();
 }
 
 uint64_t Timer::GetLambdaMilliseconds()
 {
-    return s_loopTimer->GetMilliSeconds();
+    return s_loopTimer->GetLastMilliSeconds();
 }
 
 double Timer::GetLambdaSeconds()
 {
-    return (double)(s_loopTimer->GetMilliSeconds()) / 1000.0f;
+    return (double)(s_loopTimer->GetLastMilliSeconds()) / 1000.0f;
 }
 
 uint64_t Timer::GetTotalMicroseconds()

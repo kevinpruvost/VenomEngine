@@ -166,7 +166,7 @@ vcm::Vec3 RotateAround(const vcm::Vec3& point, const vcm::Vec3& target, const vc
     vcm::Vec2 position2D = vcm::Vec2(vcm::DotProduct(pc, w), vcm::DotProduct(pc, v));
     vcm::Vec2 rotatedPosition2D = vcm::RotateAround(position2D, vcm::Vec2(0.0f, 0.0f), angle);
 
-    return target + (w * rotatedPosition2D.x) + (v * rotatedPosition2D.y);
+    return target + (w * rotatedPosition2D.x) + (v * rotatedPosition2D.y) + (u * vcm::DotProduct(pc, u));
 }
 
 vcm::Vec2 RotateAround(const vcm::Vec2& point, const vcm::Vec2& center, const float angle)

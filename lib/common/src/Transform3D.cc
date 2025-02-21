@@ -256,6 +256,15 @@ void Transform3D::RotateAround(const vcm::Vec3& target, const vcm::Vec3& planeNo
     _position = vcm::RotateAround(_position, target, planeNormal, angle);
 }
 
+void Transform3D::LookAt(const vcm::Vec3& target)
+{
+    vcm::Mat4 lookAt = vcm::LookAt(_position, target, vcm::Vec3(0.0f, 1.0f, 0.0f));
+    _yaw = std::atan2(lookAt[0][2], lookAt[2][2]);
+    _pitch = std::asin(-lookAt[1][2]);
+    _roll = 0.0f;
+    _UpdateRotationQuat();
+}
+
 void Transform3D::UpdateModelMatrix()
 {
     if (__modelDirty)

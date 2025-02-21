@@ -115,14 +115,14 @@ Error VenomEngine::RunEngine(int argc, char** argv)
             graphicsApp->Loop();
             s_instance->pluginManager->CleanPluginsObjets();
 
+            // Reset timer at the end
+            vc::Timer::__PassFrame();
             for (const auto& loopCallback : s_loopCallbacks) {
                 loopCallback();
             }
             for (const auto& inputCallback : s_inputCallbacks) {
                 inputCallback(Context::Get());
             }
-            // Reset timer at the end
-            vc::Timer::__PassFrame();
 
             // Waits for draws to finish then calls the callbacks
             if (graphicsApp->HasCallbacksAfterDraws()) {
