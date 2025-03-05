@@ -101,7 +101,10 @@ make release_run
 - [ ] Custom Renderer Debuggers
 - [ ] Protobuf Serialization
 - [ ] Virtual Shadow Mapping
+- [ ] Rasterizer Order Views Optimization
+- [ ] CPU Rasterizer for very complex geometry
 - [x] Forward+ Rendering
+- [x] Cascaded Shadow Mapping
 - [x] CMake Build System
 - [x] HLSL to SPIR-V Compilation
 - [x] Ruby Task Runner
