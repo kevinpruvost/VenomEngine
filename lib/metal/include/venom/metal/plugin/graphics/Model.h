@@ -8,21 +8,20 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/Model.h>
-#include <venom/vulkan/UniformBuffer.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-class VulkanModelResource : public vc::ModelResource
+class MetalModelResource : public vc::ModelResource
 {
 };
 
-class VulkanModel : public vc::ModelImpl
+class MetalModel : public vc::ModelImpl
 {
 public:
-    VulkanModel();
-    virtual ~VulkanModel();
+    MetalModel();
+    virtual ~MetalModel();
 
     void _ResetResource() override;
 

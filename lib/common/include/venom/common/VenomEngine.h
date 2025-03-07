@@ -58,7 +58,7 @@ public:
      * @param argv
      * @return error if any, refer to Error enum for more information
      */
-    static Error RunEngine(int argc, char ** argv);
+    static Error RunEngine(int argc, const char* argv[]);
 
     /**
      * @brief Loads a scene from a file

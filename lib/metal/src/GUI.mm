@@ -6,30 +6,30 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <imgui_internal.h>
-#include <venom/vulkan/Allocator.h>
-#include <venom/vulkan/LogicalDevice.h>
-#include <venom/vulkan/plugin/graphics/GUI.h>
+#include <imgui_impl_metal.h>
+#include <venom/metal/plugin/graphics/GUI.h>
 
-#include <venom/vulkan/VulkanApplication.h>
-#include <venom/vulkan/plugin/graphics/RenderTarget.h>
+#include <venom/common/plugin/graphics/Camera.h>
+
+#include <venom/metal/MetalApplication.h>
+#include <venom/metal/plugin/graphics/RenderTarget.h>
 
 #include <ImGuizmo.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-VulkanGUI::VulkanGUI()
-    : initInfo{}
+MetalGUI::MetalGUI()
 {
 }
 
-VulkanGUI::~VulkanGUI()
+MetalGUI::~MetalGUI()
 {
-    ImGui_ImplVulkan_Shutdown();
+    ImGui_ImplMetal_Shutdown();
 }
 
-void VulkanGUI::__SetStyle()
+void MetalGUI::__SetStyle()
 {
     auto _style = &ImGui::GetStyle();
 
@@ -101,40 +101,24 @@ void VulkanGUI::__SetStyle()
     _style->Colors[ImGuiCol_TabSelectedOverline] = ImVec4(0.0f, 0.4f, 0.0f, 0.9f); // Green for an active tab in an unfocused window
 }
 
-vc::Error VulkanGUI::_Initialize()
+vc::Error MetalGUI::_Initialize()
 {
-    const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
+    const MetalApplication * const app = static_cast<const MetalApplication * const>(_app);
+    
+    device = app->device;
+    commandQueue = [device newCommandQueue];
 
     // Setup Platform/Renderer backends
     if (_firstInit) {
         ImGui::CreateContext();
         ImGui::StyleColorsLight();
+        renderPassDescriptor = [MTLRenderPassDescriptor new];
     }
 
     // Setup Platform/Renderer backends
 
-    ImGui_ImplGlfw_InitForVulkan(vc::Context::Get()->GetWindow(), true);
-    initInfo.Instance = Instance::GetVkInstance();
-    initInfo.PhysicalDevice = PhysicalDevice::GetUsedVkPhysicalDevice();
-    initInfo.Device = LogicalDevice::GetInstance().GetVkDevice();
-    initInfo.QueueFamily = QueueManager::GetGraphicsQueue().GetQueueFamilyIndex();
-    initInfo.Queue = QueueManager::GetGraphicsQueue().GetVkQueue();
-    //initInfo.PipelineCache = g_PipelineCache;
-    initInfo.DescriptorPool = app->GetDescriptorPool()->GetVkDescriptorPool();
-    initInfo.RenderPass = app->GetGuiRenderPass()->GetVkRenderPass();
-    initInfo.Subpass = 0;
-    initInfo.MinImageCount = app->GetSwapChain()->surface->GetCapabilities().minImageCount;
-    initInfo.ImageCount = VENOM_MAX_FRAMES_IN_FLIGHT;
-    initInfo.MSAASamples = static_cast<VkSampleCountFlagBits>(app->GetSwapChain()->GetSamples());
-    initInfo.Allocator = Allocator::GetVKAllocationCallbacks();
-#ifdef VENOM_DEBUG
-    initInfo.CheckVkResultFn = [](VkResult err)
-    {
-        if (err != VK_SUCCESS)
-            vc::Log::Error("ImGui function failed with error code %d", err);
-    };
-#endif
-    if (!ImGui_ImplVulkan_Init(&initInfo))
+    ImGui_ImplGlfw_InitForOther(vc::Context::Get()->GetWindow(), true);
+    if (!ImGui_ImplMetal_Init(app->device))
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
@@ -145,7 +129,7 @@ vc::Error VulkanGUI::_Initialize()
     return vc::Error::Success;
 }
 
-void VulkanGUI::_EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & renderingSize)
+void MetalGUI::_EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & renderingSize)
 {
     static ImGuizmo::OPERATION operation = ImGuizmo::TRANSLATE;
     if (ImGui::IsKeyPressed(ImGuiKey_1)) // Press 'T' for translate
@@ -206,18 +190,18 @@ void VulkanGUI::_EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & re
     // }
 }
 
-vc::Error VulkanGUI::_Reset()
+vc::Error MetalGUI::_Reset()
 {
-    const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
+    const MetalApplication * const app = static_cast<const MetalApplication * const>(_app);
 
     vc::Texture::UnloadAllGuiTextures();
-    ImGui_ImplVulkan_Shutdown();
+    ImGui_ImplMetal_Shutdown();
     ImGui_ImplGlfw_Shutdown();
 
     return _Initialize();
 }
 
-void VulkanGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
+void MetalGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
 {
     ImGuiIO& io = ImGui::GetIO();
     ImFontConfig iconsConfig;
@@ -230,7 +214,7 @@ void VulkanGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* g
     io.Fonts->AddFontFromFileTTF(fontPath, fontSize, &iconsConfig, glyphRanges);
 }
 
-void VulkanGUI::_AddFont(const char* fontPath, float fontSize)
+void MetalGUI::_AddFont(const char* fontPath, float fontSize)
 {
     ImGuiIO& io = ImGui::GetIO();
     ImFontConfig iconsConfig;
@@ -244,79 +228,88 @@ void VulkanGUI::_AddFont(const char* fontPath, float fontSize)
     }
 }
 
-void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const vcm::Vec2& pivot)
+void MetalGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const vcm::Vec2& pivot)
 {
     ImGui::SetNextWindowPos(ImVec2(pos.x, pos.y), static_cast<ImGuiCond>(cond), ImVec2(pivot.x, pivot.y));
 }
 
-void VulkanGUI::_SetNextWindowSize(const vcm::Vec2& size, vc::GUICond cond)
+void MetalGUI::_SetNextWindowSize(const vcm::Vec2& size, vc::GUICond cond)
 {
     ImGui::SetNextWindowSize(ImVec2(size.x, size.y), static_cast<ImGuiCond>(cond));
 }
 
-void VulkanGUI::_SetNextWindowViewport(vc::GUIViewport viewport)
+void MetalGUI::_SetNextWindowViewport(vc::GUIViewport viewport)
 {
     ImGui::SetNextWindowViewport(reinterpret_cast<ImGuiViewport*>(viewport)->ID);
 }
 
-vcm::Vec2 VulkanGUI::_GetContentRegionAvail()
+vcm::Vec2 MetalGUI::_GetContentRegionAvail()
 {
     const auto& size = ImGui::GetContentRegionAvail();
     return {size.x, size.y};
 }
 
-vcm::Vec2 VulkanGUI::_GetWindowSize()
+vcm::Vec2 MetalGUI::_GetWindowSize()
 {
     const auto& size = ImGui::GetWindowSize();
     return {size.x, size.y};
 }
 
-vcm::Vec2 VulkanGUI::_GetWindowPos()
+vcm::Vec2 MetalGUI::_GetWindowPos()
 {
     const auto& pos = ImGui::GetWindowPos();
     return {pos.x, pos.y};
 }
 
-vc::GUIViewport VulkanGUI::_GetMainViewport()
+vc::GUIViewport MetalGUI::_GetMainViewport()
 {
     return ImGui::GetMainViewport();
 }
 
-void VulkanGUI::_NewFrame()
+void MetalGUI::_NewFrame()
 {
-    ImGui_ImplVulkan_NewFrame();
+//    constexpr float clear_color[4] = {0.45f, 0.55f, 0.60f, 1.00f};
+//    id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
+//    renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(clear_color[0] * clear_color[3], clear_color[1] * clear_color[3], clear_color[2] * clear_color[3], clear_color[3]);
+//    renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
+//    renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+//    renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+//    id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
+//    [renderEncoder pushDebugGroup:@"ImGui demo"];
+    
+    ImGui_ImplMetal_NewFrame(renderPassDescriptor);
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     ImGuizmo::SetOrthographic(false);
     ImGuizmo::BeginFrame();
 }
 
-void VulkanGUI::_Begin(const char* name, bool* p_open, vc::GUIWindowFlags flags)
+void MetalGUI::_Begin(const char* name, bool* p_open, vc::GUIWindowFlags flags)
 {
     ImGui::Begin(name, p_open, static_cast<ImGuiWindowFlags>(flags));
 }
 
-void VulkanGUI::_End()
+void MetalGUI::_End()
 {
     ImGui::End();
 }
 
-void VulkanGUI::_Text(const char* fmt, va_list args)
+void MetalGUI::_Text(const char* fmt, va_list args)
 {
     ImGui::TextV(fmt, args);
 }
 
-void VulkanGUI::_TextColored(const vcm::Vec4& col, const char* fmt, va_list args)
+void MetalGUI::_TextColored(const vcm::Vec4& col, const char* fmt, va_list args)
 {
     ImGui::TextColoredV(ImVec4(col.x, col.y, col.z, col.w), fmt, args);
 }
 
-void VulkanGUI::_LabelText(const char* label, const char* fmt, va_list args)
+void MetalGUI::_LabelText(const char* label, const char* fmt, va_list args)
 {
     ImGui::LabelTextV(label, fmt, args);
 }
 
-void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size, bool centering)
+void MetalGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size, bool centering)
 {
     void * textureId;
     if (texture->GetGUITextureID(&textureId) != vc::Error::Success) {
@@ -354,290 +347,290 @@ void VulkanGUI::_Image(const vc::Texture* texture, const vcm::Vec2 & size, bool 
     ImGui::Image(reinterpret_cast<ImTextureID>(textureId), ImVec2(size.x, size.y));
 }
 
-bool VulkanGUI::_InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags)
+bool MetalGUI::_InputText(const char* label, char* buf, size_t buf_size, vc::GUIInputTextFlags flags)
 {
     return ImGui::InputText(label, buf, buf_size, static_cast<ImGuiInputTextFlags>(flags));
 }
 
-bool VulkanGUI::_TreeNode(const char* label)
+bool MetalGUI::_TreeNode(const char* label)
 {
     return ImGui::TreeNode(label);
 }
 
-void VulkanGUI::_TreePop()
+void MetalGUI::_TreePop()
 {
     ImGui::TreePop();
 }
 
-void VulkanGUI::_TreePush(const char* str_id)
+void MetalGUI::_TreePush(const char* str_id)
 {
     ImGui::TreePush(str_id);
 }
 
-void VulkanGUI::_SeparatorText(const char* text)
+void MetalGUI::_SeparatorText(const char* text)
 {
     ImGui::SeparatorText(text);
 }
 
-void VulkanGUI::_Separator()
+void MetalGUI::_Separator()
 {
     ImGui::Separator();
 }
 
-void VulkanGUI::_Spacing()
+void MetalGUI::_Spacing()
 {
     ImGui::Spacing();
 }
 
-void VulkanGUI::_Dummy(const vcm::Vec2& size)
+void MetalGUI::_Dummy(const vcm::Vec2& size)
 {
     ImGui::Dummy(ImVec2(size.x, size.y));
 }
 
-bool VulkanGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format)
+bool MetalGUI::_SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format)
 {
     return ImGui::SliderFloat(label, v, v_min, v_max, format);
 }
 
-bool VulkanGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format)
+bool MetalGUI::_SliderFloat3(const char* label, float v[3], float v_min, float v_max, const char* format)
 {
     return ImGui::SliderFloat3(label, v, v_min, v_max, format, ImGuiSliderFlags_None);
 }
 
-bool VulkanGUI::_InputFloat(const char* label, float* v, float step, float step_fast, const char* format,
+bool MetalGUI::_InputFloat(const char* label, float* v, float step, float step_fast, const char* format,
     vc::GUIColorEditFlags flags)
 {
     return ImGui::InputFloat(label, v, step, step_fast, format, static_cast<ImGuiColorEditFlags>(flags));
 }
 
-bool VulkanGUI::_InputFloat3(const char* label, float v[3], const char* format, vc::GUIColorEditFlags flags)
+bool MetalGUI::_InputFloat3(const char* label, float v[3], const char* format, vc::GUIColorEditFlags flags)
 {
     return ImGui::InputFloat3(label, v, format, static_cast<ImGuiColorEditFlags>(flags));
 }
 
-void VulkanGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags)
+void MetalGUI::_ColorEdit3(const char* label, float col[3], vc::GUIColorEditFlags flags)
 {
     ImGui::ColorEdit3(label, col, static_cast<ImGuiColorEditFlags>(flags));
 }
 
-bool VulkanGUI::_CollapsingHeader(const char* label, vc::GUITreeNodeFlags flags)
+bool MetalGUI::_CollapsingHeader(const char* label, vc::GUITreeNodeFlags flags)
 {
     return ImGui::CollapsingHeader(label, static_cast<ImGuiTreeNodeFlags>(flags));
 }
 
-bool VulkanGUI::_Button(const char* label, const vcm::Vec2& size)
+bool MetalGUI::_Button(const char* label, const vcm::Vec2& size)
 {
     return ImGui::Button(label, ImVec2(size.x, size.y));
 }
 
-bool VulkanGUI::_Checkbox(const char* label, bool* v)
+bool MetalGUI::_Checkbox(const char* label, bool* v)
 {
     return ImGui::Checkbox(label, v);
 }
 
-void VulkanGUI::_ProgressBar(float fraction, const vcm::Vec2& size_arg, const char* overlay)
+void MetalGUI::_ProgressBar(float fraction, const vcm::Vec2& size_arg, const char* overlay)
 {
     ImGui::ProgressBar(fraction, ImVec2(size_arg.x, size_arg.y), overlay);
 }
 
-bool VulkanGUI::_Selectable(const char* label, bool selected, vc::GUISelectableFlags flags, const vcm::Vec2& size)
+bool MetalGUI::_Selectable(const char* label, bool selected, vc::GUISelectableFlags flags, const vcm::Vec2& size)
 {
     return ImGui::Selectable(label, selected, static_cast<ImGuiSelectableFlags>(flags), ImVec2(size.x, size.y));
 }
 
-bool VulkanGUI::_BeginCombo(const char* label, const char* preview_value, vc::GUIComboFlags flags)
+bool MetalGUI::_BeginCombo(const char* label, const char* preview_value, vc::GUIComboFlags flags)
 {
     return ImGui::BeginCombo(label, preview_value, static_cast<ImGuiComboFlags>(flags));
 }
 
-void VulkanGUI::_EndCombo()
+void MetalGUI::_EndCombo()
 {
     ImGui::EndCombo();
 }
 
-bool VulkanGUI::_BeginMenu(const char* label, bool enabled)
+bool MetalGUI::_BeginMenu(const char* label, bool enabled)
 {
     return ImGui::BeginMenu(label, enabled);
 }
 
-void VulkanGUI::_EndMenu()
+void MetalGUI::_EndMenu()
 {
     ImGui::EndMenu();
 }
 
-bool VulkanGUI::_BeginMainMenuBar()
+bool MetalGUI::_BeginMainMenuBar()
 {
     return ImGui::BeginMainMenuBar();
 }
 
-void VulkanGUI::_EndMainMenuBar()
+void MetalGUI::_EndMainMenuBar()
 {
     ImGui::EndMainMenuBar();
 }
 
-bool VulkanGUI::_BeginMenuBar()
+bool MetalGUI::_BeginMenuBar()
 {
     return ImGui::BeginMenuBar();
 }
 
-void VulkanGUI::_EndMenuBar()
+void MetalGUI::_EndMenuBar()
 {
     ImGui::EndMenuBar();
 }
 
-bool VulkanGUI::_BeginChild(const char* str_id, const vcm::Vec2& size, vc::GUIChildFlags childFlags, vc::GUIWindowFlags extra_flags)
+bool MetalGUI::_BeginChild(const char* str_id, const vcm::Vec2& size, vc::GUIChildFlags childFlags, vc::GUIWindowFlags extra_flags)
 {
     return ImGui::BeginChild(str_id, ImVec2(size.x, size.y), static_cast<ImGuiChildFlags>(childFlags),
         static_cast<ImGuiWindowFlags>(extra_flags));
 }
 
-void VulkanGUI::_EndChild()
+void MetalGUI::_EndChild()
 {
     ImGui::EndChild();
 }
 
-bool VulkanGUI::_MenuItem(const char* str, const char* text)
+bool MetalGUI::_MenuItem(const char* str, const char* text)
 {
     return ImGui::MenuItem(str, text);
 }
 
-void VulkanGUI::_SetNextItemWidth(float item_width)
+void MetalGUI::_SetNextItemWidth(float item_width)
 {
     ImGui::SetNextItemWidth(item_width);
 }
 
-void VulkanGUI::_SetItemDefaultFocus()
+void MetalGUI::_SetItemDefaultFocus()
 {
     ImGui::SetItemDefaultFocus();
 }
 
-void VulkanGUI::_SameLine(float offset_from_start_x, float spacing)
+void MetalGUI::_SameLine(float offset_from_start_x, float spacing)
 {
     ImGui::SameLine(offset_from_start_x, spacing);
 }
 
-void VulkanGUI::_PushItemWidth(float item_width)
+void MetalGUI::_PushItemWidth(float item_width)
 {
     ImGui::PushItemWidth(item_width);
 }
 
-void VulkanGUI::_PopItemWidth()
+void MetalGUI::_PopItemWidth()
 {
     ImGui::PopItemWidth();
 }
 
-void VulkanGUI::_PushButtonTextAlign(const vcm::Vec2& padding)
+void MetalGUI::_PushButtonTextAlign(const vcm::Vec2& padding)
 {
     ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, ImVec2(padding.x, padding.y));
 }
 
-void VulkanGUI::_PushWindowPadding(const vcm::Vec2& padding)
+void MetalGUI::_PushWindowPadding(const vcm::Vec2& padding)
 {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(padding.x, padding.y));
 }
 
-void VulkanGUI::_PopStyleVar()
+void MetalGUI::_PopStyleVar()
 {
     ImGui::PopStyleVar();
 }
 
-vc::GUIId VulkanGUI::_DockSpace(vc::GUIId id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags)
+vc::GUIId MetalGUI::_DockSpace(vc::GUIId id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags)
 {
     return ImGui::DockSpace(id, ImVec2(size.x, size.y), static_cast<ImGuiDockNodeFlags>(flags));
 }
 
-vc::GUIId VulkanGUI::_DockSpace(const char* id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags)
+vc::GUIId MetalGUI::_DockSpace(const char* id, const vcm::Vec2& size, vc::GUIDockNodeFlags flags)
 {
     vc::GUIId guiId = ImGui::GetID(id);
     return ImGui::DockSpace(guiId, ImVec2(size.x, size.y), static_cast<ImGuiDockNodeFlags>(flags));
 }
 
-vc::GUIId VulkanGUI::_DockSpaceOverViewport()
+vc::GUIId MetalGUI::_DockSpaceOverViewport()
 {
     return ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 }
 
-vc::GUIId VulkanGUI::_DockSpaceAddNode(vc::GUIId id, vc::GUIDockNodeFlags flags)
+vc::GUIId MetalGUI::_DockSpaceAddNode(vc::GUIId id, vc::GUIDockNodeFlags flags)
 {
     return ImGui::DockBuilderAddNode(id, static_cast<ImGuiDockNodeFlags>(flags));
 }
 
-void VulkanGUI::_DockSpaceRemoveNode(vc::GUIId id)
+void MetalGUI::_DockSpaceRemoveNode(vc::GUIId id)
 {
     ImGui::DockBuilderRemoveNode(id);
 }
 
-void VulkanGUI::_DockSpaceSetNodeSize(vc::GUIId id, const vcm::Vec2& size)
+void MetalGUI::_DockSpaceSetNodeSize(vc::GUIId id, const vcm::Vec2& size)
 {
     ImGui::DockBuilderSetNodeSize(id, ImVec2(size.x, size.y));
 }
 
-vc::GUIId VulkanGUI::_DockSpaceSplitNode(vc::GUIId id, vc::GUIDir split_dir, float size_ratio, vc::GUIId* out_id_at_dir,
+vc::GUIId MetalGUI::_DockSpaceSplitNode(vc::GUIId id, vc::GUIDir split_dir, float size_ratio, vc::GUIId* out_id_at_dir,
     vc::GUIId* out_id_at_opposite_dir)
 {
     return ImGui::DockBuilderSplitNode(id, static_cast<ImGuiDir>(split_dir), size_ratio, out_id_at_dir, out_id_at_opposite_dir);
 }
 
-void VulkanGUI::_DockWindow(const char* str_id, vc::GUIId id)
+void MetalGUI::_DockWindow(const char* str_id, vc::GUIId id)
 {
     ImGui::DockBuilderDockWindow(str_id, id);
 }
 
-void VulkanGUI::_DockFinish(vc::GUIId id)
+void MetalGUI::_DockFinish(vc::GUIId id)
 {
     ImGui::DockBuilderFinish(id);
 }
 
-void VulkanGUI::_OpenPopup(const char* str_id, vc::GUIPopupFlags flags)
+void MetalGUI::_OpenPopup(const char* str_id, vc::GUIPopupFlags flags)
 {
     ImGui::OpenPopup(str_id, static_cast<ImGuiPopupFlags>(flags));
 }
 
-bool VulkanGUI::_BeginPopup(const char* str_id, vc::GUIWindowFlags flags)
+bool MetalGUI::_BeginPopup(const char* str_id, vc::GUIWindowFlags flags)
 {
     return ImGui::BeginPopup(str_id, static_cast<ImGuiWindowFlags>(flags));
 }
 
-bool VulkanGUI::_BeginPopupModal(const char* name, bool* p_open, vc::GUIWindowFlags flags)
+bool MetalGUI::_BeginPopupModal(const char* name, bool* p_open, vc::GUIWindowFlags flags)
 {
     return ImGui::BeginPopupModal(name, p_open, static_cast<ImGuiWindowFlags>(flags));
 }
 
-bool VulkanGUI::_BeginPopupContextItem(const char* str_id, common::GUIPopupFlags flags)
+bool MetalGUI::_BeginPopupContextItem(const char* str_id, common::GUIPopupFlags flags)
 {
     return ImGui::BeginPopupContextItem(str_id, static_cast<ImGuiPopupFlags>(flags));
 }
 
-void VulkanGUI::_EndPopup()
+void MetalGUI::_EndPopup()
 {
     ImGui::EndPopup();
 }
 
-void VulkanGUI::_CloseCurrentPopup()
+void MetalGUI::_CloseCurrentPopup()
 {
     ImGui::CloseCurrentPopup();
 }
 
-vc::GUIId VulkanGUI::_GetID(const char* str_id)
+vc::GUIId MetalGUI::_GetID(const char* str_id)
 {
     return ImGui::GetID(str_id);
 }
 
-vc::Error VulkanGUI::_PreUpdate()
+vc::Error MetalGUI::_PreUpdate()
 {
     return vc::Error::Success;
 }
 
-void VulkanGUI::_Render()
+void MetalGUI::_Render()
 {
-    const VulkanApplication * const app = static_cast<const VulkanApplication * const>(_app);
+    const MetalApplication * const app = static_cast<const MetalApplication * const>(_app);
 
     ImGui::Render();
     ImDrawData* draw_data = ImGui::GetDrawData();
-    ImGui_ImplVulkan_RenderDrawData(draw_data, app->GetCurrentGraphicsCommandBuffer()->GetVkCommandBuffer());
+    //ImGui_ImplMetal_RenderDrawData(draw_data, app->GetCurrentGraphicsCommandBuffer()->GetVkCommandBuffer());
 }
 
-void VulkanGUI::_Test()
+void MetalGUI::_Test()
 {
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_NoCloseButton;
     static bool dockspaceOpen = true;

@@ -32,7 +32,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 add_dependencies(${PROJECT_NAME} link_resources VenomVulkan)
 
 if (APPLE)
-#add_dependencies(${PROJECT_NAME} VenomMetal)
+add_dependencies(${PROJECT_NAME} VenomMetal)
 elseif (WIN32)
 #add_dependencies(${PROJECT_NAME} VenomDX12)
 endif ()
@@ -54,6 +54,7 @@ if (APPLE)
         VenomCommon_Package
     )
     add_dependencies(${PROJECT_PACKAGE_NAME} link_resources VenomVulkan)
+    add_dependencies(${PROJECT_PACKAGE_NAME} link_resources VenomMetal)
 
     target_sources(${PROJECT_PACKAGE_NAME} PRIVATE
         ${RESOURCE_FILES}

@@ -85,7 +85,7 @@ T * LoadPluginFromNameAndType(const std::string & libName, const char * function
 Error PluginManager::LoadGraphicsPlugin()
 {
     Error err;
-    const GraphicsPlugin::GraphicsPluginType type = Config::GetInstance()->GetGraphicsPluginType();
+    const GraphicsPlugin::GraphicsPluginType type = Config::GetGraphicsPluginType();
     std::string libName;
     switch (type)
     {

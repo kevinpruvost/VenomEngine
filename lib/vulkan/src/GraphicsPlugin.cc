@@ -26,7 +26,7 @@ namespace venom
 {
 namespace vulkan
 {
-vc::GraphicsApplication * VulkanGraphicsPlugin::CreateGraphicsApplication()
+vc::GraphicsApplication * VulkanGraphicsPlugin::CreateGraphicsApplication(int argc, const char* argv[])
 {
     return new VulkanApplication();
 }

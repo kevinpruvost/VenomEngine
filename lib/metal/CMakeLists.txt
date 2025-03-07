@@ -13,7 +13,7 @@ add_compile_definitions(GLFW_DLL)
 add_compile_definitions(_GLFW_COCOA)
 
 # Define the source and header files
-file(GLOB_RECURSE venom_metal_srcs src/*.cc)
+file(GLOB_RECURSE venom_metal_srcs src/*.cc src/*.mm)
 file(GLOB_RECURSE venom_metal_hdrs include/venom/metal/**/**/**/*.h)
 
 # Create the static library target
@@ -27,6 +27,9 @@ message(STATUS "IMGUI Metal Sources: ${IMGUI_SOURCES}")
 
 # Find required libraries and frameworks
 find_library(METAL_FRAMEWORK Metal)
+find_library(METALKIT_FRAMEWORK MetalKit)
+find_library(QUARTZCORE_FRAMEWORK QuartzCore)
+find_library(FOUNDATION_FRAMEWORK Foundation)
 find_library(COREGRAPHICS_FRAMEWORK CoreGraphics)
 find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
 find_library(CARBON_FRAMEWORK Carbon)  # Optional, depending on your needs
@@ -35,6 +38,9 @@ target_link_libraries(${PROJECT_NAME}
     VenomCommon   # Assuming venom_common_static is defined elsewhere
     glm
     ${METAL_FRAMEWORK}
+    ${METALKIT_FRAMEWORK}
+    ${QUARTZCORE_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK}
     ${COREGRAPHICS_FRAMEWORK}
     ${COREFOUNDATION_FRAMEWORK}
     ${CARBON_FRAMEWORK}
@@ -59,6 +65,6 @@ if (APPLE)
 #        ${CPACK_BUNDLE_APPLE_CODESIGN_FILES}
 #        ${CMAKE_INSTALL_PREFIX}/libvulkan.1.dylib
 #        ${CMAKE_INSTALL_PREFIX}/libvulkan.1.3.290.dylib
-#        ${CMAKE_INSTALL_PREFIX}/VenomVulkan.dylib
+#        ${CMAKE_INSTALL_PREFIX}/VenomMetal.dylib
 #    )
 endif()

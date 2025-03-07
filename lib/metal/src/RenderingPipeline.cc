@@ -5,13 +5,13 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/plugin/graphics/RenderingPipeline.h>
+#include <venom/metal/plugin/graphics/RenderingPipeline.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-VulkanRenderingPipeline::VulkanRenderingPipeline()
+MetalRenderingPipeline::MetalRenderingPipeline()
 {
 }
 }

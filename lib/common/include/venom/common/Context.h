@@ -93,7 +93,7 @@ public:
     static inline Context * Get() { return s_context; }
 
     vc::Error InitContext();
-    inline bool ShouldClose() { return glfwWindowShouldClose(__window); }
+    bool ShouldClose();
     void PollEvents();
     inline GLFWwindow * GetWindow() { return __window; }
     inline const GLFWwindow * GetWindow() const { return __window; }
@@ -133,6 +133,7 @@ private:
     double __mousePos[2];
     double __mouseLastPos[2];
     int __width, __height;
+    bool __shouldClose;
 
 private:
     static Context * s_context;

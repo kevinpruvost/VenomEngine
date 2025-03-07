@@ -7,17 +7,16 @@
 ///
 #pragma once
 #include <venom/common/plugin/graphics/RenderTarget.h>
-#include <venom/vulkan/Framebuffer.h>
-#include <venom/vulkan/plugin/graphics/Texture.h>
+#include <venom/metal/plugin/graphics/Texture.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-class VulkanRenderTarget : public vc::RenderTargetImpl
+class MetalRenderTarget : public vc::RenderTargetImpl
 {
 public:
-    VulkanRenderTarget();
+    MetalRenderTarget();
 
 public:
     vc::Error __PrepareRenderTarget() override;

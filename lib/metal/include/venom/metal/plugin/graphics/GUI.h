@@ -10,17 +10,22 @@
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
-#include <imgui_impl_vulkan.h>
+#include <imgui_impl_metal.h>
+
+#ifdef __OBJC__
+#import <Metal/Metal.h>
+#import <QuartzCore/QuartzCore.h>
+#endif
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-class VulkanGUI : public vc::GUI
+class MetalGUI : public vc::GUI
 {
 public:
-    VulkanGUI();
-    ~VulkanGUI() override;
+    MetalGUI();
+    ~MetalGUI() override;
 
     vc::Error _Initialize() override;
 
@@ -137,9 +142,13 @@ private:
     void __SetStyle();
 
     float __imageVerticalOffset;
-
+    
+#ifdef __OBJC__
+    MTLRenderPassDescriptor *renderPassDescriptor;
+    id<MTLDevice> device;
+    id<MTLCommandQueue> commandQueue;
+#endif
 private:
-    ImGui_ImplVulkan_InitInfo initInfo;
 };
 }
 }

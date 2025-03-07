@@ -11,13 +11,13 @@
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-class VulkanCamera : public vc::CameraImpl
+class MetalCamera : public vc::CameraImpl
 {
 public:
-    VulkanCamera();
-    ~VulkanCamera();
+    MetalCamera();
+    ~MetalCamera();
 };
 }
 }

@@ -37,14 +37,14 @@
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
 class Instance;
-class VulkanApplication;
+class MetalApplication;
 class DebugApplication
 {
     friend class Instance;
-    friend class VulkanApplication;
+    friend class MetalApplication;
 public:
     DebugApplication();
     virtual ~DebugApplication();
@@ -67,13 +67,6 @@ protected:
 private:
     vc::Error __InitValidationLayers();
 
-#ifdef VENOM_DEBUG
-    std::vector<const char *>      __validationLayersInUse;
-    std::vector<VkLayerProperties> __validationLayersAvailable;
-
-    VkDebugUtilsMessengerEXT __debugMessenger;
-    VkDebugUtilsMessengerCreateInfoEXT __debugMessengerCreateInfo;
-#endif
 private:
     uint64_t __microsecondsWaitedOnVSync;
     vc::Timer __fpsTimer;

@@ -130,8 +130,8 @@ set(IMGUI_VULKAN_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_vulkan.cpp PARENT_SCOP
 #elseif (UNIX)
 #    list(APPEND IMGUI_SOURCES ${IMGUI_DIR_}/backends/imgui_impl_glfw.cpp)
 #endif ()
-set(IMGUI_DX12_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_dx12.cpp)
-set(IMGUI_METAL_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_metal.mm)
+set(IMGUI_DX12_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_dx12.cpp PARENT_SCOPE)
+set(IMGUI_METAL_SOURCE ${IMGUI_DIR_}/backends/imgui_impl_metal.mm PARENT_SCOPE)
 
 # Add the ImGui target as a static library
 #add_library(imgui STATIC ${IMGUI_SOURCES})

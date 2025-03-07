@@ -5,94 +5,94 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/plugin/graphics/GraphicsPlugin.h>
+#include <venom/metal/plugin/graphics/GraphicsPlugin.h>
 
-#include <venom/vulkan/VulkanApplication.h>
-#include <venom/vulkan/plugin/graphics/Model.h>
-#include <venom/vulkan/plugin/graphics/Mesh.h>
-#include <venom/vulkan/plugin/graphics/Material.h>
-#include <venom/vulkan/plugin/graphics/Texture.h>
-#include <venom/vulkan/plugin/graphics/Camera.h>
-#include <venom/vulkan/plugin/graphics/GUI.h>
-#include <venom/vulkan/plugin/graphics/RenderingPipeline.h>
-#include <venom/vulkan/plugin/graphics/RenderTarget.h>
-#include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
-#include <venom/vulkan/plugin/graphics/Skybox.h>
-#include <venom/vulkan/plugin/graphics/Light.h>
+#include <venom/metal/MetalApplication.h>
+#include <venom/metal/plugin/graphics/Model.h>
+#include <venom/metal/plugin/graphics/Mesh.h>
+#include <venom/metal/plugin/graphics/Material.h>
+#include <venom/metal/plugin/graphics/Texture.h>
+#include <venom/metal/plugin/graphics/Camera.h>
+#include <venom/metal/plugin/graphics/GUI.h>
+#include <venom/metal/plugin/graphics/RenderingPipeline.h>
+#include <venom/metal/plugin/graphics/RenderTarget.h>
+#include <venom/metal/plugin/graphics/ShaderPipeline.h>
+#include <venom/metal/plugin/graphics/Skybox.h>
+#include <venom/metal/plugin/graphics/Light.h>
 
-#include <venom/vulkan/plugin/graphics/ShaderResourceTable.h>
+#include <venom/metal/plugin/graphics/ShaderResourceTable.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-vc::GraphicsApplication * VulkanGraphicsPlugin::CreateGraphicsApplication()
+vc::GraphicsApplication * MetalGraphicsPlugin::CreateGraphicsApplication(int argc, const char *argv[])
 {
-    return new VulkanApplication();
+    return new MetalApplication();
 }
 
-vc::ModelImpl * VulkanGraphicsPlugin::CreateModel()
+vc::ModelImpl * MetalGraphicsPlugin::CreateModel()
 {
-    return new VulkanModel();
+    return new MetalModel();
 }
 
-vc::MeshImpl * VulkanGraphicsPlugin::CreateMesh()
+vc::MeshImpl * MetalGraphicsPlugin::CreateMesh()
 {
-    return new VulkanMesh();
+    return new MetalMesh();
 }
 
-vc::TextureImpl * VulkanGraphicsPlugin::CreateTexture()
+vc::TextureImpl * MetalGraphicsPlugin::CreateTexture()
 {
-    return new VulkanTexture();
+    return new MetalTexture();
 }
 
-vc::MaterialImpl * VulkanGraphicsPlugin::CreateMaterial()
+vc::MaterialImpl * MetalGraphicsPlugin::CreateMaterial()
 {
-    return new VulkanMaterial();
+    return new MetalMaterial();
 }
 
-vc::CameraImpl * VulkanGraphicsPlugin::CreateCamera()
+vc::CameraImpl * MetalGraphicsPlugin::CreateCamera()
 {
-    return new VulkanCamera();
+    return new MetalCamera();
 }
 
-vc::ShaderPipelineImpl* VulkanGraphicsPlugin::CreateShaderPipeline()
+vc::ShaderPipelineImpl* MetalGraphicsPlugin::CreateShaderPipeline()
 {
-    return new VulkanShaderPipeline();
+    return new MetalShaderPipeline();
 }
 
-vc::RenderingPipelineImpl* VulkanGraphicsPlugin::CreateRenderingPipeline()
+vc::RenderingPipelineImpl* MetalGraphicsPlugin::CreateRenderingPipeline()
 {
-    return new VulkanRenderingPipeline();
+    return new MetalRenderingPipeline();
 }
 
-vc::SkyboxImpl* VulkanGraphicsPlugin::CreateSkybox()
+vc::SkyboxImpl* MetalGraphicsPlugin::CreateSkybox()
 {
-    return new VulkanSkybox();
+    return new MetalSkybox();
 }
 
-vc::RenderTargetImpl* VulkanGraphicsPlugin::CreateRenderTarget()
+vc::RenderTargetImpl* MetalGraphicsPlugin::CreateRenderTarget()
 {
-    return new VulkanRenderTarget();
+    return new MetalRenderTarget();
 }
 
-vc::LightImpl* VulkanGraphicsPlugin::CreateLight()
+vc::LightImpl* MetalGraphicsPlugin::CreateLight()
 {
-    return new VulkanLight();
+    return new MetalLight();
 }
 
-vc::ShaderResourceTable* VulkanGraphicsPlugin::CreateShaderResourceTable()
+vc::ShaderResourceTable* MetalGraphicsPlugin::CreateShaderResourceTable()
 {
-    return new VulkanShaderResourceTable();
+    return new MetalShaderResourceTable();
 }
 
-vc::GUI* VulkanGraphicsPlugin::CreateGUI()
+vc::GUI* MetalGraphicsPlugin::CreateGUI()
 {
-    return new VulkanGUI();
+    return new MetalGUI();
 }
 }
 }
 
 extern "C" EXPORT vc::GraphicsPlugin* createGraphicsPlugin() {
-    return new venom::vulkan::VulkanGraphicsPlugin();
+    return new venom::metal::MetalGraphicsPlugin();
 }

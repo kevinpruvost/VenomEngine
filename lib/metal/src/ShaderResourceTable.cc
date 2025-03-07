@@ -5,32 +5,31 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/plugin/graphics/ShaderResourceTable.h>
+#include <venom/metal/plugin/graphics/ShaderResourceTable.h>
 
-#include <venom/vulkan/VulkanApplication.h>
+#include <venom/metal/MetalApplication.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-VulkanShaderResourceTable::VulkanShaderResourceTable()
-{
-}
-
-VulkanShaderResourceTable::~VulkanShaderResourceTable()
+MetalShaderResourceTable::MetalShaderResourceTable()
 {
 }
 
-void VulkanShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const int binding, const void* data,
+MetalShaderResourceTable::~MetalShaderResourceTable()
+{
+}
+
+void MetalShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const int binding, const void* data,
     const size_t size, const size_t offset)
 {
-    VulkanApplication * app = vc::GraphicsApplication::Get()->DAs<VulkanApplication>();
+    MetalApplication * app = vc::GraphicsApplication::Get()->DAs<MetalApplication>();
     switch (index)
     {
         case SetsIndex::SetsIndex_Scene: {
             switch (binding) {
                 case 0: {
-                    app->__sceneSettingsBuffer.WriteToBuffer(data, size, offset);
                     break;
                 }
             }
@@ -40,7 +39,6 @@ void VulkanShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const 
             switch (binding) {
                 case 3: {
                     // Roughness for calculations of irradiance/radiance maps
-                    app->__radianceRoughness.WriteToBuffer(data, size, offset);
                     break;
                 }
             }
@@ -53,9 +51,9 @@ void VulkanShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const 
     }
 }
 
-void VulkanShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const int binding, vc::Texture * texture)
+void MetalShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const int binding, vc::Texture * texture)
 {
-    VulkanApplication * app = vc::GraphicsApplication::Get()->DAs<VulkanApplication>();
+    MetalApplication * app = vc::GraphicsApplication::Get()->DAs<MetalApplication>();
     const vc::TextureMemoryAccess & memoryAccess = texture->GetMemoryAccess();
     VkDescriptorType descType;
     switch (memoryAccess) {
@@ -72,7 +70,6 @@ void VulkanShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const 
             return;
         }
     }
-    DescriptorPool::GetPool()->GetDescriptorSets(index).GroupUpdateTexture(texture->GetConstImpl()->ConstAs<VulkanTexture>(), binding, descType, 1, 0);
 }
 }
 }

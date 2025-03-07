@@ -49,7 +49,7 @@ public:
 
     static GraphicsPlugin * Get();
 
-    virtual GraphicsApplication * CreateGraphicsApplication() = 0;
+    virtual GraphicsApplication * CreateGraphicsApplication(int argc, const char* argv[]) = 0;
 
     // Graphics objects
     virtual MaterialImpl * CreateMaterial() = 0;

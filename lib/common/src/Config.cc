@@ -12,6 +12,7 @@ namespace venom
 namespace common
 {
 Config::Config()
+    : __graphicsPluginType(GraphicsPlugin::GraphicsPluginType::Vulkan)
 {
 }
 
@@ -25,9 +26,24 @@ Config * Config::GetInstance()
     return &instance;
 }
 
-GraphicsPlugin::GraphicsPluginType Config::GetGraphicsPluginType() const
+GraphicsPlugin::GraphicsPluginType Config::GetGraphicsPluginType()
 {
-    return GraphicsPlugin::GraphicsPluginType::Vulkan;
+    return GetInstance()->__GetGraphicsPluginType();
+}
+
+void Config::SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type)
+{
+    GetInstance()->__SetGraphicsPluginType(type);
+}
+
+GraphicsPlugin::GraphicsPluginType Config::__GetGraphicsPluginType() const
+{
+    return __graphicsPluginType;
+}
+
+void Config::__SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type)
+{
+    __graphicsPluginType = type;
 }
 }
 }

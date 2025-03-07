@@ -22,8 +22,14 @@ private:
 public:
     ~Config();
     static Config * GetInstance();
-public:
-    GraphicsPlugin::GraphicsPluginType GetGraphicsPluginType() const;
+    static GraphicsPlugin::GraphicsPluginType GetGraphicsPluginType();
+    static void SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type);
+private:
+    GraphicsPlugin::GraphicsPluginType __GetGraphicsPluginType() const;
+    void __SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type);
+
+private:
+    GraphicsPlugin::GraphicsPluginType __graphicsPluginType;
 };
 }
 }

@@ -9,33 +9,25 @@
 
 #include <venom/common/plugin/graphics/Texture.h>
 
-#include <venom/vulkan/Buffer.h>
-#include <venom/vulkan/Image.h>
-#include <venom/vulkan/ImageView.h>
-#include <venom/vulkan/Sampler.h>
-
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
 
-class VulkanTextureResource : public vc::TextureResource
+class MetalTextureResource : public vc::TextureResource
 {
 public:
-    VulkanTextureResource();
-
-    Image image;
-    vc::Vector<ImageView> imageViews;
+    MetalTextureResource();
 };
 
-class VulkanTexture : public vc::TextureImpl
+class MetalTexture : public vc::TextureImpl
 {
 public:
-    VulkanTexture();
-    ~VulkanTexture();
+    MetalTexture();
+    ~MetalTexture();
 
-    static VulkanTexture * GetDummyTexture();
-    static void SetDummyTexture(VulkanTexture * texture);
+    static MetalTexture * GetDummyTexture();
+    static void SetDummyTexture(MetalTexture * texture);
 
     void _ResetResource() override;
 
@@ -47,14 +39,17 @@ public:
     vc::Error _CreateReadWriteTexture(int width, int height, vc::ShaderVertexFormat format, int mipLevels, int arrayLayers) override;
     vc::Error _CreateShadowMaps(int dimension) override;
     vc::Error _CreateShadowCubeMaps(int dimension) override;
+    vc::Error _SaveImageToFile(const char* path) override;
+    
+    bool HasTexture() const override { return _resource && true; }
 
     vc::Error _SetMemoryAccess(const vc::TextureMemoryAccess access) override;
 
-    class VulkanGUITexture : public vc::TextureImpl::GUITexture
+    class MetalGUITexture : public vc::TextureImpl::GUITexture
     {
     public:
-        VulkanGUITexture() = default;
-        ~VulkanGUITexture() override = default;
+        MetalGUITexture() = default;
+        ~MetalGUITexture() override = default;
 
         vc::Error _LoadTextureToGUI(vc::TextureImpl* impl, void** ptrToGuiTextureId) override;
         vc::Error _UnloadTextureFromGUI(void* guiTextureId) override;
@@ -64,14 +59,6 @@ public:
     int GetHeight() const override;
     int GetWidth() const override;
     void SetDimensions(int width, int height) override;
-
-    bool HasTexture() const override { return _resource && GetImage().GetVkImage() != VK_NULL_HANDLE; }
-
-    inline const Image & GetImage() const { return _resource->As<VulkanTextureResource>()->image; }
-    inline Image & GetImage() { return _resource->As<VulkanTextureResource>()->image; }
-    inline const ImageView & GetImageView(int index = 0) const { return _resource->As<VulkanTextureResource>()->imageViews[index]; }
-    inline ImageView & GetImageView(int index = 0) { return _resource->As<VulkanTextureResource>()->imageViews[index]; }
-    inline ImageView & CreateImageView() const { return _resource->As<VulkanTextureResource>()->imageViews.emplace_back(); }
 };
 
 }

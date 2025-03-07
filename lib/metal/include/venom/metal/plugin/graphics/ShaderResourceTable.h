@@ -10,13 +10,13 @@
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-class VulkanShaderResourceTable : public vc::ShaderResourceTable
+class MetalShaderResourceTable : public vc::ShaderResourceTable
 {
 public:
-    VulkanShaderResourceTable();
-    ~VulkanShaderResourceTable() override;
+    MetalShaderResourceTable();
+    ~MetalShaderResourceTable() override;
 
 private:
     void __UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0) override;

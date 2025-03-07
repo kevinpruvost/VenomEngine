@@ -73,7 +73,7 @@ VenomEngine* VenomEngine::GetInstance()
     return s_instance.get();
 }
 
-Error VenomEngine::RunEngine(int argc, char** argv)
+Error VenomEngine::RunEngine(int argc, const char* argv[])
 {
     vc::Error err = Error::Success;
 
@@ -94,7 +94,7 @@ Error VenomEngine::RunEngine(int argc, char** argv)
         vc::Log::Error("Failed to initialize context: %d", err);
         return vc::Error::InitializationFailed;
     }
-    vc::GraphicsApplication * graphicsApp = vc::GraphicsApplication::Create();
+    vc::GraphicsApplication * graphicsApp = vc::GraphicsApplication::Create(argc, argv);
 
     vc::GraphicsSettings::SetWindowResolution(s_instance->__context->GetWindowWidth(), s_instance->__context->GetWindowWidth());
 

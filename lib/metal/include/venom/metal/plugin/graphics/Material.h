@@ -8,25 +8,17 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/Material.h>
-#include <venom/vulkan/DescriptorSet.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
 
-class VulkanMaterial : public vc::MaterialImpl
+class MetalMaterial : public vc::MaterialImpl
 {
 public:
-    VulkanMaterial();
-    ~VulkanMaterial();
-
-    const DescriptorSet & GetMaterialDescriptorSet();
-    const DescriptorSet & GetTextureDescriptorSet();
-
-private:
-    DescriptorSetGroup * __materialDescriptorSet, * __textureDescriptorSet;
-    UniformBuffer __uniformBuffer;
+    MetalMaterial();
+    ~MetalMaterial();
 };
 
 }

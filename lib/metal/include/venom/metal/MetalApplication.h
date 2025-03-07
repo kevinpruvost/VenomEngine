@@ -7,6 +7,11 @@
 ///
 #pragma once
 
+#ifdef __OBJC__
+#import <Metal/Metal.h>
+#import <QuartzCore/QuartzCore.h>
+#endif
+
 #include <venom/metal/Debug.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
@@ -21,13 +26,14 @@
 namespace venom
 {
 /// @brief Encapsulation of Metal for the front end of VenomEngine.
-namespace Metal
+namespace metal
 {
 class MetalShaderResourceTable;
 class MetalLight;
 
 class MetalApplication
     : public vc::GraphicsApplication
+    , public DebugApplication
 {
 public:
     MetalApplication();
@@ -55,10 +61,14 @@ private:
 
     bool __shouldClose;
 
+#ifdef __OBJC__
+public:
+    id <MTLDevice> device;
 private:
-
+#endif
     friend class MetalShaderResourceTable;
     friend class MetalLight;
 };
+
 }
 }

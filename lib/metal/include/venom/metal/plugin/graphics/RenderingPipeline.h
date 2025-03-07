@@ -10,13 +10,13 @@
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-class VulkanRenderingPipeline : public vc::RenderingPipelineImpl
+class MetalRenderingPipeline : public vc::RenderingPipelineImpl
 {
 public:
-    VulkanRenderingPipeline();
-    ~VulkanRenderingPipeline() override = default;
+    MetalRenderingPipeline();
+    ~MetalRenderingPipeline() override = default;
 };
 }
 }

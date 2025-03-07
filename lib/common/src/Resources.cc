@@ -43,7 +43,7 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
 #endif
 
 static std::string s_basePath;
-void Resources::InitializeFilesystem(int argc, char** argv)
+void Resources::InitializeFilesystem(int argc, const char* argv[])
 {
     (void)argc;
     (void)argv;

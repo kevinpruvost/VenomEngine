@@ -5,17 +5,17 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/plugin/graphics/Camera.h>
+#include <venom/metal/plugin/graphics/Camera.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-VulkanCamera::VulkanCamera()
+MetalCamera::MetalCamera()
 {
 }
 
-VulkanCamera::~VulkanCamera()
+MetalCamera::~MetalCamera()
 {
 }
 }

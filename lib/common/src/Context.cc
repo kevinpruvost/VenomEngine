@@ -19,6 +19,7 @@ Context::Context()
     , __keyboardModifierState(0x0000)
     , __mousePos{0.0, 0.0}
     , __mouseLastPos{0.0, 0.0}
+    , __shouldClose(false)
 {
     venom_assert(s_context == nullptr, "Context::Context() : Context already exists");
     s_context = this;
@@ -130,10 +131,17 @@ void Context::PollEvents()
     }
 
     glfwPollEvents();
+    
+    __shouldClose = glfwWindowShouldClose(__window);
 
     // Mouse movement
     memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
     glfwGetCursorPos(__window, &__mousePos[0], &__mousePos[1]);
+}
+
+bool Context::ShouldClose()
+{
+    return __shouldClose;
 }
 
 }

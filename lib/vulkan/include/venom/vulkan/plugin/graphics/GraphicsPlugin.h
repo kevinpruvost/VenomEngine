@@ -16,7 +16,7 @@ namespace vulkan
 class VulkanGraphicsPlugin : public vc::GraphicsPlugin
 {
 public:
-    vc::GraphicsApplication * CreateGraphicsApplication() override;
+    vc::GraphicsApplication * CreateGraphicsApplication(int argc, const char* argv[]) override;
 
     vc::ModelImpl * CreateModel() override;
     vc::MeshImpl * CreateMesh() override;

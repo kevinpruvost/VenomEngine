@@ -35,9 +35,9 @@ GraphicsApplication* GraphicsApplication::Get()
     return s_graphicsApplication;
 }
 
-GraphicsApplication* GraphicsApplication::Create()
+GraphicsApplication* GraphicsApplication::Create(int argc, const char* argv[])
 {
-    GraphicsApplication * const app = GraphicsPlugin::Get()->CreateGraphicsApplication();
+    GraphicsApplication * const app = GraphicsPlugin::Get()->CreateGraphicsApplication(argc, argv);
     if (app->_shaderResourceTable == nullptr)
     {
         vc::Log::Print("Shader Resource Table is not set in the Graphics Application.");

@@ -22,7 +22,7 @@ namespace common
 class Resources
 {
 public:
-    VENOM_COMMON_API static void InitializeFilesystem(int argc, char ** argv);
+    VENOM_COMMON_API static void InitializeFilesystem(int argc, const char* argv[]);
     VENOM_COMMON_API static void FreeFilesystem();
     VENOM_COMMON_API static std::string GetResourcePath(const std::string & resourcePath);
     VENOM_COMMON_API static std::string GetTexturesResourcePath(const std::string & resourcePath);

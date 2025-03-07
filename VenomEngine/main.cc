@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include "MainScene.h"
+#include "venom/common/Config.h"
 
 #if defined(_WIN32) && defined(_ANALYSIS)
 #define _DEBUG
@@ -26,7 +27,7 @@ int ReportHook(int reportType, char *message, int * returnValue)
 }
 #endif
 
-int main(int argc, char** argv)
+int main(int argc, const char* argv[])
 {
     int errorCode = EXIT_SUCCESS;
 
@@ -42,6 +43,7 @@ int main(int argc, char** argv)
 #endif
 
     vc::VenomEngine::SetScene(Scene);
+    vc::Config::SetGraphicsPluginType(vc::GraphicsPlugin::GraphicsPluginType::Metal);
     vc::GUI::SetGUIDrawCallback(SceneGUI);
     vc::VenomEngine::AddInputCallback(SceneInput);
 

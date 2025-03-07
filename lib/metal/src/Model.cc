@@ -5,28 +5,28 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/plugin/graphics/Model.h>
+#include <venom/metal/plugin/graphics/Model.h>
 
 namespace venom
 {
-namespace vulkan
+namespace metal
 {
-VulkanModel::VulkanModel()
+MetalModel::MetalModel()
     : vc::ModelImpl()
 {
     _ResetResource();
 }
 
-VulkanModel::~VulkanModel()
+MetalModel::~MetalModel()
 {
 }
 
-void VulkanModel::_ResetResource()
+void MetalModel::_ResetResource()
 {
-    _resource.reset(new VulkanModelResource());
+    _resource.reset(new MetalModelResource());
 }
 
-void VulkanModel::Draw()
+void MetalModel::Draw()
 {
 }
 }
