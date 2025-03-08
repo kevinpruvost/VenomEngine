@@ -14,12 +14,77 @@ namespace venom::common
 {
 Context * Context::s_context = nullptr;
 
+ScreenVideoMode::ScreenVideoMode(int width, int height)
+    : __width(width)
+    , __height(height)
+{
+}
+
+ScreenVideoMode::~ScreenVideoMode()
+{
+}
+
+void ScreenVideoMode::SortRefreshRates()
+{
+    std::sort(__refreshRates.begin(), __refreshRates.end(), std::greater<int>());
+}
+
+bool ScreenVideoMode::operator<(const ScreenVideoMode& mode) const
+{
+    return __width < mode.__width || __height < mode.__height;
+}
+
+bool ScreenVideoMode::operator>(const ScreenVideoMode& mode) const
+{
+    return __width > mode.__width || __height > mode.__height;
+}
+
+bool ScreenVideoMode::operator==(const ScreenVideoMode& s) const
+{
+    return __width == s.__width && __height == s.__height;
+}
+
+void ScreenVideoMode::__AddRefreshRate(int rate)
+{
+    __refreshRates.emplace_back(rate);
+}
+
+Screen::Screen()
+{
+}
+
+Screen::~Screen()
+{
+}
+
+void Screen::AddVideoMode(int width, int height, int refreshRate)
+{
+    ScreenVideoMode mode(width, height);
+    auto ite = std::find(__modes.begin(), __modes.end(), mode);
+    if (ite == __modes.end()) {
+        __modes.emplace_back(mode);
+        ite = __modes.end() - 1;
+    }
+    ite->__AddRefreshRate(refreshRate);
+}
+
+void Screen::SortVideoModes()
+{
+    std::sort(__modes.begin(), __modes.end(), std::greater<ScreenVideoMode>());
+    for (auto & mode : __modes) {
+        mode.SortRefreshRates();
+    }
+}
+
 Context::Context()
-    : __window(nullptr)
+    : PluginObject(vc::PluginType::Context)
     , __keyboardModifierState(0x0000)
     , __mousePos{0.0, 0.0}
     , __mouseLastPos{0.0, 0.0}
     , __shouldClose(false)
+    , _currentScreenIndex(0)
+    , _currentVideoModeIndex(0)
+    , _fullscreen(false)
 {
     venom_assert(s_context == nullptr, "Context::Context() : Context already exists");
     s_context = this;
@@ -29,103 +94,55 @@ Context::Context()
 
 Context::~Context()
 {
-    if (__window)
-        glfwDestroyWindow(__window);
-    glfwTerminate();
     s_context = nullptr;
 }
 
-vc::Error Context::InitContext()
+vc::Error Context::Init()
 {
-    if (!glfwInit())
-        return vc::Error::Failure;
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-
-    // Get window configurations
-    GLFWmonitor * monitor = glfwGetPrimaryMonitor();
-    if (!monitor) {
-        int count;
-        GLFWmonitor ** monitors = glfwGetMonitors(&count);
-        if (count == 0) {
-            vc::Log::Error("No monitors detected by GLFW.");
-            return vc::Error::Failure;
-        }
-        monitor = monitors[0];
-    }
-    int count;
-    const GLFWvidmode * modes = glfwGetVideoModes(monitor, &count);
-    const GLFWvidmode * activeMode = const_cast<GLFWvidmode *>(glfwGetVideoMode(monitor));
-
-    // Sort video modes by removing ones that don't have the same refresh rate as the current active video mode
-    for (int i = 0; i < count; ++i)
-    {
-        if (modes[i].refreshRate == activeMode->refreshRate) {
-            __modes.push_back(modes[i]);
-        }
-    }
-
-#ifdef _DEBUG
-    for (int i = 0; i < __modes.size(); i++) {
-        Log::LogToFile("Mode: %d: %dx%d | Refresh Rate: %d", i, __modes[i].width, __modes[i].height, __modes[i].refreshRate);
-    }
-#endif
-    __width = std::min(activeMode->width * 3 / 4, 1000);
-    __height = std::min(activeMode->height * 3 / 4, 800);
-    // Just take the last video mode by default and take 3/4 of the window size
-    __window = glfwCreateWindow(
-        __width, __height,
-        "VenomEngine",
-        nullptr,
-        nullptr);
-
-    // Input
-    glfwSetKeyCallback(__window, [](GLFWwindow * window, int key, int scancode, int action, int mods)
-    {
-        Context * context = s_context;
-
-        // Keys
-        if (action == GLFW_PRESS) {
-            context->__keyboardState[context->__ConvertGLFWEnumToKeyboardInput(key)] = InputState::Pressed;
-        } else if (action == GLFW_RELEASE) {
-            context->__keyboardState[context->__ConvertGLFWEnumToKeyboardInput(key)] = InputState::Released;
-            context->__keyReleasedStack.push(context->__ConvertGLFWEnumToKeyboardInput(key));
-        } else if (action == GLFW_REPEAT) {
-            context->__keyboardState[context->__ConvertGLFWEnumToKeyboardInput(key)] = InputState::Repeat;
-        }
-
-        // Mods
-        context->__keyboardModifierState = 0x0000;
-        if (mods & GLFW_MOD_SHIFT) context->__keyboardModifierState |= KeyboardModifier::KeyboardModShift;
-        if (mods & GLFW_MOD_CONTROL) context->__keyboardModifierState |= KeyboardModifier::KeyboardModControl;
-        if (mods & GLFW_MOD_ALT) context->__keyboardModifierState |= KeyboardModifier::KeyboardModAlt;
-        if (mods & GLFW_MOD_SUPER) context->__keyboardModifierState |= KeyboardModifier::KeyboardModSuper;
-    });
-
-    glfwSetMouseButtonCallback(__window, [](GLFWwindow * window, int button, int action, int mods)
-    {
-        Context * context = s_context;
-        if (action == GLFW_PRESS) {
-            context->__mouseState[button] = InputState::Pressed;
-        } else if (action == GLFW_RELEASE) {
-            context->__mouseState[button] = InputState::Released;
-            context->__mouseReleasedStack.push(static_cast<MouseButton>(button));
-        }
-    });
-
-    glfwSetWindowSizeCallback(__window, [](GLFWwindow * window, int width, int height)
-    {
-        Context * context = s_context;
-        context->__width = width;
-        context->__height = height;
-        vc::GraphicsSettings::SetWindowResolution(width, height);
-    });
+    vc::Error err = _InitContext();
 
     // Set Initial pos
-    glfwGetCursorPos(__window, &__mousePos[0], &__mousePos[1]);
+    _GetCursorPos(__mousePos);
     memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
 
-    return Error::Success;
+    return err;
+}
+
+vc::Error Context::ChangeRefreshRate(int rate)
+{
+    // Check if valid
+    if (rate < 0) return vc::Error::InvalidArgument;
+    for (auto refreshRate : _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetRefreshRates())
+    {
+        if (rate == refreshRate)
+        {
+            _currentRefreshRate = rate;
+            _width = _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetWidth();
+            _height = _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetHeight();
+            return _UpdateRefreshRate();
+        }
+    }
+    return vc::Error::InvalidArgument;
+}
+
+vc::Error Context::ChangeVideoMode(int index)
+{
+    // Check if valid
+    if (index < 0 || index >= _screens[_currentScreenIndex].GetVideoModeCount()) return vc::Error::InvalidArgument;
+    _currentVideoModeIndex = index;
+    _width = _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetWidth();
+    _height = _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetHeight();
+    return _UpdateVideoMode();
+}
+
+vc::Error Context::ChangeScreen(int index)
+{
+    // Check if valid
+    if (index < 0 || index >= _screens.size()) return vc::Error::InvalidArgument;
+    _currentScreenIndex = index;
+    _width = _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetWidth();
+    _height = _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex).GetHeight();
+    return _UpdateScreen();
 }
 
 void Context::PollEvents()
@@ -140,18 +157,13 @@ void Context::PollEvents()
         __mouseReleasedStack.pop();
     }
 
-    glfwPollEvents();
-    
-    __shouldClose = glfwWindowShouldClose(__window);
+    _PollEvents();
+
+    __shouldClose = _ShouldClose();
 
     // Mouse movement
     memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
-    glfwGetCursorPos(__window, &__mousePos[0], &__mousePos[1]);
-}
-
-bool Context::ShouldClose()
-{
-    return __shouldClose;
+    _GetCursorPos(__mousePos);
 }
 
 }

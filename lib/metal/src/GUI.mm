@@ -118,7 +118,7 @@ vc::Error MetalGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
-    ImGui_ImplGlfw_InitForOther(vc::Context::Get()->GetWindow(), true);
+    ImGui_ImplGlfw_InitForOther((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
     if (!ImGui_ImplMetal_Init(GetMetalDevice()))
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
@@ -127,7 +127,7 @@ vc::Error MetalGUI::_Initialize()
     io.Fonts->AddFontDefault();
     
     // TODO: Abstract if context is managed by glfw or not
-    NSWindow *nswin = glfwGetCocoaWindow(vc::Context::Get()->GetWindow());
+    NSWindow *nswin = glfwGetCocoaWindow((GLFWwindow*)vc::Context::Get()->GetWindow());
     nswin.contentView.layer = GetMetalLayer();
     nswin.contentView.wantsLayer = YES;
 

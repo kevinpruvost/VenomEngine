@@ -8,16 +8,30 @@
 #pragma once
 
 #include <memory>
+#include <venom/common/plugin/PluginObject.h>
 
 namespace venom
 {
 namespace common
 {
-// Weak pointer alias
-template <typename T> using WPtr = std::weak_ptr<T>;
-// Shared pointer alias
-template <typename T> using SPtr = std::shared_ptr<T>;
-// Unique pointer alias
-template <typename T> using UPtr = std::unique_ptr<T>;
+class PluginObject;
+class PluginObjectImpl;
+// Helper template to block types inheriting from PluginObject and PluginObjectImpl
+// This is to avoid delete issues when using shared/unique pointers
+template <typename T>
+concept NotPluginObject = !std::is_convertible_v<T *, PluginObject *> && !std::is_convertible_v<T *, PluginObject *>;
+
+// Modified Weak pointer alias
+template <NotPluginObject T>
+using WPtr = std::weak_ptr<T>;
+
+// Modified Shared pointer alias
+template <NotPluginObject T>
+using SPtr = std::shared_ptr<T>;
+
+// Modified Unique pointer alias
+template <NotPluginObject T>
+using UPtr = std::unique_ptr<T>;
+
 }
 }

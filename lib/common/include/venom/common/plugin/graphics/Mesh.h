@@ -48,7 +48,7 @@ protected:
     std::vector<uint32_t> _indices;
     std::vector<vcm::VertexTangent> _tangents;
     std::vector<vcm::VertexBitangent> _bitangents;
-    PluginObjectContainer<Material> _material;
+    PluginObjectOptional<Material> _material;
 };
 
 /// @brief Contains all the mesh's data and is the

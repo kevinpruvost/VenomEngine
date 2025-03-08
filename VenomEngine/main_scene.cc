@@ -9,7 +9,7 @@
 
 #include "MainScene.h"
 
-void SceneC(const vc::ScenePhase phase)
+void Scene(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, camera;
     int nbTiles = 1;
@@ -17,15 +17,17 @@ void SceneC(const vc::ScenePhase phase)
         case vc::ScenePhase::Initialization: {
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
-        //            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
+                    .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
             ;
 
 
             camera = vc::CreateEntity("Camera")
                 .emplace<vc::Camera>();
 
+            vc::GraphicsSettings::StartGfxSettingsChange();
             vc::GraphicsSettings::SetHDR(true);
             vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples2);
+            vc::GraphicsSettings::EndGfxSettingsChange();
             vc::SceneSettings::SetTargetLuminance(10.0f);
             break;
         }

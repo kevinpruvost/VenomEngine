@@ -116,7 +116,7 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
         // Gets the window size in terms of total pixels, not to confuse with screen coordinates
         // Otherwise we would be using glfwGetWindowSize
         int w, h;
-        glfwGetFramebufferSize(const_cast<GLFWwindow*>(vc::Context::Get()->GetWindow()), &w, &h);
+        glfwGetFramebufferSize((GLFWwindow*)(vc::Context::Get()->GetWindow()), &w, &h);
 
         extent.width = std::clamp<uint32_t>(w, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
         extent.height = std::clamp<uint32_t>(h, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);

@@ -113,7 +113,7 @@ vc::Error VulkanGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
-    ImGui_ImplGlfw_InitForVulkan(vc::Context::Get()->GetWindow(), true);
+    ImGui_ImplGlfw_InitForVulkan((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
     initInfo.Instance = Instance::GetVkInstance();
     initInfo.PhysicalDevice = PhysicalDevice::GetUsedVkPhysicalDevice();
     initInfo.Device = LogicalDevice::GetInstance().GetVkDevice();

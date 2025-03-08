@@ -10,8 +10,8 @@
 #include <venom/common/Error.h>
 #include <venom/common/Containers.h>
 #include <venom/common/math/Matrix.h>
+#include <venom/common/plugin/PluginObject.h>
 
-#include <GLFW/glfw3.h>
 #include <vector>
 
 namespace venom
@@ -68,6 +68,7 @@ enum KeyboardInput {
     KeyboardTotal
 };
 
+typedef int8_t KeyboardModifierState;
 enum KeyboardModifier {
     KeyboardModShift = 0x0001,
     KeyboardModControl = 0x0002,
@@ -85,7 +86,48 @@ enum MouseButton {
     MouseTotal
 };
 
-class VENOM_COMMON_API Context
+class Screen;
+class VENOM_COMMON_API ScreenVideoMode
+{
+public:
+    ScreenVideoMode(int width, int height);
+    ~ScreenVideoMode();
+
+    inline int GetWidth() const { return __width; }
+    inline int GetHeight() const { return __height; }
+    const vc::Vector<int> & GetRefreshRates() const { return __refreshRates; }
+    inline int GetRefreshRate(int index) const { return __refreshRates[index]; }
+    inline int GetRefreshRateCount() const { return __refreshRates.size(); }
+    void SortRefreshRates();
+    bool operator<(const ScreenVideoMode & mode) const;
+    bool operator>(const ScreenVideoMode & mode) const;
+    bool operator==(const ScreenVideoMode&) const;
+private:
+    int __width;
+    int __height;
+    void __AddRefreshRate(int rate);
+    vc::Vector<int> __refreshRates;
+
+    friend class Screen;
+};
+
+
+class VENOM_COMMON_API Screen
+{
+public:
+    Screen();
+    ~Screen();
+
+    void AddVideoMode(int width, int height, int refreshRate);
+    inline int GetVideoModeCount() const { return __modes.size(); }
+    const ScreenVideoMode & GetVideoMode(int index) const { return __modes[index]; }
+    const vc::Vector<ScreenVideoMode> & GetVideoModes() const { return __modes; }
+    void SortVideoModes();
+private:
+    vc::Vector<ScreenVideoMode> __modes;
+};
+
+class VENOM_COMMON_API Context : public PluginObjectImpl, public PluginObject
 {
 public:
     Context();
@@ -95,54 +137,91 @@ public:
     {
         GLFW = 0,
 #ifdef __APPLE__
-        UIKit,
+        Apple, // UIKit / Cocoa
 #endif
         Count
     };
 
     static inline Context * Get() { return s_context; }
+    vc::Error Init();
 
-    vc::Error InitContext();
-    bool ShouldClose();
+    inline bool ShouldClose() const { return __shouldClose; }
     void PollEvents();
-    inline GLFWwindow * GetWindow() { return __window; }
-    inline const GLFWwindow * GetWindow() const { return __window; }
-    inline void SetWindowTitle(const char * title) { glfwSetWindowTitle(__window, title); }
     inline InputState GetKeyState(KeyboardInput key) const { return __keyboardState[key]; }
     inline bool IsKeyPressed(KeyboardInput key) const { return (__keyboardState[key] & (InputState::Pressed | InputState::Repeat)) > 0; }
     inline bool IsKeyReleased(KeyboardInput key) const { return __keyboardState[key] == InputState::Released; }
     inline bool IsKeyRepeat(KeyboardInput key) const { return __keyboardState[key] == InputState::Repeat; }
-    static inline int GetWindowWidth() { return s_context->__width; }
-    static inline int GetWindowHeight() { return s_context->__height; }
-    
+    static inline int GetWindowWidth() { return s_context->_width; }
+    static inline int GetWindowHeight() { return s_context->_height; }
+
     /**
      * @brief Checks if a specified keyboard modifier key is currently pressed.
      * @param modifier A bitmask of one or more @ref KeyboardModifier values.
      * @return true if the specified modifier(s) is pressed; otherwise, false.
      */
     inline bool IsKeyModifierPressed(int modifier) const { return (__keyboardModifierState & modifier) != 0; }
-
     inline vcm::Vec2 GetMousePosition() const { return vcm::Vec2(static_cast<float>(__mousePos[0]), static_cast<float>(__mousePos[1])); }
     inline vcm::Vec2 GetMouseMove() const { return vcm::Vec2(static_cast<float>(__mousePos[0] - __mouseLastPos[0]), static_cast<float>(__mousePos[1] - __mouseLastPos[1])); }
+    const vc::Vector<Screen> & GetScreens() const { return _screens; }
+    const Screen & GetCurrentScreen() const { return _screens[_currentScreenIndex]; }
+    const ScreenVideoMode & GetCurrentVideoMode() const { return _screens[_currentScreenIndex].GetVideoMode(_currentVideoModeIndex); }
+    int GetCurrentRefreshRate() const { return _currentRefreshRate; }
+    vc::Error ChangeRefreshRate(int rate);
+    vc::Error ChangeVideoMode(int index);
+    vc::Error ChangeScreen(int index);
+
+    //
+    // Context Abstraction
+    //
+public:
+    inline void SetWindowTitle(const char * title) { _SetWindowTitle(title); }
+    inline void * GetWindow() { return _GetWindow(); }
+    inline vc::Error SetFullscreen(bool fullscreen) { _fullscreen = fullscreen; return _SetFullscreen(); }
+protected:
+    virtual void _SetWindowTitle(const char * title) = 0;
+    virtual void * _GetWindow() = 0;
+    virtual vc::Error _InitContext() = 0;
+    virtual vc::Error _UpdateVideoMode() = 0;
+    virtual vc::Error _UpdateRefreshRate() = 0;
+    virtual vc::Error _UpdateScreen() = 0;
+    virtual vc::Error _SetFullscreen() = 0;
+
+    virtual bool _ShouldClose() = 0;
+    virtual void _GetCursorPos(double * pos) = 0;
+    virtual void _PollEvents() = 0;
+protected:
+    inline void _SetKeyboardState(KeyboardInput key, InputState state) { __keyboardState[key] = state; }
+    inline void _SetMouseState(MouseButton button, InputState state) { __mouseState[button] = state; }
+    inline void _AddKeyReleasedEvent(KeyboardInput key) { __keyReleasedStack.push(key); }
+    inline void _AddMouseReleasedEvent(MouseButton button) { __mouseReleasedStack.push(button); }
+    inline void _SetKeyboardModifierState(bool shift, bool control, bool alt, bool super) {
+        __keyboardModifierState = 0x0000;
+        if (shift) __keyboardModifierState |= KeyboardModifier::KeyboardModShift;
+        if (control) __keyboardModifierState |= KeyboardModifier::KeyboardModControl;
+        if (alt) __keyboardModifierState |= KeyboardModifier::KeyboardModAlt;
+        if (super) __keyboardModifierState |= KeyboardModifier::KeyboardModSuper;
+    }
+protected:
+    int _currentScreenIndex;
+    int _currentVideoModeIndex;
+    int _currentRefreshRate;
+    int _width, _height;
+    bool _fullscreen;
+    vc::Vector<Screen> _screens;
 
 private:
     int __ConvertKeyboardInputToGLFWEnum(KeyboardInput key) const;
     KeyboardInput __ConvertGLFWEnumToKeyboardInput(int key) const;
-    inline int __GetWindowWidth() const { return __width; }
-    inline int __GetWindowHeight() const { return __height; }
 
 private:
-    GLFWwindow * __window;
-    vc::Vector<GLFWvidmode> __modes;
     vc::Array<InputState, KeyboardInput::KeyboardTotal> __keyboardState;
     vc::Array<InputState, MouseButton::MouseTotal> __mouseState;
-    int8_t __keyboardModifierState;
+    KeyboardModifierState __keyboardModifierState;
     vc::Stack<KeyboardInput> __keyReleasedStack;
     vc::Stack<MouseButton> __mouseReleasedStack;
 
     double __mousePos[2];
     double __mouseLastPos[2];
-    int __width, __height;
     bool __shouldClose;
 
 private:

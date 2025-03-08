@@ -28,6 +28,8 @@
 
 #include <venom/common/plugin/graphics/GUI.h>
 
+#include "venom/common/plugin/context/ContextPlugin.h"
+
 
 namespace venom
 {
@@ -78,8 +80,8 @@ Error VenomEngine::CheckCompatibility()
     vc::Error err = vc::Error::Success;
 #ifdef __APPLE__
     if (vc::Config::GetGraphicsPluginType() == vc::GraphicsPlugin::GraphicsPluginType::Vulkan
-     && vc::Config::GetContextType() == vc::Context::ContextType::UIKit) {
-        Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with UIKit as a context currently. Please pick GLFW instead.");
+     && vc::Config::GetContextType() == vc::Context::ContextType::Apple) {
+        Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with Apple Context Management as a context currently. Please pick GLFW instead.");
         return Error::Failure;
     }
 #endif
@@ -106,8 +108,8 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
     s_instance.reset(new VenomEngine());
 
     // Init Context
-    s_instance->__context.reset(new Context());
-    if (err = s_instance->__context->InitContext(); err != vc::Error::Success)
+    s_instance->__context = vc::ContextPlugin::Get()->CreateContext();
+    if (err = s_instance->__context->Init(); err != vc::Error::Success)
     {
         vc::Log::Error("Failed to initialize context: %d", err);
         return vc::Error::InitializationFailed;

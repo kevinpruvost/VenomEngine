@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 
 # Project name and version
-project(VenomGLFW VERSION 1.0)
+project(VenomContextGLFW VERSION 1.0)
 
 # Define the static library target
 file(GLOB_RECURSE venom_glfw_srcs
@@ -34,7 +34,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-    VENOM_GLFW_EXPORTS
+    VENOM_CONTEXT_EXPORTS
     CMAKE_PROJECT_DIR="${CMAKE_SOURCE_DIR}"
 )
 

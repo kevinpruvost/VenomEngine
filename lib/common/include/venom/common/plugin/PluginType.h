@@ -14,6 +14,7 @@ namespace common
 enum class PluginType
 {
     Graphics = 0,
+    Context = 1,
     TotalCount
 };
 }

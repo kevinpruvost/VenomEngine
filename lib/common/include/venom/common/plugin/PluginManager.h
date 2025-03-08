@@ -20,6 +20,7 @@ namespace common
 
 // Plugins list
 class GraphicsPlugin;
+class ContextPlugin;
 
 class VenomEngine;
 class VENOM_COMMON_API PluginManager
@@ -29,6 +30,7 @@ public:
     ~PluginManager();
 
     GraphicsPlugin * GetGraphicsPlugin();
+    ContextPlugin * GetContextPlugin();
 
     void AddPluginObject(const PluginType type, IPluginObject * object);
     void RemovePluginObject(const PluginType type, IPluginObject * object);
@@ -39,10 +41,12 @@ private:
     Error LoadAllPlugins();
 
     Error LoadGraphicsPlugin();
+    Error LoadContextPlugin();
 
     void CleanPluginsObjets();
 
-    std::unique_ptr<GraphicsPlugin> __graphicsPlugin;
+    vc::UPtr<GraphicsPlugin> __graphicsPlugin;
+    vc::UPtr<ContextPlugin> __contextPlugin;
 };
 
 }

@@ -7,8 +7,8 @@
 ///
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 
-#include "venom/common/Log.h"
-#include "venom/common/VenomEngine.h"
+#include <venom/common/Log.h>
+#include <venom/common/VenomEngine.h>
 
 namespace venom
 {

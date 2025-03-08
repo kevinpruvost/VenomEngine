@@ -100,7 +100,7 @@ public:
     UPtr<PluginManager> pluginManager;
 
 private:
-    UPtr<Context> __context;
+    Context * __context;
     UPtr<DLL_Cache> __dllCache;
     UPtr<ECS> __ecs;
     UPtr<VenomSettings> __settings;

@@ -59,7 +59,7 @@ vc::Error Surface::CreateSurface(vc::Context* context)
         return vc::Error::InitializationFailed;
     }
 #elif defined(__APPLE__)
-    if (auto res = glfwCreateWindowSurface(Instance::GetVkInstance(), context->GetWindow(), Allocator::GetVKAllocationCallbacks(), &__surface); res != VK_SUCCESS) {
+    if (auto res = glfwCreateWindowSurface(Instance::GetVkInstance(), (GLFWwindow*)context->GetWindow(), Allocator::GetVKAllocationCallbacks(), &__surface); res != VK_SUCCESS) {
         vc::Log::Error("Failed to create MacOS surface: %x", res);
         return vc::Error::InitializationFailed;
     }

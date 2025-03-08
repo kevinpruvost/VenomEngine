@@ -1,39 +1,39 @@
 cmake_minimum_required(VERSION 3.25)
 
 # Project name and version
-project(VenomUIKit VERSION 1.0)
+project(VenomContextApple VERSION 1.0)
 
 # Define the static library target
-file(GLOB_RECURSE venom_uikit_srcs
+file(GLOB_RECURSE venom_apple_srcs
     "src/*.cc")
 if (APPLE)
     # Add Objective-C++ source files
-    file(GLOB_RECURSE venom_uikit_srcs_apple
+    file(GLOB_RECURSE venom_apple_srcs_apple
         "src/*.mm"
         "src/*.m"
     )
 endif()
-file(GLOB_RECURSE venom_uikit_hdrs 
+file(GLOB_RECURSE venom_apple_hdrs 
     "include/venom/context/glfw/*.h"
     "include/venom/context/glfw/**/*.h"
 )
 
 add_library(${PROJECT_NAME} SHARED
-        ${venom_uikit_srcs} ${venom_uikit_hdrs}
+        ${venom_apple_srcs} ${venom_apple_hdrs}
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
-set(venom_uikit_libraries
+set(venom_apple_libraries
     VenomCommon
     IconFontCppHeaders
 )
 
 target_link_libraries(${PROJECT_NAME}
-    ${venom_uikit_libraries}
+    ${venom_apple_libraries}
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-    VENOM_GLFW_EXPORTS
+    VENOM_CONTEXT_EXPORTS
     CMAKE_PROJECT_DIR="${CMAKE_SOURCE_DIR}"
 )
 
@@ -49,9 +49,9 @@ if (APPLE)
     set(PROJECT_NAME_PACKAGE ${PROJECT_NAME}_Package)
 
     add_library(${PROJECT_NAME_PACKAGE} SHARED
-        ${venom_uikit_srcs}
-        ${venom_uikit_srcs_apple}
-        ${venom_uikit_hdrs}
+        ${venom_apple_srcs}
+        ${venom_apple_srcs_apple}
+        ${venom_apple_hdrs}
     )
 
     set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
@@ -59,7 +59,7 @@ if (APPLE)
     )
 
     target_link_libraries(${PROJECT_NAME_PACKAGE}
-        ${venom_uikit_libraries}
+        ${venom_apple_libraries}
         ${COREFOUNDATION_FRAMEWORK}
         ${CORESERVICES_FRAMEWORK}
         ${FOUNDATION_FRAMEWORK}

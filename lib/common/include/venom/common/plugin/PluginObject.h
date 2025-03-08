@@ -107,10 +107,10 @@ protected:
  */
 
 template<class T, typename = std::enable_if_t<std::is_base_of_v<PluginObjectImplWrapper, T>>>
-class VENOM_COMMON_API PluginObjectContainer : public std::optional<T>
+class VENOM_COMMON_API PluginObjectOptional : public std::optional<T>
 {
 public:
-    PluginObjectContainer() = default;
+    PluginObjectOptional() = default;
 };
 
 }

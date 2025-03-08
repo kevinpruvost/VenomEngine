@@ -23,3 +23,9 @@
 #else
 #define VENOM_COMMON_API IMPORT
 #endif
+
+#ifdef VENOM_CONTEXT_EXPORTS
+#define VENOM_CONTEXT_API EXPORT
+#else
+#define VENOM_CONTEXT_API IMPORT
+#endif

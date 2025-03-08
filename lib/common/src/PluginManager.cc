@@ -8,6 +8,7 @@
 #include <venom/common/plugin/PluginManager.h>
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
+#include <venom/common/plugin/context/ContextPlugin.h>
 #include <venom/common/VenomEngine.h>
 #include <venom/common/Log.h>
 #include <venom/common/Config.h>
@@ -25,6 +26,7 @@ PluginManager::PluginManager()
 void PluginManager::CleanPluginsObjets()
 {
     __graphicsPlugin->CleanPluginObjects();
+    __contextPlugin->CleanPluginObjects();
 }
 
 PluginManager::~PluginManager()
@@ -37,10 +39,18 @@ GraphicsPlugin* PluginManager::GetGraphicsPlugin()
     return __graphicsPlugin.get();
 }
 
+ContextPlugin* PluginManager::GetContextPlugin()
+{
+    venom_assert(__contextPlugin, "ContextPlugin is nullptr");
+    return __contextPlugin.get();
+}
+
 Error PluginManager::LoadAllPlugins()
 {
     Error err;
     if (err = LoadGraphicsPlugin(); err != Error::Success)
+        return err;
+    if (err = LoadContextPlugin(); err != Error::Success)
         return err;
     return err;
 }
@@ -82,9 +92,9 @@ T * LoadPluginFromNameAndType(const std::string & libName, const char * function
     return createPluginFunc();
 }
 
-Error PluginManager::LoadGraphicsPlugin()
+vc::Error PluginManager::LoadGraphicsPlugin()
 {
-    Error err;
+    vc::Error err;
     const GraphicsPlugin::GraphicsPluginType type = Config::GetGraphicsPluginType();
     std::string libName;
     switch (type)
@@ -98,14 +108,41 @@ Error PluginManager::LoadGraphicsPlugin()
         break;
 #endif
     default:
-        Log::Error("Unknown GraphicsPluginType");
-        return Error::Failure;
+        vc::Log::Error("Unknown GraphicsPluginType");
+        return vc::Error::Failure;
     }
     __graphicsPlugin.reset(LoadPluginFromNameAndType<GraphicsPlugin>(libName, "createGraphicsPlugin"));
     if (!__graphicsPlugin)
     {
-        Log::Error("Failed to create GraphicsPlugin from %s", libName.c_str());
-        return Error::Failure;
+        vc::Log::Error("Failed to create GraphicsPlugin from %s", libName.c_str());
+        return vc::Error::Failure;
+    }
+    return vc::Error::Success;
+}
+
+Error PluginManager::LoadContextPlugin()
+{
+    Error err;
+    const Context::ContextType type = Config::GetContextType();
+    std::string libName;
+    switch (type) {
+        case Context::ContextType::GLFW:
+            libName = "VenomContextGLFW";
+            break;
+#ifdef __APPLE__
+        case Context::ContextType::Apple:
+            libName = "VenomContextApple";
+            break;
+#endif
+        default:
+            vc::Log::Error("Unknown ContextType");
+            return Error::Failure;
+    };
+    __contextPlugin.reset(LoadPluginFromNameAndType<ContextPlugin>(libName, "createContextPlugin"));
+    if (!__contextPlugin)
+    {
+        vc::Log::Error("Failed to create ContextPlugin from %s", libName.c_str());
+        return vc::Error::Failure;
     }
     return Error::Success;
 }
@@ -116,6 +153,9 @@ void PluginManager::AddPluginObject(const PluginType type, IPluginObject* object
     {
     case PluginType::Graphics:
         __graphicsPlugin->AddPluginObject(object);
+        break;
+    case PluginType::Context:
+        __contextPlugin->AddPluginObject(object);
         break;
     default:
         Log::Error("PluginManager::AddPluginObject: Unknown plugin type");
@@ -129,6 +169,9 @@ void PluginManager::RemovePluginObject(const PluginType type, IPluginObject* obj
     {
     case PluginType::Graphics:
         __graphicsPlugin->RemovePluginObject(object);
+        break;
+    case PluginType::Context:
+        __contextPlugin->RemovePluginObject(object);
         break;
     default:
         Log::Error("PluginManager::RemovePluginObject: Unknown plugin type");

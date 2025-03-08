@@ -101,8 +101,8 @@ VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures(bool & 
 
 void VulkanApplication::__SetGLFWCallbacks()
 {
-    glfwSetWindowUserPointer(vc::Context::Get()->GetWindow(), this);
-    glfwSetFramebufferSizeCallback(vc::Context::Get()->GetWindow(), [](GLFWwindow * window, int width, int height) {
+    glfwSetWindowUserPointer((GLFWwindow*)vc::Context::Get()->GetWindow(), this);
+    glfwSetFramebufferSizeCallback((GLFWwindow*)vc::Context::Get()->GetWindow(), [](GLFWwindow * window, int width, int height) {
         auto app = reinterpret_cast<VulkanApplication*>(glfwGetWindowUserPointer(window));
         app->__framebufferChanged = true;
     });

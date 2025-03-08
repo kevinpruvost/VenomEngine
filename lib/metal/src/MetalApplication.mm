@@ -48,6 +48,7 @@ MetalApplication::MetalApplication()
     InitializeDevice();
     InitializeCommandQueue();
     InitializeLayer();
+    
 }
 
 MetalApplication::~MetalApplication()

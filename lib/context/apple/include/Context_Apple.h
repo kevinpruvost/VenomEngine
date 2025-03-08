@@ -1,6 +1,6 @@
 ///
 /// Project: VenomEngineWorkspace
-/// @file Context_UiKit.h
+/// @file Context_Apple.h
 /// @date Mar, 08 2025
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
@@ -11,7 +11,7 @@ namespace venom
 {
 namespace context
 {
-namespace uikit
+namespace apple
 {
 
 
