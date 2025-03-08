@@ -147,9 +147,12 @@ void VulkanApplication::__UpdateUniformBuffers()
     if (vc::SceneSettings::IsDataDirty()) {
         __sceneSettingsBuffer.WriteToBuffer(vc::SceneSettings::GetCurrentSettingsData(), sizeof(vc::SceneSettingsData));
     }
-    if (vc::GraphicsSettings::_IsGfxSettingsDataDirty()) {
-        __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
-    }
+}
+
+vc::Error VulkanApplication::_OnGfxSettingsChange()
+{
+    __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
+    return vc::Error::Success;
 }
 
 vc::Error VulkanApplication::__GraphicsOperations()

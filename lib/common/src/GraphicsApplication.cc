@@ -98,6 +98,8 @@ Error GraphicsApplication::Init()
 Error GraphicsApplication::Loop()
 {
     vc::Context::Get()->PollEvents();
+    if (GraphicsSettings::_IsGfxSettingsDataDirty())
+        _OnGfxSettingsChange();
     return __Loop();
 }
 

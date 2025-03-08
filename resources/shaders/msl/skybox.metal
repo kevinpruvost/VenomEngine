@@ -47,7 +47,6 @@ vertex RasterizerData vertexShader(uint vertexID [[vertex_id]],
     // Get the viewport size and cast to float.
     vector_float2 viewportSize = vector_float2(*viewportSizePointer);
 
-
     // To convert from positions in pixel space to positions in clip-space,
     //  divide the pixel coordinates by half the size of the viewport.
     out.position = vector_float4(0.0, 0.0, 0.0, 1.0);

@@ -48,6 +48,7 @@ public:
 
 protected:
     vc::Error _LoadGfxSettings() override;
+    vc::Error _OnGfxSettingsChange() override;
 
     vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) override;
     vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() override;
@@ -70,6 +71,5 @@ private:
     friend class MetalShaderResourceTable;
     friend class MetalLight;
 };
-
 }
 }

@@ -105,6 +105,7 @@ public:
 
 protected:
     static bool _IsGfxSettingsDataDirty();
+    virtual vc::Error _OnGfxSettingsChange() = 0;
 
     virtual vc::Error _LoadGfxSettings() = 0;
 

@@ -77,6 +77,12 @@ vc::Error MetalApplication::__PostInit()
     return vc::Error::Success;
 }
 
+vc::Error MetalApplication::_OnGfxSettingsChange()
+{
+    GetMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
+    return vc::Error::Success;
+}
+
 vc::Error MetalApplication::__Loop()
 {
     vc::Error err = vc::Error::Success;

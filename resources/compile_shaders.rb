@@ -131,8 +131,8 @@ elsif ARGV[0] == 'compile_msl'
     metal_files.each do |file|
         output_file = output_file_create_name(file, $metal_dir, '.metallib')
         output_file_ios = output_file_create_name(file, $metal_dir, '_ios.metallib')
-        cmd = "#{xcrun} -sdk macosx metal -o #{output_file} #{file}"
-        cmd1 = "#{xcrun} -sdk iphoneos metal -o #{output_file_ios} #{file}"
+        cmd = "#{xcrun} -sdk macosx metal -frecord-sources -gline-tables-only -o #{output_file} #{file}"
+        cmd1 = "#{xcrun} -sdk iphoneos metal -frecord-sources -gline-tables-only -o #{output_file_ios} #{file}"
         puts "Compiling #{file} to #{output_file}... [#{cmd}]"
         system(cmd)
         puts "Compiling #{file} to #{output_file_ios}... [#{cmd1}]"
