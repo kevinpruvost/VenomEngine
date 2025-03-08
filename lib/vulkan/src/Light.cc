@@ -31,7 +31,7 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
 {
     VulkanApplication * app = vc::GraphicsApplication::Get()->DAs<VulkanApplication>();
 
-    RenderPass & csmRenderPass = app->__shadowMapRenderPass;
+    VulkanRenderPass * csmRenderPass = vc::RenderPassImpl::GetRenderPass(vc::RenderingPipelineType::CascadedShadowMapping)->DAs<VulkanRenderPass>();
     __shadowMapFramebuffers.Reset(new vc::Array2D<vc::Vector<Framebuffer>, VENOM_MAX_FRAMES_IN_FLIGHT, VENOM_CSM_TOTAL_CASCADES>());
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i)
     {
@@ -113,13 +113,13 @@ void VulkanLight::_SetDescriptorsFromCascade(const int cascadeIndex)
     }
 }
 
-vc::Error VulkanLight::__CreateFramebuffer(Framebuffer& framebuffer, RenderPass& csmRenderPass, ImageView& imageView,
+vc::Error VulkanLight::__CreateFramebuffer(Framebuffer& framebuffer, VulkanRenderPass * csmRenderPass, ImageView& imageView,
                                            VkExtent2D& extent)
 {
     framebuffer.SetAttachment(0, *imageView.GetImage(), imageView);
     framebuffer.SetExtent(extent);
     framebuffer.SetLayers(1);
-    framebuffer.SetRenderPass(&csmRenderPass);
+    framebuffer.SetRenderPass(csmRenderPass);
     if (framebuffer.Init() != vc::Error::Success) {
         vc::Log::Error("Failed to create framebuffer");
         return vc::Error::Failure;

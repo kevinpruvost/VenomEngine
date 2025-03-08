@@ -26,6 +26,7 @@ class RenderingPipelineImpl;
 class SkyboxImpl;
 class RenderTargetImpl;
 class LightImpl;
+class RenderPassImpl;
 
 class ShaderResourceTable;
 class GUI;
@@ -59,6 +60,7 @@ public:
     virtual CameraImpl * CreateCamera() = 0;
     virtual ShaderPipelineImpl * CreateShaderPipeline() = 0;
     virtual RenderingPipelineImpl * CreateRenderingPipeline() = 0;
+    virtual RenderPassImpl * CreateRenderPass() = 0;
     virtual SkyboxImpl * CreateSkybox() = 0;
     virtual RenderTargetImpl * CreateRenderTarget() = 0;
     virtual LightImpl * CreateLight() = 0;

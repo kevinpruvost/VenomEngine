@@ -9,7 +9,7 @@
 
 #include "MainScene.h"
 
-void SceneVulkan(const vc::ScenePhase phase)
+void Scene(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, face_hd1, helmet, camera, light1, light2, light3, light4;
     int nbTiles = 1;
@@ -17,35 +17,34 @@ void SceneVulkan(const vc::ScenePhase phase)
         case vc::ScenePhase::Initialization: {
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
-                    .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                    .emplace<vc::Skybox>("cubemap/billiard_hall.exr");
 
             balls_hd = vc::CreateEntity("Onion")
                 .emplace<vc::Model>("onion/onion.glb")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
             ;
 
             gun_hd = vc::CreateEntity("Gun")
                 .emplace<vc::Model>("dead_space_gun/gun.glb")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
 
             eye_hd = vc::CreateEntity("Eye")
                 .emplace<vc::Model>("eye/eye.glb")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
 
             face_hd = vc::CreateEntity("Face")
                 .emplace<vc::Model>("face/face.obj")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
             ;
 
             face_hd1 = vc::CreateEntity("Face2")
                 .emplace<vc::Model>("face/face.obj")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
             ;
 
             helmet = vc::CreateEntity("Helmet")
             .emplace<vc::Model>("helmet/helmet.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+            ;
             ;
 
             camera = vc::CreateEntity("Camera")
@@ -68,7 +67,7 @@ void SceneVulkan(const vc::ScenePhase phase)
                     auto name = "ground" + std::to_string(i) + "_" + std::to_string(j);
                     vc::Entity ground = vc::CreateEntity(name.c_str())
                         .emplace<vc::Model>("ground/ground.glb")
-                        .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                        ;
                     ground.get_mut<vc::Transform3D>()->SetPosition(vcm::Vec3(i * 3.5f, 0.0f,j * 3.5f));
                     ground.get_mut<vc::Transform3D>()->SetScale(vcm::Vec3(1.0f, 1.0f, 1.0f));
                     ground.get_mut<vc::Model>()->GetMaterials()[0].SetTextureRepeatFactor(vcm::Vec2(1.0f, 1.0f));

@@ -36,6 +36,11 @@ MetalShaderPipelineData * MetalShaderPipeline::GetPipelineData()
     return (MetalShaderPipelineData *)pipelineData;
 }
 
+const MetalShaderPipelineData * MetalShaderPipeline::GetPipelineData() const
+{
+    return (const MetalShaderPipelineData *)pipelineData;
+}
+
 MetalShaderResource::MetalShaderResource(vc::GraphicsCachedResourceHolder* h)
     : ShaderResource(h)
     , pipelineType(PipelineType::Graphics)
@@ -56,6 +61,16 @@ MetalShaderPipeline::MetalShaderPipeline()
     : pipelineData([[MetalShaderPipelineData alloc] init])
 {
     _ResetResource();
+}
+
+id <MTLRenderPipelineState> MetalShaderPipeline::GetRenderPipelineState() const
+{
+    return GetPipelineData()->renderPipelineState;
+}
+
+id <MTLComputePipelineState> MetalShaderPipeline::GetComputePipelineState() const
+{
+    return GetPipelineData()->computePipelineState;
 }
 
 MetalShaderPipeline::~MetalShaderPipeline()

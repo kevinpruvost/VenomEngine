@@ -19,6 +19,7 @@
 #include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
 #include <venom/vulkan/plugin/graphics/Skybox.h>
 #include <venom/vulkan/plugin/graphics/Light.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 
 #include <venom/vulkan/plugin/graphics/ShaderResourceTable.h>
 
@@ -64,6 +65,11 @@ vc::ShaderPipelineImpl* VulkanGraphicsPlugin::CreateShaderPipeline()
 vc::RenderingPipelineImpl* VulkanGraphicsPlugin::CreateRenderingPipeline()
 {
     return new VulkanRenderingPipeline();
+}
+
+vc::RenderPassImpl* VulkanGraphicsPlugin::CreateRenderPass()
+{
+    return new VulkanRenderPass();
 }
 
 vc::SkyboxImpl* VulkanGraphicsPlugin::CreateSkybox()

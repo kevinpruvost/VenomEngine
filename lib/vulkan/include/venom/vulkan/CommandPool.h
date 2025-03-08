@@ -21,7 +21,7 @@ namespace venom
 {
 namespace vulkan
 {
-class RenderPass;
+class VulkanRenderPass;
 class CommandBuffer;
 class SingleTimeCommandBuffer;
 class VulkanShaderPipeline;
@@ -65,7 +65,7 @@ public:
     CommandBuffer(CommandBuffer&& other);
     CommandBuffer& operator=(CommandBuffer&& other);
     friend class CommandPool;
-    friend class RenderPass;
+    friend class VulkanRenderPass;
 
     VkCommandBuffer GetVkCommandBuffer() const;
     const VkCommandBuffer * GetVkCommandBufferPtr() const;

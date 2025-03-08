@@ -16,12 +16,12 @@ void SceneSokol(const vc::ScenePhase phase)
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
                     .emplace<vc::Skybox>("cubemap/marslike_planet.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                ;
 
             helmet = vc::CreateEntity("Helmet")
 //            .emplace<vc::Model>("eye/eye.glb")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/sokol-space-suit.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+            ;
             ;
 
             camera = vc::CreateEntity("Camera")

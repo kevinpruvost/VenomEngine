@@ -44,40 +44,5 @@ RenderingPipeline::RenderingPipeline(const RenderingPipelineType type)
     SetShaderType(type);
 }
 
-void RenderingPipeline::Update(Entity entity)
-{
-}
-
-void RenderingPipeline::_GUI(const Entity entity)
-{
-    // Select type of Rendering Pipeline
-    const vc::String renderingTypes[] = {"GUI", "Text3D", "Skybox", "PBRModel", "ComputeForwardPlusLightCulling", "ComputeCascadedShadowMapping"};
-    int type = static_cast<int>(GetShaderType());
-    vc::GUI::Text(renderingTypes[type].c_str());
-    // if (vc::GUI::BeginCombo("Type", renderingTypes[type].c_str())) {
-    //     for (int i = 0; i < std::size(renderingTypes); i++) {
-    //         bool isSelected = (type == i);
-    //         // if (vc::GUI::Selectable(renderingTypes[i].c_str(), isSelected)) {
-    //         //     // TODO: Changable rendering pipeline
-    //         //     // type = i;
-    //         //     // SetShaderType(static_cast<RenderingPipelineType>(i));
-    //         // }
-    //         // if (isSelected) {
-    //         //     vc::GUI::SetItemDefaultFocus();
-    //         // }
-    //     }
-    //     vc::GUI::EndCombo();
-    // }
-}
-
-vc::String RenderingPipeline::_GetComponentTitle()
-{
-    return ICON_MS_TABLE_EYE " Rendering Pipeline";
-}
-
-bool RenderingPipeline::CanRemove(Entity entity)
-{
-    return !entity.has<Model>();
-}
 }
 }

@@ -18,26 +18,26 @@ void SceneSpace(const vc::ScenePhase phase)
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
                     .emplace<vc::Skybox>("cubemap/nebula.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                ;
 
             for (int i = 0; i < 10; i++) {
                 spaceships[i] = vc::CreateEntity(vc::format("Spaceship%d", i).c_str())
                     .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/space_fighter.glb")
-                    .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                    ;
                 spaceshipsSpeed[i] = rand() % 1000;
                 spaceshipsSpeed[i] = spaceshipsSpeed[i] * 0.004f + 0.3f;
             }
 
             planet = vc::CreateEntity("Planet")
                 .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/planet.glb")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
 
             camera = vc::CreateEntity("Camera")
                 .emplace<vc::Camera>();
 
             adam = vc::CreateEntity("Adam")
                 .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/adam_head.glb")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+                ;
 
             light1 = vc::CreateEntity("Light1")
                 .emplace<vc::Light>();

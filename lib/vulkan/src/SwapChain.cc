@@ -6,7 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/vulkan/SwapChain.h>
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 
 #include <algorithm>
 
@@ -18,6 +18,7 @@
 
 namespace venom::vulkan
 {
+static SwapChain * s_swapChain = nullptr;
 
 SwapChain::SwapChain()
     : surface(nullptr)
@@ -29,11 +30,14 @@ SwapChain::SwapChain()
     , scissor{}
     , __samples(1)
 {
+    venom_assert(s_swapChain == nullptr, "SwapChain::SwapChain() : SwapChain already exists");
+    s_swapChain = this;
 }
 
 SwapChain::~SwapChain()
 {
     CleanSwapChain();
+    if (s_swapChain == this) s_swapChain = nullptr;
 }
 
 SwapChain::SwapChain(SwapChain&& other)
@@ -131,6 +135,11 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     scissor.extent = extent;
     vc::GraphicsSettings::SetWindowExtent(extent.width, extent.height);
     return vc::Error::Success;
+}
+
+SwapChain* SwapChain::Get()
+{
+    return s_swapChain;
 }
 
 vc::Error SwapChain::InitSwapChain()

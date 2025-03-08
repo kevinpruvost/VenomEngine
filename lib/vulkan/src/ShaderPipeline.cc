@@ -30,10 +30,12 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
     , pipelineLayout(VK_NULL_HANDLE)
     , multisamplingCreateInfo{}
     , rasterizerCreateInfo{}
+    , depthStencilCreateInfo{}
     , shaderDirty(true)
 {
         // MultisamplingOption: on of the ways to do antialiasing
     multisamplingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+    multisamplingCreateInfo.pNext = nullptr;
     multisamplingCreateInfo.sampleShadingEnable = VK_FALSE;
     multisamplingCreateInfo.rasterizationSamples = static_cast<VkSampleCountFlagBits>(vc::GraphicsSettings::GetActiveSamplesMultisampling());
     //multisampling.minSampleShading = 1.0f; // Optional
@@ -43,6 +45,7 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
 
     // Rasterizer
     rasterizerCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+    rasterizerCreateInfo.pNext = nullptr;
     rasterizerCreateInfo.depthClampEnable = VK_FALSE;
     rasterizerCreateInfo.rasterizerDiscardEnable = VK_FALSE;
     rasterizerCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
@@ -61,6 +64,7 @@ VulkanShaderResource::VulkanShaderResource(vc::GraphicsCachedResourceHolder* h)
 
     // Stencil & Depth testing
     depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    depthStencilCreateInfo.pNext = nullptr;
     // Depth test determines if a fragment is drawn based on its depth value
     depthStencilCreateInfo.depthTestEnable = VK_TRUE;
     // Depth write determines if the depth value of a fragment is written to the depth buffer
@@ -326,7 +330,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
             }
         }
 
-        vc::Vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments(RenderPass::GetRenderPass(_renderingPipelineType)->GetSubpassDescriptions()[_renderingPipelineIndex].colorAttachmentCount, colorBlendAttachment);
+        vc::Vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments(VulkanRenderPass::GetVulkanRenderPass(_renderingPipelineType)->GetSubpassDescriptions()[_renderingPipelineIndex].colorAttachmentCount, colorBlendAttachment);
 
         VkPipelineColorBlendStateCreateInfo colorBlending{};
         colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
@@ -370,7 +374,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
         graphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
         graphicsPipelineCreateInfo.pDynamicState = &dynamicState;
         graphicsPipelineCreateInfo.layout = _resource->As<VulkanShaderResource>()->pipelineLayout;
-        graphicsPipelineCreateInfo.renderPass = RenderPass::GetRenderPass(_renderingPipelineType)->GetVkRenderPass();
+        graphicsPipelineCreateInfo.renderPass = VulkanRenderPass::GetVulkanRenderPass(_renderingPipelineType)->GetVkRenderPass();
         graphicsPipelineCreateInfo.subpass = _renderingPipelineIndex; // Index of the subpass in the render pass where this pipeline will be used
         graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE; // Pipeline to derive from: Optional
         //graphicsPipelineCreateInfo.basePipelineIndex = -1; // Optional

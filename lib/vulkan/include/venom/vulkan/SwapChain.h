@@ -22,7 +22,7 @@ namespace venom
 {
 namespace vulkan
 {
-class RenderPass;
+class VulkanRenderPass;
 
 class SwapChain
 {
@@ -41,6 +41,8 @@ public:
     inline int GetSamples() const { return __samples; }
     inline void SetSamples(const int samples) { __samples = samples; }
     inline const vc::Vector<ImageView> & GetSwapChainImageViews() const { return __swapChainImageViews; }
+
+    static SwapChain * Get();
 
     /// @brief Inits Swap chain and swap chain image views
     /// @return Error
@@ -62,7 +64,7 @@ private:
 
     int __samples;
 
-    friend class RenderPass;
+    friend class VulkanRenderPass;
 };
 }
 }

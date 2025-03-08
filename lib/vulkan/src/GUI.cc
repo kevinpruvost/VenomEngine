@@ -121,7 +121,7 @@ vc::Error VulkanGUI::_Initialize()
     initInfo.Queue = QueueManager::GetGraphicsQueue().GetVkQueue();
     //initInfo.PipelineCache = g_PipelineCache;
     initInfo.DescriptorPool = app->GetDescriptorPool()->GetVkDescriptorPool();
-    initInfo.RenderPass = app->GetGuiRenderPass()->GetVkRenderPass();
+    initInfo.RenderPass = VulkanRenderPass::GetVulkanRenderPass(vc::RenderingPipelineType::GUI)->GetVkRenderPass();
     initInfo.Subpass = 0;
     initInfo.MinImageCount = app->GetSwapChain()->surface->GetCapabilities().minImageCount;
     initInfo.ImageCount = VENOM_MAX_FRAMES_IN_FLIGHT;

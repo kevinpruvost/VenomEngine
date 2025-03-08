@@ -19,6 +19,7 @@
 #include <venom/metal/plugin/graphics/ShaderPipeline.h>
 #include <venom/metal/plugin/graphics/Skybox.h>
 #include <venom/metal/plugin/graphics/Light.h>
+#include <venom/metal/plugin/graphics/RenderPass.h>
 
 #include <venom/metal/plugin/graphics/ShaderResourceTable.h>
 
@@ -64,6 +65,11 @@ vc::ShaderPipelineImpl* MetalGraphicsPlugin::CreateShaderPipeline()
 vc::RenderingPipelineImpl* MetalGraphicsPlugin::CreateRenderingPipeline()
 {
     return new MetalRenderingPipeline();
+}
+
+vc::RenderPassImpl* MetalGraphicsPlugin::CreateRenderPass()
+{
+    return new MetalRenderPass();
 }
 
 vc::SkyboxImpl* MetalGraphicsPlugin::CreateSkybox()

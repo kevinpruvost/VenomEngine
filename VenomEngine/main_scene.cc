@@ -9,7 +9,7 @@
 
 #include "MainScene.h"
 
-void Scene(const vc::ScenePhase phase)
+void SceneC(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, camera;
     int nbTiles = 1;
@@ -18,7 +18,7 @@ void Scene(const vc::ScenePhase phase)
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
         //            .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+            ;
 
 
             camera = vc::CreateEntity("Camera")

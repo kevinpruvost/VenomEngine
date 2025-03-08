@@ -5,7 +5,7 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 
 namespace venom
 {

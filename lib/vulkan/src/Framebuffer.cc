@@ -8,7 +8,7 @@
 #include <venom/vulkan/Framebuffer.h>
 
 #include <venom/vulkan/Allocator.h>
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 #include <venom/vulkan/Instance.h>
 #include <venom/vulkan/LogicalDevice.h>
 
@@ -82,7 +82,7 @@ vc::Error Framebuffer::Init()
     return vc::Error::Success;
 }
 
-void Framebuffer::SetRenderPass(const RenderPass* renderPass)
+void Framebuffer::SetRenderPass(const VulkanRenderPass* renderPass)
 {
     __framebufferCreateInfo.renderPass = renderPass->GetVkRenderPass();
 }

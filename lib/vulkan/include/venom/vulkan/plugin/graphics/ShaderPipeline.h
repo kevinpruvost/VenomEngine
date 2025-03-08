@@ -11,7 +11,7 @@
 
 #include <venom/vulkan/PhysicalDevice.h>
 #include <venom/vulkan/SwapChain.h>
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 #include <venom/vulkan/VertexBuffer.h>
 #include <venom/vulkan/DescriptorPool.h>
 #include <venom/vulkan/DescriptorSetLayout.h>

@@ -25,6 +25,7 @@ public:
     vc::CameraImpl * CreateCamera() override;
     vc::ShaderPipelineImpl * CreateShaderPipeline() override;
     vc::RenderingPipelineImpl * CreateRenderingPipeline() override;
+    vc::RenderPassImpl * CreateRenderPass() override;
     vc::SkyboxImpl * CreateSkybox() override;
     vc::RenderTargetImpl * CreateRenderTarget() override;
     vc::LightImpl * CreateLight() override;

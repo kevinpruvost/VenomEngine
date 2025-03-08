@@ -13,9 +13,7 @@
 #ifdef __OBJC__
 #import <Metal/Metal.h>
 #import <Foundation/Foundation.h>
-#endif
 
-#ifdef __OBJC__
 @interface MetalShaderPipelineData : NSObject
 @end
 #endif
@@ -70,6 +68,9 @@ public:
 
 #ifdef __OBJC__
     MetalShaderPipelineData * GetPipelineData();
+    const MetalShaderPipelineData * GetPipelineData() const;
+    id <MTLRenderPipelineState> GetRenderPipelineState() const;
+    id <MTLComputePipelineState> GetComputePipelineState() const;
 #endif
 };
 

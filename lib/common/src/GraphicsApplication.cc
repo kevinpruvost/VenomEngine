@@ -56,6 +56,19 @@ GraphicsApplication::~GraphicsApplication()
 Error GraphicsApplication::Init()
 {
     Error err = __Init();
+
+    // Render Passes intialization
+    _skyboxRenderPass.SetRenderingType(vc::RenderingPipelineType::Skybox);
+    _guiRenderPass.SetRenderingType(vc::RenderingPipelineType::GUI);
+    _graphicsRenderPass.SetRenderingType(vc::RenderingPipelineType::PBRModel);
+    _shadowMapRenderPass.SetRenderingType(vc::RenderingPipelineType::CascadedShadowMapping);
+
+    for (auto renderPass : vc::RenderPassImpl::GetRenderPasses()) {
+        if (renderPass && renderPass->GetRenderingType() != vc::RenderingPipelineType::None) {
+            if (err = renderPass->Init(); err != Error::Success) return err;
+        }
+    }
+
     if (err != Error::Success) return err;
 
     // GUI Initialization is done after

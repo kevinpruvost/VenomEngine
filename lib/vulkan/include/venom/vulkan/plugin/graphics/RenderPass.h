@@ -1,6 +1,6 @@
 ///
 /// Project: VenomEngine
-/// @file RenderPass.h
+/// @file VulkanRenderPass.h
 /// @date Aug, 23 2024
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
@@ -8,6 +8,7 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/RenderingPipelineType.h>
+#include <venom/common/plugin/graphics/RenderPass.h>
 #include <venom/vulkan/SwapChain.h>
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/Framebuffer.h>
@@ -29,20 +30,20 @@ public:
     vc::Vector<vc::Vector<vc::Texture>> resolveAttachments;
 };
 
-class RenderPass
+class VulkanRenderPass : public vc::RenderPassImpl
 {
 public:
-    RenderPass();
-    ~RenderPass();
-    RenderPass(const RenderPass&) = delete;
-    RenderPass& operator=(const RenderPass&) = delete;
-    RenderPass(RenderPass&& other);
-    RenderPass& operator=(RenderPass&& other);
+    VulkanRenderPass();
+    ~VulkanRenderPass();
+    VulkanRenderPass(const VulkanRenderPass&) = delete;
+    VulkanRenderPass& operator=(const VulkanRenderPass&) = delete;
+    VulkanRenderPass(VulkanRenderPass&& other);
+    VulkanRenderPass& operator=(VulkanRenderPass&& other);
 
     void Destroy();
 
     void SetRenderingType(const vc::RenderingPipelineType type);
-    vc::Error InitRenderPass(const SwapChain * swapChain);
+    vc::Error _Init() override;
     vc::Error BeginRenderPass(CommandBuffer * commandBuffer, int framebufferIndex);
     vc::Error BeginRenderPassCustomFramebuffer(CommandBuffer * commandBuffer, const Framebuffer * const framebuffer);
     void NextSubpass(CommandBuffer * commandBuffer);
@@ -55,8 +56,7 @@ public:
     inline const vc::Vector<VkSubpassDescription> & GetSubpassDescriptions() const { return __subpassDescriptions; }
     inline vc::Vector<vc::Vector<vc::Texture>> & GetAttachments() { return __attachments; }
 
-    static RenderPass * GetRenderPass(const vc::RenderingPipelineType type);
-    static vc::Vector<RenderPass *> GetRenderPasses();
+    inline static VulkanRenderPass * GetVulkanRenderPass(const vc::RenderingPipelineType type) { return GetRenderPass(type)->DAs<VulkanRenderPass>(); }
 
 private:
     vc::Error __CreateNormalRenderPass();
@@ -68,9 +68,7 @@ private:
     void __SolveAttachmentReferences();
 
 private:
-    const SwapChain * __swapChain;
     VkRenderPass __renderPass;
-    vc::RenderingPipelineType __type;
     // By image count then attachments
     vc::Vector<vc::Vector<vc::Texture>> __attachments;
     vc::Vector<Framebuffer> __framebuffers;

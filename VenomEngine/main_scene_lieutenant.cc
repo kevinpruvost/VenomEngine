@@ -15,13 +15,11 @@ void SceneLieutenant(const vc::ScenePhase phase)
         case vc::ScenePhase::Initialization: {
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
-                    .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                    .emplace<vc::Skybox>("cubemap/billiard_hall.exr");
 
             helmet = vc::CreateEntity("Helmet")
 //            .emplace<vc::Model>("eye/eye.glb")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/damaged_helmet.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
             ;
 
             camera = vc::CreateEntity("Camera")

@@ -8,7 +8,7 @@
 #pragma once
 #include <venom/common/plugin/graphics/Light.h>
 #include <venom/vulkan/Framebuffer.h>
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 #include <venom/common/DeferredTrash.h>
 #include <venom/vulkan/DescriptorPool.h>
 
@@ -30,7 +30,7 @@ protected:
     void _SetDescriptorsFromCascade(const int cascadeIndex) override;
 
 private:
-    vc::Error __CreateFramebuffer(Framebuffer & framebuffer, RenderPass & csmRenderPass, ImageView & imageView, VkExtent2D & extent);
+    vc::Error __CreateFramebuffer(Framebuffer & framebuffer, VulkanRenderPass * csmRenderPass, ImageView & imageView, VkExtent2D & extent);
 private:
     vc::DeferredTrash<vc::Array2D<vc::Vector<Framebuffer>, VENOM_MAX_FRAMES_IN_FLIGHT, VENOM_CSM_TOTAL_CASCADES>> __shadowMapFramebuffers;
     DescriptorSetGroup * __shadowMapDescriptorSet;

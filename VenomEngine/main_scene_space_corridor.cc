@@ -16,27 +16,27 @@ void SceneSpaceCorridor(const vc::ScenePhase phase)
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
                     .emplace<vc::Skybox>("cubemap/marslike_planet.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                ;
 
             corridor = vc::CreateEntity("Helmet")
 //            .emplace<vc::Model>("eye/eye.glb")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/corridor_space.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+            ;
             ;
 
             monster = vc::CreateEntity("Monster")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/infector_nf-75.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             astronaut1 = vc::CreateEntity("Astronaut1")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/Astronaut_rust.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             astronaut2 = vc::CreateEntity("Astronaut2")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/Astronaut_rust.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             camera = vc::CreateEntity("Camera")

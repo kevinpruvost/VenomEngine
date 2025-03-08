@@ -32,7 +32,9 @@
 
 #include <venom/metal/Device.h>
 #include <venom/metal/CommandQueue.h>
+#include <venom/metal/plugin/graphics/RenderPass.h>
 #include <venom/metal/Layer.h>
+#include <venom/metal/plugin/graphics/Mesh.h>
 
 namespace venom::metal
 {
@@ -77,6 +79,27 @@ vc::Error MetalApplication::__PostInit()
 vc::Error MetalApplication::__Loop()
 {
     vc::Error err = vc::Error::Success;
+
+    typedef struct
+    {
+        vector_float2 position;
+        vector_float4 color;
+    } AAPLVertex;
+
+    static const AAPLVertex triangleVertices[] =
+    {
+        // 2D positions,    RGBA colors
+        { {  250,  -250 }, { 1, 0, 0, 1 } },
+        { { -250,  -250 }, { 0, 1, 0, 1 } },
+        { {    0,   250 }, { 0, 0, 1, 1 } },
+    };
+
+    id <MTLCommandBuffer> commandBuffer = [GetMetalCommandQueue() commandBuffer];
+    commandBuffer.label = @"Test1";
+
+    // Create a render command encoder.
+    id<MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor()];
+
     __shouldClose = vc::Context::Get()->ShouldClose();
     return err;
 }

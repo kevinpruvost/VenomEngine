@@ -13,7 +13,7 @@
 #include <venom/vulkan/Surface.h>
 #include <venom/vulkan/SwapChain.h>
 #include <venom/vulkan/plugin/graphics/ShaderPipeline.h>
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 #include <venom/vulkan/CommandPool.h>
 #include <venom/vulkan/Semaphore.h>
 #include <venom/vulkan/Fence.h>
@@ -59,10 +59,7 @@ public:
 public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
     inline const SwapChain * GetSwapChain() const { return &__swapChain; }
-    inline const RenderPass * GetRenderPass() const { return &__skyboxRenderPass; }
-    inline const RenderPass * GetGuiRenderPass() const { return &__guiRenderPass; }
     inline const DescriptorPool * GetDescriptorPool() const { return &__descriptorPool; }
-    inline const RenderPass * GetHDRRenderPass() const { return &__skyboxRenderPass; }
     inline const CommandBuffer * GetCommandBuffer(const int index) const { return __graphicsFirstCheckpointCommandBuffers[index]; }
     inline const CommandBuffer * GetCurrentGraphicsCommandBuffer() const { return __graphicsSceneCheckpointCommandBuffers[GetCurrentFrameInFlight()]; }
     void WaitForDraws() override;
@@ -114,7 +111,6 @@ private:
     Surface __surface;
     SwapChain __swapChain;
     AttachmentsManager __attachmentsManager;
-    RenderPass __skyboxRenderPass, __graphicsRenderPass, __guiRenderPass, __shadowMapRenderPass;
     CommandPoolManager __commandPoolManager;
     QueueManager __queueManager;
 

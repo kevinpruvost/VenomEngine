@@ -12,6 +12,10 @@
 #include <venom/common/plugin/graphics/Mesh.h>
 #include <venom/common/DeferredTrash.h>
 
+#ifdef __OBJC__
+#import <simd/simd.h>
+#endif
+
 namespace venom
 {
 namespace metal

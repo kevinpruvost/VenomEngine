@@ -18,37 +18,37 @@ void ScenePeach(const vc::ScenePhase phase)
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
                     .emplace<vc::Skybox>("cubemap/cloudy_sky.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                ;
 
             corridor = vc::CreateEntity("Helmet")
 //            .emplace<vc::Model>("eye/eye.glb")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/peach_castle.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+            ;
             ;
 
             monster = vc::CreateEntity("Monster")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/mighty_doom_guy.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             mobs[0] = vc::CreateEntity("Astronaut1")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/goomba.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             mobs[1] = vc::CreateEntity("Astronaut2")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/goomba.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             mobs[2] = vc::CreateEntity("Astronaut3")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/goomba.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             mobs[3] = vc::CreateEntity("Astronaut4")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/goomba.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel)
+
             ;
 
             camera = vc::CreateEntity("Camera")

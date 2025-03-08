@@ -13,6 +13,7 @@
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
 #include <venom/common/plugin/graphics/GraphicsSettings.h>
+#include <venom/common/plugin/graphics/RenderPass.h>
 
 /// @brief Contains the entirety of the code of the VenomEngine project.
 namespace venom
@@ -42,6 +43,11 @@ public:
     virtual bool ShouldClose() = 0;
     virtual void WaitForDraws() = 0;
 
+    static inline RenderPass * GetSkyboxRenderPass() { return &Get()->_skyboxRenderPass; }
+    static inline RenderPass * GetGraphicsRenderPass() { return &Get()->_graphicsRenderPass; }
+    static inline RenderPass * GetGuiRenderPass() { return &Get()->_guiRenderPass; }
+    static inline RenderPass * GetShadowMapRenderPass() { return &Get()->_shadowMapRenderPass; }
+
 private:
     void __LoadRenderingPipelines();
 
@@ -51,6 +57,12 @@ protected:
     UPtr<vc::Texture> _dummyTexture;
     static int _currentFrame;
     static vcm::Vec2 _currentExtent;
+
+    // Render Passes
+    RenderPass _skyboxRenderPass;
+    RenderPass _graphicsRenderPass;
+    RenderPass _guiRenderPass;
+    RenderPass _shadowMapRenderPass;
 };
 }
 }

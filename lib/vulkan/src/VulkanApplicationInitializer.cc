@@ -264,11 +264,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     if (err = __InitializeSets(); err != vc::Error::Success)
         return err;
 
-    // Create Render Pass
-    __skyboxRenderPass.SetRenderingType(vc::RenderingPipelineType::Skybox);
-    __graphicsRenderPass.SetRenderingType(vc::RenderingPipelineType::PBRModel);
-    __shadowMapRenderPass.SetRenderingType(vc::RenderingPipelineType::CascadedShadowMapping);
-    __guiRenderPass.SetRenderingType(vc::RenderingPipelineType::GUI);
     __CreateAttachments();
 
     // Initialize Screen Square Vertex Buffer
@@ -287,12 +282,6 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
             vc::Log::Error("Failed to create vertex buffer for screen draw operations");
             return vc::Error::Failure;
         }
-    }
-
-    for (const auto renderPass : RenderPass::GetRenderPasses()) {
-        if (renderPass == nullptr) continue;
-        if (err = renderPass->InitRenderPass(&__swapChain); err != vc::Error::Success)
-            return err;
     }
 
     // Create Graphics Command Pool
@@ -477,8 +466,8 @@ vc::Error VulkanApplication::__RecreateSwapChain()
     _currentExtent = {__swapChain.extent.width, __swapChain.extent.height};
     // ReCreate Attachments and Render Pass
     __CreateAttachments();
-    for (const auto renderPass : RenderPass::GetRenderPasses()) {
-        if (renderPass && renderPass->InitRenderPass(&__swapChain) != vc::Error::Success)
+    for (const auto renderPass : VulkanRenderPass::GetRenderPasses()) {
+        if (renderPass && renderPass->Init() != vc::Error::Success)
             return vc::Error::InitializationFailed;
     }
     // We also need to reset the last used semaphore

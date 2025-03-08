@@ -164,7 +164,6 @@ void VenomEngine::__LoadECS()
     // Reserve entities
 
     REGISTER_COMPONENT(Transform3D);
-    REGISTER_COMPONENT(RenderingPipeline);
     REGISTER_COMPONENT(Model);
     REGISTER_COMPONENT(Skybox);
     REGISTER_COMPONENT(Light);

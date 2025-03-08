@@ -162,23 +162,25 @@ vc::Error VulkanApplication::__GraphicsOperations()
     //
     // SKYBOX
     //
-    if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
-        return err;
+    {
+        if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->BeginCommandBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); err != vc::Error::Success)
+            return err;
 
         __graphicsFirstCheckpointCommandBuffers[_currentFrame]->SetViewport(__swapChain.viewport);
         __graphicsFirstCheckpointCommandBuffers[_currentFrame]->SetScissor(__swapChain.scissor);
 
         // Draw Skybox
-        __skyboxRenderPass.BeginRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
-            vc::ECS::GetECS()->ForEach<vc::Skybox, vc::RenderingPipeline>([&](vc::Entity entity, vc::Skybox & skybox, vc::RenderingPipeline & pipeline)
-            {
-                const auto & shaders = pipeline.GetRenderingPipelineCache();
-                __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
-            });
-        __skyboxRenderPass.EndRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame]);
+        const auto & shaders = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Skybox);
+        _skyboxRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        vc::ECS::GetECS()->ForEach<vc::Skybox>([&](vc::Entity entity, vc::Skybox & skybox)
+        {
+            __graphicsFirstCheckpointCommandBuffers[_currentFrame]->DrawSkybox(skybox.GetImpl()->As<VulkanSkybox>(), shaders[0].GetConstImpl()->ConstAs<VulkanShaderPipeline>());
+        });
+        _skyboxRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsFirstCheckpointCommandBuffers[_currentFrame]);
 
-    if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
-        return err;
+        if (auto err = __graphicsFirstCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
+            return err;
+    }
 
     {
         // Synchronization between the image being presented and the image being rendered
@@ -218,7 +220,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
 
         // Draw Lit Models (Forward+)
         const auto & reflectionRenderingPipeline = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Reflection);
-        __graphicsRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
+        _graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
             // Draw Models
 
             /// Reflection pass
@@ -238,7 +240,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *reflectionRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                 });
             }
-            __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+            _graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
             /// Lighting Pass
             {
@@ -247,7 +249,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 auto & lights = vc::Light::GetLightsMut();
                 for (int i = 0; i < lights.size(); ++i)
                 {
-                    __graphicsRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
+                    _graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_ModelMatrices, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Camera, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
@@ -268,26 +270,26 @@ vc::Error VulkanApplication::__GraphicsOperations()
                     #endif
                         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     });
-                    __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+                    _graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
                     // Adds lighting to the main texture
-                    __graphicsRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
+                    _graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->BindPipeline(addLightPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light, *__graphicsSceneCheckpointCommandBuffers[_currentFrame], addLightPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawVertices(__screenQuadVertexBuffer);
-                    __graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+                    _graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
                 }
             }
 
-        //__graphicsRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+        //__graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
         // Copy to render target if any (for GUI)
         if (vc::GUI::IsGUIDraw()) {
             Image * attachmentImage;
             if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
-                attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[4]);
+                attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[4]);
             else
-                attachmentImage = const_cast<Image *>(__graphicsRenderPass.GetCurrentFramebuffer()->GetAttachmentImages()[0]);
+                attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[0]);
             for (auto & renderTarget : renderTargets)
             {
                 if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
@@ -301,9 +303,9 @@ vc::Error VulkanApplication::__GraphicsOperations()
                     __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
             }
             // Draw GUI
-            __guiRenderPass.BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
+            _guiRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
             _gui->Render();
-            __guiRenderPass.EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+            _guiRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
         }
 
     if (auto err = __graphicsSceneCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
@@ -448,7 +450,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
 
     // Draw Shadowed Models
     // Lighting Pass
-    __shadowMapRenderPass.BeginRenderPassCustomFramebuffer(commandBuffer, framebuffer);
+    _shadowMapRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPassCustomFramebuffer(commandBuffer, framebuffer);
 
     commandBuffer->BindPipeline(shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
     commandBuffer->PushConstants(shaderPipeline, VK_SHADER_STAGE_VERTEX_BIT, &lightPushConstants);
@@ -467,7 +469,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
         commandBuffer->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *shaderPipeline->GetImpl()->As<VulkanShaderPipeline>());
     });
 
-    __shadowMapRenderPass.EndRenderPass(commandBuffer);
+    _shadowMapRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(commandBuffer);
 
     if (auto err = commandBuffer->EndCommandBuffer(); err != vc::Error::Success)
         return err;

@@ -16,12 +16,12 @@ void SceneLarge(const vc::ScenePhase phase)
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
                     .emplace<vc::Skybox>("cubemap/cloudy_sky.exr")
-                .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::Skybox);
+                ;
 
             car = vc::CreateEntity("Helmet")
 //            .emplace<vc::Model>("eye/eye.glb")
             .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/low_poly_forest.glb")
-            .emplace<vc::RenderingPipeline>(vc::RenderingPipelineType::PBRModel);
+            ;
             ;
 
             camera = vc::CreateEntity("Camera")

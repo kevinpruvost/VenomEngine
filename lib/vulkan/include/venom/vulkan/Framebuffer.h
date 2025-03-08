@@ -16,7 +16,7 @@ namespace venom
 {
 namespace vulkan
 {
-class RenderPass;
+class VulkanRenderPass;
 
 class Framebuffer
 {
@@ -31,7 +31,7 @@ public:
     void Destroy();
 
     vc::Error Init();
-    void SetRenderPass(const RenderPass * renderPass);
+    void SetRenderPass(const VulkanRenderPass * renderPass);
     const vc::Vector<VkImageView>& GetAttachmentVkImageViews() const { return __attachments; }
     const vc::Vector<const Image *>& GetAttachmentImages() const { return __images; }
     const vc::Vector<const ImageView *>& GetAttachmentImageViews() const { return __imageViews  ; }

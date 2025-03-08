@@ -5,7 +5,7 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/vulkan/RenderPass.h>
+#include <venom/vulkan/plugin/graphics/RenderPass.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/DescriptorPool.h>
@@ -15,8 +15,7 @@
 
 namespace venom::vulkan
 {
-static RenderPass* s_mainRenderPass = nullptr;
-static vc::Vector<RenderPass *> s_renderPasses(static_cast<int>(vc::RenderingPipelineType::Count), nullptr);
+static VulkanRenderPass* s_mainRenderPass = nullptr;
 
 static AttachmentsManager* s_attachmentsManager = nullptr;
 
@@ -35,37 +34,31 @@ AttachmentsManager* AttachmentsManager::Get()
     return s_attachmentsManager;
 }
 
-RenderPass::RenderPass()
+VulkanRenderPass::VulkanRenderPass()
     : __renderPass(VK_NULL_HANDLE)
-    , __type(vc::RenderingPipelineType::None)
-    , __swapChain(nullptr)
 {
     if (s_mainRenderPass == nullptr) s_mainRenderPass = this;
 }
 
-RenderPass::~RenderPass()
+VulkanRenderPass::~VulkanRenderPass()
 {
     Destroy();
 }
 
-RenderPass::RenderPass(RenderPass&& other)
+VulkanRenderPass::VulkanRenderPass(VulkanRenderPass&& other)
     : __renderPass(std::move(other.__renderPass))
-    , __type(std::move(other.__type))
-    , __swapChain(std::move(other.__swapChain))
 {
 }
 
-RenderPass& RenderPass::operator=(RenderPass&& other)
+VulkanRenderPass& VulkanRenderPass::operator=(VulkanRenderPass&& other)
 {
     if (this != &other) {
         __renderPass = std::move(other.__renderPass);
-        __type = std::move(other.__type);
-        __swapChain = std::move(other.__swapChain);
     }
     return *this;
 }
 
-void RenderPass::Destroy()
+void VulkanRenderPass::Destroy()
 {
     __attachments.clear();
     __framebuffers.clear();
@@ -81,46 +74,10 @@ void RenderPass::Destroy()
     }
 }
 
-void RenderPass::SetRenderingType(const vc::RenderingPipelineType type)
+vc::Error VulkanRenderPass::_Init()
 {
-    __type = type;
-    switch (__type) {
-        case vc::RenderingPipelineType::Skybox: {
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Skybox)] = this;
-            break;
-        }
-        case vc::RenderingPipelineType::PBRModel: {
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::PBRModel)] = this;
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Reflection)] = this;
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::AdditiveLighting)] = this;
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::AdditiveLightingMS)] = this;
-            break;
-        }
-        case vc::RenderingPipelineType::GUI: {
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::GUI)] = this;
-            break;
-        }
-        case vc::RenderingPipelineType::CascadedShadowMapping: {
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::CascadedShadowMapping)] = this;
-            break;
-        }
-        case vc::RenderingPipelineType::Text3D: {
-            s_renderPasses[static_cast<int>(vc::RenderingPipelineType::Text3D)] = this;
-            break;
-        }
-        default: {
-            vc::Log::Error("Rendering Pipeline Type not supported");
-            break;
-        }
-    }
-}
-
-vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
-{
-    vc::Error err = vc::Error::Success;
-    Destroy();
-    __swapChain = swapChain;
-    switch (__type) {
+    vc::Error err;
+    switch (_type) {
         case vc::RenderingPipelineType::Skybox: {
             err = __CreateNormalRenderPass();
             break;
@@ -131,10 +88,10 @@ vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
         }
         case vc::RenderingPipelineType::GUI:
             err = __CreateGuiRenderPass();
-            break;
+        break;
         case vc::RenderingPipelineType::CascadedShadowMapping:
             err = __CreateCSMRenderPass();
-            break;
+        break;
         case vc::RenderingPipelineType::Text3D: {
             vc::Log::Error("Text3D are not supported yet");
             return vc::Error::Failure;
@@ -152,12 +109,12 @@ vc::Error RenderPass::InitRenderPass(const SwapChain* swapChain)
     return vc::Error::Success;
 }
 
-vc::Error RenderPass::BeginRenderPass(CommandBuffer* commandBuffer, int framebufferIndex)
+vc::Error VulkanRenderPass::BeginRenderPass(CommandBuffer* commandBuffer, int framebufferIndex)
 {
     return BeginRenderPassCustomFramebuffer(commandBuffer, &__framebuffers[framebufferIndex]);
 }
 
-vc::Error RenderPass::BeginRenderPassCustomFramebuffer(CommandBuffer* commandBuffer, const Framebuffer * const framebuffer)
+vc::Error VulkanRenderPass::BeginRenderPassCustomFramebuffer(CommandBuffer* commandBuffer, const Framebuffer * const framebuffer)
 {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -173,52 +130,41 @@ vc::Error RenderPass::BeginRenderPassCustomFramebuffer(CommandBuffer* commandBuf
     return vc::Error::Success;
 }
 
-void RenderPass::NextSubpass(CommandBuffer* commandBuffer)
+void VulkanRenderPass::NextSubpass(CommandBuffer* commandBuffer)
 {
     vkCmdNextSubpass(commandBuffer->_commandBuffer, VK_SUBPASS_CONTENTS_INLINE);
 }
 
-vc::Error RenderPass::EndRenderPass(CommandBuffer* commandBuffer)
+vc::Error VulkanRenderPass::EndRenderPass(CommandBuffer* commandBuffer)
 {
     vkCmdEndRenderPass(commandBuffer->_commandBuffer);
     return vc::Error::Success;
 }
 
-VkRenderPass RenderPass::GetVkRenderPass() const
+VkRenderPass VulkanRenderPass::GetVkRenderPass() const
 {
     return __renderPass;
 }
 
-Framebuffer* RenderPass::GetFramebuffer(const int index)
+Framebuffer* VulkanRenderPass::GetFramebuffer(const int index)
 {
     return &__framebuffers[index];
 }
 
-Framebuffer* RenderPass::GetCurrentFramebuffer()
+Framebuffer* VulkanRenderPass::GetCurrentFramebuffer()
 {
     return &__framebuffers[vc::GraphicsApplication::GetCurrentFrameInFlight()];
 }
 
-RenderPass* RenderPass::GetRenderPass(const vc::RenderingPipelineType type)
+vc::Error VulkanRenderPass::__CreateNormalRenderPass()
 {
-    venom_assert(type != vc::RenderingPipelineType::None && type != vc::RenderingPipelineType::Count, "RenderPass::GetRenderPass() : type is None or Count");
-    return s_renderPasses[static_cast<int>(type)];
-}
-
-vc::Vector<RenderPass*> RenderPass::GetRenderPasses()
-{
-    return s_renderPasses;
-}
-
-vc::Error RenderPass::__CreateNormalRenderPass()
-{
-    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+    const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Render Pass
     VkAttachmentDescription colorAttachment{};
     // Should match the format of the swap chain
-    colorAttachment.format = __swapChain->activeSurfaceFormat.format;
-    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    colorAttachment.format = SwapChain::Get()->activeSurfaceFormat.format;
+    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples());
     // What to do with the data before rendering
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR; // OP_LOAD might be useful for deferred shading or temporal AA
     // What to do with the data after rendering
@@ -232,7 +178,7 @@ vc::Error RenderPass::__CreateNormalRenderPass()
     // Depth attachment
     VkAttachmentDescription depthAttachment{};
     depthAttachment.format = VK_FORMAT_D32_SFLOAT;
-    depthAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    depthAttachment.samples = static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples());
     depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
@@ -296,7 +242,7 @@ vc::Error RenderPass::__CreateNormalRenderPass()
         __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
-    const size_t framebufferCount = __swapChain->swapChainImageHandles.size();
+    const size_t framebufferCount = SwapChain::Get()->swapChainImageHandles.size();
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
@@ -305,22 +251,22 @@ vc::Error RenderPass::__CreateNormalRenderPass()
         // Create Depth Image
         __attachments[i].resize(attachments.size());
         vc::Texture & depthTexture = __attachments[i][0];
-        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples()));
-        depthTexture.InitDepthBuffer(__swapChain->extent.width, __swapChain->extent.height);
+        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples()));
+        depthTexture.InitDepthBuffer(SwapChain::Get()->extent.width, SwapChain::Get()->extent.height);
 
         // Create MultiSampled Image if needed
         if (multisampled) {
             __framebuffers[i].SetAttachment(0, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>());
             //attachments[0] = AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
         } else {
-            __framebuffers[i].SetAttachment(0, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
-            //attachments[0] = __swapChain->__swapChainImageViews[i].GetVkImageView();
+            __framebuffers[i].SetAttachment(0, SwapChain::Get()->__swapChainImages[i], SwapChain::Get()->SwapChain::Get()->GetSwapChainImageViews()[i]);
+            //attachments[0] = SwapChain::Get()->SwapChain::Get()ImageViews[i].GetVkImageView();
         }
         __framebuffers[i].SetAttachment(1, depthTexture.GetImpl()->As<VulkanTexture>());
         //attachments[1] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
         // Create Framebuffer
-        __framebuffers[i].SetExtent(__swapChain->extent);
+        __framebuffers[i].SetExtent(SwapChain::Get()->extent);
         __framebuffers[i].SetLayers(1);
         __framebuffers[i].SetRenderPass(this);
         if (__framebuffers[i].Init() != vc::Error::Success) {
@@ -331,9 +277,9 @@ vc::Error RenderPass::__CreateNormalRenderPass()
     return vc::Error::Success;
 }
 
-vc::Error RenderPass::__CreateCSMRenderPass()
+vc::Error VulkanRenderPass::__CreateCSMRenderPass()
 {
-    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+    const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Depth attachment
     VkAttachmentDescription depthAttachment{};
@@ -398,16 +344,16 @@ vc::Error RenderPass::__CreateCSMRenderPass()
     return vc::Error::Success;
 }
 
-vc::Error RenderPass::__CreateGuiRenderPass()
+vc::Error VulkanRenderPass::__CreateGuiRenderPass()
 {
-    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+    const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Render Pass
-    //__AddAttachment(__swapChain, __swapChain->activeSurfaceFormat.format, multisampled ? VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    //__AddAttachment(SwapChain::Get(), SwapChain::Get()->activeSurfaceFormat.format, multisampled ? VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
     VkAttachmentDescription colorAttachment{};
     // Should match the format of the swap chain
-    colorAttachment.format = __swapChain->activeSurfaceFormat.format;
-    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    colorAttachment.format = SwapChain::Get()->activeSurfaceFormat.format;
+    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples());
     // What to do with the data before rendering
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD; // OP_LOAD might be useful for deferred shading or temporal AA
     // What to do with the data after rendering
@@ -421,7 +367,7 @@ vc::Error RenderPass::__CreateGuiRenderPass()
     // Depth attachment
     VkAttachmentDescription depthAttachment{};
     depthAttachment.format = VK_FORMAT_D32_SFLOAT;
-    depthAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    depthAttachment.samples = static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples());
     depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
@@ -431,7 +377,7 @@ vc::Error RenderPass::__CreateGuiRenderPass()
 
     // Color attachment resolve
     VkAttachmentDescription colorAttachmentResolve{};
-    colorAttachmentResolve.format = __swapChain->activeSurfaceFormat.format;
+    colorAttachmentResolve.format = SwapChain::Get()->activeSurfaceFormat.format;
     colorAttachmentResolve.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachmentResolve.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachmentResolve.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -505,28 +451,28 @@ vc::Error RenderPass::__CreateGuiRenderPass()
         __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
-    const size_t framebufferCount = __swapChain->swapChainImageHandles.size();
+    const size_t framebufferCount = SwapChain::Get()->swapChainImageHandles.size();
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
         // Create Depth Image
         __attachments[i].resize(attachments.size() - 1);
         vc::Texture & depthTexture = __attachments[i][0];
-        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples()));
-        depthTexture.InitDepthBuffer(__swapChain->extent.width, __swapChain->extent.height);
+        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples()));
+        depthTexture.InitDepthBuffer(SwapChain::Get()->extent.width, SwapChain::Get()->extent.height);
 
         // Create MultiSampled Image if needed
         if (multisampled) {
             __framebuffers[i].SetAttachment(0, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>());
-            __framebuffers[i].SetAttachment(2, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(2, SwapChain::Get()->__swapChainImages[i], SwapChain::Get()->__swapChainImageViews[i]);
         } else {
-            __framebuffers[i].SetAttachment(0, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(0, SwapChain::Get()->__swapChainImages[i], SwapChain::Get()->__swapChainImageViews[i]);
         }
 
         __framebuffers[i].SetAttachment(1, depthTexture.GetImpl()->As<VulkanTexture>());
 
         // Create Framebuffer
-        __framebuffers[i].SetExtent(__swapChain->extent);
+        __framebuffers[i].SetExtent(SwapChain::Get()->extent);
         __framebuffers[i].SetLayers(1);
         __framebuffers[i].SetRenderPass(this);
         if (__framebuffers[i].Init() != vc::Error::Success) {
@@ -537,16 +483,16 @@ vc::Error RenderPass::__CreateGuiRenderPass()
     return vc::Error::Success;
 }
 
-vc::Error RenderPass::__CreateDeferredShadowRenderPass()
+vc::Error VulkanRenderPass::__CreateDeferredShadowRenderPass()
 {
-    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+    const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Final Attachment : 0
-    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
+    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
     // Lighting Addition Attachment Write : 1
-    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, true);
     // Lighting Addition Attachment Read : 2
-    __AddAttachment(__swapChain->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, true);
     // Depth Attachment : 3
     __AddAttachment(VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, false);
 
@@ -619,7 +565,7 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     __clearValues.emplace_back((VkClearValue){0.0f, 0.0f, 0.0f, 0.0f});
 
     // Framebuffers
-    const size_t framebufferCount = __swapChain->swapChainImageHandles.size();
+    const size_t framebufferCount = SwapChain::Get()->swapChainImageHandles.size();
     __attachments.resize(framebufferCount);
     __framebuffers.resize(framebufferCount);
     for (int i = 0; i < framebufferCount; ++i) {
@@ -628,8 +574,8 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
         // Create Depth Image
         __attachments[i].resize(attachments.size());
         vc::Texture & depthTexture = __attachments[i][1];
-        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples()));
-        depthTexture.InitDepthBuffer(__swapChain->extent.width, __swapChain->extent.height);
+        depthTexture.GetImpl()->As<VulkanTexture>()->GetImage().SetSamples(static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples()));
+        depthTexture.InitDepthBuffer(SwapChain::Get()->extent.width, SwapChain::Get()->extent.height);
 
         attachments[1] = depthTexture.GetImpl()->As<VulkanTexture>()->GetImageView().GetVkImageView();
 
@@ -638,11 +584,11 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
             __framebuffers[i].SetAttachment(0, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::Present)].GetImpl()->As<VulkanTexture>());
             __framebuffers[i].SetAttachment(1, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
             __framebuffers[i].SetAttachment(2, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
-            __framebuffers[i].SetAttachment(4, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(4, SwapChain::Get()->__swapChainImages[i], SwapChain::Get()->__swapChainImageViews[i]);
             __framebuffers[i].SetAttachment(5, AttachmentsManager::Get()->resolveAttachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
             __framebuffers[i].SetAttachment(6, AttachmentsManager::Get()->resolveAttachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
         } else {
-            __framebuffers[i].SetAttachment(0, __swapChain->__swapChainImages[i], __swapChain->__swapChainImageViews[i]);
+            __framebuffers[i].SetAttachment(0, SwapChain::Get()->__swapChainImages[i], SwapChain::Get()->__swapChainImageViews[i]);
             __framebuffers[i].SetAttachment(1, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
             __framebuffers[i].SetAttachment(2, AttachmentsManager::Get()->attachments[i][static_cast<size_t>(vc::ColorAttachmentType::LightingAddition)].GetImpl()->As<VulkanTexture>());
         }
@@ -650,7 +596,7 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
 
 
         // Create Framebuffer
-        __framebuffers[i].SetExtent(__swapChain->extent);
+        __framebuffers[i].SetExtent(SwapChain::Get()->extent);
         __framebuffers[i].SetLayers(1);
         __framebuffers[i].SetRenderPass(this);
         if (__framebuffers[i].Init() != vc::Error::Success) {
@@ -661,14 +607,14 @@ vc::Error RenderPass::__CreateDeferredShadowRenderPass()
     return vc::Error::Success;
 }
 
-void RenderPass::__AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp, const VkImageLayout initalLayout, bool resolve)
+void VulkanRenderPass::__AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp, const VkImageLayout initalLayout, bool resolve)
 {
-    const bool multisampled = __swapChain->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
+    const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     VkAttachmentDescription & colorAttachment = __attachmentDescriptions.emplace_back();
     // Should match the format of the swap chain
     colorAttachment.format = format;
-    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(__swapChain->GetSamples());
+    colorAttachment.samples = static_cast<VkSampleCountFlagBits>(SwapChain::Get()->GetSamples());
     // What to do with the data before rendering
     colorAttachment.loadOp = loadOp; // OP_LOAD might be useful for deferred shading or temporal AA
     // What to do with the data after rendering
@@ -700,7 +646,7 @@ void RenderPass::__AddAttachment(const VkFormat format, const VkImageLayout layo
     }
 }
 
-void RenderPass::__SolveAttachmentReferences()
+void VulkanRenderPass::__SolveAttachmentReferences()
 {
     __attachmentDescriptions.insert(__attachmentDescriptions.end(), __resolveAttachmentDescriptions.begin(), __resolveAttachmentDescriptions.end());
     for (int i = 0; i < __resolveAttachmentRefs.size(); ++i) {
