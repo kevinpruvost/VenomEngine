@@ -55,7 +55,7 @@ MetalRenderPassData * MetalRenderPass::GetMetalRenderPassData() const {
 
 vc::Error MetalRenderPass::_Init()
 {
-    vc::Error err;
+    vc::Error err = vc::Error::Success;
     switch (_type) {
         case vc::RenderingPipelineType::Skybox: {
             MetalRenderPassData *data = GetMetalRenderPassData();

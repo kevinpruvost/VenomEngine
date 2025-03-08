@@ -58,7 +58,6 @@ void RenderPassImpl::Destroy()
 
 vc::Error RenderPassImpl::Init()
 {
-    Destroy();
     return _Init();
 }
 

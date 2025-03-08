@@ -21,12 +21,10 @@ id<MTLDevice> GetMetalDevice()
 vc::Error InitializeDevice()
 {
     MetalDevice = MTLCreateSystemDefaultDevice();
-    NSLog(@"Retain count after creation: %lu", [MetalDevice retainCount]);
     return MetalDevice == nil ? vc::Error::Failure : vc::Error::Success;
 }
 void DestroyDevice()
 {
-    NSLog(@"Retain count before retain: %lu", [MetalDevice retainCount]);
     [MetalDevice release];
     MetalDevice = nil;
 }

@@ -35,6 +35,7 @@
 #include <venom/metal/plugin/graphics/RenderPass.h>
 #include <venom/metal/Layer.h>
 #include <venom/metal/plugin/graphics/Mesh.h>
+#include <venom/metal/plugin/graphics/ShaderPipeline.h>
 
 namespace venom::metal
 {
@@ -96,10 +97,31 @@ vc::Error MetalApplication::__Loop()
 
     id <MTLCommandBuffer> commandBuffer = [GetMetalCommandQueue() commandBuffer];
     commandBuffer.label = @"Test1";
+    
+    MTLRenderPassDescriptor * renderPassDescriptor = MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor();
+    id <MTLRenderPipelineState> renderPipelineState = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Skybox)[0].GetImpl()->As<MetalShaderPipeline>()->GetRenderPipelineState();
+    id <CAMetalDrawable> drawable = [GetMetalLayer() nextDrawable];
+    renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
 
     // Create a render command encoder.
-    id<MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor()];
+    id<MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
+    renderEncoder.label = @"Render Encoder 1";
+    
+    // Set Viewport
+    [renderEncoder setViewport:(MTLViewport){0.0, 0.0, (double)vc::Context::GetWindowWidth(), (double)vc::Context::GetWindowHeight(), 0.0, 1.0}];
+    
+    [renderEncoder setRenderPipelineState:renderPipelineState];
+    
+    [renderEncoder setVertexBytes:triangleVertices length:sizeof(triangleVertices) atIndex:0];
+    const vector_uint2 viewPortSize = {(unsigned int)vc::Context::GetWindowWidth(), (unsigned int)vc::Context::GetWindowHeight()};
+    [renderEncoder setVertexBytes:&viewPortSize length:sizeof(viewPortSize) atIndex:1];
 
+    [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
+    
+    [renderEncoder endEncoding];
+    
+    [commandBuffer presentDrawable:drawable];
+    [commandBuffer commit];
     __shouldClose = vc::Context::Get()->ShouldClose();
     return err;
 }
