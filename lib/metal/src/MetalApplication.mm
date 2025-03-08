@@ -135,11 +135,6 @@ vc::Error MetalApplication::_OnGfxSettingsChange()
 {
     vc::Error err;
 
-    if (_windowSizeDirty) {
-        GetMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
-        _windowSizeDirty = false;
-    }
-
     // If the multisampling is dirty, we need to recreate render pass and shaders
     if (_multisamplingDirty || _hdrDirty)
     {
@@ -160,6 +155,15 @@ vc::Error MetalApplication::_OnGfxSettingsChange()
         if (err = rt->Reset(); err != vc::Error::Success)
             return err;
     return err;
+}
+
+vc::Error MetalApplication::_OnGfxConstantsChange()
+{
+    if (_windowSizeDirty) {
+        GetMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
+        _windowSizeDirty = false;
+    }
+    return vc::Error::Success;
 }
 
 vc::Error MetalApplication::_SetHDR(bool enable) {

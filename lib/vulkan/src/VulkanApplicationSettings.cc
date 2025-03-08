@@ -21,13 +21,9 @@ vc::Error VulkanApplication::_OnGfxSettingsChange()
 {
     vc::Error err;
 
-    if (_windowSizeDirty) {
-        __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
-        _windowSizeDirty = false;
-    }
-
     if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
     // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders
+
     if (_multisamplingDirty || _hdrDirty)
     {
         static vc::ShaderPipeline vkShader;
@@ -46,6 +42,13 @@ vc::Error VulkanApplication::_OnGfxSettingsChange()
         if (err = rt->Reset(); err != vc::Error::Success)
             return err;
     return err;
+}
+
+vc::Error VulkanApplication::_OnGfxConstantsChange()
+{
+    __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
+    _windowSizeDirty = false;
+    return vc::Error::Success;
 }
 
 vc::Error VulkanApplication::_SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)

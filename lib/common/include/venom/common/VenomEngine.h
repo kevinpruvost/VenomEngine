@@ -11,7 +11,7 @@
 #include <venom/common/ECS.h>
 #include <venom/common/VenomSettings.h>
 
-#include <venom/common/Context.h>
+#include <venom/common/plugin/context/Context.h>
 #include <venom/common/plugin/graphics/Light.h>
 #include <venom/common/SceneSettings.h>
 
@@ -51,6 +51,12 @@ public:
      * @return VenomEngine *
      */
     static VenomEngine * GetInstance();
+
+    /**
+     * @brief Checks for everything that is needed to run the engine, platform dependent
+     * @return Error if any, refer to Error enum for more information
+     */
+    static Error CheckCompatibility();
 
     /**
      * @brief Runs the engine

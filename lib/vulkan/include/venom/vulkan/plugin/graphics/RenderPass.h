@@ -40,7 +40,7 @@ public:
     VulkanRenderPass(VulkanRenderPass&& other);
     VulkanRenderPass& operator=(VulkanRenderPass&& other);
 
-    void Destroy();
+    void ClearRenderPass();
 
     void SetRenderingType(const vc::RenderingPipelineType type);
     vc::Error _Init() override;

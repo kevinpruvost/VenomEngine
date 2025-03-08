@@ -73,6 +73,19 @@ VenomEngine* VenomEngine::GetInstance()
     return s_instance.get();
 }
 
+Error VenomEngine::CheckCompatibility()
+{
+    vc::Error err = vc::Error::Success;
+#ifdef __APPLE__
+    if (vc::Config::GetGraphicsPluginType() == vc::GraphicsPlugin::GraphicsPluginType::Vulkan
+     && vc::Config::GetContextType() == vc::Context::ContextType::UIKit) {
+        Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with UIKit as a context currently. Please pick GLFW instead.");
+        return Error::Failure;
+    }
+#endif
+    return err;
+}
+
 Error VenomEngine::RunEngine(int argc, const char* argv[])
 {
     vc::Error err = Error::Success;
@@ -81,6 +94,11 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
     if (!s_sceneCallback) {
         Log::Error("VenomEngine::RunEngine() : No scene set");
         return Error::Failure;
+    }
+
+    if (err = CheckCompatibility(); err != Error::Success) {
+        Log::Error("VenomEngine::RunEngine() : Compatibility check failed");
+        return err;
     }
 
     vc::Resources::InitializeFilesystem(argc, argv);

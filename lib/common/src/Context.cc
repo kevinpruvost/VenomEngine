@@ -5,7 +5,7 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/common/Context.h>
+#include <venom/common/plugin/context/Context.h>
 #include <venom/common/Log.h>
 
 #include <venom/common/plugin/graphics/GraphicsSettings.h>

@@ -18,6 +18,7 @@ namespace venom
 {
 namespace common
 {
+
 enum InputState : int8_t
 {
     Released = 0x1,
@@ -90,6 +91,15 @@ public:
     Context();
     ~Context();
 public:
+    enum class ContextType
+    {
+        GLFW = 0,
+#ifdef __APPLE__
+        UIKit,
+#endif
+        Count
+    };
+
     static inline Context * Get() { return s_context; }
 
     vc::Error InitContext();

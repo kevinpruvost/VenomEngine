@@ -105,8 +105,9 @@ public:
 
 protected:
     static bool _IsGfxSettingsDataDirty();
+    static bool _IsGfxConstantsDataDirty();
     virtual vc::Error _OnGfxSettingsChange() = 0;
-
+    virtual vc::Error _OnGfxConstantsChange() = 0;
 
     virtual vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) = 0;
     virtual vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() = 0;
@@ -137,6 +138,7 @@ private:
 
     GraphicsSettingsData __gfxSettingsData;
     bool __gfxSettingsDataDirty;
+    bool __gfxConstantsDataDirty;
 
     vc::Vector<vc::String> __availableMultisamplingCountsStrings;
     const vc::Vector<vc::String> __debugVisualizerStrings;

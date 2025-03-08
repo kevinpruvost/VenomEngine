@@ -15,7 +15,7 @@
 
 #include <venom/vulkan/plugin/graphics/Texture.h>
 
-#include <venom/common/Context.h>
+#include <venom/common/plugin/context/Context.h>
 #include <venom/common/Containers.h>
 
 namespace venom

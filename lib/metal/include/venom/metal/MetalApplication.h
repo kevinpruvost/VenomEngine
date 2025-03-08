@@ -16,7 +16,7 @@
 #include <venom/metal/Debug.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
-#include <venom/common/Context.h>
+#include <venom/common/plugin/context/Context.h>
 
 #include <venom/common/VenomSettings.h>
 #include <venom/common/math/Vector.h>
@@ -48,6 +48,7 @@ public:
 
 protected:
     vc::Error _OnGfxSettingsChange() override;
+    vc::Error _OnGfxConstantsChange() override;
 
     vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) override;
     vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() override;

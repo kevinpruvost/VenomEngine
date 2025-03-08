@@ -42,7 +42,7 @@ VulkanRenderPass::VulkanRenderPass()
 
 VulkanRenderPass::~VulkanRenderPass()
 {
-    Destroy();
+    ClearRenderPass();
 }
 
 VulkanRenderPass::VulkanRenderPass(VulkanRenderPass&& other)
@@ -58,7 +58,7 @@ VulkanRenderPass& VulkanRenderPass::operator=(VulkanRenderPass&& other)
     return *this;
 }
 
-void VulkanRenderPass::Destroy()
+void VulkanRenderPass::ClearRenderPass()
 {
     __attachments.clear();
     __framebuffers.clear();
@@ -77,6 +77,7 @@ void VulkanRenderPass::Destroy()
 vc::Error VulkanRenderPass::_Init()
 {
     vc::Error err;
+    ClearRenderPass();
     switch (_type) {
         case vc::RenderingPipelineType::Skybox: {
             err = __CreateNormalRenderPass();

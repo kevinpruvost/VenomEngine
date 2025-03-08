@@ -28,6 +28,7 @@ GraphicsSettings::GraphicsSettings()
         .debugVisualizationMode = 0
     }
     , __gfxSettingsDataDirty(true)
+    , __gfxConstantsDataDirty(true)
     , __debugVisualizerStrings{
         "None",
         "Depth",
@@ -171,11 +172,18 @@ bool GraphicsSettings::_IsGfxSettingsDataDirty()
     return dirty;
 }
 
+bool GraphicsSettings::_IsGfxConstantsDataDirty()
+{
+    const bool dirty = s_graphicsSettings->__gfxConstantsDataDirty;
+    s_graphicsSettings->__gfxConstantsDataDirty = false;
+    return dirty;
+}
+
 void GraphicsSettings::SetDebugVisualizationMode(DebugVisualizationMode mode)
 {
     venom_assert(static_cast<int>(mode) < static_cast<int>(DebugVisualizationMode::Count), "Invalid DebugVisualizationMode");
     s_graphicsSettings->__gfxSettingsData.debugVisualizationMode = static_cast<int>(mode);
-    s_graphicsSettings->__gfxSettingsDataDirty = true;
+    s_graphicsSettings->__gfxConstantsDataDirty = true;
 }
 
 GraphicsSettings::DebugVisualizationMode GraphicsSettings::GetDebugVisualizationMode()
@@ -188,14 +196,16 @@ void GraphicsSettings::SetWindowResolution(int width, int height)
     s_graphicsSettings->__gfxSettingsData.screenWidth = width;
     s_graphicsSettings->__gfxSettingsData.screenHeight = height;
     s_graphicsSettings->__gfxSettingsDataDirty = true;
+    s_graphicsSettings->__gfxConstantsDataDirty = true;
     s_graphicsSettings->_windowSizeDirty = true;
 }
 
 void GraphicsSettings::SetWindowExtent(int width, int height)
 {
+    // Shouldnt make it dirty as the Graphics API controls that
     s_graphicsSettings->__gfxSettingsData.extentWidth = width;
     s_graphicsSettings->__gfxSettingsData.extentHeight = height;
-    s_graphicsSettings->__gfxSettingsDataDirty = true;
+    s_graphicsSettings->__gfxConstantsDataDirty = true;
 }
 
 void GraphicsSettings::ReloadGFXSettings()

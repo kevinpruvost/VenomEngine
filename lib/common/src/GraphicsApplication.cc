@@ -100,6 +100,8 @@ Error GraphicsApplication::Loop()
     vc::Context::Get()->PollEvents();
     if (GraphicsSettings::_IsGfxSettingsDataDirty())
         _OnGfxSettingsChange();
+    if (GraphicsSettings::_IsGfxConstantsDataDirty())
+        _OnGfxConstantsChange();
     return __Loop();
 }
 

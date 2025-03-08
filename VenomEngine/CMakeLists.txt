@@ -29,10 +29,11 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 # Depend on link_resources to symlink/copy
-add_dependencies(${PROJECT_NAME} link_resources VenomVulkan)
+add_dependencies(${PROJECT_NAME} link_resources VenomVulkan VenomGLFW)
 
 if (APPLE)
 add_dependencies(${PROJECT_NAME} VenomMetal)
+add_dependencies(${PROJECT_NAME} VenomUIKit)
 elseif (WIN32)
 #add_dependencies(${PROJECT_NAME} VenomDX12)
 endif ()
