@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name and version
-project(VenomMetal VERSION 1.0)
+project(VenomMetal VERSION 1.0 LANGUAGES C CXX OBJC OBJCXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ObjC++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 # Define the include directories
 include_directories(include)
@@ -15,6 +15,7 @@ add_compile_definitions(_GLFW_COCOA)
 # Define the source and header files
 file(GLOB_RECURSE venom_metal_srcs src/*.cc src/*.mm)
 file(GLOB_RECURSE venom_metal_hdrs include/venom/metal/**/**/**/*.h)
+message(STATUS "Venom Metal Sources: ${venom_metal_srcs}")
 
 # Create the static library target
 add_library(${PROJECT_NAME} SHARED
@@ -22,7 +23,12 @@ add_library(${PROJECT_NAME} SHARED
     ${IMGUI_SOURCES}
     ${IMGUI_METAL_SOURCE}
 )
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    PREFIX ""
+    CXX_STANDARD ${CMAKE_CXX_STANDARD}
+    OBJCXX_STANDARD ${CMAKE_CXX_STANDARD}
+    #COMPILE_FLAGS "-fno-objc-arc" # very important
+)
 message(STATUS "IMGUI Metal Sources: ${IMGUI_SOURCES}")
 
 # Find required libraries and frameworks

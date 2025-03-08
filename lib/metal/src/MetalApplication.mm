@@ -30,6 +30,10 @@
 #include "venom/common/plugin/graphics/RenderingPipeline.h"
 #include "venom/common/plugin/graphics/RenderTarget.h"
 
+#include <venom/metal/Device.h>
+#include <venom/metal/CommandQueue.h>
+#include <venom/metal/Layer.h>
+
 namespace venom::metal
 {
 MetalApplication::MetalApplication()
@@ -38,12 +42,17 @@ MetalApplication::MetalApplication()
     , __shouldClose(false)
 {
     NSApplication * app = [NSApplication sharedApplication];
-    device = MTLCreateSystemDefaultDevice();
+    InitializeDevice();
+    InitializeCommandQueue();
+    InitializeLayer();
 }
 
 MetalApplication::~MetalApplication()
 {
     vc::Log::Print("Destroying Metal app...");
+    DestroyLayer();
+    DestroyCommandQueue();
+    DestroyDevice();
 #ifdef VENOM_DEBUG
 #endif
     vc::Log::Print("Metal app succesfully destroyed.");

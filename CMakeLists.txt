@@ -50,7 +50,7 @@ if (APPLE)
         set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
     endif()
 
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "13")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "15")
     set(XCODE_VERSION "16.0")
     file(GLOB_RECURSE RESOURCE_FILES_APPLE
         "${CMAKE_SOURCE_DIR}/resources/**/*.icns"

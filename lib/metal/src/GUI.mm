@@ -14,7 +14,11 @@
 #include <venom/metal/MetalApplication.h>
 #include <venom/metal/plugin/graphics/RenderTarget.h>
 
+#include <venom/metal/Layer.h>
+
 #include <ImGuizmo.h>
+
+#include <venom/metal/Device.h>
 
 namespace venom
 {
@@ -104,26 +108,28 @@ void MetalGUI::__SetStyle()
 vc::Error MetalGUI::_Initialize()
 {
     const MetalApplication * const app = static_cast<const MetalApplication * const>(_app);
-    
-    device = app->device;
-    commandQueue = [device newCommandQueue];
 
     // Setup Platform/Renderer backends
     if (_firstInit) {
         ImGui::CreateContext();
         ImGui::StyleColorsLight();
-        renderPassDescriptor = [MTLRenderPassDescriptor new];
+        //renderPassDescriptor = [MTLRenderPassDescriptor new];
     }
 
     // Setup Platform/Renderer backends
 
     ImGui_ImplGlfw_InitForOther(vc::Context::Get()->GetWindow(), true);
-    if (!ImGui_ImplMetal_Init(app->device))
+    if (!ImGui_ImplMetal_Init(GetMetalDevice()))
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.Fonts->AddFontDefault();
+    
+    // TODO: Abstract if context is managed by glfw or not
+    NSWindow *nswin = glfwGetCocoaWindow(vc::Context::Get()->GetWindow());
+    nswin.contentView.layer = GetMetalLayer();
+    nswin.contentView.wantsLayer = YES;
 
     __SetStyle();
     return vc::Error::Success;
@@ -277,7 +283,7 @@ void MetalGUI::_NewFrame()
 //    id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
 //    [renderEncoder pushDebugGroup:@"ImGui demo"];
     
-    ImGui_ImplMetal_NewFrame(renderPassDescriptor);
+    //ImGui_ImplMetal_NewFrame(renderPassDescriptor);
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     ImGuizmo::SetOrthographic(false);

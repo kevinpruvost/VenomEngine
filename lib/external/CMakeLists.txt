@@ -27,6 +27,7 @@ add_subdirectory("glaze")
 add_subdirectory("glfw")
 set_target_properties(glfw PROPERTIES
     FOLDER "ExternalLibraries"
+    #COMPILE_FLAGS "-fno-objc-arc"
 )
 
 # glm

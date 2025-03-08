@@ -144,9 +144,6 @@ private:
     float __imageVerticalOffset;
     
 #ifdef __OBJC__
-    MTLRenderPassDescriptor *renderPassDescriptor;
-    id<MTLDevice> device;
-    id<MTLCommandQueue> commandQueue;
 #endif
 private:
 };

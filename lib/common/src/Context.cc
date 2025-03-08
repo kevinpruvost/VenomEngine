@@ -37,12 +37,22 @@ Context::~Context()
 
 vc::Error Context::InitContext()
 {
-    glfwInit();
+    if (!glfwInit())
+        return vc::Error::Failure;
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     // Get window configurations
     GLFWmonitor * monitor = glfwGetPrimaryMonitor();
+    if (!monitor) {
+        int count;
+        GLFWmonitor ** monitors = glfwGetMonitors(&count);
+        if (count == 0) {
+            vc::Log::Error("No monitors detected by GLFW.");
+            return vc::Error::Failure;
+        }
+        monitor = monitors[0];
+    }
     int count;
     const GLFWvidmode * modes = glfwGetVideoModes(monitor, &count);
     const GLFWvidmode * activeMode = const_cast<GLFWvidmode *>(glfwGetVideoMode(monitor));

@@ -65,6 +65,9 @@ compile_shaders_glsl: check_ruby
 compile_shaders: check_ruby
 	ruby ./resources/compile_shaders.rb compile
 
+compile_shaders_msl: check_ruby
+	ruby ./resources/compile_shaders.rb compile_msl
+
 compile_shaders_debug: check_ruby
 	ruby ./resources/compile_shaders.rb compile_debug
 

@@ -8,6 +8,7 @@
 #include <venom/common/Resources.h>
 
 #include <venom/common/Log.h>
+#include <venom/common/Config.h>
 
 #include <filesystem>
 
@@ -119,11 +120,13 @@ std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
 std::string Resources::GetShadersFolderPath()
 {
     return GetResourcePath(
+       Config::GetGraphicsPluginType() == GraphicsPlugin::GraphicsPluginType::Vulkan ?
 #ifdef VENOM_DEBUG
         "shaders/Debug/"
 #else
         "shaders/Release/"
 #endif
+       : "shaders/"
     );
 }
 

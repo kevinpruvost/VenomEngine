@@ -8,8 +8,17 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/ShaderPipeline.h>
-
 #include <venom/common/math/Matrix.h>
+
+#ifdef __OBJC__
+#import <Metal/Metal.h>
+#import <Foundation/Foundation.h>
+#endif
+
+#ifdef __OBJC__
+@interface MetalShaderPipelineData : NSObject
+@end
+#endif
 
 namespace venom
 {
@@ -45,6 +54,8 @@ public:
     MetalShaderPipeline& operator=(MetalShaderPipeline&& other) noexcept;
 
     void _ResetResource() override;
+    vc::Error LoadShader(const std::string & path);
+    vc::Error LoadShaders();
     vc::Error _LoadShader(const std::string & path) override;
     void _SetMultiSamplingCount(const int samples) override;
     void _SetLineWidth(const float width) override;
@@ -54,7 +65,12 @@ public:
     vc::Error _ReloadShader() override;
 
     void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const vc::ShaderVertexFormat format) override;
-private:
+
+    void * pipelineData;
+
+#ifdef __OBJC__
+    MetalShaderPipelineData * GetPipelineData();
+#endif
 };
 
 }

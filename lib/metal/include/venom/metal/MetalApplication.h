@@ -10,6 +10,7 @@
 #ifdef __OBJC__
 #import <Metal/Metal.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Foundation/Foundation.h>
 #endif
 
 #include <venom/metal/Debug.h>
@@ -63,7 +64,7 @@ private:
 
 #ifdef __OBJC__
 public:
-    id <MTLDevice> device;
+
 private:
 #endif
     friend class MetalShaderResourceTable;
