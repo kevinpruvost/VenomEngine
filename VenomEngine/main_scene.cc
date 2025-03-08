@@ -24,6 +24,7 @@ void Scene(const vc::ScenePhase phase)
             camera = vc::CreateEntity("Camera")
                 .emplace<vc::Camera>();
 
+            vc::GraphicsSettings::SetHDR(true);
             vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples2);
             vc::SceneSettings::SetTargetLuminance(10.0f);
             break;

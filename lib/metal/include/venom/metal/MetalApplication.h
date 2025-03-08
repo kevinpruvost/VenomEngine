@@ -47,7 +47,6 @@ public:
     void WaitForDraws() override;
 
 protected:
-    vc::Error _LoadGfxSettings() override;
     vc::Error _OnGfxSettingsChange() override;
 
     vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) override;

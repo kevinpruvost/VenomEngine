@@ -107,7 +107,6 @@ protected:
     static bool _IsGfxSettingsDataDirty();
     virtual vc::Error _OnGfxSettingsChange() = 0;
 
-    virtual vc::Error _LoadGfxSettings() = 0;
 
     virtual vc::Error _SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) = 0;
     virtual vc::Vector<MultiSamplingCountOption> _GetAvailableMultisamplingOptions() = 0;
@@ -125,6 +124,7 @@ protected:
     MultiSamplingModeOption _samplingMode;
     bool _multisamplingDirty;
     bool _hdrDirty;
+    bool _windowSizeDirty;
     bool _isHdrSupported;
 
     bool _gfxSettingsChangeQueued;

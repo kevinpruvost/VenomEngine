@@ -17,9 +17,14 @@ namespace venom
 namespace vulkan
 {
 
-vc::Error VulkanApplication::_LoadGfxSettings()
+vc::Error VulkanApplication::_OnGfxSettingsChange()
 {
     vc::Error err;
+
+    if (_windowSizeDirty) {
+        __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
+        _windowSizeDirty = false;
+    }
 
     if (__RecreateSwapChain() != vc::Error::Success) return vc::Error::Failure;
     // If the multisampling is dirty, we need to recreate the swap chain, render pass and shaders

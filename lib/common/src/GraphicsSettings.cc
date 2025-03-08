@@ -17,6 +17,7 @@ GraphicsSettings::GraphicsSettings()
     : _gfxSettingsChangeState(GfxSettingsChangeState::Ended)
     , _multisamplingDirty(false)
     , _hdrDirty(false)
+    , _windowSizeDirty(false)
     , _isHdrSupported(false)
     , _gfxSettingsChangeQueued(false)
     , _samplingMode(MultiSamplingModeOption::None)
@@ -85,7 +86,7 @@ bool GraphicsSettings::IsHDRSupported()
 
 vc::Error GraphicsSettings::__LoadGfxSettings()
 {
-    vc::Error err = s_graphicsSettings->_LoadGfxSettings();
+    vc::Error err = s_graphicsSettings->_OnGfxSettingsChange();
     if (err != vc::Error::Success)
         return err;
     s_graphicsSettings->_multisamplingDirty = false;
@@ -187,6 +188,7 @@ void GraphicsSettings::SetWindowResolution(int width, int height)
     s_graphicsSettings->__gfxSettingsData.screenWidth = width;
     s_graphicsSettings->__gfxSettingsData.screenHeight = height;
     s_graphicsSettings->__gfxSettingsDataDirty = true;
+    s_graphicsSettings->_windowSizeDirty = true;
 }
 
 void GraphicsSettings::SetWindowExtent(int width, int height)

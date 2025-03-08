@@ -69,17 +69,16 @@ void MetalApplication::WaitForDraws()
 
 vc::Error MetalApplication::__Init()
 {
+    // Check if HDR is possible
+    if ([GetMetalDevice() supportsFamily:MTLGPUFamilyApple3]) {
+        _isHdrSupported = true;
+    }
+    
     return vc::Error::Success;
 }
 
 vc::Error MetalApplication::__PostInit()
 {
-    return vc::Error::Success;
-}
-
-vc::Error MetalApplication::_OnGfxSettingsChange()
-{
-    GetMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
     return vc::Error::Success;
 }
 
@@ -100,7 +99,7 @@ vc::Error MetalApplication::__Loop()
         { { -250,  -250 }, { 0, 1, 0, 1 } },
         { {    0,   250 }, { 0, 0, 1, 1 } },
     };
-
+    
     id <MTLCommandBuffer> commandBuffer = [GetMetalCommandQueue() commandBuffer];
     commandBuffer.label = @"Test1";
     
@@ -132,11 +131,43 @@ vc::Error MetalApplication::__Loop()
     return err;
 }
 
-vc::Error MetalApplication::_LoadGfxSettings() {
-    return vc::Error::Success;
+vc::Error MetalApplication::_OnGfxSettingsChange()
+{
+    vc::Error err;
+
+    if (_windowSizeDirty) {
+        GetMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
+        _windowSizeDirty = false;
+    }
+
+    // If the multisampling is dirty, we need to recreate render pass and shaders
+    if (_multisamplingDirty || _hdrDirty)
+    {
+        static vc::ShaderPipeline vkShader;
+            for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
+                if (!shader->IsType<MetalShaderResource>()) continue;
+                if (_multisamplingDirty)
+                    shader->GetHolder()->As<MetalShaderPipeline>()->SetMultiSamplingCount(GetActiveSamplesMultisampling());
+                shader->GetHolder()->As<MetalShaderPipeline>()->LoadShaders();
+            }
+        if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
+            return err;
+        _multisamplingDirty = _hdrDirty = false;
+    }
+
+    // Reset Render Targets
+    for (auto & rt : vc::RenderTargetImpl::GetAllRenderTargets())
+        if (err = rt->Reset(); err != vc::Error::Success)
+            return err;
+    return err;
 }
 
 vc::Error MetalApplication::_SetHDR(bool enable) {
+    if (enable) {
+        GetMetalLayer().pixelFormat = MTLPixelFormatRGBA16Float;
+    } else {
+        GetMetalLayer().pixelFormat = MTLPixelFormatBGRA8Unorm;
+    }
     return vc::Error::Success;
 }
 

@@ -149,12 +149,6 @@ void VulkanApplication::__UpdateUniformBuffers()
     }
 }
 
-vc::Error VulkanApplication::_OnGfxSettingsChange()
-{
-    __graphicsSettingsBuffer.WriteToBuffer(vc::GraphicsSettings::GetGfxSettingsDataPtr(), sizeof(vc::GraphicsSettingsData));
-    return vc::Error::Success;
-}
-
 vc::Error VulkanApplication::__GraphicsOperations()
 {
     const auto & renderTargets = vc::RenderTargetImpl::GetAllRenderTargets();
@@ -553,7 +547,7 @@ vc::Error VulkanApplication::__DrawFrame()
         _gfxSettingsChangeQueued = false;
         vc::Log::Print("Recreating swap chain");
         _currentFrame = 0;
-        return _LoadGfxSettings();
+        return _OnGfxSettingsChange();
     } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
         vc::Log::Error("Failed to acquire swap chain image");
         return vc::Error::Failure;
