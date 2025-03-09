@@ -281,7 +281,7 @@ protected:
     GraphicsApplication * _app;
     struct FontData
     {
-        const std::string path;
+        const vc::String path;
         float size;
         const uint16_t * glyphRanges;
     };

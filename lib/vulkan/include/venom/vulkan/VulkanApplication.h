@@ -106,7 +106,7 @@ private:
     Instance __instance;
     LogicalDevice __logicalDevice;
     DescriptorPool __descriptorPool;
-    std::vector<const char *> __instanceExtensions;
+    vc::Vector<const char *> __instanceExtensions;
     PhysicalDevice __physicalDevice;
     MappedQueueFamilies __queueFamilies;
     Surface __surface;

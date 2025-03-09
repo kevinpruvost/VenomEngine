@@ -34,7 +34,7 @@ void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfo
     // DX12 will be for another standalone project
     uint32_t glfwExtensionCount = 0;
     const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-    __instanceExtensions = std::vector<const char *>(glfwExtensions, glfwExtensions + glfwExtensionCount);
+    __instanceExtensions = vc::Vector<const char *>(glfwExtensions, glfwExtensions + glfwExtensionCount);
 
     __instanceExtensions.emplace_back(VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME);
 #ifdef __APPLE__
@@ -117,7 +117,7 @@ vc::Error Instance::CreateInstance(Instance * instance)
         if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
             uint32_t extensionCount = 0;
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-            std::vector<VkExtensionProperties> extensions(extensionCount);
+            vc::Vector<VkExtensionProperties> extensions(extensionCount);
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
             vc::Log::Print("Available Extensions:");
             for (const auto& extension : extensions) {
@@ -130,7 +130,7 @@ vc::Error Instance::CreateInstance(Instance * instance)
         } else if (res == VK_ERROR_LAYER_NOT_PRESENT) {
             uint32_t layerCount = 0;
             vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-            std::vector<VkLayerProperties> layers(layerCount);
+            vc::Vector<VkLayerProperties> layers(layerCount);
             vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
             vc::Log::Print("Available Layers:");
             for (const auto& layer : layers) {

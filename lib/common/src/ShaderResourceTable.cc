@@ -76,8 +76,8 @@ public:
         return modelMatrixBuffers.data();
     }
 
-    std::array<vcm::Mat4, VENOM_MAX_ENTITIES> modelMatrixBuffers;
-    std::stack<int> freeBuffers;
+    vc::Array<vcm::Mat4, VENOM_MAX_ENTITIES> modelMatrixBuffers;
+    vc::Stack<int> freeBuffers;
 };
 static UPtr<ExternalModelMatrixManager> s_modelMatrixManager(new ExternalModelMatrixManager());
 
@@ -125,13 +125,13 @@ public:
 
     inline void SetMaxTextures(uint32_t maxTextures)
     {
-        freeBuffers = std::stack<int>();
+        freeBuffers = vc::Stack<int>();
         for (int i = maxTextures - 1; i >= 0; --i) {
             freeBuffers.push(i);
         }
     }
 
-    std::stack<int> freeBuffers;
+    vc::Stack<int> freeBuffers;
 };
 static UPtr<BindlessTexturesIdManager> s_bindlessTextureManager(new BindlessTexturesIdManager());
 

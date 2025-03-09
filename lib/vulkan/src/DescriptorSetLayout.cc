@@ -113,7 +113,7 @@ uint32_t DescriptorSetLayout::GetMaxSets() const
     return __maxSets;
 }
 
-const std::vector<VkDescriptorSetLayoutBinding>& DescriptorSetLayout::GetBindings() const
+const vc::Vector<VkDescriptorSetLayoutBinding>& DescriptorSetLayout::GetBindings() const
 {
     return __bindings;
 }

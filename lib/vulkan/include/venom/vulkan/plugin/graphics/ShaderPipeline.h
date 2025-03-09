@@ -64,7 +64,7 @@ public:
     VulkanShaderPipeline& operator=(VulkanShaderPipeline&& other) noexcept;
 
     void _ResetResource() override;
-    vc::Error _LoadShader(const std::string & path) override;
+    vc::Error _LoadShader(const vc::String & path) override;
     void _SetMultiSamplingCount(const int samples) override;
     void _SetLineWidth(const float width) override;
     void _SetDepthTest(const bool enable) override;
@@ -78,7 +78,7 @@ public:
     VkPipelineLayout GetPipelineLayout() const;
     const VkDescriptorSetLayout & GetDescriptorSetLayout() const;
 private:
-    vc::Error LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
+    vc::Error LoadShader(const vc::String& shaderPath, VkPipelineShaderStageCreateInfo * pipelineCreateInfo);
 };
 
 }

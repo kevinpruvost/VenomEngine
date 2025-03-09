@@ -114,12 +114,12 @@ const MaterialComponent& MaterialImpl::GetComponent(const MaterialComponentType 
     return __components[type];
 }
 
-const std::string& MaterialImpl::GetName() const
+const vc::String& MaterialImpl::GetName() const
 {
     return __name;
 }
 
-void MaterialImpl::SetName(const std::string& name)
+void MaterialImpl::SetName(const vc::String& name)
 {
     __name = name;
     __resourceTableDirty = true;

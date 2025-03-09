@@ -495,7 +495,7 @@ CommandPool::CommandPool()
 CommandPool::~CommandPool()
 {
     if (__commandBuffers.size() != 0) {
-        std::vector<VkCommandBuffer> commandBuffers(__commandBuffers.size());
+        vc::Vector<VkCommandBuffer> commandBuffers(__commandBuffers.size());
         for (size_t i = 0; i < __commandBuffers.size(); ++i) {
             commandBuffers[i] = __commandBuffers[i]->_commandBuffer;
         }
@@ -555,7 +555,7 @@ vc::Error CommandPool::CreateCommandBuffer(CommandBuffer** commandBuffer, VkComm
     allocInfo.level = level;
     allocInfo.commandBufferCount = 1;
 
-    std::unique_ptr<CommandBuffer> & newCommandBuffer = __commandBuffers.emplace_back(new CommandBuffer());
+    vc::UPtr<CommandBuffer> & newCommandBuffer = __commandBuffers.emplace_back(new CommandBuffer());
     if (VkResult res = vkAllocateCommandBuffers(LogicalDevice::GetVkDevice(), &allocInfo, &newCommandBuffer->_commandBuffer); res != VK_SUCCESS) {
         vc::Log::Error("Failed to allocate command buffer: %d", res);
         return vc::Error::Failure;

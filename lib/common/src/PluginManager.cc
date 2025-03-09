@@ -56,7 +56,7 @@ Error PluginManager::LoadAllPlugins()
 }
 
 template<typename T>
-T * LoadPluginFromNameAndType(const std::string & libName, const char * functionName)
+T * LoadPluginFromNameAndType(const vc::String & libName, const char * functionName)
 {
     DLL * dll = DLL::GetFromCache(libName);
     if (!dll) {
@@ -64,7 +64,7 @@ T * LoadPluginFromNameAndType(const std::string & libName, const char * function
         Error err;
 #if defined(__APPLE__) && defined(VENOM_PACKAGE)
         // Try to load from the bundle (/Frameworks)
-        std::string newLibPath = Resources::GetResourcePath("../Frameworks/" + libName);
+        vc::String newLibPath = Resources::GetResourcePath("../Frameworks/" + libName);
         err = dll->LoadDLL(newLibPath.c_str());
         if (err != Error::Success)
 #endif
@@ -96,7 +96,7 @@ vc::Error PluginManager::LoadGraphicsPlugin()
 {
     vc::Error err;
     const GraphicsPlugin::GraphicsPluginType type = Config::GetGraphicsPluginType();
-    std::string libName;
+    vc::String libName;
     switch (type)
     {
     case GraphicsPlugin::GraphicsPluginType::Vulkan:
@@ -124,7 +124,7 @@ Error PluginManager::LoadContextPlugin()
 {
     Error err;
     const Context::ContextType type = Config::GetContextType();
-    std::string libName;
+    vc::String libName;
     switch (type) {
         case Context::ContextType::GLFW:
             libName = "VenomContextGLFW";

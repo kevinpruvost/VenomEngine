@@ -77,9 +77,9 @@ vc::Error VulkanMesh::AddIndexBuffer(const void* data, const uint32_t indexCount
     return vc::Error::Success;
 }
 
-// std::string operator+(char c, const std::string & str)
+// vc::String operator+(char c, const vc::String & str)
 // {
-//     std::string ret(&c);
+//     vc::String ret(&c);
 //     ret += str;
 //     return ret;
 // }

@@ -9,11 +9,11 @@
 
 #include <Foundation/Foundation.h>
 
-std::string getResourcePath() {
+vc::String getResourcePath() {
     // Get the path to the resource directory in the application bundle
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *resourcePath = [bundle resourcePath];
 
-    // Convert NSString to std::string
-    return std::string([resourcePath UTF8String]);
+    // Convert NSString to vc::String
+    return vc::String([resourcePath UTF8String]);
 }

@@ -21,7 +21,7 @@ MappedQueueFamilies::MappedQueueFamilies()
 {
 }
 
-MappedQueueFamilies::MappedQueueFamilies(std::vector<QueueFamily>& queueFamilies)
+MappedQueueFamilies::MappedQueueFamilies(vc::Vector<QueueFamily>& queueFamilies)
     : __queueFamilies(std::move(queueFamilies)) // giving ownership of queue families
 {
     for (int i = 0; i < __queueFamilies.size(); ++i)
@@ -56,7 +56,7 @@ MappedQueueFamilies& MappedQueueFamilies::operator=(MappedQueueFamilies&& other)
     return *this;
 }
 
-const std::vector<QueueFamily> & MappedQueueFamilies::GetQueueFamilies() const
+const vc::Vector<QueueFamily> & MappedQueueFamilies::GetQueueFamilies() const
 {
     return __queueFamilies;
 }
@@ -80,10 +80,10 @@ MappedQueueFamilies getVulkanQueueFamilies(const PhysicalDevice& physicalDevice)
 {
     uint32_t queueFamilyCount = 0;
     vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice.GetVkPhysicalDevice(), &queueFamilyCount, nullptr);
-    std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+    vc::Vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
     vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice.GetVkPhysicalDevice(), &queueFamilyCount, queueFamilies.data());
 
-    std::vector<QueueFamily> families(queueFamilyCount);
+    vc::Vector<QueueFamily> families(queueFamilyCount);
     for (size_t i = 0; i < queueFamilyCount; i++) {
         families[i].properties = queueFamilies[i];
     }

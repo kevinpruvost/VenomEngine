@@ -46,7 +46,7 @@ public:
 
 private:
     VkCommandPool __commandPool;
-    std::vector<std::unique_ptr<CommandBuffer>> __commandBuffers;
+    vc::Vector<vc::UPtr<CommandBuffer>> __commandBuffers;
     Queue * __queue;
 };
 

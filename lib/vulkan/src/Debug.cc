@@ -143,7 +143,7 @@ vc::Error DebugApplication::__InitValidationLayers()
         "VK_LAYER_KHRONOS_synchronization2",
     };
 
-    std::vector<const char *> validationLayers_finalUse(validationLayers, validationLayers + std::size(validationLayers));
+    vc::Vector<const char *> validationLayers_finalUse(validationLayers, validationLayers + std::size(validationLayers));
     // Get env variable VK_INSTANCE_LAYERS
     if (const char * envValidationLayers = std::getenv("VK_INSTANCE_LAYERS")) {
         vc::Log::Print("Using VK_INSTANCE_LAYERS: %s", envValidationLayers);
@@ -156,7 +156,7 @@ vc::Error DebugApplication::__InitValidationLayers()
     uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
-    __validationLayersAvailable = std::vector<VkLayerProperties>(layerCount);
+    __validationLayersAvailable = vc::Vector<VkLayerProperties>(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, __validationLayersAvailable.data());
 
     for (const char * layerName : validationLayers)

@@ -33,14 +33,14 @@ ShaderPipelineImpl::ShaderPipelineImpl()
 {
 }
 
-vc::Error ShaderPipelineImpl::LoadShaderFromFile(const std::string & path)
+vc::Error ShaderPipelineImpl::LoadShaderFromFile(const vc::String & path)
 {
     venom_assert(_renderingPipelineType != RenderingPipelineType::None, "RenderingPipelineType is not set");
     venom_assert(_renderingPipelineShaderType != RenderingPipelineShaderType::None, "RenderingPipelineShaderType is not set");
     // Check if path contains shaders
     {
         // Load from cache if already loaded
-        std::shared_ptr<GraphicsCachedResource> cachedShader = GraphicsPluginObject::GetCachedObject(path);
+        vc::SPtr<GraphicsCachedResource> cachedShader = GraphicsPluginObject::GetCachedObject(path);
         if (cachedShader) {
             _LoadFromCache(cachedShader);
             return vc::Error::Success;
@@ -120,7 +120,7 @@ void ShaderPipelineImpl::AddVertexBufferToLayout(const VertexBufferLayout& layou
     AddVertexBufferToLayout(layout.format, layout.binding, layout.location, layout.offset);
 }
 
-void ShaderPipelineImpl::AddVertexBufferToLayout(const std::vector<VertexBufferLayout>& layouts)
+void ShaderPipelineImpl::AddVertexBufferToLayout(const vc::Vector<VertexBufferLayout>& layouts)
 {
     for (const VertexBufferLayout& layout : layouts) {
         AddVertexBufferToLayout(layout);

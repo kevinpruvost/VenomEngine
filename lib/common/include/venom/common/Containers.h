@@ -24,7 +24,7 @@ template<typename T>
 using Stack = std::stack<T>;
 template<typename T>
 using Queue = std::queue<T>;
-template<typename T, size_t N>
+template<class T, size_t N>
 using Array = std::array<T, N>;
 template<typename T, typename Compare = std::less<T>>
 using Set = std::set<T, Compare>;

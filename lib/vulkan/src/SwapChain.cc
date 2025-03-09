@@ -171,7 +171,7 @@ vc::Error SwapChain::InitSwapChain()
     vc::Vector<uint32_t> queueFamilyIndices;
     if (createInfo.imageSharingMode == VK_SHARING_MODE_CONCURRENT) {
         queueFamilyIndices.reserve(4);
-        std::set<uint32_t> queueFamilyIndicesSet;
+        vc::Set<uint32_t> queueFamilyIndicesSet;
         queueFamilyIndicesSet.insert(QueueManager::GetGraphicsQueue().GetQueueFamilyIndex());
         queueFamilyIndicesSet.insert(QueueManager::GetComputeQueue().GetQueueFamilyIndex());
         queueFamilyIndicesSet.insert(QueueManager::GetTransferQueue().GetQueueFamilyIndex());

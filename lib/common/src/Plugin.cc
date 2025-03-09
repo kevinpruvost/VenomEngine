@@ -31,7 +31,7 @@ void Plugin::AddPluginObject(IPluginObject* object)
 void Plugin::RemovePluginObject(IPluginObject* object)
 {
     // We need to delay the destruction as this function might be called from the object to delete itself
-    auto ite = std::find_if(__objects.begin(), __objects.end(), [object](const std::unique_ptr<IPluginObject>& obj) { return obj.get() == object; });
+    auto ite = std::find_if(__objects.begin(), __objects.end(), [object](const vc::UPtr<IPluginObject>& obj) { return obj.get() == object; });
     if (ite != __objects.end())
     {
         // Move to remove list

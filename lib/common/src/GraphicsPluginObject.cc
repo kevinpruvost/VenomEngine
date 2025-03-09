@@ -77,7 +77,7 @@ void GraphicsPluginObject::Destroy()
     PluginObject::Destroy();
 }
 
-static bool validPath(const std::string& path, std::string & res)
+static bool validPath(const vc::String& path, vc::String & res)
 {
     std::error_code ec;
     auto realPath = std::filesystem::canonical(path, ec);
@@ -94,32 +94,32 @@ static bool validPath(const std::string& path, std::string & res)
     return true;
 }
 
-bool GraphicsPluginObject::HasCachedObject(const std::string& path)
+bool GraphicsPluginObject::HasCachedObject(const vc::String& path)
 {
-    std::string realPath;
+    vc::String realPath;
     if (!validPath(path, realPath))
         return false;
     return GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath) != GraphicsPlugin::__GetGraphicsResourceCache()->end();
 }
 
-std::shared_ptr<GraphicsCachedResource> GraphicsPluginObject::GetCachedObject(const std::string& path)
+vc::SPtr<GraphicsCachedResource> GraphicsPluginObject::GetCachedObject(const vc::String& path)
 {
-    std::string realPath;
+    vc::String realPath;
     if (!validPath(path, realPath))
         realPath = path;
     const auto it = GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath);
-    return it != GraphicsPlugin::__GetGraphicsResourceCache()->end() ? it->second : std::shared_ptr<GraphicsCachedResource>();
+    return it != GraphicsPlugin::__GetGraphicsResourceCache()->end() ? it->second : vc::SPtr<GraphicsCachedResource>();
 }
 
-const std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> & GraphicsPluginObject::GetCachedObjects()
+const vc::UMap<vc::String, vc::SPtr<GraphicsCachedResource>> & GraphicsPluginObject::GetCachedObjects()
 {
     return *GraphicsPlugin::__GetGraphicsResourceCache();
 }
 
-void GraphicsPluginObject::_SetInCache(const std::string& path, const std::shared_ptr<GraphicsCachedResource> & object)
+void GraphicsPluginObject::_SetInCache(const vc::String& path, const vc::SPtr<GraphicsCachedResource> & object)
 {
     // Get Relative path to working dir
-    std::string realPath;
+    vc::String realPath;
     if (!validPath(path, realPath))
         realPath = path;
     venom_assert(GraphicsPlugin::__GetGraphicsResourceCache()->find(realPath) == GraphicsPlugin::__GetGraphicsResourceCache()->end(), "Object already in cache");

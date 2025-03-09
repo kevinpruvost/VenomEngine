@@ -122,7 +122,7 @@ static MaterialComponentType GetMaterialComponentTypeFromAiTextureType(const aiT
     }
 }
 
-static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::string & name, const int semantic, const int index, const int dataLength, MaterialComponentValueType & type)
+static MaterialComponentType GetMaterialComponentTypeFromProperty(const vc::String & name, const int semantic, const int index, const int dataLength, MaterialComponentValueType & type)
 {
     // If name starts with "$mat." it's a value, "$clr." is a color, "$tex.file" is a texture
     if (strncmp(name.c_str(), "$mat.", 4) == 0) {
@@ -154,7 +154,7 @@ static MaterialComponentType GetMaterialComponentTypeFromProperty(const std::str
     return MaterialComponentType::MAX_COMPONENT;
 }
 
-// static vc::Error ProcessNode(aiNode * node, const aiScene * scene, aiMatrix4x4 transformation, std::vector<vc::Mesh> & meshes, std::vector<vc::Material> & materials)
+// static vc::Error ProcessNode(aiNode * node, const aiScene * scene, aiMatrix4x4 transformation, vc::Vector<vc::Mesh> & meshes, vc::Vector<vc::Material> & materials)
 // {
 //     int mNumC = node->mNumMeshes;
 //     for (int i = 0; i < node->mNumChildren; ++i) {
@@ -169,7 +169,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
 
     {
         // Load from cache if already loaded
-        std::shared_ptr<GraphicsCachedResource> cachedModel = GraphicsPluginObject::GetCachedObject(realPath);
+        vc::SPtr<GraphicsCachedResource> cachedModel = GraphicsPluginObject::GetCachedObject(realPath);
         if (cachedModel) {
             _LoadFromCache(cachedModel);
             return vc::Error::Success;
@@ -254,7 +254,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         aiString value;
                         memcpy(&value, property->mData, property->mDataLength);
                         // Tries to load from cache or path
-                        std::string texturePath = parentFolder / value.C_Str();
+                        vc::String texturePath = parentFolder / value.C_Str();
                         // If .gltf, then we have to load another way
                         if (std::filesystem::path(path).extension() == ".glb") {
                             // Load gltf texture
@@ -437,8 +437,8 @@ vc::Error ModelImpl::ImportModel(const char * path)
                 // MikkTSpace
                 struct MikkTSpaceData {
                     const aiMesh * aimesh;
-                    std::vector<glm::vec3> * tangents;
-                    std::vector<glm::vec3> * bitangents;
+                    vc::Vector<glm::vec3> * tangents;
+                    vc::Vector<glm::vec3> * bitangents;
                 } mikktspaceData = { aimesh, &mesh._impl->As<MeshImpl>()->_tangents, &mesh._impl->As<MeshImpl>()->_bitangents };
 
                 SMikkTSpaceInterface mikktspace;
@@ -517,7 +517,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
     return vc::Error::Success;
 }
 
-const std::vector<vc::Mesh> & ModelImpl::GetMeshes() const
+const vc::Vector<vc::Mesh> & ModelImpl::GetMeshes() const
 {
     return _resource->As<ModelResource>()->meshes;
 }

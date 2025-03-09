@@ -37,7 +37,7 @@ public:
 
 private:
     VkInstance __instance;
-    std::vector<const char *> __instanceExtensions;
+    vc::Vector<const char *> __instanceExtensions;
 };
 }
 }

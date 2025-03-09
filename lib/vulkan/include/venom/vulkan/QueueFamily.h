@@ -26,16 +26,16 @@ public:
     VkQueueFamilyProperties properties;
 };
 typedef uint32_t QueueFamilyIndex;
-typedef std::vector<uint32_t> QueueFamilyIndices;
+typedef vc::Vector<uint32_t> QueueFamilyIndices;
 
 class MappedQueueFamilies
 {
 public:
     MappedQueueFamilies();
 
-    explicit MappedQueueFamilies(std::vector<QueueFamily>& queueFamilies);
+    explicit MappedQueueFamilies(vc::Vector<QueueFamily>& queueFamilies);
     MappedQueueFamilies & operator=(MappedQueueFamilies&& other) noexcept;
-    const std::vector<QueueFamily> & GetQueueFamilies() const;
+    const vc::Vector<QueueFamily> & GetQueueFamilies() const;
     vc::Error SetPresentQueueFamilyIndices(const PhysicalDevice& physicalDevice, const Surface & surface);
 
 public:
@@ -47,7 +47,7 @@ public:
     QueueFamilyIndices presentQueueFamilyIndices;
 
 private:
-    std::vector<QueueFamily> __queueFamilies;
+    vc::Vector<QueueFamily> __queueFamilies;
 };
 
 MappedQueueFamilies getVulkanQueueFamilies(const PhysicalDevice& physicalDevice);

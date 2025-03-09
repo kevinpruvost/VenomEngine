@@ -53,7 +53,7 @@ public:
      * @param path
      * @return error
      */
-    vc::Error LoadShaderFromFile(const std::string & path);
+    vc::Error LoadShaderFromFile(const vc::String & path);
 
     struct VertexBufferLayout
     {
@@ -79,7 +79,7 @@ public:
      * @brief Add a vertex buffer to the layout
      * @param layouts Layouts of the vertex buffer
      */
-    void AddVertexBufferToLayout(const std::vector<VertexBufferLayout> & layouts);
+    void AddVertexBufferToLayout(const vc::Vector<VertexBufferLayout> & layouts);
 
     
     /**
@@ -109,7 +109,7 @@ protected:
     virtual void _SetLineWidth(const float width) = 0;
     virtual void _SetDepthTest(const bool enable) = 0;
     virtual void _SetDepthWrite(const bool enable) = 0;
-    virtual vc::Error _LoadShader(const std::string & path) = 0;
+    virtual vc::Error _LoadShader(const vc::String & path) = 0;
     virtual void _AddVertexBufferToLayout(const uint32_t vertexSize, const uint32_t binding, const uint32_t location, const uint32_t offset, const ShaderVertexFormat format) = 0;
 
     virtual vc::Error _OpenShaders() = 0;
@@ -144,7 +144,7 @@ public:
     inline vc::Error LoadShaderFromFile(const char * path) { return _impl->As<ShaderPipelineImpl>()->LoadShaderFromFile(path); }
     inline void AddVertexBufferToLayout(const ShaderVertexFormat format, const uint32_t binding, const uint32_t location, const uint32_t offset) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(format, binding, location, offset); }
     inline void AddVertexBufferToLayout(const ShaderPipelineImpl::VertexBufferLayout & layout) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layout); }
-    inline void AddVertexBufferToLayout(const std::vector<ShaderPipelineImpl::VertexBufferLayout> & layouts) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layouts); }
+    inline void AddVertexBufferToLayout(const vc::Vector<ShaderPipelineImpl::VertexBufferLayout> & layouts) { _impl->As<ShaderPipelineImpl>()->AddVertexBufferToLayout(layouts); }
     inline void SetLineWidth(const float width) { _impl->As<ShaderPipelineImpl>()->SetLineWidth(width); }
     inline void SetDepthTest(const bool enable) { _impl->As<ShaderPipelineImpl>()->SetDepthTest(enable); }
     inline void SetDepthWrite(const bool enable) { _impl->As<ShaderPipelineImpl>()->SetDepthWrite(enable); }

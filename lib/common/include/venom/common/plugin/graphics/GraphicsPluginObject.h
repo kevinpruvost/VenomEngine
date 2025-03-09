@@ -101,7 +101,7 @@ public:
      * @param path relative path to the asset
      * @return true if found in the cache
      */
-    static bool HasCachedObject(const std::string & path);
+    static bool HasCachedObject(const vc::String & path);
 
     /**
      * @brief Gets a cached object from the graphics cache
@@ -109,13 +109,13 @@ public:
      * @warning `path` must be the original asset path relative to the `resources` folder
      * @return nullptr if the object is not in cache, the object otherwise
      */
-    static SPtr<GraphicsCachedResource> GetCachedObject(const std::string & path);
+    static SPtr<GraphicsCachedResource> GetCachedObject(const vc::String & path);
 
     /**
      * @brief Gets all cached objects
      * @return cached objects
      */
-    static const std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> & GetCachedObjects();
+    static const vc::UMap<vc::String, vc::SPtr<GraphicsCachedResource>> & GetCachedObjects();
 protected:
     /**
      * @brief Sets an object in the cache
@@ -123,7 +123,7 @@ protected:
      * @warning `path` must be the original asset path relative to the `resources` folder
      * @param object
      */
-    static void _SetInCache(const std::string & path, const SPtr<GraphicsCachedResource> & object);
+    static void _SetInCache(const vc::String & path, const SPtr<GraphicsCachedResource> & object);
     /**
      * @brief Adds cache size to avoid unnecessary additional allocations
      * @param size

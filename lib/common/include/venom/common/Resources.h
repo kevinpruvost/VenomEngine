@@ -12,7 +12,7 @@
 #include <venom/common/Containers.h>
 
 #if defined(__APPLE__) && defined(VENOM_PACKAGE)
-std::string getResourcePath();
+String getResourcePath();
 #endif
 
 namespace venom
@@ -24,14 +24,14 @@ class Resources
 public:
     VENOM_COMMON_API static void InitializeFilesystem(int argc, const char* argv[]);
     VENOM_COMMON_API static void FreeFilesystem();
-    VENOM_COMMON_API static std::string GetResourcePath(const std::string & resourcePath);
-    VENOM_COMMON_API static std::string GetTexturesResourcePath(const std::string & resourcePath);
-    VENOM_COMMON_API static std::string GetFontsResourcePath(const std::string & resourcePath);
-    VENOM_COMMON_API static std::string GetShadersResourcePath(const std::string & resourcePath);
-    VENOM_COMMON_API static std::string GetShadersFolderPath();
-    VENOM_COMMON_API static std::string GetModelsResourcePath(const std::string & resourcePath);
+    VENOM_COMMON_API static String GetResourcePath(const String & resourcePath);
+    VENOM_COMMON_API static String GetTexturesResourcePath(const String & resourcePath);
+    VENOM_COMMON_API static String GetFontsResourcePath(const String & resourcePath);
+    VENOM_COMMON_API static String GetShadersResourcePath(const String & resourcePath);
+    VENOM_COMMON_API static String GetShadersFolderPath();
+    VENOM_COMMON_API static String GetModelsResourcePath(const String & resourcePath);
 private:
-    VENOM_COMMON_API static std::string __GetResourcePath(const std::string & resourcePath, const std::string & folder);
+    VENOM_COMMON_API static String __GetResourcePath(const String & resourcePath, const String & folder);
 };
 }
 }

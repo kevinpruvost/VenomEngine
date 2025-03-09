@@ -69,7 +69,7 @@ VenomEngine::~VenomEngine()
     __dllCache.reset();
 }
 
-static std::unique_ptr<VenomEngine> s_instance;
+static vc::UPtr<VenomEngine> s_instance;
 VenomEngine* VenomEngine::GetInstance()
 {
     return s_instance.get();

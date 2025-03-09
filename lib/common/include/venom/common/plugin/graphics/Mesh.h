@@ -41,13 +41,13 @@ private:
 
 protected:
     friend class ModelImpl;
-    std::vector<vcm::VertexPos> _positions;
-    std::vector<vcm::VertexNormal> _normals;
-    std::vector<vcm::VertexColor> _colors[8];
-    std::vector<vcm::VertexUV> _uvs[8];
-    std::vector<uint32_t> _indices;
-    std::vector<vcm::VertexTangent> _tangents;
-    std::vector<vcm::VertexBitangent> _bitangents;
+    vc::Vector<vcm::VertexPos> _positions;
+    vc::Vector<vcm::VertexNormal> _normals;
+    vc::Vector<vcm::VertexColor> _colors[8];
+    vc::Vector<vcm::VertexUV> _uvs[8];
+    vc::Vector<uint32_t> _indices;
+    vc::Vector<vcm::VertexTangent> _tangents;
+    vc::Vector<vcm::VertexBitangent> _bitangents;
     PluginObjectOptional<Material> _material;
 };
 

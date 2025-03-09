@@ -13,7 +13,7 @@ namespace venom
 namespace vulkan
 {
 /// @brief Device extensions to use
-static constexpr std::array s_deviceExtensions = {
+static constexpr const char * s_deviceExtensions[] = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
     VK_EXT_ROBUSTNESS_2_EXTENSION_NAME,
     VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
@@ -111,7 +111,7 @@ void VulkanApplication::__SetGLFWCallbacks()
 vc::Error VulkanApplication::__InitRenderingPipeline()
 {
     vc::Error err;
-    std::vector<PhysicalDevice> physicalDevices = PhysicalDevice::GetVulkanPhysicalDevices();
+    vc::Vector<PhysicalDevice> physicalDevices = PhysicalDevice::GetVulkanPhysicalDevices();
 
     if (physicalDevices.empty())
     {
@@ -201,8 +201,8 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         return err;
 
     // Extensions
-    createInfo.enabledExtensionCount = s_deviceExtensions.size();
-    createInfo.ppEnabledExtensionNames = s_deviceExtensions.data();
+    createInfo.enabledExtensionCount = std::size(s_deviceExtensions);
+    createInfo.ppEnabledExtensionNames = s_deviceExtensions;
 
     // All Features
     bool physicalDeviceFeaturesSupported = true;
@@ -372,10 +372,10 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
     // Check if the device supports the extensions
     uint32_t extensionCount;
     vkEnumerateDeviceExtensionProperties(__physicalDevice.GetVkPhysicalDevice(), nullptr, &extensionCount, nullptr);
-    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vc::Vector<VkExtensionProperties> availableExtensions(extensionCount);
     vkEnumerateDeviceExtensionProperties(__physicalDevice.GetVkPhysicalDevice(), nullptr, &extensionCount, availableExtensions.data());
 
-    std::set<std::string> requiredExtensions(createInfo->ppEnabledExtensionNames, createInfo->ppEnabledExtensionNames + createInfo->enabledExtensionCount);
+    vc::Set<vc::String> requiredExtensions(createInfo->ppEnabledExtensionNames, createInfo->ppEnabledExtensionNames + createInfo->enabledExtensionCount);
     for (const auto& extension : availableExtensions) {
 #ifdef VENOM_DEBUG
         vc::Log::LogToFile("Available extension: %s", extension.extensionName);

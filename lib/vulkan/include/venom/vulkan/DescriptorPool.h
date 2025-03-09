@@ -52,7 +52,7 @@ private:
 class DescriptorSetGroupAllocator
 {
 public:
-    DescriptorSetGroupAllocator(std::vector<DescriptorSetGroup> && sets);
+    DescriptorSetGroupAllocator(vc::Vector<DescriptorSetGroup> && sets);
 
     DescriptorSetGroup * AllocateSet();
     void FreeSet(DescriptorSetGroup * set);
@@ -80,7 +80,7 @@ public:
 
 #undef DSGA_GROUP_UPDATE
 private:
-    std::vector<DescriptorSetGroup> __descriptorSetGroups;
+    vc::Vector<DescriptorSetGroup> __descriptorSetGroups;
     std::stack<DescriptorSetGroup *> __freeSets;
 };
 
@@ -126,20 +126,20 @@ public:
     DescriptorSetLayout & GetOrCreateDescriptorSetLayout(const uint32_t descriptorSetIndex);
     inline void SetDescriptorSetLayoutBindless(const uint32_t descriptorSetIndex) { SetDescriptorSetLayoutBindingSpecifications(descriptorSetIndex, VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT_EXT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT | VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT_EXT); }
     vc::Error Create(VkDescriptorPoolCreateFlags flags, uint32_t maxSets = VENOM_MAX_FRAMES_IN_FLIGHT);
-    std::vector<DescriptorSetGroup> AllocateSets(const VkDescriptorSetLayout &layout, uint32_t count, const bool bindless) const;
-    std::vector<DescriptorSetGroup> AllocateSets(const std::vector<VkDescriptorSetLayout> &layouts, const bool bindless) const;
+    vc::Vector<DescriptorSetGroup> AllocateSets(const VkDescriptorSetLayout &layout, uint32_t count, const bool bindless) const;
+    vc::Vector<DescriptorSetGroup> AllocateSets(const vc::Vector<VkDescriptorSetLayout> &layouts, const bool bindless) const;
 
     static inline DescriptorPool * GetPool() { return s_pool; }
 
-    inline std::vector<DescriptorSetGroupAllocator> & GetDescriptorSets() { return __descriptorSets; }
-    inline std::vector<DescriptorSetLayout> & GetDescriptorSetLayouts() { return __descriptorSetLayouts; }
-    inline std::vector<VkDescriptorSetLayout> & GetVkDescriptorSetLayouts() { return __vkDescriptorSetLayouts; }
+    inline vc::Vector<DescriptorSetGroupAllocator> & GetDescriptorSets() { return __descriptorSets; }
+    inline vc::Vector<DescriptorSetLayout> & GetDescriptorSetLayouts() { return __descriptorSetLayouts; }
+    inline vc::Vector<VkDescriptorSetLayout> & GetVkDescriptorSetLayouts() { return __vkDescriptorSetLayouts; }
 
     /**
     * @brief Gets the descriptor sets from the specified set index
     * returns a vector of size VENOM_MAX_FRAMES_IN_FLIGHT because of the multiple
     * swapchain images to handle
-    * @return std::vector<DescriptorSet> &
+    * @return vc::Vector<DescriptorSet> &
     */
     inline DescriptorSetGroupAllocator & GetDescriptorSets(const uint32_t index)
     {
@@ -163,7 +163,7 @@ public:
     * @param bindPoint
     * @param dynamicOffsets
     */
-    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShaderPipeline * pipeline, const std::vector<uint32_t> & dynamicOffsets);
+    void BindDescriptorSets(const int descriptorSetIndex, const CommandBuffer & commandBuffer, const VulkanShaderPipeline * pipeline, const vc::Vector<uint32_t> & dynamicOffsets);
 
     inline VkDescriptorPool GetVkDescriptorPool() const { return __pool; }
 
@@ -171,10 +171,10 @@ private:
     static DescriptorPool * s_pool;
 
 private:
-    std::vector<VkDescriptorPoolSize> __poolSizes;
-    std::vector<DescriptorSetLayout> __descriptorSetLayouts;
-    std::vector<VkDescriptorSetLayout> __vkDescriptorSetLayouts;
-    std::vector<DescriptorSetGroupAllocator> __descriptorSets;
+    vc::Vector<VkDescriptorPoolSize> __poolSizes;
+    vc::Vector<DescriptorSetLayout> __descriptorSetLayouts;
+    vc::Vector<VkDescriptorSetLayout> __vkDescriptorSetLayouts;
+    vc::Vector<DescriptorSetGroupAllocator> __descriptorSets;
     VkDescriptorPoolCreateInfo __poolInfo;
     VkDescriptorPool __pool;
 };

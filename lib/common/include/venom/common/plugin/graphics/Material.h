@@ -34,8 +34,8 @@ public:
     void SetComponentChannels(const MaterialComponentType type, const MaterialComponentValueChannels channels);
     void SetComponentChannelsFromIndex(const MaterialComponentType type, const int index);
     const MaterialComponent & GetComponent(const MaterialComponentType type) const;
-    const std::string & GetName() const;
-    void SetName(const std::string & name);
+    const vc::String & GetName() const;
+    void SetName(const vc::String & name);
     const vcm::Vec2 & GetTextureRepeatFactor() const;
     void SetTextureRepeatFactor(const vcm::Vec2 & factor);
 
@@ -61,7 +61,7 @@ private:
     vcm::Vec2 __textureRepeatingFactor;
     MaterialResourceTable __resourceTable;
     bool __resourceTableDirty;
-    std::string __name;
+    vc::String __name;
 };
 
 class VENOM_COMMON_API Material : public PluginObjectImplWrapper
@@ -100,10 +100,10 @@ public:
     inline const MaterialComponent & GetComponent(const MaterialComponentType type) const {
         return _impl->As<MaterialImpl>()->GetComponent(type);
     }
-    inline const std::string & GetName() const {
+    inline const vc::String & GetName() const {
         return _impl->As<MaterialImpl>()->GetName();
     }
-    inline void SetName(const std::string & name) {
+    inline void SetName(const vc::String & name) {
         _impl->As<MaterialImpl>()->SetName(name);
     }
     inline const vcm::Vec2 & GetTextureRepeatFactor() const {

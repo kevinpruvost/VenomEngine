@@ -20,7 +20,7 @@ namespace venom::common
 
 typedef bazel::tools::cpp::runfiles::Runfiles Runfiles;
 
-static std::unique_ptr<Runfiles> s_runfiles;
+static vc::UPtr<Runfiles> s_runfiles;
 void Resources::InitializeFilesystem(int argc, char** argv)
 {
     s_runfiles.reset(bazel::tools::cpp::runfiles::Runfiles::Create(argv[0]));
@@ -31,9 +31,9 @@ void Resources::FreeFilesystem()
     s_runfiles.reset();
 }
 
-std::string Resources::GetResourcePath(const std::string& resourcePath)
+vc::String Resources::GetResourcePath(const vc::String& resourcePath)
 {
-    const std::string path = "VenomEngineWorkspace/resources/" + resourcePath;
+    const vc::String path = "VenomEngineWorkspace/resources/" + resourcePath;
     return s_runfiles->Rlocation(path);
 }
 
@@ -43,14 +43,14 @@ std::string Resources::GetResourcePath(const std::string& resourcePath)
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-static std::string s_basePath;
+static vc::String s_basePath;
 void Resources::InitializeFilesystem(int argc, const char* argv[])
 {
     (void)argc;
     (void)argv;
 
 #if defined(__APPLE__) && defined(VENOM_PACKAGE)
-    std::string bundleResourcePath = getResourcePath();
+    vc::String bundleResourcePath = getResourcePath();
     if (!bundleResourcePath.empty()) {
         s_basePath = bundleResourcePath;
         if (s_basePath.back() != '/') s_basePath += "/";
@@ -74,11 +74,11 @@ void Resources::FreeFilesystem()
 {
 }
 
-static bool validPath(const std::string& path, std::string & res)
+static bool validPath(const vc::String& path, vc::String & res)
 {
     std::error_code ec;
     // Replace all backslashes with forward slashes
-    std::string realPath = path;
+    vc::String realPath = path;
     std::replace(realPath.begin(), realPath.end(), '\\', '/');
     realPath = std::filesystem::canonical(realPath, ec);
     if (realPath.empty() || ec) {
@@ -94,30 +94,30 @@ static bool validPath(const std::string& path, std::string & res)
     return true;
 }
 
-std::string Resources::GetResourcePath(const std::string& resourcePath)
+vc::String Resources::GetResourcePath(const vc::String& resourcePath)
 {
     return s_basePath + resourcePath;
 }
 
 #endif
 
-std::string Resources::GetTexturesResourcePath(const std::string& resourcePath)
+vc::String Resources::GetTexturesResourcePath(const vc::String& resourcePath)
 {
     // If resource path already points to a valid pathm then returns it
     return __GetResourcePath(resourcePath, GetResourcePath("textures/"));
 }
 
-std::string Resources::GetFontsResourcePath(const std::string& resourcePath)
+vc::String Resources::GetFontsResourcePath(const vc::String& resourcePath)
 {
     return __GetResourcePath(resourcePath, GetResourcePath("fonts/"));
 }
 
-std::string Resources::GetShadersResourcePath(const std::string& resourcePath)
+vc::String Resources::GetShadersResourcePath(const vc::String& resourcePath)
 {
     return __GetResourcePath(resourcePath, GetResourcePath("shaders/"));
 }
 
-std::string Resources::GetShadersFolderPath()
+vc::String Resources::GetShadersFolderPath()
 {
     return GetResourcePath(
        Config::GetGraphicsPluginType() == GraphicsPlugin::GraphicsPluginType::Vulkan ?
@@ -130,14 +130,14 @@ std::string Resources::GetShadersFolderPath()
     );
 }
 
-std::string Resources::GetModelsResourcePath(const std::string& resourcePath)
+vc::String Resources::GetModelsResourcePath(const vc::String& resourcePath)
 {
     return __GetResourcePath(resourcePath, GetResourcePath("models/"));
 }
 
-std::string Resources::__GetResourcePath(const std::string& resourcePath, const std::string& folder)
+vc::String Resources::__GetResourcePath(const vc::String& resourcePath, const vc::String& folder)
 {
-    std::string res;
+    vc::String res;
     if (!validPath(resourcePath, res)
         && !validPath(folder + resourcePath, res))
         return "";

@@ -38,7 +38,7 @@ void PhysicalDevice::GetDeviceQueue(VkQueue* queuePtr, uint32_t queueFamilyIndex
     vkGetDeviceQueue(LogicalDevice::GetVkDevice(), queueFamilyIndex, queueIndex, queuePtr);
 }
 
-VkFormat PhysicalDevice::FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling,
+VkFormat PhysicalDevice::FindSupportedFormat(const vc::Vector<VkFormat>& candidates, VkImageTiling tiling,
     VkFormatFeatureFlags features)
 {
     for (VkFormat format : candidates)
@@ -82,10 +82,10 @@ void PhysicalDevice::SetUsedPhysicalDevice(const PhysicalDevice * device)
     s_usedPhysicalDevice = device;
 }
 
-std::vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
+vc::Vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
 {
     uint32_t deviceCount = 0;
-    std::vector<PhysicalDevice> physicalDevices;
+    vc::Vector<PhysicalDevice> physicalDevices;
 
     vkEnumeratePhysicalDevices(Instance::GetVkInstance(), &deviceCount, nullptr);
     if (deviceCount == 0)
@@ -95,7 +95,7 @@ std::vector<PhysicalDevice> PhysicalDevice::GetVulkanPhysicalDevices()
     }
 
     physicalDevices.resize(deviceCount);
-    std::vector<VkPhysicalDevice> vkPhysicalDevices(deviceCount);
+    vc::Vector<VkPhysicalDevice> vkPhysicalDevices(deviceCount);
     vkEnumeratePhysicalDevices(Instance::GetVkInstance(), &deviceCount, vkPhysicalDevices.data());
     for (uint32_t i = 0; i < deviceCount; i++)
     {

@@ -24,12 +24,12 @@ public:
     uint64_t GetDeviceLocalVRAMAmount() const;
 
     void GetDeviceQueue(VkQueue * queuePtr, uint32_t queueFamilyIndex, uint32_t queueIndex) const;
-    static VkFormat FindSupportedFormat(const std::vector<VkFormat> & candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+    static VkFormat FindSupportedFormat(const vc::Vector<VkFormat> & candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
     static VkFormat FindDepthFormat();
     static VkPhysicalDevice GetUsedVkPhysicalDevice();
     static const PhysicalDevice & GetUsedPhysicalDevice();
     static void SetUsedPhysicalDevice(const PhysicalDevice * device);
-    static std::vector<PhysicalDevice> GetVulkanPhysicalDevices();
+    static vc::Vector<PhysicalDevice> GetVulkanPhysicalDevices();
 
     const VkPhysicalDevice & GetVkPhysicalDevice() const { return __physicalDevice; }
     const VkPhysicalDeviceProperties & GetProperties() const { return __properties; }

@@ -216,7 +216,7 @@ public:
     }
 
 private:
-    std::vector<uint16_t> __pixels;
+    vc::Vector<uint16_t> __pixels;
     float __averageLuminance;
     float __peakLuminance;
 };

@@ -39,12 +39,12 @@ private:
 
 private:
     const PluginType __type;
-    std::vector<std::unique_ptr<IPluginObject>> __objects;
-    std::vector<std::unique_ptr<IPluginObject>> __objectsToRemove;
+    vc::Vector<vc::UPtr<IPluginObject>> __objects;
+    vc::Vector<vc::UPtr<IPluginObject>> __objectsToRemove;
     // Useful if certain plugin objects contain other plugin objects that are only destroyed after
     // one clean step
     bool __objectsToRemoveLocked;
-    std::vector<std::unique_ptr<IPluginObject>> __objectsToRemoveNext;
+    vc::Vector<vc::UPtr<IPluginObject>> __objectsToRemoveNext;
 };
 }
 }

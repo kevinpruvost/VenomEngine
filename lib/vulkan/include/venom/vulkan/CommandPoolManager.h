@@ -51,7 +51,7 @@ private:
     CommandPool * __videoEncodePool;
 
 private:
-    std::unordered_map<uint32_t, CommandPool> __commandPools;
+    vc::UMap<uint32_t, CommandPool> __commandPools;
 };
 }
 }

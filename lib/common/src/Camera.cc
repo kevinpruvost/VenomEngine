@@ -13,7 +13,7 @@ namespace venom
 {
 namespace common
 {
-static std::unique_ptr<Camera> s_mainCamera = nullptr;
+static vc::UPtr<Camera> s_mainCamera = nullptr;
 
 CameraImpl::CameraImpl()
     : GraphicsPluginObject()

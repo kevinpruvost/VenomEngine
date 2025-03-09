@@ -8,9 +8,7 @@
 #pragma once
 
 #include <venom/common/Timer.h>
-
-#include <vector>
-#include <set>
+#include <venom/common/Containers.h>
 
 //#define VK_ENABLE_BETA_EXTENSIONS
 #define GLFW_INCLUDE_VULKAN
@@ -68,8 +66,8 @@ private:
     vc::Error __InitValidationLayers();
 
 #ifdef VENOM_DEBUG
-    std::vector<const char *>      __validationLayersInUse;
-    std::vector<VkLayerProperties> __validationLayersAvailable;
+    vc::Vector<const char *>      __validationLayersInUse;
+    vc::Vector<VkLayerProperties> __validationLayersAvailable;
 
     VkDebugUtilsMessengerEXT __debugMessenger;
     VkDebugUtilsMessengerCreateInfoEXT __debugMessengerCreateInfo;

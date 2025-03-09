@@ -72,8 +72,8 @@ public:
 private:
     friend class GraphicsCachedResource;
     friend class GraphicsPluginObject;
-    static inline std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>> * __GetGraphicsResourceCache() { return Get()->__graphicsResourceCache.get(); }
-    std::unique_ptr<std::unordered_map<std::string, std::shared_ptr<GraphicsCachedResource>>> __graphicsResourceCache;
+    static inline vc::UMap<vc::String, vc::SPtr<GraphicsCachedResource>> * __GetGraphicsResourceCache() { return Get()->__graphicsResourceCache.get(); }
+    vc::UPtr<vc::UMap<vc::String, vc::SPtr<GraphicsCachedResource>>> __graphicsResourceCache;
 };
 
 }

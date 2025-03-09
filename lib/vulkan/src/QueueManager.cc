@@ -216,16 +216,16 @@ const Queue & QueueManager::GetPresentQueue()
     return s_queueManager->__presentQueue;
 }
 
-const std::vector<VkDeviceQueueCreateInfo>& QueueManager::GetQueueCreateInfos()
+const vc::Vector<VkDeviceQueueCreateInfo>& QueueManager::GetQueueCreateInfos()
 {
     venom_assert(s_queueManager != nullptr, "QueueManager has not been initialized");
     return s_queueManager->__queueCreateInfos;
 }
 
-std::vector<uint32_t> QueueManager::GetActiveQueueFamilyIndices()
+vc::Vector<uint32_t> QueueManager::GetActiveQueueFamilyIndices()
 {
     venom_assert(s_queueManager != nullptr, "QueueManager has not been initialized");
-    std::vector<uint32_t> indices;
+    vc::Vector<uint32_t> indices;
     indices.reserve(s_queueManager->__queueCreateInfos.size());
     for (const auto& createInfo : s_queueManager->__queueCreateInfos) {
         indices.emplace_back(createInfo.queueFamilyIndex);
@@ -248,7 +248,7 @@ VkSharingMode QueueManager::GetGraphicsComputeSharingMode()
     return s_queueManager->__graphicsComputeSharingMode;
 }
 
-vc::Error QueueManager::__TryAddQueueCreateInfo(VkDeviceQueueCreateInfo* createInfo, std::vector<float> * queuePriorities,
+vc::Error QueueManager::__TryAddQueueCreateInfo(VkDeviceQueueCreateInfo* createInfo, vc::Vector<float> * queuePriorities,
                                                 uint32_t queueFamilyIndex, uint32_t * queueCount, const float * queuePriority,
                                                 size_t maxQueueCount, const QueueFamilyIndices & queueFamilyIndices, Queue * queue)
 {

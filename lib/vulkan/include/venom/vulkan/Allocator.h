@@ -28,7 +28,7 @@ public:
 public:
     int allocatedSize;
     int allocatedSizeMax;
-    std::unordered_map<void *, size_t> allocations;
+    vc::UMap<void *, size_t> allocations;
 };
 }
 }

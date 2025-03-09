@@ -25,7 +25,7 @@ DLL * DLL::Create()
     return new DLL();
 }
 
-DLL* DLL::GetFromCache(const std::string& path)
+DLL* DLL::GetFromCache(const vc::String& path)
 {
     return DLL_Cache::GetCache()->GetFromCache(path);
 }
@@ -99,17 +99,17 @@ DLL_Cache::~DLL_Cache()
 {
 }
 
-void DLL_Cache::StoreInCache(const std::string& name, DLL* dll)
+void DLL_Cache::StoreInCache(const vc::String& name, DLL* dll)
 {
-    __dlls[name] = std::shared_ptr<DLL>(dll);
+    __dlls[name] = vc::SPtr<DLL>(dll);
 }
 
-void DLL_Cache::UnloadFromCache(const std::string& name)
+void DLL_Cache::UnloadFromCache(const vc::String& name)
 {
     venom_assert(__dlls.erase(name) == 1, "DLL not found in cache");
 }
 
-DLL* DLL_Cache::GetFromCache(const std::string& name)
+DLL* DLL_Cache::GetFromCache(const vc::String& name)
 {
     if (auto it = __dlls.find(name); it != __dlls.end())
         return it->second.get();

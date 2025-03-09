@@ -122,9 +122,9 @@ void VulkanShaderPipeline::_ResetResource()
     _resource.reset(new VulkanShaderResource(this));
 }
 
-vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)
+vc::Error VulkanShaderPipeline::_LoadShader(const vc::String& path)
 {
-    std::string basePath = vc::Resources::GetShadersFolderPath() + "compiled/";
+    vc::String basePath = vc::Resources::GetShadersFolderPath() + "compiled/";
 
     // List all files recursively
     for (const auto& entry : std::filesystem::recursive_directory_iterator(basePath))
@@ -138,8 +138,8 @@ vc::Error VulkanShaderPipeline::_LoadShader(const std::string& path)
 
         if (entry.is_regular_file())
         {
-            std::string shaderPath = entry.path().string();
-            std::string shaderName = entry.path().filename().string();
+            vc::String shaderPath = entry.path().string();
+            vc::String shaderName = entry.path().filename().string();
             if (shaderName.ends_with(".spv"))
             {
                 vc::Log::Print("Loading shader: %s", shaderPath.c_str());
@@ -344,7 +344,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
         colorBlending.blendConstants[3] = 0.0f; // Optional
 
         // Dynamic States are to specify which states can be changed without recreating the pipeline
-        std::vector<VkDynamicState> dynamicStates = {
+        vc::Vector<VkDynamicState> dynamicStates = {
             VK_DYNAMIC_STATE_VIEWPORT,
             VK_DYNAMIC_STATE_SCISSOR
         };
@@ -478,7 +478,7 @@ void VulkanShaderPipeline::_AddVertexBufferToLayout(const uint32_t vertexSize, c
     });
 }
 
-vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
+vc::Error VulkanShaderPipeline::LoadShader(const vc::String& shaderPath, VkPipelineShaderStageCreateInfo* pipelineCreateInfo)
 {
     std::ifstream file(shaderPath, std::ios::ate | std::ios::binary);
 
@@ -489,7 +489,7 @@ vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipe
     }
 
     size_t fileSize = (size_t) file.tellg();
-    std::vector<char> buffer(fileSize);
+    vc::Vector<char> buffer(fileSize);
     file.seekg(0);
     file.read(buffer.data(), fileSize);
     file.close();
@@ -505,27 +505,27 @@ vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipe
     //     result = spvReflectEnumerateInputVariables(&module, &varCount, nullptr);
     //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
     //     // Get input variables
-    //     std::vector<SpvReflectInterfaceVariable*> inputVars(varCount, nullptr);
+    //     vc::Vector<SpvReflectInterfaceVariable*> inputVars(varCount, nullptr);
     //     result = spvReflectEnumerateInputVariables(&module, &varCount, inputVars.data());
     //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
     //
     //     // Get descriptor bindings
     //     result = spvReflectEnumerateDescriptorBindings(&module, &varCount, nullptr);
     //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
-    //     std::vector<SpvReflectDescriptorBinding*> bindings(varCount, nullptr);
+    //     vc::Vector<SpvReflectDescriptorBinding*> bindings(varCount, nullptr);
     //     result = spvReflectEnumerateDescriptorBindings(&module, &varCount, bindings.data());
     //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
     //
     //     // Get descriptor sets
     //     result = spvReflectEnumerateDescriptorSets(&module, &varCount, nullptr);
     //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
-    //     std::vector<SpvReflectDescriptorSet*> descriptorSets(varCount, nullptr);
+    //     vc::Vector<SpvReflectDescriptorSet*> descriptorSets(varCount, nullptr);
     //     result = spvReflectEnumerateDescriptorSets(&module, &varCount, descriptorSets.data());
     //
     //     // Get push constants
     //     result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, nullptr);
     //     assert(result == SPV_REFLECT_RESULT_SUCCESS);
-    //     std::vector<SpvReflectBlockVariable*> pushConstants(varCount, nullptr);
+    //     vc::Vector<SpvReflectBlockVariable*> pushConstants(varCount, nullptr);
     //     result = spvReflectEnumeratePushConstantBlocks(&module, &varCount, pushConstants.data());
     //
     //     // Destroy the reflection data when no longer required.
@@ -544,18 +544,18 @@ vc::Error VulkanShaderPipeline::LoadShader(const std::string& shaderPath, VkPipe
     }
     pipelineCreateInfo->sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     pipelineCreateInfo->pName = "main";
-    if (shaderPath.find("vert") != std::string::npos || shaderPath.find("vertex") != std::string::npos || shaderPath.find("vs") != std::string::npos)
+    if (shaderPath.find("vert") != vc::String::npos || shaderPath.find("vertex") != vc::String::npos || shaderPath.find("vs") != vc::String::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_VERTEX_BIT;
-    else if (shaderPath.find("frag") != std::string::npos || shaderPath.find("fs") != std::string::npos || shaderPath.find("pixel") != std::string::npos || shaderPath.find("ps") != std::string::npos)
+    else if (shaderPath.find("frag") != vc::String::npos || shaderPath.find("fs") != vc::String::npos || shaderPath.find("pixel") != vc::String::npos || shaderPath.find("ps") != vc::String::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-    else if (shaderPath.find("comp") != std::string::npos || shaderPath.find("cs") != std::string::npos || shaderPath.find("compute") != std::string::npos) {
+    else if (shaderPath.find("comp") != vc::String::npos || shaderPath.find("cs") != vc::String::npos || shaderPath.find("compute") != vc::String::npos) {
         pipelineCreateInfo->stage = VK_SHADER_STAGE_COMPUTE_BIT;
         _resource->As<VulkanShaderResource>()->pipelineType = PipelineType::Compute;
-    } else if (shaderPath.find("geom") != std::string::npos)
+    } else if (shaderPath.find("geom") != vc::String::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_GEOMETRY_BIT;
-    else if (shaderPath.find("tesc") != std::string::npos)
+    else if (shaderPath.find("tesc") != vc::String::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;
-    else if (shaderPath.find("tese") != std::string::npos)
+    else if (shaderPath.find("tese") != vc::String::npos)
         pipelineCreateInfo->stage = VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT;
     else {
         vc::Log::Error("Unknown shader type: %s", shaderPath.c_str());

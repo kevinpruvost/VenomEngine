@@ -76,8 +76,8 @@ public:
     static const Queue & GetVideoDecodeQueue();
     static const Queue & GetVideoEncodeQueue();
     static const Queue & GetPresentQueue();
-    static const std::vector<VkDeviceQueueCreateInfo> & GetQueueCreateInfos();
-    static std::vector<uint32_t> GetActiveQueueFamilyIndices();
+    static const vc::Vector<VkDeviceQueueCreateInfo> & GetQueueCreateInfos();
+    static vc::Vector<uint32_t> GetActiveQueueFamilyIndices();
 
     // Sharing mode
     static VkSharingMode GetGraphicsTransferSharingMode();
@@ -85,15 +85,15 @@ public:
     static VkSharingMode GetGraphicsComputeSharingMode();
 
 private:
-    vc::Error __TryAddQueueCreateInfo(VkDeviceQueueCreateInfo * createInfo, std::vector<float> * queuePriorities, uint32_t queueFamilyIndex,
+    vc::Error __TryAddQueueCreateInfo(VkDeviceQueueCreateInfo * createInfo, vc::Vector<float> * queuePriorities, uint32_t queueFamilyIndex,
         uint32_t * queueCount, const float * queuePriority, size_t maxQueueCount,
         const QueueFamilyIndices & queueFamilyIndices, Queue * queue);
 
 private:
     const MappedQueueFamilies * __queueFamilies;
     QueueManagerSettings __settings;
-    std::vector<std::vector<float>> __queuePriorities;
-    std::vector<VkDeviceQueueCreateInfo> __queueCreateInfos;
+    vc::Vector<vc::Vector<float>> __queuePriorities;
+    vc::Vector<VkDeviceQueueCreateInfo> __queueCreateInfos;
     Queue __graphicsQueue;
     Queue __computeQueue;
     Queue __transferQueue;

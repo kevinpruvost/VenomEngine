@@ -19,6 +19,8 @@
 #include <memory>
 #include <venom/common/Export.h>
 #include <venom/common/Error.h>
+#include <venom/common/Containers.h>
+#include <venom/common/Ptr.h>
 
 #include <unordered_map>
 
@@ -37,7 +39,7 @@ public:
     static DLL * Create();
     /// @brief Searched for DLL in cache, if not found creates a new one
     /// @return existing or new DLL
-    static DLL * GetFromCache(const std::string & path);
+    static DLL * GetFromCache(const vc::String & path);
     ~DLL();
 
     /// @brief Gets a function from the DLL
@@ -59,7 +61,7 @@ public:
 
 private:
     void * __handle;
-    std::string __path;
+    vc::String __path;
 };
 
 class VenomEngine;
@@ -74,14 +76,14 @@ private:
 public:
     ~DLL_Cache();
 
-    void StoreInCache(const std::string & name, DLL * dll);
-    void UnloadFromCache(const std::string & name);
-    DLL * GetFromCache(const std::string & name);
+    void StoreInCache(const vc::String & name, DLL * dll);
+    void UnloadFromCache(const vc::String & name);
+    DLL * GetFromCache(const vc::String & name);
     static void SetCache(DLL_Cache * cache);
     static DLL_Cache * GetCache();
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<DLL>> __dlls;
+    vc::UMap<vc::String, vc::SPtr<DLL>> __dlls;
 };
 }
 }
