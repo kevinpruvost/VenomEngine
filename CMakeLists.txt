@@ -43,6 +43,14 @@ file(GLOB_RECURSE RESOURCE_FILES
 )
 
 if (APPLE)
+    enable_language(OBJC OBJCXX)
+
+    # Add Compile definitions to recognize ios or macos
+    if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+        add_compile_definitions(TARGET_OS_IOS)
+    else()
+        add_compile_definitions(TARGET_OS_OSX)
+    endif ()
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         # AddressSanitizer for macOS
         message(STATUS "Enabling AddressSanitizer on macOS in Debug mode")
@@ -144,3 +152,9 @@ endif()
 
 # Executable
 add_subdirectory(${PROJECT_PATH}/VenomEngine)
+
+get_cmake_property(_variableNames VARIABLES)
+list (SORT _variableNames)
+foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()

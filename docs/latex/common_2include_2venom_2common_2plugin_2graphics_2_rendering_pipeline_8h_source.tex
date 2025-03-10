@@ -6,42 +6,44 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_pipeline_8h}{venom/common/plugin/graphics/ShaderPipeline.h}}>}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00012\ \{}
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_e_c_s_8h}{venom/common/ECS.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ vc::Vector<ShaderPipeline>\ ShaderPipelineList;}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}(\textcolor{keyword}{const}\ RenderingPipelineType\ type\ =\ RenderingPipelineType::None)\ :\ \_\_type(type)\ \{\}}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{\string~RenderingPipelineImpl}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetShaderType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_\_type\ =\ type;\ \}}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ RenderingPipelineType\ GetShaderType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_type;\ \}}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ GetRenderingPipelineCache(\_\_type);\ \}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache(\textcolor{keyword}{const}\ RenderingPipelineType\ type);}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineCache(\textcolor{keyword}{const}\ ShaderPipelineList\ \&\ list,\ \textcolor{keyword}{const}\ RenderingPipelineType\ type);}
-\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00036\ \ \ \ \ RenderingPipelineType\ \_\_type;}
-\DoxyCodeLine{00037\ \};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline}{RenderingPipeline}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
-\DoxyCodeLine{00043\ \{}
-\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline}{RenderingPipeline}}();}
-\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline}{RenderingPipeline}}(\textcolor{keyword}{const}\ RenderingPipelineType\ type);}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline}{\string~RenderingPipeline}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetShaderType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}>()-\/>SetShaderType(type);\ \}}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{inline}\ RenderingPipelineType\ GetShaderType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}>()-\/>GetShaderType();\ \}}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}>()-\/>GetRenderingPipelineCache();\ \}}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \textcolor{keywordflow}{return}\ RenderingPipelineImpl::GetRenderingPipelineCache(type);\ \}}
-\DoxyCodeLine{00053\ \};}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \}}
-\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ vc::Vector<ShaderPipeline>\ ShaderPipelineList;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderingPipelineImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ RenderingPipelineImpl(\textcolor{keyword}{const}\ RenderingPipelineType\ type\ =\ RenderingPipelineType::None)\ :\ \_\_type(type)\ \{\}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~RenderingPipelineImpl();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetShaderType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_\_type\ =\ type;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{inline}\ RenderingPipelineType\ GetShaderType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_type;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ GetRenderingPipelineCache(\_\_type);\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache(\textcolor{keyword}{const}\ RenderingPipelineType\ type);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl_a0a75e2403cbbbc1699e2ac65ec0e82a8}{SetRenderingPipelineCache}}(\textcolor{keyword}{const}\ ShaderPipelineList\ \&\ list,\ \textcolor{keyword}{const}\ RenderingPipelineType\ type);}
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ RenderingPipelineType\ \_\_type;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderingPipeline\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ \ \ \ \ RenderingPipeline();}
+\DoxyCodeLine{00048\ \ \ \ \ RenderingPipeline(\textcolor{keyword}{const}\ RenderingPipelineType\ type);}
+\DoxyCodeLine{00049\ \ \ \ \ \string~RenderingPipeline()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetShaderType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}>()-\/>SetShaderType(type);\ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{inline}\ RenderingPipelineType\ GetShaderType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}>()-\/>GetShaderType();\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}>()-\/>GetRenderingPipelineCache();\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ ShaderPipelineList\ \&\ GetRenderingPipelineCache(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \textcolor{keywordflow}{return}\ RenderingPipelineImpl::GetRenderingPipelineCache(type);\ \}}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ \}}
 
 \end{DoxyCode}

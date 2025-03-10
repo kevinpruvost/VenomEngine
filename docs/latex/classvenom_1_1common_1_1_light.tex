@@ -9,11 +9,33 @@ Inheritance diagram for venom\+::common\+::Light\+:\begin{figure}[H]
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{classvenom_1_1common_1_1_light_a3691f8c243a6cb1561ee8c6f90bcb0ae}\label{classvenom_1_1common_1_1_light_a3691f8c243a6cb1561ee8c6f90bcb0ae} 
+{\bfseries Light} (const \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_light_a8c5ad6665ea26b459e7c081e526e3a21}\label{classvenom_1_1common_1_1_light_a8c5ad6665ea26b459e7c081e526e3a21} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_light_acb0d84c7d4787f8c176c2a874af865d0}\label{classvenom_1_1common_1_1_light_acb0d84c7d4787f8c176c2a874af865d0} 
+{\bfseries Light} (\mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1common_1_1_light_a8488ee8d55a72b7228f89c2b93cdca92}\label{classvenom_1_1common_1_1_light_a8488ee8d55a72b7228f89c2b93cdca92} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \&\&other) noexcept
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_light_a43f0e891293cad1374418f7bcbcba002}{Init}} (Entity entity) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_light_a2b57fba16f5764b1e0b939e5e7da8c58}{Update}} (Entity entity) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_light_a17947e9ba52ddb67f876cd4c70fbc972}{\+\_\+\+GUI}} (const Entity entity) override
+\item 
+vc\+::\+String \mbox{\hyperlink{classvenom_1_1common_1_1_light_a78cbfb68cd875d529978e6c81dfdf387}{\+\_\+\+Get\+Component\+Title}} () override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1common_1_1_light_a94104fd0f2519278980eda0b81f5be3c}{Can\+Remove}} (Entity entity) override
+\item 
 \Hypertarget{classvenom_1_1common_1_1_light_a62f01e6bc16b1d06205cccc7616cb17e}\label{classvenom_1_1common_1_1_light_a62f01e6bc16b1d06205cccc7616cb17e} 
 void {\bfseries Set\+Type} (const Light\+Type type)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_light_aeb45e76deaf763e496ea26c8cfad6f60}\label{classvenom_1_1common_1_1_light_aeb45e76deaf763e496ea26c8cfad6f60} 
-const Light\+Type \& {\bfseries Get\+Type} () const
+\Hypertarget{classvenom_1_1common_1_1_light_a45d1bf4923d6a48944bfc668547eb3f2}\label{classvenom_1_1common_1_1_light_a45d1bf4923d6a48944bfc668547eb3f2} 
+const Light\+Type \& {\bfseries Get\+Light\+Type} () const
 \item 
 \Hypertarget{classvenom_1_1common_1_1_light_a6f03942d54335702b7c03060d6f67033}\label{classvenom_1_1common_1_1_light_a6f03942d54335702b7c03060d6f67033} 
 void {\bfseries Set\+Color} (const vcm\+::\+Vec3 \&color)
@@ -30,114 +52,123 @@ const float \& {\bfseries Get\+Intensity} () const
 \Hypertarget{classvenom_1_1common_1_1_light_a554259f4ed7d1f6e287c280243475649}\label{classvenom_1_1common_1_1_light_a554259f4ed7d1f6e287c280243475649} 
 float \texorpdfstring{$\ast$}{*} {\bfseries Get\+Intensity\+Ptr} ()
 \item 
-\Hypertarget{classvenom_1_1common_1_1_light_a72a6ba2e938bd2aa3f0bf8d38f9efa31}\label{classvenom_1_1common_1_1_light_a72a6ba2e938bd2aa3f0bf8d38f9efa31} 
-void {\bfseries Set\+Radius} (const float radius)
+\Hypertarget{classvenom_1_1common_1_1_light_aa867d1562f99fa85a9c1d004bdac88ba}\label{classvenom_1_1common_1_1_light_aa867d1562f99fa85a9c1d004bdac88ba} 
+void {\bfseries Set\+Angle} (const float angle)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_light_a066d4726a11cef080730bf35aa63033a}\label{classvenom_1_1common_1_1_light_a066d4726a11cef080730bf35aa63033a} 
-const float \& {\bfseries Get\+Radius} () const
-\item 
-\Hypertarget{classvenom_1_1common_1_1_light_a65aacf6946bb7521bca42fe6626243a0}\label{classvenom_1_1common_1_1_light_a65aacf6946bb7521bca42fe6626243a0} 
-void {\bfseries Set\+Direction} (const vcm\+::\+Vec3 \&direction)
-\item 
-\Hypertarget{classvenom_1_1common_1_1_light_a5b46aa409ed917fde2a9966795ccc439}\label{classvenom_1_1common_1_1_light_a5b46aa409ed917fde2a9966795ccc439} 
-float \texorpdfstring{$\ast$}{*} {\bfseries Get\+Direction\+Ptr} ()
-\item 
-\Hypertarget{classvenom_1_1common_1_1_light_a27264992951cc465c69f6d082a0ef74f}\label{classvenom_1_1common_1_1_light_a27264992951cc465c69f6d082a0ef74f} 
-const vcm\+::\+Vec3 \& {\bfseries Get\+Direction} () const
+\Hypertarget{classvenom_1_1common_1_1_light_a758b768c813e75cd304c68337829545b}\label{classvenom_1_1common_1_1_light_a758b768c813e75cd304c68337829545b} 
+const float \& {\bfseries Get\+Angle} () const
 \item 
 \Hypertarget{classvenom_1_1common_1_1_light_aa8e793394f44bfa8d74a7be7d15861b2}\label{classvenom_1_1common_1_1_light_aa8e793394f44bfa8d74a7be7d15861b2} 
 \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{Light\+Shader\+Struct}} {\bfseries Get\+Shader\+Struct} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_light_af30c5775b260fb18575521232c4dc574}\label{classvenom_1_1common_1_1_light_af30c5775b260fb18575521232c4dc574} 
+\mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{Light\+Cascaded\+Shadow\+Map\+Constants\+Struct}} {\bfseries Get\+Shadow\+Map\+Constants\+Struct} (const int shadow\+Map\+Index, const int face\+Index, \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}} \texorpdfstring{$\ast$}{*}const camera, vcm\+::\+Vec3 \texorpdfstring{$\ast$}{*}light\+Pos) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Transform3D} (const \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&other)
+vc\+::\+String {\bfseries Get\+Component\+Title} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
+\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&other)
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*}impl)
 \item 
-{\bfseries Transform3D} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&\&other) noexcept
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
 \item 
-\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}} \&\&other) noexcept
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&other)
 \item 
-void {\bfseries Set\+Position} (const vcm\+::\+Vec3 \&position)
+{\bfseries Plugin\+Object\+Impl\+Wrapper} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
 \item 
-void {\bfseries Move} (const vcm\+::\+Vec3 \&delta)
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}} \&\&other)
 \item 
-void {\bfseries Move\+Forward} (const float delta)
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} ()
 \item 
-void {\bfseries Move\+Right} (const float delta)
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Impl} () const
 \item 
-void {\bfseries Move\+Up} (const float delta)
+const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Const\+Impl} () const
 \item 
-const vcm\+::\+Vec3 \& {\bfseries Get\+Position} () const
+bool {\bfseries Is\+Impl\+Initialized} () const
 \item 
-bool {\bfseries Has\+Position\+Changed} ()
+void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
 \item 
-void {\bfseries Set\+Rotation} (const vcm\+::\+Vec3 \&rotation)
+\Hypertarget{classvenom_1_1common_1_1_light_a89e3c0e22931eb04b0dd97816041d99d}\label{classvenom_1_1common_1_1_light_a89e3c0e22931eb04b0dd97816041d99d} 
+static const size\+\_\+t {\bfseries Get\+Count\+Of\+Lights} ()
 \item 
-void {\bfseries Set\+Yaw} (float angle)
+\Hypertarget{classvenom_1_1common_1_1_light_a80cc5e92dcab48598cd6d5792678048d}\label{classvenom_1_1common_1_1_light_a80cc5e92dcab48598cd6d5792678048d} 
+static const vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries Get\+Lights} ()
 \item 
-void {\bfseries Set\+Pitch} (float angle)
+\Hypertarget{classvenom_1_1common_1_1_light_a1a865b0ab61794f6c6b7fc057116be7f}\label{classvenom_1_1common_1_1_light_a1a865b0ab61794f6c6b7fc057116be7f} 
+static vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_light}{Light}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries Get\+Lights\+Mut} ()
 \item 
-void {\bfseries Set\+Roll} (float angle)
-\item 
-void {\bfseries Rotate\+Yaw} (float angle)
-\item 
-void {\bfseries Rotate\+Pitch} (float angle)
-\item 
-void {\bfseries Rotate\+Roll} (float angle)
-\item 
-void {\bfseries Rotate} (const vcm\+::\+Vec3 \&rotation)
-\item 
-const vcm\+::\+Quat \& {\bfseries Get\+Rotation\+Quat} () const
-\item 
-const vcm\+::\+Vec3 \& {\bfseries Get\+Rotation} ()
-\item 
-void \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d_a1087d42ee65a2f8d88bdf569443e403b}{Rotate\+Around}} (const vcm\+::\+Vec3 \&target, const vcm\+::\+Vec3 \&plane\+Normal, float angle)
-\begin{DoxyCompactList}\small\item\em Rotates around the target on the given plane\+Normal by the given angle. \end{DoxyCompactList}\item 
-void {\bfseries Look\+At} (const vcm\+::\+Vec3 \&target)
-\item 
-vcm\+::\+Vec3 {\bfseries Get\+Forward\+Vector} () const
-\item 
-vcm\+::\+Vec3 {\bfseries Get\+Up\+Vector} () const
-\item 
-vcm\+::\+Vec3 {\bfseries Get\+Right\+Vector} () const
-\item 
-void {\bfseries Update\+Model\+Matrix} ()
-\item 
-const vcm\+::\+Mat4 \& {\bfseries Get\+Model\+Matrix} ()
+\Hypertarget{classvenom_1_1common_1_1_light_a182e2731d5bdb12f60c6ce6295e8ef0d}\label{classvenom_1_1common_1_1_light_a182e2731d5bdb12f60c6ce6295e8ef0d} 
+static const size\+\_\+t {\bfseries Get\+Count\+Of\+Lights\+Of\+Type} (const Light\+Type type)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
 \item 
-void {\bfseries \+\_\+\+Update\+Rotation\+Quat} ()
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{venom\+::common\+::\+Transform3D}}}
-\begin{DoxyCompactItemize}
-\item 
-vcm\+::\+Vec3 {\bfseries \+\_\+position}
-\item 
-vcm\+::\+Quat {\bfseries \+\_\+rotation\+Quat}
-\item 
-\begin{tabbing}
-xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
-union \{\\
-\>vcm::Vec3 {\bfseries \_3Drotation}\\
-\>struct \{\\
-\>\>float {\bfseries \_yaw}\\
-\>\>float {\bfseries \_pitch}\\
-\>\>float {\bfseries \_roll}\\
-\>\} \\
-\}; \\
 
-\end{tabbing}\item 
-vcm\+::\+Mat4 {\bfseries \+\_\+model\+Matrix}
-\end{DoxyCompactItemize}
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_light_a78cbfb68cd875d529978e6c81dfdf387}\index{venom::common::Light@{venom::common::Light}!\_GetComponentTitle@{\_GetComponentTitle}}
+\index{\_GetComponentTitle@{\_GetComponentTitle}!venom::common::Light@{venom::common::Light}}
+\doxysubsubsection{\texorpdfstring{\_GetComponentTitle()}{\_GetComponentTitle()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_light_a78cbfb68cd875d529978e6c81dfdf387} 
+vc\+::\+String venom\+::common\+::\+Light\+::\+\_\+\+Get\+Component\+Title (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_light_a17947e9ba52ddb67f876cd4c70fbc972}\index{venom::common::Light@{venom::common::Light}!\_GUI@{\_GUI}}
+\index{\_GUI@{\_GUI}!venom::common::Light@{venom::common::Light}}
+\doxysubsubsection{\texorpdfstring{\_GUI()}{\_GUI()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_light_a17947e9ba52ddb67f876cd4c70fbc972} 
+void venom\+::common\+::\+Light\+::\+\_\+\+GUI (\begin{DoxyParamCaption}\item[{const Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_light_a94104fd0f2519278980eda0b81f5be3c}\index{venom::common::Light@{venom::common::Light}!CanRemove@{CanRemove}}
+\index{CanRemove@{CanRemove}!venom::common::Light@{venom::common::Light}}
+\doxysubsubsection{\texorpdfstring{CanRemove()}{CanRemove()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_light_a94104fd0f2519278980eda0b81f5be3c} 
+bool venom\+::common\+::\+Light\+::\+Can\+Remove (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_light_a43f0e891293cad1374418f7bcbcba002}\index{venom::common::Light@{venom::common::Light}!Init@{Init}}
+\index{Init@{Init}!venom::common::Light@{venom::common::Light}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_light_a43f0e891293cad1374418f7bcbcba002} 
+void venom\+::common\+::\+Light\+::\+Init (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_light_a2b57fba16f5764b1e0b939e5e7da8c58}\index{venom::common::Light@{venom::common::Light}!Update@{Update}}
+\index{Update@{Update}!venom::common::Light@{venom::common::Light}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_light_a2b57fba16f5764b1e0b939e5e7da8c58} 
+void venom\+::common\+::\+Light\+::\+Update (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\mbox{\hyperlink{_light_8h}{Light.\+h}}\item 
-/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_light_8cc}{Light.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_light_8h}{Light.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_light_8cc}{Light.\+cc}}\end{DoxyCompactItemize}

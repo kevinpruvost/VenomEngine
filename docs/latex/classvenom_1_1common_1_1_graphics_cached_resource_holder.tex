@@ -19,13 +19,19 @@ Inheritance diagram for venom\+::common\+::Graphics\+Cached\+Resource\+Holder\+:
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_a31a635eedb317149da9287805a30fbf1}\label{classvenom_1_1common_1_1_graphics_cached_resource_holder_a31a635eedb317149da9287805a30fbf1} 
-{\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+{\footnotesize template$<$typename T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_a1ce6d6d32e4d09fbab96173a12b4f571}\label{classvenom_1_1common_1_1_graphics_cached_resource_holder_a1ce6d6d32e4d09fbab96173a12b4f571} 
 void {\bfseries Set\+Resource} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \&resource)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_a07423bb7390396125fae610adbc47c99}\label{classvenom_1_1common_1_1_graphics_cached_resource_holder_a07423bb7390396125fae610adbc47c99} 
 void {\bfseries Set\+Resource} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&resource)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_adf8444fb10b66659f34d85de29e372e4}\label{classvenom_1_1common_1_1_graphics_cached_resource_holder_adf8444fb10b66659f34d85de29e372e4} 
+const vc\+::\+String \& {\bfseries Get\+Resource\+Name} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_ac5761fe807a60d9912194b1a286310fc}\label{classvenom_1_1common_1_1_graphics_cached_resource_holder_ac5761fe807a60d9912194b1a286310fc} 
+const vc\+::\+String \& {\bfseries Get\+Resource\+Short\+Name} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -38,7 +44,9 @@ SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Grap
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_a65536d30665c141edd5e1127d8054e30}\label{classvenom_1_1common_1_1_graphics_cached_resource_holder_a65536d30665c141edd5e1127d8054e30} 
 void {\bfseries \+\_\+\+Load\+From\+Cache} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&cache)
-\end{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder_a8be3bdc727de7cbe5a32e12045524acd}{\+\_\+\+Reset\+Resource}} ()=0
+\begin{DoxyCompactList}\small\item\em Resets the resource, should be implemented by the final class, i.\+e. Vulkan\+Texture\+Resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -53,6 +61,23 @@ Base class for cached resource holders.
 \begin{DoxyWarning}{Warning}
 DO NOT INHERIT with \doxylink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource} 
 \end{DoxyWarning}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_graphics_cached_resource_holder_a8be3bdc727de7cbe5a32e12045524acd}\index{venom::common::GraphicsCachedResourceHolder@{venom::common::GraphicsCachedResourceHolder}!\_ResetResource@{\_ResetResource}}
+\index{\_ResetResource@{\_ResetResource}!venom::common::GraphicsCachedResourceHolder@{venom::common::GraphicsCachedResourceHolder}}
+\doxysubsubsection{\texorpdfstring{\_ResetResource()}{\_ResetResource()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_cached_resource_holder_a8be3bdc727de7cbe5a32e12045524acd} 
+virtual void venom\+::common\+::\+Graphics\+Cached\+Resource\+Holder\+::\+\_\+\+Reset\+Resource (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Resets the resource, should be implemented by the final class, i.\+e. Vulkan\+Texture\+Resource. 
+
+
+
+Implemented in \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_model_adc7aa493395a6f7e8745a1dd4cac5e7f}{venom\+::vulkan\+::\+Vulkan\+Model}}, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline_a89cce37113c534d3011f47b509ed0c1e}{venom\+::vulkan\+::\+Vulkan\+Shader\+Pipeline}}, and \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_af785fa47d45fb4c36aa87a1e9cc3d7fe}{venom\+::vulkan\+::\+Vulkan\+Texture}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

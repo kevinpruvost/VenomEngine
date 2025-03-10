@@ -1,0 +1,163 @@
+\doxysection{venom\+::vulkan\+::Vulkan\+Render\+Pass Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass}{}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass}\index{venom::vulkan::VulkanRenderPass@{venom::vulkan::VulkanRenderPass}}
+Inheritance diagram for venom\+::vulkan\+::Vulkan\+Render\+Pass\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classvenom_1_1vulkan_1_1_vulkan_render_pass}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a6ecc87950e07668e863ea7be999ab8bc}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a6ecc87950e07668e863ea7be999ab8bc} 
+{\bfseries Vulkan\+Render\+Pass} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_ae1e7d4a3375ea5d295f13fb6952cdd54}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_ae1e7d4a3375ea5d295f13fb6952cdd54} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_ad6f7ba3657e7e5458c93c389825739d9}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_ad6f7ba3657e7e5458c93c389825739d9} 
+{\bfseries Vulkan\+Render\+Pass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a550b345fff043fc649080fa631bad646}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a550b345fff043fc649080fa631bad646} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a9647a085a903d535693980ce82500a54}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a9647a085a903d535693980ce82500a54} 
+void {\bfseries Clear\+Render\+Pass} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_afde1c5fe5e3c294fe5994f79f7f6c5e2}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_afde1c5fe5e3c294fe5994f79f7f6c5e2} 
+void {\bfseries Set\+Rendering\+Type} (const vc\+::\+Rendering\+Pipeline\+Type type)
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass_aaab72ba67b6fc0712a13b028913fa706}{\+\_\+\+Init}} () override
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a9ea37180b26d7eec8bd4990e40d49733}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a9ea37180b26d7eec8bd4990e40d49733} 
+vc\+::\+Error {\bfseries Begin\+Render\+Pass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer, int framebuffer\+Index)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_ab83834ee3b8b35630f26997521460f37}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_ab83834ee3b8b35630f26997521460f37} 
+vc\+::\+Error {\bfseries Begin\+Render\+Pass\+Custom\+Framebuffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*}const framebuffer)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a16733502b52826f33f6e517aadbb0dfb}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a16733502b52826f33f6e517aadbb0dfb} 
+void {\bfseries Next\+Subpass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_ad6333b55cdddf8cc74d59ebe25542d03}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_ad6333b55cdddf8cc74d59ebe25542d03} 
+vc\+::\+Error {\bfseries End\+Render\+Pass} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*}command\+Buffer)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a282c478be5ea3a4bcfaa656bcc48664b}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a282c478be5ea3a4bcfaa656bcc48664b} 
+Vk\+Render\+Pass {\bfseries Get\+Vk\+Render\+Pass} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a9063fbd916aa6013778a6c8b50d57f05}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a9063fbd916aa6013778a6c8b50d57f05} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Framebuffer} (const int index)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_ad9d12715679806b9084af28873aaa8ac}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_ad9d12715679806b9084af28873aaa8ac} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Current\+Framebuffer} ()
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_a2000cd0d0f5a49340f578ba4f65475e5}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_a2000cd0d0f5a49340f578ba4f65475e5} 
+const vc\+::\+Vector$<$ Vk\+Subpass\+Description $>$ \& {\bfseries Get\+Subpass\+Descriptions} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_ae694dd1e81d31d04a7e9722c2c692fa6}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_ae694dd1e81d31d04a7e9722c2c692fa6} 
+vc\+::\+Vector$<$ vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} $>$ $>$ \& {\bfseries Get\+Attachments} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{venom\+::common\+::\+Render\+Pass\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Render\+Pass\+Impl} (const \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \&)=delete
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \&)=delete
+\item 
+{\bfseries Render\+Pass\+Impl} (\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \&\&other)
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \&\&other)
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl_aab0b0680770943e11adedb366d8ea2de}{Destroy}} () override
+\item 
+vc\+::\+Error {\bfseries Init} ()
+\item 
+void {\bfseries Set\+Rendering\+Type} (const vc\+::\+Rendering\+Pipeline\+Type type)
+\item 
+Rendering\+Pipeline\+Type {\bfseries Get\+Rendering\+Type} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_aa445468f958f67298d74f69d1c3ef2a9}\label{classvenom_1_1vulkan_1_1_vulkan_render_pass_aa445468f958f67298d74f69d1c3ef2a9} 
+static \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Vulkan\+Render\+Pass} (const vc\+::\+Rendering\+Pipeline\+Type type)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{venom\+::common\+::\+Render\+Pass\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Render\+Pass} (const vc\+::\+Rendering\+Pipeline\+Type type)
+\item 
+static vc\+::\+Array$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \texorpdfstring{$\ast$}{*}, static\+\_\+cast$<$ int $>$(vc\+::\+Rendering\+Pipeline\+Type\+::\+Count)$>$ {\bfseries Get\+Render\+Passes} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{venom\+::common\+::\+Render\+Pass\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+Rendering\+Pipeline\+Type {\bfseries \+\_\+type}
+\item 
+vc\+::\+Vector$<$ vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} $>$ $>$ {\bfseries \+\_\+attachments}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_render_pass_aaab72ba67b6fc0712a13b028913fa706}\index{venom::vulkan::VulkanRenderPass@{venom::vulkan::VulkanRenderPass}!\_Init@{\_Init}}
+\index{\_Init@{\_Init}!venom::vulkan::VulkanRenderPass@{venom::vulkan::VulkanRenderPass}}
+\doxysubsubsection{\texorpdfstring{\_Init()}{\_Init()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_render_pass_aaab72ba67b6fc0712a13b028913fa706} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Render\+Pass\+::\+\_\+\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{venom\+::common\+::\+Render\+Pass\+Impl}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/Render\+Pass.\+h\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/Render\+Pass.\+cc\end{DoxyCompactItemize}

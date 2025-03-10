@@ -35,13 +35,20 @@
 \DoxyCodeLine{00037\ }
 \DoxyCodeLine{00038\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00039\ \{}
-\DoxyCodeLine{00040\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00040\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00041\ \{}
 \DoxyCodeLine{00042\ \textcolor{keyword}{namespace\ }math}
 \DoxyCodeLine{00043\ \{}
-\DoxyCodeLine{00044\ \}}
-\DoxyCodeLine{00045\ \}}
-\DoxyCodeLine{00046\ \}}
-\DoxyCodeLine{00047\ \textcolor{keyword}{namespace\ }vcm\ =\ venom::common::math;}
+\DoxyCodeLine{00044\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Radians(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ degrees)\ \{\ \textcolor{keywordflow}{return}\ degrees\ *\ (M\_PI\ /\ 180.0f);\ \}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Degrees(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ radians)\ \{\ \textcolor{keywordflow}{return}\ radians\ *\ (180.0f\ /\ M\_PI);\ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{float}\ Lerp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ a,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ b,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ t);}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{float}\ PingPongLerp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ a,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ b,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ t);}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{float}\ LinearPingPongLerp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ a,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ b,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ t);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }vcm\ =\ venom::common::math;}
 
 \end{DoxyCode}

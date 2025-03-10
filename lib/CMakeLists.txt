@@ -1,8 +1,9 @@
 
 add_subdirectory("external")
 add_subdirectory("common")
-add_subdirectory("context")
-add_subdirectory("vulkan")
+if(NOT CMAKE_SYSTEM_NAME MATCHES "iOS")
+    add_subdirectory("vulkan")
+endif ()
 if (APPLE)
     add_subdirectory("metal")
 endif()

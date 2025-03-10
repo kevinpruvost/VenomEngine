@@ -1,0 +1,66 @@
+\doxysection{Render\+Target.\+h}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_render_target_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_render_target_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/RenderTarget.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/RenderTarget.h}}
+\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_render_target_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{venom/common/plugin/graphics/Texture.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_rendering_pipeline_type_8h}{venom/common/plugin/graphics/RenderingPipelineType.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_render_target}{RenderTarget}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderTargetImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ RenderTargetImpl();}
+\DoxyCodeLine{00023\ \ \ \ \ \string~RenderTargetImpl();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ *\ GetTexture()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00026\ \ \ \ \ vc::Error\ Reset();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Destroy()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ SetDimensions(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00030\ \ \ \ \ vc::Error\ SetFormat(ShaderVertexFormat\ format);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ GetWidth()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ GetHeight()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ \ \ \ \ ShaderVertexFormat\ GetFormat()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ LinkCamera(\mbox{\hyperlink{classvenom_1_1common_1_1_camera}{vc::Camera}}\ *\ camera);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRenderingPipelineType(vc::RenderingPipelineType\ type);}
+\DoxyCodeLine{00038\ \ \ \ \ vc::RenderingPipelineType\ GetRenderingPipelineType()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vc::Vector<RenderTargetImpl\ *>\ \&\ GetAllRenderTargets();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_PrepareRenderTarget()\ =\ 0;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ vc::Error\ \_\_ReloadTexture();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_texture[VENOM\_MAX\_FRAMES\_IN\_FLIGHT];}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_width,\ \_\_height;}
+\DoxyCodeLine{00051\ \ \ \ \ ShaderVertexFormat\ \_\_format;}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{vc::Camera}}\ *\ \_\_camera;}
+\DoxyCodeLine{00053\ \ \ \ \ vc::RenderingPipelineType\ \_\_renderingPipelineType;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }RenderTarget;}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderTarget\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ RenderTarget(vc::RenderingPipelineType\ renderingPipeline,\ ShaderVertexFormat\ format);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ *\ GetTexture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ GetImpl()-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{RenderTargetImpl}}>()-\/>GetTexture();\ \}}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ \}}
+
+\end{DoxyCode}

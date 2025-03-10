@@ -1,5 +1,19 @@
 var searchData=
 [
-  ['hascachedobject_0',['HasCachedObject',['../classvenom_1_1common_1_1_graphics_plugin_object.html#af0e11f9034803a94229075d6de780a4b',1,'venom::common::GraphicsPluginObject']]],
-  ['hasmaterial_1',['HasMaterial',['../classvenom_1_1common_1_1_mesh.html#a8da72ff386df09186372433697d3396d',1,'venom::common::Mesh']]]
+  ['getcachedobject_0',['GetCachedObject',['../classvenom_1_1common_1_1_graphics_plugin_object.html#ac8396d0b2a27c3028f8c7f5b6c05dec3',1,'venom::common::GraphicsPluginObject']]],
+  ['getcachedobjects_1',['GetCachedObjects',['../classvenom_1_1common_1_1_graphics_plugin_object.html#a4d078c913211523f9f319b314f05d496',1,'venom::common::GraphicsPluginObject']]],
+  ['getcolor3d_2',['GetColor3D',['../classvenom_1_1common_1_1_material_component.html#ad3e0a79d484cb38a68bc87c5c09cef3a',1,'venom::common::MaterialComponent']]],
+  ['getcolor4d_3',['GetColor4D',['../classvenom_1_1common_1_1_material_component.html#abcce08f87ca68129543274862b9aedda',1,'venom::common::MaterialComponent']]],
+  ['getdescriptorsets_4',['GetDescriptorSets',['../classvenom_1_1vulkan_1_1_descriptor_pool.html#a3c2aa8faa4b2632e946dace62cfc9a16',1,'venom::vulkan::DescriptorPool']]],
+  ['geteulerangles_5',['GetEulerAngles',['../_vector_8h.html#ad017de705bddff4c8fee33385ac80e86',1,'venom::common::math']]],
+  ['getfloatvalue_6',['GetFloatValue',['../classvenom_1_1common_1_1_material_component.html#a485a5e21fd3a974be7a07b6174f64e7f',1,'venom::common::MaterialComponent']]],
+  ['getforward_7',['GetForward',['../_vector_8h.html#ac1dd0ee73b4993a610e5a2d06e563f81',1,'venom::common::math']]],
+  ['getfromcache_8',['GetFromCache',['../classvenom_1_1common_1_1_d_l_l.html#a5b8ed68b2ba76933b05fcbeb5cd58ddb',1,'venom::common::DLL']]],
+  ['getfunction_9',['GetFunction',['../classvenom_1_1common_1_1_d_l_l.html#ad09e577f26449ff1020abb5cd72950fb',1,'venom::common::DLL']]],
+  ['getinstance_10',['GetInstance',['../classvenom_1_1common_1_1_venom_engine.html#a0ef26a66954f7362382c721f6d486b6e',1,'venom::common::VenomEngine']]],
+  ['getmaterial_11',['GetMaterial',['../classvenom_1_1common_1_1_mesh.html#abd470bf2dc6f77329e4d172189f53342',1,'venom::common::Mesh']]],
+  ['getperpendicularvector_12',['GetPerpendicularVector',['../_vector_8h.html#ab817c9981a9c26c07f8d6de5a3be0720',1,'venom::common::math']]],
+  ['getright_13',['GetRight',['../_vector_8h.html#a1b1a19827c0ed445222e990680bbd0d2',1,'venom::common::math']]],
+  ['gettexture_14',['GetTexture',['../classvenom_1_1common_1_1_material_component.html#a3e8400a05937f988497d6b24cf9e7dbd',1,'venom::common::MaterialComponent']]],
+  ['getup_15',['GetUp',['../_vector_8h.html#a547d48f2d53dde3ff8c62f4968139c3f',1,'venom::common::math']]]
 ];

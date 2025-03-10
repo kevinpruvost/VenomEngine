@@ -16,32 +16,45 @@ const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{Vertex\+Buffer}} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \& {\bfseries Get\+Panorma\+Descriptor\+Set} () const
 \item 
 vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox_a42813e816b60761cdec87fa26552d406}{\+\_\+\+Load\+Skybox}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&texture) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox_a69281541765bb8f39a805ab6adce372a}{\+\_\+\+Load\+Irradiance\+Map}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&texture, \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&irradiance\+Map) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox_a2140d8b48fe523b6292926f31127c02c}{\+\_\+\+Load\+Radiance\+Map}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&texture, \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&radiance\+Map) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox_ad0f060931b882683e6295fd4d420d09e}{\+\_\+\+Load\+Blur\+Map}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{common\+::\+Texture}} \&texture, \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{common\+::\+Texture}} \&blur\+Map) override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox_a40ba72f1d437818c7240fe964fb4ce18}{\+\_\+\+Change\+Blur\+Factor}} (const float factor) override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}}
 \begin{DoxyCompactItemize}
 \item 
 vc\+::\+Error {\bfseries Load\+Skybox} (const char \texorpdfstring{$\ast$}{*}texture\+Path)
 \item 
+vc\+::\+Error {\bfseries Load\+Skybox} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ res)
+\item 
 const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \& {\bfseries Get\+Panorama} () const
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \& {\bfseries Get\+Panorama\+Mut} ()
+\item 
+vc\+::\+Error {\bfseries Change\+Blur\+Factor} (const float factor)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
 \item 
 void {\bfseries Inc\+Ref\+Count} ()
 \item 
 void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -54,33 +67,77 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structvenom_1_1common_1_1_skybox_shader_data}{Skybox\+Shader\+Data}} {\bfseries \+\_\+shader\+Data}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_skybox_a40ba72f1d437818c7240fe964fb4ce18}\index{venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}!\_ChangeBlurFactor@{\_ChangeBlurFactor}}
+\index{\_ChangeBlurFactor@{\_ChangeBlurFactor}!venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}}
+\doxysubsubsection{\texorpdfstring{\_ChangeBlurFactor()}{\_ChangeBlurFactor()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_skybox_a40ba72f1d437818c7240fe964fb4ce18} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Skybox\+::\+\_\+\+Change\+Blur\+Factor (\begin{DoxyParamCaption}\item[{const float}]{factor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_skybox_ad0f060931b882683e6295fd4d420d09e}\index{venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}!\_LoadBlurMap@{\_LoadBlurMap}}
+\index{\_LoadBlurMap@{\_LoadBlurMap}!venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}}
+\doxysubsubsection{\texorpdfstring{\_LoadBlurMap()}{\_LoadBlurMap()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_skybox_ad0f060931b882683e6295fd4d420d09e} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Skybox\+::\+\_\+\+Load\+Blur\+Map (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{common\+::\+Texture}} \&}]{texture}{, }\item[{\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{common\+::\+Texture}} \&}]{blur\+Map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_skybox_a69281541765bb8f39a805ab6adce372a}\index{venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}!\_LoadIrradianceMap@{\_LoadIrradianceMap}}
+\index{\_LoadIrradianceMap@{\_LoadIrradianceMap}!venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}}
+\doxysubsubsection{\texorpdfstring{\_LoadIrradianceMap()}{\_LoadIrradianceMap()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_skybox_a69281541765bb8f39a805ab6adce372a} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Skybox\+::\+\_\+\+Load\+Irradiance\+Map (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&}]{texture}{, }\item[{\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&}]{irradiance\+Map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_skybox_a2140d8b48fe523b6292926f31127c02c}\index{venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}!\_LoadRadianceMap@{\_LoadRadianceMap}}
+\index{\_LoadRadianceMap@{\_LoadRadianceMap}!venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}}
+\doxysubsubsection{\texorpdfstring{\_LoadRadianceMap()}{\_LoadRadianceMap()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_skybox_a2140d8b48fe523b6292926f31127c02c} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Skybox\+::\+\_\+\+Load\+Radiance\+Map (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&}]{texture}{, }\item[{\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&}]{radiance\+Map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}.
+
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_skybox_a42813e816b60761cdec87fa26552d406}\index{venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}!\_LoadSkybox@{\_LoadSkybox}}
 \index{\_LoadSkybox@{\_LoadSkybox}!venom::vulkan::VulkanSkybox@{venom::vulkan::VulkanSkybox}}
 \doxysubsubsection{\texorpdfstring{\_LoadSkybox()}{\_LoadSkybox()}}

@@ -9,45 +9,56 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }CommandBuffer;}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{\string~Image}}();}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\&\ image)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\&\ image)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Load(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels,}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties);}
-\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ Load(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels,}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }Image}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ Image();}
+\DoxyCodeLine{00022\ \ \ \ \ \string~Image();}
+\DoxyCodeLine{00023\ \ \ \ \ Image(\textcolor{keyword}{const}\ Image\&\ image)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00024\ \ \ \ \ Image\&\ operator=(\textcolor{keyword}{const}\ Image\&\ image)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00025\ \ \ \ \ Image(Image\&\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00026\ \ \ \ \ Image\&\ operator=(Image\&\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ CreateFromSwapChainImage(VkImage\ img,\ \textcolor{keyword}{const}\ VkSwapchainCreateInfoKHR\ \&\ swapChainInfo);}
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ Load(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels,}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties);}
-\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ Create(VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties,\ uint32\_t\ width,\ uint32\_t\ height,\ uint32\_t\ arrayLevels\ =\ 1,\ uint32\_t\ mipLevels\ =\ 1);}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSamples(VkSampleCountFlagBits\ samples);}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSamples(\textcolor{keywordtype}{int}\ samples);}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetImageLayout(VkImageLayout\ layout);}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ VkFormat\ GetFormat()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00037\ \ \ \ \ VkImage\ GetVkImage()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ VkImage()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ Load(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties);}
+\DoxyCodeLine{00033\ \ \ \ \ vc::Error\ Create(VkFormat\ format,\ VkImageTiling\ tiling,\ VkImageUsageFlags\ usage,\ VkMemoryPropertyFlags\ properties,\ uint32\_t\ width,\ uint32\_t\ height,\ uint32\_t\ arrayLevels\ =\ 1,\ uint32\_t\ mipLevels\ =\ 1,\ VkImageCreateFlags\ createFlags\ =\ 0);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSamples(VkSampleCountFlagBits\ samples);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSamples(\textcolor{keywordtype}{int}\ samples);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetImageLayout(VkImageLayout\ layout);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ SetImageLayout(VkImageLayout\ layout,\ CommandBuffer\ \&\ commandBuffer);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAspectMask(VkImageAspectFlags\ aspectMask);}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ uint32\_t\ GetWidth()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00041\ \ \ \ \ uint32\_t\ GetHeight()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00042\ \ \ \ \ VkImageLayout\ GetLayout()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}};}
-\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00046\ \ \ \ \ VkImageCreateInfo\ \_\_imageInfo;}
-\DoxyCodeLine{00047\ \ \ \ \ VkImage\ \_\_image;}
-\DoxyCodeLine{00048\ \ \ \ \ VkImageLayout\ \_\_layout;}
-\DoxyCodeLine{00049\ \ \ \ \ VkDeviceMemory\ \_\_imageMemory;}
-\DoxyCodeLine{00050\ \ \ \ \ uint32\_t\ \_\_width,\ \_\_height;}
-\DoxyCodeLine{00051\ \};}
-\DoxyCodeLine{00052\ \}}
-\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ VkImageAspectFlags\ GetAspectMask()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_aspectMask;\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ VkFormat\ GetFormat()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_imageInfo.format;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ VkImage\ GetVkImage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_image;\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{inline}\ uint32\_t\ GetWidth()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_width;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{inline}\ uint32\_t\ GetHeight()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_height;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{inline}\ VkImageLayout\ GetLayout()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_layout;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{inline}\ uint32\_t\ GetMipLevels()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_mipLevels;\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{inline}\ uint32\_t\ GetArrayLayers()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_imageInfo.arrayLayers;\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }CommandBuffer;}
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ VkImageCreateInfo\ \_\_imageInfo;}
+\DoxyCodeLine{00054\ \ \ \ \ VkImage\ \_\_image;}
+\DoxyCodeLine{00055\ \ \ \ \ VkImageLayout\ \_\_layout;}
+\DoxyCodeLine{00056\ \ \ \ \ VkImageAspectFlags\ \_\_aspectMask;}
+\DoxyCodeLine{00057\ \ \ \ \ VkDeviceMemory\ \_\_imageMemory;}
+\DoxyCodeLine{00058\ \ \ \ \ uint32\_t\ \_\_width,\ \_\_height,\ \_\_mipLevels;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_noDestroy;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }SwapChain;}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ \}}
 
 \end{DoxyCode}

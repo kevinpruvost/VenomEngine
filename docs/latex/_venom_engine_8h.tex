@@ -3,8 +3,10 @@
 {\ttfamily \#include $<$venom/common/plugin/\+Plugin\+Manager.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/\+ECS.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/\+Venom\+Settings.\+h$>$}\newline
-{\ttfamily \#include $<$venom/common/\+Context.\+h$>$}\newline
-{\ttfamily \#include $<$venom/common/\+Light.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/plugin/context/\+Context.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/plugin/graphics/\+Light.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Scene\+Settings.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Deferred\+Trash.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -20,14 +22,24 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{namespacevenom_1_1common_a5b519f7b1b4175543bd31666b4daacc2}\label{namespacevenom_1_1common_a5b519f7b1b4175543bd31666b4daacc2} 
-typedef void(\texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::\+Scene\+Callback}) ()
+\Hypertarget{namespacevenom_1_1common_a565daef9ae7e14baf2f8c5f0505f4fbb}\label{namespacevenom_1_1common_a565daef9ae7e14baf2f8c5f0505f4fbb} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::\+Scene\+Callback}) (const Scene\+Phase)
 \item 
 \Hypertarget{namespacevenom_1_1common_acd30373ce5cc8e244e928693644b5a5e}\label{namespacevenom_1_1common_acd30373ce5cc8e244e928693644b5a5e} 
 typedef void(\texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::\+Loop\+Callback}) ()
 \item 
 \Hypertarget{namespacevenom_1_1common_a57e4a72fb5ecd7f19dbda8fe15d40d66}\label{namespacevenom_1_1common_a57e4a72fb5ecd7f19dbda8fe15d40d66} 
 typedef void(\texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::\+Input\+Callback}) (\mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}} \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_a586367d24afc3495f84b455ccefb29f9}\label{namespacevenom_1_1common_a586367d24afc3495f84b455ccefb29f9} 
+enum class {\bfseries Scene\+Phase} \{ {\bfseries Initialization}
+, {\bfseries Activation}
+, {\bfseries Update}
+, {\bfseries Destruction}
+ \}
 \end{DoxyCompactItemize}
 
 

@@ -10,24 +10,28 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox}{VulkanSkybox}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{vc::SkyboxImpl}}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VulkanSkybox\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{vc::SkyboxImpl}}}
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox}{VulkanSkybox}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_skybox}{\string~VulkanSkybox}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00020\ \ \ \ \ VulkanSkybox();}
+\DoxyCodeLine{00021\ \ \ \ \ \string~VulkanSkybox()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{VertexBuffer}}\ \&\ GetVertexBuffer()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_vertexBuffer;\ \}}
 \DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{DescriptorSet}}\&\ GetPanormaDescriptorSet()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_descriptorSet-\/>GetCurrentSet();\ \}}
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00026\ \ \ \ \ vc::Error\ \_LoadSkybox(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ texture)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{VertexBuffer}}\ \_\_vertexBuffer;}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \_\_uniformBuffer;}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}\ *\ \_\_descriptorSet;}
-\DoxyCodeLine{00031\ \};}
-\DoxyCodeLine{00032\ \}}
-\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ \_LoadIrradianceMap(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\&\ texture,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ irradianceMap)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ \ \ \ \ vc::Error\ \_LoadRadianceMap(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\&\ texture,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\&\ radianceMap)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ \_LoadBlurMap(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{common::Texture}}\&\ texture,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{common::Texture}}\&\ blurMap)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ vc::Error\ \_ChangeBlurFactor(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ factor)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vertex_buffer}{VertexBuffer}}\ \_\_vertexBuffer;}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_uniform_buffer}{UniformBuffer}}\ \_\_uniformBuffer;}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}\ *\ \_\_descriptorSet;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ \}}
 
 \end{DoxyCode}

@@ -1,5 +1,5 @@
 \doxysection{Context.\+h}
-\hypertarget{_context_8h_source}{}\label{_context_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Context.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Context.h}}
+\hypertarget{_context_8h_source}{}\label{_context_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/context/Context.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/context/Context.h}}
 \mbox{\hyperlink{_context_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
@@ -7,128 +7,224 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_error_8h}{venom/common/Error.h}}>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_matrix_8h}{venom/common/math/Matrix.h}}>}}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{enum}\ InputState\ :\ int8\_t}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ Released\ =\ 0x1,}
-\DoxyCodeLine{00024\ \ \ \ \ Pressed\ \ =\ 0x2,}
-\DoxyCodeLine{00025\ \ \ \ \ Repeat\ \ \ =\ 0x4,}
-\DoxyCodeLine{00026\ \ \ \ \ Unknown\ \ =\ 0x8}
-\DoxyCodeLine{00027\ \};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{enum}\ KeyboardInput\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ KeyboardUnknown\ =\ 0,\ KeyboardA\ =\ 1,\ KeyboardB\ =\ 2,\ KeyboardC\ =\ 3,}
-\DoxyCodeLine{00031\ \ \ \ \ KeyboardD\ =\ 4,\ KeyboardE\ =\ 5,\ KeyboardF\ =\ 6,\ KeyboardG\ =\ 7,}
-\DoxyCodeLine{00032\ \ \ \ \ KeyboardH\ =\ 8,\ KeyboardI\ =\ 9,\ KeyboardJ\ =\ 10,\ KeyboardK\ =\ 11,}
-\DoxyCodeLine{00033\ \ \ \ \ KeyboardL\ =\ 12,\ KeyboardM\ =\ 13,\ KeyboardN\ =\ 14,\ KeyboardO\ =\ 15,}
-\DoxyCodeLine{00034\ \ \ \ \ KeyboardP\ =\ 16,\ KeyboardQ\ =\ 17,\ KeyboardR\ =\ 18,\ KeyboardS\ =\ 19,}
-\DoxyCodeLine{00035\ \ \ \ \ KeyboardT\ =\ 20,\ KeyboardU\ =\ 21,\ KeyboardV\ =\ 22,\ KeyboardW\ =\ 23,}
-\DoxyCodeLine{00036\ \ \ \ \ KeyboardX\ =\ 24,\ KeyboardY\ =\ 25,\ KeyboardZ\ =\ 26,}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ Keyboard0\ =\ 27,\ Keyboard1\ =\ 28,\ Keyboard2\ =\ 29,\ Keyboard3\ =\ 30,}
-\DoxyCodeLine{00039\ \ \ \ \ Keyboard4\ =\ 31,\ Keyboard5\ =\ 32,\ Keyboard6\ =\ 33,\ Keyboard7\ =\ 34,}
-\DoxyCodeLine{00040\ \ \ \ \ Keyboard8\ =\ 35,\ Keyboard9\ =\ 36,}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ KeyboardEscape\ =\ 37,\ KeyboardEnter\ =\ 38,\ KeyboardTab\ =\ 39,\ KeyboardBackspace\ =\ 40,}
-\DoxyCodeLine{00043\ \ \ \ \ KeyboardInsert\ =\ 41,\ KeyboardDelete\ =\ 42,\ KeyboardRight\ =\ 43,\ KeyboardLeft\ =\ 44,}
-\DoxyCodeLine{00044\ \ \ \ \ KeyboardDown\ =\ 45,\ KeyboardUp\ =\ 46,\ KeyboardPageUp\ =\ 47,\ KeyboardPageDown\ =\ 48,}
-\DoxyCodeLine{00045\ \ \ \ \ KeyboardHome\ =\ 49,\ KeyboardEnd\ =\ 50,\ KeyboardCapsLock\ =\ 51,\ KeyboardScrollLock\ =\ 52,}
-\DoxyCodeLine{00046\ \ \ \ \ KeyboardNumLock\ =\ 53,\ KeyboardPrintScreen\ =\ 54,\ KeyboardPause\ =\ 55,\ KeyboardF1\ =\ 56,}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ KeyboardF2\ =\ 57,\ KeyboardF3\ =\ 58,\ KeyboardF4\ =\ 59,\ KeyboardF5\ =\ 60,}
-\DoxyCodeLine{00049\ \ \ \ \ KeyboardF6\ =\ 61,\ KeyboardF7\ =\ 62,\ KeyboardF8\ =\ 63,\ KeyboardF9\ =\ 64,}
-\DoxyCodeLine{00050\ \ \ \ \ KeyboardF10\ =\ 65,\ KeyboardF11\ =\ 66,\ KeyboardF12\ =\ 67,\ KeyboardF13\ =\ 68,}
-\DoxyCodeLine{00051\ \ \ \ \ KeyboardF14\ =\ 69,\ KeyboardF15\ =\ 70,\ KeyboardF16\ =\ 71,\ KeyboardF17\ =\ 72,}
-\DoxyCodeLine{00052\ \ \ \ \ KeyboardF18\ =\ 73,\ KeyboardF19\ =\ 74,\ KeyboardF20\ =\ 75,\ KeyboardF21\ =\ 76,}
-\DoxyCodeLine{00053\ \ \ \ \ KeyboardF22\ =\ 77,\ KeyboardF23\ =\ 78,\ KeyboardF24\ =\ 79,\ KeyboardF25\ =\ 80,}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ KeyboardKP0\ =\ 81,\ KeyboardKP1\ =\ 82,\ KeyboardKP2\ =\ 83,\ KeyboardKP3\ =\ 84,}
-\DoxyCodeLine{00056\ \ \ \ \ KeyboardKP4\ =\ 85,\ KeyboardKP5\ =\ 86,\ KeyboardKP6\ =\ 87,\ KeyboardKP7\ =\ 88,}
-\DoxyCodeLine{00057\ \ \ \ \ KeyboardKP8\ =\ 89,\ KeyboardKP9\ =\ 90,\ KeyboardKPDecimal\ =\ 91,\ KeyboardKPDivide\ =\ 92,}
-\DoxyCodeLine{00058\ \ \ \ \ KeyboardKPMultiply\ =\ 93,\ KeyboardKPSubtract\ =\ 94,\ KeyboardKPAdd\ =\ 95,\ KeyboardKPEnter\ =\ 96,}
-\DoxyCodeLine{00059\ \ \ \ \ KeyboardKPEqual\ =\ 97,\ KeyboardLeftShift\ =\ 98,\ KeyboardLeftControl\ =\ 99,\ KeyboardLeftAlt\ =\ 100,}
-\DoxyCodeLine{00060\ \ \ \ \ KeyboardLeftSuper\ =\ 101,\ KeyboardRightShift\ =\ 102,\ KeyboardRightControl\ =\ 103,\ KeyboardRightAlt\ =\ 104,}
-\DoxyCodeLine{00061\ \ \ \ \ KeyboardRightSuper\ =\ 105,\ KeyboardMenu\ =\ 106,\ KeyboardSpace\ =\ 107,\ KeyboardApostrophe\ =\ 108,}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ KeyboardComma\ =\ 109,\ KeyboardMinus\ =\ 110,\ KeyboardPeriod\ =\ 111,\ KeyboardSlash\ =\ 112,}
-\DoxyCodeLine{00064\ \ \ \ \ KeyboardSemicolon\ =\ 113,\ KeyboardEqual\ =\ 114,\ KeyboardLeftBracket\ =\ 115,\ KeyboardBackslash\ =\ 116,}
-\DoxyCodeLine{00065\ \ \ \ \ KeyboardRightBracket\ =\ 117,\ KeyboardGraveAccent\ =\ 118,\ KeyboardWorld1\ =\ 119,\ KeyboardWorld2\ =\ 120,}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ KeyboardTotal}
-\DoxyCodeLine{00068\ \};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{keyword}{enum}\ KeyboardModifier\ \{}
-\DoxyCodeLine{00071\ \ \ \ \ KeyboardModShift\ =\ 0x0001,}
-\DoxyCodeLine{00072\ \ \ \ \ KeyboardModControl\ =\ 0x0002,}
-\DoxyCodeLine{00073\ \ \ \ \ KeyboardModAlt\ =\ 0x0004,}
-\DoxyCodeLine{00074\ \ \ \ \ KeyboardModSuper\ =\ 0x0008}
-\DoxyCodeLine{00075\ \};}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{keyword}{enum}\ MouseButton\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ MouseButton1\ =\ 0,\ MouseButton2\ =\ 1,\ MouseButton3\ =\ 2,}
-\DoxyCodeLine{00079\ \ \ \ \ MouseButton4\ =\ 3,\ MouseButton5\ =\ 4,\ MouseButton6\ =\ 5,}
-\DoxyCodeLine{00080\ \ \ \ \ MouseButton7\ =\ 6,\ MouseButton8\ =\ 7,\ MouseButtonLast\ =\ MouseButton8,}
-\DoxyCodeLine{00081\ \ \ \ \ MouseButtonLeft\ =\ MouseButton1,\ MouseButtonRight\ =\ MouseButton2,}
-\DoxyCodeLine{00082\ \ \ \ \ MouseButtonMiddle\ =\ MouseButton3,}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ MouseTotal}
-\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_callback_8h}{venom/common/Callback.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_matrix_8h}{venom/common/math/Matrix.h}}>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_plugin_object_8h}{venom/common/plugin/PluginObject.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{enum}\ InputState\ :\ int8\_t}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ Released\ =\ 0x1,}
+\DoxyCodeLine{00026\ \ \ \ \ Pressed\ \ =\ 0x2,}
+\DoxyCodeLine{00027\ \ \ \ \ Repeat\ \ \ =\ 0x4,}
+\DoxyCodeLine{00028\ \ \ \ \ Unknown\ \ =\ 0x8}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{enum}\ KeyboardInput\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ KeyboardUnknown\ =\ 0,\ KeyboardA\ =\ 1,\ KeyboardB\ =\ 2,\ KeyboardC\ =\ 3,}
+\DoxyCodeLine{00033\ \ \ \ \ KeyboardD\ =\ 4,\ KeyboardE\ =\ 5,\ KeyboardF\ =\ 6,\ KeyboardG\ =\ 7,}
+\DoxyCodeLine{00034\ \ \ \ \ KeyboardH\ =\ 8,\ KeyboardI\ =\ 9,\ KeyboardJ\ =\ 10,\ KeyboardK\ =\ 11,}
+\DoxyCodeLine{00035\ \ \ \ \ KeyboardL\ =\ 12,\ KeyboardM\ =\ 13,\ KeyboardN\ =\ 14,\ KeyboardO\ =\ 15,}
+\DoxyCodeLine{00036\ \ \ \ \ KeyboardP\ =\ 16,\ KeyboardQ\ =\ 17,\ KeyboardR\ =\ 18,\ KeyboardS\ =\ 19,}
+\DoxyCodeLine{00037\ \ \ \ \ KeyboardT\ =\ 20,\ KeyboardU\ =\ 21,\ KeyboardV\ =\ 22,\ KeyboardW\ =\ 23,}
+\DoxyCodeLine{00038\ \ \ \ \ KeyboardX\ =\ 24,\ KeyboardY\ =\ 25,\ KeyboardZ\ =\ 26,}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ Keyboard0\ =\ 27,\ Keyboard1\ =\ 28,\ Keyboard2\ =\ 29,\ Keyboard3\ =\ 30,}
+\DoxyCodeLine{00041\ \ \ \ \ Keyboard4\ =\ 31,\ Keyboard5\ =\ 32,\ Keyboard6\ =\ 33,\ Keyboard7\ =\ 34,}
+\DoxyCodeLine{00042\ \ \ \ \ Keyboard8\ =\ 35,\ Keyboard9\ =\ 36,}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ KeyboardEscape\ =\ 37,\ KeyboardEnter\ =\ 38,\ KeyboardTab\ =\ 39,\ KeyboardBackspace\ =\ 40,}
+\DoxyCodeLine{00045\ \ \ \ \ KeyboardInsert\ =\ 41,\ KeyboardDelete\ =\ 42,\ KeyboardRight\ =\ 43,\ KeyboardLeft\ =\ 44,}
+\DoxyCodeLine{00046\ \ \ \ \ KeyboardDown\ =\ 45,\ KeyboardUp\ =\ 46,\ KeyboardPageUp\ =\ 47,\ KeyboardPageDown\ =\ 48,}
+\DoxyCodeLine{00047\ \ \ \ \ KeyboardHome\ =\ 49,\ KeyboardEnd\ =\ 50,\ KeyboardCapsLock\ =\ 51,\ KeyboardScrollLock\ =\ 52,}
+\DoxyCodeLine{00048\ \ \ \ \ KeyboardNumLock\ =\ 53,\ KeyboardPrintScreen\ =\ 54,\ KeyboardPause\ =\ 55,\ KeyboardF1\ =\ 56,}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ KeyboardF2\ =\ 57,\ KeyboardF3\ =\ 58,\ KeyboardF4\ =\ 59,\ KeyboardF5\ =\ 60,}
+\DoxyCodeLine{00051\ \ \ \ \ KeyboardF6\ =\ 61,\ KeyboardF7\ =\ 62,\ KeyboardF8\ =\ 63,\ KeyboardF9\ =\ 64,}
+\DoxyCodeLine{00052\ \ \ \ \ KeyboardF10\ =\ 65,\ KeyboardF11\ =\ 66,\ KeyboardF12\ =\ 67,\ KeyboardF13\ =\ 68,}
+\DoxyCodeLine{00053\ \ \ \ \ KeyboardF14\ =\ 69,\ KeyboardF15\ =\ 70,\ KeyboardF16\ =\ 71,\ KeyboardF17\ =\ 72,}
+\DoxyCodeLine{00054\ \ \ \ \ KeyboardF18\ =\ 73,\ KeyboardF19\ =\ 74,\ KeyboardF20\ =\ 75,\ KeyboardF21\ =\ 76,}
+\DoxyCodeLine{00055\ \ \ \ \ KeyboardF22\ =\ 77,\ KeyboardF23\ =\ 78,\ KeyboardF24\ =\ 79,\ KeyboardF25\ =\ 80,}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ KeyboardKP0\ =\ 81,\ KeyboardKP1\ =\ 82,\ KeyboardKP2\ =\ 83,\ KeyboardKP3\ =\ 84,}
+\DoxyCodeLine{00058\ \ \ \ \ KeyboardKP4\ =\ 85,\ KeyboardKP5\ =\ 86,\ KeyboardKP6\ =\ 87,\ KeyboardKP7\ =\ 88,}
+\DoxyCodeLine{00059\ \ \ \ \ KeyboardKP8\ =\ 89,\ KeyboardKP9\ =\ 90,\ KeyboardKPDecimal\ =\ 91,\ KeyboardKPDivide\ =\ 92,}
+\DoxyCodeLine{00060\ \ \ \ \ KeyboardKPMultiply\ =\ 93,\ KeyboardKPSubtract\ =\ 94,\ KeyboardKPAdd\ =\ 95,\ KeyboardKPEnter\ =\ 96,}
+\DoxyCodeLine{00061\ \ \ \ \ KeyboardKPEqual\ =\ 97,\ KeyboardLeftShift\ =\ 98,\ KeyboardLeftControl\ =\ 99,\ KeyboardLeftAlt\ =\ 100,}
+\DoxyCodeLine{00062\ \ \ \ \ KeyboardLeftSuper\ =\ 101,\ KeyboardRightShift\ =\ 102,\ KeyboardRightControl\ =\ 103,\ KeyboardRightAlt\ =\ 104,}
+\DoxyCodeLine{00063\ \ \ \ \ KeyboardRightSuper\ =\ 105,\ KeyboardMenu\ =\ 106,\ KeyboardSpace\ =\ 107,\ KeyboardApostrophe\ =\ 108,}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ KeyboardComma\ =\ 109,\ KeyboardMinus\ =\ 110,\ KeyboardPeriod\ =\ 111,\ KeyboardSlash\ =\ 112,}
+\DoxyCodeLine{00066\ \ \ \ \ KeyboardSemicolon\ =\ 113,\ KeyboardEqual\ =\ 114,\ KeyboardLeftBracket\ =\ 115,\ KeyboardBackslash\ =\ 116,}
+\DoxyCodeLine{00067\ \ \ \ \ KeyboardRightBracket\ =\ 117,\ KeyboardGraveAccent\ =\ 118,\ KeyboardWorld1\ =\ 119,\ KeyboardWorld2\ =\ 120,}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ KeyboardTotal}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ int8\_t\ KeyboardModifierState;}
+\DoxyCodeLine{00073\ \textcolor{keyword}{enum}\ KeyboardModifier\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ KeyboardModShift\ =\ 0x0001,}
+\DoxyCodeLine{00075\ \ \ \ \ KeyboardModControl\ =\ 0x0002,}
+\DoxyCodeLine{00076\ \ \ \ \ KeyboardModAlt\ =\ 0x0004,}
+\DoxyCodeLine{00077\ \ \ \ \ KeyboardModSuper\ =\ 0x0008}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{enum}\ MouseButton\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ MouseButton1\ =\ 0,\ MouseButton2\ =\ 1,\ MouseButton3\ =\ 2,}
+\DoxyCodeLine{00082\ \ \ \ \ MouseButton4\ =\ 3,\ MouseButton5\ =\ 4,\ MouseButton6\ =\ 5,}
+\DoxyCodeLine{00083\ \ \ \ \ MouseButton7\ =\ 6,\ MouseButton8\ =\ 7,\ MouseButtonLast\ =\ MouseButton8,}
+\DoxyCodeLine{00084\ \ \ \ \ MouseButtonLeft\ =\ MouseButton1,\ MouseButtonRight\ =\ MouseButton2,}
+\DoxyCodeLine{00085\ \ \ \ \ MouseButtonMiddle\ =\ MouseButton3,}
 \DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}}}
-\DoxyCodeLine{00088\ \{}
-\DoxyCodeLine{00089\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}}();}
-\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{\string~Context}}();}
-\DoxyCodeLine{00092\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}}\ *\ Get()\ \{\ \textcolor{keywordflow}{return}\ s\_context;\ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ vc::Error\ InitContext();}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ShouldClose()\ \{\ \textcolor{keywordflow}{return}\ glfwWindowShouldClose(\_\_window);\ \}}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ PollEvents();}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{inline}\ GLFWwindow\ *\ GetWindow()\ \{\ \textcolor{keywordflow}{return}\ \_\_window;\ \}}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ GLFWwindow\ *\ GetWindow()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_window;\ \}}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetWindowTitle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ title)\ \{\ glfwSetWindowTitle(\_\_window,\ title);\ \}}
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{inline}\ InputState\ GetKeyState(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_keyboardState[key];\ \}}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsKeyPressed(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\_\_keyboardState[key]\ \&\ (InputState::Pressed\ |\ InputState::Repeat))\ >\ 0;\ \}}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsKeyReleased(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_keyboardState[key]\ ==\ InputState::Released;\ \}}
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsKeyRepeat(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_keyboardState[key]\ ==\ InputState::Repeat;\ \}}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetWindowWidth()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_width;\ \}}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetWindowHeight()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_height;\ \}}
-\DoxyCodeLine{00107\ \ \ \ \ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classvenom_1_1common_1_1_context_a656e9f125f3634382e912d8b2e0d65e9}{IsKeyModifierPressed}}(\textcolor{keywordtype}{int}\ modifier)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\_\_keyboardModifierState\ \&\ modifier)\ !=\ 0;\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ MouseTotal}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_screen}{Screen}};}
+\DoxyCodeLine{00091\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ScreenVideoMode}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00094\ \ \ \ \ ScreenVideoMode(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00095\ \ \ \ \ \string~ScreenVideoMode();}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetWidth()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_width;\ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetHeight()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_height;\ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<int>\ \&\ GetRefreshRates()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_refreshRates;\ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetRefreshRate(\textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_refreshRates[index];\ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetRefreshRateCount()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_refreshRates.size();\ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ SortRefreshRates();}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ ScreenVideoMode\ \&\ mode)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator>(\textcolor{keyword}{const}\ ScreenVideoMode\ \&\ mode)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ ScreenVideoMode\&)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00106\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_width;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_height;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_AddRefreshRate(\textcolor{keywordtype}{int}\ rate);}
+\DoxyCodeLine{00110\ \ \ \ \ vc::Vector<int>\ \_\_refreshRates;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Screen;}
+\DoxyCodeLine{00113\ \};}
 \DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec2\ GetMousePosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::Vec2(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[0]),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[1]));\ \}}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec2\ GetMouseMove()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::Vec2(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[0]\ -\/\ \_\_mouseLastPos[0]),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[1]\ -\/\ \_\_mouseLastPos[1]));\ \}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_ConvertKeyboardInputToGLFWEnum(KeyboardInput\ key)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00120\ \ \ \ \ KeyboardInput\ \_\_ConvertGLFWEnumToKeyboardInput(\textcolor{keywordtype}{int}\ key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Screen}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00119\ \ \ \ \ Screen();}
+\DoxyCodeLine{00120\ \ \ \ \ \string~Screen();}
 \DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00123\ \ \ \ \ GLFWwindow\ *\ \_\_window;}
-\DoxyCodeLine{00124\ \ \ \ \ vc::Vector<GLFWvidmode>\ \_\_modes;}
-\DoxyCodeLine{00125\ \ \ \ \ vc::Array<InputState,\ KeyboardInput::KeyboardTotal>\ \_\_keyboardState;}
-\DoxyCodeLine{00126\ \ \ \ \ vc::Array<InputState,\ MouseButton::MouseTotal>\ \_\_mouseState;}
-\DoxyCodeLine{00127\ \ \ \ \ int8\_t\ \_\_keyboardModifierState;}
-\DoxyCodeLine{00128\ \ \ \ \ vc::Stack<KeyboardInput>\ \_\_keyReleasedStack;}
-\DoxyCodeLine{00129\ \ \ \ \ vc::Stack<MouseButton>\ \_\_mouseReleasedStack;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ AddVideoMode(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ refreshRate);}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetVideoModeCount()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_modes.size();\ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_screen_video_mode}{ScreenVideoMode}}\ \&\ GetVideoMode(\textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_modes[index];\ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<ScreenVideoMode>\ \&\ GetVideoModes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_modes;\ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{void}\ SortVideoModes();}
+\DoxyCodeLine{00127\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00128\ \ \ \ \ vc::Vector<ScreenVideoMode>\ \_\_modes;}
+\DoxyCodeLine{00129\ \};}
 \DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{double}\ \_\_mousePos[2];}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{double}\ \_\_mouseLastPos[2];}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_width,\ \_\_height;}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{static}\ Context\ *\ s\_context;}
-\DoxyCodeLine{00137\ \};}
-\DoxyCodeLine{00138\ \}}
-\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Context\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ PluginObject}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00134\ \ \ \ \ Context();}
+\DoxyCodeLine{00135\ \ \ \ \ \string~Context();}
+\DoxyCodeLine{00136\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{enum\ class}\ ContextType}
+\DoxyCodeLine{00138\ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ GLFW\ =\ 0,}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#ifdef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ Apple,\ \textcolor{comment}{//\ UIKit\ /\ Cocoa}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ Count}
+\DoxyCodeLine{00144\ \ \ \ \ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Context\ *\ Get()\ \{\ \textcolor{keywordflow}{return}\ s\_context;\ \}}
+\DoxyCodeLine{00147\ \ \ \ \ vc::Error\ Init();}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ShouldClose()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_shouldClose;\ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{void}\ PollEvents();}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRunLoopFunction(Callback<vc::Error>\ func)\ \{\ \_runLoopFunction\ =\ func;\ \}}
+\DoxyCodeLine{00152\ \ \ \ \ vc::Error\ Run();}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{inline}\ InputState\ GetKeyState(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_keyboardState[key];\ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsKeyPressed(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\_\_keyboardState[key]\ \&\ (InputState::Pressed\ |\ InputState::Repeat))\ >\ 0;\ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsKeyReleased(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_keyboardState[key]\ ==\ InputState::Released;\ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsKeyRepeat(KeyboardInput\ key)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_keyboardState[key]\ ==\ InputState::Repeat;\ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetWindowWidth()\ \{\ \textcolor{keywordflow}{return}\ s\_context-\/>\_width;\ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetWindowHeight()\ \{\ \textcolor{keywordflow}{return}\ s\_context-\/>\_height;\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classvenom_1_1common_1_1_context_a656e9f125f3634382e912d8b2e0d65e9}{IsKeyModifierPressed}}(\textcolor{keywordtype}{int}\ modifier)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\_\_keyboardModifierState\ \&\ modifier)\ !=\ 0;\ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec2\ GetMousePosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::Vec2(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[0]),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[1]));\ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec2\ GetMouseMove()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::Vec2(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[0]\ -\/\ \_\_mouseLastPos[0]),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\_\_mousePos[1]\ -\/\ \_\_mouseLastPos[1]));\ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<Screen>\ \&\ GetScreens()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_screens;\ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{const}\ Screen\ \&\ GetCurrentScreen()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_screens[\_currentScreenIndex];\ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{const}\ ScreenVideoMode\ \&\ GetCurrentVideoMode()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_screens[\_currentScreenIndex].GetVideoMode(\_currentVideoModeIndex);\ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{int}\ GetCurrentRefreshRate()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_currentRefreshRate;\ \}}
+\DoxyCodeLine{00172\ \ \ \ \ vc::Error\ ChangeRefreshRate(\textcolor{keywordtype}{int}\ rate);}
+\DoxyCodeLine{00173\ \ \ \ \ vc::Error\ ChangeVideoMode(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00174\ \ \ \ \ vc::Error\ ChangeScreen(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ Context\ Abstraction}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00179\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetWindowTitle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ title)\ \{\ \_SetWindowTitle(title);\ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ *\ GetWindow()\ \{\ \textcolor{keywordflow}{return}\ \_GetWindow();\ \}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetFullscreen(\textcolor{keywordtype}{bool}\ fullscreen)\ \{\ \_fullscreen\ =\ fullscreen;\ \textcolor{keywordflow}{return}\ \_SetFullscreen();\ \}}
+\DoxyCodeLine{00183\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetWindowTitle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ title)\ =\ 0;}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ *\ \_GetWindow()\ =\ 0;}
+\DoxyCodeLine{00186\ \ \ \ \ Callback<vc::Error>\ \_runLoopFunction;}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_InitContext()\ =\ 0;}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_UpdateVideoMode()\ =\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_UpdateRefreshRate()\ =\ 0;}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_UpdateScreen()\ =\ 0;}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SetFullscreen()\ =\ 0;}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_ShouldClose()\ =\ 0;}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_GetCursorPos(\textcolor{keywordtype}{double}\ *\ pos)\ =\ 0;}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_PollEvents()\ =\ 0;}
+\DoxyCodeLine{00196\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_SetKeyboardState(KeyboardInput\ key,\ InputState\ state)\ \{\ \_\_keyboardState[key]\ =\ state;\ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_SetMouseState(MouseButton\ button,\ InputState\ state)\ \{\ \_\_mouseState[button]\ =\ state;\ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_AddKeyReleasedEvent(KeyboardInput\ key)\ \{\ \_\_keyReleasedStack.push(key);\ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_AddMouseReleasedEvent(MouseButton\ button)\ \{\ \_\_mouseReleasedStack.push(button);\ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_SetKeyboardModifierState(\textcolor{keywordtype}{bool}\ shift,\ \textcolor{keywordtype}{bool}\ control,\ \textcolor{keywordtype}{bool}\ alt,\ \textcolor{keywordtype}{bool}\ super)\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \_\_keyboardModifierState\ =\ 0x0000;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (shift)\ \_\_keyboardModifierState\ |=\ KeyboardModifier::KeyboardModShift;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (control)\ \_\_keyboardModifierState\ |=\ KeyboardModifier::KeyboardModControl;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (alt)\ \_\_keyboardModifierState\ |=\ KeyboardModifier::KeyboardModAlt;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (super)\ \_\_keyboardModifierState\ |=\ KeyboardModifier::KeyboardModSuper;}
+\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00208\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{int}\ \_currentScreenIndex;}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{int}\ \_currentVideoModeIndex;}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{int}\ \_currentRefreshRate;}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{int}\ \_width,\ \_height;}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_fullscreen;}
+\DoxyCodeLine{00214\ \ \ \ \ vc::Vector<Screen>\ \_screens;}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_ConvertKeyboardInputToGLFWEnum(KeyboardInput\ key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00218\ \ \ \ \ KeyboardInput\ \_\_ConvertGLFWEnumToKeyboardInput(\textcolor{keywordtype}{int}\ key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00221\ \ \ \ \ vc::Array<InputState,\ KeyboardInput::KeyboardTotal>\ \_\_keyboardState;}
+\DoxyCodeLine{00222\ \ \ \ \ vc::Array<InputState,\ MouseButton::MouseTotal>\ \_\_mouseState;}
+\DoxyCodeLine{00223\ \ \ \ \ KeyboardModifierState\ \_\_keyboardModifierState;}
+\DoxyCodeLine{00224\ \ \ \ \ vc::Stack<KeyboardInput>\ \_\_keyReleasedStack;}
+\DoxyCodeLine{00225\ \ \ \ \ vc::Stack<MouseButton>\ \_\_mouseReleasedStack;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{double}\ \_\_mousePos[2];}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{double}\ \_\_mouseLastPos[2];}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_shouldClose;}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{static}\ Context\ *\ s\_context;}
+\DoxyCodeLine{00233\ \};}
+\DoxyCodeLine{00234\ \}}
+\DoxyCodeLine{00235\ \}}
 
 \end{DoxyCode}

@@ -10,14 +10,32 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{namespacevenom_1_1common_a10e2f7364a7285750fcaa7d2c93c12bb}\label{namespacevenom_1_1common_a10e2f7364a7285750fcaa7d2c93c12bb} 
+enum class {\bfseries Rendering\+Pipeline\+Shader\+Type} \{ {\bfseries None} = -\/1
+, {\bfseries Graphics} = 0
+, {\bfseries Compute}
+, {\bfseries Count}
+ \}
+\item 
 \Hypertarget{namespacevenom_1_1common_a25645b5b48ea0b1dec0b7051eb016b58}\label{namespacevenom_1_1common_a25645b5b48ea0b1dec0b7051eb016b58} 
 enum class {\bfseries Rendering\+Pipeline\+Type} \{ \newline
 {\bfseries None} = -\/1
 , {\bfseries GUI} = 0
 , {\bfseries Text3D}
-, {\bfseries Shadow\+Model}
+, {\bfseries Skybox}
 , \newline
-{\bfseries Skybox}
+{\bfseries PBRModel}
+, {\bfseries Forward\+Plus\+Light\+Culling}
+, {\bfseries Cascaded\+Shadow\+Mapping}
+, {\bfseries BRDF\+\_\+\+LUT}
+, \newline
+{\bfseries Irradiance\+Map}
+, {\bfseries Radiance\+Map}
+, {\bfseries Blur\+Map}
+, {\bfseries Reflection}
+, \newline
+{\bfseries Additive\+Lighting\+MS}
+, {\bfseries Additive\+Lighting}
 , {\bfseries Count}
  \}
 \end{DoxyCompactItemize}

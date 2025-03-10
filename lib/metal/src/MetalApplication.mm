@@ -44,11 +44,9 @@ MetalApplication::MetalApplication()
     , DebugApplication()
     , __shouldClose(false)
 {
-    NSApplication * app = [NSApplication sharedApplication];
     InitializeDevice();
     InitializeCommandQueue();
     InitializeLayer();
-    
 }
 
 MetalApplication::~MetalApplication()

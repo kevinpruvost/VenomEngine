@@ -1,0 +1,85 @@
+\doxysection{Deferred\+Trash.\+h}
+\hypertarget{_deferred_trash_8h_source}{}\label{_deferred_trash_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/DeferredTrash.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/DeferredTrash.h}}
+\mbox{\hyperlink{_deferred_trash_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_venom_settings_8h}{venom/common/VenomSettings.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_deferred_trash_bin}{DeferredTrashBin}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ DeferredTrashBin}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ DeferredTrashBin();}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~DeferredTrashBin();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_deferred_trash_bin_1_1_trash_block}{TrashBlock}}}
+\DoxyCodeLine{00026\ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ trash;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ void\ (*destructor)(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00030\ \ \ \ \ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ AddDeferredTrash(T\ *\ trash)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!trash)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Important\ to\ check\ because\ s\_instance\ is\ nullptr\ when\ the\ graphics\ engine\ is\ shutting\ down}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s\_instance)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ s\_instance-\/>\_\_trash.emplace\_back(VENOM\_MAX\_FRAMES\_IN\_FLIGHT,\ trash,\ [](\textcolor{keywordtype}{void}\ *\ trash)\ \{\ \textcolor{keyword}{delete}\ \textcolor{keyword}{static\_cast<}T\ *\textcolor{keyword}{>}(trash);\ \});}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ trash;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ AddDeferredTrash(T\ *\ trash,\ \textcolor{keywordtype}{void}\ (*destructor)(\textcolor{keywordtype}{void}\ *))\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!trash)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Important\ to\ check\ because\ s\_instance\ is\ nullptr\ when\ the\ graphics\ engine\ is\ shutting\ down}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s\_instance)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ s\_instance-\/>\_\_trash.emplace\_back(VENOM\_MAX\_FRAMES\_IN\_FLIGHT,\ trash,\ destructor);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ trash;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ EmptyDeferredTrash();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ DeferredTrashBin\ *\ s\_instance;}
+\DoxyCodeLine{00057\ \ \ \ \ vc::Vector<TrashBlock>\ \_\_trash;}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ DeferredTrash}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ DeferredTrash(T\ *\ trash)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ :\ \_\_trash(trash)}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \string~DeferredTrash()}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ DeferredTrashBin::AddDeferredTrash(\_\_trash);}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{const}\ T\ *\ operator-\/>()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_trash;\ \}}
+\DoxyCodeLine{00073\ \ \ \ \ T\ *\ operator-\/>()\ \{\ \textcolor{keywordflow}{return}\ \_\_trash;\ \}}
+\DoxyCodeLine{00074\ \ \ \ \ T\ \&\ operator*()\ \{\ \textcolor{keywordflow}{return}\ *\_\_trash;\ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ T\ \&\ operator*()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ *\_\_trash;\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset(T\ *\ trash)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ DeferredTrashBin::AddDeferredTrash(\_\_trash);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \_\_trash\ =\ trash;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00082\ \ \ \ \ T\ *\ \_\_trash;}
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}

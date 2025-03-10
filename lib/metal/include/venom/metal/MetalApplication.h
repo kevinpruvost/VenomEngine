@@ -16,7 +16,7 @@
 #include <venom/metal/Debug.h>
 
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
-#include <venom/common/plugin/context/Context.h>
+#include <venom/common/Context.h>
 
 #include <venom/common/VenomSettings.h>
 #include <venom/common/math/Vector.h>

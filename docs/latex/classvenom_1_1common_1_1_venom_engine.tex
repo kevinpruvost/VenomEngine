@@ -14,7 +14,9 @@ Main class of the engine This class will be the main entry point of the engine. 
 \item 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a0ef26a66954f7362382c721f6d486b6e}{Get\+Instance}} ()
 \begin{DoxyCompactList}\small\item\em Gets instance of \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}. \end{DoxyCompactList}\item 
-static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a1d9b55a02d6afe5392ea96a93001707b}{Run\+Engine}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a3075264079dbac8e387b96fc7e038dc3}{Check\+Compatibility}} ()
+\begin{DoxyCompactList}\small\item\em Checks for everything that is needed to run the engine, platform dependent. \end{DoxyCompactList}\item 
+static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a49faa8651fe5612be4b2aeb38816958c}{Run\+Engine}} (int argc, const char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em Runs the engine. \end{DoxyCompactList}\item 
 static Error \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine_a999cb4238b1acca05ca969269d6e5a06}{Set\+Scene}} (const String \&scenefile\+Name)
 \begin{DoxyCompactList}\small\item\em Loads a scene from a file. \end{DoxyCompactList}\item 
@@ -66,6 +68,19 @@ Adds a loop callback.
 {\em loop\+Callback} & \\
 \hline
 \end{DoxyParams}
+\Hypertarget{classvenom_1_1common_1_1_venom_engine_a3075264079dbac8e387b96fc7e038dc3}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!CheckCompatibility@{CheckCompatibility}}
+\index{CheckCompatibility@{CheckCompatibility}!venom::common::VenomEngine@{venom::common::VenomEngine}}
+\doxysubsubsection{\texorpdfstring{CheckCompatibility()}{CheckCompatibility()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_venom_engine_a3075264079dbac8e387b96fc7e038dc3} 
+Error venom\+::common\+::\+Venom\+Engine\+::\+Check\+Compatibility (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks for everything that is needed to run the engine, platform dependent. 
+
+\begin{DoxyReturn}{Returns}
+Error if any, refer to Error enum for more information 
+\end{DoxyReturn}
 \Hypertarget{classvenom_1_1common_1_1_venom_engine_a0ef26a66954f7362382c721f6d486b6e}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!GetInstance@{GetInstance}}
 \index{GetInstance@{GetInstance}!venom::common::VenomEngine@{venom::common::VenomEngine}}
 \doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}
@@ -79,11 +94,11 @@ Gets instance of \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}
 \begin{DoxyReturn}{Returns}
 \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} \texorpdfstring{$\ast$}{*} 
 \end{DoxyReturn}
-\Hypertarget{classvenom_1_1common_1_1_venom_engine_a1d9b55a02d6afe5392ea96a93001707b}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!RunEngine@{RunEngine}}
+\Hypertarget{classvenom_1_1common_1_1_venom_engine_a49faa8651fe5612be4b2aeb38816958c}\index{venom::common::VenomEngine@{venom::common::VenomEngine}!RunEngine@{RunEngine}}
 \index{RunEngine@{RunEngine}!venom::common::VenomEngine@{venom::common::VenomEngine}}
 \doxysubsubsection{\texorpdfstring{RunEngine()}{RunEngine()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_venom_engine_a1d9b55a02d6afe5392ea96a93001707b} 
-Error venom\+::common\+::\+Venom\+Engine\+::\+Run\+Engine (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_venom_engine_a49faa8651fe5612be4b2aeb38816958c} 
+Error venom\+::common\+::\+Venom\+Engine\+::\+Run\+Engine (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 

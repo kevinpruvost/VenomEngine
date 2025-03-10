@@ -1,0 +1,42 @@
+\doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Thread.h File Reference}
+\hypertarget{_thread_8h}{}\label{_thread_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Thread.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Thread.h}}
+{\ttfamily \#include $<$thread$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevenom}{venom}}
+\begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
+\begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_ad68c51da1043e11eb0fe86693a673a4c}\label{namespacevenom_1_1common_ad68c51da1043e11eb0fe86693a673a4c} 
+using {\bfseries venom\+::common\+::\+Thread} = std\+::thread
+\item 
+\Hypertarget{namespacevenom_1_1common_a13016e488df364074c23148293da1667}\label{namespacevenom_1_1common_a13016e488df364074c23148293da1667} 
+{\footnotesize template$<$typename T$>$ }\\using {\bfseries venom\+::common\+::\+Atomic} = std\+::atomic$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a771bb9a17abe6023c374e2b279418dfc}\label{namespacevenom_1_1common_a771bb9a17abe6023c374e2b279418dfc} 
+using {\bfseries venom\+::common\+::\+Mutex} = std\+::mutex
+\item 
+\Hypertarget{namespacevenom_1_1common_ac3ad152b79e6ccf258407082e0081d47}\label{namespacevenom_1_1common_ac3ad152b79e6ccf258407082e0081d47} 
+using {\bfseries venom\+::common\+::\+Lock\+Guard} = std\+::lock\+\_\+guard$<$std\+::mutex$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a68d18371b945e5fa8c73a56032c76b12}\label{namespacevenom_1_1common_a68d18371b945e5fa8c73a56032c76b12} 
+using {\bfseries venom\+::common\+::\+Unique\+Lock} = std\+::unique\+\_\+lock$<$std\+::mutex$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_afea8d8bb60a536acb6af6d6461ab469f}\label{namespacevenom_1_1common_afea8d8bb60a536acb6af6d6461ab469f} 
+using {\bfseries venom\+::common\+::\+Condition\+Variable} = std\+::condition\+\_\+variable
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Project\+: Venom\+Engine\+Workspace
+
+\begin{DoxyDate}{Date}
+Feb, 05 2025 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
+\end{DoxyAuthor}

@@ -14,16 +14,18 @@ struct \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_verte
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-vc\+::\+Error \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_a7528180875e2e9fb054dd5f800b057a3}{Load\+Shader\+From\+File}} (const std\+::string \&path)
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_aab8b8f71ad9fc931db4ee4faaa519ec8}{Load\+Shader\+From\+File}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Load a shader from a base path (e.\+g. ./shader\+\_\+mesh to load ./shader\+\_\+mesh.vert and ./shader\+\_\+mesh.frag) Loading is not done when this function is called, only paths are set. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_ad98000c351b6e59e2871aa1cb5f1f7ab}{Add\+Vertex\+Buffer\+To\+Layout}} (const Shader\+Vertex\+Format format, const uint32\+\_\+t binding, const uint32\+\_\+t location, const uint32\+\_\+t offset)
 \begin{DoxyCompactList}\small\item\em Add a vertex buffer to the layout. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_a431ce09f93d0dec6e1e1b4a96a3d99fd}{Add\+Vertex\+Buffer\+To\+Layout}} (const \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Vertex\+Buffer\+Layout}} \&layout)
 \begin{DoxyCompactList}\small\item\em Add a vertex buffer to the layout. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_a7dda2f184595869a1f1a8e8718e54376}{Add\+Vertex\+Buffer\+To\+Layout}} (const std\+::vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Vertex\+Buffer\+Layout}} $>$ \&layouts)
+void \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_a152a20b1d4c959ccae828fcd4f9e1c37}{Add\+Vertex\+Buffer\+To\+Layout}} (const vc\+::\+Vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Vertex\+Buffer\+Layout}} $>$ \&layouts)
 \begin{DoxyCompactList}\small\item\em Add a vertex buffer to the layout. \end{DoxyCompactList}\item 
-\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a799e4055b77c9fed577421318e237be5}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a799e4055b77c9fed577421318e237be5} 
-virtual void {\bfseries Set\+Multi\+Sampling\+Count} (const int samples)=0
+void \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_aa113f4caa02bf1aa882efe9f7a53921c}{Set\+Custom\+Multi\+Sampling\+Count}} (const int samples)
+\begin{DoxyCompactList}\small\item\em To separate from Swap Chain multisampling. \end{DoxyCompactList}\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a590387ef7b2466ceff784e0b0dbe8e72}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a590387ef7b2466ceff784e0b0dbe8e72} 
+void {\bfseries Set\+Multi\+Sampling\+Count} (const int samples)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a532685aeef3de547cbe3298d595cc1f3}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a532685aeef3de547cbe3298d595cc1f3} 
 vc\+::\+Error {\bfseries Set\+Line\+Width} (const float width)
@@ -34,30 +36,41 @@ vc\+::\+Error {\bfseries Set\+Depth\+Test} (const bool enable)
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_ada0f646819f80d3e9bdc8af0eb3181d5}\label{classvenom_1_1common_1_1_shader_pipeline_impl_ada0f646819f80d3e9bdc8af0eb3181d5} 
 vc\+::\+Error {\bfseries Set\+Depth\+Write} (const bool enable)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a5dc62f66a772c093e86fd4ec7da034a5}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a5dc62f66a772c093e86fd4ec7da034a5} 
+vc\+::\+Error {\bfseries Open\+And\+Reload\+Shader} ()
+\item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a97672b2d40b7ca0156782a18ee2ad180}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a97672b2d40b7ca0156782a18ee2ad180} 
 void {\bfseries Set\+Rendering\+Pipeline\+Type} (const Rendering\+Pipeline\+Type type)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a0fdb7bb6065cdd3ed1a3ac04011c8a56}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a0fdb7bb6065cdd3ed1a3ac04011c8a56} 
+void {\bfseries Set\+Rendering\+Pipeline\+Shader\+Type} (const Rendering\+Pipeline\+Shader\+Type type)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_abd1f4d058ba20f63ac71205383288c35}\label{classvenom_1_1common_1_1_shader_pipeline_impl_abd1f4d058ba20f63ac71205383288c35} 
 void {\bfseries Set\+Rendering\+Pipeline\+Index} (const uint32\+\_\+t index)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_aefd8d88b5c2b2b221c55b9c7bd26fb22}\label{classvenom_1_1common_1_1_shader_pipeline_impl_aefd8d88b5c2b2b221c55b9c7bd26fb22} 
+Rendering\+Pipeline\+Type {\bfseries Get\+Rendering\+Pipeline\+Type} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_af381a8394f31115d3d988af9db35fe72}\label{classvenom_1_1common_1_1_shader_pipeline_impl_af381a8394f31115d3d988af9db35fe72} 
+Rendering\+Pipeline\+Shader\+Type {\bfseries Get\+Rendering\+Pipeline\+Shader\+Type} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
 \item 
 void {\bfseries Inc\+Ref\+Count} ()
 \item 
 void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -70,21 +83,28 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{venom\+::common\+::\+Graphics\+Cached\+Resource\+Holder}}}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+{\footnotesize template$<$typename T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
 void {\bfseries Set\+Resource} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \&resource)
 \item 
 void {\bfseries Set\+Resource} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&resource)
+\item 
+const vc\+::\+String \& {\bfseries Get\+Resource\+Name} () const
+\item 
+const vc\+::\+String \& {\bfseries Get\+Resource\+Short\+Name} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a4230b438a424397d36a502531e623257}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a4230b438a424397d36a502531e623257} 
+virtual void {\bfseries \+\_\+\+Set\+Multi\+Sampling\+Count} (const int samples)=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a978d063fa6602fe26d58ed2b6632fc11}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a978d063fa6602fe26d58ed2b6632fc11} 
 virtual void {\bfseries \+\_\+\+Set\+Line\+Width} (const float width)=0
@@ -95,11 +115,14 @@ virtual void {\bfseries \+\_\+\+Set\+Depth\+Test} (const bool enable)=0
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_aaf8c009d38b47d98e301a4a42575b5e0}\label{classvenom_1_1common_1_1_shader_pipeline_impl_aaf8c009d38b47d98e301a4a42575b5e0} 
 virtual void {\bfseries \+\_\+\+Set\+Depth\+Write} (const bool enable)=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_ad705c3246c984a9e1075c8ebd83f6a8a}\label{classvenom_1_1common_1_1_shader_pipeline_impl_ad705c3246c984a9e1075c8ebd83f6a8a} 
-virtual vc\+::\+Error {\bfseries \+\_\+\+Load\+Shader} (const std\+::string \&path)=0
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_ae8b73aed233876f45224b4b0e3ce026c}\label{classvenom_1_1common_1_1_shader_pipeline_impl_ae8b73aed233876f45224b4b0e3ce026c} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Load\+Shader} (const vc\+::\+String \&path)=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_aafa0b3ce305978067337eea8c91902a8}\label{classvenom_1_1common_1_1_shader_pipeline_impl_aafa0b3ce305978067337eea8c91902a8} 
 virtual void {\bfseries \+\_\+\+Add\+Vertex\+Buffer\+To\+Layout} (const uint32\+\_\+t vertex\+Size, const uint32\+\_\+t binding, const uint32\+\_\+t location, const uint32\+\_\+t offset, const Shader\+Vertex\+Format format)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_ae0eb4de9a6ab7182430466cac86f35a1}\label{classvenom_1_1common_1_1_shader_pipeline_impl_ae0eb4de9a6ab7182430466cac86f35a1} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Open\+Shaders} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a2970669306e0177a498e83db12178cb6}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a2970669306e0177a498e83db12178cb6} 
 virtual vc\+::\+Error {\bfseries \+\_\+\+Reload\+Shader} ()=0
@@ -115,12 +138,17 @@ const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource
 SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \& {\bfseries \+\_\+\+Get\+Resource\+To\+Cache} ()
 \item 
 void {\bfseries \+\_\+\+Load\+From\+Cache} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&cache)
-\end{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder_a8be3bdc727de7cbe5a32e12045524acd}{\+\_\+\+Reset\+Resource}} ()=0
+\begin{DoxyCompactList}\small\item\em Resets the resource, should be implemented by the final class, i.\+e. Vulkan\+Texture\+Resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a1cb2065feb65682cf2ba000cee0404e5}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a1cb2065feb65682cf2ba000cee0404e5} 
 Rendering\+Pipeline\+Type {\bfseries \+\_\+rendering\+Pipeline\+Type}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a37932451a270568f995e6523f7f5d33f}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a37932451a270568f995e6523f7f5d33f} 
+Rendering\+Pipeline\+Shader\+Type {\bfseries \+\_\+rendering\+Pipeline\+Shader\+Type}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a59aa8b9c27e277271a4acb49dec619f2}\label{classvenom_1_1common_1_1_shader_pipeline_impl_a59aa8b9c27e277271a4acb49dec619f2} 
 uint32\+\_\+t {\bfseries \+\_\+rendering\+Pipeline\+Index}
@@ -137,16 +165,16 @@ SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Grap
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
@@ -176,11 +204,11 @@ Add a vertex buffer to the layout.
 {\em offset} & Offset of the vertex buffer \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a7dda2f184595869a1f1a8e8718e54376}\index{venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}!AddVertexBufferToLayout@{AddVertexBufferToLayout}}
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a152a20b1d4c959ccae828fcd4f9e1c37}\index{venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}!AddVertexBufferToLayout@{AddVertexBufferToLayout}}
 \index{AddVertexBufferToLayout@{AddVertexBufferToLayout}!venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}}
 \doxysubsubsection{\texorpdfstring{AddVertexBufferToLayout()}{AddVertexBufferToLayout()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_shader_pipeline_impl_a7dda2f184595869a1f1a8e8718e54376} 
-void venom\+::common\+::\+Shader\+Pipeline\+Impl\+::\+Add\+Vertex\+Buffer\+To\+Layout (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Vertex\+Buffer\+Layout}} $>$ \&}]{layouts}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_shader_pipeline_impl_a152a20b1d4c959ccae828fcd4f9e1c37} 
+void venom\+::common\+::\+Shader\+Pipeline\+Impl\+::\+Add\+Vertex\+Buffer\+To\+Layout (\begin{DoxyParamCaption}\item[{const vc\+::\+Vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Vertex\+Buffer\+Layout}} $>$ \&}]{layouts}{}\end{DoxyParamCaption})}
 
 
 
@@ -206,11 +234,11 @@ Add a vertex buffer to the layout.
 {\em layout} & Layout of the vertex buffer \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_a7528180875e2e9fb054dd5f800b057a3}\index{venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}!LoadShaderFromFile@{LoadShaderFromFile}}
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_aab8b8f71ad9fc931db4ee4faaa519ec8}\index{venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}!LoadShaderFromFile@{LoadShaderFromFile}}
 \index{LoadShaderFromFile@{LoadShaderFromFile}!venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}}
 \doxysubsubsection{\texorpdfstring{LoadShaderFromFile()}{LoadShaderFromFile()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_shader_pipeline_impl_a7528180875e2e9fb054dd5f800b057a3} 
-vc\+::\+Error venom\+::common\+::\+Shader\+Pipeline\+Impl\+::\+Load\+Shader\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_shader_pipeline_impl_aab8b8f71ad9fc931db4ee4faaa519ec8} 
+vc\+::\+Error venom\+::common\+::\+Shader\+Pipeline\+Impl\+::\+Load\+Shader\+From\+File (\begin{DoxyParamCaption}\item[{const vc\+::\+String \&}]{path}{}\end{DoxyParamCaption})}
 
 
 
@@ -224,6 +252,21 @@ Load a shader from a base path (e.\+g. ./shader\+\_\+mesh to load ./shader\+\_\+
 \begin{DoxyReturn}{Returns}
 error 
 \end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_impl_aa113f4caa02bf1aa882efe9f7a53921c}\index{venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}!SetCustomMultiSamplingCount@{SetCustomMultiSamplingCount}}
+\index{SetCustomMultiSamplingCount@{SetCustomMultiSamplingCount}!venom::common::ShaderPipelineImpl@{venom::common::ShaderPipelineImpl}}
+\doxysubsubsection{\texorpdfstring{SetCustomMultiSamplingCount()}{SetCustomMultiSamplingCount()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_shader_pipeline_impl_aa113f4caa02bf1aa882efe9f7a53921c} 
+void venom\+::common\+::\+Shader\+Pipeline\+Impl\+::\+Set\+Custom\+Multi\+Sampling\+Count (\begin{DoxyParamCaption}\item[{const int}]{samples}{}\end{DoxyParamCaption})}
+
+
+
+To separate from Swap Chain multisampling. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

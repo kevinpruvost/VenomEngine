@@ -30,6 +30,9 @@ add_library(${PROJECT_NAME} SHARED
     ${IMGUI_SOURCES}
     ${IMGUI_VULKAN_SOURCE}
 )
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${venom_context_glfw_include_dirs}
+)
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 message(STATUS "IMGUI Sources: ${IMGUI_SOURCES}")
 

@@ -8,34 +8,75 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{venom/common/plugin/graphics/Texture.h}}>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_pipeline_8h}{venom/common/plugin/graphics/ShaderPipeline.h}}>}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_e_c_s_8h}{venom/common/ECS.h}}>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{\string~SkyboxImpl}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ texturePath);}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ GetPanorama()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_panorama;\ \}}
-\DoxyCodeLine{00025\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadSkybox(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)\ =\ 0;}
-\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_panorama;}
-\DoxyCodeLine{00029\ \};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
-\DoxyCodeLine{00032\ \{}
-\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}();}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{\string~Skybox}}();}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}>()-\/>LoadSkybox(path);\ \}}
-\DoxyCodeLine{00039\ \};}
-\DoxyCodeLine{00040\ \}}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Panoramic\ Skyboxes\ are\ always\ 2/1\ ratio}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ SKYBOX\_IRRADIANCE\_HEIGHT\ 128}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ SKYBOX\_IRRADIANCE\_WIDTH\ (SKYBOX\_IRRADIANCE\_HEIGHT\ *\ 2)}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ SKYBOX\_RADIANCE\_HEIGHT\ 1024}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ SKYBOX\_RADIANCE\_WIDTH\ SKYBOX\_RADIANCE\_HEIGHT}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SKYBOX\_RADIANCE\_MIP\_LEVELS\ 10}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_skybox_shader_data}{SkyboxShaderData}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ peakLuminance;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{float}\ averageLuminance;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{float}\ blurFactor;}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ SkyboxImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ SkyboxImpl();}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~SkyboxImpl();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ texturePath);}
+\DoxyCodeLine{00042\ \ \ \ \ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ SPtr<GraphicsCachedResource>\ res);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ GetPanorama()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_panorama;\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ GetPanoramaMut()\ \{\ \textcolor{keywordflow}{return}\ \_\_panorama;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ vc::Error\ ChangeBlurFactor(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ factor);}
+\DoxyCodeLine{00046\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadSkybox(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)\ =\ 0;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadIrradianceMap(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ irradianceMap)\ =\ 0;}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadRadianceMap(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ radianceMap)\ =\ 0;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadBlurMap(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ blurMap)\ =\ 0;}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_ChangeBlurFactor(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ factor)\ =\ 0;}
+\DoxyCodeLine{00052\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_skybox_shader_data}{SkyboxShaderData}}\ \_shaderData;}
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_panorama;}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_radianceMap;}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_irradianceMap;}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \_\_blurMap;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Skybox;}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Skybox\ :\ \textcolor{keyword}{public}\ Component,\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \ \ Skybox();}
+\DoxyCodeLine{00067\ \ \ \ \ Skybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00068\ \ \ \ \ \string~Skybox();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ Init(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \_GUI(\textcolor{keyword}{const}\ Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00073\ \ \ \ \ vc::String\ \_GetComponentTitle()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ CanRemove(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}>()-\/>LoadSkybox(path);\ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadSkybox(\textcolor{keyword}{const}\ SPtr<GraphicsCachedResource>\ res)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}>()-\/>LoadSkybox(res);\ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ GetPanoramaMut()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}>()-\/>GetPanoramaMut();\ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ ChangeBlurFactor(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ factor)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}>()-\/>ChangeBlurFactor(factor);\ \}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ \}}
 
 \end{DoxyCode}

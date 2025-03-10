@@ -9,26 +9,27 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }Semaphore}
 \DoxyCodeLine{00017\ \{}
 \DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}();}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{\string~Semaphore}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}\ \&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}\ \&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}\ \&\&\ other);}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_semaphore}{Semaphore}}\ \&\&\ other);}
+\DoxyCodeLine{00019\ \ \ \ \ Semaphore();}
+\DoxyCodeLine{00020\ \ \ \ \ \string~Semaphore();}
+\DoxyCodeLine{00021\ \ \ \ \ Semaphore(\textcolor{keyword}{const}\ Semaphore\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ Semaphore\ \&\ operator=(\textcolor{keyword}{const}\ Semaphore\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00023\ \ \ \ \ Semaphore(Semaphore\ \&\&\ other);}
+\DoxyCodeLine{00024\ \ \ \ \ Semaphore\ \&\ operator=(Semaphore\ \&\&\ other);}
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ DestroySemaphore();}
 \DoxyCodeLine{00027\ \ \ \ \ vc::Error\ InitSemaphore();}
-\DoxyCodeLine{00028\ \ \ \ \ VkSemaphore\ GetSemaphore()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00031\ \ \ \ \ VkSemaphore\ \_\_semaphore;}
-\DoxyCodeLine{00032\ \};}
-\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{inline}\ VkSemaphore\ GetVkSemaphore()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_semaphore;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VkSemaphore\ *\ GetVkSemaphorePtr()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \&\_\_semaphore;\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ VkSemaphore\ \_\_semaphore;}
+\DoxyCodeLine{00033\ \};}
 \DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ \}}
 
 \end{DoxyCode}

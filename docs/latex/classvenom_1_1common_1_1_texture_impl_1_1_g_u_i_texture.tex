@@ -1,0 +1,42 @@
+\doxysection{venom\+::common\+::Texture\+Impl\+::GUITexture Class Reference}
+\hypertarget{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}{}\label{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}\index{venom::common::TextureImpl::GUITexture@{venom::common::TextureImpl::GUITexture}}
+
+
+{\ttfamily \#include $<$Texture.\+h$>$}
+
+Inheritance diagram for venom\+::common\+::Texture\+Impl\+::GUITexture\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_a7fc6d4a6f8ad7a50a2ab5b72d46d5642}\label{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_a7fc6d4a6f8ad7a50a2ab5b72d46d5642} 
+void \texorpdfstring{$\ast$}{*} {\bfseries Get\+Texture\+Id} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_a32e0c690828f41cde43a4a0c09c3e3a1}\label{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_a32e0c690828f41cde43a4a0c09c3e3a1} 
+vc\+::\+Error {\bfseries Load\+Texture\+To\+GUI} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc\+::\+Texture\+Impl}} \texorpdfstring{$\ast$}{*}impl)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_ab4b82660fe9078d57b89358c04b11534}\label{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_ab4b82660fe9078d57b89358c04b11534} 
+vc\+::\+Error {\bfseries Unload\+Texture\+From\+GUI} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_ad3628a433e5452452f3094c70a6601ee}\label{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_ad3628a433e5452452f3094c70a6601ee} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Unload\+Texture\+From\+GUI} (void \texorpdfstring{$\ast$}{*}gui\+Texture\+Id)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_adca6c450a8e79509c2053a3666cde0c5}\label{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture_adca6c450a8e79509c2053a3666cde0c5} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Load\+Texture\+To\+GUI} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc\+::\+Texture\+Impl}} \texorpdfstring{$\ast$}{*}impl, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ptr\+To\+Gui\+Texture\+Id)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Has to be specialized by the Graphics API Contains \doxylink{classvenom_1_1common_1_1_g_u_i}{GUI} \doxylink{classvenom_1_1common_1_1_texture}{Texture} ID, especially for IMGUI 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/graphics/\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{Texture.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{common_2src_2_texture_8cc}{Texture.\+cc}}\end{DoxyCompactItemize}

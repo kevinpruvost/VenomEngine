@@ -20,57 +20,72 @@
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00026\ \{}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
-\DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}();}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{\string~ShaderResourceTable}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{enum}\ SetsIndex}
-\DoxyCodeLine{00035\ \ \ \ \ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ SETS\_INDEX\_MODEL\_MATRICES\ =\ 0,}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ SETS\_INDEX\_CAMERA\ =\ 1,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ SETS\_INDEX\_TEXTURES\ =\ 2,}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ SETS\_INDEX\_SAMPLER\ =\ 3,}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ SETS\_INDEX\_MATERIAL\ =\ 4,}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ SETS\_INDEX\_SCENE\ =\ 5,}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ SETS\_INDEX\_PANORAMA\ =\ 6,}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ SETS\_INDEX\_LIGHT\ =\ 7,}
-\DoxyCodeLine{00044\ \ \ \ \ \};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor}{Descriptor}}}
-\DoxyCodeLine{00047\ \ \ \ \ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor}{Descriptor}}();}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table_1_1_descriptor}{\string~Descriptor}}();}
-\DoxyCodeLine{00051\ \ \ \ \ \};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0);}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetAllModelMatrixBuffer();}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetModelMatrixBuffer();}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ GetAllModelMatrixBytesSize()\ \{\ \textcolor{keywordflow}{return}\ VENOM\_MAX\_ENTITIES\ *\ \textcolor{keyword}{sizeof}(vcm::Mat4);\ \}}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ReleaseModelMatrixBuffer(\textcolor{keyword}{const}\ vcm::Mat4\ *\ mat);}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetModelMatrixBufferId(\textcolor{keyword}{const}\ vcm::Mat4\ *\ mat);}
-\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ BindTexture();}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UnbindTexture(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetMaxTextures(uint32\_t\ maxTextures);}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetMaxTextures()\ \{\ \textcolor{keywordflow}{return}\ \_\_maxTextures;\ \}}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsingLargeBindlessTextures()\ \{\ \textcolor{keywordflow}{return}\ \_\_maxTextures\ ==\ VENOM\_MAX\_BINDLESS\_TEXTURES;\ \}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }ShaderResourceTable\ :\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ ShaderResourceTable();}
+\DoxyCodeLine{00034\ \ \ \ \ \string~ShaderResourceTable()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{enum}\ SetsIndex}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ SetsIndex\_ModelMatrices\ =\ 0,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ SetsIndex\_Camera\ =\ 1,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ SetsIndex\_Textures\ =\ 2,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ SetsIndex\_LightIndividual\ =\ 3,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ SetsIndex\_Material\ =\ 4,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ SetsIndex\_Scene\ =\ 5,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ SetsIndex\_Panorama\ =\ 6,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ SetsIndex\_Light\ =\ 7}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ Descriptor\ Sets\ Indices}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_MODEL\_MATRICES\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_ModelMatrices}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_CAMERA\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Camera}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_TEXTURES\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Textures}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_SAMPLER\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Sampler}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_MATERIAL\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Material}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_SCENE\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Scene}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_PANORAMA\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Panorama}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_LIGHT\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_Light}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ DSETS\_INDEX\_LIGHT\_INDIVIDUAL\ venom::common::ShaderResourceTable::SetsIndex::SetsIndex\_LightIndividual}}
+\DoxyCodeLine{00058\ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{class\ }Descriptor}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ Descriptor();}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \string~Descriptor();}
+\DoxyCodeLine{00064\ \ \ \ \ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ *\ texture);}
 \DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0)\ =\ 0;}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_maxTextures;}
-\DoxyCodeLine{00074\ \};}
-\DoxyCodeLine{00075\ \}}
-\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetAllModelMatrixBuffer();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetModelMatrixBuffer();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ GetAllModelMatrixBytesSize()\ \{\ \textcolor{keywordflow}{return}\ VENOM\_MAX\_ENTITIES\ *\ \textcolor{keyword}{sizeof}(vcm::Mat4);\ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ReleaseModelMatrixBuffer(\textcolor{keyword}{const}\ vcm::Mat4\ *\ mat);}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetModelMatrixBufferId(\textcolor{keyword}{const}\ vcm::Mat4\ *\ mat);}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ BindTexture();}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UnbindTexture(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetMaxTextures(uint32\_t\ maxTextures);}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetMaxTextures()\ \{\ \textcolor{keywordflow}{return}\ \_\_maxTextures;\ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsingLargeBindlessTextures()\ \{\ \textcolor{keywordflow}{return}\ \_\_maxTextures\ ==\ VENOM\_MAX\_BINDLESS\_TEXTURES;\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0)\ =\ 0;}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ *\ texture)\ =\ 0;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_maxTextures;}
+\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ \}}
 
 \end{DoxyCode}

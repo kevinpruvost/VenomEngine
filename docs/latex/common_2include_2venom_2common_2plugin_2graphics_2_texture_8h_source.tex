@@ -14,88 +14,192 @@
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }GraphicsApplication;}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }Texture;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}};}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}};}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{enum\ class}\ TextureMemoryAccess}
 \DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}();}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{\string~TextureResource}}();}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_textureID;\ \}}
-\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_\_textureID;}
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}}
-\DoxyCodeLine{00038\ \{}
-\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}();}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{\string~TextureImpl}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
-\DoxyCodeLine{00044\ \ \ \ \ vc::Error\ LoadImage(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *\ bgraData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{00045\ \ \ \ \ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{00046\ \ \ \ \ vc::Error\ CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format);}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}\ *\ GetDummyTexture();}
-\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_GetResourceToCache()-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}>()-\/>GetTextureID();\ \}}
-\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ HasTexture()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00026\ \ \ \ \ None\ =\ -\/1,}
+\DoxyCodeLine{00027\ \ \ \ \ ReadOnly\ =\ 0,}
+\DoxyCodeLine{00028\ \ \ \ \ WriteOnly,}
+\DoxyCodeLine{00029\ \ \ \ \ ReadWrite,}
+\DoxyCodeLine{00030\ \ \ \ \ Count}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{enum\ class}\ TextureType}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ None\ =\ -\/1,}
+\DoxyCodeLine{00036\ \ \ \ \ Texture2D\ =\ 0,}
+\DoxyCodeLine{00037\ \ \ \ \ TextureCube,}
+\DoxyCodeLine{00038\ \ \ \ \ Texture3D,}
+\DoxyCodeLine{00039\ \ \ \ \ Count}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{enum}\ TextureUsage}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ None\ =\ -\/1,}
+\DoxyCodeLine{00045\ \ \ \ \ Sampled\ =\ 0x1,}
+\DoxyCodeLine{00046\ \ \ \ \ Storage\ =\ 0x2,}
+\DoxyCodeLine{00047\ \ \ \ \ Attachment\ =\ 0x4,}
+\DoxyCodeLine{00048\ \ \ \ \ DepthStencil\ =\ 0x8,}
+\DoxyCodeLine{00049\ \ \ \ \ Immutable\ =\ 0x10,}
+\DoxyCodeLine{00050\ \ \ \ \ TextureUsageCount}
+\DoxyCodeLine{00051\ \};}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ LoadImageBGRA(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ LoadImage(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetTexturePeakLuminance(\textcolor{keywordtype}{float}\ peakLuminance)\ \{\ \_\_luminance\ =\ peakLuminance;\ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetTexturePeakLuminance()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_luminance;\ \}}
-\DoxyCodeLine{00058\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ =\ 0;}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format)\ =\ 0;}
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ TextureResource\ :\ \textcolor{keyword}{public}\ GraphicsCachedResource}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ TextureResource();}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~TextureResource();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_textureID;\ \}}
 \DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}};}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_CreateDummyTexture();}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_luminance;}
-\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_\_textureID;}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ vc::Error\ VENOM\_COMMON\_API\ SaveImageToExr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels\ =\ 4);}
+\DoxyCodeLine{00067\ vc::Error\ VENOM\_COMMON\_API\ SaveImageToPng(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels\ =\ 4);}
 \DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{keyword}{enum}\ ColorAttachmentType}
+\DoxyCodeLine{00069\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ TextureImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject,\ \textcolor{keyword}{public}\ GraphicsCachedResourceHolder}
 \DoxyCodeLine{00070\ \{}
-\DoxyCodeLine{00071\ \ \ \ \ Present\ =\ 0,}
-\DoxyCodeLine{00072\ \ \ \ \ NormalSpecular\ =\ 1,}
-\DoxyCodeLine{00073\ \ \ \ \ MetallicRougnessAO\ =\ 2,}
-\DoxyCodeLine{00074\ \ \ \ \ Position\ =\ 3,}
-\DoxyCodeLine{00075\ \ \ \ \ Depth\ =\ 4,}
-\DoxyCodeLine{00076\ \ \ \ \ Count}
-\DoxyCodeLine{00077\ \};}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
-\DoxyCodeLine{00080\ \{}
-\DoxyCodeLine{00081\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}();}
-\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
-\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *\ bgraData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{\string~Texture}}();}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>LoadImageFromFile(path);\ \}}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadImage(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *\ bgraData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>LoadImage(path,\ \textcolor{keywordtype}{id},\ bgraData,\ width,\ height);\ \}}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>InitDepthBuffer(width,\ height);\ \}}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>CreateAttachment(width,\ height,\ imageCount,\ format);\ \}}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>HasTexture();\ \}}
-\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetTextureID();\ \}}
-\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00095\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}};}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_\_CreateDummyTexture()\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>\_\_CreateDummyTexture();\ \}}
-\DoxyCodeLine{00098\ \};}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \}}
-\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \ \ TextureImpl();}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~TextureImpl();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ vc::Error\ SaveImageToFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00076\ \ \ \ \ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00077\ \ \ \ \ vc::Error\ LoadImage(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *\ bgraData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00078\ \ \ \ \ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00089\ \ \ \ \ vc::Error\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl_a19a569e68daa49358bc0f52751817378}{CreateReadWriteTexture}}(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ vc::ShaderVertexFormat\ format,\ \textcolor{keywordtype}{int}\ mipMapLevels,\ \textcolor{keywordtype}{int}\ arrayLayers\ =\ 1);}
+\DoxyCodeLine{00090\ \ \ \ \ vc::Error\ CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format);}
+\DoxyCodeLine{00091\ \ \ \ \ vc::Error\ CreateShadowMaps(\textcolor{keywordtype}{int}\ dimension);}
+\DoxyCodeLine{00092\ \ \ \ \ vc::Error\ CreateShadowCubeMaps(\textcolor{keywordtype}{int}\ dimension);}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ TextureImpl\ *\ GetDummyTexture();}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_GetResourceToCache()-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{TextureResource}}>()-\/>GetTextureID();\ \}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ HasTexture()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ vc::Error\ SetMemoryAccess(\textcolor{keyword}{const}\ TextureMemoryAccess\ access);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ LoadImageRGBA(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ LoadImage(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ =\ 0;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetTexturePeakLuminance(\textcolor{keywordtype}{float}\ peakLuminance)\ \{\ \_\_peakLuminance\ =\ peakLuminance;\ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetTextureAverageLuminance(\textcolor{keywordtype}{float}\ averageLuminance)\ \{\ \_\_averageLuminance\ =\ averageLuminance;\ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetTexturePeakLuminance()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_peakLuminance;\ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetTextureAverageLuminance()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_averageLuminance;\ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ TextureMemoryAccess\ \&\ GetMemoryAccess()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_memoryAccess;\ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}\ *\ res)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ vc::Error\ GetGUITextureID(\textcolor{keywordtype}{void}\ **\ ptrToTextureId);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ GetWidth()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ GetHeight()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ SetDimensions(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ =\ 0;}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ =\ 0;}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format)\ =\ 0;}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SetMemoryAccess(\textcolor{keyword}{const}\ TextureMemoryAccess\ access)\ =\ 0;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_CreateReadWriteTexture(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ vc::ShaderVertexFormat\ format,\ \textcolor{keywordtype}{int}\ mipMapLevels,\ \textcolor{keywordtype}{int}\ arrayLayers)\ =\ 0;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_CreateShadowMaps(\textcolor{keywordtype}{int}\ dimension)\ =\ 0;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_CreateShadowCubeMaps(\textcolor{keywordtype}{int}\ dimension)\ =\ 0;}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SaveImageToFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ =\ 0;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Texture;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_CreateDummyTexture();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00131\ \ \ \ \ TextureType\ \_textureType;}
+\DoxyCodeLine{00132\ \ \ \ \ TextureUsage\ \_textureUsage;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ GUITexture}
+\DoxyCodeLine{00140\ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ GUITexture();}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \string~GUITexture()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ GetTextureId();}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ vc::Error\ LoadTextureToGUI(\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc::TextureImpl}}\ *\ impl);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ vc::Error\ UnloadTextureFromGUI();}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_UnloadTextureFromGUI(\textcolor{keywordtype}{void}\ *\ guiTextureId)\ =\ 0;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadTextureToGUI(\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc::TextureImpl}}\ *\ impl,\ \textcolor{keywordtype}{void}\ **\ ptrToGuiTextureId)\ =\ 0;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_\_guiTextureId;}
+\DoxyCodeLine{00155\ \ \ \ \ \};}
+\DoxyCodeLine{00156\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}{GUITexture}}\ *\ \_NewGuiTextureInstance()\ =\ 0;}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UnloadAllGuiTextures();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00161\ \ \ \ \ TextureMemoryAccess\ \_\_memoryAccess;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_peakLuminance,\ \_\_averageLuminance;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ UPtr<GUITexture>\ \_\_guiTexture;}
+\DoxyCodeLine{00165\ \};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{keyword}{enum\ class}\ ColorAttachmentType}
+\DoxyCodeLine{00168\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ Present\ =\ 0,}
+\DoxyCodeLine{00170\ \ \ \ \ NormalSpecular\ =\ 1,}
+\DoxyCodeLine{00171\ \ \ \ \ MetallicRougnessAO\ =\ 2,}
+\DoxyCodeLine{00172\ \ \ \ \ Position\ =\ 3,}
+\DoxyCodeLine{00173\ \ \ \ \ Depth\ =\ 4,}
+\DoxyCodeLine{00174\ \ \ \ \ LightingAddition\ =\ 5,}
+\DoxyCodeLine{00175\ \ \ \ \ Count}
+\DoxyCodeLine{00176\ \};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Texture\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00179\ \{}
+\DoxyCodeLine{00180\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00181\ \ \ \ \ Texture();}
+\DoxyCodeLine{00182\ \ \ \ \ Texture(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00183\ \ \ \ \ Texture(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *\ bgraData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00184\ \ \ \ \ \string~Texture();}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}\ *\ res)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>\textcolor{keyword}{operator}==(res);\ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ vc::SPtr<GraphicsCachedResource>\ \&\ res)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>\textcolor{keyword}{operator}==(res.get());\ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadImageFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>LoadImageFromFile(path);\ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadImage(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *\ bgraData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ height)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>LoadImage(path,\ \textcolor{keywordtype}{id},\ bgraData,\ width,\ height);\ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LoadImageFromCachedResource(\textcolor{keyword}{const}\ SPtr<GraphicsCachedResource>\ res)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>SetResource(res);\ \}}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>InitDepthBuffer(width,\ height);\ \}}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>CreateAttachment(width,\ height,\ imageCount,\ format);\ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ CreateReadWriteTexture(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ vc::ShaderVertexFormat\ format,\ \textcolor{keywordtype}{int}\ mipMapLevels,\ \textcolor{keywordtype}{int}\ arraLayers\ =\ 1)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>CreateReadWriteTexture(width,\ height,\ format,\ mipMapLevels,\ arraLayers);\ \}}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ CreateShadowMaps(\textcolor{keywordtype}{int}\ dimension)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>CreateShadowMaps(dimension);\ \}}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ CreateShadowCubeMaps(\textcolor{keywordtype}{int}\ dimension)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>CreateShadowCubeMaps(dimension);\ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetMemoryAccess(\textcolor{keyword}{const}\ TextureMemoryAccess\ access)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>SetMemoryAccess(access);\ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>HasTexture();\ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::String\ \&\ GetName()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetResourceName();\ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::String\ \&\ GetShortName()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetResourceShortName();\ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetWidth()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetWidth();\ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetHeight()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetHeight();\ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ TextureMemoryAccess\ \&\ GetMemoryAccess()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetMemoryAccess();\ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetTexturePeakLuminance()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetTexturePeakLuminance();\ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetTextureAverageLuminance()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetTextureAverageLuminance();\ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SaveImageToFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>SaveImageToFile(path);\ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ GetGUITextureID(\textcolor{keywordtype}{void}\ **\ ptrToTextureId)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetGUITextureID(ptrToTextureId);\ \}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#ifdef\ VENOM\_BINDLESS\_TEXTURES}}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetTextureID()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>GetTextureID();\ \}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UnloadAllGuiTextures()\ \{\ TextureImpl::UnloadAllGuiTextures();\ \}}
+\DoxyCodeLine{00213\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }GraphicsApplication;}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \_\_CreateDummyTexture()\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}>()-\/>\_\_CreateDummyTexture();\ \}}
+\DoxyCodeLine{00216\ \};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \}}
+\DoxyCodeLine{00219\ \}}
 
 \end{DoxyCode}

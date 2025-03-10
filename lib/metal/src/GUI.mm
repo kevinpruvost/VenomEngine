@@ -20,6 +20,12 @@
 
 #include <venom/metal/Device.h>
 
+#import <CoreGraphics/CoreGraphics.h>
+#define GLFW_INCLUDE_NONE
+#define GLFW_EXPOSE_NATIVE_COCOA
+#include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
+
 namespace venom
 {
 namespace metal
@@ -284,7 +290,7 @@ void MetalGUI::_NewFrame()
 //    [renderEncoder pushDebugGroup:@"ImGui demo"];
     
     //ImGui_ImplMetal_NewFrame(renderPassDescriptor);
-    ImGui_ImplGlfw_NewFrame();
+    //ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     ImGuizmo::SetOrthographic(false);
     ImGuizmo::BeginFrame();

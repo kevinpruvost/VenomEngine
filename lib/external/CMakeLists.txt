@@ -24,11 +24,14 @@ set_target_properties(assimp PROPERTIES
 add_subdirectory("glaze")
 
 # glfw
+# if IOS, then skip
+if ((NOT APPLE) OR (NOT SDK_NAME MATCHES "iphone"))
 add_subdirectory("glfw")
 set_target_properties(glfw PROPERTIES
     FOLDER "ExternalLibraries"
     #COMPILE_FLAGS "-fno-objc-arc"
 )
+endif ()
 
 # glm
 set(GLM_ENABLE_CXX_20 ON)
@@ -85,15 +88,44 @@ if (BUILD_SHARED_LIBS)
 endif()
 add_subdirectory("flecs")
 
+# tbb
+set(BUILD_SHARED_LIBS OFF)
+set(BUILD_BENCHMARKS OFF)
+set(BUILD_TESTS OFF)
+add_subdirectory("tbb")
+
+# blosc
+add_subdirectory("blosc")
+
+# boost
+set(BOOST_IOSTREAMS_ENABLE_ZSTD OFF)
+set(LIBDEFLATE_BUILD_GZIP OFF)
+add_subdirectory("boost")
+
 # openvdb
+# Disable Blosc on iOS
+set(USE_BLOSC OFF)
+if (NOT SDK_NAME MATCHES "iphone")
+    set(USE_BLOSC ON)
+endif ()
 set(OPENVDB_TOOL_USE_ABC ON)
 set(OPENVDB_ENABLE_UNINSTALL OFF)
+set(OPENVDB_BUILD_VDB_PRINT OFF)
+set(OPENVDB_BUILD_BINARIES OFF)
 add_subdirectory("openvdb")
 
 # openexr
 set(OPENEXR_FORCE_INTERNAL_IMATH ON)
+set(OPENEXR_BUILD_TOOLS OFF)
+set(OPENEXR_INSTALL_TOOLS OFF)
+set(OPENEXR_BUILD_EXAMPLES OFF)
+set(OPENEXR_BUILD_PYTHON OFF)
+set(OPENEXR_TEST_LIBRARIES OFF)
+set(OPENEXR_TEST_TOOLS OFF)
+set(OPENEXR_TEST_PYTHON OFF)
 add_subdirectory("openexr")
 find_package(OpenEXR REQUIRED)
+set(BUILD_SHARED_LIBS ON)
 
 # imgui
 # Define the list of ImGui source files
@@ -105,8 +137,12 @@ set(IMGUI_SOURCES
     "${IMGUI_DIR_}/imgui_demo.cpp"
     "${IMGUI_DIR_}/imgui_tables.cpp"
     "${IMGUI_DIR_}/imgui_widgets.cpp"
-    "${IMGUI_DIR_}/backends/imgui_impl_glfw.cpp"
 )
+
+#if iOS, then ignore glfw
+if (NOT SDK_NAME MATCHES "iphone")
+    list(APPEND IMGUI_SOURCES "${IMGUI_DIR_}/backends/imgui_impl_glfw.cpp")
+endif ()
 
 # imguizmo
 set(IMGUIZMO_DIR "${CMAKE_CURRENT_SOURCE_DIR}/imguizmo")
@@ -176,6 +212,8 @@ set_target_properties(MikkTSpace PROPERTIES
 )
 
 # nativefiledialog
+# If platofrm is apple and target is ios, then skip native file dialog
+if ((NOT APPLE) OR (NOT SDK_NAME MATCHES "iphone"))
 ## Set the source files
 set(NFD_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/nativefiledialog/src/nfd_common.c"
@@ -208,6 +246,7 @@ target_include_directories(nfd PUBLIC
 if (APPLE)
     # nfd needs AppKit
     target_link_libraries(nfd "-framework AppKit")
+endif ()
 endif ()
 
 # IconFontCppHeaders

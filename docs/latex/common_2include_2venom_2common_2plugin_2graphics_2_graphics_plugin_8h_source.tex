@@ -9,63 +9,72 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00015\ \{}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }GraphicsApplication;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}};}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }MaterialImpl;}
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }ModelImpl;}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }MeshImpl;}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }TextureImpl;}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }CameraImpl;}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }ShaderPipelineImpl;}
-\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }RenderingPipelineImpl;}
-\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }SkyboxImpl;}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }ShaderResourceTable;}
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }GUI;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}};}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}};}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}};}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{RenderTargetImpl}};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}};}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{RenderPassImpl}};}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}}
-\DoxyCodeLine{00032\ \{}
-\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{enum\ class}\ GraphicsPluginType}
-\DoxyCodeLine{00035\ \ \ \ \ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ Vulkan,}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Metal,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ DirectX12}
-\DoxyCodeLine{00039\ \ \ \ \ \};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}();}
-\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{\string~GraphicsPlugin}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ *\ Get();}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}};}
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ GraphicsPlugin\ :\ \textcolor{keyword}{public}\ Plugin}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{enum\ class}\ GraphicsPluginType}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ Vulkan,}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ Metal,}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#elif\ defined(\_WIN32)}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ DirectX12}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ CreateGraphicsApplication()\ =\ 0;}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ Graphics\ objects}}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}\ *\ CreateMaterial()\ =\ 0;}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}}\ *\ CreateModel()\ =\ 0;}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}\ *\ CreateMesh()\ =\ 0;}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}\ *\ CreateTexture()\ =\ 0;}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}\ *\ CreateCamera()\ =\ 0;}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}\ *\ CreateShaderPipeline()\ =\ 0;}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}\ *\ CreateRenderingPipeline()\ =\ 0;}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}\ *\ CreateSkybox()\ =\ 0;}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ Global\ instances}}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ *\ CreateShaderResourceTable()\ =\ 0;}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ *\ CreateGUI()\ =\ 0;}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}};}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}};}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ std::unordered\_map<std::string,\ std::shared\_ptr<GraphicsCachedResource>>\ *\ \_\_GetGraphicsResourceCache()\ \{\ \textcolor{keywordflow}{return}\ Get()-\/>\_\_graphicsResourceCache.get();\ \}}
-\DoxyCodeLine{00067\ \ \ \ \ std::unique\_ptr<std::unordered\_map<std::string,\ std::shared\_ptr<GraphicsCachedResource>>>\ \_\_graphicsResourceCache;}
-\DoxyCodeLine{00068\ \};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \}}
-\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ \ \ GraphicsPlugin();}
+\DoxyCodeLine{00049\ \ \ \ \ \string~GraphicsPlugin()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ GraphicsPlugin\ *\ Get();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ CreateGraphicsApplication(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ argv[])\ =\ 0;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ Graphics\ objects}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{MaterialImpl}}\ *\ CreateMaterial()\ =\ 0;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}}\ *\ CreateModel()\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}\ *\ CreateMesh()\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{TextureImpl}}\ *\ CreateTexture()\ =\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{CameraImpl}}\ *\ CreateCamera()\ =\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}\ *\ CreateShaderPipeline()\ =\ 0;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{RenderingPipelineImpl}}\ *\ CreateRenderingPipeline()\ =\ 0;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{RenderPassImpl}}\ *\ CreateRenderPass()\ =\ 0;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{SkyboxImpl}}\ *\ CreateSkybox()\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{RenderTargetImpl}}\ *\ CreateRenderTarget()\ =\ 0;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}\ *\ CreateLight()\ =\ 0;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ Global\ instances}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ *\ CreateShaderResourceTable()\ =\ 0;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ *\ CreateGUI()\ =\ 0;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }GraphicsCachedResource;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }GraphicsPluginObject;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ vc::UMap<vc::String,\ vc::SPtr<GraphicsCachedResource>>\ *\ \_\_GetGraphicsResourceCache()\ \{\ \textcolor{keywordflow}{return}\ Get()-\/>\_\_graphicsResourceCache.get();\ \}}
+\DoxyCodeLine{00076\ \ \ \ \ vc::UPtr<vc::UMap<vc::String,\ vc::SPtr<GraphicsCachedResource>>>\ \_\_graphicsResourceCache;}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00080\ \}}
 
 \end{DoxyCode}

@@ -1,0 +1,24 @@
+\doxysection{Thread.\+h}
+\hypertarget{_thread_8h_source}{}\label{_thread_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Thread.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Thread.h}}
+\mbox{\hyperlink{_thread_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ }Thread\ =\ std::thread;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }Atomic\ =\ std::atomic<T>;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ }Mutex\ =\ std::mutex;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ }LockGuard\ =\ std::lock\_guard<std::mutex>;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ }UniqueLock\ =\ std::unique\_lock<std::mutex>;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }ConditionVariable\ =\ std::condition\_variable;}
+\DoxyCodeLine{00023\ \}}
+\DoxyCodeLine{00024\ \}}
+
+\end{DoxyCode}

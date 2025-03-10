@@ -21,14 +21,41 @@ Inheritance diagram for venom\+::common\+::Model\+:\begin{figure}[H]
 \Hypertarget{classvenom_1_1common_1_1_model_a7e17adb69fef2878e5f5e2b64cf090e1}\label{classvenom_1_1common_1_1_model_a7e17adb69fef2878e5f5e2b64cf090e1} 
 {\bfseries Model} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_model_a05e4717780d90719d10a219e1d931faf}{Init}} (Entity entity) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_model_a38f31d133dc7fcc0fc5789ab11cbf3e8}{Update}} (Entity entity) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_model_a59e6e91a883728609b6792c936288903}{\+\_\+\+GUI}} (const Entity entity) override
+\item 
+vc\+::\+String \mbox{\hyperlink{classvenom_1_1common_1_1_model_a472ff2434ba0117fdd455b3f385995f6}{\+\_\+\+Get\+Component\+Title}} () override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1common_1_1_model_a2b6eaa719504fdf40c81520a863db8ab}{Can\+Remove}} (Entity entity) override
+\item 
 \Hypertarget{classvenom_1_1common_1_1_model_ab116d06a9c63ffdfa310e84f9d451598}\label{classvenom_1_1common_1_1_model_ab116d06a9c63ffdfa310e84f9d451598} 
 void {\bfseries Draw} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_model_abc392935143d3da4160b2853ce609cc5}\label{classvenom_1_1common_1_1_model_abc392935143d3da4160b2853ce609cc5} 
 vc\+::\+Error {\bfseries Import\+Model} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_model_a1e15ad5dbe62217604117b1df78670ac}\label{classvenom_1_1common_1_1_model_a1e15ad5dbe62217604117b1df78670ac} 
-const std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} $>$ \& {\bfseries Get\+Meshes} () const
+\Hypertarget{classvenom_1_1common_1_1_model_ac31a3423d6c82609dd7ceaa55e2583ad}\label{classvenom_1_1common_1_1_model_ac31a3423d6c82609dd7ceaa55e2583ad} 
+const vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} $>$ \& {\bfseries Get\+Meshes} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_a354700cc9477a53144d4127fa77dc6d0}\label{classvenom_1_1common_1_1_model_a354700cc9477a53144d4127fa77dc6d0} 
+const vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{vc\+::\+Material}} $>$ \& {\bfseries Get\+Materials} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_a20e038626e39931418bde6068219db90}\label{classvenom_1_1common_1_1_model_a20e038626e39931418bde6068219db90} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{vc\+::\+Material}} $>$ \& {\bfseries Get\+Materials} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_a7f757c621ce689d5a74a9702c2a9c838}\label{classvenom_1_1common_1_1_model_a7f757c621ce689d5a74a9702c2a9c838} 
+const vc\+::\+String \& {\bfseries Get\+Name} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_model_a5b1dee812beb1f2f74712fd54d346f87}\label{classvenom_1_1common_1_1_model_a5b1dee812beb1f2f74712fd54d346f87} 
+const vc\+::\+String \& {\bfseries Get\+Short\+Name} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+String {\bfseries Get\+Component\+Title} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
@@ -63,6 +90,59 @@ void {\bfseries Destroy} ()
 
 \doxysubsection{Detailed Description}
 Contains all the mesh\textquotesingle{}s data and is the main high-\/level interface for the user. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_model_a472ff2434ba0117fdd455b3f385995f6}\index{venom::common::Model@{venom::common::Model}!\_GetComponentTitle@{\_GetComponentTitle}}
+\index{\_GetComponentTitle@{\_GetComponentTitle}!venom::common::Model@{venom::common::Model}}
+\doxysubsubsection{\texorpdfstring{\_GetComponentTitle()}{\_GetComponentTitle()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_model_a472ff2434ba0117fdd455b3f385995f6} 
+vc\+::\+String venom\+::common\+::\+Model\+::\+\_\+\+Get\+Component\+Title (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_model_a59e6e91a883728609b6792c936288903}\index{venom::common::Model@{venom::common::Model}!\_GUI@{\_GUI}}
+\index{\_GUI@{\_GUI}!venom::common::Model@{venom::common::Model}}
+\doxysubsubsection{\texorpdfstring{\_GUI()}{\_GUI()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_model_a59e6e91a883728609b6792c936288903} 
+void venom\+::common\+::\+Model\+::\+\_\+\+GUI (\begin{DoxyParamCaption}\item[{const Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_model_a2b6eaa719504fdf40c81520a863db8ab}\index{venom::common::Model@{venom::common::Model}!CanRemove@{CanRemove}}
+\index{CanRemove@{CanRemove}!venom::common::Model@{venom::common::Model}}
+\doxysubsubsection{\texorpdfstring{CanRemove()}{CanRemove()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_model_a2b6eaa719504fdf40c81520a863db8ab} 
+bool venom\+::common\+::\+Model\+::\+Can\+Remove (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_model_a05e4717780d90719d10a219e1d931faf}\index{venom::common::Model@{venom::common::Model}!Init@{Init}}
+\index{Init@{Init}!venom::common::Model@{venom::common::Model}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_model_a05e4717780d90719d10a219e1d931faf} 
+void venom\+::common\+::\+Model\+::\+Init (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_model_a38f31d133dc7fcc0fc5789ab11cbf3e8}\index{venom::common::Model@{venom::common::Model}!Update@{Update}}
+\index{Update@{Update}!venom::common::Model@{venom::common::Model}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_model_a38f31d133dc7fcc0fc5789ab11cbf3e8} 
+void venom\+::common\+::\+Model\+::\+Update (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

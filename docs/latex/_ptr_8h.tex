@@ -1,6 +1,7 @@
 \doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Ptr.h File Reference}
 \hypertarget{_ptr_8h}{}\label{_ptr_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Ptr.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Ptr.h}}
 {\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$venom/common/plugin/\+Plugin\+Object.\+h$>$}\newline
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -8,17 +9,22 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{conceptvenom_1_1common_1_1_not_plugin_object}{venom\+::common\+::\+Not\+Plugin\+Object}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespacevenom_1_1common_a4d62c68e249d38cf36a57475f36bc71e}\label{namespacevenom_1_1common_a4d62c68e249d38cf36a57475f36bc71e} 
-{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+WPtr} = std\+::weak\+\_\+ptr$<$T$>$
+{\footnotesize template$<$Not\+Plugin\+Object T$>$ }\\using {\bfseries venom\+::common\+::\+WPtr} = std\+::weak\+\_\+ptr$<$T$>$
 \item 
 \Hypertarget{namespacevenom_1_1common_af6c498ca6a907c3e3e1b4dc99776dbe0}\label{namespacevenom_1_1common_af6c498ca6a907c3e3e1b4dc99776dbe0} 
-{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+SPtr} = std\+::shared\+\_\+ptr$<$T$>$
+{\footnotesize template$<$Not\+Plugin\+Object T$>$ }\\using {\bfseries venom\+::common\+::\+SPtr} = std\+::shared\+\_\+ptr$<$T$>$
 \item 
 \Hypertarget{namespacevenom_1_1common_a897c4cff3c357a9dcaa482241346a36e}\label{namespacevenom_1_1common_a897c4cff3c357a9dcaa482241346a36e} 
-{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+UPtr} = std\+::unique\+\_\+ptr$<$T$>$
+{\footnotesize template$<$Not\+Plugin\+Object T$>$ }\\using {\bfseries venom\+::common\+::\+UPtr} = std\+::unique\+\_\+ptr$<$T$>$
 \end{DoxyCompactItemize}
 
 

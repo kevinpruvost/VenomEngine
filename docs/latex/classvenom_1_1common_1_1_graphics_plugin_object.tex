@@ -27,24 +27,23 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
@@ -91,11 +90,11 @@ Adds cache size to avoid unnecessary additional allocations.
 {\em size} & \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!\_SetInCache@{\_SetInCache}}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!\_SetInCache@{\_SetInCache}}
 \index{\_SetInCache@{\_SetInCache}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
 \doxysubsubsection{\texorpdfstring{\_SetInCache()}{\_SetInCache()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed} 
-void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+\_\+\+Set\+In\+Cache (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{, }\item[{const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&}]{object}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385} 
+void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+\_\+\+Set\+In\+Cache (\begin{DoxyParamCaption}\item[{const vc\+::\+String \&}]{path}{, }\item[{const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&}]{object}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
 
 
 
@@ -128,11 +127,11 @@ void venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Destroy (\begin{DoxyPara
 
 Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_ab767caede79983aab03a9c8c99c91171}{venom\+::common\+::\+Plugin\+Object}}.
 
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!GetCachedObject@{GetCachedObject}}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!GetCachedObject@{GetCachedObject}}
 \index{GetCachedObject@{GetCachedObject}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
 \doxysubsubsection{\texorpdfstring{GetCachedObject()}{GetCachedObject()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5} 
-std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Get\+Cached\+Object (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3} 
+vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Get\+Cached\+Object (\begin{DoxyParamCaption}\item[{const vc\+::\+String \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -149,11 +148,11 @@ Gets a cached object from the graphics cache.
 \begin{DoxyReturn}{Returns}
 nullptr if the object is not in cache, the object otherwise 
 \end{DoxyReturn}
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!GetCachedObjects@{GetCachedObjects}}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!GetCachedObjects@{GetCachedObjects}}
 \index{GetCachedObjects@{GetCachedObjects}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
 \doxysubsubsection{\texorpdfstring{GetCachedObjects()}{GetCachedObjects()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5} 
-const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Get\+Cached\+Objects (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496} 
+const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Get\+Cached\+Objects (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -162,11 +161,11 @@ Gets all cached objects.
 \begin{DoxyReturn}{Returns}
 cached objects 
 \end{DoxyReturn}
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!HasCachedObject@{HasCachedObject}}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}\index{venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}!HasCachedObject@{HasCachedObject}}
 \index{HasCachedObject@{HasCachedObject}!venom::common::GraphicsPluginObject@{venom::common::GraphicsPluginObject}}
 \doxysubsubsection{\texorpdfstring{HasCachedObject()}{HasCachedObject()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b} 
-bool venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Has\+Cached\+Object (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0} 
+bool venom\+::common\+::\+Graphics\+Plugin\+Object\+::\+Has\+Cached\+Object (\begin{DoxyParamCaption}\item[{const vc\+::\+String \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 

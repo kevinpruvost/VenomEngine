@@ -39,8 +39,8 @@ uint32\+\_\+t {\bfseries Get\+Vertex\+Count} () const
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_mesh_a06916c99560d04786bd77e0db0b9f118}\label{classvenom_1_1vulkan_1_1_vulkan_mesh_a06916c99560d04786bd77e0db0b9f118} 
 Vk\+Device\+Size \texorpdfstring{$\ast$}{*} {\bfseries Get\+Offsets} () const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_mesh_a1c4333131724f7cb3593b51ae6dfa220}\label{classvenom_1_1vulkan_1_1_vulkan_mesh_a1c4333131724f7cb3593b51ae6dfa220} 
-const std\+::vector$<$ \mbox{\hyperlink{structvenom_1_1vulkan_1_1_vulkan_mesh_1_1_bound_vk_buffer}{Bound\+Vk\+Buffer}} $>$ \& {\bfseries Get\+Vk\+Vertex\+Buffers} () const
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_mesh_a32aed4af200fe0fc16e026753714d44c}\label{classvenom_1_1vulkan_1_1_vulkan_mesh_a32aed4af200fe0fc16e026753714d44c} 
+const vc\+::\+Vector$<$ \mbox{\hyperlink{structvenom_1_1vulkan_1_1_vulkan_mesh_1_1_bound_vk_buffer}{Bound\+Vk\+Buffer}} $>$ \& {\bfseries Get\+Vk\+Vertex\+Buffers} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{venom\+::common\+::\+Mesh\+Impl}}}
 \begin{DoxyCompactItemize}
@@ -54,21 +54,20 @@ const \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} \& {\bfseri
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
 \item 
 void {\bfseries Inc\+Ref\+Count} ()
 \item 
 void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -81,24 +80,24 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
@@ -107,21 +106,21 @@ static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abd
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{venom\+::common\+::\+Mesh\+Impl}}}
 \begin{DoxyCompactItemize}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{vcm\+::\+Vertex\+Pos}} $>$ {\bfseries \+\_\+positions}
+vc\+::\+Vector$<$ \mbox{\hyperlink{_vector_8h_ab5f1413c72f61eb16544845586928afc}{vcm\+::\+Vertex\+Pos}} $>$ {\bfseries \+\_\+positions}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{vcm\+::\+Vertex\+Normal}} $>$ {\bfseries \+\_\+normals}
+vc\+::\+Vector$<$ \mbox{\hyperlink{_vector_8h_a289048b896761b00897eeb561b2ce5dc}{vcm\+::\+Vertex\+Normal}} $>$ {\bfseries \+\_\+normals}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a34c20fd280aa09317ad9e948afda1664}{vcm\+::\+Vertex\+Color}} $>$ {\bfseries \+\_\+colors} \mbox{[}8\mbox{]}
+vc\+::\+Vector$<$ \mbox{\hyperlink{_vector_8h_a34c20fd280aa09317ad9e948afda1664}{vcm\+::\+Vertex\+Color}} $>$ {\bfseries \+\_\+colors} \mbox{[}8\mbox{]}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{vcm\+::\+Vertex\+UV}} $>$ {\bfseries \+\_\+uvs} \mbox{[}8\mbox{]}
+vc\+::\+Vector$<$ \mbox{\hyperlink{_vector_8h_a5b93343a45cc172573e1f2ceb9676cc4}{vcm\+::\+Vertex\+UV}} $>$ {\bfseries \+\_\+uvs} \mbox{[}8\mbox{]}
 \item 
-std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries \+\_\+indices}
+vc\+::\+Vector$<$ uint32\+\_\+t $>$ {\bfseries \+\_\+indices}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a066a89acef984c6819306a176b693d65}{vcm\+::\+Vertex\+Tangent}} $>$ {\bfseries \+\_\+tangents}
+vc\+::\+Vector$<$ \mbox{\hyperlink{_vector_8h_a066a89acef984c6819306a176b693d65}{vcm\+::\+Vertex\+Tangent}} $>$ {\bfseries \+\_\+tangents}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd}{vcm\+::\+Vertex\+Bitangent}} $>$ {\bfseries \+\_\+bitangents}
+vc\+::\+Vector$<$ \mbox{\hyperlink{_vector_8h_a505c9eb2ade587114c3c2bcc7ae2b5dd}{vcm\+::\+Vertex\+Bitangent}} $>$ {\bfseries \+\_\+bitangents}
 \item 
-\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_container}{Plugin\+Object\+Container}}$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} $>$ {\bfseries \+\_\+material}
+\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_optional}{Plugin\+Object\+Optional}}$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}} $>$ {\bfseries \+\_\+material}
 \end{DoxyCompactItemize}
 
 

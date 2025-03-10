@@ -10,12 +10,12 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{ShaderResource}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{GraphicsCachedResource}}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ShaderResource\ :\ \textcolor{keyword}{public}\ GraphicsCachedResource}
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{ShaderResource}}(\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}\ *\ holder);}
+\DoxyCodeLine{00020\ \ \ \ \ ShaderResource(\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}\ *\ holder);}
 \DoxyCodeLine{00021\ }
 \DoxyCodeLine{00022\ \ \ \ \ Vector<String>\ shaderPaths;}
 \DoxyCodeLine{00023\ \};}
@@ -39,13 +39,13 @@
 \DoxyCodeLine{00041\ \ \ \ \ Mat4}
 \DoxyCodeLine{00042\ \};}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{GraphicsCachedResourceHolder}}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ShaderPipelineImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject,\ \textcolor{keyword}{public}\ GraphicsCachedResourceHolder}
 \DoxyCodeLine{00045\ \{}
 \DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}();}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{\string~ShaderPipelineImpl}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00047\ \ \ \ \ ShaderPipelineImpl();}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~ShaderPipelineImpl()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00056\ \ \ \ \ vc::Error\ LoadShaderFromFile(\textcolor{keyword}{const}\ std::string\ \&\ path);}
+\DoxyCodeLine{00056\ \ \ \ \ vc::Error\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_aab8b8f71ad9fc931db4ee4faaa519ec8}{LoadShaderFromFile}}(\textcolor{keyword}{const}\ vc::String\ \&\ path);}
 \DoxyCodeLine{00057\ }
 \DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{VertexBufferLayout}}}
 \DoxyCodeLine{00059\ \ \ \ \ \{}
@@ -54,54 +54,77 @@
 \DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ location;}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ offset;}
 \DoxyCodeLine{00064\ \ \ \ \ \};}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ ShaderVertexFormat\ format,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset);}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{VertexBufferLayout}}\ \&\ layout);}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ std::vector<VertexBufferLayout>\ \&\ layouts);}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_ad98000c351b6e59e2871aa1cb5f1f7ab}{AddVertexBufferToLayout}}(\textcolor{keyword}{const}\ ShaderVertexFormat\ format,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_ad98000c351b6e59e2871aa1cb5f1f7ab}{AddVertexBufferToLayout}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{VertexBufferLayout}}\ \&\ layout);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_ad98000c351b6e59e2871aa1cb5f1f7ab}{AddVertexBufferToLayout}}(\textcolor{keyword}{const}\ vc::Vector<VertexBufferLayout>\ \&\ layouts);}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ SetMultiSamplingCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ samples)\ =\ 0;}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetLineWidth(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ width)\ \{\ \_SetLineWidth(width);\ \textcolor{keywordflow}{return}\ \_ReloadShaderAfterSettings();\ \}}
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetDepthTest(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_SetDepthTest(enable);\ \textcolor{keywordflow}{return}\ \_ReloadShaderAfterSettings();\ \}}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetDepthWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_SetDepthWrite(enable);\ \textcolor{keywordflow}{return}\ \_ReloadShaderAfterSettings();\ \}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_renderingPipelineType\ =\ type;\ \}}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineIndex(\textcolor{keyword}{const}\ uint32\_t\ index)\ \{\ \_renderingPipelineIndex\ =\ index;\ \}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetLineWidth(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ width)\ =\ 0;}
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetDepthTest(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ =\ 0;}
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetDepthWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ =\ 0;}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadShader(\textcolor{keyword}{const}\ std::string\ \&\ path)\ =\ 0;}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_AddVertexBufferToLayout(\textcolor{keyword}{const}\ uint32\_t\ vertexSize,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset,\ \textcolor{keyword}{const}\ ShaderVertexFormat\ format)\ =\ 0;}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_ReloadShader()\ =\ 0;}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ \_ReloadShaderAfterSettings()\ \{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_loaded)\ \textcolor{keywordflow}{return}\ \_ReloadShader();}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vc::Error::Success;}
-\DoxyCodeLine{00103\ \ \ \ \ \}}
-\DoxyCodeLine{00104\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00105\ \ \ \ \ RenderingPipelineType\ \_renderingPipelineType;}
-\DoxyCodeLine{00106\ \ \ \ \ uint32\_t\ \_renderingPipelineIndex;}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_loaded;}
-\DoxyCodeLine{00108\ \};}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{ShaderPipeline}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
-\DoxyCodeLine{00111\ \{}
-\DoxyCodeLine{00112\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{ShaderPipeline}}();}
-\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{ShaderPipeline}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
-\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{\string~ShaderPipeline}}();}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineIndex(\textcolor{keyword}{const}\ uint32\_t\ index)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetRenderingPipelineIndex(index);\ \}}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetRenderingPipelineType(type);\ \}}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadShaderFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>LoadShaderFromFile(path);\ \}}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ ShaderVertexFormat\ format,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>AddVertexBufferToLayout(format,\ binding,\ location,\ offset);\ \}}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{ShaderPipelineImpl::VertexBufferLayout}}\ \&\ layout)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>AddVertexBufferToLayout(layout);\ \}}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ std::vector<ShaderPipelineImpl::VertexBufferLayout>\ \&\ layouts)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>AddVertexBufferToLayout(layouts);\ \}}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetLineWidth(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ width)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetLineWidth(width);\ \}}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetDepthTest(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetDepthTest(enable);\ \}}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetDepthWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetDepthWrite(enable);\ \}}
-\DoxyCodeLine{00126\ \};}
-\DoxyCodeLine{00127\ \}}
-\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl_aa113f4caa02bf1aa882efe9f7a53921c}{SetCustomMultiSamplingCount}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ samples);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMultiSamplingCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ samples);}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetLineWidth(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ width)\ \{\ \_SetLineWidth(width);\ \textcolor{keywordflow}{return}\ \_ReloadShaderAfterSettings();\ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetDepthTest(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_SetDepthTest(enable);\ \textcolor{keywordflow}{return}\ \_ReloadShaderAfterSettings();\ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ SetDepthWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_SetDepthWrite(enable);\ \textcolor{keywordflow}{return}\ \_ReloadShaderAfterSettings();\ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ OpenAndReloadShader()}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_OpenShaders()\ !=\ vc::Error::Success)\ \textcolor{keywordflow}{return}\ vc::Error::Failure;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_ReloadShader();}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_renderingPipelineType\ =\ type;\ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineShaderType(\textcolor{keyword}{const}\ RenderingPipelineShaderType\ type)\ \{\ \_renderingPipelineShaderType\ =\ type;\ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineIndex(\textcolor{keyword}{const}\ uint32\_t\ index)\ \{\ \_renderingPipelineIndex\ =\ index;\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{inline}\ RenderingPipelineType\ GetRenderingPipelineType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_renderingPipelineType;\ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ RenderingPipelineShaderType\ GetRenderingPipelineShaderType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_renderingPipelineShaderType;\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetMultiSamplingCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ samples)\ =\ 0;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetLineWidth(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ width)\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetDepthTest(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ =\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetDepthWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ =\ 0;}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_LoadShader(\textcolor{keyword}{const}\ vc::String\ \&\ path)\ =\ 0;}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_AddVertexBufferToLayout(\textcolor{keyword}{const}\ uint32\_t\ vertexSize,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset,\ \textcolor{keyword}{const}\ ShaderVertexFormat\ format)\ =\ 0;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_OpenShaders()\ =\ 0;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_ReloadShader()\ =\ 0;}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ \_ReloadShaderAfterSettings()\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_loaded)\ \textcolor{keywordflow}{return}\ \_ReloadShader();}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vc::Error::Success;}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00122\ \ \ \ \ RenderingPipelineType\ \_renderingPipelineType;}
+\DoxyCodeLine{00123\ \ \ \ \ RenderingPipelineShaderType\ \_renderingPipelineShaderType;}
+\DoxyCodeLine{00124\ \ \ \ \ uint32\_t\ \_renderingPipelineIndex;}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_loaded;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_customSamples;}
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ShaderPipeline\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00134\ \ \ \ \ ShaderPipeline();}
+\DoxyCodeLine{00135\ \ \ \ \ ShaderPipeline(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path);}
+\DoxyCodeLine{00136\ \ \ \ \ \string~ShaderPipeline();}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ RecompileAllShaders();}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{static}\ vc::Error\ ReloadAllShaders();}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ OpenAndReloadShader()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>OpenAndReloadShader();\ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineIndex(\textcolor{keyword}{const}\ uint32\_t\ index)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetRenderingPipelineIndex(index);\ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineType(\textcolor{keyword}{const}\ RenderingPipelineType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetRenderingPipelineType(type);\ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingPipelineShaderType(\textcolor{keyword}{const}\ RenderingPipelineShaderType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetRenderingPipelineShaderType(type);\ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ LoadShaderFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ path)\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>LoadShaderFromFile(path);\ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ ShaderVertexFormat\ format,\ \textcolor{keyword}{const}\ uint32\_t\ binding,\ \textcolor{keyword}{const}\ uint32\_t\ location,\ \textcolor{keyword}{const}\ uint32\_t\ offset)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>AddVertexBufferToLayout(format,\ binding,\ location,\ offset);\ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{ShaderPipelineImpl::VertexBufferLayout}}\ \&\ layout)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>AddVertexBufferToLayout(layout);\ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ AddVertexBufferToLayout(\textcolor{keyword}{const}\ vc::Vector<ShaderPipelineImpl::VertexBufferLayout>\ \&\ layouts)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>AddVertexBufferToLayout(layouts);\ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetLineWidth(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ width)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetLineWidth(width);\ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetDepthTest(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetDepthTest(enable);\ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetDepthWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ enable)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetDepthWrite(enable);\ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetCustomMultiSamplingCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ samples)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{ShaderPipelineImpl}}>()-\/>SetCustomMultiSamplingCount(samples);\ \}}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ \}}
 
 \end{DoxyCode}

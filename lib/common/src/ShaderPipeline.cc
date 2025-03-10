@@ -159,6 +159,8 @@ ShaderPipeline::~ShaderPipeline()
 
 vc::Error ShaderPipeline::RecompileAllShaders()
 {
+#if defined(VENOM_APPLE_PACKAGE)
+#else
     auto oldPath = std::filesystem::current_path();
     std::filesystem::path parentDir = CMAKE_PROJECT_DIR;
     std::filesystem::current_path(parentDir);
@@ -169,6 +171,7 @@ vc::Error ShaderPipeline::RecompileAllShaders()
         vc::Log::Error("Failed to compile shaders with make");
         return vc::Error::Failure;
     }
+#endif
     return vc::Error::Success;
 }
 

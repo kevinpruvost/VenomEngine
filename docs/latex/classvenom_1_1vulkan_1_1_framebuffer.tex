@@ -3,17 +3,41 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a12d7f3ee4e3e29946e3ff102ddb922b4}\label{classvenom_1_1vulkan_1_1_framebuffer_a12d7f3ee4e3e29946e3ff102ddb922b4} 
+{\bfseries Framebuffer} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_ae90cf6ac5388600986ec7bd6934f8ab9}\label{classvenom_1_1vulkan_1_1_framebuffer_ae90cf6ac5388600986ec7bd6934f8ab9} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \&)=delete
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_af60ab36ad82cbbe20ebbca0b7950b9c6}\label{classvenom_1_1vulkan_1_1_framebuffer_af60ab36ad82cbbe20ebbca0b7950b9c6} 
+{\bfseries Framebuffer} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \&\&other)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_ae8628840e14c747423aa4ccd942c8c84}\label{classvenom_1_1vulkan_1_1_framebuffer_ae8628840e14c747423aa4ccd942c8c84} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} \&\&other)
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a5d7e38afbe353e74cf93778d2d0076ba}\label{classvenom_1_1vulkan_1_1_framebuffer_a5d7e38afbe353e74cf93778d2d0076ba} 
 void {\bfseries Destroy} ()
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a75290925ded4fe26668923837545f2c5}\label{classvenom_1_1vulkan_1_1_framebuffer_a75290925ded4fe26668923837545f2c5} 
 vc\+::\+Error {\bfseries Init} ()
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_ae64c05b706836669ad2ad62f620e1f8a}\label{classvenom_1_1vulkan_1_1_framebuffer_ae64c05b706836669ad2ad62f620e1f8a} 
-void {\bfseries Set\+Render\+Pass} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*}render\+Pass)
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a4ee58411aa3921de0025ab68b6563c2e}\label{classvenom_1_1vulkan_1_1_framebuffer_a4ee58411aa3921de0025ab68b6563c2e} 
+void {\bfseries Set\+Render\+Pass} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{Vulkan\+Render\+Pass}} \texorpdfstring{$\ast$}{*}render\+Pass)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a6fbf8e84e96ec5c16e8465b2247ca182}\label{classvenom_1_1vulkan_1_1_framebuffer_a6fbf8e84e96ec5c16e8465b2247ca182} 
-void {\bfseries Set\+Attachments} (const std\+::vector$<$ Vk\+Image\+View\+\_\+T \texorpdfstring{$\ast$}{*} $>$ \&vector)
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a63c8676778d8cc9fdc9d2442312d5803}\label{classvenom_1_1vulkan_1_1_framebuffer_a63c8676778d8cc9fdc9d2442312d5803} 
+const vc\+::\+Vector$<$ Vk\+Image\+View $>$ \& {\bfseries Get\+Attachment\+Vk\+Image\+Views} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_addb49dd39591aa116105b05653552105}\label{classvenom_1_1vulkan_1_1_framebuffer_addb49dd39591aa116105b05653552105} 
+const vc\+::\+Vector$<$ const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries Get\+Attachment\+Images} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_afd61c50e6573e7f1b86d67ecf09a8f46}\label{classvenom_1_1vulkan_1_1_framebuffer_afd61c50e6573e7f1b86d67ecf09a8f46} 
+const vc\+::\+Vector$<$ const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{Image\+View}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries Get\+Attachment\+Image\+Views} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_ab98ee75f79dbfeec292f7875369bbd06}\label{classvenom_1_1vulkan_1_1_framebuffer_ab98ee75f79dbfeec292f7875369bbd06} 
+void {\bfseries Set\+Attachment} (int i, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{Image\+View}} \&image\+View)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_aace8f4746c1d6321028a6a17aaf34007}\label{classvenom_1_1vulkan_1_1_framebuffer_aace8f4746c1d6321028a6a17aaf34007} 
+void {\bfseries Set\+Attachment} (int i, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{Vulkan\+Texture}} \texorpdfstring{$\ast$}{*}texture)
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a373e14e073abaa61a945f9e55a7d7187}\label{classvenom_1_1vulkan_1_1_framebuffer_a373e14e073abaa61a945f9e55a7d7187} 
 void {\bfseries Set\+Extent} (const Vk\+Extent2D \&extent)
@@ -26,6 +50,9 @@ Vk\+Framebuffer {\bfseries Get\+Vk\+Framebuffer} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_a7350e994a8753ac307b7581a48ec33df}\label{classvenom_1_1vulkan_1_1_framebuffer_a7350e994a8753ac307b7581a48ec33df} 
 const Vk\+Framebuffer\+Create\+Info \texorpdfstring{$\ast$}{*} {\bfseries Get\+Vk\+Framebuffer\+Create\+Info} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_framebuffer_ab372e3fb897e617aa70132b1aa6499ae}\label{classvenom_1_1vulkan_1_1_framebuffer_ab372e3fb897e617aa70132b1aa6499ae} 
+Vk\+Extent2D {\bfseries Get\+Framebuffer\+Extent} () const
 \end{DoxyCompactItemize}
 
 

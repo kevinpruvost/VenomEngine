@@ -7,25 +7,40 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stack>}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <map>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00020\ \textcolor{keyword}{using\ }Vector\ =\ std::vector<T>;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00020\ \{}
 \DoxyCodeLine{00021\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }Stack\ =\ std::stack<T>;}
-\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{size\_t}\ N>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }Array\ =\ std::array<T,\ N>;}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
-\DoxyCodeLine{00027\ \textcolor{keyword}{using\ }Map\ =\ std::map<T,\ U>;}
-\DoxyCodeLine{00028\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
-\DoxyCodeLine{00029\ \textcolor{keyword}{using\ }UMap\ =\ std::unordered\_map<T,\ U>;}
-\DoxyCodeLine{00030\ \}}
-\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }Vector\ =\ std::vector<T>;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }Stack\ =\ std::stack<T>;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{using\ }Queue\ =\ std::queue<T>;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ \textcolor{keywordtype}{size\_t}\ N>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{using\ }Array\ =\ std::array<T,\ N>;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Compare\ =\ std::less<T>>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }Set\ =\ std::set<T,\ Compare>;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{size\_t}\ N1,\ \textcolor{keywordtype}{size\_t}\ N2>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{using\ }Array2D\ =\ std::array<std::array<T,\ N2>,\ N1>;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}\ Compare\ =\ std::less<T>>}
+\DoxyCodeLine{00036\ \textcolor{keyword}{using\ }Map\ =\ std::map<T,\ U,\ Compare>;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00038\ \textcolor{keyword}{using\ }UMap\ =\ std::unordered\_map<T,\ U>;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ }Tuple\ =\ std::tuple<Args...>;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>}
+\DoxyCodeLine{00044\ \textcolor{keyword}{using\ }MakeTuple\ =\ \textcolor{keyword}{decltype}(std::make\_tuple(std::declval<Args>()...));}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00046\ \}}
 
 \end{DoxyCode}

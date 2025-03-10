@@ -16,7 +16,10 @@
 #include <venom/common/plugin/graphics/Model.h>
 #include <venom/common/plugin/graphics/RenderingPipeline.h>
 
+// Disable NFD on Mobile
+#if !defined(VENOM_PLATFORM_IOS)
 #include <nfd.h>
+#endif
 
 #include <venom/common/Resources.h>
 namespace venom
@@ -222,6 +225,7 @@ bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
 
     float totalWidth = vc::GUI::GetContentRegionAvail().x;
 
+#if !defined(VENOM_PLATFORM_MOBILE)
     vc::GUI::PushButtonTextAlign({0.0f, 0.5f});
     if (vc::GUI::Button(texture->GetShortName().c_str(), {totalWidth * 2.0f / 3.0f, 0.0f})) {
         nfdchar_t *outPath = nullptr;
@@ -236,12 +240,14 @@ bool GUI::EditableTexture(vc::Texture * texture, vc::String & path)
     vc::GUI::PopStyleVar();
     vc::GUI::SameLine();
     vc::GUI::Text("Texture File");
+#endif
     return ret;
 }
 
 bool GUI::EditableModel(vc::Model * model, vc::String& path)
 {
     bool ret = false;
+#if !defined(VENOM_PLATFORM_MOBILE)
 
     float totalWidth = vc::GUI::GetContentRegionAvail().x;
 
@@ -259,6 +265,7 @@ bool GUI::EditableModel(vc::Model * model, vc::String& path)
     vc::GUI::PopStyleVar();
     vc::GUI::SameLine();
     vc::GUI::Text("File");
+#endif
     return ret;
 }
 

@@ -9,7 +9,7 @@
 
 #include <venom/common/Error.h>
 
-#include <venom/common/plugin/context/Context.h>
+#include <venom/common/Context.h>
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/plugin/graphics/ShaderResourceTable.h>
 #include <venom/common/plugin/graphics/GraphicsSettings.h>

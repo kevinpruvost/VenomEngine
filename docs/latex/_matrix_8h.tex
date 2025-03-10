@@ -20,6 +20,8 @@ VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_ac7626905f2b15d0
 \begin{DoxyCompactList}\small\item\em Rotate matrix. \end{DoxyCompactList}\item 
 VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_a9ce44b2f6789cf515ab7ab50a50bb4c0}{venom\+::common\+::math\+::\+Translate\+Matrix}} (Mat4 \&matrix, const Vec3 \&translation)
 \begin{DoxyCompactList}\small\item\em Translate matrix. \end{DoxyCompactList}\item 
+VENOM\+\_\+\+COMMON\+\_\+\+API void \mbox{\hyperlink{_matrix_8h_af3626d72a0e6ffca5e2edf319f9da894}{venom\+::common\+::math\+::\+Scale\+Matrix}} (Mat4 \&matrix, const Vec3 \&scale)
+\begin{DoxyCompactList}\small\item\em Scale matrix. \end{DoxyCompactList}\item 
 \Hypertarget{_matrix_8h_a96eac85e97d05c5c91878d0f22e2523b}\label{_matrix_8h_a96eac85e97d05c5c91878d0f22e2523b} 
 VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Look\+At\+LH} (const Vec3 \&eye, const Vec3 \&center, const Vec3 \&up)
 \item 
@@ -35,8 +37,25 @@ VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Pers
 \Hypertarget{_matrix_8h_ac121745daff8d83faa181130cc852194}\label{_matrix_8h_ac121745daff8d83faa181130cc852194} 
 VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Perspective\+RH} (const float fov, const float aspect, const float near\+Plane, const float far\+Plane)
 \item 
-\Hypertarget{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f}\label{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f} 
-Mat4 {\bfseries venom\+::common\+::math\+::\+Perspective} (const float fov, const float aspect, const float near\+Plane, const float far\+Plane)
+Mat4 \mbox{\hyperlink{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f}{venom\+::common\+::math\+::\+Perspective}} (const float fov, const float aspect, const float near\+Plane, const float far\+Plane)
+\begin{DoxyCompactList}\small\item\em Perspective matrix. \end{DoxyCompactList}\item 
+\Hypertarget{_matrix_8h_a3d37b467f41a3d04ff91457988aaea19}\label{_matrix_8h_a3d37b467f41a3d04ff91457988aaea19} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Orthographic\+LH} (const float left, const float right, const float bottom, const float top, const float near\+Plane, const float far\+Plane)
+\item 
+\Hypertarget{_matrix_8h_a5eba62e12e187d64d6d617f9f5b61f1c}\label{_matrix_8h_a5eba62e12e187d64d6d617f9f5b61f1c} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Orthographic\+RH} (const float left, const float right, const float bottom, const float top, const float near\+Plane, const float far\+Plane)
+\item 
+\Hypertarget{_matrix_8h_a472b4a997e2a549b1dd5c0a11432d953}\label{_matrix_8h_a472b4a997e2a549b1dd5c0a11432d953} 
+Mat4 {\bfseries venom\+::common\+::math\+::\+Orthographic} (const float left, const float right, const float bottom, const float top, const float near\+Plane, const float far\+Plane)
+\item 
+\Hypertarget{_matrix_8h_a1bfd1fdb9f9f85d7be173ed6393b7a43}\label{_matrix_8h_a1bfd1fdb9f9f85d7be173ed6393b7a43} 
+VENOM\+\_\+\+COMMON\+\_\+\+API Mat4 {\bfseries venom\+::common\+::math\+::\+Inverse} (const Mat4 \&matrix)
+\item 
+\Hypertarget{_matrix_8h_ac843343460607f055c5e59753cecc469}\label{_matrix_8h_ac843343460607f055c5e59753cecc469} 
+const float \texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::math\+::\+Value\+Ptr} (const Mat4 \&matrix)
+\item 
+\Hypertarget{_matrix_8h_ac0a3957f153419618bedc3630a9a23d0}\label{_matrix_8h_ac0a3957f153419618bedc3630a9a23d0} 
+float \texorpdfstring{$\ast$}{*} {\bfseries venom\+::common\+::math\+::\+Value\+Ptr} (Mat4 \&matrix)
 \end{DoxyCompactItemize}
 
 
@@ -52,6 +71,30 @@ Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevi
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f}\index{Matrix.h@{Matrix.h}!Perspective@{Perspective}}
+\index{Perspective@{Perspective}!Matrix.h@{Matrix.h}}
+\doxysubsubsection{\texorpdfstring{Perspective()}{Perspective()}}
+{\footnotesize\ttfamily \label{_matrix_8h_a773bf559b3817842b46b9b01ecd8801f} 
+Mat4 venom\+::common\+::math\+::\+Perspective (\begin{DoxyParamCaption}\item[{const float}]{fov}{, }\item[{const float}]{aspect}{, }\item[{const float}]{near\+Plane}{, }\item[{const float}]{far\+Plane}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Perspective matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fov} & in radians \\
+\hline
+{\em aspect} & \\
+\hline
+{\em near\+Plane} & \\
+\hline
+{\em far\+Plane} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
 \Hypertarget{_matrix_8h_ac7626905f2b15d04f02c88d83776423c}\index{Matrix.h@{Matrix.h}!RotateMatrix@{RotateMatrix}}
 \index{RotateMatrix@{RotateMatrix}!Matrix.h@{Matrix.h}}
 \doxysubsubsection{\texorpdfstring{RotateMatrix()}{RotateMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
@@ -86,6 +129,23 @@ Rotate matrix.
 {\em axis} & normalized \\
 \hline
 {\em angle} & in radians \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_matrix_8h_af3626d72a0e6ffca5e2edf319f9da894}\index{Matrix.h@{Matrix.h}!ScaleMatrix@{ScaleMatrix}}
+\index{ScaleMatrix@{ScaleMatrix}!Matrix.h@{Matrix.h}}
+\doxysubsubsection{\texorpdfstring{ScaleMatrix()}{ScaleMatrix()}}
+{\footnotesize\ttfamily \label{_matrix_8h_af3626d72a0e6ffca5e2edf319f9da894} 
+void venom\+::common\+::math\+::\+Scale\+Matrix (\begin{DoxyParamCaption}\item[{Mat4 \&}]{matrix}{, }\item[{const Vec3 \&}]{scale}{}\end{DoxyParamCaption})}
+
+
+
+Scale matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & \\
+\hline
+{\em scale} & \\
 \hline
 \end{DoxyParams}
 \Hypertarget{_matrix_8h_a9ce44b2f6789cf515ab7ab50a50bb4c0}\index{Matrix.h@{Matrix.h}!TranslateMatrix@{TranslateMatrix}}

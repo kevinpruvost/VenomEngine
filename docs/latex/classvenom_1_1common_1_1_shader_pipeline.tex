@@ -12,11 +12,17 @@ Inheritance diagram for venom\+::common\+::Shader\+Pipeline\+:\begin{figure}[H]
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a316f6426fb5db455f50751a3f7a2de38}\label{classvenom_1_1common_1_1_shader_pipeline_a316f6426fb5db455f50751a3f7a2de38} 
 {\bfseries Shader\+Pipeline} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_afba5131c0f6f615d711750ef8833a7d7}\label{classvenom_1_1common_1_1_shader_pipeline_afba5131c0f6f615d711750ef8833a7d7} 
+vc\+::\+Error {\bfseries Open\+And\+Reload\+Shader} ()
+\item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_ace5961ef06487090bc4c12214333878e}\label{classvenom_1_1common_1_1_shader_pipeline_ace5961ef06487090bc4c12214333878e} 
 void {\bfseries Set\+Rendering\+Pipeline\+Index} (const uint32\+\_\+t index)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a668ec0003e0114c721c57c670593952b}\label{classvenom_1_1common_1_1_shader_pipeline_a668ec0003e0114c721c57c670593952b} 
 void {\bfseries Set\+Rendering\+Pipeline\+Type} (const Rendering\+Pipeline\+Type type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a8db139a2d068d9a5efdf7415be486c76}\label{classvenom_1_1common_1_1_shader_pipeline_a8db139a2d068d9a5efdf7415be486c76} 
+void {\bfseries Set\+Rendering\+Pipeline\+Shader\+Type} (const Rendering\+Pipeline\+Shader\+Type type)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a50349289155aa0ee7828143f376518a6}\label{classvenom_1_1common_1_1_shader_pipeline_a50349289155aa0ee7828143f376518a6} 
 vc\+::\+Error {\bfseries Load\+Shader\+From\+File} (const char \texorpdfstring{$\ast$}{*}path)
@@ -27,8 +33,8 @@ void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const Shader\+Vertex\+Format f
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_aeeec12911c4bcd0ec8a40bd0d9f2dc80}\label{classvenom_1_1common_1_1_shader_pipeline_aeeec12911c4bcd0ec8a40bd0d9f2dc80} 
 void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Shader\+Pipeline\+Impl\+::\+Vertex\+Buffer\+Layout}} \&layout)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a027f85a06748b1f6873fe04853ad1416}\label{classvenom_1_1common_1_1_shader_pipeline_a027f85a06748b1f6873fe04853ad1416} 
-void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const std\+::vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Shader\+Pipeline\+Impl\+::\+Vertex\+Buffer\+Layout}} $>$ \&layouts)
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a9119be1c187e8a951bbfb16790942ba0}\label{classvenom_1_1common_1_1_shader_pipeline_a9119be1c187e8a951bbfb16790942ba0} 
+void {\bfseries Add\+Vertex\+Buffer\+To\+Layout} (const vc\+::\+Vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}{Shader\+Pipeline\+Impl\+::\+Vertex\+Buffer\+Layout}} $>$ \&layouts)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a96e996f50fcbc70005a6d90f9261027b}\label{classvenom_1_1common_1_1_shader_pipeline_a96e996f50fcbc70005a6d90f9261027b} 
 void {\bfseries Set\+Line\+Width} (const float width)
@@ -38,6 +44,9 @@ void {\bfseries Set\+Depth\+Test} (const bool enable)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a17dc179ae3714ff844c223670ccf0daa}\label{classvenom_1_1common_1_1_shader_pipeline_a17dc179ae3714ff844c223670ccf0daa} 
 void {\bfseries Set\+Depth\+Write} (const bool enable)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_a38ca2d5519f12450cb1ce6e3212c0396}\label{classvenom_1_1common_1_1_shader_pipeline_a38ca2d5519f12450cb1ce6e3212c0396} 
+void {\bfseries Set\+Custom\+Multi\+Sampling\+Count} (const int samples)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
@@ -61,6 +70,15 @@ const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Obje
 bool {\bfseries Is\+Impl\+Initialized} () const
 \item 
 void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_ac4a1ea0d3e0efc32e7fde0e3f4d71ccc}\label{classvenom_1_1common_1_1_shader_pipeline_ac4a1ea0d3e0efc32e7fde0e3f4d71ccc} 
+static vc\+::\+Error {\bfseries Recompile\+All\+Shaders} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_shader_pipeline_ad1184a49463020cd02cb212f97446df8}\label{classvenom_1_1common_1_1_shader_pipeline_ad1184a49463020cd02cb212f97446df8} 
+static vc\+::\+Error {\bfseries Reload\+All\+Shaders} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}

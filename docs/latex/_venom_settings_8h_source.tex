@@ -13,25 +13,50 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ VENOM\_MAX\_BINDLESS\_TEXTURES\ 4096}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ VENOM\_MAX\_DYNAMIC\_TEXTURES\ 32}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ VENOM\_MAX\_LIGHTS\ 128}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_settings}{VenomSettings}}}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_settings}{VenomSettings}}();}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_settings}{\string~VenomSettings}}();}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_venom_settings}{VenomSettings}}\ *\ Get();}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsDebug()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \_\_isDebug;}
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ \}}
-\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ VENOM\_MAX\_DIRECTIONAL\_LIGHTS\ 4}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ VENOM\_MAX\_SPOT\_LIGHTS\ (VENOM\_MAX\_LIGHTS\ >>\ 2)\ }\textcolor{comment}{//\ 32}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ VENOM\_MAX\_POINT\_LIGHTS\ (VENOM\_MAX\_LIGHTS\ -\/\ VENOM\_MAX\_DIRECTIONAL\_LIGHTS\ -\/\ VENOM\_MAX\_SPOT\_LIGHTS)\ }\textcolor{comment}{//\ 92}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Only\ shadow-\/casting\ ones}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_MAX\_DIRECTIONAL\_LIGHTS\ VENOM\_MAX\_DIRECTIONAL\_LIGHTS}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Only\ shadow-\/casting\ ones}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_MAX\_SPOT\_LIGHTS\ (VENOM\_MAX\_SPOT\_LIGHTS\ >>\ 2)}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ Only\ shadow-\/casting\ ones}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_MAX\_POINT\_LIGHTS\ (VENOM\_MAX\_POINT\_LIGHTS\ >>\ 2)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_TOTAL\_CASCADES\ 3}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_DIMENSION\ (2048)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_DIRECTIONAL\_DIMENSION\ (VENOM\_CSM\_DIMENSION\ <<\ 2)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_POINT\_DIMENSION\ (VENOM\_CSM\_DIMENSION\ >>\ 1)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ VENOM\_CSM\_SPOT\_DIMENSION\ (VENOM\_CSM\_DIMENSION)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ VENOM\_BITS\_PER\_INT\ (sizeof(int)\ *\ 8)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ VENOM\_NUM\_FORWARD\_PLUS\_INTS\ ((int)((VENOM\_MAX\_LIGHTS\ +\ VENOM\_BITS\_PER\_INT\ -\/\ 1)\ /\ VENOM\_BITS\_PER\_INT))}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ CSM\ Total\ Cascades\ must\ be\ greater\ or\ equal\ than\ 1}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{static\_assert}(VENOM\_CSM\_TOTAL\_CASCADES\ >=\ 1,\ \textcolor{stringliteral}{"{}CSM\ Total\ Cascades\ must\ be\ greater\ or\ equal\ than\ 1"{}});}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ CSM\ Dimension\ lowest\ size\ must\ be\ greater\ or\ equal\ than\ 64}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{static\_assert}((VENOM\_CSM\_POINT\_DIMENSION\ >>\ (VENOM\_CSM\_TOTAL\_CASCADES\ -\/\ 1))\ >=\ 64,\ \textcolor{stringliteral}{"{}CSM\ lowest\ size\ must\ be\ greater\ or\ equal\ than\ 64"{}});}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ CSM\ Dimension\ must\ also\ be\ a\ power\ of\ 2}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{static\_assert}((VENOM\_CSM\_DIMENSION\ \&\ (VENOM\_CSM\_DIMENSION\ -\/\ 1))\ ==\ 0,\ \textcolor{stringliteral}{"{}CSM\ Dimension\ must\ be\ a\ power\ of\ 2"{}});}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ VenomSettings}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ VenomSettings();}
+\DoxyCodeLine{00051\ \ \ \ \ \string~VenomSettings();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ VenomSettings\ *\ Get();}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ uint64\_t\ GetTotalShadowMapGPUSize();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsDebug()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \_\_isDebug;}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ \}}
 
 \end{DoxyCode}

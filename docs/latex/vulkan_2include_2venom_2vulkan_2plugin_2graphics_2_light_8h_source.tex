@@ -1,0 +1,40 @@
+\doxysection{Light.\+h}
+\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_light_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_light_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Light.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Light.h}}
+\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_light_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_light_8h}{venom/common/plugin/graphics/Light.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_framebuffer_8h}{venom/vulkan/Framebuffer.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <venom/vulkan/plugin/graphics/RenderPass.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_deferred_trash_8h}{venom/common/DeferredTrash.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_descriptor_pool_8h}{venom/vulkan/DescriptorPool.h}}>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VulkanLight\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{vc::LightImpl}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ VulkanLight();}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~VulkanLight();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::Vector<Framebuffer>\ \&\ GetShadowMapFramebuffers(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ frameIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cascadeIndex)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (*\_\_shadowMapFramebuffers)[frameIndex][cascadeIndex];\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{DescriptorSet}}\ \&\ GetShadowMapDescriptorSet()\ \{\ \textcolor{keywordflow}{return}\ \_\_shadowMapDescriptorSet-\/>GetCurrentSet();\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00029\ \ \ \ \ vc::Error\ \_SetType(\textcolor{keyword}{const}\ vc::LightType\ type)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetDescriptorsFromCascade(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cascadeIndex)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ vc::Error\ \_\_CreateFramebuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ \&\ framebuffer,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{VulkanRenderPass}}\ *\ csmRenderPass,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ imageView,\ VkExtent2D\ \&\ extent);}
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_deferred_trash}{vc::DeferredTrash<vc::Array2D<vc::Vector<Framebuffer>}},\ VENOM\_MAX\_FRAMES\_IN\_FLIGHT,\ VENOM\_CSM\_TOTAL\_CASCADES>>\ \_\_shadowMapFramebuffers;}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{DescriptorSetGroup}}\ *\ \_\_shadowMapDescriptorSet;}
+\DoxyCodeLine{00037\ \ \ \ \ vc::Array<int,\ VENOM\_MAX\_FRAMES\_IN\_FLIGHT>\ \_\_lastCascades;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00040\ \}}
+
+\end{DoxyCode}

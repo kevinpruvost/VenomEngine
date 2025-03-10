@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 416.666656
+%%BoundingBox: 0 0 500 583.333313
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 1.200000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.857143 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 10 def
+/rows 14 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -176,9 +176,13 @@ boxfont setfont
 (venom::common::PluginObjectImpl) cw
 (venom::common::IPluginObject) cw
 (venom::common::CameraImpl) cw
+(venom::common::Context) cw
+(venom::common::LightImpl) cw
 (venom::common::MaterialImpl) cw
 (venom::common::MeshImpl) cw
 (venom::common::ModelImpl) cw
+(venom::common::RenderPassImpl) cw
+(venom::common::RenderTargetImpl) cw
 (venom::common::RenderingPipelineImpl) cw
 (venom::common::ShaderPipelineImpl) cw
 (venom::common::SkyboxImpl) cw
@@ -194,17 +198,24 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (venom::common::PluginObjectImpl) 0.000000 8.000000 box
+ (venom::common::PluginObjectImpl) 0.000000 12.000000 box
 dashed
- (venom::common::IPluginObject) 0.000000 9.000000 box
+ (venom::common::IPluginObject) 0.000000 13.000000 box
 solid
- (venom::common::CameraImpl) 1.000000 7.000000 box
+ (venom::common::CameraImpl) 1.000000 11.000000 box
+1.000000 11.000000 mark
+ (venom::common::Context) 1.000000 10.000000 box
+ (venom::common::LightImpl) 1.000000 9.000000 box
+1.000000 9.000000 mark
+ (venom::common::MaterialImpl) 1.000000 8.000000 box
+1.000000 8.000000 mark
+ (venom::common::MeshImpl) 1.000000 7.000000 box
 1.000000 7.000000 mark
- (venom::common::MaterialImpl) 1.000000 6.000000 box
+ (venom::common::ModelImpl) 1.000000 6.000000 box
 1.000000 6.000000 mark
- (venom::common::MeshImpl) 1.000000 5.000000 box
+ (venom::common::RenderPassImpl) 1.000000 5.000000 box
 1.000000 5.000000 mark
- (venom::common::ModelImpl) 1.000000 4.000000 box
+ (venom::common::RenderTargetImpl) 1.000000 4.000000 box
 1.000000 4.000000 mark
  (venom::common::RenderingPipelineImpl) 1.000000 3.000000 box
 1.000000 3.000000 mark
@@ -218,11 +229,19 @@ solid
 % ----- relations -----
 
 solid
-0 0.000000 8.000000 out
+0 0.000000 12.000000 out
 solid
-1 0.000000 9.000000 in
+1 0.000000 13.000000 in
 solid
-1 0.000000 7.250000 out
+1 0.000000 11.250000 out
+solid
+0 0.000000 11.500000 hedge
+solid
+0 0.000000 10.500000 hedge
+solid
+0 0.000000 9.500000 hedge
+solid
+0 0.000000 8.500000 hedge
 solid
 0 0.000000 7.500000 hedge
 solid
@@ -240,4 +259,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 8.000000 0.500000 vedge
+0.000000 12.000000 0.500000 vedge

@@ -15,11 +15,20 @@ Inheritance diagram for venom\+::common\+::Texture\+:\begin{figure}[H]
 \Hypertarget{classvenom_1_1common_1_1_texture_a1a554fd15b042cb317aa8c0b9c024bc9}\label{classvenom_1_1common_1_1_texture_a1a554fd15b042cb317aa8c0b9c024bc9} 
 {\bfseries Texture} (const char \texorpdfstring{$\ast$}{*}path, int id, char \texorpdfstring{$\ast$}{*}bgra\+Data, unsigned int width, unsigned int height)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_texture_af73caf27cc78b473371d7ebe3098b82e}\label{classvenom_1_1common_1_1_texture_af73caf27cc78b473371d7ebe3098b82e} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} \texorpdfstring{$\ast$}{*}res) const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a2e07bdb6257b48e0191e9c4180d9e6b9}\label{classvenom_1_1common_1_1_texture_a2e07bdb6257b48e0191e9c4180d9e6b9} 
+bool {\bfseries operator==} (const vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&res) const
+\item 
 \Hypertarget{classvenom_1_1common_1_1_texture_acab2521e37a752b13aa8267f63e28a35}\label{classvenom_1_1common_1_1_texture_acab2521e37a752b13aa8267f63e28a35} 
 vc\+::\+Error {\bfseries Load\+Image\+From\+File} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_texture_afeb26bc67ad1833f49644e693a0e7ec2}\label{classvenom_1_1common_1_1_texture_afeb26bc67ad1833f49644e693a0e7ec2} 
 vc\+::\+Error {\bfseries Load\+Image} (const char \texorpdfstring{$\ast$}{*}path, int id, char \texorpdfstring{$\ast$}{*}bgra\+Data, unsigned int width, unsigned int height)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a0823fedd4e92f0f6ca4be9493a54e9f5}\label{classvenom_1_1common_1_1_texture_a0823fedd4e92f0f6ca4be9493a54e9f5} 
+void {\bfseries Load\+Image\+From\+Cached\+Resource} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ res)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_texture_a61a11b31bda0c0e10e3d96c757a7b484}\label{classvenom_1_1common_1_1_texture_a61a11b31bda0c0e10e3d96c757a7b484} 
 vc\+::\+Error {\bfseries Init\+Depth\+Buffer} (int width, int height)
@@ -27,8 +36,47 @@ vc\+::\+Error {\bfseries Init\+Depth\+Buffer} (int width, int height)
 \Hypertarget{classvenom_1_1common_1_1_texture_a143b1fb593d3d14780696a4e044caed2}\label{classvenom_1_1common_1_1_texture_a143b1fb593d3d14780696a4e044caed2} 
 vc\+::\+Error {\bfseries Create\+Attachment} (int width, int height, int image\+Count, vc\+::\+Shader\+Vertex\+Format format)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_texture_aeee5d8b137b3dd8f7b937eaf1a2dc7d2}\label{classvenom_1_1common_1_1_texture_aeee5d8b137b3dd8f7b937eaf1a2dc7d2} 
+vc\+::\+Error {\bfseries Create\+Read\+Write\+Texture} (int width, int height, vc\+::\+Shader\+Vertex\+Format format, int mip\+Map\+Levels, int arra\+Layers=1)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_ac8fb53b7c9c3b8ed9c0690d2ba466403}\label{classvenom_1_1common_1_1_texture_ac8fb53b7c9c3b8ed9c0690d2ba466403} 
+vc\+::\+Error {\bfseries Create\+Shadow\+Maps} (int dimension)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_ac55550424a9125c5965e141b35043a7f}\label{classvenom_1_1common_1_1_texture_ac55550424a9125c5965e141b35043a7f} 
+vc\+::\+Error {\bfseries Create\+Shadow\+Cube\+Maps} (int dimension)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a0eb83abcb1d54f34c1ed0b3bbfc804a3}\label{classvenom_1_1common_1_1_texture_a0eb83abcb1d54f34c1ed0b3bbfc804a3} 
+vc\+::\+Error {\bfseries Set\+Memory\+Access} (const Texture\+Memory\+Access access)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_texture_a16bdc9cbe17379ce14dc5d7ac54f973c}\label{classvenom_1_1common_1_1_texture_a16bdc9cbe17379ce14dc5d7ac54f973c} 
 bool {\bfseries Has\+Texture} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_add03ed29727f13c3d02666a44ecdc889}\label{classvenom_1_1common_1_1_texture_add03ed29727f13c3d02666a44ecdc889} 
+const vc\+::\+String \& {\bfseries Get\+Name} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a703b2467ebd0a2aa7dfd0b515f9de641}\label{classvenom_1_1common_1_1_texture_a703b2467ebd0a2aa7dfd0b515f9de641} 
+const vc\+::\+String \& {\bfseries Get\+Short\+Name} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a1965463d68061e50125737d5e2d82c5b}\label{classvenom_1_1common_1_1_texture_a1965463d68061e50125737d5e2d82c5b} 
+int {\bfseries Get\+Width} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_aa158d7b223a4a2667f8f44d9ccbfa875}\label{classvenom_1_1common_1_1_texture_aa158d7b223a4a2667f8f44d9ccbfa875} 
+int {\bfseries Get\+Height} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_aa713cdb83b5226f45635877c80a0381f}\label{classvenom_1_1common_1_1_texture_aa713cdb83b5226f45635877c80a0381f} 
+const Texture\+Memory\+Access \& {\bfseries Get\+Memory\+Access} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_af3ef4a0735d28ded01f286ad3c2b9ffd}\label{classvenom_1_1common_1_1_texture_af3ef4a0735d28ded01f286ad3c2b9ffd} 
+const float \& {\bfseries Get\+Texture\+Peak\+Luminance} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a675f84e14a6fa3463ed6786d4e35c636}\label{classvenom_1_1common_1_1_texture_a675f84e14a6fa3463ed6786d4e35c636} 
+const float \& {\bfseries Get\+Texture\+Average\+Luminance} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_aa64b6d558924b73af6f40ef8d6e0b11e}\label{classvenom_1_1common_1_1_texture_aa64b6d558924b73af6f40ef8d6e0b11e} 
+vc\+::\+Error {\bfseries Save\+Image\+To\+File} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_a2850a3a85dfa1050c368e16861025bd8}\label{classvenom_1_1common_1_1_texture_a2850a3a85dfa1050c368e16861025bd8} 
+vc\+::\+Error {\bfseries Get\+GUITexture\+ID} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ptr\+To\+Texture\+Id) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
@@ -52,6 +100,12 @@ const \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Obje
 bool {\bfseries Is\+Impl\+Initialized} () const
 \item 
 void {\bfseries Destroy} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_texture_ac1dc4add6a9f02cb67ce9e57cdb5b42b}\label{classvenom_1_1common_1_1_texture_ac1dc4add6a9f02cb67ce9e57cdb5b42b} 
+static void {\bfseries Unload\+All\+Gui\+Textures} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}

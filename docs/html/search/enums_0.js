@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['guicoloreditflagsbits_0',['GUIColorEditFlagsBits',['../namespacevenom_1_1common.html#a17d594088219754043fc96872ea8b306',1,'venom::common']]],
-  ['guiwindowflagsbits_1',['GUIWindowFlagsBits',['../namespacevenom_1_1common.html#aef2effc6a375f3ea63bc718192f31806',1,'venom::common']]]
+  ['debugvisualizationmode_0',['DebugVisualizationMode',['../classvenom_1_1common_1_1_graphics_settings.html#a8aa0a37ec0087e2bfb94a13f03a23a1b',1,'venom::common::GraphicsSettings']]]
 ];

@@ -5,10 +5,22 @@
 /// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <venom/common/plugin/context/Context.h>
+#include <venom/common/Context.h>
 #include <venom/common/Log.h>
 
 #include <venom/common/plugin/graphics/GraphicsSettings.h>
+
+#include <venom/common/Config.h>
+
+// GLFW Context
+#if defined(VENOM_PLATFORM_DESKTOP) && !defined(VENOM_PLATFORM_IOS)
+#include <venom/common/context/ContextGLFW.h>
+#endif
+
+// Apple Context
+#if defined(VENOM_PLATFORM_APPLE)
+#include <venom/common/context/ContextApple.h>
+#endif
 
 namespace venom::common
 {
@@ -31,12 +43,12 @@ void ScreenVideoMode::SortRefreshRates()
 
 bool ScreenVideoMode::operator<(const ScreenVideoMode& mode) const
 {
-    return __width < mode.__width || __height < mode.__height;
+    return __width < mode.__width && __height < mode.__height;
 }
 
 bool ScreenVideoMode::operator>(const ScreenVideoMode& mode) const
 {
-    return __width > mode.__width || __height > mode.__height;
+    return __width > mode.__width;
 }
 
 bool ScreenVideoMode::operator==(const ScreenVideoMode& s) const
@@ -70,15 +82,17 @@ void Screen::AddVideoMode(int width, int height, int refreshRate)
 
 void Screen::SortVideoModes()
 {
-    std::sort(__modes.begin(), __modes.end(), std::greater<ScreenVideoMode>());
+    std::sort(__modes.begin(), __modes.end(), [](const auto & mode1, const auto & mode2) {
+        if (mode1.__width == mode2.__width) return mode1.__height > mode2.__height;
+        return mode1.__width > mode2.__width;
+    });
     for (auto & mode : __modes) {
         mode.SortRefreshRates();
     }
 }
 
 Context::Context()
-    : PluginObject(vc::PluginType::Context)
-    , __keyboardModifierState(0x0000)
+    : __keyboardModifierState(0x0000)
     , __mousePos{0.0, 0.0}
     , __mouseLastPos{0.0, 0.0}
     , __shouldClose(false)
@@ -97,10 +111,32 @@ Context::~Context()
     s_context = nullptr;
 }
 
+Context* Context::CreateContext()
+{
+    ContextType contextType = vc::Config::GetContextType();
+    Context * context = nullptr;
+    switch (contextType)
+    {
+#if defined(VENOM_PLATFORM_DESKTOP) && !defined(VENOM_PLATFORM_IOS)
+        case ContextType::GLFW:
+            context = new context::glfw::ContextGLFW();
+            break;
+#endif
+#if defined(VENOM_PLATFORM_APPLE)
+        case ContextType::Apple:
+            context = new context::apple::ContextApple();
+            break;
+#endif
+        default:
+            vc::Log::Error("Context::CreateContext() : Invalid context type");
+            break;
+    }
+    return context;
+}
+
 vc::Error Context::Init()
 {
     vc::Error err = _InitContext();
-
     // Set Initial pos
     _GetCursorPos(__mousePos);
     memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
@@ -166,4 +202,13 @@ void Context::PollEvents()
     _GetCursorPos(__mousePos);
 }
 
+vc::Error Context::Run()
+{
+    venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
+    while (!ShouldClose()) {
+        PollEvents();
+        _runLoopFunction();
+    }
+    return vc::Error::Success;
+}
 }

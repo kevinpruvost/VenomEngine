@@ -34,6 +34,8 @@ Inheritance diagram for venom\+::vulkan\+::Single\+Time\+Command\+Buffer\+:\begi
 \item 
 Vk\+Command\+Buffer {\bfseries Get\+Vk\+Command\+Buffer} () const
 \item 
+const Vk\+Command\+Buffer \texorpdfstring{$\ast$}{*} {\bfseries Get\+Vk\+Command\+Buffer\+Ptr} () const
+\item 
 {\bfseries operator Vk\+Command\+Buffer} () const
 \item 
 vc\+::\+Error {\bfseries Begin\+Command\+Buffer} (Vk\+Command\+Buffer\+Usage\+Flags flags=0)
@@ -44,6 +46,8 @@ void {\bfseries Reset} (Vk\+Command\+Buffer\+Reset\+Flags flags)
 \item 
 bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer_ab5196bc074c860ae3162fdb252cf99f4}{Bind\+Pipeline}} (Vk\+Pipeline pipeline, Vk\+Pipeline\+Bind\+Point bind\+Point)
 \begin{DoxyCompactList}\small\item\em Bind a pipeline to the command buffer. \end{DoxyCompactList}\item 
+bool {\bfseries Bind\+Pipeline} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}pipeline)
+\item 
 void {\bfseries Set\+Viewport} (const Vk\+Viewport \&viewport) const
 \item 
 void {\bfseries Set\+Scissor} (const Vk\+Rect2D \&scissor) const
@@ -68,9 +72,7 @@ void {\bfseries Copy\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_im
 \item 
 void {\bfseries Copy\+Swap\+Chain\+Image} (const Vk\+Image \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&get\+Image)
 \item 
-void {\bfseries Clear\+Attachments} (uint32\+\_\+t i, Vk\+Image\+Aspect\+Flags vk\+Image\+Aspect\+Flag\+Bits, Vk\+Clear\+Value vk\+Clear\+Value) const
-\item 
-void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, uint32\+\_\+t offset, uint32\+\_\+t size, const void \texorpdfstring{$\ast$}{*}p\+Values) const
+void {\bfseries Clear\+Attachments} (uint32\+\_\+t i, Vk\+Image\+Aspect\+Flags vk\+Image\+Aspect\+Flag\+Bits, Vk\+Clear\+Value vk\+Clear\+Value, const Vk\+Clear\+Rect \texorpdfstring{$\ast$}{*}rect, const int rect\+Number) const
 \item 
 void {\bfseries Copy\+Buffer\+To\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}} \&src\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&dst\+Image)
 \item 
@@ -81,6 +83,14 @@ void {\bfseries Transition\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1vulka
 void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&image, const Vk\+Image\+Layout old\+Layout, const Vk\+Image\+Layout new\+Layout)
 \item 
 void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&image, const Vk\+Image\+Layout new\+Layout)
+\item 
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+\item 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const T \texorpdfstring{$\ast$}{*}value, uint32 offset=0) const
+\item 
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+\item 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
 \item 
 void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, Vk\+Descriptor\+Set vk\+Descriptors) const
 \item 
@@ -97,7 +107,6 @@ void {\bfseries Wait\+For\+Queue} () const
 class {\bfseries Command\+Pool}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}}}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{venom\+::vulkan\+::\+Command\+Buffer}}}
 \begin{DoxyCompactItemize}
 \item 

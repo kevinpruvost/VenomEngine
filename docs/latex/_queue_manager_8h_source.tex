@@ -10,101 +10,102 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{\string~Queue}}();}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ SetQueueFamilyIndex(uint32\_t\ queueFamilyIndex);}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ SetQueueIndex(uint32\_t\ queueIndex);}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ InitVkQueue();}
-\DoxyCodeLine{00026\ \ \ \ \ uint32\_t\ GetQueueFamilyIndex()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00027\ \ \ \ \ uint32\_t\ GetQueueIndex()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00028\ \ \ \ \ VkQueue\ GetVkQueue()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00031\ \ \ \ \ uint32\_t\ \_\_queueFamilyIndex;}
-\DoxyCodeLine{00032\ \ \ \ \ uint32\_t\ \_\_queueIndex;}
-\DoxyCodeLine{00033\ \ \ \ \ VkQueue\ \_\_vkQueue;}
-\DoxyCodeLine{00034\ \};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{QueueManagerSettings}}}
-\DoxyCodeLine{00037\ \{}
-\DoxyCodeLine{00038\ \ \ \ \ uint32\_t\ graphicsQueueCount;}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{float}\ graphicsQueuePriority;}
-\DoxyCodeLine{00040\ \ \ \ \ uint32\_t\ computeQueueCount;}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{float}\ computeQueuePriority;}
-\DoxyCodeLine{00042\ \ \ \ \ uint32\_t\ transferQueueCount;}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{float}\ transferQueuePriority;}
-\DoxyCodeLine{00044\ \ \ \ \ uint32\_t\ sparseBindingQueueCount;}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{float}\ sparseBindingQueuePriority;}
-\DoxyCodeLine{00046\ \ \ \ \ uint32\_t\ protectedQueueCount;}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{float}\ protectedQueuePriority;}
-\DoxyCodeLine{00048\ \ \ \ \ uint32\_t\ videoDecodeQueueCount;}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{float}\ videoDecodeQueuePriority;}
-\DoxyCodeLine{00050\ \ \ \ \ uint32\_t\ videoEncodeQueueCount;}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{float}\ videoEncodeQueuePriority;}
-\DoxyCodeLine{00052\ \ \ \ \ uint32\_t\ presentQueueCount;}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{float}\ presentQueuePriority;}
-\DoxyCodeLine{00054\ \};}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}}
-\DoxyCodeLine{00057\ \{}
-\DoxyCodeLine{00058\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}();}
-\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{\string~QueueManager}}();}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Shouldn't\ be\ moved,\ belongs\ to\ VulkanApplication\ and\ nothing\ else}}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_manager}{QueueManager}}\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ vc::Error\ Init();}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ SetQueueManagerSettings(\textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{QueueManagerSettings}}\ \&\ settings);}
-\DoxyCodeLine{00069\ \ \ \ \ vc::Error\ SetLogicalDeviceQueueCreateInfos(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ \&\ queueFamilies,\ VkDeviceCreateInfo\ *\ createInfo);}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetGraphicsQueue();}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetComputeQueue();}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetTransferQueue();}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetSparseBindingQueue();}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetProtectedQueue();}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetVideoDecodeQueue();}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetVideoEncodeQueue();}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetPresentQueue();}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::vector<VkDeviceQueueCreateInfo>\ \&\ GetQueueCreateInfos();}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<uint32\_t>\ GetActiveQueueFamilyIndices();}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ Sharing\ mode}}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{static}\ VkSharingMode\ GetGraphicsTransferSharingMode();}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ VkSharingMode\ GetGraphicsComputeTransferSharingMode();}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{static}\ VkSharingMode\ GetGraphicsComputeSharingMode();}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00087\ \ \ \ \ vc::Error\ \_\_TryAddQueueCreateInfo(VkDeviceQueueCreateInfo\ *\ createInfo,\ std::vector<float>\ *\ queuePriorities,\ uint32\_t\ queueFamilyIndex,}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ uint32\_t\ *\ queueCount,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *\ queuePriority,\ \textcolor{keywordtype}{size\_t}\ maxQueueCount,}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QueueFamilyIndices\ \&\ queueFamilyIndices,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ *\ queue);}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ *\ \_\_queueFamilies;}
-\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{QueueManagerSettings}}\ \_\_settings;}
-\DoxyCodeLine{00094\ \ \ \ \ std::vector<std::vector<float>>\ \_\_queuePriorities;}
-\DoxyCodeLine{00095\ \ \ \ \ std::vector<VkDeviceQueueCreateInfo>\ \_\_queueCreateInfos;}
-\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_graphicsQueue;}
-\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_computeQueue;}
-\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_transferQueue;}
-\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_presentQueue;}
-\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_sparseBindingQueue;}
-\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_protectedQueue;}
-\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_videoDecodeQueue;}
-\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_videoEncodeQueue;}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ VkSharingMode\ \_\_graphicsTransferSharingMode;}
-\DoxyCodeLine{00106\ \ \ \ \ VkSharingMode\ \_\_graphicsComputeTransferSharingMode;}
-\DoxyCodeLine{00107\ \ \ \ \ VkSharingMode\ \_\_graphicsComputeSharingMode;}
-\DoxyCodeLine{00108\ \};}
-\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }Queue}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ Queue();}
+\DoxyCodeLine{00022\ \ \ \ \ \string~Queue();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ SetQueueFamilyIndex(uint32\_t\ queueFamilyIndex);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ SetQueueIndex(uint32\_t\ queueIndex);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ InitVkQueue();}
+\DoxyCodeLine{00027\ \ \ \ \ uint32\_t\ GetQueueFamilyIndex()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ \ \ \ \ uint32\_t\ GetQueueIndex()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ \ \ \ \ VkQueue\ GetVkQueue()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ uint32\_t\ \_\_queueFamilyIndex;}
+\DoxyCodeLine{00033\ \ \ \ \ uint32\_t\ \_\_queueIndex;}
+\DoxyCodeLine{00034\ \ \ \ \ VkQueue\ \_\_vkQueue;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{QueueManagerSettings}}}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ uint32\_t\ graphicsQueueCount;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{float}\ graphicsQueuePriority;}
+\DoxyCodeLine{00041\ \ \ \ \ uint32\_t\ computeQueueCount;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{float}\ computeQueuePriority;}
+\DoxyCodeLine{00043\ \ \ \ \ uint32\_t\ transferQueueCount;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{float}\ transferQueuePriority;}
+\DoxyCodeLine{00045\ \ \ \ \ uint32\_t\ sparseBindingQueueCount;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{float}\ sparseBindingQueuePriority;}
+\DoxyCodeLine{00047\ \ \ \ \ uint32\_t\ protectedQueueCount;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{float}\ protectedQueuePriority;}
+\DoxyCodeLine{00049\ \ \ \ \ uint32\_t\ videoDecodeQueueCount;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{float}\ videoDecodeQueuePriority;}
+\DoxyCodeLine{00051\ \ \ \ \ uint32\_t\ videoEncodeQueueCount;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{float}\ videoEncodeQueuePriority;}
+\DoxyCodeLine{00053\ \ \ \ \ uint32\_t\ presentQueueCount;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{float}\ presentQueuePriority;}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }QueueManager}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ QueueManager();}
+\DoxyCodeLine{00061\ \ \ \ \ \string~QueueManager();}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ Shouldn't\ be\ moved,\ belongs\ to\ VulkanApplication\ and\ nothing\ else}}
+\DoxyCodeLine{00063\ \ \ \ \ QueueManager(\textcolor{keyword}{const}\ QueueManager\ \&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00064\ \ \ \ \ QueueManager\ \&\ operator=(\textcolor{keyword}{const}\ QueueManager\ \&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00065\ \ \ \ \ QueueManager(QueueManager\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00066\ \ \ \ \ QueueManager\ \&\ operator=(QueueManager\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ vc::Error\ Init();}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ SetQueueManagerSettings(\textcolor{keyword}{const}\ \mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{QueueManagerSettings}}\ \&\ settings);}
+\DoxyCodeLine{00070\ \ \ \ \ vc::Error\ SetLogicalDeviceQueueCreateInfos(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ \&\ queueFamilies,\ VkDeviceCreateInfo\ *\ createInfo);}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetGraphicsQueue();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetComputeQueue();}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetTransferQueue();}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetSparseBindingQueue();}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetProtectedQueue();}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetVideoDecodeQueue();}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetVideoEncodeQueue();}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \&\ GetPresentQueue();}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vc::Vector<VkDeviceQueueCreateInfo>\ \&\ GetQueueCreateInfos();}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ vc::Vector<uint32\_t>\ GetActiveQueueFamilyIndices();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{//\ Sharing\ mode}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ VkSharingMode\ GetGraphicsTransferSharingMode();}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{static}\ VkSharingMode\ GetGraphicsComputeTransferSharingMode();}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ VkSharingMode\ GetGraphicsComputeSharingMode();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \ \ vc::Error\ \_\_TryAddQueueCreateInfo(VkDeviceQueueCreateInfo\ *\ createInfo,\ vc::Vector<float>\ *\ queuePriorities,\ uint32\_t\ queueFamilyIndex,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ uint32\_t\ *\ queueCount,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *\ queuePriority,\ \textcolor{keywordtype}{size\_t}\ maxQueueCount,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QueueFamilyIndices\ \&\ queueFamilyIndices,\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ *\ queue);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ *\ \_\_queueFamilies;}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1vulkan_1_1_queue_manager_settings}{QueueManagerSettings}}\ \_\_settings;}
+\DoxyCodeLine{00095\ \ \ \ \ vc::Vector<vc::Vector<float>>\ \_\_queuePriorities;}
+\DoxyCodeLine{00096\ \ \ \ \ vc::Vector<VkDeviceQueueCreateInfo>\ \_\_queueCreateInfos;}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_graphicsQueue;}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_computeQueue;}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_transferQueue;}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_presentQueue;}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_sparseBindingQueue;}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_protectedQueue;}
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_videoDecodeQueue;}
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ \_\_videoEncodeQueue;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ VkSharingMode\ \_\_graphicsTransferSharingMode;}
+\DoxyCodeLine{00107\ \ \ \ \ VkSharingMode\ \_\_graphicsComputeTransferSharingMode;}
+\DoxyCodeLine{00108\ \ \ \ \ VkSharingMode\ \_\_graphicsComputeSharingMode;}
+\DoxyCodeLine{00109\ \};}
 \DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ \}}
 
 \end{DoxyCode}

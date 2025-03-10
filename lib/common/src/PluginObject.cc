@@ -92,6 +92,7 @@ void PluginObjectImpl::DecRefCount()
 PluginObject::PluginObject(const PluginType type)
     : __type(type)
 {
+    auto test = VenomEngine::GetInstance();
     VenomEngine::GetInstance()->pluginManager->AddPluginObject(__type, this);
 }
 

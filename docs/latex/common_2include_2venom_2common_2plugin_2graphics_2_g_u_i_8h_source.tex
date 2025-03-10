@@ -9,94 +9,295 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_matrix_8h}{venom/common/math/Matrix.h}}>}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_g_u_i___enum_8h}{venom/common/plugin/graphics/GUI\_Enum.h}}>}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }GraphicsApplication;}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ void(*GUIDrawCallback)();}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_render_target_8h}{venom/common/plugin/graphics/RenderTarget.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ Check\ https://fonts.google.com/icons?icon.set=Material+Symbols}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <IconsMaterialSymbols.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}();}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{\string~GUI}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ SetGraphicsApplication(\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ app);}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ Initialize()\ =\ 0;}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ Reset()\ =\ 0;}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DrawCallback()\ \{\ \textcolor{keywordflow}{if}\ (s\_guiDrawCallback)\ s\_guiDrawCallback();\ \}}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetGUIDrawCallback(GUIDrawCallback\ guiDrawCallback)\ \{\ s\_guiDrawCallback\ =\ guiDrawCallback;\ \}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Render()\ \{\ DrawCallback();\ s\_gui-\/>\_Render();\ \}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ *\ Get()\ \{\ \textcolor{keywordflow}{return}\ s\_gui;\ \}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ NewFrame()\ \{\ s\_gui-\/>\_NewFrame();\ \}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open\ =\ \textcolor{keyword}{nullptr},\ GUIWindowFlags\ flags\ =\ 0)\ \{\ s\_gui-\/>\_Begin(name,\ p\_open,\ flags);\ \}}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ End()\ \{\ s\_gui-\/>\_End();\ \}}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \{\ va\_list\ args;\ va\_start(args,\ fmt);\ s\_gui-\/>\_Text(fmt,\ args);\ va\_end(args);\ \}}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \{\ va\_list\ args;\ va\_start(args,\ fmt);\ s\_gui-\/>\_TextColored(col,\ fmt,\ args);\ va\_end(args);\ \}}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \{\ va\_list\ args;\ va\_start(args,\ fmt);\ s\_gui-\/>\_LabelText(label,\ fmt,\ args);\ va\_end(args);\ \}}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format\ =\ \textcolor{stringliteral}{"{}\%.3f"{}},\ \textcolor{keywordtype}{float}\ power\ =\ 1.0f)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_SliderFloat(label,\ v,\ v\_min,\ v\_max,\ format,\ power);\ \}}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format\ =\ \textcolor{stringliteral}{"{}\%.3f"{}},\ \textcolor{keywordtype}{float}\ power\ =\ 1.0f)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_SliderFloat3(label,\ v,\ v\_min,\ v\_max,\ format,\ power);\ \}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_model}{Model}};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ void(*GUIDrawCallback)();}
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *\ GUIViewport;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ GUI\ :\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ GUI();}
+\DoxyCodeLine{00036\ \ \ \ \ \string~GUI()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetGraphicsApplication(\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ app);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ vc::Error\ Initialize();}
+\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ Reset();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DrawCallback()\ \{\ \textcolor{keywordflow}{if}\ (s\_guiDrawCallback)\ s\_guiDrawCallback();\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetGUIDrawCallback(GUIDrawCallback\ guiDrawCallback)\ \{\ s\_guiDrawCallback\ =\ guiDrawCallback;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ToggleGUIDraw()\ \{\ s\_guiDraw\ =\ !s\_guiDraw;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsGUIDraw()\ \{\ \textcolor{keywordflow}{return}\ s\_guiDraw;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \&\ IsGUIDrawRef()\ \{\ \textcolor{keywordflow}{return}\ s\_guiDraw;\ \}}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ GUIColorEditFlags\ flags\ =\ 0)\ \{\ s\_gui-\/>\_ColorEdit3(label,\ col,\ flags);\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ Render();}
 \DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\ =\ vcm::Vec2(0,\ 0))\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_Button(label,\ size);\ \}}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_Checkbox(label,\ v);\ \}}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg\ =\ vcm::Vec2(-\/1,\ 0),\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay\ =\ \textcolor{keyword}{nullptr})\ \{\ s\_gui-\/>\_ProgressBar(fraction,\ size\_arg,\ overlay);\ \}}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ GUISelectableFlags\ flags\ =\ 0,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\ =\ vcm::Vec2(0,\ 0))\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_Selectable(label,\ selected,\ flags,\ size);\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUI\ *\ Get()\ \{\ \textcolor{keywordflow}{return}\ s\_gui;\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize,\ \textcolor{keyword}{const}\ uint16\_t\ *\ glyphRanges);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize);}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ClearFonts();}
 \DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ GUIComboFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginCombo(label,\ preview\_value,\ flags);\ \}}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndCombo()\ \{\ s\_gui-\/>\_EndCombo();\ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetItemDefaultFocus()\ \{\ s\_gui-\/>\_SetItemDefaultFocus();\ \}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ spacing\ =\ -\/1.0f)\ \{\ s\_gui-\/>\_SameLine(offset\_from\_start\_x,\ spacing);\ \}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_NewFrame()\ =\ 0;}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open,\ GUIWindowFlags\ flags)\ =\ 0;}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_End()\ =\ 0;}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ =\ 0;}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ =\ 0;}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ =\ 0;}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ \textcolor{keywordtype}{float}\ power)\ =\ 0;}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ \textcolor{keywordtype}{float}\ power)\ =\ 0;}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ GUIColorEditFlags\ flags)\ =\ 0;}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ =\ 0;}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ =\ 0;}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay)\ =\ 0;}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ GUISelectableFlags\ flags,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ =\ 0;}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ GUIComboFlags\ flags)\ =\ 0;}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndCombo()\ =\ 0;}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetItemDefaultFocus()\ =\ 0;}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x,\ \textcolor{keywordtype}{float}\ spacing)\ =\ 0;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetNextWindowPos(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ pos,\ GUICond\ cond\ =\ GUICondBits::GUICond\_None,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ pivot\ =\ vcm::Vec2(0,\ 0))\ \{\ s\_gui-\/>\_SetNextWindowPos(pos,\ cond,\ pivot);\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetNextWindowSize(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUICond\ cond\ =\ GUICondBits::GUICond\_None)\ \{\ s\_gui-\/>\_SetNextWindowSize(size,\ cond);\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetNextWindowViewport(GUIViewport\ viewport)\ \{\ s\_gui-\/>\_SetNextWindowViewport(viewport);\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ vcm::Vec2\ GetContentRegionAvail()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_GetContentRegionAvail();\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIViewport\ GetMainViewport()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_GetMainViewport();\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ vcm::Vec2\ GetWindowSize()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_GetWindowSize();\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ vcm::Vec2\ GetWindowPos()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_GetWindowPos();\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ NewFrame()\ \{\ s\_gui-\/>\_NewFrame();\ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open\ =\ \textcolor{keyword}{nullptr},\ GUIWindowFlags\ flags\ =\ 0)\ \{\ s\_gui-\/>\_Begin(name,\ p\_open,\ flags);\ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ End()\ \{\ s\_gui-\/>\_End();\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \{\ va\_list\ args;\ va\_start(args,\ fmt);\ s\_gui-\/>\_Text(fmt,\ args);\ va\_end(args);\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \{\ va\_list\ args;\ va\_start(args,\ fmt);\ s\_gui-\/>\_TextColored(col,\ fmt,\ args);\ va\_end(args);\ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \{\ va\_list\ args;\ va\_start(args,\ fmt);\ s\_gui-\/>\_LabelText(label,\ fmt,\ args);\ va\_end(args);\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Image(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ *\ texture,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ \textcolor{keywordtype}{bool}\ centering\ =\ \textcolor{keyword}{true})\ \{\ s\_gui-\/>\_Image(texture,\ size,\ centering);\ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Image(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_target}{vc::RenderTarget}}\ *\ renderTarget,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ \textcolor{keywordtype}{bool}\ centering\ =\ \textcolor{keyword}{true})\ \{\ s\_gui-\/>\_Image(renderTarget-\/>GetTexture(),\ size,\ centering);\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ InputText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{char}*\ buf,\ \textcolor{keywordtype}{size\_t}\ buf\_size,\ GUIInputTextFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_InputText(label,\ buf,\ buf\_size,\ flags);\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ TreeNode(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_TreeNode(label);\ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ TreePop()\ \{\ s\_gui-\/>\_TreePop();\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ TreePush(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id)\ \{\ s\_gui-\/>\_TreePush(str\_id);\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SeparatorText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ \{\ s\_gui-\/>\_SeparatorText(text);\ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Separator()\ \{\ s\_gui-\/>\_Separator();\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Spacing()\ \{\ s\_gui-\/>\_Spacing();\ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Dummy(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \{\ s\_gui-\/>\_Dummy(size);\ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format\ =\ \textcolor{stringliteral}{"{}\%.3f"{}})\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_SliderFloat(label,\ v,\ v\_min,\ v\_max,\ format);\ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format\ =\ \textcolor{stringliteral}{"{}\%.3f"{}})\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_SliderFloat3(label,\ v,\ v\_min,\ v\_max,\ format);\ \}}
 \DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Render()\ =\ 0;}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ \_app;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ InputFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ step\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ step\_fast\ =\ 0.0f,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format\ =\ \textcolor{stringliteral}{"{}\%.3f"{}},\ GUIColorEditFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_InputFloat(label,\ v,\ step,\ step\_fast,\ format,\ flags);\ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ InputFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format\ =\ \textcolor{stringliteral}{"{}\%.3f"{}},\ GUIColorEditFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_InputFloat3(label,\ v,\ format,\ flags);\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ GUIColorEditFlags\ flags\ =\ 0)\ \{\ s\_gui-\/>\_ColorEdit3(label,\ col,\ flags);\ \}}
 \DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ *\ s\_gui;}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{static}\ GUIDrawCallback\ s\_guiDrawCallback;}
-\DoxyCodeLine{00100\ \};}
-\DoxyCodeLine{00101\ \}}
-\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ CollapsingHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ GUITreeNodeFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_CollapsingHeader(label,\ flags);\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\ =\ vcm::Vec2(0,\ 0))\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_Button(label,\ size);\ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_Checkbox(label,\ v);\ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg\ =\ vcm::Vec2(-\/1,\ 0),\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay\ =\ \textcolor{keyword}{nullptr})\ \{\ s\_gui-\/>\_ProgressBar(fraction,\ size\_arg,\ overlay);\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ GUISelectableFlags\ flags\ =\ 0,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\ =\ vcm::Vec2(0,\ 0))\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_Selectable(label,\ selected,\ flags,\ size);\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ GUIComboFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginCombo(label,\ preview\_value,\ flags);\ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndCombo()\ \{\ s\_gui-\/>\_EndCombo();\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginMenu(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ enabled\ =\ \textcolor{keyword}{true})\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginMenu(label,\ enabled);\ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndMenu()\ \{\ s\_gui-\/>\_EndMenu();\ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginMainMenuBar()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginMainMenuBar();\ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndMainMenuBar()\ \{\ s\_gui-\/>\_EndMainMenuBar();\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginMenuBar()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginMenuBar();\ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndMenuBar()\ \{\ s\_gui-\/>\_EndMenuBar();\ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginChild(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUIChildFlags\ childFlags,\ GUIWindowFlags\ extraFlags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginChild(str\_id,\ size,\ childFlags,\ extraFlags);\ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndChild()\ \{\ s\_gui-\/>\_EndChild();\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ MenuItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text\ =\ \textcolor{keyword}{nullptr})\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_MenuItem(str,\ text);\ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetNextItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ \{\ s\_gui-\/>\_SetNextItemWidth(item\_width);\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetItemDefaultFocus()\ \{\ s\_gui-\/>\_SetItemDefaultFocus();\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ spacing\ =\ -\/1.0f)\ \{\ s\_gui-\/>\_SameLine(offset\_from\_start\_x,\ spacing);\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ \{\ s\_gui-\/>\_PushItemWidth(item\_width);\ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PopItemWidth()\ \{\ s\_gui-\/>\_PopItemWidth();\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushButtonTextAlign(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ padding)\ \{\ s\_gui-\/>\_PushButtonTextAlign(padding);\ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushWindowPadding(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ padding)\ \{\ s\_gui-\/>\_PushWindowPadding(padding);\ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PopStyleVar()\ \{\ s\_gui-\/>\_PopStyleVar();\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIId\ DockSpace(GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUIDockNodeFlags\ flags)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_DockSpace(\textcolor{keywordtype}{id},\ size,\ flags);\ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIId\ DockSpace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUIDockNodeFlags\ flags)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_DockSpace(\textcolor{keywordtype}{id},\ size,\ flags);\ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIId\ DockSpaceOverViewport()\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_DockSpaceOverViewport();\ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIId\ DockSpaceAddNode(GUIId\ \textcolor{keywordtype}{id},\ GUIDockNodeFlags\ flags)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_DockSpaceAddNode(\textcolor{keywordtype}{id},\ flags);\ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DockSpaceRemoveNode(GUIId\ \textcolor{keywordtype}{id})\ \{\ s\_gui-\/>\_DockSpaceRemoveNode(\textcolor{keywordtype}{id});\ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DockSpaceSetNodeSize(GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \{\ s\_gui-\/>\_DockSpaceSetNodeSize(\textcolor{keywordtype}{id},\ size);\ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIId\ DockSpaceSplitNode(GUIId\ \textcolor{keywordtype}{id},\ GUIDir\ split\_dir,\ \textcolor{keywordtype}{float}\ size\_ratio,\ GUIId\ *\ out\_id\_at\_dir,\ GUIId\ *\ out\_id\_at\_opposite\_dir)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_DockSpaceSplitNode(\textcolor{keywordtype}{id},\ split\_dir,\ size\_ratio,\ out\_id\_at\_dir,\ out\_id\_at\_opposite\_dir);\ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DockWindow(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIId\ \textcolor{keywordtype}{id})\ \{\ s\_gui-\/>\_DockWindow(str\_id,\ \textcolor{keywordtype}{id});\ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DockFinish(GUIId\ \textcolor{keywordtype}{id})\ \{\ s\_gui-\/>\_DockFinish(\textcolor{keywordtype}{id});\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ OpenPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIPopupFlags\ flags\ =\ 0)\ \{\ s\_gui-\/>\_OpenPopup(str\_id,\ flags);\ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIWindowFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginPopup(str\_id,\ flags);\ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginPopupModal(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open\ =\ \textcolor{keyword}{nullptr},\ GUIWindowFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginPopupModal(name,\ p\_open,\ flags);\ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ BeginPopupContextItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id\ =\ \textcolor{keyword}{nullptr},\ GUIPopupFlags\ flags\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_BeginPopupContextItem(str\_id,\ flags);\ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ EndPopup()\ \{\ s\_gui-\/>\_EndPopup();\ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ CloseCurrentPopup()\ \{\ s\_gui-\/>\_CloseCurrentPopup();\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isFirstFrame();}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isFirstInitialization();}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ GUIId\ GetID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id)\ \{\ \textcolor{keywordflow}{return}\ s\_gui-\/>\_GetID(str\_id);\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Test()\ \{\ s\_gui-\/>\_Test();\ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GraphicsSettingsCollaspingHeader();}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ EntitiesListCollapsingHeader();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ EditableTexture(\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ *\ texture,\ vc::String\ \&\ path);}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ EditableModel(\mbox{\hyperlink{classvenom_1_1common_1_1_model}{vc::Model}}\ *\ model,\ vc::String\ \&\ path);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i_ae42ab54b4607910ee6ee8a5f439addf3}{EntityGuizmo}}(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ renderingSize);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_EntityPropertiesWindow();}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_EntityGuizmo(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ renderingSize);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EntityGuizmo(\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{vc::Transform3D}}\ *\ transform3D,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ renderingSize)\ =\ 0;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_Initialize()\ =\ 0;}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_Reset()\ =\ 0;}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize,\ \textcolor{keyword}{const}\ uint16\_t\ *\ glyphRanges)\ =\ 0;}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize)\ =\ 0;}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetNextWindowPos(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ pos,\ GUICond\ cond,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ pivot)\ =\ 0;}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetNextWindowSize(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUICond\ cond)\ =\ 0;}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetNextWindowViewport(GUIViewport\ viewport)\ =\ 0;}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{virtual}\ vcm::Vec2\ \_GetContentRegionAvail()\ =\ 0;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{virtual}\ vcm::Vec2\ \_GetWindowSize()\ =\ 0;}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{virtual}\ vcm::Vec2\ \_GetWindowPos()\ =\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIViewport\ \_GetMainViewport()\ =\ 0;}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_NewFrame()\ =\ 0;}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open,\ GUIWindowFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_End()\ =\ 0;}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ =\ 0;}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ =\ 0;}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ =\ 0;}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Image(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ *\ texture,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ \textcolor{keywordtype}{bool}\ centering)\ =\ 0;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_InputText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{char}*\ buf,\ \textcolor{keywordtype}{size\_t}\ buf\_size,\ GUIInputTextFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_TreeNode(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label)\ =\ 0;}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_TreePop()\ =\ 0;}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_TreePush(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id)\ =\ 0;}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SeparatorText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ =\ 0;}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Separator()\ =\ 0;}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Spacing()\ =\ 0;}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Dummy(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ =\ 0;}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format)\ =\ 0;}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format)\ =\ 0;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_InputFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ step,\ \textcolor{keywordtype}{float}\ step\_fast,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ GUIColorEditFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_InputFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ GUIColorEditFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ GUIColorEditFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_CollapsingHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ GUITreeNodeFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ =\ 0;}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ =\ 0;}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay)\ =\ 0;}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ GUISelectableFlags\ flags,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ =\ 0;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ GUIComboFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndCombo()\ =\ 0;}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginMenu(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ enabled)\ =\ 0;}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndMenu()\ =\ 0;}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginMainMenuBar()\ =\ 0;}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndMainMenuBar()\ =\ 0;}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginMenuBar()\ =\ 0;}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndMenuBar()\ =\ 0;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginChild(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUIChildFlags\ childFlags,\ GUIWindowFlags\ extra\_flags)\ =\ 0;}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndChild()\ =\ 0;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_MenuItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ =\ 0;}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetNextItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ =\ 0;}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetItemDefaultFocus()\ =\ 0;}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x,\ \textcolor{keywordtype}{float}\ spacing)\ =\ 0;}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_PushItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ =\ 0;}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_PopItemWidth()\ =\ 0;}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_PushButtonTextAlign(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ padding)\ =\ 0;}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_PushWindowPadding(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ padding)\ =\ 0;}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_PopStyleVar()\ =\ 0;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIId\ \_DockSpace(GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUIDockNodeFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIId\ \_DockSpace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ GUIDockNodeFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIId\ \_DockSpaceOverViewport()\ =\ 0;}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIId\ \_DockSpaceAddNode(GUIId\ \textcolor{keywordtype}{id},\ GUIDockNodeFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_DockSpaceRemoveNode(GUIId\ \textcolor{keywordtype}{id})\ =\ 0;}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_DockSpaceSetNodeSize(GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ =\ 0;}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIId\ \_DockSpaceSplitNode(GUIId\ \textcolor{keywordtype}{id},\ GUIDir\ split\_dir,\ \textcolor{keywordtype}{float}\ size\_ratio,\ GUIId\ *\ out\_id\_at\_dir,\ GUIId\ *\ out\_id\_at\_opposite\_dir)\ =\ 0;}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_DockWindow(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIId\ \textcolor{keywordtype}{id})\ =\ 0;}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_DockFinish(GUIId\ \textcolor{keywordtype}{id})\ =\ 0;}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_OpenPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIPopupFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIWindowFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginPopupModal(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open,\ GUIWindowFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_BeginPopupContextItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id,\ GUIPopupFlags\ flags)\ =\ 0;}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_EndPopup()\ =\ 0;}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_CloseCurrentPopup()\ =\ 0;}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keyword}{virtual}\ GUIId\ \_GetID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str\_id)\ =\ 0;}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Render()\ =\ 0;}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_PreUpdate()\ =\ 0;}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_Test()\ =\ 0;}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00281\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{GraphicsApplication}}\ *\ \_app;}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_g_u_i_1_1_font_data}{FontData}}}
+\DoxyCodeLine{00283\ \ \ \ \ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vc::String\ path;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ size;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint16\_t\ *\ glyphRanges;}
+\DoxyCodeLine{00287\ \ \ \ \ \};}
+\DoxyCodeLine{00288\ \ \ \ \ vc::Vector<FontData>\ \_fonts;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00295\ \ \ \ \ vc::Error\ \_\_PreUpdate();}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_firstInit;}
+\DoxyCodeLine{00299\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{static}\ GUI\ *\ s\_gui;}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_firstFrame;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keyword}{static}\ GUIDrawCallback\ s\_guiDrawCallback;}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ s\_guiDraw;}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }VenomEngine;}
+\DoxyCodeLine{00308\ \};}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ \}}
 
 \end{DoxyCode}

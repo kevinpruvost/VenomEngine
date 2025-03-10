@@ -29,48 +29,9 @@ void DebugApplication::DestroyDebug()
 {
 }
 
-static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
-    VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-    VkDebugUtilsMessageTypeFlagsEXT messageType,
-    const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
-    void* pUserData) {
-
-    switch (messageSeverity)
-    {
-    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-        vc::Log::Error("[VK_VALIDATION_LAYER] ERROR: %s", pCallbackData->pMessage);
-        vc::Log::LogToFile("[VK_VALIDATION_LAYER] ERROR: %s", pCallbackData->pMessage);
-        break;
-    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-        vc::Log::Print("[VK_VALIDATION_LAYER] WARNING: %s", pCallbackData->pMessage);
-        vc::Log::LogToFile("[VK_VALIDATION_LAYER] WARNING: %s", pCallbackData->pMessage);
-        break;
-    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
-        vc::Log::LogToFile("[VK_VALIDATION_LAYER] INFO: %s", pCallbackData->pMessage);
-    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
-        vc::Log::LogToFile("[VK_VALIDATION_LAYER] VERBOSE: %s", pCallbackData->pMessage);
-    default: break;
-    }
-    return VK_FALSE;
-}
-
-void DebugApplication::_SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* createInfos)
-{
-}
-
-template <>
-void DebugApplication::_SetCreateInfoValidationLayers(VkDeviceCreateInfo* createInfos)
-{
-}
-
 vc::Error DebugApplication::_PostInstance_SetDebugParameters()
 {
     return vc::Error::Success;
-}
-
-PFN_vkDebugUtilsMessengerCallbackEXT DebugApplication::_GetDebugCallback()
-{
-    return debugCallback;
 }
 
 double DebugApplication::_GetTheoreticalFPS(double fps)

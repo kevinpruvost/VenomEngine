@@ -5,12 +5,16 @@ project(VenomCommon VERSION 1.0)
 
 # Define the static library target
 file(GLOB_RECURSE venom_common_srcs
-    "src/*.cc")
+    "src/*.cc"
+    "src/**/*.cc"
+)
 if (APPLE)
     # Add Objective-C++ source files
     file(GLOB_RECURSE venom_common_srcs_apple
         "src/*.mm"
         "src/*.m"
+        "src/**/*.mm"
+        "src/**/*.m"
     )
 endif()
 file(GLOB_RECURSE venom_common_hdrs 
@@ -19,21 +23,30 @@ file(GLOB_RECURSE venom_common_hdrs
 )
 
 add_library(${PROJECT_NAME} SHARED
-        ${venom_common_srcs} ${venom_common_hdrs}
-        include/venom/common/plugin/graphics/MaterialComponent.h)
+        ${venom_common_srcs}
+        ${venom_common_srcs_apple}
+        ${venom_common_hdrs}
+)
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
-target_link_libraries(${PROJECT_NAME}
+set(venom_common_libraries
     assimp
-    glfw
     glm
     stb_image
     flecs::flecs
     OpenEXR::OpenEXR
     openvdb_static
     MikkTSpace
-    nfd
     IconFontCppHeaders
+)
+
+# Skip GLFW & NFD on Iphone
+if ((NOT APPLE) OR (NOT CMAKE_SYSTEM_NAME MATCHES "iOS"))
+    set(venom_common_libraries ${venom_common_libraries} glfw nfd)
+endif ()
+
+target_link_libraries(${PROJECT_NAME}
+    ${venom_common_libraries}
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
@@ -50,36 +63,39 @@ if (APPLE)
     find_library(CORESERVICES_FRAMEWORK CoreServices)
     find_library(FOUNDATION_FRAMEWORK Foundation)
 
-    set(PROJECT_NAME_PACKAGE ${PROJECT_NAME}_Package)
+    set(PROJECT_NAME_PACKAGE ${PROJECT_NAME})
 
-    add_library(${PROJECT_NAME_PACKAGE} SHARED
-        ${venom_common_srcs}
-        ${venom_common_srcs_apple}
-        ${venom_common_hdrs}
-    )
+#    add_library(${PROJECT_NAME_PACKAGE} SHARED
+#        ${venom_common_srcs}
+#        ${venom_common_srcs_apple}
+#        ${venom_common_hdrs}
+#    )
 
     set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
         PREFIX ""
     )
 
-    target_link_libraries(${PROJECT_NAME_PACKAGE}
-        assimp
-        glfw
-        glm
-        stb_image
-        flecs::flecs
-        OpenEXR::OpenEXR
-        openvdb_static
-        MikkTSpace
-        nfd
-    )
+#    target_link_libraries(${PROJECT_NAME_PACKAGE}
+#        ${venom_common_libraries}
+#    )
+#
+#    target_compile_definitions(${PROJECT_NAME_PACKAGE} PRIVATE
+#        VENOM_COMMON_EXPORTS
+#        VENOM_PACKAGE
+#    )
 
-    target_compile_definitions(${PROJECT_NAME_PACKAGE} PRIVATE
-        VENOM_COMMON_EXPORTS
-    )
+#    target_include_directories(${PROJECT_NAME_PACKAGE} PUBLIC
+#        "include/"
+#    )
 
-    target_include_directories(${PROJECT_NAME_PACKAGE} PUBLIC
-        "include/"
+    set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
+        BUNDLE True
+        MACOSX_RPATH ON
+        INSTALL_RPATH "@executable_path/../Frameworks"
+        MACOSX_BUNDLE_GUI_IDENTIFIER pruvostkevin.com.${PROJECT_NAME_PACKAGE}
+        MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME_PACKAGE}
+        MACOSX_BUNDLE_BUNDLE_VERSION "0.1"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "0.1"
     )
 
     target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreFoundation")

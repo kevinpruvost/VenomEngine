@@ -7,12 +7,13 @@
 ///
 #pragma once
 
+#include <venom/common/Error.h>
 #include <venom/common/Export.h>
 #include <venom/common/String.h>
 #include <venom/common/Containers.h>
 
 #if defined(__APPLE__) && defined(VENOM_PACKAGE)
-String getResourcePath();
+vc::String getResourcePath();
 #endif
 
 namespace venom

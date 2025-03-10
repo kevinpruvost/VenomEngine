@@ -28,12 +28,12 @@ void {\bfseries Unload\+DLL} () const
 \item 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_ab11a2004d9fc1ff8c3d3379a6fc7d06b}{Create}} ()
 \begin{DoxyCompactList}\small\item\em Forces user to use dynamic allocation. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_ac58179ea24ad52255f309ad4b52e1435}{Get\+From\+Cache}} (const std\+::string \&path)
+static \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a5b8ed68b2ba76933b05fcbeb5cd58ddb}{Get\+From\+Cache}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Searched for \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} in cache, if not found creates a new one. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Return\+Type , typename... Args$>$ }\\Return\+Type(\texorpdfstring{$\ast$}{*})(Args...) \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{Get\+Function}} (const char \texorpdfstring{$\ast$}{*}name)
+{\footnotesize template$<$typename Return\+Type, typename... Args$>$ }\\Return\+Type(\texorpdfstring{$\ast$}{*})(Args...) \mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed}{Get\+Function}} (const char \texorpdfstring{$\ast$}{*}name)
 \begin{DoxyCompactList}\small\item\em Gets a function from the \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} and casts it to the correct type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -54,11 +54,11 @@ Forces user to use dynamic allocation.
 \begin{DoxyReturn}{Returns}
 new \doxylink{classvenom_1_1common_1_1_d_l_l}{DLL} 
 \end{DoxyReturn}
-\Hypertarget{classvenom_1_1common_1_1_d_l_l_ac58179ea24ad52255f309ad4b52e1435}\index{venom::common::DLL@{venom::common::DLL}!GetFromCache@{GetFromCache}}
+\Hypertarget{classvenom_1_1common_1_1_d_l_l_a5b8ed68b2ba76933b05fcbeb5cd58ddb}\index{venom::common::DLL@{venom::common::DLL}!GetFromCache@{GetFromCache}}
 \index{GetFromCache@{GetFromCache}!venom::common::DLL@{venom::common::DLL}}
 \doxysubsubsection{\texorpdfstring{GetFromCache()}{GetFromCache()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_d_l_l_ac58179ea24ad52255f309ad4b52e1435} 
-\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} venom\+::common\+::\+DLL\+::\+Get\+From\+Cache (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_d_l_l_a5b8ed68b2ba76933b05fcbeb5cd58ddb} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_d_l_l}{DLL}} \texorpdfstring{$\ast$}{*} venom\+::common\+::\+DLL\+::\+Get\+From\+Cache (\begin{DoxyParamCaption}\item[{const vc\+::\+String \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -92,7 +92,7 @@ sym address
 \index{GetFunction@{GetFunction}!venom::common::DLL@{venom::common::DLL}}
 \doxysubsubsection{\texorpdfstring{GetFunction}{GetFunction}}
 {\footnotesize\ttfamily \label{classvenom_1_1common_1_1_d_l_l_a36a1d304316faa732690a03e23a075ed} 
-template$<$typename Return\+Type , typename... Args$>$ \\
+template$<$typename Return\+Type, typename... Args$>$ \\
 Return\+Type(\texorpdfstring{$\ast$}{*})(Args...) venom\+::common\+::\+DLL\+::\+Get\+Function(const char \texorpdfstring{$\ast$}{*}name)\hspace{0.3cm}{\ttfamily [inline]}}
 
 

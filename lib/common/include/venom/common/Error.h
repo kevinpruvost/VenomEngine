@@ -10,6 +10,7 @@
 #include <venom/common/Export.h>
 #include <venom/common/Debug.h>
 #include <venom/common/String.h>
+#include <venom/common/Platform.h>
 
 #include <cstdint>
 #include <cstring>

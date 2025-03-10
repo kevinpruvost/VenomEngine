@@ -5,7 +5,6 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
-#include <imgui_impl_vulkan.h>
 #include <venom/metal/plugin/graphics/Texture.h>
 
 #include "venom/common/plugin/graphics/GraphicsSettings.h"

@@ -13,22 +13,22 @@
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }PluginManager;}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{PluginManager}};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Plugin}
 \DoxyCodeLine{00022\ \{}
 \DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{\string~Plugin}}();}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~Plugin();}
+\DoxyCodeLine{00025\ \ \ \ \ Plugin(\textcolor{keyword}{const}\ Plugin\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00026\ \ \ \ \ Plugin\&\ operator=(\textcolor{keyword}{const}\ Plugin\&)\ =\ \textcolor{keyword}{delete};}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{PluginManager}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }PluginManager;}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ GetType()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00031\ }
 \DoxyCodeLine{00032\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}}(\textcolor{keyword}{const}\ PluginType\ type);}
+\DoxyCodeLine{00033\ \ \ \ \ Plugin(\textcolor{keyword}{const}\ PluginType\ type);}
 \DoxyCodeLine{00034\ }
 \DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
@@ -37,10 +37,14 @@
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ \_\_type;}
-\DoxyCodeLine{00042\ \ \ \ \ std::vector<std::unique\_ptr<IPluginObject>>\ \_\_objects;}
-\DoxyCodeLine{00043\ \ \ \ \ std::vector<std::unique\_ptr<IPluginObject>>\ \_\_objectsToRemove;}
-\DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ \}}
-\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00042\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objects;}
+\DoxyCodeLine{00043\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objectsToRemove;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Useful\ if\ certain\ plugin\ objects\ contain\ other\ plugin\ objects\ that\ are\ only\ destroyed\ after}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ one\ clean\ step}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_objectsToRemoveLocked;}
+\DoxyCodeLine{00047\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objectsToRemoveNext;}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ \}}
 
 \end{DoxyCode}

@@ -6,17 +6,22 @@ Inheritance diagram for venom\+::common\+::GUI\+:\begin{figure}[H]
 \includegraphics[height=5.000000cm]{classvenom_1_1common_1_1_g_u_i}
 \end{center}
 \end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvenom_1_1common_1_1_g_u_i_1_1_font_data}{Font\+Data}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a8bf1bc3610747abcc8b16009e2170111}\label{classvenom_1_1common_1_1_g_u_i_a8bf1bc3610747abcc8b16009e2170111} 
 void {\bfseries Set\+Graphics\+Application} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*}app)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0739acafa98122894035038eb14cc1e9}\label{classvenom_1_1common_1_1_g_u_i_a0739acafa98122894035038eb14cc1e9} 
-virtual vc\+::\+Error {\bfseries Initialize} ()=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aedf1c86f9bfe43bcd0b86f9448923464}\label{classvenom_1_1common_1_1_g_u_i_aedf1c86f9bfe43bcd0b86f9448923464} 
+vc\+::\+Error {\bfseries Initialize} ()
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2aa1570182b536bca4eefc3b3ffb68d9}\label{classvenom_1_1common_1_1_g_u_i_a2aa1570182b536bca4eefc3b3ffb68d9} 
-virtual vc\+::\+Error {\bfseries Reset} ()=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af5b975bc0cd269621ec9bcf3b7349441}\label{classvenom_1_1common_1_1_g_u_i_af5b975bc0cd269621ec9bcf3b7349441} 
+vc\+::\+Error {\bfseries Reset} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a7f0ea8000749c87a967949d2b5ca7bc0}\label{classvenom_1_1common_1_1_g_u_i_a7f0ea8000749c87a967949d2b5ca7bc0} 
 void {\bfseries Draw\+Callback} ()
@@ -36,19 +41,57 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_ae5f879f8d9693602af52056686a979a1}\label{classvenom_1_1common_1_1_g_u_i_ae5f879f8d9693602af52056686a979a1} 
 static void {\bfseries Set\+GUIDraw\+Callback} (GUIDraw\+Callback gui\+Draw\+Callback)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aaa4ae8fed6958b0c32267975b30141e8}\label{classvenom_1_1common_1_1_g_u_i_aaa4ae8fed6958b0c32267975b30141e8} 
+static void {\bfseries Toggle\+GUIDraw} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a36e9a9f7f312bc3b7e4c36909a574012}\label{classvenom_1_1common_1_1_g_u_i_a36e9a9f7f312bc3b7e4c36909a574012} 
+static bool {\bfseries Is\+GUIDraw} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a1432e244a5d457bb5233a441daea224e}\label{classvenom_1_1common_1_1_g_u_i_a1432e244a5d457bb5233a441daea224e} 
+static bool \& {\bfseries Is\+GUIDraw\+Ref} ()
+\item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_ab0d2c2b92759d410e8a99e9e78a56101}\label{classvenom_1_1common_1_1_g_u_i_ab0d2c2b92759d410e8a99e9e78a56101} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ad6f7272aed5146b1c582dae6640edf13}\label{classvenom_1_1common_1_1_g_u_i_ad6f7272aed5146b1c582dae6640edf13} 
+static void {\bfseries Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Path, float font\+Size, const uint16\+\_\+t \texorpdfstring{$\ast$}{*}glyph\+Ranges)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a85f68d3ee99b4ca9b1e41630c0925073}\label{classvenom_1_1common_1_1_g_u_i_a85f68d3ee99b4ca9b1e41630c0925073} 
+static void {\bfseries Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Path, float font\+Size)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2522192f4d62e7bd3cbe1a3759834d05}\label{classvenom_1_1common_1_1_g_u_i_a2522192f4d62e7bd3cbe1a3759834d05} 
+static void {\bfseries Clear\+Fonts} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5bab9b5bf8500231081c70b71f68b485}\label{classvenom_1_1common_1_1_g_u_i_a5bab9b5bf8500231081c70b71f68b485} 
+static void {\bfseries Set\+Next\+Window\+Pos} (const vcm\+::\+Vec2 \&pos, GUICond cond=GUICond\+Bits\+::\+GUICond\+\_\+\+None, const vcm\+::\+Vec2 \&pivot=vcm\+::\+Vec2(0, 0))
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5ae87bfcf89869d881b4b782343c20ef}\label{classvenom_1_1common_1_1_g_u_i_a5ae87bfcf89869d881b4b782343c20ef} 
+static void {\bfseries Set\+Next\+Window\+Size} (const vcm\+::\+Vec2 \&size, GUICond cond=GUICond\+Bits\+::\+GUICond\+\_\+\+None)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a50528331e53d1a2324bb3b116e0b5780}\label{classvenom_1_1common_1_1_g_u_i_a50528331e53d1a2324bb3b116e0b5780} 
+static void {\bfseries Set\+Next\+Window\+Viewport} (GUIViewport viewport)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aa6c0f8d64b94bce0ffd1e743f967a1f2}\label{classvenom_1_1common_1_1_g_u_i_aa6c0f8d64b94bce0ffd1e743f967a1f2} 
+static vcm\+::\+Vec2 {\bfseries Get\+Content\+Region\+Avail} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a03cf8a3bfb2962bdb673b11db5155660}\label{classvenom_1_1common_1_1_g_u_i_a03cf8a3bfb2962bdb673b11db5155660} 
+static GUIViewport {\bfseries Get\+Main\+Viewport} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae2f7c3084e22fe60864ef197447f4a9b}\label{classvenom_1_1common_1_1_g_u_i_ae2f7c3084e22fe60864ef197447f4a9b} 
+static vcm\+::\+Vec2 {\bfseries Get\+Window\+Size} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2ce61cd70ee9b84486e9eff5c2c35adf}\label{classvenom_1_1common_1_1_g_u_i_a2ce61cd70ee9b84486e9eff5c2c35adf} 
+static vcm\+::\+Vec2 {\bfseries Get\+Window\+Pos} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_abbf328f3ccb13912356bc9301ff83e1a}\label{classvenom_1_1common_1_1_g_u_i_abbf328f3ccb13912356bc9301ff83e1a} 
 static void {\bfseries New\+Frame} ()
@@ -68,14 +111,53 @@ static void {\bfseries Text\+Colored} (const vcm\+::\+Vec4 \&col, const char \te
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a702ab220cf444d8aef4c1cad0486e076}\label{classvenom_1_1common_1_1_g_u_i_a702ab220cf444d8aef4c1cad0486e076} 
 static void {\bfseries Label\+Text} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt,...)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac4bd98c2430d3945ffc2affb7b4ff474}\label{classvenom_1_1common_1_1_g_u_i_ac4bd98c2430d3945ffc2affb7b4ff474} 
-static bool {\bfseries Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, float power=1.\+0f)
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a44e50a641724f44edc01018a4fe0b0d0}\label{classvenom_1_1common_1_1_g_u_i_a44e50a641724f44edc01018a4fe0b0d0} 
+static void {\bfseries Image} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \texorpdfstring{$\ast$}{*}texture, const vcm\+::\+Vec2 \&size, bool centering=true)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_a3b4365283067194fa838dfc6c78393f1}\label{classvenom_1_1common_1_1_g_u_i_a3b4365283067194fa838dfc6c78393f1} 
-static bool {\bfseries Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, float power=1.\+0f)
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ad09ab9e94d5365b23c57475470c319b9}\label{classvenom_1_1common_1_1_g_u_i_ad09ab9e94d5365b23c57475470c319b9} 
+static void {\bfseries Image} (const \mbox{\hyperlink{classvenom_1_1common_1_1_render_target}{vc\+::\+Render\+Target}} \texorpdfstring{$\ast$}{*}render\+Target, const vcm\+::\+Vec2 \&size, bool centering=true)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8d8ca3d9a221cc1b488832d92a163b14}\label{classvenom_1_1common_1_1_g_u_i_a8d8ca3d9a221cc1b488832d92a163b14} 
+static bool {\bfseries Input\+Text} (const char \texorpdfstring{$\ast$}{*}label, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buf\+\_\+size, GUIInput\+Text\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a378cbc01ef21c1c22640257f1ef41eb3}\label{classvenom_1_1common_1_1_g_u_i_a378cbc01ef21c1c22640257f1ef41eb3} 
+static bool {\bfseries Tree\+Node} (const char \texorpdfstring{$\ast$}{*}label)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_adbe682c94df858f855d49182a0c9b270}\label{classvenom_1_1common_1_1_g_u_i_adbe682c94df858f855d49182a0c9b270} 
+static void {\bfseries Tree\+Pop} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aceafee294ef71bd7b30e2602225722fa}\label{classvenom_1_1common_1_1_g_u_i_aceafee294ef71bd7b30e2602225722fa} 
+static void {\bfseries Tree\+Push} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac9bf071ac2f835b3377a5c8928e0bd84}\label{classvenom_1_1common_1_1_g_u_i_ac9bf071ac2f835b3377a5c8928e0bd84} 
+static void {\bfseries Separator\+Text} (const char \texorpdfstring{$\ast$}{*}text)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_adb8d6ea90fe1e5282ec47cfa9b4719c1}\label{classvenom_1_1common_1_1_g_u_i_adb8d6ea90fe1e5282ec47cfa9b4719c1} 
+static void {\bfseries Separator} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a6ca8d6c049ac8442c7f80083223c4c5e}\label{classvenom_1_1common_1_1_g_u_i_a6ca8d6c049ac8442c7f80083223c4c5e} 
+static void {\bfseries Spacing} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af77043f107f6497837b0576ae06d5572}\label{classvenom_1_1common_1_1_g_u_i_af77043f107f6497837b0576ae06d5572} 
+static void {\bfseries Dummy} (const vcm\+::\+Vec2 \&size)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abf971b1d161931c56760877740171564}\label{classvenom_1_1common_1_1_g_u_i_abf971b1d161931c56760877740171564} 
+static bool {\bfseries Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{})
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0f28374da55a6733c340b33d9e65672a}\label{classvenom_1_1common_1_1_g_u_i_a0f28374da55a6733c340b33d9e65672a} 
+static bool {\bfseries Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{})
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a61e65bac5546d072ef84ec1f6f04f474}\label{classvenom_1_1common_1_1_g_u_i_a61e65bac5546d072ef84ec1f6f04f474} 
+static bool {\bfseries Input\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float step=0.\+0f, float step\+\_\+fast=0.\+0f, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, GUIColor\+Edit\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0b7a20876aaaeedac095da551b472d3e}\label{classvenom_1_1common_1_1_g_u_i_a0b7a20876aaaeedac095da551b472d3e} 
+static bool {\bfseries Input\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, const char \texorpdfstring{$\ast$}{*}format="{}\%.\+3f"{}, GUIColor\+Edit\+Flags flags=0)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a8f4daef30d2b352b0d63c49dcba2c0b3}\label{classvenom_1_1common_1_1_g_u_i_a8f4daef30d2b352b0d63c49dcba2c0b3} 
 static void {\bfseries Color\+Edit3} (const char \texorpdfstring{$\ast$}{*}label, float col\mbox{[}3\mbox{]}, GUIColor\+Edit\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abdbc465628227eb4d0412d59b8050745}\label{classvenom_1_1common_1_1_g_u_i_abdbc465628227eb4d0412d59b8050745} 
+static bool {\bfseries Collapsing\+Header} (const char \texorpdfstring{$\ast$}{*}label, GUITree\+Node\+Flags flags=0)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a35045e1bcb29f737f5191d1b46a4c3e2}\label{classvenom_1_1common_1_1_g_u_i_a35045e1bcb29f737f5191d1b46a4c3e2} 
 static bool {\bfseries Button} (const char \texorpdfstring{$\ast$}{*}label, const vcm\+::\+Vec2 \&size=vcm\+::\+Vec2(0, 0))
@@ -95,23 +177,175 @@ static bool {\bfseries Begin\+Combo} (const char \texorpdfstring{$\ast$}{*}label
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a0b7b8044234364086eb282a904c8600c}\label{classvenom_1_1common_1_1_g_u_i_a0b7b8044234364086eb282a904c8600c} 
 static void {\bfseries End\+Combo} ()
 \item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aa0a19218221a085671b595efd18c5025}\label{classvenom_1_1common_1_1_g_u_i_aa0a19218221a085671b595efd18c5025} 
+static bool {\bfseries Begin\+Menu} (const char \texorpdfstring{$\ast$}{*}label, bool enabled=true)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a580aef2655a41630e44483044801d9eb}\label{classvenom_1_1common_1_1_g_u_i_a580aef2655a41630e44483044801d9eb} 
+static void {\bfseries End\+Menu} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2852d3819fc85fb2e51580d42c188b7d}\label{classvenom_1_1common_1_1_g_u_i_a2852d3819fc85fb2e51580d42c188b7d} 
+static bool {\bfseries Begin\+Main\+Menu\+Bar} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a132b43b25a0771930d1f2c055f315618}\label{classvenom_1_1common_1_1_g_u_i_a132b43b25a0771930d1f2c055f315618} 
+static void {\bfseries End\+Main\+Menu\+Bar} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a7b4cf4f7eb2954f0024f17d3a560e587}\label{classvenom_1_1common_1_1_g_u_i_a7b4cf4f7eb2954f0024f17d3a560e587} 
+static bool {\bfseries Begin\+Menu\+Bar} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a99f4b876bac252d3885d5ad68f822be2}\label{classvenom_1_1common_1_1_g_u_i_a99f4b876bac252d3885d5ad68f822be2} 
+static void {\bfseries End\+Menu\+Bar} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a14b58602cc2989037208ab566812d6eb}\label{classvenom_1_1common_1_1_g_u_i_a14b58602cc2989037208ab566812d6eb} 
+static bool {\bfseries Begin\+Child} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, const vcm\+::\+Vec2 \&size, GUIChild\+Flags child\+Flags, GUIWindow\+Flags extra\+Flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5e6c3dfea20ccadae69ce6379d91af88}\label{classvenom_1_1common_1_1_g_u_i_a5e6c3dfea20ccadae69ce6379d91af88} 
+static void {\bfseries End\+Child} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a1fdceb00b216e3d3ef0278b458989516}\label{classvenom_1_1common_1_1_g_u_i_a1fdceb00b216e3d3ef0278b458989516} 
+static bool {\bfseries Menu\+Item} (const char \texorpdfstring{$\ast$}{*}str, const char \texorpdfstring{$\ast$}{*}text=nullptr)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a30c5e0bfcfb903d62604346f84802308}\label{classvenom_1_1common_1_1_g_u_i_a30c5e0bfcfb903d62604346f84802308} 
+static void {\bfseries Set\+Next\+Item\+Width} (float item\+\_\+width)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a4f70eda66193e1b2028ca156df33a761}\label{classvenom_1_1common_1_1_g_u_i_a4f70eda66193e1b2028ca156df33a761} 
 static void {\bfseries Set\+Item\+Default\+Focus} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_ac79fa758da5bc5fc4c7e1f5a6a04d3d7}\label{classvenom_1_1common_1_1_g_u_i_ac79fa758da5bc5fc4c7e1f5a6a04d3d7} 
 static void {\bfseries Same\+Line} (float offset\+\_\+from\+\_\+start\+\_\+x=0.\+0f, float spacing=-\/1.\+0f)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a1a3b218b0c8e43c6b3f10d4348f77c00}\label{classvenom_1_1common_1_1_g_u_i_a1a3b218b0c8e43c6b3f10d4348f77c00} 
+static void {\bfseries Push\+Item\+Width} (float item\+\_\+width)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2f351bfbd939a15876d649b03987f136}\label{classvenom_1_1common_1_1_g_u_i_a2f351bfbd939a15876d649b03987f136} 
+static void {\bfseries Pop\+Item\+Width} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a348f6527a7e3c3c5b9fa2066711c209f}\label{classvenom_1_1common_1_1_g_u_i_a348f6527a7e3c3c5b9fa2066711c209f} 
+static void {\bfseries Push\+Button\+Text\+Align} (const vcm\+::\+Vec2 \&padding)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ad42cc4cdc3ac0f44b71a8909d1316286}\label{classvenom_1_1common_1_1_g_u_i_ad42cc4cdc3ac0f44b71a8909d1316286} 
+static void {\bfseries Push\+Window\+Padding} (const vcm\+::\+Vec2 \&padding)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a18b836ef7a7ed2e44f72fb4ecb38f06d}\label{classvenom_1_1common_1_1_g_u_i_a18b836ef7a7ed2e44f72fb4ecb38f06d} 
+static void {\bfseries Pop\+Style\+Var} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a949750173641c64d99556e95f55798d3}\label{classvenom_1_1common_1_1_g_u_i_a949750173641c64d99556e95f55798d3} 
+static GUIId {\bfseries Dock\+Space} (GUIId id, const vcm\+::\+Vec2 \&size, GUIDock\+Node\+Flags flags)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a9a4e7302c4ce8833cd9ecd7e53eb2ff5}\label{classvenom_1_1common_1_1_g_u_i_a9a4e7302c4ce8833cd9ecd7e53eb2ff5} 
+static GUIId {\bfseries Dock\+Space} (const char \texorpdfstring{$\ast$}{*}id, const vcm\+::\+Vec2 \&size, GUIDock\+Node\+Flags flags)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0f29d9da5550768d4296784f0403e90e}\label{classvenom_1_1common_1_1_g_u_i_a0f29d9da5550768d4296784f0403e90e} 
+static GUIId {\bfseries Dock\+Space\+Over\+Viewport} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a14c67d97dd1582ea8cbbd8d1cde46822}\label{classvenom_1_1common_1_1_g_u_i_a14c67d97dd1582ea8cbbd8d1cde46822} 
+static GUIId {\bfseries Dock\+Space\+Add\+Node} (GUIId id, GUIDock\+Node\+Flags flags)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a622e547e9381ba40a5f2557ea21914a0}\label{classvenom_1_1common_1_1_g_u_i_a622e547e9381ba40a5f2557ea21914a0} 
+static void {\bfseries Dock\+Space\+Remove\+Node} (GUIId id)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac0c36602e52d279851528da9a7b09f51}\label{classvenom_1_1common_1_1_g_u_i_ac0c36602e52d279851528da9a7b09f51} 
+static void {\bfseries Dock\+Space\+Set\+Node\+Size} (GUIId id, const vcm\+::\+Vec2 \&size)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a94ee2ad4c86ba28ae1b81ffb4e50dbce}\label{classvenom_1_1common_1_1_g_u_i_a94ee2ad4c86ba28ae1b81ffb4e50dbce} 
+static GUIId {\bfseries Dock\+Space\+Split\+Node} (GUIId id, GUIDir split\+\_\+dir, float size\+\_\+ratio, GUIId \texorpdfstring{$\ast$}{*}out\+\_\+id\+\_\+at\+\_\+dir, GUIId \texorpdfstring{$\ast$}{*}out\+\_\+id\+\_\+at\+\_\+opposite\+\_\+dir)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a57642ae48132348a0704856ff6d20fb7}\label{classvenom_1_1common_1_1_g_u_i_a57642ae48132348a0704856ff6d20fb7} 
+static void {\bfseries Dock\+Window} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIId id)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a581f3cf73b10f0b9c84d6b7283d32153}\label{classvenom_1_1common_1_1_g_u_i_a581f3cf73b10f0b9c84d6b7283d32153} 
+static void {\bfseries Dock\+Finish} (GUIId id)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a50f98423b3d9b1afe0c2234066c83ebd}\label{classvenom_1_1common_1_1_g_u_i_a50f98423b3d9b1afe0c2234066c83ebd} 
+static void {\bfseries Open\+Popup} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIPopup\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4e46dfbab7236f2bc95a8881f1352c07}\label{classvenom_1_1common_1_1_g_u_i_a4e46dfbab7236f2bc95a8881f1352c07} 
+static bool {\bfseries Begin\+Popup} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIWindow\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a685f44a603f9794750a11f505ae2eb62}\label{classvenom_1_1common_1_1_g_u_i_a685f44a603f9794750a11f505ae2eb62} 
+static bool {\bfseries Begin\+Popup\+Modal} (const char \texorpdfstring{$\ast$}{*}name, bool \texorpdfstring{$\ast$}{*}p\+\_\+open=nullptr, GUIWindow\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab3b8b8b16dc87f092efe1a58ea357e99}\label{classvenom_1_1common_1_1_g_u_i_ab3b8b8b16dc87f092efe1a58ea357e99} 
+static bool {\bfseries Begin\+Popup\+Context\+Item} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id=nullptr, GUIPopup\+Flags flags=0)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac993e5526b033fbf5a93d53bc9bfd329}\label{classvenom_1_1common_1_1_g_u_i_ac993e5526b033fbf5a93d53bc9bfd329} 
+static void {\bfseries End\+Popup} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae77538a975eca4435da9b08d980eba8e}\label{classvenom_1_1common_1_1_g_u_i_ae77538a975eca4435da9b08d980eba8e} 
+static void {\bfseries Close\+Current\+Popup} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a017d4f2965f9e9dd07f2a149795aa31a}\label{classvenom_1_1common_1_1_g_u_i_a017d4f2965f9e9dd07f2a149795aa31a} 
+static bool {\bfseries is\+First\+Frame} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a49df091087b581c1d41ddbc7b81bbcd1}\label{classvenom_1_1common_1_1_g_u_i_a49df091087b581c1d41ddbc7b81bbcd1} 
+static bool {\bfseries is\+First\+Initialization} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aa73476109a0961af71fc6dade4462e13}\label{classvenom_1_1common_1_1_g_u_i_aa73476109a0961af71fc6dade4462e13} 
+static GUIId {\bfseries Get\+ID} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4dc7f77927cb0a2c708e3ea670cbe89a}\label{classvenom_1_1common_1_1_g_u_i_a4dc7f77927cb0a2c708e3ea670cbe89a} 
+static void {\bfseries Test} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ad4aa3fc75a73ebd7825d98d8e5217ee9}\label{classvenom_1_1common_1_1_g_u_i_ad4aa3fc75a73ebd7825d98d8e5217ee9} 
+static void {\bfseries Graphics\+Settings\+Collasping\+Header} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a3d55611520b2083a117b12f63fe149ac}\label{classvenom_1_1common_1_1_g_u_i_a3d55611520b2083a117b12f63fe149ac} 
+static void {\bfseries Entities\+List\+Collapsing\+Header} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af1b885640bb7d8f6cc6eaafa3b2cca04}\label{classvenom_1_1common_1_1_g_u_i_af1b885640bb7d8f6cc6eaafa3b2cca04} 
+static bool {\bfseries Editable\+Texture} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \texorpdfstring{$\ast$}{*}texture, vc\+::\+String \&path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a59fce0778f1b9ba856c91e92942c78d2}\label{classvenom_1_1common_1_1_g_u_i_a59fce0778f1b9ba856c91e92942c78d2} 
+static bool {\bfseries Editable\+Model} (\mbox{\hyperlink{classvenom_1_1common_1_1_model}{vc\+::\+Model}} \texorpdfstring{$\ast$}{*}model, vc\+::\+String \&path)
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i_ae42ab54b4607910ee6ee8a5f439addf3}{Entity\+Guizmo}} (const vcm\+::\+Vec2 \&rendering\+Size)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a09a507a524ad13b4406fb4a6bbea6888}\label{classvenom_1_1common_1_1_g_u_i_a09a507a524ad13b4406fb4a6bbea6888} 
+virtual void {\bfseries \+\_\+\+Entity\+Guizmo} (\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{vc\+::\+Transform3D}} \texorpdfstring{$\ast$}{*}transform3D, const vcm\+::\+Vec2 \&rendering\+Size)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af0403389ba15526b2da618544b4bd3fa}\label{classvenom_1_1common_1_1_g_u_i_af0403389ba15526b2da618544b4bd3fa} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Initialize} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4edea0bf69f19fa974072596a0416eb8}\label{classvenom_1_1common_1_1_g_u_i_a4edea0bf69f19fa974072596a0416eb8} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Reset} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0f9e3e06d4a13efa7632b6f9e68642db}\label{classvenom_1_1common_1_1_g_u_i_a0f9e3e06d4a13efa7632b6f9e68642db} 
+virtual void {\bfseries \+\_\+\+Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Path, float font\+Size, const uint16\+\_\+t \texorpdfstring{$\ast$}{*}glyph\+Ranges)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a49784920d328d00213a3ca7f06abf9ba}\label{classvenom_1_1common_1_1_g_u_i_a49784920d328d00213a3ca7f06abf9ba} 
+virtual void {\bfseries \+\_\+\+Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Path, float font\+Size)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aef1cc3d635adfd8b654301e51a1f8c64}\label{classvenom_1_1common_1_1_g_u_i_aef1cc3d635adfd8b654301e51a1f8c64} 
+virtual void {\bfseries \+\_\+\+Set\+Next\+Window\+Pos} (const vcm\+::\+Vec2 \&pos, GUICond cond, const vcm\+::\+Vec2 \&pivot)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aeb84a01023ecde4e7794ceb8e9679ba4}\label{classvenom_1_1common_1_1_g_u_i_aeb84a01023ecde4e7794ceb8e9679ba4} 
+virtual void {\bfseries \+\_\+\+Set\+Next\+Window\+Size} (const vcm\+::\+Vec2 \&size, GUICond cond)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab46e46b03d73f977da86d5b7a58f7dd3}\label{classvenom_1_1common_1_1_g_u_i_ab46e46b03d73f977da86d5b7a58f7dd3} 
+virtual void {\bfseries \+\_\+\+Set\+Next\+Window\+Viewport} (GUIViewport viewport)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a73ed46c9ba1328ee542b34585fe1acd0}\label{classvenom_1_1common_1_1_g_u_i_a73ed46c9ba1328ee542b34585fe1acd0} 
+virtual vcm\+::\+Vec2 {\bfseries \+\_\+\+Get\+Content\+Region\+Avail} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ad3f274d96d4c142abdd808d7c4705741}\label{classvenom_1_1common_1_1_g_u_i_ad3f274d96d4c142abdd808d7c4705741} 
+virtual vcm\+::\+Vec2 {\bfseries \+\_\+\+Get\+Window\+Size} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae3e7c8cbf0492e33912314b685a140b3}\label{classvenom_1_1common_1_1_g_u_i_ae3e7c8cbf0492e33912314b685a140b3} 
+virtual vcm\+::\+Vec2 {\bfseries \+\_\+\+Get\+Window\+Pos} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a9115f523bd1c1730296979bf562ce7a6}\label{classvenom_1_1common_1_1_g_u_i_a9115f523bd1c1730296979bf562ce7a6} 
+virtual GUIViewport {\bfseries \+\_\+\+Get\+Main\+Viewport} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_af9f77dfb95f14597ad6d39b49f720070}\label{classvenom_1_1common_1_1_g_u_i_af9f77dfb95f14597ad6d39b49f720070} 
 virtual void {\bfseries \+\_\+\+New\+Frame} ()=0
@@ -122,23 +356,59 @@ virtual void {\bfseries \+\_\+\+Begin} (const char \texorpdfstring{$\ast$}{*}nam
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a810605865661c3e8dbddf95bfb60ce9b}\label{classvenom_1_1common_1_1_g_u_i_a810605865661c3e8dbddf95bfb60ce9b} 
 virtual void {\bfseries \+\_\+\+End} ()=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_a766369e8c28e2256bb27150005bac351}\label{classvenom_1_1common_1_1_g_u_i_a766369e8c28e2256bb27150005bac351} 
-virtual void {\bfseries \+\_\+\+Text} (const char \texorpdfstring{$\ast$}{*}fmt,...)=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a03ccccaa9156a3ff19c34f406baa3563}\label{classvenom_1_1common_1_1_g_u_i_a03ccccaa9156a3ff19c34f406baa3563} 
+virtual void {\bfseries \+\_\+\+Text} (const char \texorpdfstring{$\ast$}{*}fmt, va\+\_\+list args)=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_acf57c4202d86e863b2bf9c91edbc969c}\label{classvenom_1_1common_1_1_g_u_i_acf57c4202d86e863b2bf9c91edbc969c} 
-virtual void {\bfseries \+\_\+\+Text\+Colored} (const vcm\+::\+Vec4 \&col, const char \texorpdfstring{$\ast$}{*}fmt,...)=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af98445977c021b38c44c28f1b2cf5197}\label{classvenom_1_1common_1_1_g_u_i_af98445977c021b38c44c28f1b2cf5197} 
+virtual void {\bfseries \+\_\+\+Text\+Colored} (const vcm\+::\+Vec4 \&col, const char \texorpdfstring{$\ast$}{*}fmt, va\+\_\+list args)=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab34cc982931752c1907ca697024009b7}\label{classvenom_1_1common_1_1_g_u_i_ab34cc982931752c1907ca697024009b7} 
-virtual void {\bfseries \+\_\+\+Label\+Text} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt,...)=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5415641ad8eb9cb9a733bb324d392c9e}\label{classvenom_1_1common_1_1_g_u_i_a5415641ad8eb9cb9a733bb324d392c9e} 
+virtual void {\bfseries \+\_\+\+Label\+Text} (const char \texorpdfstring{$\ast$}{*}label, const char \texorpdfstring{$\ast$}{*}fmt, va\+\_\+list args)=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_a60af973da9bdf651b973e40351af5b30}\label{classvenom_1_1common_1_1_g_u_i_a60af973da9bdf651b973e40351af5b30} 
-virtual bool {\bfseries \+\_\+\+Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format, float power)=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a098af1e9c7db1204061c86282f2323cb}\label{classvenom_1_1common_1_1_g_u_i_a098af1e9c7db1204061c86282f2323cb} 
+virtual void {\bfseries \+\_\+\+Image} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \texorpdfstring{$\ast$}{*}texture, const vcm\+::\+Vec2 \&size, bool centering)=0
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_af2c0c627a8ddc6717269b45d85984c6d}\label{classvenom_1_1common_1_1_g_u_i_af2c0c627a8ddc6717269b45d85984c6d} 
-virtual bool {\bfseries \+\_\+\+Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format, float power)=0
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aef70c91691400f5082c620d3fb44f805}\label{classvenom_1_1common_1_1_g_u_i_aef70c91691400f5082c620d3fb44f805} 
+virtual bool {\bfseries \+\_\+\+Input\+Text} (const char \texorpdfstring{$\ast$}{*}label, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buf\+\_\+size, GUIInput\+Text\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a6ca84b8e96f5aa7a88f7b85b5be48b30}\label{classvenom_1_1common_1_1_g_u_i_a6ca84b8e96f5aa7a88f7b85b5be48b30} 
+virtual bool {\bfseries \+\_\+\+Tree\+Node} (const char \texorpdfstring{$\ast$}{*}label)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_afa5688ee0d37f892127dc1210f3caa48}\label{classvenom_1_1common_1_1_g_u_i_afa5688ee0d37f892127dc1210f3caa48} 
+virtual void {\bfseries \+\_\+\+Tree\+Pop} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aeebe3d3b4bf3b876dc2e0e0568fdc889}\label{classvenom_1_1common_1_1_g_u_i_aeebe3d3b4bf3b876dc2e0e0568fdc889} 
+virtual void {\bfseries \+\_\+\+Tree\+Push} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a7c14618720abcec2488c6420c13488c0}\label{classvenom_1_1common_1_1_g_u_i_a7c14618720abcec2488c6420c13488c0} 
+virtual void {\bfseries \+\_\+\+Separator\+Text} (const char \texorpdfstring{$\ast$}{*}text)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2123157a9a7f589dede8429a806c9899}\label{classvenom_1_1common_1_1_g_u_i_a2123157a9a7f589dede8429a806c9899} 
+virtual void {\bfseries \+\_\+\+Separator} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ada9954cc729f5e3a490eb3bdefc34260}\label{classvenom_1_1common_1_1_g_u_i_ada9954cc729f5e3a490eb3bdefc34260} 
+virtual void {\bfseries \+\_\+\+Spacing} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8ebaae2365fd4df37169f9580d9edc8e}\label{classvenom_1_1common_1_1_g_u_i_a8ebaae2365fd4df37169f9580d9edc8e} 
+virtual void {\bfseries \+\_\+\+Dummy} (const vcm\+::\+Vec2 \&size)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8e73e9acbf5bd439a6626b661972a164}\label{classvenom_1_1common_1_1_g_u_i_a8e73e9acbf5bd439a6626b661972a164} 
+virtual bool {\bfseries \+\_\+\+Slider\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abe60d7d6180ce90fd40119fff60a21de}\label{classvenom_1_1common_1_1_g_u_i_abe60d7d6180ce90fd40119fff60a21de} 
+virtual bool {\bfseries \+\_\+\+Slider\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, float v\+\_\+min, float v\+\_\+max, const char \texorpdfstring{$\ast$}{*}format)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8589d6d9fcabd7729bf90d153f23ff28}\label{classvenom_1_1common_1_1_g_u_i_a8589d6d9fcabd7729bf90d153f23ff28} 
+virtual bool {\bfseries \+\_\+\+Input\+Float} (const char \texorpdfstring{$\ast$}{*}label, float \texorpdfstring{$\ast$}{*}v, float step, float step\+\_\+fast, const char \texorpdfstring{$\ast$}{*}format, GUIColor\+Edit\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae3aafd17c64a5d5d44a884b80a041dfd}\label{classvenom_1_1common_1_1_g_u_i_ae3aafd17c64a5d5d44a884b80a041dfd} 
+virtual bool {\bfseries \+\_\+\+Input\+Float3} (const char \texorpdfstring{$\ast$}{*}label, float v\mbox{[}3\mbox{]}, const char \texorpdfstring{$\ast$}{*}format, GUIColor\+Edit\+Flags flags)=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a266530480f19f6fb3f29f628a0687027}\label{classvenom_1_1common_1_1_g_u_i_a266530480f19f6fb3f29f628a0687027} 
 virtual void {\bfseries \+\_\+\+Color\+Edit3} (const char \texorpdfstring{$\ast$}{*}label, float col\mbox{[}3\mbox{]}, GUIColor\+Edit\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a0bf47e0eda0f456fd0a4ee1dba834e0d}\label{classvenom_1_1common_1_1_g_u_i_a0bf47e0eda0f456fd0a4ee1dba834e0d} 
+virtual bool {\bfseries \+\_\+\+Collapsing\+Header} (const char \texorpdfstring{$\ast$}{*}label, GUITree\+Node\+Flags flags)=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a80e73260cd9d05dca1dd1942d69e5fbb}\label{classvenom_1_1common_1_1_g_u_i_a80e73260cd9d05dca1dd1942d69e5fbb} 
 virtual bool {\bfseries \+\_\+\+Button} (const char \texorpdfstring{$\ast$}{*}label, const vcm\+::\+Vec2 \&size)=0
@@ -158,32 +428,152 @@ virtual bool {\bfseries \+\_\+\+Begin\+Combo} (const char \texorpdfstring{$\ast$
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_ac218a873c464a005efc7db5d39dd3c00}\label{classvenom_1_1common_1_1_g_u_i_ac218a873c464a005efc7db5d39dd3c00} 
 virtual void {\bfseries \+\_\+\+End\+Combo} ()=0
 \item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_acb10f78e0f530e434265aee5dde879c9}\label{classvenom_1_1common_1_1_g_u_i_acb10f78e0f530e434265aee5dde879c9} 
+virtual bool {\bfseries \+\_\+\+Begin\+Menu} (const char \texorpdfstring{$\ast$}{*}label, bool enabled)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a77961509bbf8cda67fd5429c8e3a8947}\label{classvenom_1_1common_1_1_g_u_i_a77961509bbf8cda67fd5429c8e3a8947} 
+virtual void {\bfseries \+\_\+\+End\+Menu} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aedf61fd85e90c33d793c3461e53e2ecb}\label{classvenom_1_1common_1_1_g_u_i_aedf61fd85e90c33d793c3461e53e2ecb} 
+virtual bool {\bfseries \+\_\+\+Begin\+Main\+Menu\+Bar} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab83e1d3e6ef2fb1a93dec15a1f1d3031}\label{classvenom_1_1common_1_1_g_u_i_ab83e1d3e6ef2fb1a93dec15a1f1d3031} 
+virtual void {\bfseries \+\_\+\+End\+Main\+Menu\+Bar} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a7f023c0e69181ab0ef1ffcb774da6be3}\label{classvenom_1_1common_1_1_g_u_i_a7f023c0e69181ab0ef1ffcb774da6be3} 
+virtual bool {\bfseries \+\_\+\+Begin\+Menu\+Bar} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4d02c5f426f8619be6a08f9f451638ae}\label{classvenom_1_1common_1_1_g_u_i_a4d02c5f426f8619be6a08f9f451638ae} 
+virtual void {\bfseries \+\_\+\+End\+Menu\+Bar} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aa5baebdc331557c6ba4b0b45c7cd5257}\label{classvenom_1_1common_1_1_g_u_i_aa5baebdc331557c6ba4b0b45c7cd5257} 
+virtual bool {\bfseries \+\_\+\+Begin\+Child} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, const vcm\+::\+Vec2 \&size, GUIChild\+Flags child\+Flags, GUIWindow\+Flags extra\+\_\+flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a764872b12b001eb51941fd6640da740c}\label{classvenom_1_1common_1_1_g_u_i_a764872b12b001eb51941fd6640da740c} 
+virtual void {\bfseries \+\_\+\+End\+Child} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a108b113c896eb52a373e045e436a0d2e}\label{classvenom_1_1common_1_1_g_u_i_a108b113c896eb52a373e045e436a0d2e} 
+virtual bool {\bfseries \+\_\+\+Menu\+Item} (const char \texorpdfstring{$\ast$}{*}str, const char \texorpdfstring{$\ast$}{*}text)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a32482eedf3e15af882cf2aa409aa688a}\label{classvenom_1_1common_1_1_g_u_i_a32482eedf3e15af882cf2aa409aa688a} 
+virtual void {\bfseries \+\_\+\+Set\+Next\+Item\+Width} (float item\+\_\+width)=0
+\item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_aa44298d6562400a8b646635a79b83429}\label{classvenom_1_1common_1_1_g_u_i_aa44298d6562400a8b646635a79b83429} 
 virtual void {\bfseries \+\_\+\+Set\+Item\+Default\+Focus} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_adeed2b7c8d89df59740057eabb821b55}\label{classvenom_1_1common_1_1_g_u_i_adeed2b7c8d89df59740057eabb821b55} 
 virtual void {\bfseries \+\_\+\+Same\+Line} (float offset\+\_\+from\+\_\+start\+\_\+x, float spacing)=0
 \item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5270a9e2316d24f01ce02b9e4b9cf8b8}\label{classvenom_1_1common_1_1_g_u_i_a5270a9e2316d24f01ce02b9e4b9cf8b8} 
+virtual void {\bfseries \+\_\+\+Push\+Item\+Width} (float item\+\_\+width)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ade05c802597cbae8ea09105301caded2}\label{classvenom_1_1common_1_1_g_u_i_ade05c802597cbae8ea09105301caded2} 
+virtual void {\bfseries \+\_\+\+Pop\+Item\+Width} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac1073096356eaa82652eee3fa920c401}\label{classvenom_1_1common_1_1_g_u_i_ac1073096356eaa82652eee3fa920c401} 
+virtual void {\bfseries \+\_\+\+Push\+Button\+Text\+Align} (const vcm\+::\+Vec2 \&padding)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abd46baadd914de9471f0359d1204456e}\label{classvenom_1_1common_1_1_g_u_i_abd46baadd914de9471f0359d1204456e} 
+virtual void {\bfseries \+\_\+\+Push\+Window\+Padding} (const vcm\+::\+Vec2 \&padding)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a1766ba102141582926d612ab67354ddb}\label{classvenom_1_1common_1_1_g_u_i_a1766ba102141582926d612ab67354ddb} 
+virtual void {\bfseries \+\_\+\+Pop\+Style\+Var} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a75a59cc1c31ded26a154f43b4a0feb69}\label{classvenom_1_1common_1_1_g_u_i_a75a59cc1c31ded26a154f43b4a0feb69} 
+virtual GUIId {\bfseries \+\_\+\+Dock\+Space} (GUIId id, const vcm\+::\+Vec2 \&size, GUIDock\+Node\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a26d31e39020a2b5f6d9aa7ece439d974}\label{classvenom_1_1common_1_1_g_u_i_a26d31e39020a2b5f6d9aa7ece439d974} 
+virtual GUIId {\bfseries \+\_\+\+Dock\+Space} (const char \texorpdfstring{$\ast$}{*}id, const vcm\+::\+Vec2 \&size, GUIDock\+Node\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a22f9dff9da7bb21752d939d85c0d7950}\label{classvenom_1_1common_1_1_g_u_i_a22f9dff9da7bb21752d939d85c0d7950} 
+virtual GUIId {\bfseries \+\_\+\+Dock\+Space\+Over\+Viewport} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a29b6027dbf577f7b1734dbfcaa64375c}\label{classvenom_1_1common_1_1_g_u_i_a29b6027dbf577f7b1734dbfcaa64375c} 
+virtual GUIId {\bfseries \+\_\+\+Dock\+Space\+Add\+Node} (GUIId id, GUIDock\+Node\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a34c5b6ab14e4426098daff61df26fff3}\label{classvenom_1_1common_1_1_g_u_i_a34c5b6ab14e4426098daff61df26fff3} 
+virtual void {\bfseries \+\_\+\+Dock\+Space\+Remove\+Node} (GUIId id)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_affb322dae2b34cf041dfa4c1eaf839f5}\label{classvenom_1_1common_1_1_g_u_i_affb322dae2b34cf041dfa4c1eaf839f5} 
+virtual void {\bfseries \+\_\+\+Dock\+Space\+Set\+Node\+Size} (GUIId id, const vcm\+::\+Vec2 \&size)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a86ec03979b496cbfe52a4e9e00261be9}\label{classvenom_1_1common_1_1_g_u_i_a86ec03979b496cbfe52a4e9e00261be9} 
+virtual GUIId {\bfseries \+\_\+\+Dock\+Space\+Split\+Node} (GUIId id, GUIDir split\+\_\+dir, float size\+\_\+ratio, GUIId \texorpdfstring{$\ast$}{*}out\+\_\+id\+\_\+at\+\_\+dir, GUIId \texorpdfstring{$\ast$}{*}out\+\_\+id\+\_\+at\+\_\+opposite\+\_\+dir)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a30d983e4b76d571aed8c5d2c74cb4f1b}\label{classvenom_1_1common_1_1_g_u_i_a30d983e4b76d571aed8c5d2c74cb4f1b} 
+virtual void {\bfseries \+\_\+\+Dock\+Window} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIId id)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_abf6b50e9a6d868416d86be1ed100aa92}\label{classvenom_1_1common_1_1_g_u_i_abf6b50e9a6d868416d86be1ed100aa92} 
+virtual void {\bfseries \+\_\+\+Dock\+Finish} (GUIId id)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ab1fccf3411d993abe95c10996a16ef79}\label{classvenom_1_1common_1_1_g_u_i_ab1fccf3411d993abe95c10996a16ef79} 
+virtual void {\bfseries \+\_\+\+Open\+Popup} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIPopup\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a8bb18da4c483cfd0c666b9dd52c0f523}\label{classvenom_1_1common_1_1_g_u_i_a8bb18da4c483cfd0c666b9dd52c0f523} 
+virtual bool {\bfseries \+\_\+\+Begin\+Popup} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIWindow\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a1ebb3e94be8f042cb5b36d220db9ff3c}\label{classvenom_1_1common_1_1_g_u_i_a1ebb3e94be8f042cb5b36d220db9ff3c} 
+virtual bool {\bfseries \+\_\+\+Begin\+Popup\+Modal} (const char \texorpdfstring{$\ast$}{*}name, bool \texorpdfstring{$\ast$}{*}p\+\_\+open, GUIWindow\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a4b5207ca4150a6a99597312cb0610790}\label{classvenom_1_1common_1_1_g_u_i_a4b5207ca4150a6a99597312cb0610790} 
+virtual bool {\bfseries \+\_\+\+Begin\+Popup\+Context\+Item} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id, GUIPopup\+Flags flags)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a6d5686624a8fe2c623d0249583ffc466}\label{classvenom_1_1common_1_1_g_u_i_a6d5686624a8fe2c623d0249583ffc466} 
+virtual void {\bfseries \+\_\+\+End\+Popup} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae66ea8da391b99d5ad32707d9e555b8d}\label{classvenom_1_1common_1_1_g_u_i_ae66ea8da391b99d5ad32707d9e555b8d} 
+virtual void {\bfseries \+\_\+\+Close\+Current\+Popup} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af96cf123ac1304b3a5d3355f715fd7c2}\label{classvenom_1_1common_1_1_g_u_i_af96cf123ac1304b3a5d3355f715fd7c2} 
+virtual GUIId {\bfseries \+\_\+\+Get\+ID} (const char \texorpdfstring{$\ast$}{*}str\+\_\+id)=0
+\item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a9aa319a4fd5de56ac804dd4a8f46a19d}\label{classvenom_1_1common_1_1_g_u_i_a9aa319a4fd5de56ac804dd4a8f46a19d} 
 virtual void {\bfseries \+\_\+\+Render} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a5acaa304c5ee6ad0faebe9010ff9b0c9}\label{classvenom_1_1common_1_1_g_u_i_a5acaa304c5ee6ad0faebe9010ff9b0c9} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Pre\+Update} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_af76de15c6a998b4b0c61394a74c8461b}\label{classvenom_1_1common_1_1_g_u_i_af76de15c6a998b4b0c61394a74c8461b} 
+virtual void {\bfseries \+\_\+\+Test} ()=0
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_abe617666a0f1d4d56c8ae6cf97903b04}\label{classvenom_1_1common_1_1_g_u_i_abe617666a0f1d4d56c8ae6cf97903b04} 
 \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+app}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_aeb22fb92ac97d8681125995bf11181f7}\label{classvenom_1_1common_1_1_g_u_i_aeb22fb92ac97d8681125995bf11181f7} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{structvenom_1_1common_1_1_g_u_i_1_1_font_data}{Font\+Data}} $>$ {\bfseries \+\_\+fonts}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ac53e61f4675f923c5dfb10cc2e5ab49e}\label{classvenom_1_1common_1_1_g_u_i_ac53e61f4675f923c5dfb10cc2e5ab49e} 
+bool {\bfseries \+\_\+first\+Init}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a77d9d332e86b34ac64ecdd5562ab6b4e}\label{classvenom_1_1common_1_1_g_u_i_a77d9d332e86b34ac64ecdd5562ab6b4e} 
+class {\bfseries Venom\+Engine}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_ae42ab54b4607910ee6ee8a5f439addf3}\index{venom::common::GUI@{venom::common::GUI}!EntityGuizmo@{EntityGuizmo}}
+\index{EntityGuizmo@{EntityGuizmo}!venom::common::GUI@{venom::common::GUI}}
+\doxysubsubsection{\texorpdfstring{EntityGuizmo()}{EntityGuizmo()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_g_u_i_ae42ab54b4607910ee6ee8a5f439addf3} 
+void venom\+::common\+::\+GUI\+::\+Entity\+Guizmo (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec2 \&}]{rendering\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+GUIZMO 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

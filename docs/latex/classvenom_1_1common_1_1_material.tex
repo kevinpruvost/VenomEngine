@@ -9,6 +9,9 @@ Inheritance diagram for venom\+::common\+::Material\+:\begin{figure}[H]
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{classvenom_1_1common_1_1_material_af04c3f9206c148420e5ee9776d22bf96}\label{classvenom_1_1common_1_1_material_af04c3f9206c148420e5ee9776d22bf96} 
+void {\bfseries Set\+Component} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type, const \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \&comp)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_material_a6919b485f2ec7dbb9846bfab9c0e4cee}\label{classvenom_1_1common_1_1_material_a6919b485f2ec7dbb9846bfab9c0e4cee} 
 void {\bfseries Set\+Component} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type, const vcm\+::\+Vec3 \&value)
 \item 
@@ -21,14 +24,32 @@ void {\bfseries Set\+Component} (const \mbox{\hyperlink{namespacevenom_1_1common
 \Hypertarget{classvenom_1_1common_1_1_material_aec9f02b7e2e1dcf212e5dbede53dce1f}\label{classvenom_1_1common_1_1_material_aec9f02b7e2e1dcf212e5dbede53dce1f} 
 void {\bfseries Set\+Component} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type, const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \&texture)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_material_a12d131259260ca87c97f87ea5648c16f}\label{classvenom_1_1common_1_1_material_a12d131259260ca87c97f87ea5648c16f} 
+void {\bfseries Set\+Component\+Channels} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type, const Material\+Component\+Value\+Channels channels)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_afd8e242ee9735c5eebdbcfd9068524b6}\label{classvenom_1_1common_1_1_material_afd8e242ee9735c5eebdbcfd9068524b6} 
+void {\bfseries Set\+Component\+Channels\+From\+Index} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type, const int index)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_a68328a55808b424769905826ab58186a}\label{classvenom_1_1common_1_1_material_a68328a55808b424769905826ab58186a} 
+void {\bfseries Remove\+Component\+Texture} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_a190ce223e11ab15590f8f73b05872587}\label{classvenom_1_1common_1_1_material_a190ce223e11ab15590f8f73b05872587} 
+void {\bfseries Remove\+Component\+Value} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_material_a079215e765b8b840ccc4de07dfc27b64}\label{classvenom_1_1common_1_1_material_a079215e765b8b840ccc4de07dfc27b64} 
 const \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \& {\bfseries Get\+Component} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type) const
 \item 
-\Hypertarget{classvenom_1_1common_1_1_material_a2984d16bd8d1ceae3fecdfb2391eb686}\label{classvenom_1_1common_1_1_material_a2984d16bd8d1ceae3fecdfb2391eb686} 
-const std\+::string \& {\bfseries Get\+Name} () const
+\Hypertarget{classvenom_1_1common_1_1_material_af809b34a86ab5af1a4123dafa3d96576}\label{classvenom_1_1common_1_1_material_af809b34a86ab5af1a4123dafa3d96576} 
+const vc\+::\+String \& {\bfseries Get\+Name} () const
 \item 
-\Hypertarget{classvenom_1_1common_1_1_material_abe4f4185880f7279190e9ed08f91bed3}\label{classvenom_1_1common_1_1_material_abe4f4185880f7279190e9ed08f91bed3} 
-void {\bfseries Set\+Name} (const std\+::string \&name)
+\Hypertarget{classvenom_1_1common_1_1_material_a0a918ea32c25a3aba06a4e6f156a4de9}\label{classvenom_1_1common_1_1_material_a0a918ea32c25a3aba06a4e6f156a4de9} 
+void {\bfseries Set\+Name} (const vc\+::\+String \&name)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_ae9f760b018e6468a78c10d067c40bd16}\label{classvenom_1_1common_1_1_material_ae9f760b018e6468a78c10d067c40bd16} 
+const vcm\+::\+Vec2 \& {\bfseries Get\+Texture\+Repeat\+Factor} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_a236e3dd0ee022bb0248a857c726075f4}\label{classvenom_1_1common_1_1_material_a236e3dd0ee022bb0248a857c726075f4} 
+void {\bfseries Set\+Texture\+Repeat\+Factor} (const vcm\+::\+Vec2 \&factor)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}

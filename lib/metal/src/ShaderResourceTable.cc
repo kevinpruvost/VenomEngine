@@ -55,21 +55,21 @@ void MetalShaderResourceTable::__UpdateDescriptor(const SetsIndex index, const i
 {
     MetalApplication * app = vc::GraphicsApplication::Get()->DAs<MetalApplication>();
     const vc::TextureMemoryAccess & memoryAccess = texture->GetMemoryAccess();
-    VkDescriptorType descType;
-    switch (memoryAccess) {
-        case vc::TextureMemoryAccess::ReadOnly: {
-            descType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
-            break;
-        }
-        case vc::TextureMemoryAccess::ReadWrite: {
-            descType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
-            break;
-        }
-        default: {
-            vc::Log::Error("Unsupported memory access for texture");
-            return;
-        }
-    }
+    // VkDescriptorType descType;
+    // switch (memoryAccess) {
+    //     case vc::TextureMemoryAccess::ReadOnly: {
+    //         descType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
+    //         break;
+    //     }
+    //     case vc::TextureMemoryAccess::ReadWrite: {
+    //         descType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+    //         break;
+    //     }
+    //     default: {
+    //         vc::Log::Error("Unsupported memory access for texture");
+    //         return;
+    //     }
+    // }
 }
 }
 }

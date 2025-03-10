@@ -14,42 +14,66 @@
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00020\ \{}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{vc::TextureResource}}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }VulkanTextureResource\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{vc::TextureResource}}}
 \DoxyCodeLine{00023\ \{}
 \DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}();}
+\DoxyCodeLine{00025\ \ \ \ \ VulkanTextureResource();}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ image;}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ imageView;}
+\DoxyCodeLine{00028\ \ \ \ \ vc::Vector<ImageView>\ imageViews;}
 \DoxyCodeLine{00029\ \};}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc::TextureImpl}}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }VulkanTexture\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc::TextureImpl}}}
 \DoxyCodeLine{00032\ \{}
 \DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}();}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{\string~VulkanTexture}}();}
+\DoxyCodeLine{00034\ \ \ \ \ VulkanTexture();}
+\DoxyCodeLine{00035\ \ \ \ \ \string~VulkanTexture();}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ GetDummyTexture();}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetDummyTexture(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ VulkanTexture\ *\ GetDummyTexture();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetDummyTexture(VulkanTexture\ *\ texture);}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ vc::Error\ LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00041\ \ \ \ \ vc::Error\ LoadImageBGRA(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00042\ \ \ \ \ vc::Error\ LoadImage(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00043\ \ \ \ \ vc::Error\ \_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00044\ \ \ \ \ vc::Error\ \_CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \_resource\ \&\&\ GetImage().GetVkImage()\ !=\ VK\_NULL\_HANDLE;\ \}}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ GetImage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>image;\ \}}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ GetImage()\ \{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>image;\ \}}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ GetImageView()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>imageView;\ \}}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ GetImageView()\ \{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>imageView;\ \}}
-\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_af785fa47d45fb4c36aa87a1e9cc3d7fe}{\_ResetResource}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ vc::Error\ LoadImage(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00043\ \ \ \ \ vc::Error\ LoadImageRGBA(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ \ \ \ \ vc::Error\ LoadImage(uint16\_t\ *\ pixels,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \ \ vc::Error\ \_InitDepthBuffer(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ \ \ \ \ vc::Error\ \_CreateAttachment(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ imageCount,\ vc::ShaderVertexFormat\ format)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \ \ \ \ vc::Error\ \_CreateReadWriteTexture(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ vc::ShaderVertexFormat\ format,\ \textcolor{keywordtype}{int}\ mipLevels,\ \textcolor{keywordtype}{int}\ arrayLayers)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00048\ \ \ \ \ vc::Error\ \_CreateShadowMaps(\textcolor{keywordtype}{int}\ dimension)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00049\ \ \ \ \ vc::Error\ \_CreateShadowCubeMaps(\textcolor{keywordtype}{int}\ dimension)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00050\ \ \ \ \ vc::Error\ \_SaveImageToFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ vc::Error\ \_SetMemoryAccess(\textcolor{keyword}{const}\ vc::TextureMemoryAccess\ access)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \}}
-\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{class\ }VulkanGUITexture\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}{vc::TextureImpl::GUITexture}}}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ VulkanGUITexture()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \string~VulkanGUITexture()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ vc::Error\ \_LoadTextureToGUI(\mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{vc::TextureImpl}}*\ impl,\ \textcolor{keywordtype}{void}**\ ptrToGuiTextureId)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ vc::Error\ \_UnloadTextureFromGUI(\textcolor{keywordtype}{void}*\ guiTextureId)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00062\ \ \ \ \ \};}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}{GUITexture}}\ *\ \_NewGuiTextureInstance()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ GetHeight()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ GetWidth()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ SetDimensions(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \_resource\ \&\&\ GetImage().GetVkImage()\ !=\ VK\_NULL\_HANDLE;\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ GetImage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture_resource}{VulkanTextureResource}}>()-\/>image;\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{inline}\ Image\ \&\ GetImage()\ \{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<VulkanTextureResource>()-\/>image;\ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ImageView\ \&\ GetImageView(\textcolor{keywordtype}{int}\ index\ =\ 0)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<VulkanTextureResource>()-\/>imageViews[index];\ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{inline}\ ImageView\ \&\ GetImageView(\textcolor{keywordtype}{int}\ index\ =\ 0)\ \{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<VulkanTextureResource>()-\/>imageViews[index];\ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{inline}\ ImageView\ \&\ CreateImageView()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_resource-\/>As<VulkanTextureResource>()-\/>imageViews.emplace\_back();\ \}}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ \}}
 
 \end{DoxyCode}

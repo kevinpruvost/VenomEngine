@@ -29,11 +29,14 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 # Depend on link_resources to symlink/copy
-add_dependencies(${PROJECT_NAME} link_resources VenomVulkan VenomContextGLFW)
+add_dependencies(${PROJECT_NAME} link_resources)
+
+if ((NOT APPLE) OR (NOT CMAKE_SYSTEM_NAME MATCHES "iOS"))
+    add_dependencies(${PROJECT_NAME} VenomVulkan)
+endif ()
 
 if (APPLE)
 add_dependencies(${PROJECT_NAME} VenomMetal)
-add_dependencies(${PROJECT_NAME} VenomContextApple)
 elseif (WIN32)
 #add_dependencies(${PROJECT_NAME} VenomDX12)
 endif ()
@@ -43,6 +46,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if (APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE YES
+    )
     set(PROJECT_PACKAGE_NAME ${PROJECT_NAME}_Package)
 
     add_executable(${PROJECT_PACKAGE_NAME}
@@ -52,10 +58,15 @@ if (APPLE)
         ${CMAKE_CURRENT_SOURCE_DIR}
     )
     target_link_libraries(${PROJECT_PACKAGE_NAME} PUBLIC
-        VenomCommon_Package
+        VenomCommon
     )
-    add_dependencies(${PROJECT_PACKAGE_NAME} link_resources VenomVulkan)
-    add_dependencies(${PROJECT_PACKAGE_NAME} link_resources VenomMetal)
+    # Depend on link_resources to symlink/copy
+    add_dependencies(${PROJECT_NAME} link_resources)
+
+    if ((NOT APPLE) OR (NOT CMAKE_SYSTEM_NAME MATCHES "iOS"))
+        add_dependencies(${PROJECT_NAME} VenomVulkan)
+    endif ()
+    add_dependencies(${PROJECT_PACKAGE_NAME} VenomMetal)
 
     target_sources(${PROJECT_PACKAGE_NAME} PRIVATE
         ${RESOURCE_FILES}

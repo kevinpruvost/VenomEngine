@@ -9,11 +9,29 @@
 
 {\ttfamily \#include $<$Material\+Component.\+h$>$}
 
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_ac41d65145024ab7ce9dd4b1bcf1d3c23}\label{classvenom_1_1common_1_1_material_component_ac41d65145024ab7ce9dd4b1bcf1d3c23} 
+typedef std\+::variant$<$ vcm\+::\+Vec3, vcm\+::\+Vec4, float $>$ {\bfseries Component\+Value}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_material_component_aac6de69df1c1c9743c170fed47d0105f}\label{classvenom_1_1common_1_1_material_component_aac6de69df1c1c9743c170fed47d0105f} 
 {\bfseries Material\+Component} (const \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{Material\+Component\+Type}} type)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_a05990807dcc248b588beb4c9d273e1a0}\label{classvenom_1_1common_1_1_material_component_a05990807dcc248b588beb4c9d273e1a0} 
+{\bfseries Material\+Component} (const \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_af1d70bb24e23f2df4d4028cf3554671d}\label{classvenom_1_1common_1_1_material_component_af1d70bb24e23f2df4d4028cf3554671d} 
+{\bfseries Material\+Component} (\mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \&\&other) noexcept
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_a93ee751dc5b1f7bf06b71e23effee947}\label{classvenom_1_1common_1_1_material_component_a93ee751dc5b1f7bf06b71e23effee947} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \& {\bfseries operator=} (const \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \&other)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_ad75fa4a720536102382f1ff15d11aea1}\label{classvenom_1_1common_1_1_material_component_ad75fa4a720536102382f1ff15d11aea1} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{Material\+Component}} \&\&other) noexcept
 \item 
 void \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a4eed8b8cd609edc64f31007d6da9c67a}{Set\+Value}} (const vcm\+::\+Vec3 \&value)
 \begin{DoxyCompactList}\small\item\em Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value. \end{DoxyCompactList}\item 
@@ -21,21 +39,57 @@ void \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a1dbc3ee9196c4
 \begin{DoxyCompactList}\small\item\em Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a05fb30d0214d1f2e5d8ed63ba321d98d}{Set\+Value}} (const float value)
 \begin{DoxyCompactList}\small\item\em Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a59d25aa91aa0ea23049795744457f265}{Set\+Value}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \&texture)
+\Hypertarget{classvenom_1_1common_1_1_material_component_a24ee9a469bdead9a444501b5dfda59bc}\label{classvenom_1_1common_1_1_material_component_a24ee9a469bdead9a444501b5dfda59bc} 
+void {\bfseries Remove\+Value} ()
+\begin{DoxyCompactList}\small\item\em Removes the value of the material component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a5defbdafe4d2c7d5a81dab8a670e21f1}{Set\+Texture}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \&texture)
 \begin{DoxyCompactList}\small\item\em Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value. \end{DoxyCompactList}\item 
-const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \& \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a016eea90b10fbf99793d49c64d7a8fb4}{Get\+Texture}} () const
+\Hypertarget{classvenom_1_1common_1_1_material_component_ae26971f39633a143b04c309d679fa35d}\label{classvenom_1_1common_1_1_material_component_ae26971f39633a143b04c309d679fa35d} 
+void {\bfseries Remove\+Texture} ()
+\begin{DoxyCompactList}\small\item\em Removes the texture value of the material component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a3e8400a05937f988497d6b24cf9e7dbd}{Get\+Texture}} () const
 \begin{DoxyCompactList}\small\item\em Gets the texture value of the material component. \end{DoxyCompactList}\item 
-\Hypertarget{classvenom_1_1common_1_1_material_component_abcce08f87ca68129543274862b9aedda}\label{classvenom_1_1common_1_1_material_component_abcce08f87ca68129543274862b9aedda} 
-const vcm\+::\+Vec4 \& {\bfseries Get\+Color4D} () const
+const vcm\+::\+Vec4 \& \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_abcce08f87ca68129543274862b9aedda}{Get\+Color4D}} () const
+\begin{DoxyCompactList}\small\item\em Gets the color value of the material component. \end{DoxyCompactList}\item 
+const vcm\+::\+Vec3 \& \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_ad3e0a79d484cb38a68bc87c5c09cef3a}{Get\+Color3D}} () const
+\begin{DoxyCompactList}\small\item\em Gets the color value of the material component. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a485a5e21fd3a974be7a07b6174f64e7f}{Get\+Float\+Value}} () const
+\begin{DoxyCompactList}\small\item\em Gets the value of the material component. \end{DoxyCompactList}\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_a66e97cf3c453f770bdafc39c198c16f0}\label{classvenom_1_1common_1_1_material_component_a66e97cf3c453f770bdafc39c198c16f0} 
+Component\+Value \& {\bfseries Get\+Value\+Ref} ()
 \item 
-\Hypertarget{classvenom_1_1common_1_1_material_component_ad3e0a79d484cb38a68bc87c5c09cef3a}\label{classvenom_1_1common_1_1_material_component_ad3e0a79d484cb38a68bc87c5c09cef3a} 
-const vcm\+::\+Vec3 \& {\bfseries Get\+Color3D} () const
+\Hypertarget{classvenom_1_1common_1_1_material_component_a967c5e466cfec43d5fca98b97774980d}\label{classvenom_1_1common_1_1_material_component_a967c5e466cfec43d5fca98b97774980d} 
+const Component\+Value \& {\bfseries Get\+Value\+Ref} () const
 \item 
-\Hypertarget{classvenom_1_1common_1_1_material_component_a363356d69ea80aadca8e03531824b161}\label{classvenom_1_1common_1_1_material_component_a363356d69ea80aadca8e03531824b161} 
-float {\bfseries Get\+Value} () const
+\Hypertarget{classvenom_1_1common_1_1_material_component_a1a1aa3e696d6315b0d90aba19ad50b8b}\label{classvenom_1_1common_1_1_material_component_a1a1aa3e696d6315b0d90aba19ad50b8b} 
+void {\bfseries Set\+Channels} (const Material\+Component\+Value\+Channels channels)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_material_component_a97584b2edba71498a53ac330b4fb88ad}\label{classvenom_1_1common_1_1_material_component_a97584b2edba71498a53ac330b4fb88ad} 
-\mbox{\hyperlink{namespacevenom_1_1common_a3e9bc99142c58325bf033d6ebaa2d139}{Material\+Component\+Value\+Type}} {\bfseries Get\+Value\+Type} () const
+\Hypertarget{classvenom_1_1common_1_1_material_component_a124714765b13670bfd2789173c701a32}\label{classvenom_1_1common_1_1_material_component_a124714765b13670bfd2789173c701a32} 
+void {\bfseries Set\+Channels\+From\+Index} (const int index)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_ab13647c01d97654cd321e470429ac98b}\label{classvenom_1_1common_1_1_material_component_ab13647c01d97654cd321e470429ac98b} 
+bool {\bfseries Has\+Texture} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_a5afb73a9bcf9a27294b08e4130a401b8}\label{classvenom_1_1common_1_1_material_component_a5afb73a9bcf9a27294b08e4130a401b8} 
+int {\bfseries Get\+Value\+Type} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_ab432a450a185b4ccec65a57d908ead05}\label{classvenom_1_1common_1_1_material_component_ab432a450a185b4ccec65a57d908ead05} 
+int \& {\bfseries Get\+Value\+Type\+Ref} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_ae0264181b8c2ca9e5172578e167a4a90}\label{classvenom_1_1common_1_1_material_component_ae0264181b8c2ca9e5172578e167a4a90} 
+Material\+Component\+Value\+Channels {\bfseries Get\+Channels} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_a24f11ba8a1869e93b573c56f73b0b38a}\label{classvenom_1_1common_1_1_material_component_a24f11ba8a1869e93b573c56f73b0b38a} 
+Material\+Component\+Value\+Channels \& {\bfseries Get\+Channels\+Ref} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_aa3e9723759d8da94e701bf056bfe305d}\label{classvenom_1_1common_1_1_material_component_aa3e9723759d8da94e701bf056bfe305d} 
+static constexpr vc\+::\+Array$<$ const char \texorpdfstring{$\ast$}{*}, 9 $>$ {\bfseries Get\+Channels\+Views} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_material_component_a0f7667dc209a32bbd91f48fff474e33e}\label{classvenom_1_1common_1_1_material_component_a0f7667dc209a32bbd91f48fff474e33e} 
+static Material\+Component\+Value\+Channels {\bfseries Get\+Component\+Value\+Channels\+From\+Index} (const int index)
 \end{DoxyCompactItemize}
 
 
@@ -43,11 +97,50 @@ float {\bfseries Get\+Value} () const
 \doxylink{classvenom_1_1common_1_1_material_component}{Material\+Component} Contains all the data of a material component. 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classvenom_1_1common_1_1_material_component_a016eea90b10fbf99793d49c64d7a8fb4}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!GetTexture@{GetTexture}}
+\Hypertarget{classvenom_1_1common_1_1_material_component_ad3e0a79d484cb38a68bc87c5c09cef3a}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!GetColor3D@{GetColor3D}}
+\index{GetColor3D@{GetColor3D}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
+\doxysubsubsection{\texorpdfstring{GetColor3D()}{GetColor3D()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_ad3e0a79d484cb38a68bc87c5c09cef3a} 
+const vcm\+::\+Vec3 \& venom\+::common\+::\+Material\+Component\+::\+Get\+Color3D (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the color value of the material component. 
+
+\begin{DoxyReturn}{Returns}
+Vec3 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_material_component_abcce08f87ca68129543274862b9aedda}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!GetColor4D@{GetColor4D}}
+\index{GetColor4D@{GetColor4D}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
+\doxysubsubsection{\texorpdfstring{GetColor4D()}{GetColor4D()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_abcce08f87ca68129543274862b9aedda} 
+const vcm\+::\+Vec4 \& venom\+::common\+::\+Material\+Component\+::\+Get\+Color4D (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the color value of the material component. 
+
+\begin{DoxyReturn}{Returns}
+Vec4 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_material_component_a485a5e21fd3a974be7a07b6174f64e7f}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!GetFloatValue@{GetFloatValue}}
+\index{GetFloatValue@{GetFloatValue}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
+\doxysubsubsection{\texorpdfstring{GetFloatValue()}{GetFloatValue()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a485a5e21fd3a974be7a07b6174f64e7f} 
+float venom\+::common\+::\+Material\+Component\+::\+Get\+Float\+Value (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the value of the material component. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_material_component_a3e8400a05937f988497d6b24cf9e7dbd}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!GetTexture@{GetTexture}}
 \index{GetTexture@{GetTexture}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
 \doxysubsubsection{\texorpdfstring{GetTexture()}{GetTexture()}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a016eea90b10fbf99793d49c64d7a8fb4} 
-const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \& venom\+::common\+::\+Material\+Component\+::\+Get\+Texture (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a3e8400a05937f988497d6b24cf9e7dbd} 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstring{$\ast$}{*} venom\+::common\+::\+Material\+Component\+::\+Get\+Texture (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -56,9 +149,24 @@ Gets the texture value of the material component.
 \begin{DoxyReturn}{Returns}
 \doxylink{classvenom_1_1common_1_1_texture}{Texture} 
 \end{DoxyReturn}
+\Hypertarget{classvenom_1_1common_1_1_material_component_a5defbdafe4d2c7d5a81dab8a670e21f1}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!SetTexture@{SetTexture}}
+\index{SetTexture@{SetTexture}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
+\doxysubsubsection{\texorpdfstring{SetTexture()}{SetTexture()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a5defbdafe4d2c7d5a81dab8a670e21f1} 
+void venom\+::common\+::\+Material\+Component\+::\+Set\+Texture (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & can be a color3\+D/4D, a value or a texture \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classvenom_1_1common_1_1_material_component_a05fb30d0214d1f2e5d8ed63ba321d98d}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!SetValue@{SetValue}}
 \index{SetValue@{SetValue}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
-\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a05fb30d0214d1f2e5d8ed63ba321d98d} 
 void venom\+::common\+::\+Material\+Component\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{const float}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -71,24 +179,9 @@ Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value.
 {\em value} & can be a color3\+D/4D, a value or a texture \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classvenom_1_1common_1_1_material_component_a59d25aa91aa0ea23049795744457f265}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!SetValue@{SetValue}}
-\index{SetValue@{SetValue}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
-\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a59d25aa91aa0ea23049795744457f265} 
-void venom\+::common\+::\+Material\+Component\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em value} & can be a color3\+D/4D, a value or a texture \\
-\hline
-\end{DoxyParams}
 \Hypertarget{classvenom_1_1common_1_1_material_component_a4eed8b8cd609edc64f31007d6da9c67a}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!SetValue@{SetValue}}
 \index{SetValue@{SetValue}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
-\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a4eed8b8cd609edc64f31007d6da9c67a} 
 void venom\+::common\+::\+Material\+Component\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec3 \&}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -103,7 +196,7 @@ Sets \doxylink{classvenom_1_1common_1_1_material}{Material} component value.
 \end{DoxyParams}
 \Hypertarget{classvenom_1_1common_1_1_material_component_a1dbc3ee9196c4a61cede3e0e74e94b4e}\index{venom::common::MaterialComponent@{venom::common::MaterialComponent}!SetValue@{SetValue}}
 \index{SetValue@{SetValue}!venom::common::MaterialComponent@{venom::common::MaterialComponent}}
-\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily \label{classvenom_1_1common_1_1_material_component_a1dbc3ee9196c4a61cede3e0e74e94b4e} 
 void venom\+::common\+::\+Material\+Component\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{const vcm\+::\+Vec4 \&}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 

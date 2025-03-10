@@ -43,7 +43,8 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", null ],
+        [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -55,9 +56,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_allocator_8cc.html",
-"annotated.html",
-"classvenom_1_1vulkan_1_1_vulkan_model_resource.html"
+"classvenom_1_1common_1_1_i_plugin_object.html",
+"classvenom_1_1vulkan_1_1_vulkan_rendering_pipeline.html",
+"structvenom_1_1vulkan_1_1_queue_order_pool_1_1_queue_order_info.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';

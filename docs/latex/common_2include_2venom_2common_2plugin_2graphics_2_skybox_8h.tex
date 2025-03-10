@@ -3,8 +3,11 @@
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Graphics\+Plugin\+Object.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Texture.\+h$>$}\newline
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Shader\+Pipeline.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+ECS.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvenom_1_1common_1_1_skybox_shader_data}{venom\+::common\+::\+Skybox\+Shader\+Data}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{venom\+::common\+::\+Skybox\+Impl}}
 \item 
@@ -17,6 +20,24 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a6cf80b10b58f18eff3707da64ec4559c}\label{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a6cf80b10b58f18eff3707da64ec4559c} 
+\#define {\bfseries SKYBOX\+\_\+\+IRRADIANCE\+\_\+\+HEIGHT}~128
+\item 
+\Hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a4c3ed9fce27aa8a9f3e3fe8b95d90db5}\label{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a4c3ed9fce27aa8a9f3e3fe8b95d90db5} 
+\#define {\bfseries SKYBOX\+\_\+\+IRRADIANCE\+\_\+\+WIDTH}~(SKYBOX\+\_\+\+IRRADIANCE\+\_\+\+HEIGHT \texorpdfstring{$\ast$}{*} 2)
+\item 
+\Hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a5312cf8f6681192706a6d19798e11704}\label{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a5312cf8f6681192706a6d19798e11704} 
+\#define {\bfseries SKYBOX\+\_\+\+RADIANCE\+\_\+\+HEIGHT}~1024
+\item 
+\Hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a6744b0a3b5a9f4ea251237f20514ceab}\label{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_a6744b0a3b5a9f4ea251237f20514ceab} 
+\#define {\bfseries SKYBOX\+\_\+\+RADIANCE\+\_\+\+WIDTH}~SKYBOX\+\_\+\+RADIANCE\+\_\+\+HEIGHT
+\item 
+\Hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_af61a9c8eba23dd8d457bfd769079af52}\label{common_2include_2venom_2common_2plugin_2graphics_2_skybox_8h_af61a9c8eba23dd8d457bfd769079af52} 
+\#define {\bfseries SKYBOX\+\_\+\+RADIANCE\+\_\+\+MIP\+\_\+\+LEVELS}~10
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

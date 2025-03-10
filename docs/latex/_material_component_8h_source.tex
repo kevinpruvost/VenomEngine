@@ -10,7 +10,7 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00016\ \{}
 \DoxyCodeLine{00017\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}}
@@ -44,52 +44,135 @@
 \DoxyCodeLine{00055\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespacevenom_1_1common_a3e9bc99142c58325bf033d6ebaa2d139}{MaterialComponentValueType}}}
 \DoxyCodeLine{00056\ \{}
 \DoxyCodeLine{00057\ \ \ \ \ NONE,}
-\DoxyCodeLine{00058\ \ \ \ \ COLOR3D,}
-\DoxyCodeLine{00059\ \ \ \ \ COLOR4D,}
-\DoxyCodeLine{00060\ \ \ \ \ VALUE,}
-\DoxyCodeLine{00061\ \ \ \ \ TEXTURE,}
+\DoxyCodeLine{00058\ \ \ \ \ FLOAT3D\ =\ 1,}
+\DoxyCodeLine{00059\ \ \ \ \ FLOAT4D\ =\ 2,}
+\DoxyCodeLine{00060\ \ \ \ \ FLOAT1D\ =\ 4,}
+\DoxyCodeLine{00061\ \ \ \ \ TEXTURE\ =\ 8,}
 \DoxyCodeLine{00062\ \};}
 \DoxyCodeLine{00063\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{MaterialComponent}}}
-\DoxyCodeLine{00069\ \{}
-\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{MaterialComponent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type);}
-\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component}{\string~MaterialComponent}}();}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a4eed8b8cd609edc64f31007d6da9c67a}{SetValue}}(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ value)}
-\DoxyCodeLine{00079\ \ \ \ \ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::COLOR3D;}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \_\_value.emplace<vcm::Vec3>(value);}
-\DoxyCodeLine{00082\ \ \ \ \ \}}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a1dbc3ee9196c4a61cede3e0e74e94b4e}{SetValue}}(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ value)}
-\DoxyCodeLine{00088\ \ \ \ \ \{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::COLOR4D;}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_\_value.emplace<vcm::Vec4>(value);}
-\DoxyCodeLine{00091\ \ \ \ \ \}}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a05fb30d0214d1f2e5d8ed63ba321d98d}{SetValue}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ value)}
+\DoxyCodeLine{00064\ \textcolor{keyword}{enum}\ MaterialComponentValueChannels}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ R\ =\ 0b1,}
+\DoxyCodeLine{00067\ \ \ \ \ G\ =\ 0b10,}
+\DoxyCodeLine{00068\ \ \ \ \ B\ =\ 0b100,}
+\DoxyCodeLine{00069\ \ \ \ \ A\ =\ 0b1000,}
+\DoxyCodeLine{00070\ \ \ \ \ RG\ =\ R\ |\ G,}
+\DoxyCodeLine{00071\ \ \ \ \ GB\ =\ G\ |\ B,}
+\DoxyCodeLine{00072\ \ \ \ \ BA\ =\ B\ |\ A,}
+\DoxyCodeLine{00073\ \ \ \ \ RGB\ =\ R\ |\ G\ |\ B,}
+\DoxyCodeLine{00074\ \ \ \ \ RGBA\ =\ R\ |\ G\ |\ B\ |\ A}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ MaterialComponent}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{typedef}\ std::variant<vcm::Vec3,\ vcm::Vec4,\ float>\ ComponentValue;}
+\DoxyCodeLine{00085\ \ \ \ \ MaterialComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacevenom_1_1common_a1642b28c7b555a0de1fa5a5b556cba81}{MaterialComponentType}}\ type);}
+\DoxyCodeLine{00086\ \ \ \ \ MaterialComponent(\textcolor{keyword}{const}\ MaterialComponent\ \&\ other);}
+\DoxyCodeLine{00087\ \ \ \ \ MaterialComponent(MaterialComponent\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00088\ \ \ \ \ MaterialComponent\ \&\ operator=(\textcolor{keyword}{const}\ MaterialComponent\ \&\ other);}
+\DoxyCodeLine{00089\ \ \ \ \ MaterialComponent\ \&\ operator=(MaterialComponent\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00090\ \ \ \ \ \string~MaterialComponent();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a4eed8b8cd609edc64f31007d6da9c67a}{SetValue}}(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ value)}
 \DoxyCodeLine{00097\ \ \ \ \ \{}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::VALUE;}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \_\_value.emplace<\textcolor{keywordtype}{float}>(value);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::FLOAT3D\ |\ (\_\_valueType\ \&\ MaterialComponentValueType::TEXTURE);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \_\_value.emplace<vcm::Vec3>(value);}
 \DoxyCodeLine{00100\ \ \ \ \ \}}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a59d25aa91aa0ea23049795744457f265}{SetValue}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a1dbc3ee9196c4a61cede3e0e74e94b4e}{SetValue}}(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ value)}
 \DoxyCodeLine{00106\ \ \ \ \ \{}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_\_value.emplace<\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}>(texture);}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::TEXTURE;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::FLOAT4D\ |\ (\_\_valueType\ \&\ MaterialComponentValueType::TEXTURE);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \_\_value.emplace<vcm::Vec4>(value);}
 \DoxyCodeLine{00109\ \ \ \ \ \}}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a016eea90b10fbf99793d49c64d7a8fb4}{GetTexture}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<Texture>(\_\_value);\ \}}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec4\ \&\ GetColor4D()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<vcm::Vec4>(\_\_value);\ \}}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetColor3D()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<vcm::Vec3>(\_\_value);\ \}}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ GetValue()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<float>(\_\_value);\ \}}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{namespacevenom_1_1common_a3e9bc99142c58325bf033d6ebaa2d139}{MaterialComponentValueType}}\ GetValueType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_valueType;\ \}}
-\DoxyCodeLine{00120\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{namespacevenom_1_1common_a3e9bc99142c58325bf033d6ebaa2d139}{MaterialComponentValueType}}\ \_\_valueType;}
-\DoxyCodeLine{00122\ \ \ \ \ std::variant<vcm::Vec3,\ vcm::Vec4,\ float,\ Texture>\ \_\_value;}
-\DoxyCodeLine{00123\ \};}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \}}
-\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a05fb30d0214d1f2e5d8ed63ba321d98d}{SetValue}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ value)}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ MaterialComponentValueType::FLOAT1D\ |\ (\_\_valueType\ \&\ MaterialComponentValueType::TEXTURE);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \_\_value.emplace<\textcolor{keywordtype}{float}>(value);}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a24ee9a469bdead9a444501b5dfda59bc}{RemoveValue}}()}
+\DoxyCodeLine{00123\ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \_\_value\ =\ ComponentValue();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \_\_valueType\ =\ \_\_valueType\ \&\ MaterialComponentValueType::TEXTURE;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a5defbdafe4d2c7d5a81dab8a670e21f1}{SetTexture}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ \&\ texture)}
+\DoxyCodeLine{00132\ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \_\_texture.reset(\textcolor{keyword}{new}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}(texture));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \_\_channels\ =\ MaterialComponentValueChannels::RGBA;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \_\_valueType\ |=\ MaterialComponentValueType::TEXTURE;}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_ae26971f39633a143b04c309d679fa35d}{RemoveTexture}}()}
+\DoxyCodeLine{00141\ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \_\_texture.reset();}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \_\_valueType\ \&=\ \mbox{\hyperlink{namespacevenom_1_1common_a3e9bc99142c58325bf033d6ebaa2d139}{\string~MaterialComponentValueType}}::TEXTURE;}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ *\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a3e8400a05937f988497d6b24cf9e7dbd}{GetTexture}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_texture.get();\ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec4\ \&\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_abcce08f87ca68129543274862b9aedda}{GetColor4D}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<vcm::Vec4>(\_\_value);\ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_ad3e0a79d484cb38a68bc87c5c09cef3a}{GetColor3D}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<vcm::Vec3>(\_\_value);\ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material_component_a485a5e21fd3a974be7a07b6174f64e7f}{GetFloatValue}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::get<float>(\_\_value);\ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{inline}\ ComponentValue\ \&\ GetValueRef()\ \{\ \textcolor{keywordflow}{return}\ \_\_value;\ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ComponentValue\ \&\ GetValueRef()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_value;\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetChannels(\textcolor{keyword}{const}\ MaterialComponentValueChannels\ channels)\ \{\ \_\_channels\ =\ channels;\ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetChannelsFromIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\ \{\ \_\_channels\ =\ GetComponentValueChannelsFromIndex(index);\ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTexture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_valueType\ \&\ MaterialComponentValueType::TEXTURE;\ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetValueType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_valueType;\ \}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \&\ GetValueTypeRef()\ \{\ \textcolor{keywordflow}{return}\ \_\_valueType;\ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{inline}\ MaterialComponentValueChannels\ GetChannels()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_channels;\ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{inline}\ MaterialComponentValueChannels\ \&\ GetChannelsRef()\ \{\ \textcolor{keywordflow}{return}\ \_\_channels;\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ vc::Array<const\ char\ *,\ 9>\ GetChannelsViews()}
+\DoxyCodeLine{00179\ \ \ \ \ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ vc::Array<const\ char\ *,\ 9>\ channels\ =\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}R"{}},}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}G"{}},}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}B"{}},}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}A"{}},}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RG"{}},}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GB"{}},}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BA"{}},}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RGB"{}},}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RGBA"{}}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ channels;}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ MaterialComponentValueChannels\ GetComponentValueChannelsFromIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (index)}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::R;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::G;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::B;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::A;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::RG;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::GB;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::BA;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 7:}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::RGB;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::RGBA;}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MaterialComponentValueChannels::RGBA;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_valueType;}
+\DoxyCodeLine{00221\ \ \ \ \ MaterialComponentValueChannels\ \_\_channels;}
+\DoxyCodeLine{00222\ \ \ \ \ UPtr<Texture>\ \_\_texture;}
+\DoxyCodeLine{00223\ \ \ \ \ ComponentValue\ \_\_value;}
+\DoxyCodeLine{00224\ \};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \}}
+\DoxyCodeLine{00229\ \}}
 
 \end{DoxyCode}

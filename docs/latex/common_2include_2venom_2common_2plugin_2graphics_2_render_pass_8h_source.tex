@@ -1,0 +1,54 @@
+\doxysection{Render\+Pass.\+h}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_render_pass_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_render_pass_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/RenderPass.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/RenderPass.h}}
+\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_render_pass_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_plugin_object_8h}{venom/common/plugin/graphics/GraphicsPluginObject.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_rendering_pipeline_type_8h}{venom/common/plugin/graphics/RenderingPipelineType.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_texture_8h}{venom/common/plugin/graphics/Texture.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderPassImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ RenderPassImpl();}
+\DoxyCodeLine{00024\ \ \ \ \ \string~RenderPassImpl();}
+\DoxyCodeLine{00025\ \ \ \ \ RenderPassImpl(\textcolor{keyword}{const}\ RenderPassImpl\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00026\ \ \ \ \ RenderPassImpl\&\ operator=(\textcolor{keyword}{const}\ RenderPassImpl\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00027\ \ \ \ \ RenderPassImpl(RenderPassImpl\&\&\ other);}
+\DoxyCodeLine{00028\ \ \ \ \ RenderPassImpl\&\ operator=(RenderPassImpl\&\&\ other);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ Destroy()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ Init();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRenderingType(\textcolor{keyword}{const}\ vc::RenderingPipelineType\ type);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ RenderPassImpl\ *\ GetRenderPass(\textcolor{keyword}{const}\ vc::RenderingPipelineType\ type);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ vc::Array<RenderPassImpl\ *,\ static\_cast<int>(vc::RenderingPipelineType::Count)>\ GetRenderPasses();}
+\DoxyCodeLine{00036\ \ \ \ \ RenderingPipelineType\ GetRenderingType()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_Init()\ =\ 0;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00041\ \ \ \ \ vc::RenderingPipelineType\ \_type;}
+\DoxyCodeLine{00042\ \ \ \ \ vc::Vector<vc::Vector<vc::Texture>>\ \_attachments;}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderPass\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ \ \ RenderPass();}
+\DoxyCodeLine{00049\ \ \ \ \ \string~RenderPass();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderingType(\textcolor{keyword}{const}\ vc::RenderingPipelineType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{RenderPassImpl}}>()-\/>SetRenderingType(type);\ \}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \}}
+
+\end{DoxyCode}

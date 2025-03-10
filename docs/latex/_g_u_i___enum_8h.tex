@@ -13,53 +13,92 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \Hypertarget{namespacevenom_1_1common_ab9d3f1293abd6fb668a16d41cdae7b4b}\label{namespacevenom_1_1common_ab9d3f1293abd6fb668a16d41cdae7b4b} 
 typedef int {\bfseries venom\+::common\+::\+GUIWindow\+Flags}
 \item 
+\Hypertarget{namespacevenom_1_1common_a9898d619daafd713cfefbb79177a398f}\label{namespacevenom_1_1common_a9898d619daafd713cfefbb79177a398f} 
+typedef int {\bfseries venom\+::common\+::\+GUIChild\+Flags}
+\item 
 \Hypertarget{namespacevenom_1_1common_aee99bd7eb5076a264cc86afcf6b547f4}\label{namespacevenom_1_1common_aee99bd7eb5076a264cc86afcf6b547f4} 
 typedef int {\bfseries venom\+::common\+::\+GUIColor\+Edit\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_a66a10a21ff6698108494503332de405f}\label{namespacevenom_1_1common_a66a10a21ff6698108494503332de405f} 
+typedef int {\bfseries venom\+::common\+::\+GUIInput\+Text\+Flags}
 \item 
 \Hypertarget{namespacevenom_1_1common_a7297007a9c85eee12e127a8a3aa794af}\label{namespacevenom_1_1common_a7297007a9c85eee12e127a8a3aa794af} 
 typedef int {\bfseries venom\+::common\+::\+GUICombo\+Flags}
 \item 
 \Hypertarget{namespacevenom_1_1common_ad99d96af7693e4856d31606fadbd5330}\label{namespacevenom_1_1common_ad99d96af7693e4856d31606fadbd5330} 
 typedef int {\bfseries venom\+::common\+::\+GUISelectable\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_abdc768cb0e77461e0ac299a77aa37ad3}\label{namespacevenom_1_1common_abdc768cb0e77461e0ac299a77aa37ad3} 
+typedef int {\bfseries venom\+::common\+::\+GUICond}
+\item 
+\Hypertarget{namespacevenom_1_1common_af5f28a3f89986e9cf504aca98d95cc6e}\label{namespacevenom_1_1common_af5f28a3f89986e9cf504aca98d95cc6e} 
+typedef int {\bfseries venom\+::common\+::\+GUITree\+Node\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_a4160a2ef292bc3e6b70baeadc14f7abd}\label{namespacevenom_1_1common_a4160a2ef292bc3e6b70baeadc14f7abd} 
+typedef int {\bfseries venom\+::common\+::\+GUIDock\+Node\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_af59152a4464afc146294acef6694d6bc}\label{namespacevenom_1_1common_af59152a4464afc146294acef6694d6bc} 
+typedef int {\bfseries venom\+::common\+::\+GUIPopup\+Flags}
+\item 
+\Hypertarget{namespacevenom_1_1common_a2ffd0409442a87119f65385ad70b3d71}\label{namespacevenom_1_1common_a2ffd0409442a87119f65385ad70b3d71} 
+typedef unsigned int {\bfseries venom\+::common\+::\+GUIId}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}{venom\+::common\+::\+GUIWindow\+Flags\+Bits}} \{ \newline
-{\bfseries Window\+Flags\+\_\+\+None} = 0
-, {\bfseries Window\+Flags\+\_\+\+No\+Title\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
-, {\bfseries Window\+Flags\+\_\+\+No\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
-, {\bfseries Window\+Flags\+\_\+\+No\+Move} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+{\bfseries GUIWindow\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Title\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Move} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
 , \newline
-{\bfseries Window\+Flags\+\_\+\+No\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
-, {\bfseries Window\+Flags\+\_\+\+No\+Scroll\+With\+Mouse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
-, {\bfseries Window\+Flags\+\_\+\+No\+Collapse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
-, {\bfseries Window\+Flags\+\_\+\+Always\+Auto\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+{\bfseries GUIWindow\+Flags\+\_\+\+No\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Scroll\+With\+Mouse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Collapse} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIWindow\+Flags\+\_\+\+Always\+Auto\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
 , \newline
-{\bfseries Window\+Flags\+\_\+\+No\+Background} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
-, {\bfseries Window\+Flags\+\_\+\+No\+Saved\+Settings} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
-, {\bfseries Window\+Flags\+\_\+\+No\+Mouse\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
-, {\bfseries Window\+Flags\+\_\+\+Menu\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+{\bfseries GUIWindow\+Flags\+\_\+\+No\+Background} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Saved\+Settings} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Mouse\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries GUIWindow\+Flags\+\_\+\+Menu\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
 , \newline
-{\bfseries Window\+Flags\+\_\+\+Horizontal\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
-, {\bfseries Window\+Flags\+\_\+\+No\+Focus\+On\+Appearing} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
-, {\bfseries Window\+Flags\+\_\+\+No\+Bring\+To\+Front\+On\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
-, {\bfseries Window\+Flags\+\_\+\+Always\+Vertical\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
+{\bfseries GUIWindow\+Flags\+\_\+\+Horizontal\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Focus\+On\+Appearing} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Bring\+To\+Front\+On\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
+, {\bfseries GUIWindow\+Flags\+\_\+\+Always\+Vertical\+Scrollbar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
 , \newline
-{\bfseries Window\+Flags\+\_\+\+Always\+Horizontal\+Scrollbar} =1\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
-, {\bfseries Window\+Flags\+\_\+\+No\+Nav\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
-, {\bfseries Window\+Flags\+\_\+\+No\+Nav\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
-, {\bfseries Window\+Flags\+\_\+\+Unsaved\+Document} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+{\bfseries GUIWindow\+Flags\+\_\+\+Always\+Horizontal\+Scrollbar} =1\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Nav\+Inputs} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Nav\+Focus} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries GUIWindow\+Flags\+\_\+\+Unsaved\+Document} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
 , \newline
-{\bfseries Window\+Flags\+\_\+\+No\+Nav} = Window\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Focus
-, {\bfseries Window\+Flags\+\_\+\+No\+Decoration} = Window\+Flags\+\_\+\+No\+Title\+Bar \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Resize \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Scrollbar \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Collapse
-, {\bfseries Window\+Flags\+\_\+\+No\+Inputs} = Window\+Flags\+\_\+\+No\+Mouse\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} Window\+Flags\+\_\+\+No\+Nav\+Focus
-, {\bfseries Window\+Flags\+\_\+\+Child\+Window} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 24
+{\bfseries GUIWindow\+Flags\+\_\+\+No\+Docking} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 19
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Nav} = GUIWindow\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} GUIWindow\+Flags\+\_\+\+No\+Nav\+Focus
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Decoration} = GUIWindow\+Flags\+\_\+\+No\+Title\+Bar \texorpdfstring{$\vert$}{|} GUIWindow\+Flags\+\_\+\+No\+Resize \texorpdfstring{$\vert$}{|} GUIWindow\+Flags\+\_\+\+No\+Scrollbar \texorpdfstring{$\vert$}{|} GUIWindow\+Flags\+\_\+\+No\+Collapse
+, {\bfseries GUIWindow\+Flags\+\_\+\+No\+Inputs} = GUIWindow\+Flags\+\_\+\+No\+Mouse\+Inputs \texorpdfstring{$\vert$}{|} GUIWindow\+Flags\+\_\+\+No\+Nav\+Inputs \texorpdfstring{$\vert$}{|} GUIWindow\+Flags\+\_\+\+No\+Nav\+Focus
 , \newline
-{\bfseries Window\+Flags\+\_\+\+Tooltip} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 25
-, {\bfseries Window\+Flags\+\_\+\+Popup} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 26
-, {\bfseries Window\+Flags\+\_\+\+Modal} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 27
-, {\bfseries Window\+Flags\+\_\+\+Child\+Menu} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 28
+{\bfseries GUIWindow\+Flags\+\_\+\+Child\+Window} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 24
+, {\bfseries GUIWindow\+Flags\+\_\+\+Tooltip} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 25
+, {\bfseries GUIWindow\+Flags\+\_\+\+Popup} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 26
+, {\bfseries GUIWindow\+Flags\+\_\+\+Modal} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 27
+, \newline
+{\bfseries GUIWindow\+Flags\+\_\+\+Child\+Menu} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 28
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a20a00308e3fedee7233c4cd1c13fde51}\label{namespacevenom_1_1common_a20a00308e3fedee7233c4cd1c13fde51} 
+enum {\bfseries GUIChild\+Flags\+Bits} \{ \newline
+{\bfseries GUIChild\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIChild\+Flags\+\_\+\+Borders} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUIChild\+Flags\+\_\+\+Always\+Use\+Window\+Padding} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUIChild\+Flags\+\_\+\+ResizeX} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUIChild\+Flags\+\_\+\+ResizeY} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUIChild\+Flags\+\_\+\+Auto\+ResizeX} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUIChild\+Flags\+\_\+\+Auto\+ResizeY} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIChild\+Flags\+\_\+\+Always\+Auto\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries GUIChild\+Flags\+\_\+\+Frame\+Style} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries GUIChild\+Flags\+\_\+\+Nav\+Flattened} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
  \}
 \item 
 enum \mbox{\hyperlink{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306}{venom\+::common\+::\+GUIColor\+Edit\+Flags\+Bits}} \{ \newline
@@ -101,6 +140,39 @@ enum \mbox{\hyperlink{namespacevenom_1_1common_a17d594088219754043fc96872ea8b306
 {\bfseries GUIColor\+Edit\+Flags\+\_\+\+Input\+Mask\+\_\+} = GUIColor\+Edit\+Flags\+\_\+\+Input\+RGB \texorpdfstring{$\vert$}{|} GUIColor\+Edit\+Flags\+\_\+\+Input\+HSV
  \}
 \item 
+\Hypertarget{namespacevenom_1_1common_a298b8e370749b7956dd26784cf03626e}\label{namespacevenom_1_1common_a298b8e370749b7956dd26784cf03626e} 
+enum {\bfseries GUIInput\+Text\+Flags\+Bits} \{ \newline
+{\bfseries GUIInput\+Text\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Chars\+Decimal} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Chars\+Hexadecimal} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Chars\+Scientific} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUIInput\+Text\+Flags\+\_\+\+Chars\+Uppercase} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Chars\+No\+Blank} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Allow\+Tab\+Input} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Enter\+Returns\+True} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries GUIInput\+Text\+Flags\+\_\+\+Escape\+Clears\+All} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Ctrl\+Enter\+For\+New\+Line} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Read\+Only} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Password} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, \newline
+{\bfseries GUIInput\+Text\+Flags\+\_\+\+Always\+Overwrite} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Auto\+Select\+All} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Parse\+Empty\+Ref\+Val} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Display\+Empty\+Ref\+Val} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
+, \newline
+{\bfseries GUIInput\+Text\+Flags\+\_\+\+No\+Horizontal\+Scroll} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+No\+Undo\+Redo} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Callback\+Completion} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Callback\+History} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+, \newline
+{\bfseries GUIInput\+Text\+Flags\+\_\+\+Callback\+Always} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 19
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Callback\+Char\+Filter} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 20
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Callback\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 21
+, {\bfseries GUIInput\+Text\+Flags\+\_\+\+Callback\+Edit} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 22
+ \}
+\item 
 \Hypertarget{namespacevenom_1_1common_aaed966893320a5db070b271b3c648fac}\label{namespacevenom_1_1common_aaed966893320a5db070b271b3c648fac} 
 enum {\bfseries Gui\+Combo\+Flags\+Bits} \{ \newline
 {\bfseries GUICombo\+Flags\+\_\+\+None} = 0
@@ -127,6 +199,106 @@ enum {\bfseries GUISelectable\+Flags\+Bits} \{ \newline
 {\bfseries GUISelectable\+Flags\+\_\+\+Disabled} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
 , {\bfseries GUISelectable\+Flags\+\_\+\+Allow\+Overlap} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
 , {\bfseries GUISelectable\+Flags\+\_\+\+Highlight} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_acfcff0e484d3bde3e27e309650423299}\label{namespacevenom_1_1common_acfcff0e484d3bde3e27e309650423299} 
+enum {\bfseries GUICond\+Bits} \{ \newline
+{\bfseries GUICond\+\_\+\+None} = 0
+, {\bfseries GUICond\+\_\+\+Always} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUICond\+\_\+\+Once} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUICond\+\_\+\+First\+Use\+Ever} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUICond\+\_\+\+Appearing} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a11bf88c5dcefedf9fa78f8b5020780f7}\label{namespacevenom_1_1common_a11bf88c5dcefedf9fa78f8b5020780f7} 
+enum {\bfseries GUITree\+Node\+Flags\+Bits} \{ \newline
+{\bfseries GUITree\+Node\+Flags\+\_\+\+None} = 0
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Selected} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Framed} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Allow\+Overlap} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \newline
+{\bfseries GUITree\+Node\+Flags\+\_\+\+No\+Tree\+Push\+On\+Open} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+No\+Auto\+Open\+On\+Log} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Default\+Open} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Open\+On\+Double\+Click} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, \newline
+{\bfseries GUITree\+Node\+Flags\+\_\+\+Open\+On\+Arrow} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Leaf} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Bullet} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 9
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Frame\+Padding} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, \newline
+{\bfseries GUITree\+Node\+Flags\+\_\+\+Span\+Avail\+Width} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Span\+Full\+Width} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Span\+Text\+Width} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Span\+All\+Columns} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
+, \newline
+{\bfseries GUITree\+Node\+Flags\+\_\+\+Nav\+Left\+Jumps\+Back\+Here} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
+, {\bfseries GUITree\+Node\+Flags\+\_\+\+Collapsing\+Header} = GUITree\+Node\+Flags\+\_\+\+Framed \texorpdfstring{$\vert$}{|} GUITree\+Node\+Flags\+\_\+\+No\+Tree\+Push\+On\+Open \texorpdfstring{$\vert$}{|} GUITree\+Node\+Flags\+\_\+\+No\+Auto\+Open\+On\+Log
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a7d3c33fa641769d99cbe541aff688b3c}\label{namespacevenom_1_1common_a7d3c33fa641769d99cbe541aff688b3c} 
+enum {\bfseries GUIDock\+Node\+Flags\+Bits} \{ \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Keep\+Alive\+Only} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Central\+Node} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Passthru\+Central\+Node} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+, \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Split} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Resize} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Auto\+Hide\+Tab\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 6
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Dock\+Space} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+Central\+Node} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Tab\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Hidden\+Tab\+Bar} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 13
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Window\+Menu\+Button} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 14
+, \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Close\+Button} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 15
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+ResizeX} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+ResizeY} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Docked\+Windows\+In\+Focus\+Route} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18
+, \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Split\+Other} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 19
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Me} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 20
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Other} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 21
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Empty} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 22
+, \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Docking} = GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Me \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Other \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Over\+Empty \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Split \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Split\+Other
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Shared\+Flags\+Inherit\+Mask\+\_\+} = \texorpdfstring{$\sim$}{\string~}0
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+No\+Resize\+Flags\+Mask\+\_\+} = (int)GUIDock\+Node\+Flags\+\_\+\+No\+Resize \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+ResizeX \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+ResizeY
+, {\bfseries GUIDock\+Node\+Flags\+\_\+\+Local\+Flags\+Transfer\+Mask\+\_\+} = (int)GUIDock\+Node\+Flags\+\_\+\+No\+Docking\+Split \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Resize\+Flags\+Mask\+\_\+ \texorpdfstring{$\vert$}{|} (int)GUIDock\+Node\+Flags\+\_\+\+Auto\+Hide\+Tab\+Bar \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+Central\+Node \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Tab\+Bar \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+Hidden\+Tab\+Bar \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Window\+Menu\+Button \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Close\+Button
+, \newline
+{\bfseries GUIDock\+Node\+Flags\+\_\+\+Saved\+Flags\+Mask\+\_\+} = GUIDock\+Node\+Flags\+\_\+\+No\+Resize\+Flags\+Mask\+\_\+ \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+Dock\+Space \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+Central\+Node \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Tab\+Bar \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+Hidden\+Tab\+Bar \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Window\+Menu\+Button \texorpdfstring{$\vert$}{|} GUIDock\+Node\+Flags\+\_\+\+No\+Close\+Button
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_acded841298ea2637a28818bdde29afcc}\label{namespacevenom_1_1common_acded841298ea2637a28818bdde29afcc} 
+enum {\bfseries GUIPopup\+Flags\+Bits} \{ \newline
+{\bfseries GUIPopup\+Flags\+\_\+\+None} = 0
+, {\bfseries GUIPopup\+Flags\+\_\+\+Mouse\+Button\+Left} = 0
+, {\bfseries GUIPopup\+Flags\+\_\+\+Mouse\+Button\+Right} = 1
+, {\bfseries GUIPopup\+Flags\+\_\+\+Mouse\+Button\+Middle} = 2
+, \newline
+{\bfseries GUIPopup\+Flags\+\_\+\+Mouse\+Button\+Mask\+\_\+} = 0x1F
+, {\bfseries GUIPopup\+Flags\+\_\+\+Mouse\+Button\+Default\+\_\+} = 1
+, {\bfseries GUIPopup\+Flags\+\_\+\+No\+Reopen} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5
+, {\bfseries GUIPopup\+Flags\+\_\+\+No\+Open\+Over\+Existing\+Popup} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 7
+, \newline
+{\bfseries GUIPopup\+Flags\+\_\+\+No\+Open\+Over\+Items} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8
+, {\bfseries GUIPopup\+Flags\+\_\+\+Any\+Popup\+Id} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 10
+, {\bfseries GUIPopup\+Flags\+\_\+\+Any\+Popup\+Level} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 11
+, {\bfseries GUIPopup\+Flags\+\_\+\+Any\+Popup} = GUIPopup\+Flags\+\_\+\+Any\+Popup\+Id \texorpdfstring{$\vert$}{|} GUIPopup\+Flags\+\_\+\+Any\+Popup\+Level
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a64831516dbced9678804a95158e3fcae}\label{namespacevenom_1_1common_a64831516dbced9678804a95158e3fcae} 
+enum {\bfseries GUIDir} \+: int \{ \newline
+{\bfseries GUIDir\+\_\+\+None} = -\/1
+, {\bfseries GUIDir\+\_\+\+Left} = 0
+, {\bfseries GUIDir\+\_\+\+Right} = 1
+, {\bfseries GUIDir\+\_\+\+Up} = 2
+, \newline
+{\bfseries GUIDir\+\_\+\+Down} = 3
+, {\bfseries GUIDir\+\_\+\+COUNT}
  \}
 \end{DoxyCompactItemize}
 

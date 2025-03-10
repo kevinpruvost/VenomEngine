@@ -8,7 +8,7 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
-#include <venom/common/plugin/context/Context.h>
+#include <venom/common/Context.h>
 
 namespace venom
 {

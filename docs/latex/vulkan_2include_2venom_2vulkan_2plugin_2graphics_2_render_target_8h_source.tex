@@ -1,0 +1,28 @@
+\doxysection{Render\+Target.\+h}
+\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_render_target_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_render_target_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/RenderTarget.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/RenderTarget.h}}
+\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_render_target_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_render_target_8h}{venom/common/plugin/graphics/RenderTarget.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_framebuffer_8h}{venom/vulkan/Framebuffer.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h}{venom/vulkan/plugin/graphics/Texture.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VulkanRenderTarget\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{vc::RenderTargetImpl}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ VulkanRenderTarget();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ vc::Error\ \_\_PrepareRenderTarget()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//Framebuffer\ \_\_framebuffers[VENOM\_MAX\_FRAMES\_IN\_FLIGHT];}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ \}}
+
+\end{DoxyCode}

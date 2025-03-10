@@ -11,15 +11,13 @@ Inheritance diagram for venom\+::common\+::Graphics\+Plugin\+:\begin{figure}[H]
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_ad49383db5aba8846f375df46217f140a}\label{classvenom_1_1common_1_1_graphics_plugin_ad49383db5aba8846f375df46217f140a} 
 enum class {\bfseries Graphics\+Plugin\+Type} \{ {\bfseries Vulkan}
-, {\bfseries Metal}
-, {\bfseries Direct\+X12}
  \}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a992c16a1bcb872c1291aa799a28c8728}\label{classvenom_1_1common_1_1_graphics_plugin_a992c16a1bcb872c1291aa799a28c8728} 
-virtual \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Graphics\+Application} ()=0
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a19d2bc8bb70cf8340d6e468893507aa0}\label{classvenom_1_1common_1_1_graphics_plugin_a19d2bc8bb70cf8340d6e468893507aa0} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Graphics\+Application} (int argc, const char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a32a2879cf0fe5935d036341143503456}\label{classvenom_1_1common_1_1_graphics_plugin_a32a2879cf0fe5935d036341143503456} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{Material\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Material} ()=0
@@ -42,8 +40,17 @@ virtual \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline_impl}{Shader\+
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a9fb5afea7fe0cb039b4b9ed839bdd8e9}\label{classvenom_1_1common_1_1_graphics_plugin_a9fb5afea7fe0cb039b4b9ed839bdd8e9} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{Rendering\+Pipeline\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Rendering\+Pipeline} ()=0
 \item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a26066f41fe69c52a4e509435dab5aab9}\label{classvenom_1_1common_1_1_graphics_plugin_a26066f41fe69c52a4e509435dab5aab9} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Render\+Pass} ()=0
+\item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_aa7aa4bd3f15631d663ae73beecf49f79}\label{classvenom_1_1common_1_1_graphics_plugin_aa7aa4bd3f15631d663ae73beecf49f79} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{Skybox\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Skybox} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_afaf7c78591778b8201225dd0cbee76cf}\label{classvenom_1_1common_1_1_graphics_plugin_afaf7c78591778b8201225dd0cbee76cf} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{Render\+Target\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Render\+Target} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a95aaf43540068b1b2fb1614fb62054a3}\label{classvenom_1_1common_1_1_graphics_plugin_a95aaf43540068b1b2fb1614fb62054a3} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{Light\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Light} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a48ba08263587e4fa4047405bc9becb29}\label{classvenom_1_1common_1_1_graphics_plugin_a48ba08263587e4fa4047405bc9becb29} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Shader\+Resource\+Table} ()=0

@@ -28,8 +28,6 @@
 
 #include <venom/common/plugin/graphics/GUI.h>
 
-#include "venom/common/plugin/context/ContextPlugin.h"
-
 
 namespace venom
 {
@@ -78,13 +76,29 @@ VenomEngine* VenomEngine::GetInstance()
 Error VenomEngine::CheckCompatibility()
 {
     vc::Error err = vc::Error::Success;
+    vc::GraphicsPlugin::GraphicsPluginType graphicsPluginType = vc::Config::GetGraphicsPluginType();
+    vc::Context::ContextType contextType = vc::Config::GetContextType();
+    switch (graphicsPluginType)
+    {
+        case vc::GraphicsPlugin::GraphicsPluginType::Vulkan: {
 #ifdef __APPLE__
-    if (vc::Config::GetGraphicsPluginType() == vc::GraphicsPlugin::GraphicsPluginType::Vulkan
-     && vc::Config::GetContextType() == vc::Context::ContextType::Apple) {
-        Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with Apple Context Management as a context currently. Please pick GLFW instead.");
+            if (contextType == vc::Context::ContextType::Apple) {
+                Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with Apple Context Management as a context currently. Please pick GLFW instead.");
+                return Error::Failure;
+            }
+#endif
+            break;
+        }
+#ifdef __APPLE__
+        case vc::GraphicsPlugin::GraphicsPluginType::Metal: {
+            break;
+        }
+#endif
+    };
+    if (contextType == vc::Context::ContextType::Count) {
+        Log::Error("VenomEngine::CheckCompatibility() : Context type not set");
         return Error::Failure;
     }
-#endif
     return err;
 }
 
@@ -108,7 +122,7 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
     s_instance.reset(new VenomEngine());
 
     // Init Context
-    s_instance->__context = vc::ContextPlugin::Get()->CreateContext();
+    s_instance->__context = vc::Context::CreateContext();
     if (err = s_instance->__context->Init(); err != vc::Error::Success)
     {
         vc::Log::Error("Failed to initialize context: %d", err);
@@ -126,7 +140,7 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
         ECS::UpdateWorld();
         s_sceneCallback(vc::ScenePhase::Activation);
         vc::Timer::ResetLoopTimer();
-        while (!graphicsApp->ShouldClose())
+        s_instance->__context->SetRunLoopFunction([&]()
         {
             vc::GUI::Get()->__PreUpdate();
             ECS::UpdateWorld();
@@ -149,7 +163,9 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
                 graphicsApp->WaitForDraws();
                 graphicsApp->LaunchCallbacksAfterDraws();
             }
-        }
+            return vc::Error::Success;
+        });
+        s_instance->__context->Run();
     }
     s_sceneCallback(vc::ScenePhase::Destruction);
     s_instance.reset();

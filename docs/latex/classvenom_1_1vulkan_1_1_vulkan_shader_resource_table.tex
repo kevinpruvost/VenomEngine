@@ -12,18 +12,17 @@ Inheritance diagram for venom\+::vulkan\+::Vulkan\+Shader\+Resource\+Table\+:\be
 \item 
 \Hypertarget{classvenom_1_1common_1_1_shader_resource_table_aaf1ac49627e7d034dc2ef5ba35972cf2}\label{classvenom_1_1common_1_1_shader_resource_table_aaf1ac49627e7d034dc2ef5ba35972cf2} 
 enum {\bfseries Sets\+Index} \{ \newline
-{\bfseries SETS\+\_\+\+INDEX\+\_\+\+MODEL\+\_\+\+MATRICES} = 0
-, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+CAMERA} = 1
-, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+TEXTURES} = 2
-, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+SAMPLER} = 3
+{\bfseries Sets\+Index\+\_\+\+Model\+Matrices} = 0
+, {\bfseries Sets\+Index\+\_\+\+Camera} = 1
+, {\bfseries Sets\+Index\+\_\+\+Textures} = 2
+, {\bfseries Sets\+Index\+\_\+\+Light\+Individual} = 3
 , \newline
-{\bfseries SETS\+\_\+\+INDEX\+\_\+\+MATERIAL} = 4
-, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+SCENE} = 5
-, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+PANORAMA} = 6
-, {\bfseries SETS\+\_\+\+INDEX\+\_\+\+LIGHT} = 7
+{\bfseries Sets\+Index\+\_\+\+Material} = 4
+, {\bfseries Sets\+Index\+\_\+\+Scene} = 5
+, {\bfseries Sets\+Index\+\_\+\+Panorama} = 6
+, {\bfseries Sets\+Index\+\_\+\+Light} = 7
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{venom\+::common\+::\+Shader\+Resource\+Table}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,15 +35,16 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{venom\+::common\+::\+Shader\+Resource\+Table}}}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Update\+Descriptor} (const Sets\+Index index, const int binding, const void \texorpdfstring{$\ast$}{*}data, const size\+\_\+t size, const size\+\_\+t offset=0)
+\item 
+static void {\bfseries Update\+Descriptor} (const Sets\+Index index, const int binding, \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \texorpdfstring{$\ast$}{*}texture)
 \item 
 static vcm\+::\+Mat4 \texorpdfstring{$\ast$}{*} {\bfseries Get\+All\+Model\+Matrix\+Buffer} ()
 \item 
@@ -69,16 +69,16 @@ static bool {\bfseries Using\+Large\+Bindless\+Textures} ()
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 

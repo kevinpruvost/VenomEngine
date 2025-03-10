@@ -10,32 +10,36 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }ImageView}
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{\string~ImageView}}();}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\&\ other);}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\&\ other);}
+\DoxyCodeLine{00020\ \ \ \ \ ImageView();}
+\DoxyCodeLine{00021\ \ \ \ \ \string~ImageView();}
+\DoxyCodeLine{00022\ \ \ \ \ ImageView(\textcolor{keyword}{const}\ ImageView\ \&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00023\ \ \ \ \ ImageView\ \&\ operator=(\textcolor{keyword}{const}\ ImageView\ \&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00024\ \ \ \ \ ImageView(ImageView\ \&\&\ other);}
+\DoxyCodeLine{00025\ \ \ \ \ ImageView\ \&\ operator=(ImageView\ \&\&\ other);}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Create(VkImage\ image,\ VkFormat\ format,\ VkImageAspectFlags\ aspectFlags,}
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ Create(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ image,\ VkFormat\ format,\ VkImageAspectFlags\ aspectFlags,}
 \DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ VkImageViewType\ viewType\ =\ VK\_IMAGE\_VIEW\_TYPE\_2D,}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ uint32\_t\ baseMipLevel\ =\ 0,\ uint32\_t\ levelCount\ =\ 1,}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ uint32\_t\ baseArrayLayer\ =\ 0,\ uint32\_t\ layerCount\ =\ 1);}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ VkImageView\ GetVkImageView()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ VkImageView()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00036\ \ \ \ \ VkImageView\ \_\_imageView;}
-\DoxyCodeLine{00037\ \};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}})\ ==\ \textcolor{keyword}{sizeof}(VkImageView),\ \textcolor{stringliteral}{"{}ImageView\ size\ doesn't\ align\ with\ VkImageView"{}});}
-\DoxyCodeLine{00040\ \}}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ Create(VkImage\ image,\ VkFormat\ format,\ VkImageAspectFlags\ aspectFlags,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ VkImageViewType\ viewType\ =\ VK\_IMAGE\_VIEW\_TYPE\_2D,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ uint32\_t\ baseMipLevel\ =\ 0,\ uint32\_t\ levelCount\ =\ 1,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ uint32\_t\ baseArrayLayer\ =\ 0,\ uint32\_t\ layerCount\ =\ 1);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{inline}\ VkImageView\ GetVkImageView()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_imageView;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ *\ GetImage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_image;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VkImageLayout\ GetLayout()\textcolor{keyword}{\ const\ }\{\ venom\_assert(\_\_image\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Image\ is\ nullptr"{}});\ \textcolor{keywordflow}{return}\ \_\_image-\/>GetLayout();\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ VkImageView\ \_\_imageView;}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ *\ \_\_image;}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ \}}
 
 \end{DoxyCode}

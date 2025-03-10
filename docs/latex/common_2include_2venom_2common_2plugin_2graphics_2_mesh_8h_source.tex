@@ -5,72 +5,73 @@
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_vector_8h}{venom/common/math/Vector.h}}>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_material_8h}{venom/common/plugin/graphics/Material.h}}>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }ModelImpl;}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{GraphicsPluginObject}}}
-\DoxyCodeLine{00023\ \{}
-\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}();}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{\string~MeshImpl}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMaterial(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ material);}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasMaterial()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ GetMaterial()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw()\ =\ 0;}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_LoadMeshFromCurrentData()\ =\ 0;}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}};}
-\DoxyCodeLine{00043\ \ \ \ \ std::vector<vcm::VertexPos>\ \_positions;}
-\DoxyCodeLine{00044\ \ \ \ \ std::vector<vcm::VertexNormal>\ \_normals;}
-\DoxyCodeLine{00045\ \ \ \ \ std::vector<vcm::VertexColor>\ \_colors[8];}
-\DoxyCodeLine{00046\ \ \ \ \ std::vector<vcm::VertexUV>\ \_uvs[8];}
-\DoxyCodeLine{00047\ \ \ \ \ std::vector<uint32\_t>\ \_indices;}
-\DoxyCodeLine{00048\ \ \ \ \ std::vector<vcm::VertexTangent>\ \_tangents;}
-\DoxyCodeLine{00049\ \ \ \ \ std::vector<vcm::VertexBitangent>\ \_bitangents;}
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_container}{PluginObjectContainer<Material>}}\ \_material;}
-\DoxyCodeLine{00051\ \};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{PluginObjectImplWrapper}}}
-\DoxyCodeLine{00056\ \{}
-\DoxyCodeLine{00057\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{Mesh}}();}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{\string~Mesh}}();}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_ad5376654a682e2574f52462c394253cc}{SetMaterial}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ material)\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>SetMaterial(material);}
-\DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a8da72ff386df09186372433697d3396d}{HasMaterial}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>HasMaterial();}
-\DoxyCodeLine{00075\ \ \ \ \ \}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_abd470bf2dc6f77329e4d172189f53342}{GetMaterial}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>GetMaterial();}
-\DoxyCodeLine{00083\ \ \ \ \ \}}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a824ea4a30afad1884761e5bc15f2844f}{Draw}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>Draw();}
-\DoxyCodeLine{00090\ \ \ \ \ \}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}};}
-\DoxyCodeLine{00094\ \};}
-\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_string_8h}{venom/common/String.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_vector_8h}{venom/common/math/Vector.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_material_8h}{venom/common/plugin/graphics/Material.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ MeshImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ MeshImpl();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~MeshImpl()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMaterial(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ material);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasMaterial()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ GetMaterial()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw()\ =\ 0;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_\_LoadMeshFromCurrentData()\ =\ 0;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ModelImpl;}
+\DoxyCodeLine{00044\ \ \ \ \ vc::Vector<vcm::VertexPos>\ \_positions;}
+\DoxyCodeLine{00045\ \ \ \ \ vc::Vector<vcm::VertexNormal>\ \_normals;}
+\DoxyCodeLine{00046\ \ \ \ \ vc::Vector<vcm::VertexColor>\ \_colors[8];}
+\DoxyCodeLine{00047\ \ \ \ \ vc::Vector<vcm::VertexUV>\ \_uvs[8];}
+\DoxyCodeLine{00048\ \ \ \ \ vc::Vector<uint32\_t>\ \_indices;}
+\DoxyCodeLine{00049\ \ \ \ \ vc::Vector<vcm::VertexTangent>\ \_tangents;}
+\DoxyCodeLine{00050\ \ \ \ \ vc::Vector<vcm::VertexBitangent>\ \_bitangents;}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_optional}{PluginObjectOptional<Material>}}\ \_material;}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Mesh\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00059\ \ \ \ \ Mesh();}
+\DoxyCodeLine{00060\ \ \ \ \ \string~Mesh();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_ad5376654a682e2574f52462c394253cc}{SetMaterial}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ material)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_ad5376654a682e2574f52462c394253cc}{SetMaterial}}(material);}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a8da72ff386df09186372433697d3396d}{HasMaterial}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a8da72ff386df09186372433697d3396d}{HasMaterial}}();}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{Material}}\ \&\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_abd470bf2dc6f77329e4d172189f53342}{GetMaterial}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_abd470bf2dc6f77329e4d172189f53342}{GetMaterial}}();}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a824ea4a30afad1884761e5bc15f2844f}{Draw}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_impl}{MeshImpl}}>()-\/>\mbox{\hyperlink{classvenom_1_1common_1_1_mesh_a824ea4a30afad1884761e5bc15f2844f}{Draw}}();}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_model_impl}{ModelImpl}};}
+\DoxyCodeLine{00095\ \};}
 \DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00097\ }
 \DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ \}}
 
 \end{DoxyCode}

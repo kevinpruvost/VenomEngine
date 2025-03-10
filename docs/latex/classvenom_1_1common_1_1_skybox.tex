@@ -12,8 +12,32 @@ Inheritance diagram for venom\+::common\+::Skybox\+:\begin{figure}[H]
 \Hypertarget{classvenom_1_1common_1_1_skybox_a62c2d1a29358b1f1f74aae423c5fb55c}\label{classvenom_1_1common_1_1_skybox_a62c2d1a29358b1f1f74aae423c5fb55c} 
 {\bfseries Skybox} (const char \texorpdfstring{$\ast$}{*}path)
 \item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_ac91a662b08ab644f7b69d5d2e22fe4cb}{Init}} (Entity entity) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_a85729215f62a028c7561ed2be016db90}{Update}} (Entity entity) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_a5ebfdea21647dc995bd77247d6ba1992}{\+\_\+\+GUI}} (const Entity entity) override
+\item 
+vc\+::\+String \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_a74c368b69635ff80908d16b94194565c}{\+\_\+\+Get\+Component\+Title}} () override
+\item 
+bool \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_ac6f27726533e99ea84e00860e7ee095c}{Can\+Remove}} (Entity entity) override
+\item 
 \Hypertarget{classvenom_1_1common_1_1_skybox_afa48b0fc76eb2825206d159b895a026f}\label{classvenom_1_1common_1_1_skybox_afa48b0fc76eb2825206d159b895a026f} 
 vc\+::\+Error {\bfseries Load\+Skybox} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_skybox_a8165193ef101719503d1d6a154af5424}\label{classvenom_1_1common_1_1_skybox_a8165193ef101719503d1d6a154af5424} 
+vc\+::\+Error {\bfseries Load\+Skybox} (const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ res)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_skybox_a173e7edaca13bc8e65d5c939ebfa3ef6}\label{classvenom_1_1common_1_1_skybox_a173e7edaca13bc8e65d5c939ebfa3ef6} 
+\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \& {\bfseries Get\+Panorama\+Mut} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_skybox_a243cb869cc85d1dd7cd4d43687348aa3}\label{classvenom_1_1common_1_1_skybox_a243cb869cc85d1dd7cd4d43687348aa3} 
+vc\+::\+Error {\bfseries Change\+Blur\+Factor} (const float factor)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+String {\bfseries Get\+Component\+Title} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}}
 \begin{DoxyCompactItemize}
@@ -44,6 +68,59 @@ void {\bfseries Destroy} ()
 \item 
 \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+impl}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_skybox_a74c368b69635ff80908d16b94194565c}\index{venom::common::Skybox@{venom::common::Skybox}!\_GetComponentTitle@{\_GetComponentTitle}}
+\index{\_GetComponentTitle@{\_GetComponentTitle}!venom::common::Skybox@{venom::common::Skybox}}
+\doxysubsubsection{\texorpdfstring{\_GetComponentTitle()}{\_GetComponentTitle()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_skybox_a74c368b69635ff80908d16b94194565c} 
+vc\+::\+String venom\+::common\+::\+Skybox\+::\+\_\+\+Get\+Component\+Title (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_skybox_a5ebfdea21647dc995bd77247d6ba1992}\index{venom::common::Skybox@{venom::common::Skybox}!\_GUI@{\_GUI}}
+\index{\_GUI@{\_GUI}!venom::common::Skybox@{venom::common::Skybox}}
+\doxysubsubsection{\texorpdfstring{\_GUI()}{\_GUI()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_skybox_a5ebfdea21647dc995bd77247d6ba1992} 
+void venom\+::common\+::\+Skybox\+::\+\_\+\+GUI (\begin{DoxyParamCaption}\item[{const Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_skybox_ac6f27726533e99ea84e00860e7ee095c}\index{venom::common::Skybox@{venom::common::Skybox}!CanRemove@{CanRemove}}
+\index{CanRemove@{CanRemove}!venom::common::Skybox@{venom::common::Skybox}}
+\doxysubsubsection{\texorpdfstring{CanRemove()}{CanRemove()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_skybox_ac6f27726533e99ea84e00860e7ee095c} 
+bool venom\+::common\+::\+Skybox\+::\+Can\+Remove (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_skybox_ac91a662b08ab644f7b69d5d2e22fe4cb}\index{venom::common::Skybox@{venom::common::Skybox}!Init@{Init}}
+\index{Init@{Init}!venom::common::Skybox@{venom::common::Skybox}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_skybox_ac91a662b08ab644f7b69d5d2e22fe4cb} 
+void venom\+::common\+::\+Skybox\+::\+Init (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
+\Hypertarget{classvenom_1_1common_1_1_skybox_a85729215f62a028c7561ed2be016db90}\index{venom::common::Skybox@{venom::common::Skybox}!Update@{Update}}
+\index{Update@{Update}!venom::common::Skybox@{venom::common::Skybox}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_skybox_a85729215f62a028c7561ed2be016db90} 
+void venom\+::common\+::\+Skybox\+::\+Update (\begin{DoxyParamCaption}\item[{Entity}]{entity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -6,33 +6,49 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2_debug_8h}{venom/vulkan/Debug.h}}>}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00012\ \{}
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }vulkan}
-\DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }RenderPass;}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_image_view_8h}{ImageView.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h}{plugin/graphics/Texture.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{\string~Framebuffer}}();}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ Destroy();}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ vc::Error\ Init();}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRenderPass(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}}\ *\ renderPass);}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAttachments(\textcolor{keyword}{const}\ std::vector<VkImageView\_T*>\&\ vector);}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetExtent(\textcolor{keyword}{const}\ VkExtent2D\ \&\ extent)\ \{\ \_\_framebufferCreateInfo.width\ =\ extent.width;\ \_\_framebufferCreateInfo.height\ =\ extent.height;\ \}}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetLayers(\textcolor{keyword}{const}\ uint32\_t\ layers)\ \{\ \_\_framebufferCreateInfo.layers\ =\ layers;\ \}}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{inline}\ VkFramebuffer\ GetVkFramebuffer()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_framebuffer;\ \}}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VkFramebufferCreateInfo\ *\ GetVkFramebufferCreateInfo()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \&\_\_framebufferCreateInfo;\ \}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{VulkanRenderPass}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }Framebuffer}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ Framebuffer();}
+\DoxyCodeLine{00025\ \ \ \ \ \string~Framebuffer();}
+\DoxyCodeLine{00026\ \ \ \ \ Framebuffer(\textcolor{keyword}{const}\ Framebuffer\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00027\ \ \ \ \ Framebuffer\ \&\ operator=(\textcolor{keyword}{const}\ Framebuffer\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00028\ \ \ \ \ Framebuffer(Framebuffer\ \&\&\ other);}
+\DoxyCodeLine{00029\ \ \ \ \ Framebuffer\ \&\ operator=(Framebuffer\ \&\&\ other);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ Destroy();}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00034\ \ \ \ \ VkFramebuffer\ \_\_framebuffer;}
-\DoxyCodeLine{00035\ \ \ \ \ VkFramebufferCreateInfo\ \_\_framebufferCreateInfo;}
-\DoxyCodeLine{00036\ \};}
-\DoxyCodeLine{00037\ \}}
-\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ vc::Error\ Init();}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRenderPass(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{VulkanRenderPass}}\ *\ renderPass);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<VkImageView>\&\ GetAttachmentVkImageViews()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_attachments;\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<const\ Image\ *>\&\ GetAttachmentImages()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_images;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<const\ ImageView\ *>\&\ GetAttachmentImageViews()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_imageViews\ \ ;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAttachment(\textcolor{keywordtype}{int}\ i,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\ \&\ image,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image_view}{ImageView}}\ \&\ imageView);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAttachment(\textcolor{keywordtype}{int}\ i,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_texture}{VulkanTexture}}\ *\ texture);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetExtent(\textcolor{keyword}{const}\ VkExtent2D\ \&\ extent)\ \{\ \_\_framebufferCreateInfo.width\ =\ extent.width;\ \_\_framebufferCreateInfo.height\ =\ extent.height;\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetLayers(\textcolor{keyword}{const}\ uint32\_t\ layers)\ \{\ \_\_framebufferCreateInfo.layers\ =\ layers;\ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ VkFramebuffer\ GetVkFramebuffer()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_framebuffer;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VkFramebufferCreateInfo\ *\ GetVkFramebufferCreateInfo()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \&\_\_framebufferCreateInfo;\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{inline}\ VkExtent2D\ GetFramebufferExtent()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \{\_\_framebufferCreateInfo.width,\ \_\_framebufferCreateInfo.height\};\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ VkFramebuffer\ \_\_framebuffer;}
+\DoxyCodeLine{00048\ \ \ \ \ VkFramebufferCreateInfo\ \_\_framebufferCreateInfo;}
+\DoxyCodeLine{00049\ \ \ \ \ vc::Vector<VkImageView>\ \_\_attachments;}
+\DoxyCodeLine{00050\ \ \ \ \ vc::Vector<const\ Image\ *>\ \_\_images;}
+\DoxyCodeLine{00051\ \ \ \ \ vc::Vector<const\ ImageView\ *>\ \_\_imageViews;}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \}}
 
 \end{DoxyCode}

@@ -6,94 +6,109 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_matrix_8h}{venom/common/math/Matrix.h}}>}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h}{venom/common/plugin/graphics/ShaderResourceTable.h}}>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }common}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}}
-\DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}();}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{\string~Transform3D}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ \&\ other);}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ \&\ other);}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}(\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ Basic\ movement}}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPosition(\textcolor{keyword}{const}\ vcm::Vec3\&\ position);\ \ \textcolor{comment}{//\ Set\ position\ of\ the\ camera}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ Move(\textcolor{keyword}{const}\ vcm::Vec3\&\ delta);\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ camera\ by\ delta}}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveForward(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ Move(GetForwardVector()\ *\ delta);\ \}\ \textcolor{comment}{//\ Move\ camera\ forward\ by\ delta}}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveRight(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ Move(GetRightVector()\ *\ delta);\ \}\ \textcolor{comment}{//\ Move\ camera\ right\ by\ delta}}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveUp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ Move(GetUpVector()\ *\ delta);\ \}\ \textcolor{comment}{//\ Move\ camera\ up\ by\ delta}}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetPosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_position;\ \}\ \ \textcolor{comment}{//\ Get\ current\ camera\ position}}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasPositionChanged();}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ Rotation\ and\ orientation}}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRotation(\textcolor{keyword}{const}\ vcm::Vec3\&\ rotation);\ \ \textcolor{comment}{//\ Set\ camera\ orientation\ with\ quaternion}}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ SetYaw(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ camera\ yaw}}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPitch(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ camera\ pitch}}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRoll(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ camera\ roll}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ RotateYaw(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ Y\ axis\ by\ angle}}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ RotatePitch(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ X\ axis\ by\ angle}}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ RotateRoll(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ Z\ axis\ by\ angle}}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ Rotate(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ rotation);\ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ X,\ Y\ and\ Z\ axis\ by\ the\ given\ angles}}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Quat\ \&\ GetRotationQuat()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_rotationQuat;\ \}\ \textcolor{comment}{//\ Get\ current\ camera\ rotation}}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetRotation();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ current\ camera\ rotation}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ RotateAround(\textcolor{keyword}{const}\ vcm::Vec3\&\ target,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ planeNormal,\ \textcolor{keywordtype}{float}\ angle);\ \textcolor{comment}{//\ Rotate\ camera\ around\ target}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ LookAt(\textcolor{keyword}{const}\ vcm::Vec3\&\ target);\ \ \textcolor{comment}{//\ Point\ camera\ towards\ a\ specific\ target}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetForwardVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::GetForward(\_rotationQuat);\ \}\ \textcolor{comment}{//\ Get\ camera's\ forward\ direction}}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetUpVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::GetUp(\_rotationQuat);\ \}\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ camera's\ up\ direction}}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetRightVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vcm::GetRight(\_rotationQuat);\ \}\ \ \ \ \ \textcolor{comment}{//\ Get\ camera's\ right\ direction}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_e_c_s_8h}{venom/common/ECS.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Transform3D\ :\ \textcolor{keyword}{public}\ Component}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ Transform3D();}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~Transform3D();}
+\DoxyCodeLine{00022\ \ \ \ \ Transform3D(\textcolor{keyword}{const}\ Transform3D\ \&\ other);}
+\DoxyCodeLine{00023\ \ \ \ \ Transform3D\ \&\ operator=(\textcolor{keyword}{const}\ Transform3D\ \&\ other);}
+\DoxyCodeLine{00024\ \ \ \ \ Transform3D(Transform3D\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00025\ \ \ \ \ Transform3D\ \&\ operator=(Transform3D\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ Init(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \_GUI(\textcolor{keyword}{const}\ Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ vc::String\ \_GetComponentTitle()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ CanRemove(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ Basic\ movement}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPosition(\textcolor{keyword}{const}\ vcm::Vec3\&\ position);\ \ \textcolor{comment}{//\ Set\ position\ of\ the\ camera}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRawPosition(\textcolor{keyword}{const}\ vcm::Vec3\&\ position)\ \{\ \_position\ =\ position;\ \}\ \ \textcolor{comment}{//\ Set\ position\ of\ the\ camera\ without\ updating\ the\ model\ matrix}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetScale(\textcolor{keyword}{const}\ vcm::Vec3\&\ scale);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ scale\ of\ the\ camera}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRawScale(\textcolor{keyword}{const}\ vcm::Vec3\&\ scale)\ \{\ \_scale\ =\ scale;\ \}\ \textcolor{comment}{//\ Set\ scale\ of\ the\ camera\ without\ updating\ the\ model\ matrix}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ Move(\textcolor{keyword}{const}\ vcm::Vec3\&\ delta);\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ camera\ by\ delta}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveForward(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ Move(GetForwardVector()\ *\ delta);\ \}\ \textcolor{comment}{//\ Move\ camera\ forward\ by\ delta}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveRight(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ Move(GetRightVector()\ *\ delta);\ \}\ \textcolor{comment}{//\ Move\ camera\ right\ by\ delta}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MoveUp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ delta)\ \{\ Move(GetUpVector()\ *\ delta);\ \}\ \textcolor{comment}{//\ Move\ camera\ up\ by\ delta}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetPosition()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_position;\ \}\ \ \textcolor{comment}{//\ Get\ current\ camera\ position}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasPositionChanged();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ Rotation\ and\ orientation}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRotation(\textcolor{keyword}{const}\ vcm::Vec3\&\ rotation);\ \ \textcolor{comment}{//\ Set\ camera\ orientation\ with\ quaternion}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRawRotation(\textcolor{keyword}{const}\ vcm::Vec3\&\ rotation);\ \textcolor{comment}{//\ Set\ camera\ orientation\ with\ quaternion\ without\ updating\ the\ model\ matrix}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ SetYaw(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ camera\ yaw}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPitch(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ camera\ pitch}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRoll(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ camera\ roll}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ SetYawPitchRoll(\textcolor{keywordtype}{float}\ yaw,\ \textcolor{keywordtype}{float}\ pitch,\ \textcolor{keywordtype}{float}\ roll);\ \textcolor{comment}{//\ Set\ camera\ yaw,\ pitch\ and\ roll}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ RotateYaw(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ Y\ axis\ by\ angle}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ RotatePitch(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ X\ axis\ by\ angle}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ RotateRoll(\textcolor{keywordtype}{float}\ angle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ Z\ axis\ by\ angle}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ Rotate(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ rotation);\ \ \ \ \ \textcolor{comment}{//\ Rotate\ camera\ around\ X,\ Y\ and\ Z\ axis\ by\ the\ given\ angles}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Quat\ \&\ GetRotationQuat()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_rotationQuat;\ \}\ \textcolor{comment}{//\ Get\ current\ camera\ rotation}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetRotation();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ current\ camera\ rotation}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetScale();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ current\ camera\ scale}}
+\DoxyCodeLine{00059\ }
 \DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateModelMatrix();}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetModelMatrix();\ \textcolor{comment}{//\ Get\ the\ model\ matrix\ of\ the\ camera}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetModelMatrixId()\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ShaderResourceTable::GetModelMatrixBufferId(\_modelMatrix);}
-\DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Mat4\ \&\ \_\_GetModelMatrix()\ \{}
-\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\_modelMatrix;}
-\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_modelMatrix;}
-\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d_a1087d42ee65a2f8d88bdf569443e403b}{RotateAround}}(\textcolor{keyword}{const}\ vcm::Vec3\&\ target,\ \textcolor{keyword}{const}\ vcm::Vec3\&\ planeNormal,\ \textcolor{keywordtype}{float}\ angle);\ \textcolor{comment}{//\ Rotate\ camera\ around\ target}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ LookAt(\textcolor{keyword}{const}\ vcm::Vec3\&\ target);\ \ \textcolor{comment}{//\ Point\ camera\ towards\ a\ specific\ target}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetForwardVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_8h_ac1dd0ee73b4993a610e5a2d06e563f81}{vcm::GetForward}}(\_rotationQuat);\ \}\ \textcolor{comment}{//\ Get\ camera's\ forward\ direction}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetUpVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_8h_a547d48f2d53dde3ff8c62f4968139c3f}{vcm::GetUp}}(\_rotationQuat);\ \}\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ camera's\ up\ direction}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Vec3\ GetRightVector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_8h_a1b1a19827c0ed445222e990680bbd0d2}{vcm::GetRight}}(\_rotationQuat);\ \}\ \ \ \ \ \textcolor{comment}{//\ Get\ camera's\ right\ direction}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateModelMatrix();}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetModelMatrix();\ \textcolor{comment}{//\ Get\ the\ model\ matrix\ of\ the\ camera}}
+\DoxyCodeLine{00076\ \ \ \ \ vcm::Mat4\ \&\ GetModelMatrixMut();\ \textcolor{comment}{//\ Get\ the\ model\ matrix\ for\ mutation}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetModelMatrixId()\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ShaderResourceTable::GetModelMatrixBufferId(\_modelMatrix);}
 \DoxyCodeLine{00081\ \ \ \ \ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \_UpdateRotationQuat();}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00087\ \ \ \ \ vcm::Vec3\ \_position;}
-\DoxyCodeLine{00088\ \ \ \ \ vcm::Quat\ \_rotationQuat;}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{union}}
-\DoxyCodeLine{00090\ \ \ \ \ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ vcm::Vec3\ \_3Drotation;}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \_yaw,\ \_pitch,\ \_roll;}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00096\ \ \ \ \ \};}
-\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
-\DoxyCodeLine{00098\ \ \ \ \ vcm::Mat4\ *\ \_modelMatrix;}
-\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00100\ \ \ \ \ vcm::Mat4\ \_modelMatrix;}
-\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_3DrotationViewDirty;}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_positionDirty;}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_modelDirty;}
-\DoxyCodeLine{00107\ \};}
-\DoxyCodeLine{00108\ \}}
-\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Mat4\ \&\ \_\_GetModelMatrix()\ \{}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\_modelMatrix;}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_modelMatrix;}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ \_UpdateRotationQuat();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00101\ \ \ \ \ vcm::Vec3\ \_position;}
+\DoxyCodeLine{00102\ \ \ \ \ vcm::Vec3\ \_scale;}
+\DoxyCodeLine{00103\ \ \ \ \ vcm::Quat\ \_rotationQuat;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ vcm::Vec3\ \_3Drotation;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \_pitch,\_yaw,\ \_roll;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00111\ \ \ \ \ \};}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00113\ \ \ \ \ vcm::Mat4\ *\ \_modelMatrix;}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00115\ \ \ \ \ vcm::Mat4\ \_modelMatrix;}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_3DrotationViewDirty;}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_positionDirty;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_modelDirty;}
+\DoxyCodeLine{00122\ \};}
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ \}}
 
 \end{DoxyCode}

@@ -23,6 +23,15 @@ add_library(${PROJECT_NAME} SHARED
     ${IMGUI_SOURCES}
     ${IMGUI_METAL_SOURCE}
 )
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${venom_context_apple_include_dirs}
+)
+# If Target is not iOS, then add glfw
+if (NOT CMAKE_SYSTEM_NAME MATCHES "iOS")
+    target_include_directories(${PROJECT_NAME} PUBLIC
+        ${venom_context_glfw_include_dirs}
+    )
+endif ()
 set_target_properties(${PROJECT_NAME} PROPERTIES
     PREFIX ""
     CXX_STANDARD ${CMAKE_CXX_STANDARD}
@@ -38,7 +47,6 @@ find_library(QUARTZCORE_FRAMEWORK QuartzCore)
 find_library(FOUNDATION_FRAMEWORK Foundation)
 find_library(COREGRAPHICS_FRAMEWORK CoreGraphics)
 find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
-find_library(CARBON_FRAMEWORK Carbon)  # Optional, depending on your needs
 
 target_link_libraries(${PROJECT_NAME}
     VenomCommon   # Assuming venom_common_static is defined elsewhere
@@ -49,7 +57,6 @@ target_link_libraries(${PROJECT_NAME}
     ${FOUNDATION_FRAMEWORK}
     ${COREGRAPHICS_FRAMEWORK}
     ${COREFOUNDATION_FRAMEWORK}
-    ${CARBON_FRAMEWORK}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -60,10 +67,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # Installation
 if (APPLE)
     install(TARGETS ${PROJECT_NAME}
-            DESTINATION ${CMAKE_INSTALL_PREFIX}/VenomEngine.app/Contents/Frameworks
-    )
-
-    install(FILES ${VULKAN_LIBRARY}
             DESTINATION ${CMAKE_INSTALL_PREFIX}/VenomEngine.app/Contents/Frameworks
     )
 

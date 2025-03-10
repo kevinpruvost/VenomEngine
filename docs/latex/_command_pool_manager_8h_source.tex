@@ -12,18 +12,18 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }CommandPoolManager}
 \DoxyCodeLine{00020\ \{}
 \DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}();}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{\string~CommandPoolManager}}();}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ CommandPoolManager();}
+\DoxyCodeLine{00023\ \ \ \ \ \string~CommandPoolManager();}
+\DoxyCodeLine{00024\ \ \ \ \ CommandPoolManager(\textcolor{keyword}{const}\ CommandPoolManager\ \&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00025\ \ \ \ \ CommandPoolManager\ \&\ operator=(\textcolor{keyword}{const}\ CommandPoolManager\ \&\ other)\ =\ \textcolor{keyword}{delete};}
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ Shouldn't\ be\ moved,\ belongs\ to\ VulkanApplication\ and\ nothing\ else}}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool_manager}{CommandPoolManager}}\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00027\ \ \ \ \ CommandPoolManager(CommandPoolManager\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00028\ \ \ \ \ CommandPoolManager\ \&\ operator=(CommandPoolManager\ \&\&\ other)\ =\ \textcolor{keyword}{delete};}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \ \ vc::Error\ Init();}
 \DoxyCodeLine{00031\ }
@@ -49,7 +49,7 @@
 \DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_pool}{CommandPool}}\ *\ \_\_videoEncodePool;}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00054\ \ \ \ \ std::unordered\_map<uint32\_t,\ CommandPool>\ \_\_commandPools;}
+\DoxyCodeLine{00054\ \ \ \ \ vc::UMap<uint32\_t,\ CommandPool>\ \_\_commandPools;}
 \DoxyCodeLine{00055\ \};}
 \DoxyCodeLine{00056\ \}}
 \DoxyCodeLine{00057\ \}}

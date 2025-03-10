@@ -1,0 +1,9 @@
+\doxysection{venom\+::common\+::Not\+Plugin\+Object Concept Reference}
+\hypertarget{conceptvenom_1_1common_1_1_not_plugin_object}{}\label{conceptvenom_1_1common_1_1_not_plugin_object}\index{venom::common::NotPluginObject@{venom::common::NotPluginObject}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptvenom_1_1common_1_1_not_plugin_object}{venom::common::NotPluginObject}}\ =\ \ !std::is\_convertible\_v<T\ *,\ PluginObject\ *>\ \&\&\ !std::is\_convertible\_v<T\ *,\ PluginObject\ *>}
+
+\end{DoxyCode}

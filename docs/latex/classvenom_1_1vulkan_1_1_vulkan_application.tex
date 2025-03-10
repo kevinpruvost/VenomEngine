@@ -20,23 +20,16 @@ bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_ae355527bae994
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a34f85058d5c12bc1e85ed85ade0a2ab3}\label{classvenom_1_1vulkan_1_1_vulkan_application_a34f85058d5c12bc1e85ed85ade0a2ab3} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Swap\+Chain} () const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a1eb1b457ba2685e94e6f7492f20c062f}\label{classvenom_1_1vulkan_1_1_vulkan_application_a1eb1b457ba2685e94e6f7492f20c062f} 
-const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Render\+Pass} () const
-\item 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a346330165cdc9fb61ffc5e537f8aaf2e}\label{classvenom_1_1vulkan_1_1_vulkan_application_a346330165cdc9fb61ffc5e537f8aaf2e} 
-const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Gui\+Render\+Pass} () const
-\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a7bdbef26884de52c8e8bc155c113f9fc}\label{classvenom_1_1vulkan_1_1_vulkan_application_a7bdbef26884de52c8e8bc155c113f9fc} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool}{Descriptor\+Pool}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Descriptor\+Pool} () const
-\item 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_ae1414e7e011b072efd2620b87c0fb409}\label{classvenom_1_1vulkan_1_1_vulkan_application_ae1414e7e011b072efd2620b87c0fb409} 
-const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+HDRRender\+Pass} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a5e6931d8fbb01a6d5ded68c9eae1c96a}\label{classvenom_1_1vulkan_1_1_vulkan_application_a5e6931d8fbb01a6d5ded68c9eae1c96a} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Command\+Buffer} (const int index) const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_ac7d5806820e0c453a9d13d7d15e0db24}\label{classvenom_1_1vulkan_1_1_vulkan_application_ac7d5806820e0c453a9d13d7d15e0db24} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Current\+Graphics\+Command\+Buffer} () const
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a4a7422d244f4eba73962f22f01ee7a09}{Wait\+For\+Draws}} () override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
 \begin{DoxyCompactItemize}
@@ -57,12 +50,17 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
-{\footnotesize template$<$class T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
-{\footnotesize template$<$class T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries Has\+Callbacks\+After\+Draws} () const
+\item 
+void {\bfseries Launch\+Callbacks\+After\+Draws} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{venom\+::vulkan\+::\+Debug\+Application}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -83,59 +81,93 @@ static int {\bfseries Is\+Bindless\+Supported} ()
 \item 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
 \item 
-static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create} ()
+static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (int argc, const char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
 \item 
-static int {\bfseries Get\+Current\+Frame} ()
+static int {\bfseries Get\+Current\+Frame\+In\+Flight} ()
+\item 
+static int {\bfseries Get\+Previous\+Frame\+In\+Flight} ()
+\item 
+static vcm\+::\+Vec2 {\bfseries Get\+Current\+Extent} ()
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Skybox\+Render\+Pass} ()
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Graphics\+Render\+Pass} ()
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Gui\+Render\+Pass} ()
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Shadow\+Map\+Render\+Pass} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_af0e11f9034803a94229075d6de780a4b}{Has\+Cached\+Object}} (const std\+::string \&path)
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
-static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_afa55a84a78740e243ca0baed73281fb5}{Get\+Cached\+Object}} (const std\+::string \&path)
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
 \begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
-static const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_aed4c5c13af9a06594bb5ef3e7107e0a5}{Get\+Cached\+Objects}} ()
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
 \begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
 \begin{DoxyCompactItemize}
 \item 
-static vc\+::\+Error {\bfseries Manage\+Gfx\+Settings\+Loading\+Queue} ()
+static vc\+::\+Error {\bfseries Set\+Multi\+Sampling} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{Multi\+Sampling\+Mode\+Option}} mode, const Multi\+Sampling\+Count\+Option samples)
 \item 
-static vc\+::\+Error {\bfseries Set\+Multi\+Sampling} (const Multi\+Sampling\+Mode\+Option mode, const Multi\+Sampling\+Count\+Option samples)
+static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{Multi\+Sampling\+Mode\+Option}} {\bfseries Get\+Active\+Multisampling\+Mode} ()
 \item 
-static vc\+::\+Error {\bfseries Set\+HDR} (bool enable)
+static Multi\+Sampling\+Count\+Option {\bfseries Get\+Active\+Multisampling\+Count} ()
+\item 
+static int {\bfseries Get\+Active\+Multisampling\+Count\+Index} ()
+\item 
+static const vc\+::\+Vector$<$ Multi\+Sampling\+Count\+Option $>$ \& {\bfseries Get\+Available\+Multisampling\+Count\+Options} ()
+\item 
+static const vc\+::\+Vector$<$ vc\+::\+String $>$ \& {\bfseries Get\+Available\+Multisampling\+Count\+Options\+Strings} ()
+\item 
+static int {\bfseries Get\+Active\+Samples\+Multisampling} ()
+\item 
+static vc\+::\+Error \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a06a65129be6095e485a2c716711940f8}{Set\+HDR}} (bool enable)
 \item 
 static bool {\bfseries Is\+HDREnabled} ()
 \item 
 static bool {\bfseries Is\+HDRSupported} ()
 \item 
-static void {\bfseries Start\+Gfx\+Settings\+Change} ()
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a8261df6bca4ed8117e0eec61c1e6df71}{Start\+Gfx\+Settings\+Change}} ()
 \item 
 static vc\+::\+Error {\bfseries End\+Gfx\+Settings\+Change} ()
 \item 
-static int {\bfseries Get\+Samples\+Multisampling} ()
+static const \mbox{\hyperlink{structvenom_1_1common_1_1_graphics_settings_data}{Graphics\+Settings\+Data}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Gfx\+Settings\+Data\+Ptr} ()
 \item 
-static const vc\+::\+Vector$<$ Multi\+Sampling\+Count\+Option $>$ \& {\bfseries Get\+Available\+Multisampling\+Options} ()
+static const vc\+::\+Vector$<$ vc\+::\+String $>$ \& {\bfseries Get\+Debug\+Visualizer\+Strings} ()
+\item 
+static void {\bfseries Set\+Debug\+Visualization\+Mode} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a8aa0a37ec0087e2bfb94a13f03a23a1b}{Debug\+Visualization\+Mode}} mode)
+\item 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a8aa0a37ec0087e2bfb94a13f03a23a1b}{Debug\+Visualization\+Mode}} {\bfseries Get\+Debug\+Visualization\+Mode} ()
+\item 
+static void {\bfseries Set\+Window\+Resolution} (int width, int height)
+\item 
+static void {\bfseries Set\+Window\+Extent} (int width, int height)
+\item 
+static void {\bfseries Reload\+GFXSettings} ()
+\item 
+static void {\bfseries Callback\+After\+Draws} (const Graphics\+Callback callback)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a9e6023bcf04a64cda5b65572d67d4bf5}{\+\_\+\+Load\+Gfx\+Settings}} () override
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a255f213759ddc119c86ef6c3f5063c8c}{\+\_\+\+On\+Gfx\+Settings\+Change}} () override
 \item 
-vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a2484b7ab7f8704faa95cea0c259ba517}{\+\_\+\+Set\+Multi\+Sampling}} (const Multi\+Sampling\+Mode\+Option mode, const Multi\+Sampling\+Count\+Option samples) override
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_acd8d81b5d9eb0f48fbdaef3c10d34f56}{\+\_\+\+On\+Gfx\+Constants\+Change}} () override
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a2484b7ab7f8704faa95cea0c259ba517}{\+\_\+\+Set\+Multi\+Sampling}} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{Multi\+Sampling\+Mode\+Option}} mode, const Multi\+Sampling\+Count\+Option samples) override
 \item 
 vc\+::\+Vector$<$ Multi\+Sampling\+Count\+Option $>$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a2bcc16cdc0eadfc0050c893386588cf2}{\+\_\+\+Get\+Available\+Multisampling\+Options}} () override
 \item 
 vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a0f119e62ffffd04ba7d56fceb61e6886}{\+\_\+\+Set\+HDR}} (bool enable) override
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1vulkan_1_1_debug_application}{venom\+::vulkan\+::\+Debug\+Application}}}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries \+\_\+\+Set\+Instance\+Create\+Info\+Validation\+Layers} (Vk\+Instance\+Create\+Info \texorpdfstring{$\ast$}{*}create\+Infos)
 \item 
-{\footnotesize template$<$typename Create\+Info $>$ }\\void {\bfseries \+\_\+\+Set\+Create\+Info\+Validation\+Layers} (Create\+Info \texorpdfstring{$\ast$}{*}create\+Infos)
+{\footnotesize template$<$typename Create\+Info$>$ }\\void {\bfseries \+\_\+\+Set\+Create\+Info\+Validation\+Layers} (Create\+Info \texorpdfstring{$\ast$}{*}create\+Infos)
 \item 
 vc\+::\+Error {\bfseries \+\_\+\+Post\+Instance\+\_\+\+Set\+Debug\+Parameters} ()
 \item 
@@ -150,13 +182,15 @@ void {\bfseries \+\_\+\+Update\+Theoretical\+FPS} (uint32\+\_\+t microseconds\+W
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_af5206d739cc538664f58668055b27e4d}\label{classvenom_1_1vulkan_1_1_vulkan_application_af5206d739cc538664f58668055b27e4d} 
 class {\bfseries Vulkan\+Shader\+Resource\+Table}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_afaa84818aa8780b3deec3abe4d95f9a7}\label{classvenom_1_1vulkan_1_1_vulkan_application_afaa84818aa8780b3deec3abe4d95f9a7} 
+class {\bfseries Vulkan\+Light}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Public Types inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}\label{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b} 
-enum class {\bfseries Multi\+Sampling\+Mode\+Option} \{ {\bfseries None} = 1
+enum class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{Multi\+Sampling\+Mode\+Option}} \{ {\bfseries None} = 1
 , {\bfseries MSAA} = 2
  \}
 \item 
@@ -170,6 +204,16 @@ enum class {\bfseries Multi\+Sampling\+Count\+Option} \{ \newline
 {\bfseries Samples16} = 16
 , {\bfseries Samples32} = 32
  \}
+\item 
+enum class \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a8aa0a37ec0087e2bfb94a13f03a23a1b}{Debug\+Visualization\+Mode}} \{ \newline
+{\bfseries None} = 0
+, {\bfseries Depth} = 1
+, {\bfseries Normals} = 2
+, {\bfseries Forward\+Plus} = 3
+, \newline
+{\bfseries Shadow\+Mapping} = 4
+, {\bfseries Count}
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Types inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
 \begin{DoxyCompactItemize}
@@ -182,12 +226,19 @@ enum class {\bfseries Gfx\+Settings\+Change\+State} \{ {\bfseries Ended}
 \doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a121e0fdf9cd7cf34ebfb2bed2fbae6ed}{\+\_\+\+Set\+In\+Cache}} (const std\+::string \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
 \begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool {\bfseries \+\_\+\+Is\+Gfx\+Settings\+Data\+Dirty} ()
+\item 
+static bool {\bfseries \+\_\+\+Is\+Gfx\+Constants\+Data\+Dirty} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -196,24 +247,38 @@ static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abd
 \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+gui}
 \item 
 UPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} $>$ {\bfseries \+\_\+dummy\+Texture}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} {\bfseries \+\_\+skybox\+Render\+Pass}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} {\bfseries \+\_\+graphics\+Render\+Pass}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} {\bfseries \+\_\+gui\+Render\+Pass}
+\item 
+\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{Render\+Pass}} {\bfseries \+\_\+shadow\+Map\+Render\+Pass}
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
 \begin{DoxyCompactItemize}
 \item 
 Gfx\+Settings\+Change\+State {\bfseries \+\_\+gfx\+Settings\+Change\+State}
 \item 
-Multi\+Sampling\+Mode\+Option {\bfseries \+\_\+sampling\+Mode}
-\item 
-int {\bfseries \+\_\+samples}
+\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{Multi\+Sampling\+Mode\+Option}} {\bfseries \+\_\+sampling\+Mode}
 \item 
 bool {\bfseries \+\_\+multisampling\+Dirty}
 \item 
+bool {\bfseries \+\_\+hdr\+Dirty}
+\item 
+bool {\bfseries \+\_\+window\+Size\+Dirty}
+\item 
 bool {\bfseries \+\_\+is\+Hdr\+Supported}
+\item 
+bool {\bfseries \+\_\+gfx\+Settings\+Change\+Queued}
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}}
 \begin{DoxyCompactItemize}
 \item 
 static int {\bfseries \+\_\+current\+Frame} = 0
+\item 
+static vcm\+::\+Vec2 {\bfseries \+\_\+current\+Extent} = \{0, 0\}
 \end{DoxyCompactItemize}
 
 
@@ -258,11 +323,21 @@ vc\+::\+Vector$<$ vc\+::\+Graphics\+Settings\+::\+Multi\+Sampling\+Count\+Option
 
 Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}.
 
-\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a9e6023bcf04a64cda5b65572d67d4bf5}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!\_LoadGfxSettings@{\_LoadGfxSettings}}
-\index{\_LoadGfxSettings@{\_LoadGfxSettings}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
-\doxysubsubsection{\texorpdfstring{\_LoadGfxSettings()}{\_LoadGfxSettings()}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_a9e6023bcf04a64cda5b65572d67d4bf5} 
-vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+Load\+Gfx\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_acd8d81b5d9eb0f48fbdaef3c10d34f56}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!\_OnGfxConstantsChange@{\_OnGfxConstantsChange}}
+\index{\_OnGfxConstantsChange@{\_OnGfxConstantsChange}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
+\doxysubsubsection{\texorpdfstring{\_OnGfxConstantsChange()}{\_OnGfxConstantsChange()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_acd8d81b5d9eb0f48fbdaef3c10d34f56} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+On\+Gfx\+Constants\+Change (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a255f213759ddc119c86ef6c3f5063c8c}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!\_OnGfxSettingsChange@{\_OnGfxSettingsChange}}
+\index{\_OnGfxSettingsChange@{\_OnGfxSettingsChange}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
+\doxysubsubsection{\texorpdfstring{\_OnGfxSettingsChange()}{\_OnGfxSettingsChange()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_a255f213759ddc119c86ef6c3f5063c8c} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+On\+Gfx\+Settings\+Change (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
 
 
 
@@ -282,7 +357,7 @@ Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+:
 \index{\_SetMultiSampling@{\_SetMultiSampling}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
 \doxysubsubsection{\texorpdfstring{\_SetMultiSampling()}{\_SetMultiSampling()}}
 {\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_a2484b7ab7f8704faa95cea0c259ba517} 
-vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+Set\+Multi\+Sampling (\begin{DoxyParamCaption}\item[{const Multi\+Sampling\+Mode\+Option}]{mode}{, }\item[{const Multi\+Sampling\+Count\+Option}]{samples}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+Set\+Multi\+Sampling (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{Multi\+Sampling\+Mode\+Option}}}]{mode}{, }\item[{const Multi\+Sampling\+Count\+Option}]{samples}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
 
 
 
@@ -293,6 +368,16 @@ Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+:
 \doxysubsubsection{\texorpdfstring{ShouldClose()}{ShouldClose()}}
 {\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_ae355527bae994c60718a28ff97db4fec} 
 bool venom\+::vulkan\+::\+Vulkan\+Application\+::\+Should\+Close (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{venom\+::common\+::\+Graphics\+Application}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a4a7422d244f4eba73962f22f01ee7a09}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!WaitForDraws@{WaitForDraws}}
+\index{WaitForDraws@{WaitForDraws}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
+\doxysubsubsection{\texorpdfstring{WaitForDraws()}{WaitForDraws()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_a4a7422d244f4eba73962f22f01ee7a09} 
+void venom\+::vulkan\+::\+Vulkan\+Application\+::\+Wait\+For\+Draws (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 

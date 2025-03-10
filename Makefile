@@ -20,14 +20,21 @@ package:
 		cd build_release && cmake .. -DCMAKE_BUILD_TYPE=Release;\
 		cmake --build . --config Release -j 8;\
 		cpack -G DragNDrop -C Release --config ./CPackConfig.cmake;\
-	else
+	else \
 	  echo "Not supported on this platform";\
   	fi
-
 
 # Generates and open doc for visualization
 docs:
 	cd $(DOC_FOLDER) && $(DOXYGEN) $(DOXYFILE)
+
+generate_macos:
+	mkdir -p build_macos && \
+    cd build_macos && cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=./Apple/ios.toolchain.cmake -DPLATFORM=MAC_ARM64 -DENABLE_ARC=OFF
+
+generate_ios:
+	mkdir -p build_ios && \
+    cd build_ios && cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=./Apple/ios.toolchain.cmake -DPLATFORM=OS64 -DENABLE_ARC=OFF
 
 dxc:
 	-$(MKDIR_CMD) cmake_build/dxc

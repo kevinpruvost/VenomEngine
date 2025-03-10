@@ -13,24 +13,24 @@
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_texture_8h}{venom/vulkan/plugin/graphics/Texture.h}}>}}
 \DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/plugin/context/Context.h}}>}}
 \DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }RenderPass;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_render_pass}{VulkanRenderPass}};}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }SwapChain}
 \DoxyCodeLine{00028\ \{}
 \DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}();}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{\string~SwapChain}}();}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\&\&);}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{SwapChain}}\&\&);}
+\DoxyCodeLine{00030\ \ \ \ \ SwapChain();}
+\DoxyCodeLine{00031\ \ \ \ \ \string~SwapChain();}
+\DoxyCodeLine{00032\ \ \ \ \ SwapChain(\textcolor{keyword}{const}\ SwapChain\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00033\ \ \ \ \ SwapChain\&\ operator=(\textcolor{keyword}{const}\ SwapChain\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00034\ \ \ \ \ SwapChain(SwapChain\&\&);}
+\DoxyCodeLine{00035\ \ \ \ \ SwapChain\&\ operator=(SwapChain\&\&);}
 \DoxyCodeLine{00036\ }
 \DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanSwapChain();}
 \DoxyCodeLine{00038\ }
@@ -38,28 +38,31 @@
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetSamples()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_samples;\ \}}
 \DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetSamples(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ samples)\ \{\ \_\_samples\ =\ samples;\ \}}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::Vector<ImageView>\ \&\ GetSwapChainImageViews()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_swapChainImages;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::Vector<ImageView>\ \&\ GetSwapChainImageViews()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_swapChainImageViews;\ \}}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00047\ \ \ \ \ vc::Error\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain_a367526cadc63a47fed2818b065d657f0}{InitSwapChain}}();}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ *\ surface;}
-\DoxyCodeLine{00051\ \ \ \ \ VkSurfaceFormatKHR\ activeSurfaceFormat;}
-\DoxyCodeLine{00052\ \ \ \ \ VkPresentModeKHR\ activePresentMode;}
-\DoxyCodeLine{00053\ \ \ \ \ VkExtent2D\ extent;}
-\DoxyCodeLine{00054\ \ \ \ \ VkViewport\ viewport;}
-\DoxyCodeLine{00055\ \ \ \ \ VkRect2D\ scissor;}
-\DoxyCodeLine{00056\ \ \ \ \ VkSwapchainKHR\ swapChain;}
-\DoxyCodeLine{00057\ \ \ \ \ vc::Vector<VkImage>\ swapChainImageHandles;}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00060\ \ \ \ \ vc::Vector<ImageView>\ \_\_swapChainImages;}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_samples;}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_render_pass}{RenderPass}};}
-\DoxyCodeLine{00065\ \};}
-\DoxyCodeLine{00066\ \}}
-\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ SwapChain\ *\ Get();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00049\ \ \ \ \ vc::Error\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain_a367526cadc63a47fed2818b065d657f0}{InitSwapChain}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ *\ surface;}
+\DoxyCodeLine{00053\ \ \ \ \ VkSurfaceFormatKHR\ activeSurfaceFormat;}
+\DoxyCodeLine{00054\ \ \ \ \ VkPresentModeKHR\ activePresentMode;}
+\DoxyCodeLine{00055\ \ \ \ \ VkExtent2D\ extent;}
+\DoxyCodeLine{00056\ \ \ \ \ VkViewport\ viewport;}
+\DoxyCodeLine{00057\ \ \ \ \ VkRect2D\ scissor;}
+\DoxyCodeLine{00058\ \ \ \ \ VkSwapchainKHR\ swapChain;}
+\DoxyCodeLine{00059\ \ \ \ \ vc::Vector<VkImage>\ swapChainImageHandles;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00062\ \ \ \ \ vc::Vector<ImageView>\ \_\_swapChainImageViews;}
+\DoxyCodeLine{00063\ \ \ \ \ vc::Vector<Image>\ \_\_swapChainImages;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_samples;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }VulkanRenderPass;}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ \}}
 
 \end{DoxyCode}

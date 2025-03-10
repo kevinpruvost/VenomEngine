@@ -2,8 +2,10 @@
 \hypertarget{_containers_8h}{}\label{_containers_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Containers.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Containers.h}}
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$stack$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
 {\ttfamily \#include $<$map$>$}\newline
 {\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,19 +17,34 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespacevenom_1_1common_a684ee51e80dc3c8c65b7a373734fb4ad}\label{namespacevenom_1_1common_a684ee51e80dc3c8c65b7a373734fb4ad} 
-{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+Vector} = std\+::vector$<$T$>$
+{\footnotesize template$<$typename T$>$ }\\using {\bfseries venom\+::common\+::\+Vector} = std\+::vector$<$T$>$
 \item 
 \Hypertarget{namespacevenom_1_1common_a0f83e80477be3b4e035e7a42c134c2aa}\label{namespacevenom_1_1common_a0f83e80477be3b4e035e7a42c134c2aa} 
-{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+Stack} = std\+::stack$<$T$>$
+{\footnotesize template$<$typename T$>$ }\\using {\bfseries venom\+::common\+::\+Stack} = std\+::stack$<$T$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_afe8fe3c03b9d3285f561d5326c34c236}\label{namespacevenom_1_1common_afe8fe3c03b9d3285f561d5326c34c236} 
+{\footnotesize template$<$typename T$>$ }\\using {\bfseries venom\+::common\+::\+Queue} = std\+::queue$<$T$>$
 \item 
 \Hypertarget{namespacevenom_1_1common_af030c43b6d3d391f9b0f91d0c613ab73}\label{namespacevenom_1_1common_af030c43b6d3d391f9b0f91d0c613ab73} 
-{\footnotesize template$<$typename T , size\+\_\+t N$>$ }\\using {\bfseries venom\+::common\+::\+Array} = std\+::array$<$T, N$>$
+{\footnotesize template$<$class T, size\+\_\+t N$>$ }\\using {\bfseries venom\+::common\+::\+Array} = std\+::array$<$T, N$>$
 \item 
-\Hypertarget{namespacevenom_1_1common_a0d05bbde107543d39fd58f661ecc35a1}\label{namespacevenom_1_1common_a0d05bbde107543d39fd58f661ecc35a1} 
-{\footnotesize template$<$typename T , typename U $>$ }\\using {\bfseries venom\+::common\+::\+Map} = std\+::map$<$T, U$>$
+\Hypertarget{namespacevenom_1_1common_a1087366b678f8f98733d06f42ce11a23}\label{namespacevenom_1_1common_a1087366b678f8f98733d06f42ce11a23} 
+{\footnotesize template$<$typename T, typename Compare = std\+::less$<$\+T$>$$>$ }\\using {\bfseries venom\+::common\+::\+Set} = std\+::set$<$T, Compare$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_add040080b1d49fae684eb566a7cf3a32}\label{namespacevenom_1_1common_add040080b1d49fae684eb566a7cf3a32} 
+{\footnotesize template$<$typename T, size\+\_\+t N1, size\+\_\+t N2$>$ }\\using {\bfseries venom\+::common\+::\+Array2D} = std\+::array$<$std\+::array$<$T, N2$>$, N1$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a80b16820fffbe3346c439d6ba90c4a95}\label{namespacevenom_1_1common_a80b16820fffbe3346c439d6ba90c4a95} 
+{\footnotesize template$<$typename T, typename U, typename Compare = std\+::less$<$\+T$>$$>$ }\\using {\bfseries venom\+::common\+::\+Map} = std\+::map$<$T, U, Compare$>$
 \item 
 \Hypertarget{namespacevenom_1_1common_a371fdb4bdc8e5752b5e6246d372f2d73}\label{namespacevenom_1_1common_a371fdb4bdc8e5752b5e6246d372f2d73} 
-{\footnotesize template$<$typename T , typename U $>$ }\\using {\bfseries venom\+::common\+::\+UMap} = std\+::unordered\+\_\+map$<$T, U$>$
+{\footnotesize template$<$typename T, typename U$>$ }\\using {\bfseries venom\+::common\+::\+UMap} = std\+::unordered\+\_\+map$<$T, U$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a81e9c446ff68c41da83aae1b20bf169a}\label{namespacevenom_1_1common_a81e9c446ff68c41da83aae1b20bf169a} 
+{\footnotesize template$<$typename... Args$>$ }\\using {\bfseries venom\+::common\+::\+Tuple} = std\+::tuple$<$Args...$>$
+\item 
+\Hypertarget{namespacevenom_1_1common_a5c88dbeb081a36240a00b37f39ff8cfb}\label{namespacevenom_1_1common_a5c88dbeb081a36240a00b37f39ff8cfb} 
+{\footnotesize template$<$class... Args$>$ }\\using {\bfseries venom\+::common\+::\+Make\+Tuple} = decltype(std\+::make\+\_\+tuple(std\+::declval$<$Args$>$()...))
 \end{DoxyCompactItemize}
 
 

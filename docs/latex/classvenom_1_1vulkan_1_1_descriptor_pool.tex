@@ -26,32 +26,35 @@ void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a53aa94dcbd82276a
 \begin{DoxyCompactList}\small\item\em Set the descriptor set layout binding specifications. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_ab23080d093624b7e29b287525e21de5d}{Set\+Descriptor\+Set\+Layout\+Max\+Sets}} (const uint32\+\_\+t descriptor\+Set\+Index, const uint32\+\_\+t flags)
 \begin{DoxyCompactList}\small\item\em Set the descriptor set layout max sets. \end{DoxyCompactList}\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_aefd4d5617ee171ddd026755741763fce}\label{classvenom_1_1vulkan_1_1_descriptor_pool_aefd4d5617ee171ddd026755741763fce} 
+\mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} \& {\bfseries Get\+Or\+Create\+Descriptor\+Set\+Layout} (const uint32\+\_\+t descriptor\+Set\+Index)
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_ab4e8f58bf7004d1066efa87547ab49bc}\label{classvenom_1_1vulkan_1_1_descriptor_pool_ab4e8f58bf7004d1066efa87547ab49bc} 
 void {\bfseries Set\+Descriptor\+Set\+Layout\+Bindless} (const uint32\+\_\+t descriptor\+Set\+Index)
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a17a52531cd5907bb6cf3369317c7937e}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a17a52531cd5907bb6cf3369317c7937e} 
 vc\+::\+Error {\bfseries Create} (Vk\+Descriptor\+Pool\+Create\+Flags flags, uint32\+\_\+t max\+Sets=VENOM\+\_\+\+MAX\+\_\+\+FRAMES\+\_\+\+IN\+\_\+\+FLIGHT)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_ac5cfdfd625dc99c0c2a1027b8292cfef}\label{classvenom_1_1vulkan_1_1_descriptor_pool_ac5cfdfd625dc99c0c2a1027b8292cfef} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} $>$ {\bfseries Allocate\+Sets} (const Vk\+Descriptor\+Set\+Layout \&layout, uint32\+\_\+t count, const bool bindless) const
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a703649792eaa7509a4caeac9b17976aa}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a703649792eaa7509a4caeac9b17976aa} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} $>$ {\bfseries Allocate\+Sets} (const Vk\+Descriptor\+Set\+Layout \&layout, uint32\+\_\+t count, const bool bindless) const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a1bba180af721b8bacb3360a6292d2049}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a1bba180af721b8bacb3360a6292d2049} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} $>$ {\bfseries Allocate\+Sets} (const std\+::vector$<$ Vk\+Descriptor\+Set\+Layout $>$ \&layouts, const bool bindless) const
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a801912bbd8a3e6a64dddea695f372ac0}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a801912bbd8a3e6a64dddea695f372ac0} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group}{Descriptor\+Set\+Group}} $>$ {\bfseries Allocate\+Sets} (const vc\+::\+Vector$<$ Vk\+Descriptor\+Set\+Layout $>$ \&layouts, const bool bindless) const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a2efa8dd453b22075354130c4d2a25182}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a2efa8dd453b22075354130c4d2a25182} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{Descriptor\+Set\+Group\+Allocator}} $>$ \& {\bfseries Get\+Descriptor\+Sets} ()
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_aaba3a01306c1d3a420bcd733ebe5fc0d}\label{classvenom_1_1vulkan_1_1_descriptor_pool_aaba3a01306c1d3a420bcd733ebe5fc0d} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{Descriptor\+Set\+Group\+Allocator}} $>$ \& {\bfseries Get\+Descriptor\+Sets} ()
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a8d319f71d7aabfd63bf528bec1205cc6}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a8d319f71d7aabfd63bf528bec1205cc6} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} $>$ \& {\bfseries Get\+Descriptor\+Set\+Layouts} ()
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_ae4630f5d387844bade716c48d7a46a72}\label{classvenom_1_1vulkan_1_1_descriptor_pool_ae4630f5d387844bade716c48d7a46a72} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_layout}{Descriptor\+Set\+Layout}} $>$ \& {\bfseries Get\+Descriptor\+Set\+Layouts} ()
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_ad39da22f9a2362be5775a62dc2e2b548}\label{classvenom_1_1vulkan_1_1_descriptor_pool_ad39da22f9a2362be5775a62dc2e2b548} 
-std\+::vector$<$ Vk\+Descriptor\+Set\+Layout $>$ \& {\bfseries Get\+Vk\+Descriptor\+Set\+Layouts} ()
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a919474dda527ee2b879881c1d798236c}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a919474dda527ee2b879881c1d798236c} 
+vc\+::\+Vector$<$ Vk\+Descriptor\+Set\+Layout $>$ \& {\bfseries Get\+Vk\+Descriptor\+Set\+Layouts} ()
 \item 
 \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set_group_allocator}{Descriptor\+Set\+Group\+Allocator}} \& \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a3c2aa8faa4b2632e946dace62cfc9a16}{Get\+Descriptor\+Sets}} (const uint32\+\_\+t index)
 \begin{DoxyCompactList}\small\item\em Gets the descriptor sets from the specified set index returns a vector of size VENOM\+\_\+\+MAX\+\_\+\+FRAMES\+\_\+\+IN\+\_\+\+FLIGHT because of the multiple swapchain images to handle. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_ae7081d4e4234940961023b55a5cf7121}{Bind\+Descriptor\+Sets}} (const int descriptor\+Set\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&command\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \&pipeline, const Vk\+Pipeline\+Bind\+Point bind\+Point)
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a8085a21a6f31280b718f1d4713a94d6a}{Bind\+Descriptor\+Sets}} (const int descriptor\+Set\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&command\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}pipeline)
 \begin{DoxyCompactList}\small\item\em Bind all descriptor sets to the pipeline for the current image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_aabf4133b30202096d95dfbada5fd7bdb}{Bind\+Descriptor\+Sets}} (const int descriptor\+Set\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&command\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \&pipeline, const Vk\+Pipeline\+Bind\+Point bind\+Point, const std\+::vector$<$ uint32\+\_\+t $>$ \&dynamic\+Offsets)
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_pool_a7ebd62eb00a79cb026675086b07265a8}{Bind\+Descriptor\+Sets}} (const int descriptor\+Set\+Index, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&command\+Buffer, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}pipeline, const vc\+::\+Vector$<$ uint32\+\_\+t $>$ \&dynamic\+Offsets)
 \begin{DoxyCompactList}\small\item\em Bind all descriptor sets to the pipeline for the current image. \end{DoxyCompactList}\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a172ed5d6c0d4d4b137f3d2761dde8655}\label{classvenom_1_1vulkan_1_1_descriptor_pool_a172ed5d6c0d4d4b137f3d2761dde8655} 
 Vk\+Descriptor\+Pool {\bfseries Get\+Vk\+Descriptor\+Pool} () const
@@ -88,11 +91,11 @@ Add a descriptor set layout binding to the pipeline For HLSL shader writing, ref
 {\em stage\+Flags} & \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_ae7081d4e4234940961023b55a5cf7121}\index{venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}!BindDescriptorSets@{BindDescriptorSets}}
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a8085a21a6f31280b718f1d4713a94d6a}\index{venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}!BindDescriptorSets@{BindDescriptorSets}}
 \index{BindDescriptorSets@{BindDescriptorSets}!venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}}
 \doxysubsubsection{\texorpdfstring{BindDescriptorSets()}{BindDescriptorSets()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_descriptor_pool_ae7081d4e4234940961023b55a5cf7121} 
-void venom\+::vulkan\+::\+Descriptor\+Pool\+::\+Bind\+Descriptor\+Sets (\begin{DoxyParamCaption}\item[{const int}]{descriptor\+Set\+Index}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&}]{command\+Buffer}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \&}]{pipeline}{, }\item[{const Vk\+Pipeline\+Bind\+Point}]{bind\+Point}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_descriptor_pool_a8085a21a6f31280b718f1d4713a94d6a} 
+void venom\+::vulkan\+::\+Descriptor\+Pool\+::\+Bind\+Descriptor\+Sets (\begin{DoxyParamCaption}\item[{const int}]{descriptor\+Set\+Index}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&}]{command\+Buffer}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}}]{pipeline}{}\end{DoxyParamCaption})}
 
 
 
@@ -109,11 +112,11 @@ Bind all descriptor sets to the pipeline for the current image.
 {\em bind\+Point} & \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_aabf4133b30202096d95dfbada5fd7bdb}\index{venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}!BindDescriptorSets@{BindDescriptorSets}}
+\Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a7ebd62eb00a79cb026675086b07265a8}\index{venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}!BindDescriptorSets@{BindDescriptorSets}}
 \index{BindDescriptorSets@{BindDescriptorSets}!venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}}
 \doxysubsubsection{\texorpdfstring{BindDescriptorSets()}{BindDescriptorSets()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_descriptor_pool_aabf4133b30202096d95dfbada5fd7bdb} 
-void venom\+::vulkan\+::\+Descriptor\+Pool\+::\+Bind\+Descriptor\+Sets (\begin{DoxyParamCaption}\item[{const int}]{descriptor\+Set\+Index}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&}]{command\+Buffer}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \&}]{pipeline}{, }\item[{const Vk\+Pipeline\+Bind\+Point}]{bind\+Point}{, }\item[{const std\+::vector$<$ uint32\+\_\+t $>$ \&}]{dynamic\+Offsets}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_descriptor_pool_a7ebd62eb00a79cb026675086b07265a8} 
+void venom\+::vulkan\+::\+Descriptor\+Pool\+::\+Bind\+Descriptor\+Sets (\begin{DoxyParamCaption}\item[{const int}]{descriptor\+Set\+Index}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&}]{command\+Buffer}{, }\item[{const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}}]{pipeline}{, }\item[{const vc\+::\+Vector$<$ uint32\+\_\+t $>$ \&}]{dynamic\+Offsets}{}\end{DoxyParamCaption})}
 
 
 
@@ -143,7 +146,7 @@ Bind all descriptor sets to the pipeline for the current image.
 Gets the descriptor sets from the specified set index returns a vector of size VENOM\+\_\+\+MAX\+\_\+\+FRAMES\+\_\+\+IN\+\_\+\+FLIGHT because of the multiple swapchain images to handle. 
 
 \begin{DoxyReturn}{Returns}
-std\+::vector$<$\+Descriptor\+Set$>$ \& 
+vc\+::\+Vector$<$\+Descriptor\+Set$>$ \& 
 \end{DoxyReturn}
 \Hypertarget{classvenom_1_1vulkan_1_1_descriptor_pool_a53aa94dcbd82276ab40faa7a946c5132}\index{venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}!SetDescriptorSetLayoutBindingSpecifications@{SetDescriptorSetLayoutBindingSpecifications}}
 \index{SetDescriptorSetLayoutBindingSpecifications@{SetDescriptorSetLayoutBindingSpecifications}!venom::vulkan::DescriptorPool@{venom::vulkan::DescriptorPool}}

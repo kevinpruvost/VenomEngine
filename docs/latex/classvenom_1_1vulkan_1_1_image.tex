@@ -15,14 +15,17 @@
 \Hypertarget{classvenom_1_1vulkan_1_1_image_ab71ab0a1ec80943e7e419dc7c399fc26}\label{classvenom_1_1vulkan_1_1_image_ab71ab0a1ec80943e7e419dc7c399fc26} 
 \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&\&image) noexcept
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a1a477e70df3fca9512665845590e6898}\label{classvenom_1_1vulkan_1_1_image_a1a477e70df3fca9512665845590e6898} 
+void {\bfseries Create\+From\+Swap\+Chain\+Image} (Vk\+Image img, const Vk\+Swapchain\+Create\+Info\+KHR \&swap\+Chain\+Info)
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a4b00aeae42f51bfc20658a141ab6fec5}\label{classvenom_1_1vulkan_1_1_image_a4b00aeae42f51bfc20658a141ab6fec5} 
 vc\+::\+Error {\bfseries Load} (unsigned char \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels, Vk\+Format format, Vk\+Image\+Tiling tiling, Vk\+Image\+Usage\+Flags usage, Vk\+Memory\+Property\+Flags properties)
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a51a3d4b83088cd2ff1523e16a31e1850}\label{classvenom_1_1vulkan_1_1_image_a51a3d4b83088cd2ff1523e16a31e1850} 
 vc\+::\+Error {\bfseries Load} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}pixels, int width, int height, int channels, Vk\+Format format, Vk\+Image\+Tiling tiling, Vk\+Image\+Usage\+Flags usage, Vk\+Memory\+Property\+Flags properties)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_image_abb37bbae0ed3fca9143fc59bd5c1b1f8}\label{classvenom_1_1vulkan_1_1_image_abb37bbae0ed3fca9143fc59bd5c1b1f8} 
-vc\+::\+Error {\bfseries Create} (Vk\+Format format, Vk\+Image\+Tiling tiling, Vk\+Image\+Usage\+Flags usage, Vk\+Memory\+Property\+Flags properties, uint32\+\_\+t width, uint32\+\_\+t height, uint32\+\_\+t array\+Levels=1, uint32\+\_\+t mip\+Levels=1)
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a37aac84a18579fe7595987f09b8d359a}\label{classvenom_1_1vulkan_1_1_image_a37aac84a18579fe7595987f09b8d359a} 
+vc\+::\+Error {\bfseries Create} (Vk\+Format format, Vk\+Image\+Tiling tiling, Vk\+Image\+Usage\+Flags usage, Vk\+Memory\+Property\+Flags properties, uint32\+\_\+t width, uint32\+\_\+t height, uint32\+\_\+t array\+Levels=1, uint32\+\_\+t mip\+Levels=1, Vk\+Image\+Create\+Flags create\+Flags=0)
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a0e14aa00cd96f2fc187d08d7b37e0d7f}\label{classvenom_1_1vulkan_1_1_image_a0e14aa00cd96f2fc187d08d7b37e0d7f} 
 void {\bfseries Set\+Samples} (Vk\+Sample\+Count\+Flag\+Bits samples)
@@ -33,14 +36,20 @@ void {\bfseries Set\+Samples} (int samples)
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a99628c223165e9a01760b7ff49a2c3d3}\label{classvenom_1_1vulkan_1_1_image_a99628c223165e9a01760b7ff49a2c3d3} 
 void {\bfseries Set\+Image\+Layout} (Vk\+Image\+Layout layout)
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a553f53083cfae8ab7137b553bca70f9a}\label{classvenom_1_1vulkan_1_1_image_a553f53083cfae8ab7137b553bca70f9a} 
+void {\bfseries Set\+Image\+Layout} (Vk\+Image\+Layout layout, \mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{Command\+Buffer}} \&command\+Buffer)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_af3e36db5a923a565cadab854d3dc1d8b}\label{classvenom_1_1vulkan_1_1_image_af3e36db5a923a565cadab854d3dc1d8b} 
+void {\bfseries Set\+Aspect\+Mask} (Vk\+Image\+Aspect\+Flags aspect\+Mask)
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a6502a5ac35e428dc7c56270b12b0e811}\label{classvenom_1_1vulkan_1_1_image_a6502a5ac35e428dc7c56270b12b0e811} 
+Vk\+Image\+Aspect\+Flags {\bfseries Get\+Aspect\+Mask} () const
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_add001a30ecbcc82b402a4d37c660a756}\label{classvenom_1_1vulkan_1_1_image_add001a30ecbcc82b402a4d37c660a756} 
 Vk\+Format {\bfseries Get\+Format} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_ac0856314460b920ad8a2500f2f7836dc}\label{classvenom_1_1vulkan_1_1_image_ac0856314460b920ad8a2500f2f7836dc} 
 Vk\+Image {\bfseries Get\+Vk\+Image} () const
-\item 
-\Hypertarget{classvenom_1_1vulkan_1_1_image_ac10509d5aea32f714da684d9870e0961}\label{classvenom_1_1vulkan_1_1_image_ac10509d5aea32f714da684d9870e0961} 
-{\bfseries operator Vk\+Image} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a155dffeee89777bf97fa4ef71bd58f0b}\label{classvenom_1_1vulkan_1_1_image_a155dffeee89777bf97fa4ef71bd58f0b} 
 uint32\+\_\+t {\bfseries Get\+Width} () const
@@ -50,12 +59,21 @@ uint32\+\_\+t {\bfseries Get\+Height} () const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a02072d8a29f241c11682ff3724771f32}\label{classvenom_1_1vulkan_1_1_image_a02072d8a29f241c11682ff3724771f32} 
 Vk\+Image\+Layout {\bfseries Get\+Layout} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a268f7fc703ee74734ea777759b809d50}\label{classvenom_1_1vulkan_1_1_image_a268f7fc703ee74734ea777759b809d50} 
+uint32\+\_\+t {\bfseries Get\+Mip\+Levels} () const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a50e48221270e0d4f6c85163b8bff8ff3}\label{classvenom_1_1vulkan_1_1_image_a50e48221270e0d4f6c85163b8bff8ff3} 
+uint32\+\_\+t {\bfseries Get\+Array\+Layers} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_image_a2d1fa14292823ae3718f547daeb56928}\label{classvenom_1_1vulkan_1_1_image_a2d1fa14292823ae3718f547daeb56928} 
 class {\bfseries Command\+Buffer}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_image_a6889b71ac4a48434d639b0e02413114e}\label{classvenom_1_1vulkan_1_1_image_a6889b71ac4a48434d639b0e02413114e} 
+class {\bfseries Swap\+Chain}
 \end{DoxyCompactItemize}
 
 

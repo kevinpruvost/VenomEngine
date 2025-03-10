@@ -10,13 +10,13 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }vulkan}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_family}{QueueFamily}}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }QueueFamily}
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_family}{QueueFamily}}();}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue_family}{\string~QueueFamily}}();}
+\DoxyCodeLine{00020\ \ \ \ \ QueueFamily();}
+\DoxyCodeLine{00021\ \ \ \ \ \string~QueueFamily();}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00024\ }
@@ -24,16 +24,16 @@
 \DoxyCodeLine{00026\ \ \ \ \ VkQueueFamilyProperties\ properties;}
 \DoxyCodeLine{00027\ \};}
 \DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ uint32\_t\ QueueFamilyIndex;}
-\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ std::vector<uint32\_t>\ QueueFamilyIndices;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ vc::Vector<uint32\_t>\ QueueFamilyIndices;}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }MappedQueueFamilies}
 \DoxyCodeLine{00032\ \{}
 \DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}();}
+\DoxyCodeLine{00034\ \ \ \ \ MappedQueueFamilies();}
 \DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}(std::vector<QueueFamily>\&\ queueFamilies);}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ \&\ operator=(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\&\&\ other)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<QueueFamily>\ \&\ GetQueueFamilies()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{explicit}\ MappedQueueFamilies(vc::Vector<QueueFamily>\&\ queueFamilies);}
+\DoxyCodeLine{00037\ \ \ \ \ MappedQueueFamilies\ \&\ operator=(MappedQueueFamilies\&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ vc::Vector<QueueFamily>\ \&\ GetQueueFamilies()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00039\ \ \ \ \ vc::Error\ SetPresentQueueFamilyIndices(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\&\ physicalDevice,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_surface}{Surface}}\ \&\ surface);}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
@@ -45,7 +45,7 @@
 \DoxyCodeLine{00047\ \ \ \ \ QueueFamilyIndices\ presentQueueFamilyIndices;}
 \DoxyCodeLine{00048\ }
 \DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00050\ \ \ \ \ std::vector<QueueFamily>\ \_\_queueFamilies;}
+\DoxyCodeLine{00050\ \ \ \ \ vc::Vector<QueueFamily>\ \_\_queueFamilies;}
 \DoxyCodeLine{00051\ \};}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_mapped_queue_families}{MappedQueueFamilies}}\ getVulkanQueueFamilies(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_physical_device}{PhysicalDevice}}\&\ physicalDevice);}

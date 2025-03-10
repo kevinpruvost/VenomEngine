@@ -11,6 +11,8 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_resource}{venom\+::commo
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{venom\+::common\+::\+Texture\+Impl}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl_1_1_g_u_i_texture}{venom\+::common\+::\+Texture\+Impl\+::\+GUITexture}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{venom\+::common\+::\+Texture}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Namespaces}
@@ -23,16 +25,58 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{namespacevenom_1_1common_a6aa2b5eca1a9c97e808fbda033058a1a}\label{namespacevenom_1_1common_a6aa2b5eca1a9c97e808fbda033058a1a} 
+enum class {\bfseries Texture\+Memory\+Access} \{ \newline
+{\bfseries None} = -\/1
+, {\bfseries Read\+Only} = 0
+, {\bfseries Write\+Only}
+, {\bfseries Read\+Write}
+, \newline
+{\bfseries Count}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a8df95102f2842eca7262b81bfcb3c3f9}\label{namespacevenom_1_1common_a8df95102f2842eca7262b81bfcb3c3f9} 
+enum class {\bfseries Texture\+Type} \{ \newline
+{\bfseries None} = -\/1
+, {\bfseries Texture2D} = 0
+, {\bfseries Texture\+Cube}
+, {\bfseries Texture3D}
+, \newline
+{\bfseries Count}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a544cfdc1ba6daf25995aea45fb348141}\label{namespacevenom_1_1common_a544cfdc1ba6daf25995aea45fb348141} 
+enum {\bfseries Texture\+Usage} \{ \newline
+{\bfseries None} = -\/1
+, {\bfseries Sampled} = 0x1
+, {\bfseries Storage} = 0x2
+, {\bfseries Attachment} = 0x4
+, \newline
+{\bfseries Depth\+Stencil} = 0x8
+, {\bfseries Immutable} = 0x10
+, {\bfseries Texture\+Usage\+Count}
+ \}
+\item 
 \Hypertarget{namespacevenom_1_1common_aa180b9c9bc13783af4525066fe04b6eb}\label{namespacevenom_1_1common_aa180b9c9bc13783af4525066fe04b6eb} 
-enum {\bfseries Color\+Attachment\+Type} \{ \newline
+enum class {\bfseries Color\+Attachment\+Type} \{ \newline
 {\bfseries Present} = 0
 , {\bfseries Normal\+Specular} = 1
 , {\bfseries Metallic\+Rougness\+AO} = 2
 , {\bfseries Position} = 3
 , \newline
 {\bfseries Depth} = 4
+, {\bfseries Lighting\+Addition} = 5
 , {\bfseries Count}
  \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevenom_1_1common_acf6bb4ce2ed48f62e352d109eab0242e}\label{namespacevenom_1_1common_acf6bb4ce2ed48f62e352d109eab0242e} 
+vc\+::\+Error VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Save\+Image\+To\+Exr} (const void \texorpdfstring{$\ast$}{*}data, const char \texorpdfstring{$\ast$}{*}path, int width, int height, int channels=4)
+\item 
+\Hypertarget{namespacevenom_1_1common_a0cb5b8a0a04006d8f2d27ad3bc3d98a9}\label{namespacevenom_1_1common_a0cb5b8a0a04006d8f2d27ad3bc3d98a9} 
+vc\+::\+Error VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries venom\+::common\+::\+Save\+Image\+To\+Png} (const void \texorpdfstring{$\ast$}{*}data, const char \texorpdfstring{$\ast$}{*}path, int width, int height, int channels=4)
 \end{DoxyCompactItemize}
 
 

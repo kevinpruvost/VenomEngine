@@ -53,3 +53,12 @@
 [submodule "lib/external/imguizmo"]
 	path = lib/external/imguizmo
 	url = git@github.com:CedricGuillemet/ImGuizmo.git
+[submodule "lib/external/tbb"]
+	path = lib/external/tbb
+	url = git@github.com:uxlfoundation/oneTBB.git
+[submodule "lib/external/blosc"]
+	path = lib/external/blosc
+	url = git@github.com:Blosc/c-blosc.git
+[submodule "lib/external/boost"]
+	path = lib/external/boost
+	url = git@github.com:kevinpruvost/boost_openvdb.git

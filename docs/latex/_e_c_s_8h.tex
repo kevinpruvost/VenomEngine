@@ -1,13 +1,19 @@
 \doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+ECS.h File Reference}
 \hypertarget{_e_c_s_8h}{}\label{_e_c_s_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/ECS.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/ECS.h}}
 {\ttfamily \#include $<$venom/common/\+DLL.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/plugin/graphics/\+GUI.\+h$>$}\newline
 {\ttfamily \#include $<$flecs.\+h$>$}\newline
-{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Functional.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Containers.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_static_venom_can_create_component}{venom\+::common\+::\+Static\+Venom\+Can\+Create\+Component}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{venom\+::common\+::\+Venom\+Component}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{venom\+::common\+::\+ECS}}
-\begin{DoxyCompactList}\small\item\em Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. Also manages/lists all components types for browsing. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,17 +21,29 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{conceptvenom_1_1common_1_1_inherits_from_component}{venom\+::common\+::\+Inherits\+From\+Component}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_e_c_s_8h_ae4c1d611c842e117f42dadf26805194b}{COMPONENT\+\_\+\+CAN\+\_\+\+ADD\+\_\+\+DEFINITION}}(COMPONENT\+\_\+\+NAME,  BODY)
+\item 
+\#define \mbox{\hyperlink{_e_c_s_8h_ad811858dc8265f41c1249d843a57479a}{REGISTER\+\_\+\+COMPONENT}}(T)
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{namespacevenom_1_1common_a0adb5b5907b1898471697a8ae6b621e8}\label{namespacevenom_1_1common_a0adb5b5907b1898471697a8ae6b621e8} 
-typedef flecs\+::entity {\bfseries venom\+::common\+::\+Entity}
-\item 
-\Hypertarget{namespacevenom_1_1common_a7016bd9c06627c8c17994e9f0722c17e}\label{namespacevenom_1_1common_a7016bd9c06627c8c17994e9f0722c17e} 
-{\footnotesize template$<$typename T $>$ }\\using {\bfseries venom\+::common\+::\+Component} = flecs\+::component$<$T$>$
+\Hypertarget{namespacevenom_1_1common_a89ae253f7ca7d8714bf587300472fcb7}\label{namespacevenom_1_1common_a89ae253f7ca7d8714bf587300472fcb7} 
+using {\bfseries venom\+::common\+::\+Entity} = flecs\+::entity
 \item 
 \Hypertarget{namespacevenom_1_1common_a64106511eb000154f288f120e5733286}\label{namespacevenom_1_1common_a64106511eb000154f288f120e5733286} 
 typedef flecs\+::system {\bfseries venom\+::common\+::\+System}
+\item 
+\Hypertarget{namespacevenom_1_1common_a5bea3772b72ceb4748bb7a4b643c5512}\label{namespacevenom_1_1common_a5bea3772b72ceb4748bb7a4b643c5512} 
+typedef \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{Venom\+Component}} {\bfseries venom\+::common\+::\+Component}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -38,9 +56,6 @@ Entity {\bfseries venom\+::common\+::\+Create\+Entity} (const char \texorpdfstri
 \item 
 \Hypertarget{namespacevenom_1_1common_a592d353323501f46084da60b7e389f72}\label{namespacevenom_1_1common_a592d353323501f46084da60b7e389f72} 
 Entity {\bfseries venom\+::common\+::\+Create\+Entity} ()
-\item 
-\Hypertarget{namespacevenom_1_1common_a54f4957db028d38e29894e90317467b5}\label{namespacevenom_1_1common_a54f4957db028d38e29894e90317467b5} 
-{\footnotesize template$<$typename T $>$ }\\Component$<$ T $>$ {\bfseries venom\+::common\+::\+Get\+Component} ()
 \end{DoxyCompactItemize}
 
 
@@ -53,3 +68,38 @@ Oct, 10 2024
 \begin{DoxyAuthor}{Author}
 Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
 \end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_e_c_s_8h_ae4c1d611c842e117f42dadf26805194b}\index{ECS.h@{ECS.h}!COMPONENT\_CAN\_ADD\_DEFINITION@{COMPONENT\_CAN\_ADD\_DEFINITION}}
+\index{COMPONENT\_CAN\_ADD\_DEFINITION@{COMPONENT\_CAN\_ADD\_DEFINITION}!ECS.h@{ECS.h}}
+\doxysubsubsection{\texorpdfstring{COMPONENT\_CAN\_ADD\_DEFINITION}{COMPONENT\_CAN\_ADD\_DEFINITION}}
+{\footnotesize\ttfamily \label{_e_c_s_8h_ae4c1d611c842e117f42dadf26805194b} 
+\#define COMPONENT\+\_\+\+CAN\+\_\+\+ADD\+\_\+\+DEFINITION(\begin{DoxyParamCaption}\item[{}]{COMPONENT\+\_\+\+NAME}{, }\item[{}]{BODY}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }COMPONENT\_NAME\#\#\_CanAdd\ :\ \textcolor{keyword}{public}\ StaticVenomCanCreateComponent\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ COMPONENT\_NAME\#\#\_CanAdd()\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ :\ StaticVenomCanCreateComponent(\#COMPONENT\_NAME,\ [](Entity\ entity)\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BODY\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ COMPONENT\_NAME\#\#\_CanAdd\ s\_\#\#COMPONENT\_NAME\#\#\_CanAdd;}
+
+\end{DoxyCode}
+\Hypertarget{_e_c_s_8h_ad811858dc8265f41c1249d843a57479a}\index{ECS.h@{ECS.h}!REGISTER\_COMPONENT@{REGISTER\_COMPONENT}}
+\index{REGISTER\_COMPONENT@{REGISTER\_COMPONENT}!ECS.h@{ECS.h}}
+\doxysubsubsection{\texorpdfstring{REGISTER\_COMPONENT}{REGISTER\_COMPONENT}}
+{\footnotesize\ttfamily \label{_e_c_s_8h_ad811858dc8265f41c1249d843a57479a} 
+\#define REGISTER\+\_\+\+COMPONENT(\begin{DoxyParamCaption}\item[{}]{T}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{vc::ECS::GetECS()-\/>RegisterComponent<T>(\#T)}
+
+\end{DoxyCode}

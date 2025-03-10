@@ -1,0 +1,143 @@
+\doxysection{venom\+::vulkan\+::Vulkan\+Light Class Reference}
+\hypertarget{classvenom_1_1vulkan_1_1_vulkan_light}{}\label{classvenom_1_1vulkan_1_1_vulkan_light}\index{venom::vulkan::VulkanLight@{venom::vulkan::VulkanLight}}
+Inheritance diagram for venom\+::vulkan\+::Vulkan\+Light\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classvenom_1_1vulkan_1_1_vulkan_light}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_light_abbdf1c8263bc81ba4dff6803327370d4}\label{classvenom_1_1vulkan_1_1_vulkan_light_abbdf1c8263bc81ba4dff6803327370d4} 
+const vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}} $>$ \& {\bfseries Get\+Shadow\+Map\+Framebuffers} (const int frame\+Index, const int cascade\+Index) const
+\item 
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_light_a4392085ccff6ec10779dba8b7ccbef7e}\label{classvenom_1_1vulkan_1_1_vulkan_light_a4392085ccff6ec10779dba8b7ccbef7e} 
+const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_descriptor_set}{Descriptor\+Set}} \& {\bfseries Get\+Shadow\+Map\+Descriptor\+Set} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{venom\+::common\+::\+Light\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+Error {\bfseries Set\+Type} (const Light\+Type type)
+\item 
+const Light\+Type \& {\bfseries Get\+Light\+Type} () const
+\item 
+void {\bfseries Set\+Color} (const vcm\+::\+Vec3 \&color)
+\item 
+const vcm\+::\+Vec3 \& {\bfseries Get\+Color} () const
+\item 
+void {\bfseries Set\+Intensity} (const float intensity)
+\item 
+const float \& {\bfseries Get\+Intensity} () const
+\item 
+float \texorpdfstring{$\ast$}{*} {\bfseries Get\+Intensity\+Ptr} ()
+\item 
+void {\bfseries Set\+Angle} (const float angle)
+\item 
+const float \& {\bfseries Get\+Angle} () const
+\item 
+\mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{Light\+Shader\+Struct}} {\bfseries Get\+Shader\+Struct} () const
+\item 
+vc\+::\+Error {\bfseries Reinit} ()
+\item 
+\mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{Light\+Cascaded\+Shadow\+Map\+Constants\+Struct}} {\bfseries Get\+Shadow\+Map\+Constants\+Struct} (const int cascade\+Index, const int face\+Index, \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}} \texorpdfstring{$\ast$}{*}const camera, vcm\+::\+Vec3 \texorpdfstring{$\ast$}{*}light\+Pos) const
+\item 
+int {\bfseries Get\+Cascade\+Index} (\mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}} \texorpdfstring{$\ast$}{*}const camera)
+\item 
+int {\bfseries Get\+Light\+Index\+Per\+Type} () const
+\item 
+vcm\+::\+Vec3 {\bfseries Get\+Direction} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_light_a113c7aab42e4191ce27a6178b58b6319}{\+\_\+\+Set\+Type}} (const vc\+::\+Light\+Type type) override
+\item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_light_a92eff245abcb6c18612ba5aa69a15315}{\+\_\+\+Set\+Descriptors\+From\+Cascade}} (const int cascade\+Index) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac9d0e27aa344c652c022d4b2c10605f0}{Has\+Cached\+Object}} (const vc\+::\+String \&path)
+\begin{DoxyCompactList}\small\item\em Checks if an object is in the cache. \end{DoxyCompactList}\item 
+static SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ac8396d0b2a27c3028f8c7f5b6c05dec3}{Get\+Cached\+Object}} (const vc\+::\+String \&path)
+\begin{DoxyCompactList}\small\item\em Gets a cached object from the graphics cache. \end{DoxyCompactList}\item 
+static const vc\+::\+UMap$<$ vc\+::\+String, vc\+::\+SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ $>$ \& \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a4d078c913211523f9f319b314f05d496}{Get\+Cached\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets all cached objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object}{venom\+::common\+::\+Graphics\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a7a145dfbff7f9ed5a66e1a761268c385}{\+\_\+\+Set\+In\+Cache}} (const vc\+::\+String \&path, const SPtr$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{Graphics\+Cached\+Resource}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em Sets an object in the cache. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_a92f7af5330709adbfc36f6b7c8f7f32d}{\+\_\+\+Set\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_abdc28fae32ad24fe8fb7eb2c02276b27}{\+\_\+\+Add\+Cache\+Size}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Adds cache size to avoid unnecessary additional allocations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{venom\+::common\+::\+Light\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries \+\_\+light\+Index\+Per\+Type}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_light_a92eff245abcb6c18612ba5aa69a15315}\index{venom::vulkan::VulkanLight@{venom::vulkan::VulkanLight}!\_SetDescriptorsFromCascade@{\_SetDescriptorsFromCascade}}
+\index{\_SetDescriptorsFromCascade@{\_SetDescriptorsFromCascade}!venom::vulkan::VulkanLight@{venom::vulkan::VulkanLight}}
+\doxysubsubsection{\texorpdfstring{\_SetDescriptorsFromCascade()}{\_SetDescriptorsFromCascade()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_light_a92eff245abcb6c18612ba5aa69a15315} 
+void venom\+::vulkan\+::\+Vulkan\+Light\+::\+\_\+\+Set\+Descriptors\+From\+Cascade (\begin{DoxyParamCaption}\item[{const int}]{cascade\+Index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{venom\+::common\+::\+Light\+Impl}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_light_a113c7aab42e4191ce27a6178b58b6319}\index{venom::vulkan::VulkanLight@{venom::vulkan::VulkanLight}!\_SetType@{\_SetType}}
+\index{\_SetType@{\_SetType}!venom::vulkan::VulkanLight@{venom::vulkan::VulkanLight}}
+\doxysubsubsection{\texorpdfstring{\_SetType()}{\_SetType()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_light_a113c7aab42e4191ce27a6178b58b6319} 
+vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Light\+::\+\_\+\+Set\+Type (\begin{DoxyParamCaption}\item[{const vc\+::\+Light\+Type}]{type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{venom\+::common\+::\+Light\+Impl}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/include/venom/vulkan/plugin/graphics/\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_light_8h}{Light.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/vulkan/src/\mbox{\hyperlink{vulkan_2src_2_light_8cc}{Light.\+cc}}\end{DoxyCompactItemize}

@@ -1,25 +1,36 @@
 \doxysection{venom\+::common\+::Context Class Reference}
 \hypertarget{classvenom_1_1common_1_1_context}{}\label{classvenom_1_1common_1_1_context}\index{venom::common::Context@{venom::common::Context}}
+Inheritance diagram for venom\+::common\+::Context\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classvenom_1_1common_1_1_context}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a7b14ca203a45f03bc503ba8558026b2d}\label{classvenom_1_1common_1_1_context_a7b14ca203a45f03bc503ba8558026b2d} 
+enum class {\bfseries Context\+Type} \{ {\bfseries GLFW} = 0
+, {\bfseries Count}
+ \}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_context_a6da5fd3fc2a876fff32c15c9dfea8e4f}\label{classvenom_1_1common_1_1_context_a6da5fd3fc2a876fff32c15c9dfea8e4f} 
-vc\+::\+Error {\bfseries Init\+Context} ()
+\Hypertarget{classvenom_1_1common_1_1_context_aa832c015d5bea903be0111811ab5f2f5}\label{classvenom_1_1common_1_1_context_aa832c015d5bea903be0111811ab5f2f5} 
+vc\+::\+Error {\bfseries Init} ()
 \item 
-\Hypertarget{classvenom_1_1common_1_1_context_aed1453655f98ef458942b31f533655ae}\label{classvenom_1_1common_1_1_context_aed1453655f98ef458942b31f533655ae} 
-bool {\bfseries Should\+Close} ()
+\Hypertarget{classvenom_1_1common_1_1_context_ae0f655de7e4febadc5a7919272ba82f7}\label{classvenom_1_1common_1_1_context_ae0f655de7e4febadc5a7919272ba82f7} 
+bool {\bfseries Should\+Close} () const
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_ac70ce3f3700a4c74a2eeda06d94ec34a}\label{classvenom_1_1common_1_1_context_ac70ce3f3700a4c74a2eeda06d94ec34a} 
 void {\bfseries Poll\+Events} ()
 \item 
-\Hypertarget{classvenom_1_1common_1_1_context_afa0665af307f3b412b6fbee32853ac9e}\label{classvenom_1_1common_1_1_context_afa0665af307f3b412b6fbee32853ac9e} 
-GLFWwindow \texorpdfstring{$\ast$}{*} {\bfseries Get\+Window} ()
+\Hypertarget{classvenom_1_1common_1_1_context_a9dfeae9499c3d7b5999c1f71d7eb8fa6}\label{classvenom_1_1common_1_1_context_a9dfeae9499c3d7b5999c1f71d7eb8fa6} 
+void {\bfseries Set\+Run\+Loop\+Function} (Callback$<$ vc\+::\+Error $>$ func)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_context_a32cc0ef3261802c53090947be0daf307}\label{classvenom_1_1common_1_1_context_a32cc0ef3261802c53090947be0daf307} 
-const GLFWwindow \texorpdfstring{$\ast$}{*} {\bfseries Get\+Window} () const
-\item 
-\Hypertarget{classvenom_1_1common_1_1_context_aea5c412336be240289a02a2d00f4baf1}\label{classvenom_1_1common_1_1_context_aea5c412336be240289a02a2d00f4baf1} 
-void {\bfseries Set\+Window\+Title} (const char \texorpdfstring{$\ast$}{*}title)
+\Hypertarget{classvenom_1_1common_1_1_context_a8ce0be097b6282afdb3e2ea4f30b4d39}\label{classvenom_1_1common_1_1_context_a8ce0be097b6282afdb3e2ea4f30b4d39} 
+vc\+::\+Error {\bfseries Run} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a21f3e609b21090d98e6a6458eb22a2fd}\label{classvenom_1_1common_1_1_context_a21f3e609b21090d98e6a6458eb22a2fd} 
 Input\+State {\bfseries Get\+Key\+State} (Keyboard\+Input key) const
@@ -33,12 +44,6 @@ bool {\bfseries Is\+Key\+Released} (Keyboard\+Input key) const
 \Hypertarget{classvenom_1_1common_1_1_context_ad2d6d0432f2eb7ffc432c9547dc464be}\label{classvenom_1_1common_1_1_context_ad2d6d0432f2eb7ffc432c9547dc464be} 
 bool {\bfseries Is\+Key\+Repeat} (Keyboard\+Input key) const
 \item 
-\Hypertarget{classvenom_1_1common_1_1_context_a1a03c65fa40a27982dc541b4b6c89461}\label{classvenom_1_1common_1_1_context_a1a03c65fa40a27982dc541b4b6c89461} 
-int {\bfseries Get\+Window\+Width} () const
-\item 
-\Hypertarget{classvenom_1_1common_1_1_context_a9f5932539dd996e153d645ed4a62b392}\label{classvenom_1_1common_1_1_context_a9f5932539dd996e153d645ed4a62b392} 
-int {\bfseries Get\+Window\+Height} () const
-\item 
 bool \mbox{\hyperlink{classvenom_1_1common_1_1_context_a656e9f125f3634382e912d8b2e0d65e9}{Is\+Key\+Modifier\+Pressed}} (int modifier) const
 \begin{DoxyCompactList}\small\item\em Checks if a specified keyboard modifier key is currently pressed. \end{DoxyCompactList}\item 
 \Hypertarget{classvenom_1_1common_1_1_context_a07c13d84910d6b977df1543e9fe66351}\label{classvenom_1_1common_1_1_context_a07c13d84910d6b977df1543e9fe66351} 
@@ -46,12 +51,153 @@ vcm\+::\+Vec2 {\bfseries Get\+Mouse\+Position} () const
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a8f76a3cf9ac561aa90287682b0236366}\label{classvenom_1_1common_1_1_context_a8f76a3cf9ac561aa90287682b0236366} 
 vcm\+::\+Vec2 {\bfseries Get\+Mouse\+Move} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_aa1e8334722e30b1fdf777a26b668490a}\label{classvenom_1_1common_1_1_context_aa1e8334722e30b1fdf777a26b668490a} 
+const vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_screen}{Screen}} $>$ \& {\bfseries Get\+Screens} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_afd5bdaa64d57729113373854a8bccd60}\label{classvenom_1_1common_1_1_context_afd5bdaa64d57729113373854a8bccd60} 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_screen}{Screen}} \& {\bfseries Get\+Current\+Screen} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a3ad3d4528f575e6597b97f566f8f8efd}\label{classvenom_1_1common_1_1_context_a3ad3d4528f575e6597b97f566f8f8efd} 
+const \mbox{\hyperlink{classvenom_1_1common_1_1_screen_video_mode}{Screen\+Video\+Mode}} \& {\bfseries Get\+Current\+Video\+Mode} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_af6ac40165f4b033c9331deeb29f782d5}\label{classvenom_1_1common_1_1_context_af6ac40165f4b033c9331deeb29f782d5} 
+int {\bfseries Get\+Current\+Refresh\+Rate} () const
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_ad6560b7c483f611473a827b27bb99f31}\label{classvenom_1_1common_1_1_context_ad6560b7c483f611473a827b27bb99f31} 
+vc\+::\+Error {\bfseries Change\+Refresh\+Rate} (int rate)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a9f8ba564428ca2aeb6b57596f1963390}\label{classvenom_1_1common_1_1_context_a9f8ba564428ca2aeb6b57596f1963390} 
+vc\+::\+Error {\bfseries Change\+Video\+Mode} (int index)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_af719ad2039cd9c51f6bffd02f7b13ada}\label{classvenom_1_1common_1_1_context_af719ad2039cd9c51f6bffd02f7b13ada} 
+vc\+::\+Error {\bfseries Change\+Screen} (int index)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_aea5c412336be240289a02a2d00f4baf1}\label{classvenom_1_1common_1_1_context_aea5c412336be240289a02a2d00f4baf1} 
+void {\bfseries Set\+Window\+Title} (const char \texorpdfstring{$\ast$}{*}title)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_aea79607a18a7819747e010dde7c909b4}\label{classvenom_1_1common_1_1_context_aea79607a18a7819747e010dde7c909b4} 
+void \texorpdfstring{$\ast$}{*} {\bfseries Get\+Window} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a7153dc446344028db80a95555b368354}\label{classvenom_1_1common_1_1_context_a7153dc446344028db80a95555b368354} 
+vc\+::\+Error {\bfseries Set\+Fullscreen} (bool fullscreen)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_ab767caede79983aab03a9c8c99c91171}{Destroy}} () override
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a38d28e14fc6768f8d23de50393d5e85f}\label{classvenom_1_1common_1_1_context_a38d28e14fc6768f8d23de50393d5e85f} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a8aac4da80c58e03fb4ea254dcd3cc631}\label{classvenom_1_1common_1_1_context_a8aac4da80c58e03fb4ea254dcd3cc631} 
+static int {\bfseries Get\+Window\+Width} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a48257b6fccca3897a5681a713e91f240}\label{classvenom_1_1common_1_1_context_a48257b6fccca3897a5681a713e91f240} 
+static int {\bfseries Get\+Window\+Height} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a1f126d4a1b5123f8d2533d41b6d4c8b2}\label{classvenom_1_1common_1_1_context_a1f126d4a1b5123f8d2533d41b6d4c8b2} 
+virtual void {\bfseries \+\_\+\+Set\+Window\+Title} (const char \texorpdfstring{$\ast$}{*}title)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_abafa9cf7fe93a34f104f7bd0e9fa2bd8}\label{classvenom_1_1common_1_1_context_abafa9cf7fe93a34f104f7bd0e9fa2bd8} 
+virtual void \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+\+Get\+Window} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a4241148f26a88671d6d95da643725bdf}\label{classvenom_1_1common_1_1_context_a4241148f26a88671d6d95da643725bdf} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Init\+Context} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a42e79b1eecfdeaba3f1dfa936deec072}\label{classvenom_1_1common_1_1_context_a42e79b1eecfdeaba3f1dfa936deec072} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Update\+Video\+Mode} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a6f6a056cbd965743669e7196b9e68f5e}\label{classvenom_1_1common_1_1_context_a6f6a056cbd965743669e7196b9e68f5e} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Update\+Refresh\+Rate} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a94a5759c2c4269154415e0d2fb04e092}\label{classvenom_1_1common_1_1_context_a94a5759c2c4269154415e0d2fb04e092} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Update\+Screen} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_adf71c8c84f0390ac8fea8ec6e23a60fa}\label{classvenom_1_1common_1_1_context_adf71c8c84f0390ac8fea8ec6e23a60fa} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Set\+Fullscreen} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a13b8ac7c0e2ac2eaff6a0b4a30d48521}\label{classvenom_1_1common_1_1_context_a13b8ac7c0e2ac2eaff6a0b4a30d48521} 
+virtual bool {\bfseries \+\_\+\+Should\+Close} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a96570ce0373a585d26b20d0f4fb333f6}\label{classvenom_1_1common_1_1_context_a96570ce0373a585d26b20d0f4fb333f6} 
+virtual void {\bfseries \+\_\+\+Get\+Cursor\+Pos} (double \texorpdfstring{$\ast$}{*}pos)=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a555c74ce99d018f563ea7014c7ab5490}\label{classvenom_1_1common_1_1_context_a555c74ce99d018f563ea7014c7ab5490} 
+virtual void {\bfseries \+\_\+\+Poll\+Events} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a2a55e70adfaa789e11452ecb6d850040}\label{classvenom_1_1common_1_1_context_a2a55e70adfaa789e11452ecb6d850040} 
+void {\bfseries \+\_\+\+Set\+Keyboard\+State} (Keyboard\+Input key, Input\+State state)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a5b317c8143ad678ea16643e82d375999}\label{classvenom_1_1common_1_1_context_a5b317c8143ad678ea16643e82d375999} 
+void {\bfseries \+\_\+\+Set\+Mouse\+State} (Mouse\+Button button, Input\+State state)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a219720a2f65820b56a2afda5885e449c}\label{classvenom_1_1common_1_1_context_a219720a2f65820b56a2afda5885e449c} 
+void {\bfseries \+\_\+\+Add\+Key\+Released\+Event} (Keyboard\+Input key)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a41263f9d99e69f7ec67304120c2e28c9}\label{classvenom_1_1common_1_1_context_a41263f9d99e69f7ec67304120c2e28c9} 
+void {\bfseries \+\_\+\+Add\+Mouse\+Released\+Event} (Mouse\+Button button)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a4b47cc244404bfe2831ec2a769694583}\label{classvenom_1_1common_1_1_context_a4b47cc244404bfe2831ec2a769694583} 
+void {\bfseries \+\_\+\+Set\+Keyboard\+Modifier\+State} (bool shift, bool control, bool alt, bool super)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a22607c4db995ab72914c91c4f84db446}\label{classvenom_1_1common_1_1_context_a22607c4db995ab72914c91c4f84db446} 
+Callback$<$ vc\+::\+Error $>$ {\bfseries \+\_\+run\+Loop\+Function}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a5783e5a08d53d3a8258a95c007ef4336}\label{classvenom_1_1common_1_1_context_a5783e5a08d53d3a8258a95c007ef4336} 
+int {\bfseries \+\_\+current\+Screen\+Index}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_aa288a8f38c026923e180c33a1a22b16a}\label{classvenom_1_1common_1_1_context_aa288a8f38c026923e180c33a1a22b16a} 
+int {\bfseries \+\_\+current\+Video\+Mode\+Index}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a8d662f34068178e532e9805e8ec2dc8a}\label{classvenom_1_1common_1_1_context_a8d662f34068178e532e9805e8ec2dc8a} 
+int {\bfseries \+\_\+current\+Refresh\+Rate}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a6150c67058b27333116c58228d903eea}\label{classvenom_1_1common_1_1_context_a6150c67058b27333116c58228d903eea} 
+int {\bfseries \+\_\+width}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a4f0f8cb14e72792cd6f10e71f98b2b8e}\label{classvenom_1_1common_1_1_context_a4f0f8cb14e72792cd6f10e71f98b2b8e} 
+int {\bfseries \+\_\+height}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a6016a1dcd067fb1f4bcf93ecca498a04}\label{classvenom_1_1common_1_1_context_a6016a1dcd067fb1f4bcf93ecca498a04} 
+bool {\bfseries \+\_\+fullscreen}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a79c264963331fe9f90323fb467eb27a5}\label{classvenom_1_1common_1_1_context_a79c264963331fe9f90323fb467eb27a5} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_screen}{Screen}} $>$ {\bfseries \+\_\+screens}
 \end{DoxyCompactItemize}
 
 
@@ -78,6 +224,5 @@ true if the specified modifier(s) is pressed; otherwise, false.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\mbox{\hyperlink{_context_8h}{Context.\+h}}\item 
-/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_context_8cc}{Context.\+cc}}\item 
-/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_context_input_8cc}{Context\+Input.\+cc}}\end{DoxyCompactItemize}
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/context/\mbox{\hyperlink{_context_8h}{Context.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_context_8cc}{Context.\+cc}}\end{DoxyCompactItemize}

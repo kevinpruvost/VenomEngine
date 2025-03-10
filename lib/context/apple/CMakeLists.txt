@@ -4,83 +4,17 @@ cmake_minimum_required(VERSION 3.25)
 project(VenomContextApple VERSION 1.0)
 
 # Define the static library target
-file(GLOB_RECURSE venom_apple_srcs
-    "src/*.cc")
-if (APPLE)
-    # Add Objective-C++ source files
-    file(GLOB_RECURSE venom_apple_srcs_apple
-        "src/*.mm"
-        "src/*.m"
-    )
-endif()
-file(GLOB_RECURSE venom_apple_hdrs 
-    "include/venom/context/glfw/*.h"
-    "include/venom/context/glfw/**/*.h"
+file(GLOB_RECURSE venom_context_apple_srcs
+    "src/*.cc"
+    "src/*.mm"
+    "src/*.m"
 )
 
-add_library(${PROJECT_NAME} SHARED
-        ${venom_apple_srcs} ${venom_apple_hdrs}
-)
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
-
-set(venom_apple_libraries
-    VenomCommon
-    IconFontCppHeaders
+file(GLOB_RECURSE venom_context_apple_hdrs 
+    "include/venom/common/context/apple/*.h"
+    "include/venom/common/context/apple/**/*.h"
 )
 
-target_link_libraries(${PROJECT_NAME}
-    ${venom_apple_libraries}
+set(venom_context_apple_include_dirs
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE
-    VENOM_CONTEXT_EXPORTS
-    CMAKE_PROJECT_DIR="${CMAKE_SOURCE_DIR}"
-)
-
-target_include_directories(${PROJECT_NAME} PUBLIC
-    "include/"
-)
-
-if (APPLE)
-    find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
-    find_library(CORESERVICES_FRAMEWORK CoreServices)
-    find_library(FOUNDATION_FRAMEWORK Foundation)
-
-    set(PROJECT_NAME_PACKAGE ${PROJECT_NAME}_Package)
-
-    add_library(${PROJECT_NAME_PACKAGE} SHARED
-        ${venom_apple_srcs}
-        ${venom_apple_srcs_apple}
-        ${venom_apple_hdrs}
-    )
-
-    set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
-        PREFIX ""
-    )
-
-    target_link_libraries(${PROJECT_NAME_PACKAGE}
-        ${venom_apple_libraries}
-        ${COREFOUNDATION_FRAMEWORK}
-        ${CORESERVICES_FRAMEWORK}
-        ${FOUNDATION_FRAMEWORK}
-    )
-
-    target_compile_definitions(${PROJECT_NAME_PACKAGE} PRIVATE
-        VENOM_GLFW_EXPORTS
-    )
-
-    target_include_directories(${PROJECT_NAME_PACKAGE} PUBLIC
-        "include/"
-    )
-
-    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreFoundation")
-    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreServices")
-    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework Foundation")
-
-    install(TARGETS ${PROJECT_NAME_PACKAGE}
-            LIBRARY DESTINATION lib # No need actually
-            ARCHIVE DESTINATION lib # No need actually
-            RUNTIME DESTINATION bin # No need actually
-            FILE_SET HEADERS DESTINATION include # Key need actually
-    )
-endif()

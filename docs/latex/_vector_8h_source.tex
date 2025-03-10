@@ -10,7 +10,7 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }common}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
 \DoxyCodeLine{00016\ \{}
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }math}
 \DoxyCodeLine{00018\ \{}
@@ -97,8 +97,14 @@
 \DoxyCodeLine{00160\ }
 \DoxyCodeLine{00161\ vcm::Quat\ FromEulerAngles(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ yaw,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ pitch,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ roll);}
 \DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ \}}
-\DoxyCodeLine{00164\ \}}
-\DoxyCodeLine{00165\ \}}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{float}\ Length(\textcolor{keyword}{const}\ Vec3\&\ vec);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Distance(\textcolor{keyword}{const}\ Vec3\&\ a,\ \textcolor{keyword}{const}\ Vec3\&\ b)}
+\DoxyCodeLine{00166\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ Length(a\ -\/\ b);}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ \}}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ \}}
 
 \end{DoxyCode}

@@ -30,6 +30,45 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \item 
 \Hypertarget{_venom_settings_8h_a6c810f71bfb616cefb433d7ce97b9b79}\label{_venom_settings_8h_a6c810f71bfb616cefb433d7ce97b9b79} 
 \#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+LIGHTS}~128
+\item 
+\Hypertarget{_venom_settings_8h_a7af1c7a4b464aeccaf824b2c1b0e9bc2}\label{_venom_settings_8h_a7af1c7a4b464aeccaf824b2c1b0e9bc2} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS}~4
+\item 
+\Hypertarget{_venom_settings_8h_a63d062ea8766341778f9ffbca0fd7d6b}\label{_venom_settings_8h_a63d062ea8766341778f9ffbca0fd7d6b} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+LIGHTS $>$$>$ 2)
+\item 
+\Hypertarget{_venom_settings_8h_abc661522c96b225ea9d5b5ae94318b72}\label{_venom_settings_8h_abc661522c96b225ea9d5b5ae94318b72} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+LIGHTS -\/ VENOM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS -\/ VENOM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS)
+\item 
+\Hypertarget{_venom_settings_8h_a6f53b97e438341dce2d665f4813faf0b}\label{_venom_settings_8h_a6f53b97e438341dce2d665f4813faf0b} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS}~VENOM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS
+\item 
+\Hypertarget{_venom_settings_8h_af30d106e4c200aa42cfe2dc53c5c5cbf}\label{_venom_settings_8h_af30d106e4c200aa42cfe2dc53c5c5cbf} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS $>$$>$ 2)
+\item 
+\Hypertarget{_venom_settings_8h_a6171099c980d5960681bfbe80a4a2ba6}\label{_venom_settings_8h_a6171099c980d5960681bfbe80a4a2ba6} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS $>$$>$ 2)
+\item 
+\Hypertarget{_venom_settings_8h_aeaf9b535f8b5423959202ca77a2ad91a}\label{_venom_settings_8h_aeaf9b535f8b5423959202ca77a2ad91a} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+TOTAL\+\_\+\+CASCADES}~3
+\item 
+\Hypertarget{_venom_settings_8h_a6b87012271ff233a2740187a8d2870bb}\label{_venom_settings_8h_a6b87012271ff233a2740187a8d2870bb} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+DIMENSION}~(2048)
+\item 
+\Hypertarget{_venom_settings_8h_ac454990b0912e1400b2945f63a531a84}\label{_venom_settings_8h_ac454990b0912e1400b2945f63a531a84} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+DIRECTIONAL\+\_\+\+DIMENSION}~(VENOM\+\_\+\+CSM\+\_\+\+DIMENSION $<$$<$ 2)
+\item 
+\Hypertarget{_venom_settings_8h_a32a061e5999e01402541f5700b070340}\label{_venom_settings_8h_a32a061e5999e01402541f5700b070340} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+POINT\+\_\+\+DIMENSION}~(VENOM\+\_\+\+CSM\+\_\+\+DIMENSION $>$$>$ 1)
+\item 
+\Hypertarget{_venom_settings_8h_a23ea1ec551bd0ba41515eeef4315abd0}\label{_venom_settings_8h_a23ea1ec551bd0ba41515eeef4315abd0} 
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+SPOT\+\_\+\+DIMENSION}~(VENOM\+\_\+\+CSM\+\_\+\+DIMENSION)
+\item 
+\Hypertarget{_venom_settings_8h_a930c5740eb7da5a8fff9ac6cfbab90ef}\label{_venom_settings_8h_a930c5740eb7da5a8fff9ac6cfbab90ef} 
+\#define {\bfseries VENOM\+\_\+\+BITS\+\_\+\+PER\+\_\+\+INT}~(sizeof(int) \texorpdfstring{$\ast$}{*} 8)
+\item 
+\Hypertarget{_venom_settings_8h_afc2c2f21a8c2ab5d455ff657f33568f0}\label{_venom_settings_8h_afc2c2f21a8c2ab5d455ff657f33568f0} 
+\#define {\bfseries VENOM\+\_\+\+NUM\+\_\+\+FORWARD\+\_\+\+PLUS\+\_\+\+INTS}~((int)((VENOM\+\_\+\+MAX\+\_\+\+LIGHTS + VENOM\+\_\+\+BITS\+\_\+\+PER\+\_\+\+INT -\/ 1) / VENOM\+\_\+\+BITS\+\_\+\+PER\+\_\+\+INT))
 \end{DoxyCompactItemize}
 
 

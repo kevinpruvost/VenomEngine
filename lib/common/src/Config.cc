@@ -37,12 +37,12 @@ void Config::SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type)
     GetInstance()->__SetGraphicsPluginType(type);
 }
 
-Context::ContextType Config::GetContextType()
+vc::Context::ContextType Config::GetContextType()
 {
     return GetInstance()->__GetContextType();
 }
 
-void Config::SetContextType(Context::ContextType type)
+void Config::SetContextType(vc::Context::ContextType type)
 {
     GetInstance()->__SetContextType(type);
 }

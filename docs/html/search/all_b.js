@@ -33,5 +33,6 @@ var searchData=
   ['model_2ecc_30',['Model.cc',['../vulkan_2src_2_model_8cc.html',1,'']]],
   ['model_2eh_31',['Model.h',['../vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_model_8h.html',1,'']]],
   ['modelimpl_32',['ModelImpl',['../classvenom_1_1common_1_1_model_impl.html',1,'venom::common']]],
-  ['modelresource_33',['ModelResource',['../classvenom_1_1common_1_1_model_resource.html',1,'venom::common']]]
+  ['modelresource_33',['ModelResource',['../classvenom_1_1common_1_1_model_resource.html',1,'venom::common']]],
+  ['multisamplingmodeoption_34',['MultiSamplingModeOption',['../classvenom_1_1common_1_1_graphics_settings.html#a7255e399568a42ce36232a226b3b298b',1,'venom::common::GraphicsSettings']]]
 ];

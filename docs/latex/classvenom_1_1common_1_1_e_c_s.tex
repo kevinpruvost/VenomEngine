@@ -2,7 +2,7 @@
 \hypertarget{classvenom_1_1common_1_1_e_c_s}{}\label{classvenom_1_1common_1_1_e_c_s}\index{venom::common::ECS@{venom::common::ECS}}
 
 
-Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class.  
+Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. Also manages/lists all components types for browsing.  
 
 
 
@@ -12,11 +12,8 @@ Entity Component System Will mainly encapsulate the fabulous flecs library (\hre
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_e_c_s_ae52289c4f7ba03a6cfa44fe929101c29}\label{classvenom_1_1common_1_1_e_c_s_ae52289c4f7ba03a6cfa44fe929101c29} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries Register\+Component} ()
-\item 
-\Hypertarget{classvenom_1_1common_1_1_e_c_s_a2debd0252da4b9fef96caef1bda5e9c7}\label{classvenom_1_1common_1_1_e_c_s_a2debd0252da4b9fef96caef1bda5e9c7} 
-{\footnotesize template$<$typename T $>$ }\\Component$<$ T $>$ {\bfseries Get\+Component} ()
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a6c981ce990f71e963c2c1cc9026f8b00}\label{classvenom_1_1common_1_1_e_c_s_a6c981ce990f71e963c2c1cc9026f8b00} 
+{\footnotesize template$<$Inherits\+From\+Component T$>$ }\\void {\bfseries Register\+Component} (const vc\+::\+String \&name)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_e_c_s_a38a8ecf8ac56c7be3e704e414a3a57ef}\label{classvenom_1_1common_1_1_e_c_s_a38a8ecf8ac56c7be3e704e414a3a57ef} 
 Entity {\bfseries Create\+Entity} ()
@@ -39,13 +36,37 @@ static Entity {\bfseries Get\+Entity} (const char \texorpdfstring{$\ast$}{*}name
 \Hypertarget{classvenom_1_1common_1_1_e_c_s_a04e1180bcf620f71a2618d14e45fc027}\label{classvenom_1_1common_1_1_e_c_s_a04e1180bcf620f71a2618d14e45fc027} 
 {\footnotesize template$<$typename... Args$>$ }\\static void {\bfseries For\+Each} (auto \&\&func)
 \item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a426a225c81fefc81d24828059f06bc03}\label{classvenom_1_1common_1_1_e_c_s_a426a225c81fefc81d24828059f06bc03} 
+static void {\bfseries Each} (auto \&\&func)
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a4041e30838d720cb397d1457a6d2bec7}\label{classvenom_1_1common_1_1_e_c_s_a4041e30838d720cb397d1457a6d2bec7} 
+static vc\+::\+String {\bfseries Generate\+Unique\+Entity\+Name} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a3673446fee869d8869cf37a4ef836e32}\label{classvenom_1_1common_1_1_e_c_s_a3673446fee869d8869cf37a4ef836e32} 
+static bool {\bfseries Is\+Name\+Available} (const char \texorpdfstring{$\ast$}{*}name)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_e_c_s_a743a62f8b33c81e5e7c243b430f87d4f}\label{classvenom_1_1common_1_1_e_c_s_a743a62f8b33c81e5e7c243b430f87d4f} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+ECS} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a17c4c777c1763999e17e863600e6e1a6}\label{classvenom_1_1common_1_1_e_c_s_a17c4c777c1763999e17e863600e6e1a6} 
+static void {\bfseries Update\+World} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_ac5a3536de371167fdf200e8943f8c2b0}\label{classvenom_1_1common_1_1_e_c_s_ac5a3536de371167fdf200e8943f8c2b0} 
+class {\bfseries GUI}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_a3a05a85593ba433f3f90d2a7bce643e8}\label{classvenom_1_1common_1_1_e_c_s_a3a05a85593ba433f3f90d2a7bce643e8} 
+class {\bfseries Venom\+Component}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_e_c_s_adeff779d34f308ede3ff727d99d22881}\label{classvenom_1_1common_1_1_e_c_s_adeff779d34f308ede3ff727d99d22881} 
+class {\bfseries Static\+Venom\+Can\+Create\+Component}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. 
+Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. Also manages/lists all components types for browsing. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

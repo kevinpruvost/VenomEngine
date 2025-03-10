@@ -9,11 +9,11 @@ Inheritance diagram for venom\+::common\+::Model\+Resource\+:\begin{figure}[H]
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_model_resource_ab2578210e33b638869ebadb0cedc9946}\label{classvenom_1_1common_1_1_model_resource_ab2578210e33b638869ebadb0cedc9946} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} $>$ {\bfseries meshes}
+\Hypertarget{classvenom_1_1common_1_1_model_resource_a2009e4d048da8620a533b5e95fadd24f}\label{classvenom_1_1common_1_1_model_resource_a2009e4d048da8620a533b5e95fadd24f} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_mesh}{vc\+::\+Mesh}} $>$ {\bfseries meshes}
 \item 
-\Hypertarget{classvenom_1_1common_1_1_model_resource_ae6bf6f0cfe6d37660eaebbc5e846a221}\label{classvenom_1_1common_1_1_model_resource_ae6bf6f0cfe6d37660eaebbc5e846a221} 
-std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{vc\+::\+Material}} $>$ {\bfseries materials}
+\Hypertarget{classvenom_1_1common_1_1_model_resource_a96d278a734397869704ede4a6cbd6c8e}\label{classvenom_1_1common_1_1_model_resource_a96d278a734397869704ede4a6cbd6c8e} 
+vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{vc\+::\+Material}} $>$ {\bfseries materials}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource}{venom\+::common\+::\+Graphics\+Cached\+Resource}}}
@@ -27,15 +27,21 @@ std\+::vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_material}{vc\+::\+Mat
 \item 
 void {\bfseries Release\+From\+Cache} ()
 \item 
-{\footnotesize template$<$typename T $>$ }\\bool {\bfseries Is\+Type} () const
+{\footnotesize template$<$typename T$>$ }\\bool {\bfseries Is\+Type} () const
 \item 
-{\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+{\footnotesize template$<$typename T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
-{\footnotesize template$<$typename T $>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+{\footnotesize template$<$typename T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
 \item 
 void {\bfseries Set\+Holder} (\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*}h)
 \item 
 \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_cached_resource_holder}{Graphics\+Cached\+Resource\+Holder}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Holder} () const
+\item 
+void {\bfseries Set\+Name} (const vc\+::\+String \&name)
+\item 
+const vc\+::\+String \& {\bfseries Get\+Name} () const
+\item 
+const vc\+::\+String \& {\bfseries Get\+Short\+Name} () const
 \end{DoxyCompactItemize}
 
 
