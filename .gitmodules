@@ -32,9 +32,6 @@
 [submodule "lib/external/flecs"]
 	path = lib/external/flecs
 	url = git@github.com:kevinpruvost/VenomEngine_flecs.git
-[submodule "lib/external/openvdb"]
-	path = lib/external/openvdb
-	url = git@github.com:AcademySoftwareFoundation/openvdb.git
 [submodule "lib/external/openexr"]
 	path = lib/external/openexr
 	url = git@github.com:AcademySoftwareFoundation/openexr.git
@@ -52,7 +49,7 @@
 	url = git@github.com:juliettef/IconFontCppHeaders.git
 [submodule "lib/external/imguizmo"]
 	path = lib/external/imguizmo
-	url = git@github.com:CedricGuillemet/ImGuizmo.git
+	url = git@github.com:kevinpruvost/ImGuizmo_VenomEngine.git
 [submodule "lib/external/tbb"]
 	path = lib/external/tbb
 	url = git@github.com:uxlfoundation/oneTBB.git
@@ -62,3 +59,6 @@
 [submodule "lib/external/boost"]
 	path = lib/external/boost
 	url = git@github.com:kevinpruvost/boost_openvdb.git
+[submodule "lib/external/openvdb"]
+	path = lib/external/openvdb
+	url = git@github.com:kevinpruvost/openvdb_VenomEngine.git

@@ -93,6 +93,15 @@ set(BUILD_SHARED_LIBS OFF)
 set(BUILD_BENCHMARKS OFF)
 set(BUILD_TESTS OFF)
 add_subdirectory("tbb")
+# remove errors from conversions for tbb
+target_compile_options(tbb PRIVATE
+    -Wno-conversion
+    -Wno-error=conversion
+)
+target_compile_options(tbbmalloc PRIVATE
+    -Wno-conversion
+    -Wno-error=conversion
+)
 
 # blosc
 add_subdirectory("blosc")
