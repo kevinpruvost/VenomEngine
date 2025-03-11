@@ -119,12 +119,12 @@ Context* Context::CreateContext()
     {
 #if defined(VENOM_PLATFORM_DESKTOP) && !defined(VENOM_PLATFORM_IOS)
         case ContextType::GLFW:
-            context = new context::glfw::ContextGLFW();
+            context = CreateContextGLFW();
             break;
 #endif
 #if defined(VENOM_PLATFORM_APPLE)
         case ContextType::Apple:
-            context = new context::apple::ContextApple();
+            context = CreateContextApple();
             break;
 #endif
         default:
@@ -202,7 +202,7 @@ void Context::PollEvents()
     _GetCursorPos(__mousePos);
 }
 
-vc::Error Context::Run()
+vc::Error Context::Run(int argc, const char * argv[])
 {
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
     while (!ShouldClose()) {

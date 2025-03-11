@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/context/ContextGLFW.h>
+#if !defined(VENOM_PLATFORM_IOS)
 
 namespace venom
 {
@@ -286,3 +287,4 @@ vc::KeyboardInput ContextGLFW::__ConvertGLFWEnumToKeyboardInput(int key) const
 }
 }
 }
+#endif

@@ -44,7 +44,7 @@ int main(int argc, const char* argv[])
 
     vc::VenomEngine::SetScene(Scene);
     vc::Config::SetGraphicsPluginType(vc::GraphicsPlugin::GraphicsPluginType::Metal);
-    vc::Config::SetContextType(vc::Context::ContextType::GLFW);
+    vc::Config::SetContextType(vc::Context::ContextType::Apple);
     vc::GUI::SetGUIDrawCallback(SceneGUI);
     vc::VenomEngine::AddInputCallback(SceneInput);
 

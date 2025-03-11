@@ -7,13 +7,12 @@
 ///
 #include <venom/common/context/ContextApple.h>
 
-@implementation ContextAppleData
-{
-@public
-    AppleWindow * __window;
-    AppleView * __view;
-}
-@end
+#include <venom/common/context/apple/ContextAppleDelegate.h>
+
+#include <venom/common/Log.h>
+#include <venom/common/Config.h>
+
+#include <venom/common/plugin/graphics/GraphicsSettings.h>
 
 namespace venom
 {
@@ -22,69 +21,88 @@ namespace context
 namespace apple
 {
 ContextApple::ContextApple()
-    : __contextAppleData([[ContextAppleData alloc] init])
 {
+    [NSApplication sharedApplication];
 }
 
 ContextApple* ContextApple::GetAppleContext()
 {
+    venom_assert(vc::Config::GetContextType() == vc::Context::ContextType::Apple, "Trying to get Apple Context while context is in a different mode.");
     return dynamic_cast<ContextApple *>(Get());
 }
 
 ContextAppleData * ContextApple::GetData()
 {
-    return (ContextAppleData *)__contextAppleData;
+    return &__contextAppleData;
 }
 
 ContextApple::~ContextApple()
 {
-#ifdef TARGET_OS_OSX
-    if (GetData()->__window)
-        [GetData()->__window close];
+#ifdef VENOM_PLATFORM_MACOS
+    if (GetAppleWindow())
+        [GetAppleWindow() close];
 #else
-    if (GetData()->__window)
-        [GetData()->__window setHidden:YES];
+    if (GetAppleWindow())
+        [GetAppleWindow() setHidden:YES];
 #endif
+}
+
+vc::Error ContextApple::Run(int argc, const char * argv[])
+{
+    venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
+    int ret;
+#ifdef VENOM_PLATFORM_MACOS
+    ret = NSApplicationMain(argc, argv);
+#else
+    ret = UIApplicationMain(argc, argv, nil, NSStringFromClass([ContextAppleDelegate class]));
+#endif
+    return ret == 0 ? vc::Error::Success : vc::Error::Failure;
 }
 
 void ContextApple::_SetWindowTitle(const char* title)
 {
-#ifdef TARGET_OS_OSX
-    [GetData()->__window setTitle:[NSString stringWithUTF8String:title]];
+#ifdef VENOM_PLATFORM_MACOS
+    [__contextAppleData.__window setTitle:[NSString stringWithUTF8String:title]];
 #else
     // No equivalent for iOS
     vc::Log::Error("Cannot change window title at runtime on iOS");
 #endif
 }
 
-void* ContextApple::_GetWindow()
+void ContextApple::SetMetalDevice(id<MTLDevice> device)
 {
-    return GetData()->__window;
+    [__contextAppleData.__delegate setDevice:device];
 }
 
-AppleWindow* ContextApple::__GetWindow()
+void ContextApple::SetMetalLayer(CAMetalLayer * layer)
 {
-    return GetData()->__window;
+    [__contextAppleData.__delegate setLayer: layer];
+}
+
+void* ContextApple::_GetWindow()
+{
+    return __contextAppleData.__window;
+}
+
+AppleWindow* ContextApple::GetAppleWindow()
+{
+    return ((ContextAppleDelegate *)__contextAppleData.__delegate).window;
+}
+
+AppleView* ContextApple::GetAppleView()
+{
+    return __contextAppleData.__view;
 }
 
 vc::Error ContextApple::_InitContext()
 {
     // Might move initialization in Metal
-#ifdef TARGET_OS_OSX
-    NSRect frame = NSMakeRect(100, 100, 800, 600);
-    GetData()->__window = [[AppleWindow alloc] initWithContentRect:frame
-                                            styleMask:(NSWindowStyleMaskTitled |
-                                                       NSWindowStyleMaskClosable |
-                                                       NSWindowStyleMaskResizable)
-                                              backing:NSBackingStoreBuffered
-                                                defer:NO];
-    GetData()->__view = [[NSView alloc] initWithFrame: frame];
-    [GetData()->__view wantsLayer: YES];
-    [__GetWindow() setContentView: GetData()->__view];
-    [__GetWindow() makeKeyAndOrderFront:nil];
+#ifdef VENOM_PLATFORM_MACOS
+    ContextAppleDelegate *delegate = [[ContextAppleDelegate alloc] init];
+    __contextAppleData.__delegate = delegate;
+    [NSApp setDelegate: __contextAppleData.__delegate];
 #else
-    GetData()->__window = [[AppleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [__GetWindow() makeKeyAndVisible];
+    
 #endif
     return vc::Error::Success;
 }
@@ -106,8 +124,8 @@ vc::Error ContextApple::_UpdateScreen()
 
 vc::Error ContextApple::_SetFullscreen()
 {
-#ifdef TARGET_OS_OSX
-    [__GetWindow() toggleFullScreen:nil];
+#ifdef VENOM_PLATFORM_MACOS
+    [GetAppleWindow() toggleFullScreen:nil];
 #else
     // No equivalent for iOS
 #endif
@@ -116,22 +134,22 @@ vc::Error ContextApple::_SetFullscreen()
 
 bool ContextApple::_ShouldClose()
 {
-#ifdef TARGET_OS_OSX
-    return ![__GetWindow() isVisible];
+#ifdef VENOM_PLATFORM_MACOS
+    return ![GetAppleWindow() isVisible];
 #else
-    return __GetWindow().isHidden;
+    return GetAppleWindow().isHidden;
 #endif
 }
 
 void ContextApple::_GetCursorPos(double* pos)
 {
-#ifdef TARGET_OS_OSX
-    NSPoint mouseLocation = [NSEvent mouseLocation];
-    pos[0] = mouseLocation.x;
-    pos[1] = mouseLocation.y;
-#else
-    // No equivalent for iOS
-#endif
+}
+
+void ContextApple::__UpdateWindowSize(CGSize size)
+{
+    _width = size.width;
+    _height = size.height;
+    vc::GraphicsSettings::SetWindowResolution(_width, _height);
 }
 
 void ContextApple::_PollEvents()
@@ -139,4 +157,9 @@ void ContextApple::_PollEvents()
 }
 }
 }
+}
+
+venom::context::apple::ContextApple * CreateContextApple()
+{
+    return new venom::context::apple::ContextApple();
 }

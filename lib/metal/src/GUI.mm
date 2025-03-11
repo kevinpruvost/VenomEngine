@@ -21,10 +21,19 @@
 #include <venom/metal/Device.h>
 
 #import <CoreGraphics/CoreGraphics.h>
+
+#include <venom/common/Config.h>
+
+#include <venom/common/context/ContextApple.h>
+
+#ifdef VENOM_PLATFORM_MACOS
+
 #define GLFW_INCLUDE_NONE
 #define GLFW_EXPOSE_NATIVE_COCOA
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
+
+#endif
 
 namespace venom
 {
@@ -124,7 +133,9 @@ vc::Error MetalGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
+#ifdef VENOM_PLATFORM_MACOS
     ImGui_ImplGlfw_InitForOther((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
+#endif
     if (!ImGui_ImplMetal_Init(GetMetalDevice()))
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
@@ -132,10 +143,16 @@ vc::Error MetalGUI::_Initialize()
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.Fonts->AddFontDefault();
     
+#ifdef VENOM_PLATFORM_MACOS
     // TODO: Abstract if context is managed by glfw or not
-    NSWindow *nswin = glfwGetCocoaWindow((GLFWwindow*)vc::Context::Get()->GetWindow());
+    NSWindow *nswin;
+    if (vc::Config::GetContextType() == vc::Context::ContextType::GLFW)
+        nswin = glfwGetCocoaWindow((GLFWwindow*)vc::Context::Get()->GetWindow());
+    else if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
+        nswin = venom::context::apple::ContextApple::GetAppleContext()->GetAppleWindow();
     nswin.contentView.layer = GetMetalLayer();
     nswin.contentView.wantsLayer = YES;
+#endif
 
     __SetStyle();
     return vc::Error::Success;
@@ -208,7 +225,9 @@ vc::Error MetalGUI::_Reset()
 
     vc::Texture::UnloadAllGuiTextures();
     ImGui_ImplMetal_Shutdown();
+#ifdef VENOM_PLATFORM_MACOS
     ImGui_ImplGlfw_Shutdown();
+#endif
 
     return _Initialize();
 }

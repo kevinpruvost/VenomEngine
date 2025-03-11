@@ -7,6 +7,9 @@
 ///
 #include <venom/metal/Device.h>
 
+#include <venom/common/Config.h>
+#include <venom/common/context/ContextApple.h>
+
 namespace venom
 {
 namespace metal
@@ -21,6 +24,8 @@ id<MTLDevice> GetMetalDevice()
 vc::Error InitializeDevice()
 {
     MetalDevice = MTLCreateSystemDefaultDevice();
+    if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
+        venom::context::apple::ContextApple::GetAppleContext()->SetMetalDevice(MetalDevice);
     return MetalDevice == nil ? vc::Error::Failure : vc::Error::Success;
 }
 void DestroyDevice()

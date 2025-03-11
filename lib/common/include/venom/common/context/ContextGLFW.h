@@ -50,4 +50,6 @@ private:
 }
 }
 
+venom::context::glfw::ContextGLFW * VENOM_COMMON_API CreateContextGLFW();
+
 #endif

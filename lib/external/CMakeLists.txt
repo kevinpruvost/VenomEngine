@@ -92,6 +92,7 @@ add_subdirectory("flecs")
 set(BUILD_SHARED_LIBS OFF)
 set(BUILD_BENCHMARKS OFF)
 set(BUILD_TESTS OFF)
+set(TBB_TEST OFF)
 add_subdirectory("tbb")
 # remove errors from conversions for tbb
 target_compile_options(tbb PRIVATE

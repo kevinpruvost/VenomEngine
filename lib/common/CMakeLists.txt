@@ -45,6 +45,20 @@ if ((NOT APPLE) OR (NOT CMAKE_SYSTEM_NAME MATCHES "iOS"))
     set(venom_common_libraries ${venom_common_libraries} glfw nfd)
 endif ()
 
+if (APPLE)
+    if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+        set(venom_common_libraries ${venom_common_libraries} "-framework UIKit")
+    else ()
+        set(venom_common_libraries ${venom_common_libraries} "-framework Cocoa")
+    endif ()
+    find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
+    find_library(METAL_FRAMEWORK Metal)
+    find_library(METALKIT_FRAMEWORK MetalKit)
+    set(venom_common_libraries ${venom_common_libraries} "-framework CoreFoundation")
+    set(venom_common_libraries ${venom_common_libraries} "-framework Metal")
+    set(venom_common_libraries ${venom_common_libraries} "-framework MetalKit")
+endif ()
+
 target_link_libraries(${PROJECT_NAME}
     ${venom_common_libraries}
 )

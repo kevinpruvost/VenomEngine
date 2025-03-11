@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/common/context/ContextGLFW.h>
+#if !defined(VENOM_PLATFORM_IOS)
 
 #include <venom/common/plugin/graphics/GraphicsSettings.h>
 
@@ -182,4 +183,9 @@ void ContextGLFW::_PollEvents()
 }
 }
 }
+}
+#endif
+venom::context::glfw::ContextGLFW* CreateContextGLFW()
+{
+    return new venom::context::glfw::ContextGLFW();
 }

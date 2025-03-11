@@ -8,6 +8,9 @@
 #include <venom/metal/Layer.h>
 #include <venom/metal/Device.h>
 
+#include <venom/common/Config.h>
+#include <venom/common/context/ContextApple.h>
+
 namespace venom
 {
 namespace metal
@@ -21,6 +24,8 @@ vc::Error InitializeLayer()
 {
     MetalLayer = [CAMetalLayer layer];
     MetalLayer.device = GetMetalDevice();
+    if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
+        venom::context::apple::ContextApple::GetAppleContext()->SetMetalLayer(MetalLayer);
     return MetalLayer == nil ? vc::Error::Failure : vc::Error::Success;
 }
 

@@ -46,8 +46,16 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if (APPLE)
+    # if iOS change Info.pList to another file
+    if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+        set(PLIST_FILE "${CMAKE_CURRENT_SOURCE_DIR}/iOS/Info.plist")
+    else ()
+        set(PLIST_FILE "${CMAKE_CURRENT_SOURCE_DIR}/macOS/Info.plist")
+    endif ()
+
     set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE YES
+        MACOSX_BUNDLE_INFO_PLIST "${PLIST_FILE}"
     )
     set(PROJECT_PACKAGE_NAME ${PROJECT_NAME}_Package)
 
@@ -76,6 +84,7 @@ if (APPLE)
 
     set_target_properties(${PROJECT_PACKAGE_NAME} PROPERTIES
         MACOSX_BUNDLE YES
+        MACOSX_BUNDLE_INFO_PLIST "${PLIST_FILE}"
         MACOSX_BUNDLE_BUNDLE_NAME "VenomEngine"
         MACOSX_BUNDLE_BUNDLE_VERSION "1.0.0"
         MACOSX_BUNDLE_GUI_IDENTIFIER "com.venomengine"

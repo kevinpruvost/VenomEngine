@@ -165,7 +165,7 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
             }
             return vc::Error::Success;
         });
-        s_instance->__context->Run();
+        s_instance->__context->Run(argc, argv);
     }
     s_sceneCallback(vc::ScenePhase::Destruction);
     s_instance.reset();

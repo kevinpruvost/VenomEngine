@@ -148,7 +148,6 @@ public:
     inline bool ShouldClose() const { return __shouldClose; }
     void PollEvents();
     inline void SetRunLoopFunction(Callback<vc::Error> func) { _runLoopFunction = func; }
-    vc::Error Run();
     inline InputState GetKeyState(KeyboardInput key) const { return __keyboardState[key]; }
     inline bool IsKeyPressed(KeyboardInput key) const { return (__keyboardState[key] & (InputState::Pressed | InputState::Repeat)) > 0; }
     inline bool IsKeyReleased(KeyboardInput key) const { return __keyboardState[key] == InputState::Released; }
@@ -179,7 +178,10 @@ public:
     inline void SetWindowTitle(const char * title) { _SetWindowTitle(title); }
     inline void * GetWindow() { return _GetWindow(); }
     inline vc::Error SetFullscreen(bool fullscreen) { _fullscreen = fullscreen; return _SetFullscreen(); }
+
+    virtual vc::Error Run(int argc, const char * argv[]);
 protected:
+
     virtual void _SetWindowTitle(const char * title) = 0;
     virtual void * _GetWindow() = 0;
     Callback<vc::Error> _runLoopFunction;
@@ -227,7 +229,7 @@ private:
     double __mouseLastPos[2];
     bool __shouldClose;
 
-private:
+protected:
     static Context * s_context;
 };
 }

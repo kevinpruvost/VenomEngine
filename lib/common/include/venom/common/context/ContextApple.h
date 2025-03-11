@@ -13,18 +13,14 @@
 
 #ifdef __OBJC__
 
-#if TARGET_OS_OSX
-#import <Cocoa/Cocoa.h>
-#define AppleWindow NSWindow
-#define AppleView NSView
-#else
-#import <UIKit/UIKit.h>
-#define AppleWindow UIWindow
-#define AppleView UIView
-#endif
+#include <venom/common/context/apple/ContextAppleInfo.h>
 
-@interface ContextAppleData : NSObject
-@end
+struct ContextAppleData
+{
+    __strong id __window;
+    __strong id __view;
+    __strong id __delegate;
+};
 
 #endif
 
@@ -49,6 +45,20 @@ public:
     vc::Error _UpdateScreen() override;
     vc::Error _SetFullscreen() override;
 
+    vc::Error Run(int argc, const char * argv[]) override;
+    inline vc::Error Loop() { return _runLoopFunction(); }
+    static inline vc::Error RunLoop() { return GetAppleContext()->Loop(); }
+    
+#ifdef __OBJC__
+    void SetMetalDevice(id<MTLDevice> device);
+    void SetMetalLayer(CAMetalLayer * layer);
+    
+    void __UpdateWindowSize(CGSize size);
+
+    AppleWindow * GetAppleWindow();
+    AppleView * GetAppleView();
+#endif
+
 protected:
     bool _ShouldClose() override;
     void _GetCursorPos(double * pos) override;
@@ -59,14 +69,16 @@ private:
     vc::KeyboardInput __ConvertAppleEnumToKeyboardInput(int key) const;
 
 private:
-    void * __contextAppleData;
 #ifdef __OBJC__
+    ContextAppleData __contextAppleData;
     ContextAppleData * GetData();
-    AppleWindow * __GetWindow();
 #endif
 };
+
 }
 }
 }
+
+venom::context::apple::ContextApple * VENOM_COMMON_API CreateContextApple();
 
 #endif
