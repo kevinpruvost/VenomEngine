@@ -30,11 +30,13 @@ docs:
 
 generate_macos:
 	mkdir -p build_macos && \
-    cd build_macos && cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=./Apple/ios.toolchain.cmake -DPLATFORM=MAC_ARM64 -DENABLE_ARC=OFF
+    cd build_macos && cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=./CMake/ios.toolchain.cmake -DPLATFORM=MAC_ARM64 -DENABLE_ARC=OFF && \
+    open -a Xcode VenomEngineWorkspace.xcodeproj
 
 generate_ios:
 	mkdir -p build_ios && \
-    cd build_ios && cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=./Apple/ios.toolchain.cmake -DPLATFORM=OS64 -DENABLE_ARC=OFF
+    cd build_ios && cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=./CMake/ios.toolchain.cmake -DPLATFORM=OS64 -DENABLE_ARC=OFF && \
+    open -a Xcode VenomEngineWorkspace.xcodeproj
 
 dxc:
 	-$(MKDIR_CMD) cmake_build/dxc

@@ -70,9 +70,6 @@ if (APPLE)
     # Needed to make CMake able to find the dependencies to link and bundle
     set(CMAKE_XCODE_GENERATE_TOP_LEVEL_PROJECT_ONLY TRUE)
 
-    set(APP_BUNDLE_CONTENTS_DIR "${CMAKE_BINARY_DIR}/VenomEngineLauncher.app/Contents")
-    set(APP_BUNDLE_FRAMEWORKS_DIR "${APP_BUNDLE_CONTENTS_DIR}/Frameworks")
-
     # Add Compile definitions to recognize ios or macos
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
         add_compile_definitions(TARGET_OS_IOS)
@@ -88,40 +85,8 @@ if (APPLE)
 
     set(CMAKE_OSX_DEPLOYMENT_TARGET "15")
     set(XCODE_VERSION "16.0")
-    file(GLOB_RECURSE RESOURCE_FILES_APPLE
-        "${CMAKE_SOURCE_DIR}/resources/**/*.icns"
-        "${CMAKE_SOURCE_DIR}/resources/*.icns"
-    )
-    list(APPEND RESOURCE_FILES ${RESOURCE_FILES_APPLE})
 
-    # Path to the code signing identity file
-    set(CODESIGN_IDENTITY_FILE "${PROJECT_SOURCE_DIR}/Apple/codesign_identity.txt")
-
-    # Configure the code signing identity file from a template only if it does not exist
-    if (NOT EXISTS ${CODESIGN_IDENTITY_FILE})
-        configure_file(${CODESIGN_IDENTITY_FILE}.in ${CODESIGN_IDENTITY_FILE} @ONLY)
-    endif()
-
-    # Read the code signing identity from the file
-    file(READ ${CODESIGN_IDENTITY_FILE} CODESIGN_IDENTITY_CONTENTS)
-    string(REGEX MATCH "CODE_SIGN_IDENTITY=(.*)$" _unused "${CODESIGN_IDENTITY_CONTENTS}")
-    set(CODESIGN_IDENTITY "${CMAKE_MATCH_1}")
-    string(REGEX MATCH "CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=(.*)$" _unused "${CODESIGN_IDENTITY_CONTENTS}")
-    set(CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "${CMAKE_MATCH_1}")
-    message(STATUS "Code signing identity: ${CODESIGN_IDENTITY}")
-    message(STATUS "Development team: ${CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM}")
-
-    # Ensure the codesign identity is found
-    if(NOT CODESIGN_IDENTITY OR CODESIGN_IDENTITY STREQUAL "@CODE_SIGN_IDENTITY@")
-        message(FATAL_ERROR "Code signing identity not specified. Please update Apple/codesign_identity.txt")
-    else()
-        message(STATUS "Code signing identity: ${CODESIGN_IDENTITY}")
-    endif()
-
-    # Get codesign location
-    find_program(CODESIGN_EXECUTABLE codesign)
-    # Define code-signing command
-    set(CODESIGN_COMMAND ${CODESIGN_EXECUTABLE} --force --verify --verbose --sign ${CODESIGN_IDENTITY})
+    include(./CMake/ios.toolchain_extended.cmake)
 endif()
 
 message(STATUS "Resource files: ${RESOURCE_FILES}")
