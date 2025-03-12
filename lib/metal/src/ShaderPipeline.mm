@@ -99,10 +99,7 @@ vc::Error MetalShaderPipeline::LoadShader(const std::string& path)
 {
     NSError *error = nil;
     // Get the current working directory
-    NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
-    // Append the relative path to the current working directory
-    NSString *fullPath = [cwd stringByAppendingPathComponent:[NSString stringWithUTF8String: path.c_str()]];
-    NSURL *fileURL = [NSURL fileURLWithPath:fullPath];
+    NSURL *fileURL = [NSURL fileURLWithPath:[NSString stringWithUTF8String: path.c_str()]];
 
 //    NSString *shaderSource = [NSString stringWithContentsOfFile:fullPath encoding:NSUTF8StringEncoding error:&error];
 //    if (error) {
