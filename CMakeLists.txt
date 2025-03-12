@@ -20,18 +20,29 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+set(CMAKE_SHARED_LIBRARY_VERSION_STRING "")
+set(CMAKE_SHARED_LIBRARY_SOVERSION "")
+
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 # XCode chqnges binary dir depending on the configuration
 set(CMAKE_INSTALL_RPATH "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}" "${CMAKE_BINARY_DIR}/Debug")
+#set(CMAKE_INSTALL_RPATH "@executable_path/Frameworks")
 message(STATUS "RPATH: ${CMAKE_INSTALL_RPATH}")
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-# Only with .hlsl, .glsl, .spv, .icns, .png, .jpg, .jpeg, .fbx, .obj, .mtl, .tiff
+set(VENOM_RUNTIME_LOADED_DLLS "" CACHE INTERNAL "Venom runtime loaded DLLs")
+
+# Only with .hlsl, .glsl, .metal, .metallib, .exr, .hdri, .ttf, .otf, .spv, .icns, .png, .jpg, .jpeg, .fbx, .obj, .mtl, .tiff
 file(GLOB_RECURSE RESOURCE_FILES
     "${CMAKE_SOURCE_DIR}/resources/**/*.hlsl"
     "${CMAKE_SOURCE_DIR}/resources/**/*.glsl"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.metal"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.metallib"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.exr"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.hdri"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.ttf"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.otf"
     "${CMAKE_SOURCE_DIR}/resources/**/*.spv"
     "${CMAKE_SOURCE_DIR}/resources/**/*.png"
     "${CMAKE_SOURCE_DIR}/resources/**/*.jpg"
@@ -44,6 +55,23 @@ file(GLOB_RECURSE RESOURCE_FILES
 
 if (APPLE)
     enable_language(OBJC OBJCXX)
+
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    if (NOT CMAKE_SYSTEM_NAME MATCHES "iOS")
+        set(CMAKE_XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/../Frameworks @rpath")
+    else ()
+        set(CMAKE_XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/Frameworks @rpath")
+    endif ()
+
+    # Needed because the Apple Toolchain sets these vars to "NO", which causes packaging for iOS or other devices to fail
+    # because they need to be signed
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "YES")
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "YES")
+    # Needed to make CMake able to find the dependencies to link and bundle
+    set(CMAKE_XCODE_GENERATE_TOP_LEVEL_PROJECT_ONLY TRUE)
+
+    set(APP_BUNDLE_CONTENTS_DIR "${CMAKE_BINARY_DIR}/VenomEngineLauncher.app/Contents")
+    set(APP_BUNDLE_FRAMEWORKS_DIR "${APP_BUNDLE_CONTENTS_DIR}/Frameworks")
 
     # Add Compile definitions to recognize ios or macos
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
@@ -78,6 +106,10 @@ if (APPLE)
     file(READ ${CODESIGN_IDENTITY_FILE} CODESIGN_IDENTITY_CONTENTS)
     string(REGEX MATCH "CODE_SIGN_IDENTITY=(.*)$" _unused "${CODESIGN_IDENTITY_CONTENTS}")
     set(CODESIGN_IDENTITY "${CMAKE_MATCH_1}")
+    string(REGEX MATCH "CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=(.*)$" _unused "${CODESIGN_IDENTITY_CONTENTS}")
+    set(CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "${CMAKE_MATCH_1}")
+    message(STATUS "Code signing identity: ${CODESIGN_IDENTITY}")
+    message(STATUS "Development team: ${CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM}")
 
     # Ensure the codesign identity is found
     if(NOT CODESIGN_IDENTITY OR CODESIGN_IDENTITY STREQUAL "@CODE_SIGN_IDENTITY@")
@@ -153,8 +185,8 @@ endif()
 # Executable
 add_subdirectory(${PROJECT_PATH}/VenomEngine)
 
-get_cmake_property(_variableNames VARIABLES)
-list (SORT _variableNames)
-foreach (_variableName ${_variableNames})
-    message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()

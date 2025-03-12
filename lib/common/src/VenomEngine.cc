@@ -136,9 +136,13 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
         vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
     } else {
         s_instance->__LoadECS();
+        DEBUG_PRINT("ECS loaded...");
         s_sceneCallback(vc::ScenePhase::Initialization);
+        DEBUG_PRINT("Scene initialized...");
         ECS::UpdateWorld();
+        DEBUG_PRINT("ECS World 1st update...");
         s_sceneCallback(vc::ScenePhase::Activation);
+        DEBUG_PRINT("Scene activated...");
         vc::Timer::ResetLoopTimer();
         s_instance->__context->SetRunLoopFunction([&]()
         {

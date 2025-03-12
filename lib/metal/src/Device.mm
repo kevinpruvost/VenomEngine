@@ -25,13 +25,15 @@ vc::Error InitializeDevice()
 {
     MetalDevice = MTLCreateSystemDefaultDevice();
     if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
-        venom::context::apple::ContextApple::GetAppleContext()->SetMetalDevice(MetalDevice);
+        setGlobaMetallDevice(MetalDevice);
     return MetalDevice == nil ? vc::Error::Failure : vc::Error::Success;
 }
 void DestroyDevice()
 {
     [MetalDevice release];
     MetalDevice = nil;
+    if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
+        setGlobaMetallDevice(nil);
 }
 }
 }

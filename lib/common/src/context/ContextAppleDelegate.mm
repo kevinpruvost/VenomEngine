@@ -8,27 +8,29 @@
 #include <venom/common/context/apple/ContextAppleDelegate.h>
 #include <venom/common/context/apple/ContextAppleViewController.h>
 
+#include <venom/common/Log.h>
+
 @implementation ContextAppleDelegate
-
-- (void)setLayer:(CAMetalLayer *)layer
-{
-    _layer = layer;
-}
-
-- (void)setDevice:(id<MTLDevice>)device__
-{
-    _device = device__;
-}
 
 #if defined(VENOM_PLATFORM_IOS)
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Initialize your iOS-specific setup
+    ContextAppleViewController *viewController = [[ContextAppleViewController alloc] init];
+    
+    // Set the root view controller for your app
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = viewController;
+    [self.window makeKeyWindow];
+    self.window.hidden = NO;
     return YES;
 }
 
-#else
+#elif defined(VENOM_PLATFORM_MACOS)
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
     NSRect frame = NSMakeRect(100, 100, 800, 600);
     
     // Create the window
@@ -39,9 +41,6 @@
     [self.window setTitle:@"Metal Window"];
     
     ContextAppleViewController * viewController = [[ContextAppleViewController alloc] init];
-    // Give Metal Device and Layer to the View Controller
-    [viewController setDevice:_device];
-    [viewController setLayer: _layer];
     
     [self.window setContentViewController: viewController];
     [self.window makeKeyAndOrderFront:nil];

@@ -8,6 +8,7 @@
 
 #include <venom/common/Log.h>
 #include <venom/common/String.h>
+#include <venom/common/Resources.h>
 
 #include <fstream>
 #include <filesystem>
@@ -24,8 +25,8 @@ static venom::common::String getTimeString()
     return timeString;
 }
 
-namespace venom::common
-{
+    namespace venom::common
+    {
 
 void Log::LogToFile(const char* str)
 {
@@ -33,9 +34,10 @@ void Log::LogToFile(const char* str)
     static std::ofstream logFile;
     if (!logFile.is_open()) {
         // Name with datetime and create directory if doesn't exist
-        std::filesystem::create_directory("logs");
+        const vc::String path = vc::Resources::GetLogsPath("");
+        std::filesystem::create_directory(path);
         String date_time = getTimeString();
-        String name = format("logs/Venom_%s.txt", date_time.c_str());
+        String name = format("%s/Venom_%s.txt", path.c_str(), date_time.c_str());
         logFile.open(name.c_str(), std::ios::out);
     }
     // Log time first [hh:mm:ss]
@@ -45,6 +47,8 @@ void Log::LogToFile(const char* str)
     logFile << "[" << timeString << "] ";
     logFile << str << std::endl;
 }
+
+#if !defined(VENOM_PLATFORM_APPLE)
 
 void Log::Print(const char* str)
 {
@@ -57,4 +61,6 @@ void Log::Print(FILE* const stream, const char* str)
 {
     fprintf(stream, "%s\n", str);
 }
+
+#endif
 }

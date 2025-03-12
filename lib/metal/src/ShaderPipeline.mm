@@ -146,7 +146,12 @@ vc::Error MetalShaderPipeline::_LoadShader(const std::string& path)
 {
     std::string basePath = vc::Resources::GetShadersFolderPath() + "msl/";
 
-    std::string fullPath = basePath + path + ".metallib";
+    std::string fullPath;
+#if defined(VENOM_PLATFORM_MACOS)
+    fullPath = basePath + path + ".metallib";
+#elif defined(VENOM_PLATFORM_IOS)
+    fullPath = basePath + path + "_ios.metallib";
+#endif
     // If find full path, then load as library
     if (std::filesystem::exists(fullPath))
     {

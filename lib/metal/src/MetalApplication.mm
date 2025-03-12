@@ -168,8 +168,10 @@ vc::Error MetalApplication::_OnGfxConstantsChange()
 vc::Error MetalApplication::_SetHDR(bool enable) {
     if (enable) {
         GetMetalLayer().pixelFormat = MTLPixelFormatRGBA16Float;
+        GetMetalLayer().wantsExtendedDynamicRangeContent = YES;
     } else {
         GetMetalLayer().pixelFormat = MTLPixelFormatBGRA8Unorm;
+        GetMetalLayer().wantsExtendedDynamicRangeContent = NO;
     }
     return vc::Error::Success;
 }

@@ -23,7 +23,4 @@
 // The view controller
 @interface ContextAppleViewController : PlatformViewController <MTKViewDelegate>
 
-@property id<MTLDevice> device;
-@property CAMetalLayer * layer;
-
 @end

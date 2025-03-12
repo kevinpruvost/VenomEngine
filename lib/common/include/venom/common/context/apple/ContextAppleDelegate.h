@@ -20,8 +20,6 @@
 
 @interface ContextAppleDelegate : PlatformAppDelegate
 
-@property (nonatomic, strong) id<MTLDevice> device;
-@property (nonatomic, strong) CAMetalLayer * layer;
 @property (nonatomic, strong) AppleWindow * window;
 
 @end

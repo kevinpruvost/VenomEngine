@@ -72,6 +72,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "include/"
 )
 
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE "AUTOMATIC")
+
 if (APPLE)
     find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
     find_library(CORESERVICES_FRAMEWORK CoreServices)
@@ -105,11 +107,8 @@ if (APPLE)
     set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
         BUNDLE True
         MACOSX_RPATH ON
-        INSTALL_RPATH "@executable_path/../Frameworks"
-        MACOSX_BUNDLE_GUI_IDENTIFIER pruvostkevin.com.${PROJECT_NAME_PACKAGE}
-        MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME_PACKAGE}
-        MACOSX_BUNDLE_BUNDLE_VERSION "0.1"
-        MACOSX_BUNDLE_SHORT_VERSION_STRING "0.1"
+        INSTALL_RPATH "@executable_path/Frameworks"
+        MACOSX_PACKAGE_LOCATION "Frameworks"
     )
 
     target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreFoundation")

@@ -10,6 +10,8 @@ target_compile_options(assimp PRIVATE
 )
 set_target_properties(assimp PROPERTIES
     FOLDER "ExternalLibraries"
+    VERSION "" # Disable versioning
+    SOVERSION "" # Disable versioning
 )
 
 # DirectXShadercompiler

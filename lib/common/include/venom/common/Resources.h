@@ -12,8 +12,9 @@
 #include <venom/common/String.h>
 #include <venom/common/Containers.h>
 
-#if defined(__APPLE__) && defined(VENOM_PACKAGE)
-vc::String getResourcePath();
+#if defined(VENOM_PLATFORM_APPLE)
+vc::String getAppleResourcePath();
+vc::String getAppleLogPath();
 #endif
 
 namespace venom
@@ -25,6 +26,7 @@ class Resources
 public:
     VENOM_COMMON_API static void InitializeFilesystem(int argc, const char* argv[]);
     VENOM_COMMON_API static void FreeFilesystem();
+    VENOM_COMMON_API static String GetLogsPath(const String & logPath);
     VENOM_COMMON_API static String GetResourcePath(const String & resourcePath);
     VENOM_COMMON_API static String GetTexturesResourcePath(const String & resourcePath);
     VENOM_COMMON_API static String GetFontsResourcePath(const String & resourcePath);

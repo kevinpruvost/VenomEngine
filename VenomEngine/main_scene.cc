@@ -15,20 +15,26 @@ void Scene(const vc::ScenePhase phase)
     int nbTiles = 1;
     switch (phase) {
         case vc::ScenePhase::Initialization: {
+            DEBUG_PRINT("Hello -1");
             cubemap = vc::CreateEntity("Background")
         //        .emplace<vc::Skybox>("cubemap/aerodynamics_workshop.exr")
                     .emplace<vc::Skybox>("cubemap/billiard_hall.exr")
             ;
+            DEBUG_PRINT("Hello 0");
 
 
             camera = vc::CreateEntity("Camera")
                 .emplace<vc::Camera>();
 
+            DEBUG_PRINT("Hello 1");
             vc::GraphicsSettings::StartGfxSettingsChange();
             vc::GraphicsSettings::SetHDR(true);
+            DEBUG_PRINT("Hello 2");
             vc::GraphicsSettings::SetMultiSampling(vc::GraphicsSettings::MultiSamplingModeOption::MSAA, vc::GraphicsSettings::MultiSamplingCountOption::Samples2);
             vc::GraphicsSettings::EndGfxSettingsChange();
+            DEBUG_PRINT("Hello 3");
             vc::SceneSettings::SetTargetLuminance(10.0f);
+            DEBUG_PRINT("Hello 4");
             break;
         }
         case vc::ScenePhase::Activation: {

@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.10)
 # Project name and version
 project(VenomVulkan VERSION 1.0)
 
+set(VENOM_RUNTIME_LOADED_DLLS "${VENOM_RUNTIME_LOADED_DLLS};${PROJECT_NAME}" CACHE INTERNAL "Venom runtime loaded DLLs")
+
 # Define the include directories
 include_directories(include)
 
@@ -24,7 +26,8 @@ endif()
 file(GLOB_RECURSE venom_vulkan_srcs src/*.cc)
 file(GLOB_RECURSE venom_vulkan_hdrs include/venom/vulkan/**/**/**/*.h)
 
-# Create the static library target
+
+        # Create the static library target
 add_library(${PROJECT_NAME} SHARED
     ${venom_vulkan_srcs} ${venom_vulkan_hdrs}
     ${IMGUI_SOURCES}

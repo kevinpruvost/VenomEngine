@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 
 # Do not name same name as folder, it can generate problems with linking (e.g. VenomEngine/ folder in build/
 # but VenomEngine target is also named VenomEngine)
@@ -46,6 +46,16 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if (APPLE)
+    macro(qt_ios_set_xcode_property TARGET XCODE_PROPERTY XCODE_VALUE XCODE_RELVERSION)
+        set(XCODE_RELVERSION_I "${XCODE_RELVERSION}")
+        if(XCODE_RELVERSION_I STREQUAL "All")
+            set_property(TARGET ${TARGET} PROPERTY XCODE_ATTRIBUTE_${XCODE_PROPERTY} "${XCODE_VALUE}")
+        else()
+            set_property(TARGET ${TARGET} PROPERTY XCODE_ATTRIBUTE_${XCODE_PROPERTY}[variant=${XCODE_RELVERSION_I}] "${XCODE_VALUE}")
+        endif()
+    endmacro() # qt_ios_set_xcode_property
+
+
     # if iOS change Info.pList to another file
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
         set(PLIST_FILE "${CMAKE_CURRENT_SOURCE_DIR}/iOS/Info.plist")
@@ -53,68 +63,128 @@ if (APPLE)
         set(PLIST_FILE "${CMAKE_CURRENT_SOURCE_DIR}/macOS/Info.plist")
     endif ()
 
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        MACOSX_BUNDLE YES
-        MACOSX_BUNDLE_INFO_PLIST "${PLIST_FILE}"
-    )
-    set(PROJECT_PACKAGE_NAME ${PROJECT_NAME}_Package)
 
-    add_executable(${PROJECT_PACKAGE_NAME}
-        ${VenomEngine_Srcs}
-    )
-    target_include_directories(${PROJECT_PACKAGE_NAME} PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-    target_link_libraries(${PROJECT_PACKAGE_NAME} PUBLIC
-        VenomCommon
-    )
-    # Depend on link_resources to symlink/copy
-    add_dependencies(${PROJECT_NAME} link_resources)
+    set(PROJECT_PACKAGE_NAME ${PROJECT_NAME})
 
-    if ((NOT APPLE) OR (NOT CMAKE_SYSTEM_NAME MATCHES "iOS"))
-        add_dependencies(${PROJECT_NAME} VenomVulkan)
-    endif ()
-    add_dependencies(${PROJECT_PACKAGE_NAME} VenomMetal)
+    # Define the path to the asset catalog
+    set(ASSET_CATALOG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Assets.xcassets")
+
+    message(STATUS "ASSET_CATALOG_PATH=${ASSET_CATALOG_PATH}")
+
+    set(RESOURCE_FILES_NO_ASSET ${RESOURCE_FILES})
+    set(RESOURCE_FILES ${RESOURCE_FILES} ${ASSET_CATALOG_PATH})
 
     target_sources(${PROJECT_PACKAGE_NAME} PRIVATE
         ${RESOURCE_FILES}
     )
 
-    set(BUNDLE_APP_LOCATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_PACKAGE_NAME}.app" PARENT_SCOPE)
+    qt_ios_set_xcode_property (${PROJECT_PACKAGE_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "VenomEngineIcon" "All")
 
-    set_target_properties(${PROJECT_PACKAGE_NAME} PROPERTIES
+    # Ensure the asset catalog is included in the bundle resources
+    set_source_files_properties(${ASSET_CATALOG_PATH}
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
+
+    # Asset catalog app icon set
+    list(APPEND app_icon_set "${ASSET_CATALOG_PATH}/VenomEngineIcon.appiconset")
+    list(APPEND app_icon_set "${ASSET_CATALOG_PATH}/Contents.json")
+    set_source_files_properties(${app_icon_set} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources/Assets.xcassets"
+    )
+
+    # Asset catalog icon files
+    file(GLOB app_icon_files CONFIGURE_DEPENDS "${ASSET_CATALOG_PATH}/VenomEngineIcon.appiconset/*.png")
+    list(APPEND app_icon_files "${ASSET_CATALOG_PATH}/VenomEngineIcon.appiconset/Contents.json")
+    set_source_files_properties(${app_icon_files} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources/Assets.xcassets/VenomEngineIcon.appiconset"
+    )
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE YES
         MACOSX_BUNDLE_INFO_PLIST "${PLIST_FILE}"
-        MACOSX_BUNDLE_BUNDLE_NAME "VenomEngine"
-        MACOSX_BUNDLE_BUNDLE_VERSION "1.0.0"
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.venomengine"
-        MACOSX_BUNDLE_ICON_FILE "VenomEngine.icns"
-        MACOSX_BUNDLE_INFO_STRING "VenomEngine"
-        MACOSX_BUNDLE_LONG_VERSION_STRING "1.0.0"
-        MACOSX_BUNDLE_SHORT_VERSION_STRING "1.0.0"
+        RESOURCE "${RESOURCE_FILES}"
+    )
 
-        INSTALL_RPATH "@executable_path/../Frameworks"
+    # Embed libraries into the bundle
+    function(get_all_dependencies target out_var)
+        get_target_property(deps ${target} LINK_LIBRARIES)
+        if (deps)
+            foreach(dep ${deps})
+                if (TARGET ${dep})
+                    # Check if the target produces a binary file
+                    get_target_property(TYPE ${dep} TYPE)
+                    if (TYPE STREQUAL "SHARED_LIBRARY" OR TYPE STREQUAL "MODULE_LIBRARY")
+#                        list(APPEND result "$<TARGET_FILE:${dep}>")
+                        list(APPEND result "${dep}")
+                    endif()
 
+                    # Recursively collect dependencies
+                    get_all_dependencies(${dep} result)
+                endif()
+            endforeach()
+            set(${out_var} ${result} PARENT_SCOPE)
+        endif()
+    endfunction()
+
+    get_all_dependencies(${PROJECT_PACKAGE_NAME} EMBEDDED_LIBS)
+
+    list(APPEND EMBEDDED_LIBS ${VENOM_RUNTIME_LOADED_DLLS})
+
+    message(STATUS "EMBEDDED_LIBS=${EMBEDDED_LIBS}")
+
+    set_target_properties(${PROJECT_PACKAGE_NAME} PROPERTIES
+        XCODE_EMBED_FRAMEWORKS "${EMBEDDED_LIBS}"
+        XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY ON
         XCODE_LINK_BUILD_PHASE_MODE BUILT_ONLY
-        RESOURCE "icons/VenomEngine.icns"
+    )
+
+    set(BUNDLE_APP_LOCATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_PACKAGE_NAME}.app" PARENT_SCOPE)
+    set(FRAMEWORKS_BUNDLE_LOCATION "${BUNDLE_APP_LOCATION}/Contents/Frameworks" PARENT_SCOPE)
+
+    set_target_properties(${PROJECT_PACKAGE_NAME} PROPERTIES
+            MACOSX_BUNDLE YES
+            MACOSX_BUNDLE_INFO_PLIST "${PLIST_FILE}"
+            MACOSX_BUNDLE_BUNDLE_NAME "VenomEngine"
+            MACOSX_BUNDLE_BUNDLE_VERSION "1.0.0"
+            MACOSX_BUNDLE_GUI_IDENTIFIER "com.pruvostkevin.venomengine"
+            MACOSX_BUNDLE_ICON_FILE "VenomEngine.icns"
+            MACOSX_BUNDLE_INFO_STRING "VenomEngine"
+            MACOSX_BUNDLE_LONG_VERSION_STRING "1.0.0"
+            MACOSX_BUNDLE_SHORT_VERSION_STRING "1.0.0"
+            XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.pruvostkevin.venomengine"
+
+            INSTALL_RPATH "@executable_path/../Frameworks"
+
+            XCODE_LINK_BUILD_PHASE_MODE BUILT_ONLY
+            RESOURCE "icons/VenomEngine.icns"
     )
 
     # Copy resources to bundle
     set(RESOURCES_BUNDLE_LOCATION "${BUNDLE_APP_LOCATION}/Contents/Resources" PARENT_SCOPE)
-    foreach (FILE ${RESOURCE_FILES})
+    foreach (FILE ${RESOURCE_FILES_NO_ASSET})
         # Ignore log folder
         if ("${FILE}" MATCHES "log")
             continue()
         endif()
         file(RELATIVE_PATH NEW_FILE "${CMAKE_SOURCE_DIR}/resources" ${FILE})
         get_filename_component(NEW_FILE_PATH ${NEW_FILE} DIRECTORY)
+        message(STATUS "Copying ${FILE} to ${NEW_FILE}")
         set_source_files_properties(${FILE}
                 PROPERTIES
                 MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}"
+                XCODE_FILE_ATTRIBUTES "CodeSignOnCopy"
                 HEADER_FILE_ONLY TRUE
         )
         set(RESOURCES_BUNDLE_FILES ${RESOURCES_BUNDLE_FILES} ${RESOURCES_BUNDLE_LOCATION}/${NEW_FILE} PARENT_SCOPE)
     endforeach()
+
+    set_source_files_properties(${ASSET_CATALOG_PATH}
+            PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources"
+            XCODE_FILE_ATTRIBUTES "CodeSignOnCopy"
+            HEADER_FILE_ONLY TRUE
+    )
 
     # Installation
     install(TARGETS ${PROJECT_PACKAGE_NAME}
@@ -127,7 +197,7 @@ if (APPLE)
     # Names of all plugins
 
     set(CMAKE_XCODE_ATTRIBUTE_OTHER_CODE_SIGN_FLAGS "-o linker-signed")
-    
+
     install(CODE "set(CODESIGN_COMMAND \"${CODESIGN_COMMAND}\")")
     install(CODE "set(PROJECT_PACKAGE_NAME \"${PROJECT_PACKAGE_NAME}\")")
     install(CODE [[
@@ -184,4 +254,3 @@ if (APPLE)
     set(CPACK_BUNDLE_APPLE_CODESIGN_PARAMETER "--deep -f --options runtime")
     include(CPack)
 endif()
-

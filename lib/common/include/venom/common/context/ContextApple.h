@@ -20,6 +20,7 @@ struct ContextAppleData
     __strong id __window;
     __strong id __view;
     __strong id __delegate;
+    id __layer;
 };
 
 #endif
@@ -48,11 +49,10 @@ public:
     vc::Error Run(int argc, const char * argv[]) override;
     inline vc::Error Loop() { return _runLoopFunction(); }
     static inline vc::Error RunLoop() { return GetAppleContext()->Loop(); }
-    
+
 #ifdef __OBJC__
-    void SetMetalDevice(id<MTLDevice> device);
-    void SetMetalLayer(CAMetalLayer * layer);
-    
+    static inline CAMetalLayer * GetMetalLayer() { return GetAppleContext()->__contextAppleData.__layer; }
+    void __GiveMetalLayer(CAMetalLayer * layer);
     void __UpdateWindowSize(CGSize size);
 
     AppleWindow * GetAppleWindow();

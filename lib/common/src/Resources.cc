@@ -39,21 +39,28 @@ vc::String Resources::GetResourcePath(const vc::String& resourcePath)
 
 #else
 
-#if defined(__APPLE__) && defined(VENOM_PACKAGE)
+#if defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
 static vc::String s_basePath;
+static vc::String s_logPath;
 void Resources::InitializeFilesystem(int argc, const char* argv[])
 {
     (void)argc;
     (void)argv;
 
-#if defined(__APPLE__) && defined(VENOM_PACKAGE)
-    vc::String bundleResourcePath = getResourcePath();
+#if defined(VENOM_PLATFORM_APPLE)
+    vc::String bundleResourcePath = getAppleResourcePath();
     if (!bundleResourcePath.empty()) {
         s_basePath = bundleResourcePath;
         if (s_basePath.back() != '/') s_basePath += "/";
+    }
+    vc::String logPath = getAppleLogPath();
+    if (!logPath.empty()) {
+        s_logPath = logPath;
+        if (s_logPath.back() != '/') s_logPath += "/";
+        s_logPath += "VenomEngine_Logs/";
         return;
     }
 #endif
@@ -68,10 +75,16 @@ void Resources::InitializeFilesystem(int argc, const char* argv[])
             exit(1);
         }
     }
+    s_logPath = "./logs/";
 }
 
 void Resources::FreeFilesystem()
 {
+}
+
+String Resources::GetLogsPath(const String& logPath)
+{
+    return s_logPath + logPath;
 }
 
 static bool validPath(const vc::String& path, vc::String & res)

@@ -184,8 +184,9 @@ void ContextGLFW::_PollEvents()
 }
 }
 }
-#endif
+
 venom::context::glfw::ContextGLFW* CreateContextGLFW()
 {
     return new venom::context::glfw::ContextGLFW();
 }
+#endif

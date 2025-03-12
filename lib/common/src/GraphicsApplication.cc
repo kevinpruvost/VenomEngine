@@ -92,6 +92,7 @@ Error GraphicsApplication::Init()
 
     // Post Init
     err = __PostInit();
+    DEBUG_PRINT("Finished Graphics Application Init...");
     return err;
 }
 

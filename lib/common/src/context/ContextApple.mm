@@ -22,7 +22,11 @@ namespace apple
 {
 ContextApple::ContextApple()
 {
+#ifdef VENOM_PLATFORM_MACOS
     [NSApplication sharedApplication];
+#else
+    [UIApplication sharedApplication];
+#endif
 }
 
 ContextApple* ContextApple::GetAppleContext()
@@ -54,7 +58,9 @@ vc::Error ContextApple::Run(int argc, const char * argv[])
 #ifdef VENOM_PLATFORM_MACOS
     ret = NSApplicationMain(argc, argv);
 #else
-    ret = UIApplicationMain(argc, argv, nil, NSStringFromClass([ContextAppleDelegate class]));
+    // Cast argv as UIApplicationMain prototype is different
+    DEBUG_PRINT("About to start UIApplicationMain...");
+    ret = UIApplicationMain(argc, (char **)argv, nil, NSStringFromClass([ContextAppleDelegate class]));
 #endif
     return ret == 0 ? vc::Error::Success : vc::Error::Failure;
 }
@@ -67,16 +73,6 @@ void ContextApple::_SetWindowTitle(const char* title)
     // No equivalent for iOS
     vc::Log::Error("Cannot change window title at runtime on iOS");
 #endif
-}
-
-void ContextApple::SetMetalDevice(id<MTLDevice> device)
-{
-    [__contextAppleData.__delegate setDevice:device];
-}
-
-void ContextApple::SetMetalLayer(CAMetalLayer * layer)
-{
-    [__contextAppleData.__delegate setLayer: layer];
 }
 
 void* ContextApple::_GetWindow()
@@ -96,13 +92,14 @@ AppleView* ContextApple::GetAppleView()
 
 vc::Error ContextApple::_InitContext()
 {
+    DEBUG_PRINT("_InitContext done...");
     // Might move initialization in Metal
-#ifdef VENOM_PLATFORM_MACOS
     ContextAppleDelegate *delegate = [[ContextAppleDelegate alloc] init];
     __contextAppleData.__delegate = delegate;
-    [NSApp setDelegate: __contextAppleData.__delegate];
-#else
-    
+#if defined(VENOM_PLATFORM_MACOS)
+    [NSApp setDelegate: delegate];
+#elif defined(VENOM_PLATFORM_IOS)
+    [[UIApplication sharedApplication] setDelegate: delegate];
 #endif
     return vc::Error::Success;
 }
@@ -143,6 +140,11 @@ bool ContextApple::_ShouldClose()
 
 void ContextApple::_GetCursorPos(double* pos)
 {
+}
+
+void ContextApple::__GiveMetalLayer(CAMetalLayer * layer)
+{
+    __contextAppleData.__layer = layer;
 }
 
 void ContextApple::__UpdateWindowSize(CGSize size)

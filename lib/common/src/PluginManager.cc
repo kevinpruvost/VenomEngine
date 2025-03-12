@@ -52,7 +52,7 @@ T * LoadPluginFromNameAndType(const vc::String & libName, const char * functionN
     if (!dll) {
         dll = DLL::Create();
         Error err;
-#if defined(__APPLE__) && defined(VENOM_PACKAGE)
+#if defined(VENOM_PLATFORM_APPLE)
         // Try to load from the bundle (/Frameworks)
         vc::String newLibPath = Resources::GetResourcePath("../Frameworks/" + libName);
         err = dll->LoadDLL(newLibPath.c_str());

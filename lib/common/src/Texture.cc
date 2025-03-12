@@ -184,13 +184,12 @@ public:
 
         __pixels.resize(width * height * channels);
 
-        Imf::Array2D<Imf::Rgba> pixelData;
-        pixelData.resizeErase(height, width);
-        file.setFrameBuffer(&pixelData[0][0] - dw.min.x - dw.min.y * width, 1, width);
+        std::vector<Imf::Rgba> pixelData(width * height);
+        file.setFrameBuffer(pixelData.data() - dw.min.x - dw.min.y * width, 1, width);
         file.readPixels(dw.min.y, dw.max.y);
 
         // Copy pixelData to pixels
-        memcpy(__pixels.data(), &pixelData[0][0], width * height * channels * sizeof(uint16_t));
+        memcpy(__pixels.data(), pixelData.data(), width * height * channels * sizeof(uint16_t));
 
         vc::Error err = impl->LoadImage(__pixels.data(), width, height, channels);
         if (err != vc::Error::Success) {
@@ -200,13 +199,11 @@ public:
 
         // Calculate peak luminance
         float peakLuminance = 0.0f, luminance, averageLuminance = 0.0f;
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                const Imf_3_4::Rgba & rgba = pixelData[y][x];
-                luminance = rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722;
-                peakLuminance = std::max(peakLuminance, luminance);
-                averageLuminance += luminance;
-            }
+        for (int i = 0; i < width * height; ++i) {
+            const Imf_3_4::Rgba & rgba = pixelData[i];
+            luminance = rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722;
+            peakLuminance = std::max(peakLuminance, luminance);
+            averageLuminance += luminance;
         }
         averageLuminance /= width * height;
 
