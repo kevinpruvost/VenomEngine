@@ -130,7 +130,7 @@ if (APPLE)
     ##
 
     # Icon contained in the asset catalog
-    set_xcode_property(${PROJECT_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon" "All")
+    set_xcode_property(${PROJECT_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "VenomEngineIcon" "All")
 
     ##
     # Copy resources to bundle
@@ -138,9 +138,9 @@ if (APPLE)
 
     # If there are storyboards
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
-        include_storyboards(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/Application/iOS/Base.lproj/")
+        include_storyboards(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/iOS/")
     elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
-        include_storyboards(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/Application/macOS/Base.lproj/")
+        include_storyboards(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/macOS/")
     endif ()
 
     include_xcode_resource_files(${PROJECT_NAME} "${RESOURCE_FILES}" "${CMAKE_SOURCE_DIR}/resources")

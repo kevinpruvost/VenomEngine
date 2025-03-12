@@ -73,6 +73,7 @@ if (APPLE)
     # Add Compile definitions to recognize ios or macos
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
         add_compile_definitions(TARGET_OS_IOS)
+        set(CMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2") # 1 = iPhone, 2 = iPad
     else()
         add_compile_definitions(TARGET_OS_OSX)
     endif ()
