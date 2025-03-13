@@ -266,3 +266,8 @@ add_library(IconFontCppHeaders INTERFACE)
 target_include_directories(IconFontCppHeaders INTERFACE
     "${CMAKE_CURRENT_SOURCE_DIR}/IconFontCppHeaders/"
 )
+
+# Flatbuffers
+set(FLATBUFFERS_BUILD_TESTS OFF)
+set(FLATBUFFERS_INSTALL OFF)
+add_subdirectory("flatbuffers")

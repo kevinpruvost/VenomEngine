@@ -62,3 +62,9 @@
 [submodule "lib/external/openvdb"]
 	path = lib/external/openvdb
 	url = git@github.com:kevinpruvost/openvdb_VenomEngine.git
+[submodule "lib/external/flatbuffers"]
+	path = lib/external/flatbuffers
+	url = git@github.com:google/flatbuffers.git
+[submodule "lib/external/lz4"]
+	path = lib/external/lz4
+	url = git@github.com:lz4/lz4.git

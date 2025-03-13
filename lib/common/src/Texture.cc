@@ -182,16 +182,11 @@ public:
         // Set channels to 4 (RGBA) since Imf::Rgba has 4 components
         channels = 4;
 
-        __pixels.resize(width * height * channels);
-
-        std::vector<Imf::Rgba> pixelData(width * height);
-        file.setFrameBuffer(pixelData.data() - dw.min.x - dw.min.y * width, 1, width);
+        pixelData.reset(new Imf::Rgba[width * height]);
+        file.setFrameBuffer(pixelData.get() - dw.min.x - dw.min.y * width, 1, width);
         file.readPixels(dw.min.y, dw.max.y);
 
-        // Copy pixelData to pixels
-        memcpy(__pixels.data(), pixelData.data(), width * height * channels * sizeof(uint16_t));
-
-        vc::Error err = impl->LoadImage(__pixels.data(), width, height, channels);
+        vc::Error err = impl->LoadImage((uint16_t *)pixelData.get(), width, height, channels);
         if (err != vc::Error::Success) {
             vc::Log::Error("Failed to load image from file: %s", path);
             return err;
@@ -200,7 +195,7 @@ public:
         // Calculate peak luminance
         float peakLuminance = 0.0f, luminance, averageLuminance = 0.0f;
         for (int i = 0; i < width * height; ++i) {
-            const Imf_3_4::Rgba & rgba = pixelData[i];
+            const Imf_3_4::Rgba & rgba = *(pixelData.get() + i);
             luminance = rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722;
             peakLuminance = std::max(peakLuminance, luminance);
             averageLuminance += luminance;
@@ -213,7 +208,7 @@ public:
     }
 
 private:
-    vc::Vector<uint16_t> __pixels;
+    vc::UPtr<Imf::Rgba> pixelData;
     float __averageLuminance;
     float __peakLuminance;
 };

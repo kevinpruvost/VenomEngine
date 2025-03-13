@@ -198,7 +198,9 @@ void Context::PollEvents()
     __shouldClose = _ShouldClose();
 
     // Mouse movement
-    memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
+    __mouseLastPos[0] = __mousePos[0];
+    __mouseLastPos[1] = __mousePos[1];
+    //memcpy(__mouseLastPos, __mousePos, sizeof(__mousePos));
     _GetCursorPos(__mousePos);
 }
 
@@ -206,8 +208,8 @@ vc::Error Context::Run(int argc, const char * argv[])
 {
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
     while (!ShouldClose()) {
-        PollEvents();
         _runLoopFunction();
+        PollEvents();
     }
     return vc::Error::Success;
 }
