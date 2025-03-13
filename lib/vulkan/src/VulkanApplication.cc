@@ -61,6 +61,11 @@ VulkanApplication::~VulkanApplication()
 
 bool VulkanApplication::ShouldClose() { return __shouldClose; }
 
+void VulkanApplication::PreClose()
+{
+    vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+}
+
 void VulkanApplication::WaitForDraws()
 {
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
@@ -86,10 +91,6 @@ vc::Error VulkanApplication::__Loop()
         int fpsCount = fps.GetFps();
             vc::Log::Print("FPS: %u, Theoretical FPS: %.2f", fpsCount, _GetTheoreticalFPS(fpsCount));
         timer.Reset();
-    }
-    __shouldClose = vc::Context::Get()->ShouldClose();
-    if (__shouldClose) {
-        vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
     }
     return err;
 }

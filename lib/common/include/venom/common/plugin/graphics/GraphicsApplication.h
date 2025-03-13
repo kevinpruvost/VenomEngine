@@ -43,6 +43,12 @@ public:
     virtual bool ShouldClose() = 0;
     virtual void WaitForDraws() = 0;
 
+    /**
+     * @brief Called before the application closes.
+     * @warning DO NOT FORGET MUST BE CALLED BEFORE CLOSING
+     */
+    virtual void PreClose() = 0;
+
     static inline RenderPass * GetSkyboxRenderPass() { return &Get()->_skyboxRenderPass; }
     static inline RenderPass * GetGraphicsRenderPass() { return &Get()->_graphicsRenderPass; }
     static inline RenderPass * GetGuiRenderPass() { return &Get()->_guiRenderPass; }

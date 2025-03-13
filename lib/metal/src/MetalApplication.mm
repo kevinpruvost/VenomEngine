@@ -62,6 +62,10 @@ MetalApplication::~MetalApplication()
 
 bool MetalApplication::ShouldClose() { return vc::Context::Get()->ShouldClose(); }
 
+void MetalApplication::PreClose()
+{
+}
+
 void MetalApplication::WaitForDraws()
 {
 }

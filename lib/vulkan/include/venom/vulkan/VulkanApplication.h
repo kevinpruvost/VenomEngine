@@ -56,6 +56,7 @@ public:
     vc::Error __PostInit() override;
     vc::Error __Loop() override;
     bool ShouldClose() override;
+    void PreClose() override;
 public:
     inline static int IsBindlessSupported() { return __bindlessSupported; }
     inline const SwapChain * GetSwapChain() const { return &__swapChain; }

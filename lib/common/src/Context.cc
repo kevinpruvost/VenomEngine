@@ -12,6 +12,8 @@
 
 #include <venom/common/Config.h>
 
+#include <venom/common/plugin/graphics/GraphicsApplication.h>
+
 // GLFW Context
 #if defined(VENOM_PLATFORM_DESKTOP) && !defined(VENOM_PLATFORM_IOS)
 #include <venom/common/context/ContextGLFW.h>
@@ -211,6 +213,7 @@ vc::Error Context::Run(int argc, const char * argv[])
         _runLoopFunction();
         PollEvents();
     }
+    vc::GraphicsApplication::Get()->PreClose();
     return vc::Error::Success;
 }
 }

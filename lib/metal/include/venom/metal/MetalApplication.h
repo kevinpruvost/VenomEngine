@@ -43,6 +43,7 @@ public:
     vc::Error __PostInit() override;
     vc::Error __Loop() override;
     bool ShouldClose() override;
+    void PreClose() override;
 public:
     void WaitForDraws() override;
 
