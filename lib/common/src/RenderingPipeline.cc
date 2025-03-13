@@ -34,7 +34,7 @@ void RenderingPipelineImpl::SetRenderingPipelineCache(const ShaderPipelineList& 
 }
 
 RenderingPipeline::RenderingPipeline()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateRenderingPipeline())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateRenderingPipeline())
 {
 }
 

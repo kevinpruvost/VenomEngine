@@ -66,7 +66,7 @@ private:
 vc::Error VENOM_COMMON_API SaveImageToExr(const void * data, const char * path, int width, int height, int channels = 4);
 vc::Error VENOM_COMMON_API SaveImageToPng(const void * data, const char * path, int width, int height, int channels = 4);
 
-class VENOM_COMMON_API TextureImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
+class VENOM_COMMON_API TextureImpl : public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
     TextureImpl();
@@ -175,7 +175,7 @@ enum class ColorAttachmentType
     Count
 };
 
-class VENOM_COMMON_API Texture : public PluginObjectImplWrapper
+class VENOM_COMMON_API Texture : public PluginObjectWrapper
 {
 public:
     Texture();

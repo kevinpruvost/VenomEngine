@@ -31,7 +31,7 @@ CameraImpl::~CameraImpl()
 }
 
 Camera::Camera()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateCamera())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateCamera())
 {
     if (s_mainCamera == nullptr)
         SetMainCamera(*this);

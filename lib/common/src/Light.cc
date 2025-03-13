@@ -37,7 +37,7 @@ vc::Error LightImpl::SetType(const LightType type)
 }
 
 Light::Light()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateLight())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateLight())
 {
     __lights.emplace_back(this);
 }
@@ -48,20 +48,20 @@ Light::~Light()
 }
 
 Light::Light(const Light& other)
-    : PluginObjectImplWrapper(other)
+    : PluginObjectWrapper(other)
 {
     __lights.emplace_back(this);
 }
 
 Light& Light::operator=(const Light& other)
 {
-    PluginObjectImplWrapper::operator=(other);
+    PluginObjectWrapper::operator=(other);
     __lights.emplace_back(this);
     return *this;
 }
 
 Light::Light(Light&& other) noexcept
-    : PluginObjectImplWrapper(std::move(other))
+    : PluginObjectWrapper(std::move(other))
 {
     __lights.erase(std::remove(__lights.begin(), __lights.end(), &other), __lights.end());
     if (std::find(__lights.begin(), __lights.end(), this) == __lights.end())
@@ -70,7 +70,7 @@ Light::Light(Light&& other) noexcept
 
 Light& Light::operator=(Light&& other) noexcept
 {
-    PluginObjectImplWrapper::operator=(std::move(other));
+    PluginObjectWrapper::operator=(std::move(other));
     if (this != &other) {
         __lights.erase(std::remove(__lights.begin(), __lights.end(), &other), __lights.end());
         if (std::find(__lights.begin(), __lights.end(), this) == __lights.end())

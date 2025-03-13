@@ -32,7 +32,7 @@ struct SkyboxShaderData
     float blurFactor;
 };
 
-class VENOM_COMMON_API SkyboxImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API SkyboxImpl : public GraphicsPluginObject
 {
 public:
     SkyboxImpl();
@@ -60,7 +60,7 @@ private:
     friend class Skybox;
 };
 
-class VENOM_COMMON_API Skybox : public Component, public PluginObjectImplWrapper
+class VENOM_COMMON_API Skybox : public Component, public PluginObjectWrapper
 {
 public:
     Skybox();

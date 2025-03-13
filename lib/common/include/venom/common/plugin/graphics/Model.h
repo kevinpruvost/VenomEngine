@@ -28,7 +28,7 @@ public:
     vc::Vector<vc::Material> materials;
 };
 
-class VENOM_COMMON_API ModelImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
+class VENOM_COMMON_API ModelImpl : public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
     ModelImpl();
@@ -51,7 +51,7 @@ private:
 
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
-class VENOM_COMMON_API Model : public Component, public PluginObjectImplWrapper
+class VENOM_COMMON_API Model : public Component, public PluginObjectWrapper
 {
 public:
     Model();

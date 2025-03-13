@@ -126,7 +126,7 @@ vc::Error SkyboxImpl::ChangeBlurFactor(const float factor)
 }
 
 Skybox::Skybox()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateSkybox())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateSkybox())
 {
 }
 

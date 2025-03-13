@@ -25,12 +25,12 @@ namespace common
 {
 
 Texture::Texture()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateTexture())
 {
 }
 
 Texture::Texture(const char * path)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateTexture())
 {
     if (Error err = LoadImageFromFile(path); err != Error::Success) {
         Destroy();
@@ -39,7 +39,7 @@ Texture::Texture(const char * path)
 }
 
 Texture::Texture(const char* path, int id, char* bgraData, unsigned int width, unsigned int height)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateTexture())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateTexture())
 {
     if (Error err = LoadImage(path, id, bgraData, width, height); err != Error::Success) {
         Destroy();

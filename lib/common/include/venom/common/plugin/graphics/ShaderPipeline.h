@@ -41,7 +41,7 @@ enum class ShaderVertexFormat
     Mat4
 };
 
-class VENOM_COMMON_API ShaderPipelineImpl : public PluginObjectImpl, public GraphicsPluginObject, public GraphicsCachedResourceHolder
+class VENOM_COMMON_API ShaderPipelineImpl : public GraphicsPluginObject, public GraphicsCachedResourceHolder
 {
 public:
     ShaderPipelineImpl();
@@ -128,7 +128,7 @@ private:
     bool __customSamples;
 };
 
-class VENOM_COMMON_API ShaderPipeline : public PluginObjectImplWrapper
+class VENOM_COMMON_API ShaderPipeline : public PluginObjectWrapper
 {
 public:
     ShaderPipeline();

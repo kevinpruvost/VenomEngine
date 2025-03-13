@@ -38,33 +38,23 @@ class VENOM_COMMON_API PluginObject : virtual public IPluginObject
 {
 public:
     PluginObject(const PluginType type);
+
     virtual ~PluginObject();
     /// @brief /!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE `delete`
     virtual void Destroy() override;
     PluginType GetType() const override;
 
-    template<class T> inline T * DAs() { return dynamic_cast<T *>(this); }
-    template<class T> inline const T * DAs() const { return dynamic_cast<const T *>(this); }
-private:
-    const PluginType __type;
-};
-
-/**
- * @brief Interface for the PluginObject different implementations
- */
-class VENOM_COMMON_API PluginObjectImpl : virtual public IPluginObject
-{
-public:
-    PluginObjectImpl();
     template<class T> inline T * As() { return static_cast<T *>(this); }
     template<class T> inline const T * As() const { return static_cast<const T *>(this); }
     template<class T> inline T * ConstAs() const { return const_cast<T *>(static_cast<const T *>(this)); }
     template<class T> inline T * RAs() { return reinterpret_cast<T *>(this); }
     template<class T> inline const T * RAs() const { return reinterpret_cast<const T *>(this); }
+    template<class T> inline T * DAs() { return dynamic_cast<T *>(this); }
+    template<class T> inline const T * DAs() const { return dynamic_cast<const T *>(this); }
     void IncRefCount();
     void DecRefCount();
-
 private:
+    const PluginType __type;
     int __refCount;
 };
 
@@ -72,41 +62,41 @@ private:
  * @brief Wrapper for the PluginObjectImpl, inherited by classes like Model or Mesh
  * to make them usable as components (for ECS) and hold the Graphics API specific implementation
  */
-class VENOM_COMMON_API PluginObjectImplWrapper
+class VENOM_COMMON_API PluginObjectWrapper
 {
 public:
-    PluginObjectImplWrapper();
-    PluginObjectImplWrapper(PluginObjectImpl * impl);
-    PluginObjectImplWrapper(const PluginObjectImplWrapper & other);
-    PluginObjectImplWrapper & operator=(const PluginObjectImplWrapper & other);
-    PluginObjectImplWrapper(PluginObjectImplWrapper && other);
-    PluginObjectImplWrapper & operator=(PluginObjectImplWrapper && other);
-    virtual ~PluginObjectImplWrapper();
+    PluginObjectWrapper();
+    PluginObjectWrapper(PluginObject * impl);
+    PluginObjectWrapper(const PluginObjectWrapper & other);
+    PluginObjectWrapper & operator=(const PluginObjectWrapper & other);
+    PluginObjectWrapper(PluginObjectWrapper && other);
+    PluginObjectWrapper & operator=(PluginObjectWrapper && other);
+    virtual ~PluginObjectWrapper();
 
-    inline PluginObjectImpl* GetImpl()
+    inline PluginObject* GetImpl()
     {
-        venom_assert(_impl != nullptr, "PluginObjectImplWrapper::GetImpl() : _impl is nullptr");
+        venom_assert(_impl != nullptr, "PluginObjectWrapper::GetImpl() : _impl is nullptr");
         return _impl;
     }
-    inline const PluginObjectImpl* GetImpl() const
+    inline const PluginObject* GetImpl() const
     {
-        venom_assert(_impl != nullptr, "PluginObjectImplWrapper::GetImpl() : _impl is nullptr");
+        venom_assert(_impl != nullptr, "PluginObjectWrapper::GetImpl() : _impl is nullptr");
         return _impl;
     }
-    inline const PluginObjectImpl * GetConstImpl() const { return GetImpl(); }
+    inline const PluginObject * GetConstImpl() const { return GetImpl(); }
     bool IsImplInitialized() const;
     inline void Destroy() { _impl->Destroy(); }
 protected:
-    PluginObjectImpl * _impl;
+    PluginObject * _impl;
 };
 
 /**
- * @brief Container for the PluginObjectImplWrapper
- * Important to avoid it from loading the PluginObjectImpl if not needed
+ * @brief Container for the PluginObjectWrapper
+ * Important to avoid it from loading the PluginObject if not needed
  * e.g. if the object is optional
  */
 
-template<class T, typename = std::enable_if_t<std::is_base_of_v<PluginObjectImplWrapper, T>>>
+template<class T, typename = std::enable_if_t<std::is_base_of_v<PluginObjectWrapper, T>>>
 class VENOM_COMMON_API PluginObjectOptional : public std::optional<T>
 {
 public:

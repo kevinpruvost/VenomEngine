@@ -37,7 +37,7 @@ struct CameraFocusData
     vcm::Vec3 planeNormal;
 };
 
-class VENOM_COMMON_API CameraImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API CameraImpl : public GraphicsPluginObject
 {
 public:
     CameraImpl();
@@ -128,7 +128,7 @@ private:
  * @brief Camera class
  * Classic layout with position, rotation and projection matrices
  */
-class VENOM_COMMON_API Camera : public Component, public PluginObjectImplWrapper
+class VENOM_COMMON_API Camera : public Component, public PluginObjectWrapper
 {
 public:
     Camera();

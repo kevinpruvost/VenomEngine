@@ -33,7 +33,6 @@ static vc::Vector<ModelImpl *> s_debugModels;
 
 ModelImpl::ModelImpl()
     : GraphicsPluginObject()
-    , PluginObjectImpl()
 {
 #ifdef VENOM_DEBUG
     s_debugModels.emplace_back(this);
@@ -48,12 +47,12 @@ ModelImpl::~ModelImpl()
 }
 
 Model::Model()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateModel())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateModel())
 {
 }
 
 Model::Model(const char * path)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateModel())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateModel())
 {
     if (Error err = ImportModel(path); err != Error::Success) {
         _impl->As<ModelImpl>()->Destroy();

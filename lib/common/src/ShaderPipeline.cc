@@ -140,12 +140,12 @@ void ShaderPipelineImpl::SetMultiSamplingCount(const int samples)
 }
 
 ShaderPipeline::ShaderPipeline()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateShaderPipeline())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateShaderPipeline())
 {
 }
 
 ShaderPipeline::ShaderPipeline(const char* path)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateShaderPipeline())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateShaderPipeline())
 {
     if (Error err = LoadShaderFromFile(path); err != Error::Success) {
         Destroy();

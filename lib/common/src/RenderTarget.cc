@@ -118,7 +118,7 @@ vc::Error RenderTargetImpl::__ReloadTexture()
 }
 
 RenderTarget::RenderTarget(vc::RenderingPipelineType renderingPipeline, ShaderVertexFormat format)
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateRenderTarget())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateRenderTarget())
 {
     GetImpl()->As<RenderTargetImpl>()->__format = format;
     GetImpl()->As<RenderTargetImpl>()->SetRenderingPipelineType(renderingPipeline);

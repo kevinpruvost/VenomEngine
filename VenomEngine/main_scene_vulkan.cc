@@ -9,7 +9,7 @@
 
 #include "MainScene.h"
 
-void SceneVulkan(const vc::ScenePhase phase)
+void Scene(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, balls_hd, gun_hd, eye_hd, face_hd, face_hd1, helmet, camera, light1, light2, light3, light4;
     int nbTiles = 1;

@@ -48,6 +48,8 @@ file(GLOB_RECURSE RESOURCE_FILES
     "${CMAKE_SOURCE_DIR}/resources/**/*.jpg"
     "${CMAKE_SOURCE_DIR}/resources/**/*.jpeg"
     "${CMAKE_SOURCE_DIR}/resources/**/*.fbx"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.gltf"
+    "${CMAKE_SOURCE_DIR}/resources/**/*.glb"
     "${CMAKE_SOURCE_DIR}/resources/**/*.obj"
     "${CMAKE_SOURCE_DIR}/resources/**/*.mtl"
     "${CMAKE_SOURCE_DIR}/resources/**/*.tiff"

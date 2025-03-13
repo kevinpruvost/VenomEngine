@@ -13,7 +13,7 @@ namespace venom
 namespace common
 {
 Mesh::Mesh()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateMesh())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateMesh())
 {
 }
 

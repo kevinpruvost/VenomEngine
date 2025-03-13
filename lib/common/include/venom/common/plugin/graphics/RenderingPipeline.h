@@ -16,7 +16,7 @@ namespace common
 {
 typedef vc::Vector<ShaderPipeline> ShaderPipelineList;
 
-class VENOM_COMMON_API RenderingPipelineImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API RenderingPipelineImpl : public GraphicsPluginObject
 {
 public:
     RenderingPipelineImpl(const RenderingPipelineType type = RenderingPipelineType::None) : __type(type) {}
@@ -41,7 +41,7 @@ private:
 /**
  * @brief Interface with shader pipelines and shader settings
  */
-class VENOM_COMMON_API RenderingPipeline : public PluginObjectImplWrapper
+class VENOM_COMMON_API RenderingPipeline : public PluginObjectWrapper
 {
 public:
     RenderingPipeline();

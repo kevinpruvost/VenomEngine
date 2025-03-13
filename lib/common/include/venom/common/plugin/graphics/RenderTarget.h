@@ -16,7 +16,7 @@ namespace common
 class RenderTarget;
 class Camera;
 
-class VENOM_COMMON_API RenderTargetImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API RenderTargetImpl : public GraphicsPluginObject
 {
 public:
     RenderTargetImpl();
@@ -55,7 +55,7 @@ private:
     friend class RenderTarget;
 };
 
-class VENOM_COMMON_API RenderTarget : public PluginObjectImplWrapper
+class VENOM_COMMON_API RenderTarget : public PluginObjectWrapper
 {
 public:
     RenderTarget(vc::RenderingPipelineType renderingPipeline, ShaderVertexFormat format);

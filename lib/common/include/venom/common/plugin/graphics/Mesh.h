@@ -20,7 +20,7 @@ namespace venom
 namespace common
 {
 class ModelImpl;
-class VENOM_COMMON_API MeshImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API MeshImpl : public GraphicsPluginObject
 {
 public:
     MeshImpl();
@@ -53,7 +53,7 @@ protected:
 
 /// @brief Contains all the mesh's data and is the
 /// main high-level interface for the user
-class VENOM_COMMON_API Mesh : public PluginObjectImplWrapper
+class VENOM_COMMON_API Mesh : public PluginObjectWrapper
 {
 public:
     Mesh();

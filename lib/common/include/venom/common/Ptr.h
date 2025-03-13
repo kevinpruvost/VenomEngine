@@ -15,11 +15,10 @@ namespace venom
 namespace common
 {
 class PluginObject;
-class PluginObjectImpl;
-// Helper template to block types inheriting from PluginObject and PluginObjectImpl
+// Helper template to block types inheriting from PluginObject
 // This is to avoid delete issues when using shared/unique pointers
 template <typename T>
-concept NotPluginObject = !std::is_convertible_v<T *, PluginObject *> && !std::is_convertible_v<T *, PluginObject *>;
+concept NotPluginObject = !std::is_convertible_v<T *, PluginObject *>;
 
 // Modified Weak pointer alias
 template <NotPluginObject T>

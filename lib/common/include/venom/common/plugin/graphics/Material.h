@@ -18,7 +18,7 @@ namespace common
 {
 class Model;
 
-class VENOM_COMMON_API MaterialImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API MaterialImpl : public GraphicsPluginObject
 {
 public:
     MaterialImpl();
@@ -64,7 +64,7 @@ private:
     vc::String __name;
 };
 
-class VENOM_COMMON_API Material : public PluginObjectImplWrapper
+class VENOM_COMMON_API Material : public PluginObjectWrapper
 {
 public:
     Material();

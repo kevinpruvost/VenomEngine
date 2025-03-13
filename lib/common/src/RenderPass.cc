@@ -112,7 +112,7 @@ RenderingPipelineType RenderPassImpl::GetRenderingType() const
 }
 
 RenderPass::RenderPass()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateRenderPass())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateRenderPass())
 {
 }
 

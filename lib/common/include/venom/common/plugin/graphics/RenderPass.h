@@ -17,7 +17,7 @@ namespace venom
 {
 namespace common
 {
-class VENOM_COMMON_API RenderPassImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API RenderPassImpl : public GraphicsPluginObject
 {
 public:
     RenderPassImpl();
@@ -42,7 +42,7 @@ protected:
     vc::Vector<vc::Vector<vc::Texture>> _attachments;
 };
 
-class VENOM_COMMON_API RenderPass : public PluginObjectImplWrapper
+class VENOM_COMMON_API RenderPass : public PluginObjectWrapper
 {
 public:
     RenderPass();

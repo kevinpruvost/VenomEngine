@@ -44,7 +44,7 @@ struct LightCascadedShadowMapConstantsStruct
 #define POINTLIGHT_THRESHHOLD 0.2
 #define SPOTLIGHT_THRESHHOLD 0.2
 
-class VENOM_COMMON_API LightImpl : public PluginObjectImpl, public GraphicsPluginObject
+class VENOM_COMMON_API LightImpl : public GraphicsPluginObject
 {
 public:
     LightImpl();
@@ -88,7 +88,7 @@ private:
     friend class Light;
 };
 
-class VENOM_COMMON_API Light : public Component, public PluginObjectImplWrapper
+class VENOM_COMMON_API Light : public Component, public PluginObjectWrapper
 {
 public:
     Light();

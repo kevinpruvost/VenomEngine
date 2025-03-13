@@ -52,7 +52,7 @@ void MaterialImpl::SetComponent(const MaterialComponentType type, const Material
 }
 
 Material::Material()
-    : PluginObjectImplWrapper(GraphicsPlugin::Get()->CreateMaterial())
+    : PluginObjectWrapper(GraphicsPlugin::Get()->CreateMaterial())
 {
 }
 

@@ -16,24 +16,24 @@ namespace venom
 {
 namespace common
 {
-PluginObjectImplWrapper::PluginObjectImplWrapper()
+PluginObjectWrapper::PluginObjectWrapper()
     : _impl(nullptr)
 {
 }
 
-PluginObjectImplWrapper::PluginObjectImplWrapper(PluginObjectImpl* impl)
+PluginObjectWrapper::PluginObjectWrapper(PluginObject* impl)
     : _impl(impl)
 {
     _impl->IncRefCount();
 }
 
-PluginObjectImplWrapper::PluginObjectImplWrapper(const PluginObjectImplWrapper& other)
+PluginObjectWrapper::PluginObjectWrapper(const PluginObjectWrapper& other)
 {
     _impl = other._impl;
     _impl->IncRefCount();
 }
 
-PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(const PluginObjectImplWrapper& other)
+PluginObjectWrapper& PluginObjectWrapper::operator=(const PluginObjectWrapper& other)
 {
     if (_impl != other._impl) {
         if (_impl) _impl->DecRefCount();
@@ -43,13 +43,13 @@ PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(const PluginObjectIm
     return *this;
 }
 
-PluginObjectImplWrapper::PluginObjectImplWrapper(PluginObjectImplWrapper&& other)
+PluginObjectWrapper::PluginObjectWrapper(PluginObjectWrapper&& other)
     : _impl(other._impl)
 {
     _impl->IncRefCount();
 }
 
-PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(PluginObjectImplWrapper&& other)
+PluginObjectWrapper& PluginObjectWrapper::operator=(PluginObjectWrapper&& other)
 {
     if (_impl) _impl->DecRefCount();
     _impl = other._impl;
@@ -57,27 +57,22 @@ PluginObjectImplWrapper& PluginObjectImplWrapper::operator=(PluginObjectImplWrap
     return *this;
 }
 
-PluginObjectImplWrapper::~PluginObjectImplWrapper()
+PluginObjectWrapper::~PluginObjectWrapper()
 {
     if (_impl) _impl->DecRefCount();
 }
 
-bool PluginObjectImplWrapper::IsImplInitialized() const
+bool PluginObjectWrapper::IsImplInitialized() const
 {
     return _impl != nullptr;
 }
 
-PluginObjectImpl::PluginObjectImpl()
-    : __refCount(0)
-{
-}
-
-void PluginObjectImpl::IncRefCount()
+void PluginObject::IncRefCount()
 {
     ++__refCount;
 }
 
-void PluginObjectImpl::DecRefCount()
+void PluginObject::DecRefCount()
 {
     // If the ref count is 0, we need to remove the object from the plugin manager
     // If the engine is terminating, it will free everything anyway
@@ -91,6 +86,7 @@ void PluginObjectImpl::DecRefCount()
 
 PluginObject::PluginObject(const PluginType type)
     : __type(type)
+    , __refCount(0)
 {
     auto test = VenomEngine::GetInstance();
     VenomEngine::GetInstance()->pluginManager->AddPluginObject(__type, this);
