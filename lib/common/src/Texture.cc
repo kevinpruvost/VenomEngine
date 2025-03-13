@@ -175,6 +175,31 @@ static vc::Error SaveToVenomAssetCommon(const char * path, int width, int height
     return vc::Error::Success;
 }
 
+static vc::FastVector<char> s_compressedData, s_decompressedData;
+const TextureData * LoadTextureData(const char * path)
+{
+    vc::IFileStream inFile(path, std::ios::binary | std::ios::ate);
+    std::streamsize size = inFile.tellg();
+    inFile.seekg(0, std::ios::beg);
+
+    if (s_compressedData.size() < size) {
+        s_compressedData.resize(size);
+        s_decompressedData.resize(size * 5);
+    }
+    if (!inFile.read(s_compressedData.data(), size)) {
+        return nullptr;
+    }
+
+    int decompressedSize = LZ4_decompress_safe(s_compressedData.data(), s_decompressedData.data(), size, size * 5);
+    if (decompressedSize <= 0) {
+        vc::Log::Error("Failed to decompress texture data: %s", path);
+        return nullptr;
+    }
+
+    const TextureData * textureData = GetTextureData(s_decompressedData.data());
+    return textureData;
+}
+
 class Stbi_TextureLoader : public TextureLoader
 {
 public:
@@ -201,25 +226,7 @@ public:
 
     vc::Error LoadFromVenomAsset(TextureImpl * impl, const char * path)
     {
-        vc::IFileStream inFile(path, std::ios::binary | std::ios::ate);
-        std::streamsize size = inFile.tellg();
-        inFile.seekg(0, std::ios::beg);
-
-        std::vector<char> compressedData(size);
-        if (!inFile.read(compressedData.data(), size)) {
-            return vc::Error::Failure;
-        }
-
-         std::vector<char> decompressedData(size * 10);
-         int decompressedSize = LZ4_decompress_safe(compressedData.data(), decompressedData.data(), size, decompressedData.size());
-        
-         if (decompressedSize <= 0) {
-             vc::Log::Error("Failed to decompress texture data: %s", path);
-             return vc::Error::Failure;
-         }
-
-        auto textureData = GetTextureData(decompressedData.data());
-
+        auto textureData = LoadTextureData(path);
         width = textureData->width();
         height = textureData->height();
         channels = textureData->channels();
@@ -286,28 +293,12 @@ public:
 
     vc::Error LoadFromVenomAsset(TextureImpl * impl, const char * path)
     {
-        vc::IFileStream inFile(path, std::ios::binary | std::ios::ate);
-        std::streamsize size = inFile.tellg();
-        inFile.seekg(0, std::ios::beg);
-
-        std::vector<char> compressedData(size);
-        if (!inFile.read(compressedData.data(), size)) {
-            return vc::Error::Failure;
-        }
-
-         std::vector<char> decompressedData(size * 4);
-         int decompressedSize = LZ4_decompress_safe(compressedData.data(), decompressedData.data(), size, decompressedData.size());
-        
-         if (decompressedSize <= 0) {
-             vc::Log::Error("Failed to decompress texture data: %s", path);
-             return vc::Error::Failure;
-         }
-
-        auto textureData = GetTextureData(decompressedData.data());
+        auto textureData = LoadTextureData(path);
 
         width = textureData->width();
         height = textureData->height();
         channels = textureData->channels();
+
         __averageLuminance = textureData->average_luminance();
         __peakLuminance = textureData->peak_luminance();
  

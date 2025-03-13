@@ -42,5 +42,57 @@ using Tuple = std::tuple<Args...>;
 
 template<class... Args>
 using MakeTuple = decltype(std::make_tuple(std::declval<Args>()...));
+
+template<typename T>
+class FastVector {
+public:
+    FastVector(size_t size)
+        : _size(size), _data(static_cast<T*>(::operator new(size * sizeof(T)))) {}
+
+    FastVector()
+        : _size(0), _data(nullptr) {}
+
+    ~FastVector() {
+        ::operator delete(_data);
+    }
+
+    inline T& operator[](size_t index) {
+        if (index >= _size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return _data[index];
+    }
+
+    inline const T& operator[](size_t index) const {
+        if (index >= _size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return _data[index];
+    }
+
+    inline size_t size() const {
+        return _size;
+    }
+
+    inline void resize(size_t size) {
+        _size = size;
+        if (_data) ::operator delete(_data);
+        _data = static_cast<T*>(::operator new(size * sizeof(T)));
+    }
+
+    T * data() {
+        return _data;
+    }
+
+    inline void clear() {
+        if (_data) ::operator delete(_data);
+        _data = nullptr;
+        _size = 0;
+    }
+
+private:
+    size_t _size;
+    T* _data;
+};
 }
 }

@@ -75,9 +75,9 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
     }
 
     // TODO: Fix as we generate mipmaps
-    //if (vc::Filesystem::Exists(radiancePath.c_str())) {
-    //    __radianceMap.LoadImageFromFile(radiancePath.c_str());
-    //} else
+    if (vc::Filesystem::Exists(radiancePath.c_str())) {
+        __radianceMap.LoadImageFromFile(radiancePath.c_str());
+    } else
         {
         if (err = _LoadRadianceMap(__panorama, __radianceMap); err != vc::Error::Success) {
             vc::Log::Error("Failed to load radiance map from file: %s", texturePath);
