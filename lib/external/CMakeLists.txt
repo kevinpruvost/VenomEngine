@@ -271,3 +271,6 @@ target_include_directories(IconFontCppHeaders INTERFACE
 set(FLATBUFFERS_BUILD_TESTS OFF)
 set(FLATBUFFERS_INSTALL OFF)
 add_subdirectory("flatbuffers")
+
+# LZ4
+add_subdirectory("lz4/build/cmake")

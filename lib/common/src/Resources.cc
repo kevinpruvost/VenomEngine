@@ -120,6 +120,11 @@ vc::String Resources::GetTexturesResourcePath(const vc::String& resourcePath)
     return __GetResourcePath(resourcePath, GetResourcePath("textures/"));
 }
 
+String Resources::GetVenomAssetResourcePath(const String& resourcePath)
+{
+    return resourcePath + ".venomasset";
+}
+
 vc::String Resources::GetFontsResourcePath(const vc::String& resourcePath)
 {
     return __GetResourcePath(resourcePath, GetResourcePath("fonts/"));

@@ -29,6 +29,7 @@ public:
     VENOM_COMMON_API static String GetLogsPath(const String & logPath);
     VENOM_COMMON_API static String GetResourcePath(const String & resourcePath);
     VENOM_COMMON_API static String GetTexturesResourcePath(const String & resourcePath);
+    VENOM_COMMON_API static String GetVenomAssetResourcePath(const String & resourcePath);
     VENOM_COMMON_API static String GetFontsResourcePath(const String & resourcePath);
     VENOM_COMMON_API static String GetShadersResourcePath(const String & resourcePath);
     VENOM_COMMON_API static String GetShadersFolderPath();

@@ -19,6 +19,13 @@
 #include <venom/common/Resources.h>
 #include <filesystem>
 
+#include <flatbuffers/flatbuffers.h>
+#define LZ4_DEBUG
+#include <lz4hc.h>
+#include "Texture_generated.h"
+
+#include <venom/common/FileSystem.h>
+
 namespace venom
 {
 namespace common
@@ -134,7 +141,39 @@ public:
     virtual ~TextureLoader() = default;
 
     virtual vc::Error Load(TextureImpl * impl, const char * path) = 0;
+    virtual vc::Error SaveToVenomAsset(const char * path) = 0;
+    virtual vc::Error LoadFromVenomAsset(TextureImpl * impl, const char * path) = 0;
 };
+
+static vc::Error SaveToVenomAssetCommon(const char * path, int width, int height, int channels, uint8_t * pixels, uint8_t pixelSize, float peakLuminance, float averageLuminance)
+{
+    flatbuffers::FlatBufferBuilder builder(width * height * channels * pixelSize + 20);
+
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> data = builder.CreateVector<uint8_t>(pixels, width * height * channels * pixelSize);
+    auto textureData = CreateTextureData(builder, width, height, channels, averageLuminance, peakLuminance, data);
+
+    builder.Finish(textureData);
+
+    const uint8_t * buf = builder.GetBufferPointer();
+    size_t size = builder.GetSize();
+
+    vc::Vector<char> compressedData(LZ4_compressBound(size));
+    int compressedSize = LZ4_compress_HC(reinterpret_cast<const char*>(buf), compressedData.data(), size, compressedData.size(), LZ4HC_CLEVEL_DEFAULT);
+    if (compressedSize <= 0) {
+        vc::Log::Error("Failed to compress texture data: %s", path);
+        return vc::Error::Failure;
+    }
+
+    vc::OFileStream file(path, std::ios::binary | std::ios::trunc);
+    if (!file.is_open()) {
+        vc::Log::Error("Could not write venom asset: %s\n", path);
+        return vc::Error::Failure;
+    }
+    file.write(compressedData.data(), compressedSize);
+    file.close();
+
+    return vc::Error::Success;
+}
 
 class Stbi_TextureLoader : public TextureLoader
 {
@@ -147,7 +186,6 @@ public:
 
     vc::Error Load(TextureImpl * impl, const char * path) override
     {
-        int width, height, channels;
         __pixels = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);
         if (!__pixels) {
             vc::Log::Error("Failed to load image from file: %s", path);
@@ -156,7 +194,41 @@ public:
         return impl->LoadImage(__pixels, width, height, channels);
     }
 
+    vc::Error SaveToVenomAsset(const char * path) override
+    {
+        return SaveToVenomAssetCommon(path, width, height, channels, __pixels, sizeof(unsigned char), 0.0f, 0.0f);
+    }
+
+    vc::Error LoadFromVenomAsset(TextureImpl * impl, const char * path)
+    {
+        vc::IFileStream inFile(path, std::ios::binary | std::ios::ate);
+        std::streamsize size = inFile.tellg();
+        inFile.seekg(0, std::ios::beg);
+
+        std::vector<char> compressedData(size);
+        if (!inFile.read(compressedData.data(), size)) {
+            return vc::Error::Failure;
+        }
+
+         std::vector<char> decompressedData(size * 10);
+         int decompressedSize = LZ4_decompress_safe(compressedData.data(), decompressedData.data(), size, decompressedData.size());
+        
+         if (decompressedSize <= 0) {
+             vc::Log::Error("Failed to decompress texture data: %s", path);
+             return vc::Error::Failure;
+         }
+
+        auto textureData = GetTextureData(decompressedData.data());
+
+        width = textureData->width();
+        height = textureData->height();
+        channels = textureData->channels();
+
+        return impl->LoadImage((unsigned char *)textureData->data()->data(), width, height, channels);
+    }
+
 private:
+    int width, height, channels;
     unsigned char * __pixels;
 };
 
@@ -170,8 +242,6 @@ public:
 
     vc::Error Load(TextureImpl * impl, const char * path) override
     {
-        int width, height, channels;
-
         Imf::RgbaInputFile file(path);
         const Imf::Header& header = file.header();
         const Imf::ChannelList& channelsList = header.channels();
@@ -186,28 +256,73 @@ public:
         file.setFrameBuffer(pixelData.get() - dw.min.x - dw.min.y * width, 1, width);
         file.readPixels(dw.min.y, dw.max.y);
 
-        vc::Error err = impl->LoadImage((uint16_t *)pixelData.get(), width, height, channels);
+        vc::Error err = impl->LoadImage(reinterpret_cast<uint16_t*>(pixelData.get()), width, height, channels);
         if (err != vc::Error::Success) {
             vc::Log::Error("Failed to load image from file: %s", path);
             return err;
         }
 
         // Calculate peak luminance
-        float peakLuminance = 0.0f, luminance, averageLuminance = 0.0f;
+        __peakLuminance = 0.0f;
+        float luminance;
+        __averageLuminance = 0.0f;
         for (int i = 0; i < width * height; ++i) {
             const Imf_3_4::Rgba & rgba = *(pixelData.get() + i);
             luminance = rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722;
-            peakLuminance = std::max(peakLuminance, luminance);
-            averageLuminance += luminance;
+            __peakLuminance = std::max(__peakLuminance, luminance);
+            __averageLuminance += luminance;
         }
-        averageLuminance /= width * height;
+        __averageLuminance /= width * height;
 
-        impl->SetTextureAverageLuminance(averageLuminance);
-        impl->SetTexturePeakLuminance(peakLuminance);
+        impl->SetTextureAverageLuminance(__averageLuminance);
+        impl->SetTexturePeakLuminance(__peakLuminance);
         return err;
     }
 
+    vc::Error SaveToVenomAsset(const char * path) override
+    {
+        return SaveToVenomAssetCommon(path, width, height, channels, reinterpret_cast<uint8_t *>(pixelData.get()), sizeof(uint16_t), __peakLuminance, __averageLuminance);
+    }
+
+    vc::Error LoadFromVenomAsset(TextureImpl * impl, const char * path)
+    {
+        vc::IFileStream inFile(path, std::ios::binary | std::ios::ate);
+        std::streamsize size = inFile.tellg();
+        inFile.seekg(0, std::ios::beg);
+
+        std::vector<char> compressedData(size);
+        if (!inFile.read(compressedData.data(), size)) {
+            return vc::Error::Failure;
+        }
+
+         std::vector<char> decompressedData(size * 4);
+         int decompressedSize = LZ4_decompress_safe(compressedData.data(), decompressedData.data(), size, decompressedData.size());
+        
+         if (decompressedSize <= 0) {
+             vc::Log::Error("Failed to decompress texture data: %s", path);
+             return vc::Error::Failure;
+         }
+
+        auto textureData = GetTextureData(decompressedData.data());
+
+        width = textureData->width();
+        height = textureData->height();
+        channels = textureData->channels();
+        __averageLuminance = textureData->average_luminance();
+        __peakLuminance = textureData->peak_luminance();
+ 
+        vc::Error err = impl->LoadImage((uint16_t*)(textureData->data()->data()), width, height, channels);
+        if (err != vc::Error::Success) {
+            vc::Log::Error("Failed to load image from file: %s", path);
+            return err;
+        }
+        impl->SetTextureAverageLuminance(__averageLuminance);
+        impl->SetTexturePeakLuminance(__peakLuminance);
+        return vc::Error::Success;
+    }
+
 private:
+    int width, height, channels;
     vc::UPtr<Imf::Rgba> pixelData;
     float __averageLuminance;
     float __peakLuminance;
@@ -244,9 +359,26 @@ vc::Error TextureImpl::LoadImageFromFile(const char* path)
 
     _ResetResource();
     UPtr<TextureLoader> loader(CreateTextureLoader(realPath.c_str()));
-    if (!loader || loader->Load(this, realPath.c_str()) != vc::Error::Success) {
-        vc::Log::Error("Failed to load image from file: %s", path);
+    if (!loader) {
+        vc::Log::Error("Failed to create texture loader for: %s", path);
         return vc::Error::Failure;
+    }
+    vc::String venomAssetPath = Resources::GetVenomAssetResourcePath(realPath);
+    if (vc::Filesystem::Exists(venomAssetPath.c_str())) {
+          if (loader->LoadFromVenomAsset(this, venomAssetPath.c_str()) != vc::Error::Success) {
+              vc::Log::Error("Failed to load image from venom asset: %s", path);
+              return vc::Error::Failure;
+          }
+    } else
+    {
+        if (loader->Load(this, realPath.c_str()) != vc::Error::Success) {
+            vc::Log::Error("Failed to load image from file: %s", path);
+            return vc::Error::Failure;
+        }
+        if (loader->SaveToVenomAsset(venomAssetPath.c_str()) != vc::Error::Success) {
+            vc::Log::Error("Failed to save image to venom asset: %s", path);
+            return vc::Error::Failure;
+        }
     }
     // Set In Cache
     _SetInCache(realPath, _GetResourceToCache());

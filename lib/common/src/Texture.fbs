@@ -1,0 +1,12 @@
+namespace venom.common;
+
+table TextureData {
+  width: int;
+  height: int;
+  channels: int;
+  average_luminance: float;
+  peak_luminance: float;
+  data: [ubyte];
+}
+
+root_type TextureData;

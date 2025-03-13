@@ -39,6 +39,7 @@ set(venom_common_libraries
     MikkTSpace
     IconFontCppHeaders
     flatbuffers
+    lz4_static
 )
 
 # Skip GLFW & NFD on Iphone
