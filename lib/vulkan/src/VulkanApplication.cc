@@ -281,12 +281,13 @@ vc::Error VulkanApplication::__GraphicsOperations()
         //__graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
 
         // Copy to render target if any (for GUI)
-        if (vc::GUI::IsGUIDraw()) {
-            Image * attachmentImage;
-            if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
-                attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[4]);
-            else
-                attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[0]);
+        Image * attachmentImage;
+        if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
+            attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[4]);
+        else
+            attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[0]);
+        if (vc::GUI::IsGUIDraw())
+        {
             for (auto & renderTarget : renderTargets)
             {
                 if (renderTarget->GetRenderingPipelineType() != vc::RenderingPipelineType::PBRModel)
@@ -303,6 +304,13 @@ vc::Error VulkanApplication::__GraphicsOperations()
             _guiRenderPass.GetImpl()->As<VulkanRenderPass>()->BeginRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame], __imageIndex);
             _gui->Render();
             _guiRenderPass.GetImpl()->As<VulkanRenderPass>()->EndRenderPass(__graphicsSceneCheckpointCommandBuffers[_currentFrame]);
+        }
+        else
+        {
+            if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
+                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+            else
+                __graphicsSceneCheckpointCommandBuffers[_currentFrame]->TransitionImageLayout(*attachmentImage, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
         }
 
     if (auto err = __graphicsSceneCheckpointCommandBuffers[_currentFrame]->EndCommandBuffer(); err != vc::Error::Success)
