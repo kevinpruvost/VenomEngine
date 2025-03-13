@@ -113,6 +113,7 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
         extent = capabilities.currentExtent;
     } else {
+#if !defined(VENOM_DISABLE_GLFW)
         // Gets the window size in terms of total pixels, not to confuse with screen coordinates
         // Otherwise we would be using glfwGetWindowSize
         int w, h;
@@ -120,6 +121,10 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
 
         extent.width = std::clamp<uint32_t>(w, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
         extent.height = std::clamp<uint32_t>(h, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
+#else
+        vc::Log::Error("Can't get extent from CAMetalLayer.");
+        return vc::Error::Failure;
+#endif
     }
 
     // Viewport

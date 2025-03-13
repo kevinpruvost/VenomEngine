@@ -140,16 +140,18 @@ vc::Error DebugApplication::__InitValidationLayers()
     constexpr const char * validationLayers[] = {
         "VK_LAYER_KHRONOS_validation",
         "VK_LAYER_KHRONOS_shader_object",
+#if !defined(VENOM_PLATFORM_MOBILE)
         "VK_LAYER_KHRONOS_synchronization2",
+#endif
     };
 
-    vc::Vector<const char *> validationLayers_finalUse(validationLayers, validationLayers + std::size(validationLayers));
+    vc::Vector<const char *> validationLayers_finalUse;
     // Get env variable VK_INSTANCE_LAYERS
     if (const char * envValidationLayers = std::getenv("VK_INSTANCE_LAYERS")) {
         vc::Log::Print("Using VK_INSTANCE_LAYERS: %s", envValidationLayers);
         // Split the string by ';'
         for (const char * layer = strtok(const_cast<char *>(envValidationLayers), ";"); layer; layer = strtok(nullptr, ";")) {
-            validationLayers_finalUse.push_back(layer);
+            validationLayers_finalUse.emplace_back(layer);
         }
     }
 
@@ -171,8 +173,9 @@ vc::Error DebugApplication::__InitValidationLayers()
         }
 
         if (!layerFound) {
-            vc::Log::Error("Validation Layer not found: %s\n", layerName);
-            return vc::Error::Failure;
+            vc::Log::Error("Validation Layer not found: %s: discarding...\n", layerName);
+        } else {
+            validationLayers_finalUse.emplace_back(layerName);
         }
     }
 
@@ -182,7 +185,7 @@ vc::Error DebugApplication::__InitValidationLayers()
         vc::Log::Print("\t- %s", layer);
     }
 
-    __validationLayersInUse = {validationLayers, validationLayers + std::size(validationLayers)};
+    __validationLayersInUse = validationLayers_finalUse;
 #endif
     return vc::Error::Success;
 }

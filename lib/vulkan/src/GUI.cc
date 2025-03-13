@@ -113,7 +113,9 @@ vc::Error VulkanGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
+#if !defined(VENOM_PLATFORM_IOS)
     ImGui_ImplGlfw_InitForVulkan((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
+#endif
     initInfo.Instance = Instance::GetVkInstance();
     initInfo.PhysicalDevice = PhysicalDevice::GetUsedVkPhysicalDevice();
     initInfo.Device = LogicalDevice::GetInstance().GetVkDevice();
@@ -212,7 +214,9 @@ vc::Error VulkanGUI::_Reset()
 
     vc::Texture::UnloadAllGuiTextures();
     ImGui_ImplVulkan_Shutdown();
+#if !defined(VENOM_PLATFORM_IOS)
     ImGui_ImplGlfw_Shutdown();
+#endif
 
     return _Initialize();
 }
@@ -285,7 +289,9 @@ vc::GUIViewport VulkanGUI::_GetMainViewport()
 void VulkanGUI::_NewFrame()
 {
     ImGui_ImplVulkan_NewFrame();
+#if !defined(VENOM_PLATFORM_IOS)
     ImGui_ImplGlfw_NewFrame();
+#endif
     ImGui::NewFrame();
     ImGuizmo::SetOrthographic(false);
     ImGuizmo::BeginFrame();

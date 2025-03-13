@@ -38,7 +38,7 @@
                                               styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable)
                                                 backing:NSBackingStoreBuffered
                                                   defer:NO];
-    [self.window setTitle:@"Metal Window"];
+    [self.window setTitle:@"VenomEngine"];
     
     ContextAppleViewController * viewController = [[ContextAppleViewController alloc] init];
     

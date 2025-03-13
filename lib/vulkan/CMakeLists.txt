@@ -39,29 +39,65 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 message(STATUS "IMGUI Sources: ${IMGUI_SOURCES}")
 
+if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+    # Ensure CMake looks for Vulkan in the iOS SDK directory
+    set(VULKAN_SDK_PATH "$ENV{VULKAN_SDK}/../iOS")
+    set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
+    set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
+else()
+    set(VULKAN_SDK_PATH "$ENV{VULKAN_SDK}/../macOS")
+endif()
+
+# Override CMAKE_PREFIX_PATH to make sure CMake looks in the right location
+set(CMAKE_PREFIX_PATH "${VULKAN_SDK_PATH}" CACHE PATH "Path to Vulkan SDK")
+
 # Find Vulkan
-find_package(Vulkan REQUIRED) # error
+if (APPLE)
+    find_package(Vulkan REQUIRED COMPONENTS MoltenVK)
+else ()
+    find_package(Vulkan REQUIRED) # error
+endif ()
+
+# show where the libraries are
+message(STATUS "Vulkan libraries: ${Vulkan_LIBRARIES}")
 
 if (APPLE)
-# Copy vulkan in binary dir for packaging
-# Gets all libvulkan.*.dylib
-file(GLOB_RECURSE VULKAN_LIBRARY $ENV{VULKAN_SDK}/lib/libvulkan.*.dylib)
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${VULKAN_LIBRARY} ${CMAKE_BINARY_DIR}
-)
-# if VULKAN_LIBRARY is empty, then error
-if (NOT VULKAN_LIBRARY)
-    message(FATAL_ERROR "Vulkan library not found, check your environment variables")
+    if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+        target_sources(${PROJECT_NAME} PRIVATE
+                $ENV{VULKAN_SDK}/../iOS/share/vulkan
+        )
+        set_source_files_properties($ENV{VULKAN_SDK}/../iOS/share/vulkan PROPERTIES
+                MACOSX_PACKAGE_LOCATION Resources
+        )
+        message("Vulkan libs: ${Vulkan_MoltenVK_LIBRARY};${Vulkan_LIBRARIES};${Vulkan_Layer_VALIDATION};${Vulkan_Layer_SHADER_OBJECT};${Vulkan_Layer_SYNCHRONIZATION2}")
+        set(VENOM_RUNTIME_LOADED_DLLS "${VENOM_RUNTIME_LOADED_DLLS};${Vulkan_MoltenVK_LIBRARY};${Vulkan_LIBRARIES};${Vulkan_Layer_VALIDATION};${Vulkan_Layer_SHADER_OBJECT};${Vulkan_Layer_SYNCHRONIZATION2}" CACHE INTERNAL "Venom runtime loaded DLLs")
+    endif ()
+    message(STATUS "VULKAN_SDK: ${VULKAN_SDK}")
 endif ()
 
-else ()
+# Show Vulkan libraries paths
+message(STATUS "Vulkan libraries: ${Vulkan_LIBRARIES}")
 
-endif ()
+#if (APPLE)
+#    # Copy vulkan in binary dir for packaging
+#    # Gets all libvulkan.*.dylib
+#    file(GLOB_RECURSE VULKAN_LIBRARY $ENV{VULKAN_SDK}/lib/libvulkan.*.dylib)
+#    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#        COMMAND ${CMAKE_COMMAND} -E copy ${VULKAN_LIBRARY} ${CMAKE_BINARY_DIR}
+#    )
+#    # if VULKAN_LIBRARY is empty, then error
+#    if (NOT VULKAN_LIBRARY)
+#        message(FATAL_ERROR "Vulkan library not found, check your environment variables")
+#    endif ()
+#
+#else ()
+
+#endif ()
 
 target_link_libraries(${PROJECT_NAME}
-        VenomCommon   # Assuming venom_common_static is defined elsewhere
-        glm
-        Vulkan::Vulkan
+    VenomCommon   # Assuming venom_common_static is defined elsewhere
+    glm
+    Vulkan::Vulkan
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

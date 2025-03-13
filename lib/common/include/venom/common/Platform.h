@@ -12,6 +12,11 @@
     #define VENOM_PLATFORM_DESKTOP
 #endif
 
+#if defined(__linux__)
+    #define VENOM_PLATFORM_LINUX
+    #define VENOM_PLATFORM_DESKTOP
+#endif
+
 #if TARGET_OS_OSX
     #define VENOM_PLATFORM_MACOS
     #define VENOM_PLATFORM_DESKTOP
@@ -20,6 +25,9 @@
 #if TARGET_OS_IOS
     #define VENOM_PLATFORM_IOS
     #define VENOM_PLATFORM_MOBILE
+
+    // Disable GLFW if iOS because GLFW does not work there
+    #define VENOM_DISABLE_GLFW
 #endif
 
 #if TARGET_OS_OSX || TARGET_OS_IOS

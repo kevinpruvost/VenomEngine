@@ -8,6 +8,11 @@
 #include <venom/vulkan/Instance.h>
 #include <venom/vulkan/Allocator.h>
 
+#if defined(VENOM_PLATFORM_APPLE)
+#include <vulkan/vulkan_metal.h>
+#include <vulkan/vulkan_macos.h>
+#endif
+
 #include <memory>
 
 namespace venom::vulkan
@@ -32,15 +37,21 @@ void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfo
 {
     // We are only using GLFW anyway for Windows, Linux & MacOS and next to Vulkan will only be Metal
     // DX12 will be for another standalone project
+#if !defined(VENOM_DISABLE_GLFW)
     uint32_t glfwExtensionCount = 0;
     const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
     __instanceExtensions = vc::Vector<const char *>(glfwExtensions, glfwExtensions + glfwExtensionCount);
+#endif
 
     __instanceExtensions.emplace_back(VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME);
-#ifdef __APPLE__
+#if defined(VENOM_PLATFORM_APPLE)
     // Might have a bug with MoltenVK
+    __instanceExtensions.emplace_back(VK_KHR_SURFACE_EXTENSION_NAME);
+    __instanceExtensions.emplace_back(VK_EXT_METAL_SURFACE_EXTENSION_NAME);
     __instanceExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+#if defined(VENOM_PLATFORM_MACOS)
     __instanceExtensions.emplace_back(VK_MVK_MACOS_SURFACE_EXTENSION_NAME);
+#endif
     __instanceExtensions.emplace_back(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
     createInfos->flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 #endif
@@ -112,7 +123,7 @@ vc::Error Instance::CreateInstance(Instance * instance)
 
     if (auto res = vkCreateInstance(&createInfo, Allocator::GetVKAllocationCallbacks(), &s_instance->__instance); res != VK_SUCCESS)
     {
-        vc::Log::Error("Failed to create Vulkan instance, error code: %d", res);
+        vc::Log::Error("Error during Vulkan instance creation, error code: %d", res);
 #ifdef VENOM_DEBUG
         if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
             uint32_t extensionCount = 0;

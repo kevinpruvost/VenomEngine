@@ -13,6 +13,7 @@
 #include <venom/common/Config.h>
 
 #include <venom/common/plugin/graphics/GraphicsSettings.h>
+#include <venom/common/context/apple/ContextAppleInfo.h>
 
 namespace venom
 {
@@ -40,6 +41,11 @@ ContextAppleData * ContextApple::GetData()
     return &__contextAppleData;
 }
 
+void* ContextApple::GetMetalLayer()
+{
+    return (void *)getGlobalMetalLayer();
+}
+
 ContextApple::~ContextApple()
 {
 #ifdef VENOM_PLATFORM_MACOS
@@ -51,8 +57,14 @@ ContextApple::~ContextApple()
 #endif
 }
 
+vc::Error ContextApple::PostRun()
+{
+    return _postRunLoopFunction();
+}
+
 vc::Error ContextApple::Run(int argc, const char * argv[])
 {
+    venom_assert(_postRunLoopFunction, "Context::Run() : No post run loop function set");
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
     int ret;
 #ifdef VENOM_PLATFORM_MACOS
@@ -92,7 +104,19 @@ AppleView* ContextApple::GetAppleView()
 
 vc::Error ContextApple::_InitContext()
 {
-    DEBUG_PRINT("_InitContext done...");
+    id <MTLDevice> device = MTLCreateSystemDefaultDevice();
+    setGlobaMetallDevice(device);
+    if (device == nil) {
+        vc::Log::Error("Could not initialize Metal Device.\n");
+        return vc::Error::Failure;
+    }
+    CAMetalLayer * MetalLayer = [CAMetalLayer layer];
+    MetalLayer.device = getGlobalMetalDevice();
+    setGlobalMetalLayer(MetalLayer);
+    if (MetalLayer == nil) {
+        vc::Log::Error("Could not initialize Metal Layer.\n");
+        return vc::Error::Failure;
+    }
     // Might move initialization in Metal
     ContextAppleDelegate *delegate = [[ContextAppleDelegate alloc] init];
     __contextAppleData.__delegate = delegate;
@@ -101,6 +125,7 @@ vc::Error ContextApple::_InitContext()
 #elif defined(VENOM_PLATFORM_IOS)
     [[UIApplication sharedApplication] setDelegate: delegate];
 #endif
+    DEBUG_PRINT("_InitContext done...");
     return vc::Error::Success;
 }
 

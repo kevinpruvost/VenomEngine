@@ -21,18 +21,11 @@ CAMetalLayer* GetMetalLayer()
 }
 vc::Error InitializeLayer()
 {
-    CAMetalLayer * MetalLayer = [CAMetalLayer layer];
-    MetalLayer.device = GetMetalDevice();
-    setGlobalMetalLayer(MetalLayer);
-    return MetalLayer == nil ? vc::Error::Failure : vc::Error::Success;
+    return vc::Error::Success;
 }
 
 void DestroyLayer()
 {
-    CAMetalLayer * MetalLayer = getGlobalMetalLayer();
-    [MetalLayer release];
-    MetalLayer = nil;
-    setGlobalMetalLayer(nil);
 }
 }
 }

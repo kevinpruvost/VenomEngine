@@ -14,26 +14,17 @@ namespace venom
 {
 namespace metal
 {
-static id<MTLDevice> MetalDevice = nil;
-
 id<MTLDevice> GetMetalDevice()
 {
-    return MetalDevice;
+    return getGlobalMetalDevice();
 }
 
 vc::Error InitializeDevice()
 {
-    MetalDevice = MTLCreateSystemDefaultDevice();
-    if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
-        setGlobaMetallDevice(MetalDevice);
-    return MetalDevice == nil ? vc::Error::Failure : vc::Error::Success;
+    return vc::Error::Success;
 }
 void DestroyDevice()
 {
-    [MetalDevice release];
-    MetalDevice = nil;
-    if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
-        setGlobaMetallDevice(nil);
 }
 }
 }

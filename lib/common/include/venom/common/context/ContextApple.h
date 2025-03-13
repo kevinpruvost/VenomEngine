@@ -47,11 +47,12 @@ public:
     vc::Error _SetFullscreen() override;
 
     vc::Error Run(int argc, const char * argv[]) override;
+    vc::Error PostRun();
     inline vc::Error Loop() { return _runLoopFunction(); }
     static inline vc::Error RunLoop() { return GetAppleContext()->Loop(); }
+    static void * GetMetalLayer();
 
 #ifdef __OBJC__
-    static inline CAMetalLayer * GetMetalLayer() { return GetAppleContext()->__contextAppleData.__layer; }
     void __GiveMetalLayer(CAMetalLayer * layer);
     void __UpdateWindowSize(CGSize size);
 

@@ -81,12 +81,12 @@ Error VenomEngine::CheckCompatibility()
     switch (graphicsPluginType)
     {
         case vc::GraphicsPlugin::GraphicsPluginType::Vulkan: {
-#ifdef __APPLE__
-            if (contextType == vc::Context::ContextType::Apple) {
-                Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with Apple Context Management as a context currently. Please pick GLFW instead.");
-                return Error::Failure;
-            }
-#endif
+//#ifdef __APPLE__
+//            if (contextType == vc::Context::ContextType::Apple) {
+//                Log::Error("VenomEngine::CheckCompatibility() : Vulkan is not supported with Apple Context Management as a context currently. Please pick GLFW instead.");
+//                return Error::Failure;
+//            }
+//#endif
             break;
         }
 #ifdef __APPLE__
@@ -132,45 +132,49 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
 
     vc::GraphicsSettings::SetWindowResolution(s_instance->__context->GetWindowWidth(), s_instance->__context->GetWindowWidth());
 
-    if (err = graphicsApp->Init(); err != vc::Error::Success) {
-        vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
-    } else {
-        s_instance->__LoadECS();
-        DEBUG_PRINT("ECS loaded...");
-        s_sceneCallback(vc::ScenePhase::Initialization);
-        DEBUG_PRINT("Scene initialized...");
-        ECS::UpdateWorld();
-        DEBUG_PRINT("ECS World 1st update...");
-        s_sceneCallback(vc::ScenePhase::Activation);
-        DEBUG_PRINT("Scene activated...");
-        vc::Timer::ResetLoopTimer();
-        s_instance->__context->SetRunLoopFunction([&]()
-        {
-            vc::GUI::Get()->__PreUpdate();
+    s_instance->__context->SetPostRunLoopFunction([&](){
+        if (err = graphicsApp->Init(); err != vc::Error::Success) {
+            vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
+            return vc::Error::Failure;
+        } else {
+            s_instance->__LoadECS();
+            DEBUG_PRINT("ECS loaded...");
+            s_sceneCallback(vc::ScenePhase::Initialization);
+            DEBUG_PRINT("Scene initialized...");
             ECS::UpdateWorld();
-            s_sceneCallback(vc::ScenePhase::Update);
-            s_instance->__deferredTrash->EmptyDeferredTrash();
-            graphicsApp->Loop();
-            s_instance->pluginManager->CleanPluginsObjets();
+            DEBUG_PRINT("ECS World 1st update...");
+            s_sceneCallback(vc::ScenePhase::Activation);
+            DEBUG_PRINT("Scene activated...");
+            vc::Timer::ResetLoopTimer();
+        }
+        return vc::Error::Success;
+    });
+    s_instance->__context->SetRunLoopFunction([&]()
+    {
+        vc::GUI::Get()->__PreUpdate();
+        ECS::UpdateWorld();
+        s_sceneCallback(vc::ScenePhase::Update);
+        s_instance->__deferredTrash->EmptyDeferredTrash();
+        graphicsApp->Loop();
+        s_instance->pluginManager->CleanPluginsObjets();
 
-            // Reset timer at the end
-            vc::Timer::__PassFrame();
-            for (const auto& loopCallback : s_loopCallbacks) {
-                loopCallback();
-            }
-            for (const auto& inputCallback : s_inputCallbacks) {
-                inputCallback(Context::Get());
-            }
+        // Reset timer at the end
+        vc::Timer::__PassFrame();
+        for (const auto& loopCallback : s_loopCallbacks) {
+            loopCallback();
+        }
+        for (const auto& inputCallback : s_inputCallbacks) {
+            inputCallback(Context::Get());
+        }
 
-            // Waits for draws to finish then calls the callbacks
-            if (graphicsApp->HasCallbacksAfterDraws()) {
-                graphicsApp->WaitForDraws();
-                graphicsApp->LaunchCallbacksAfterDraws();
-            }
-            return vc::Error::Success;
-        });
-        s_instance->__context->Run(argc, argv);
-    }
+        // Waits for draws to finish then calls the callbacks
+        if (graphicsApp->HasCallbacksAfterDraws()) {
+            graphicsApp->WaitForDraws();
+            graphicsApp->LaunchCallbacksAfterDraws();
+        }
+        return vc::Error::Success;
+    });
+    s_instance->__context->Run(argc, argv);
     s_sceneCallback(vc::ScenePhase::Destruction);
     s_instance.reset();
     vc::Resources::FreeFilesystem();

@@ -30,7 +30,7 @@ int ReportHook(int reportType, char *message, int * returnValue)
 int main(int argc, const char* argv[])
 {
     int errorCode = EXIT_SUCCESS;
-    
+        
 #if defined(_WIN32) && defined(_ANALYSIS)
     // Enable memory leak detection
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -44,7 +44,7 @@ int main(int argc, const char* argv[])
 
     vc::VenomEngine::SetScene(Scene);
     vc::Config::SetGraphicsPluginType(vc::GraphicsPlugin::GraphicsPluginType::Vulkan);
-    vc::Config::SetContextType(vc::Context::ContextType::GLFW);
+    vc::Config::SetContextType(vc::Context::ContextType::Apple);
     vc::GUI::SetGUIDrawCallback(SceneGUI);
     vc::VenomEngine::AddInputCallback(SceneInput);
 

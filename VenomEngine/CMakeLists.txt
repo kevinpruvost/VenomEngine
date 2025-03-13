@@ -55,9 +55,7 @@ add_dependencies(${PROJECT_NAME} link_resources)
 ##
 # Dependencies dll loaded at runtime manually
 ##
-if ((NOT APPLE) OR (NOT CMAKE_SYSTEM_NAME MATCHES "iOS"))
-    add_dependencies(${PROJECT_NAME} VenomVulkan)
-endif ()
+add_dependencies(${PROJECT_NAME} VenomVulkan)
 
 if (APPLE)
 add_dependencies(${PROJECT_NAME} VenomMetal)
@@ -103,6 +101,14 @@ if (APPLE)
     ##
     list(APPEND EMBEDDED_LIBS ${VENOM_RUNTIME_LOADED_DLLS})
     include_frameworks(${PROJECT_NAME} "${EMBEDDED_LIBS}")
+
+    ## Vulkan thing
+    target_sources(${PROJECT_NAME} PRIVATE
+            $ENV{VULKAN_SDK}/../iOS/share/vulkan
+    )
+    set_source_files_properties($ENV{VULKAN_SDK}/../iOS/share/vulkan PROPERTIES
+            MACOSX_PACKAGE_LOCATION Resources
+    )
 
     ##
     # Bundle properties

@@ -7,10 +7,12 @@
 ///
 #pragma once
 
+#include <venom/common/Platform.h>
 #include <venom/common/Timer.h>
 #include <venom/common/Containers.h>
 
 //#define VK_ENABLE_BETA_EXTENSIONS
+#if !defined(VENOM_PLATFORM_IOS)
 #define GLFW_INCLUDE_VULKAN
 #if defined(_WIN32)
 #define VK_USE_PLATFORM_WIN32_KHR
@@ -29,6 +31,12 @@
 #define GLFW_EXPOSE_NATIVE_X11
 #endif
 #include <GLFW/glfw3native.h>
+
+#else
+
+#include <vulkan/vulkan.h>
+
+#endif
 
 #include <venom/common/math/Math.h>
 #include <venom/common/Log.h>

@@ -133,7 +133,7 @@ vc::Error MetalGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
-#ifdef VENOM_PLATFORM_MACOS
+#if !defined(VENOM_PLATFORM_IOS)
     ImGui_ImplGlfw_InitForOther((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
 #endif
     if (!ImGui_ImplMetal_Init(GetMetalDevice()))
@@ -143,14 +143,14 @@ vc::Error MetalGUI::_Initialize()
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.Fonts->AddFontDefault();
     
-#ifdef VENOM_PLATFORM_MACOS
+#if !defined(VENOM_PLATFORM_IOS)
     // TODO: Abstract if context is managed by glfw or not
     NSWindow *nswin;
     if (vc::Config::GetContextType() == vc::Context::ContextType::GLFW)
         nswin = glfwGetCocoaWindow((GLFWwindow*)vc::Context::Get()->GetWindow());
     else if (vc::Config::GetContextType() == vc::Context::ContextType::Apple)
         nswin = venom::context::apple::ContextApple::GetAppleContext()->GetAppleWindow();
-    nswin.contentView.layer = GetMetalLayer();
+    nswin.contentView.layer = getGlobalMetalLayer();
     nswin.contentView.wantsLayer = YES;
 #endif
 
@@ -225,7 +225,7 @@ vc::Error MetalGUI::_Reset()
 
     vc::Texture::UnloadAllGuiTextures();
     ImGui_ImplMetal_Shutdown();
-#ifdef VENOM_PLATFORM_MACOS
+#if !defined(VENOM_PLATFORM_IOS)
     ImGui_ImplGlfw_Shutdown();
 #endif
 

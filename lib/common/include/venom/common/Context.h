@@ -147,6 +147,7 @@ public:
 
     inline bool ShouldClose() const { return __shouldClose; }
     void PollEvents();
+    inline void SetPostRunLoopFunction(Callback<vc::Error> func) { _postRunLoopFunction = func; }
     inline void SetRunLoopFunction(Callback<vc::Error> func) { _runLoopFunction = func; }
     inline InputState GetKeyState(KeyboardInput key) const { return __keyboardState[key]; }
     inline bool IsKeyPressed(KeyboardInput key) const { return (__keyboardState[key] & (InputState::Pressed | InputState::Repeat)) > 0; }
@@ -185,6 +186,7 @@ protected:
     virtual void _SetWindowTitle(const char * title) = 0;
     virtual void * _GetWindow() = 0;
     Callback<vc::Error> _runLoopFunction;
+    Callback<vc::Error> _postRunLoopFunction;
     virtual vc::Error _InitContext() = 0;
     virtual vc::Error _UpdateVideoMode() = 0;
     virtual vc::Error _UpdateRefreshRate() = 0;

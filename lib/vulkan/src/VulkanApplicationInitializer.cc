@@ -18,7 +18,9 @@ static constexpr const char * s_deviceExtensions[] = {
     VK_EXT_ROBUSTNESS_2_EXTENSION_NAME,
     VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
     VK_KHR_MAINTENANCE3_EXTENSION_NAME,
+#if !defined(VENOM_PLATFORM_IOS)
     VK_EXT_HDR_METADATA_EXTENSION_NAME,
+#endif
 #ifdef __APPLE__ // Maybe Linux ?
     "VK_KHR_portability_subset",
     VK_KHR_MAINTENANCE1_EXTENSION_NAME,
@@ -101,11 +103,13 @@ VkPhysicalDeviceFeatures2 VulkanApplication::__GetPhysicalDeviceFeatures(bool & 
 
 void VulkanApplication::__SetGLFWCallbacks()
 {
+#if !defined(VENOM_DISABLE_GLFW)
     glfwSetWindowUserPointer((GLFWwindow*)vc::Context::Get()->GetWindow(), this);
     glfwSetFramebufferSizeCallback((GLFWwindow*)vc::Context::Get()->GetWindow(), [](GLFWwindow * window, int width, int height) {
         auto app = reinterpret_cast<VulkanApplication*>(glfwGetWindowUserPointer(window));
         app->__framebufferChanged = true;
     });
+#endif
 }
 
 vc::Error VulkanApplication::__InitRenderingPipeline()

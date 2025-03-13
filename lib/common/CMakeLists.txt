@@ -49,16 +49,22 @@ endif ()
 
 if (APPLE)
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
-        set(venom_common_libraries ${venom_common_libraries} "-framework UIKit")
+        find_library(UIKIT_FRAMEWORK UIKit)
+        list(APPEND venom_common_libraries ${UIKIT_FRAMEWORK})
     else ()
-        set(venom_common_libraries ${venom_common_libraries} "-framework Cocoa")
+        find_library(COCOA_FRAMEWORK Cocoa)
+        list(APPEND venom_common_libraries ${COCOA_FRAMEWORK})
     endif ()
     find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
     find_library(METAL_FRAMEWORK Metal)
     find_library(METALKIT_FRAMEWORK MetalKit)
-    set(venom_common_libraries ${venom_common_libraries} "-framework CoreFoundation")
-    set(venom_common_libraries ${venom_common_libraries} "-framework Metal")
-    set(venom_common_libraries ${venom_common_libraries} "-framework MetalKit")
+    find_library(QTZCORE_FRAMEWORK QuartzCore)
+    list(APPEND venom_common_libraries
+        ${COREFOUNDATION_FRAMEWORK}
+        ${METAL_FRAMEWORK}
+        ${METALKIT_FRAMEWORK}
+        ${QTZCORE_FRAMEWORK}
+    )
 endif ()
 
 target_link_libraries(${PROJECT_NAME}
@@ -75,52 +81,3 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE "AUTOMATIC")
-
-if (APPLE)
-    find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)
-    find_library(CORESERVICES_FRAMEWORK CoreServices)
-    find_library(FOUNDATION_FRAMEWORK Foundation)
-
-    set(PROJECT_NAME_PACKAGE ${PROJECT_NAME})
-
-#    add_library(${PROJECT_NAME_PACKAGE} SHARED
-#        ${venom_common_srcs}
-#        ${venom_common_srcs_apple}
-#        ${venom_common_hdrs}
-#    )
-
-    set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
-        PREFIX ""
-    )
-
-#    target_link_libraries(${PROJECT_NAME_PACKAGE}
-#        ${venom_common_libraries}
-#    )
-#
-#    target_compile_definitions(${PROJECT_NAME_PACKAGE} PRIVATE
-#        VENOM_COMMON_EXPORTS
-#        VENOM_PACKAGE
-#    )
-
-#    target_include_directories(${PROJECT_NAME_PACKAGE} PUBLIC
-#        "include/"
-#    )
-
-    set_target_properties(${PROJECT_NAME_PACKAGE} PROPERTIES
-        BUNDLE True
-        MACOSX_RPATH ON
-        INSTALL_RPATH "@executable_path/Frameworks"
-        MACOSX_PACKAGE_LOCATION "Frameworks"
-    )
-
-    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreFoundation")
-    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework CoreServices")
-    target_link_libraries(${PROJECT_NAME_PACKAGE} "-framework Foundation")
-
-    install(TARGETS ${PROJECT_NAME_PACKAGE}
-            LIBRARY DESTINATION lib # No need actually
-            ARCHIVE DESTINATION lib # No need actually
-            RUNTIME DESTINATION bin # No need actually
-            FILE_SET HEADERS DESTINATION include # Key need actually
-    )
-endif()

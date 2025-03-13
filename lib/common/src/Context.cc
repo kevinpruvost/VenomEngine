@@ -15,7 +15,7 @@
 #include <venom/common/plugin/graphics/GraphicsApplication.h>
 
 // GLFW Context
-#if defined(VENOM_PLATFORM_DESKTOP) && !defined(VENOM_PLATFORM_IOS)
+#if !defined(VENOM_DISABLE_GLFW)
 #include <venom/common/context/ContextGLFW.h>
 #endif
 
@@ -209,6 +209,8 @@ void Context::PollEvents()
 vc::Error Context::Run(int argc, const char * argv[])
 {
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
+    venom_assert(_postRunLoopFunction, "Context::Run() : No post run loop function set");
+    if (_postRunLoopFunction() != vc::Error::Success) return vc::Error::Failure;
     while (!ShouldClose()) {
         _runLoopFunction();
         PollEvents();

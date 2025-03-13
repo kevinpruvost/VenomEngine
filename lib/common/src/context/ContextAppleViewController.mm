@@ -59,6 +59,7 @@
     _view.delegate = self;
     CGSize size = _view.drawableSize;
     venom::context::apple::ContextApple::GetAppleContext()->__UpdateWindowSize(size);
+    venom::context::apple::ContextApple::GetAppleContext()->PostRun();
 }
 
 

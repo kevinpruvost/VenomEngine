@@ -114,14 +114,14 @@ public:
     void ChangeImageLayout(vc::Texture & image, const VkImageLayout oldLayout, const VkImageLayout newLayout);
     void ChangeImageLayout(vc::Texture & image, const VkImageLayout newLayout);
 
-    void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32 offset, uint32_t size) const;
+    void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32_t offset, uint32_t size) const;
     template<typename T>
-    inline void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const T * value, uint32 offset = 0) const {
+    inline void PushConstants(const vc::ShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const T * value, uint32_t offset = 0) const {
         PushConstants(shaderPipeline, stageFlags, value, offset, sizeof(T));
     }
-    void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32 offset, uint32_t size) const;
+    void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32_t offset, uint32_t size) const;
     template<typename T>
-    inline void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32 offset, uint32_t size) const {
+    inline void PushConstants(const VulkanShaderPipeline * shaderPipeline, VkShaderStageFlags stageFlags, const void * pValues, uint32_t offset, uint32_t size) const {
     }
 
     void BindDescriptorSets(VkPipelineBindPoint vkPipelineBindPoint, VkPipelineLayout vkPipelineLayout,

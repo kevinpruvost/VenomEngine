@@ -13,6 +13,8 @@
 #import <Metal/Metal.h>
 #import <QuartzCore/CAMetalLayer.h>
 
+#include <venom/common/context/apple/ContextAppleInfo.h>
+
 namespace venom
 {
 namespace metal

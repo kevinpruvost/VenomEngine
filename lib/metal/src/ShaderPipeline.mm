@@ -129,7 +129,7 @@ vc::Error MetalShaderPipeline::LoadShader(const std::string& path)
             pipelineStateDescriptor.label = @"Simple Pipeline";
             pipelineStateDescriptor.vertexFunction = GetPipelineData()->vertexShader;
             pipelineStateDescriptor.fragmentFunction = GetPipelineData()->fragmentShader;
-            pipelineStateDescriptor.colorAttachments[0].pixelFormat = GetMetalLayer().pixelFormat;
+            pipelineStateDescriptor.colorAttachments[0].pixelFormat = getGlobalMetalLayer().pixelFormat;
 
             GetPipelineData()->renderPipelineState = [GetMetalDevice() newRenderPipelineStateWithDescriptor:pipelineStateDescriptor error:&error];
         }

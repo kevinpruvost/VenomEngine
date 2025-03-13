@@ -108,7 +108,7 @@ vc::Error MetalApplication::__Loop()
     
     MTLRenderPassDescriptor * renderPassDescriptor = MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor();
     id <MTLRenderPipelineState> renderPipelineState = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Skybox)[0].GetImpl()->As<MetalShaderPipeline>()->GetRenderPipelineState();
-    id <CAMetalDrawable> drawable = [GetMetalLayer() nextDrawable];
+    id <CAMetalDrawable> drawable = [getGlobalMetalLayer() nextDrawable];
     renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
 
     // Create a render command encoder.
@@ -163,7 +163,7 @@ vc::Error MetalApplication::_OnGfxSettingsChange()
 vc::Error MetalApplication::_OnGfxConstantsChange()
 {
     if (_windowSizeDirty) {
-        GetMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
+        getGlobalMetalLayer().drawableSize = CGSizeMake(vc::Context::GetWindowWidth(), vc::Context::GetWindowHeight());
         _windowSizeDirty = false;
     }
     return vc::Error::Success;
@@ -171,11 +171,11 @@ vc::Error MetalApplication::_OnGfxConstantsChange()
 
 vc::Error MetalApplication::_SetHDR(bool enable) {
     if (enable) {
-        GetMetalLayer().pixelFormat = MTLPixelFormatRGBA16Float;
-        GetMetalLayer().wantsExtendedDynamicRangeContent = YES;
+        getGlobalMetalLayer().pixelFormat = MTLPixelFormatRGBA16Float;
+        getGlobalMetalLayer().wantsExtendedDynamicRangeContent = YES;
     } else {
-        GetMetalLayer().pixelFormat = MTLPixelFormatBGRA8Unorm;
-        GetMetalLayer().wantsExtendedDynamicRangeContent = NO;
+        getGlobalMetalLayer().pixelFormat = MTLPixelFormatBGRA8Unorm;
+        getGlobalMetalLayer().wantsExtendedDynamicRangeContent = NO;
     }
     return vc::Error::Success;
 }
