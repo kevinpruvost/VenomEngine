@@ -221,6 +221,11 @@ vc::Error VulkanGUI::_Reset()
     return _Initialize();
 }
 
+void VulkanGUI::_ClearFonts()
+{
+    ImGui::GetIO().Fonts->Clear();
+}
+
 void VulkanGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
 {
     ImGuiIO& io = ImGui::GetIO();
@@ -231,6 +236,7 @@ void VulkanGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* g
     iconsConfig.GlyphMinAdvanceX = fontSize;
     iconsConfig.OversampleH = 3;
     iconsConfig.OversampleV = 3;
+    iconsConfig.SizePixels = 32.0f;
     io.Fonts->AddFontFromFileTTF(fontPath, fontSize, &iconsConfig, glyphRanges);
 }
 

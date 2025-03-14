@@ -89,6 +89,11 @@ void GUI::AddFont(const char* fontPath, float fontSize)
     s_gui->_AddFont(realPath.c_str(), fontSize);
 }
 
+void GUI::ClearFonts()
+{
+    s_gui->_ClearFonts();
+}
+
 bool GUI::isFirstFrame()
 {
     return s_gui->__firstFrame;

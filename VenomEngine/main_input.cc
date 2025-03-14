@@ -76,6 +76,7 @@ void SceneGUI()
 {
     if (vc::GUI::isFirstFrame())
     {
+        vc::GUI::ClearFonts();
         vc::GUI::AddFont("NotoSans-Regular.ttf", 16.0f);
         uint16_t ranges[] = {ICON_MIN_MS, ICON_MAX_16_MS, 0};
         vc::GUI::AddFont("MaterialSymbolsOutlined.ttf", 16.0f, ranges);

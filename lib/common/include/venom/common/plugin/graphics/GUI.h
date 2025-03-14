@@ -179,6 +179,7 @@ protected:
     virtual vc::Error _Initialize() = 0;
     virtual vc::Error _Reset() = 0;
 
+    virtual void _ClearFonts() = 0;
     virtual void _AddFont(const char * fontPath, float fontSize, const uint16_t * glyphRanges) = 0;
     virtual void _AddFont(const char * fontPath, float fontSize) = 0;
 

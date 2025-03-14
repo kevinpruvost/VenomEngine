@@ -28,6 +28,8 @@ protected:
     void _EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & renderingSize) override;
 
     vc::Error _Reset() override;
+
+    void _ClearFonts() override;
     void _AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges) override;
     void _AddFont(const char* fontPath, float fontSize) override;
 

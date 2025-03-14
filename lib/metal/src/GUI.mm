@@ -232,6 +232,11 @@ vc::Error MetalGUI::_Reset()
     return _Initialize();
 }
 
+void MetalGUI::_ClearFonts()
+{
+    ImGui::GetIO().Fonts->Clear();
+}
+
 void MetalGUI::_AddFont(const char* fontPath, float fontSize, const uint16_t* glyphRanges)
 {
     ImGuiIO& io = ImGui::GetIO();
