@@ -103,12 +103,22 @@ if (APPLE)
     include_frameworks(${PROJECT_NAME} "${EMBEDDED_LIBS}")
 
     ## Vulkan thing
-    target_sources(${PROJECT_NAME} PRIVATE
-            $ENV{VULKAN_SDK}/../iOS/share/vulkan
-    )
-    set_source_files_properties($ENV{VULKAN_SDK}/../iOS/share/vulkan PROPERTIES
-            MACOSX_PACKAGE_LOCATION Resources
-    )
+    if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+        target_sources(${PROJECT_NAME} PRIVATE
+                $ENV{VULKAN_SDK}/../iOS/share/vulkan
+        )
+        set_source_files_properties($ENV{VULKAN_SDK}/../iOS/share/vulkan PROPERTIES
+                MACOSX_PACKAGE_LOCATION Resources
+        )
+    elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+        target_sources(${PROJECT_NAME} PRIVATE
+                $ENV{VULKAN_SDK}/../macOS/share/vulkan
+        )
+        set_source_files_properties($ENV{VULKAN_SDK}/../macOS/share/vulkan PROPERTIES
+                MACOSX_PACKAGE_LOCATION Resources
+        )
+        include_frameworks_lib(${PROJECT_NAME} "${Vulkan_Framework_Libs}")
+    endif ()
 
     ##
     # Bundle properties

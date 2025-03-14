@@ -67,6 +67,17 @@ macro(include_frameworks target frameworks)
             XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY ON
             XCODE_LINK_BUILD_PHASE_MODE BUILT_ONLY
     )
+    message(STATUS "Frameworks: ${frameworks}")
+endmacro()
+
+macro(include_frameworks_lib target frameworks)
+    target_sources(${target} PRIVATE
+            ${frameworks}
+    )
+    set_source_files_properties(${frameworks} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Frameworks/../lib"
+    )
+    message(STATUS "Frameworks lib : ${frameworks}")
 endmacro()
 
 macro(include_p_list target plist_path)

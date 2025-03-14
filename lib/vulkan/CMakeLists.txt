@@ -52,7 +52,7 @@ endif()
 set(CMAKE_PREFIX_PATH "${VULKAN_SDK_PATH}" CACHE PATH "Path to Vulkan SDK")
 
 # Find Vulkan
-if (APPLE)
+if (CMAKE_SYSTEM_NAME MATCHES "iOS")
     find_package(Vulkan REQUIRED COMPONENTS MoltenVK)
 else ()
     find_package(Vulkan REQUIRED) # error
@@ -61,6 +61,7 @@ endif ()
 # show where the libraries are
 message(STATUS "Vulkan libraries: ${Vulkan_LIBRARIES}")
 
+set(Vulkan_lib Vulkan::Vulkan)
 if (APPLE)
     if (CMAKE_SYSTEM_NAME MATCHES "iOS")
         target_sources(${PROJECT_NAME} PRIVATE
@@ -69,14 +70,29 @@ if (APPLE)
         set_source_files_properties($ENV{VULKAN_SDK}/../iOS/share/vulkan PROPERTIES
                 MACOSX_PACKAGE_LOCATION Resources
         )
-        message("Vulkan libs: ${Vulkan_MoltenVK_LIBRARY};${Vulkan_LIBRARIES};${Vulkan_Layer_VALIDATION};${Vulkan_Layer_SHADER_OBJECT};${Vulkan_Layer_SYNCHRONIZATION2}")
-        set(VENOM_RUNTIME_LOADED_DLLS "${VENOM_RUNTIME_LOADED_DLLS};${Vulkan_MoltenVK_LIBRARY};${Vulkan_LIBRARIES};${Vulkan_Layer_VALIDATION};${Vulkan_Layer_SHADER_OBJECT};${Vulkan_Layer_SYNCHRONIZATION2}" CACHE INTERNAL "Venom runtime loaded DLLs")
+        set(VENOM_RUNTIME_LOADED_DLLS "${VENOM_RUNTIME_LOADED_DLLS};${Vulkan_LIBRARIES};${Vulkan_MoltenVK_LIBRARY};${Vulkan_Layer_VALIDATION};${Vulkan_Layer_SHADER_OBJECT};${Vulkan_Layer_SYNC2}" CACHE INTERNAL "Venom runtime loaded DLLs")
+    elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+        target_sources(${PROJECT_NAME} PRIVATE
+                $ENV{VULKAN_SDK}/../macOS/share/vulkan
+        )
+        set_source_files_properties($ENV{VULKAN_SDK}/../macOS/share/vulkan PROPERTIES
+                MACOSX_PACKAGE_LOCATION Resources
+        )
+        # Different path because there is a useless symlink in macOS version
+        set(temp_libs "$ENV{VULKAN_SDK}/../macOS/lib/libvulkan.${Vulkan_VERSION}.dylib")
+        # Same for MoltenVK it should not link the framework but the dylib instead
+        list(APPEND temp_libs "$ENV{VULKAN_SDK}/../macOS/lib/libMoltenVK.dylib")
+        # Then add the other layer libs
+        list(APPEND temp_libs "${Vulkan_Layer_VALIDATION}")
+        list(APPEND temp_libs "${Vulkan_Layer_SHADER_OBJECT}")
+        list(APPEND temp_libs "${Vulkan_Layer_SYNC2}")
+        set(Vulkan_Framework_Libs ${temp_libs} CACHE INTERNAL "Vulkan Framework Libs")
     endif ()
     message(STATUS "VULKAN_SDK: ${VULKAN_SDK}")
 endif ()
 
 # Show Vulkan libraries paths
-message(STATUS "Vulkan libraries: ${Vulkan_LIBRARIES}")
+message(STATUS "Venom Runtime Loaded Dlls in Vulkan: ${VENOM_RUNTIME_LOADED_DLLS}")
 
 #if (APPLE)
 #    # Copy vulkan in binary dir for packaging
@@ -97,11 +113,12 @@ message(STATUS "Vulkan libraries: ${Vulkan_LIBRARIES}")
 target_link_libraries(${PROJECT_NAME}
     VenomCommon   # Assuming venom_common_static is defined elsewhere
     glm
-    Vulkan::Vulkan
+    ${Vulkan_lib}
 )
 
+message(STATUS "Vulkan include dir: ${Vulkan_INCLUDE_DIRS}")
 target_include_directories(${PROJECT_NAME} PUBLIC
-    ${VULKAN_INCLUDE_DIRS}
+    ${Vulkan_INCLUDE_DIRS}
     ${IMGUI_INCLUDE_DIR}
 )
 
