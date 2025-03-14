@@ -67,10 +67,11 @@ VenomEngine::~VenomEngine()
     __dllCache.reset();
 }
 
-static vc::UPtr<VenomEngine> s_instance;
+// Using a smart pointer is actually a problem, in some cases (NSApplication/UIApplicationMain), Run will try to release them
+static VenomEngine * s_instance;
 VenomEngine* VenomEngine::GetInstance()
 {
-    return s_instance.get();
+    return s_instance;
 }
 
 Error VenomEngine::CheckCompatibility()
@@ -119,7 +120,7 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
 
     vc::Resources::InitializeFilesystem(argc, argv);
 
-    s_instance.reset(new VenomEngine());
+    s_instance = new VenomEngine();
 
     // Init Context
     s_instance->__context = vc::Context::CreateContext();
@@ -176,7 +177,7 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
     });
     s_instance->__context->Run(argc, argv);
     s_sceneCallback(vc::ScenePhase::Destruction);
-    s_instance.reset();
+    delete s_instance;
     vc::Resources::FreeFilesystem();
     return err;
 }

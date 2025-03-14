@@ -66,7 +66,7 @@
 - (void)drawInMTKView:(nonnull MTKView *)view {
 #ifdef VENOM_PLATFORM_MACOS
     if (venom::context::apple::ContextApple::RunLoop() != vc::Error::Success) {
-        [[NSApplication sharedApplication] terminate:nil];
+        [[NSApplication sharedApplication] stop:nil];
     }
 #else
     venom::context::apple::ContextApple::RunLoop();
