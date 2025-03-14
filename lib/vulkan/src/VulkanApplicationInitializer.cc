@@ -464,6 +464,7 @@ vc::Error VulkanApplication::__RecreateSwapChain()
 {
     vc::Error err;
     vkDeviceWaitIdle(LogicalDevice::GetVkDevice());
+    _currentFrame = 0;
     __swapChain.CleanSwapChain();
     // Create Surface
     __surface.CreateSurface(vc::Context::Get());

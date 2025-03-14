@@ -284,9 +284,9 @@ vc::Error VulkanApplication::__GraphicsOperations()
         // Copy to render target if any (for GUI)
         Image * attachmentImage;
         if (GraphicsSettings::GetActiveSamplesMultisampling() != 1)
-            attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[4]);
+            attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetFramebuffer(__imageIndex)->GetAttachmentImages()[4]);
         else
-            attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetCurrentFramebuffer()->GetAttachmentImages()[0]);
+            attachmentImage = const_cast<Image *>(_graphicsRenderPass.GetImpl()->As<VulkanRenderPass>()->GetFramebuffer(__imageIndex)->GetAttachmentImages()[0]);
         if (vc::GUI::IsGUIDraw())
         {
             for (auto & renderTarget : renderTargets)
@@ -385,7 +385,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                 {
                     const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascade, 0, camera, &lightPos);
                     if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], shadowMapIndex, lightConstants,
-                        &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascade)[0],
+                        &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(__imageIndex, cascade)[0],
                         &__shadowMapsDirectionalFinishedSemaphores[_currentFrame][shadowMapIndex][cascade], __shadowMapDirectionalCommandBuffers[_currentFrame][shadowMapIndex][cascade],
                         &shadowRenderingPipeline[0]); err != vc::Error::Success)
                         return err;
@@ -401,7 +401,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                 {
                     const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascadeIndex, face, camera, &lightPos);
                     if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], shadowMapIndex, lightConstants,
-                        &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascadeIndex)[face],
+                        &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(__imageIndex, cascadeIndex)[face],
                         &__shadowMapsPointFinishedSemaphores[_currentFrame][shadowMapIndex][face], __shadowMapPointCommandBuffers[_currentFrame][shadowMapIndex][face],
                         &shadowRenderingPipeline[0]); err != vc::Error::Success)
                         return err;
@@ -415,7 +415,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperations()
                     break;
                 const auto & lightConstants = lights[l]->GetImpl()->As<vc::LightImpl>()->GetShadowMapConstantsStruct(cascadeIndex, 0, camera, &lightPos);
                 if (auto err = __GraphicsShadowMapOperationPerLight(lights[l], shadowMapIndex, lightConstants,
-                    &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(_currentFrame, cascadeIndex)[0],
+                    &lights[l]->GetImpl()->As<VulkanLight>()->GetShadowMapFramebuffers(__imageIndex, cascadeIndex)[0],
                     &__shadowMapsSpotFinishedSemaphores[_currentFrame][shadowMapIndex], __shadowMapSpotCommandBuffers[_currentFrame][shadowMapIndex],
                     &shadowRenderingPipeline[0]); err != vc::Error::Success)
                     return err;

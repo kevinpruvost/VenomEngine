@@ -31,7 +31,7 @@ GUIDrawCallback GUI::s_guiDrawCallback = nullptr;
 #if defined(VENOM_PLATFORM_MOBILE)
 bool GUI::s_guiDraw = false;
 #else
-bool GUI::s_guiDraw = true;
+bool GUI::s_guiDraw = false;
 #endif
 
 GUI::GUI()

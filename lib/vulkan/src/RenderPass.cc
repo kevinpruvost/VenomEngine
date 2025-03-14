@@ -152,11 +152,6 @@ Framebuffer* VulkanRenderPass::GetFramebuffer(const int index)
     return &__framebuffers[index];
 }
 
-Framebuffer* VulkanRenderPass::GetCurrentFramebuffer()
-{
-    return &__framebuffers[vc::GraphicsApplication::GetCurrentFrameInFlight()];
-}
-
 vc::Error VulkanRenderPass::__CreateNormalRenderPass()
 {
     const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
