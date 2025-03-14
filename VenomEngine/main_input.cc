@@ -9,7 +9,11 @@
 #include "../lib/external/imgui/imgui.h"
 
 bool cameraLocked = true;
+#if defined(VENOM_PLATFORM_MOBILE)
+bool automaticTurn = true;
+#else
 bool automaticTurn = false;
+#endif
 
 static vc::Timer timer_uni;
 static float cameraSpeed = 5.0f;

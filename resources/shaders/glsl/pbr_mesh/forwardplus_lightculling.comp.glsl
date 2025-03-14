@@ -9,6 +9,7 @@
 #version 450
 #extension GL_GOOGLE_include_directive : require
 
+#define COMPUTE_FORWARD_PLUS
 #include "../Scene.glsl.h"
 
 vec2 WorldSpaceToScreenSpace(vec3 position)

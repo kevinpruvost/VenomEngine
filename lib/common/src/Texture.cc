@@ -167,7 +167,8 @@ static vc::Error SaveToVenomAssetCommon(const char * path, int width, int height
     vc::OFileStream file(path, std::ios::binary | std::ios::trunc);
     if (!file.is_open()) {
         vc::Log::Error("Could not write venom asset: %s\n", path);
-        return vc::Error::Failure;
+        // If cannot write, it is ok
+        return vc::Error::Success;
     }
     file.write(compressedData.data(), compressedSize);
     file.close();

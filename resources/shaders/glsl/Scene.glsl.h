@@ -124,7 +124,11 @@ int getLightBlockBitIndex(int lightIndex) {
 }
 
 // Problem with this thing
+#if defined(COMPUTE_FORWARD_PLUS)
 layout(binding = 2, set = 7) buffer forwardPlusResultBufferData {
+#else
+layout(binding = 2, set = 7) readonly buffer forwardPlusResultBufferData {
+#endif
     LightBlock forwardPlusResultBuffer[];
 };
 

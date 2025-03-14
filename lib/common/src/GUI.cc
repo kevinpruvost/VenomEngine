@@ -28,7 +28,11 @@ namespace common
 {
 GUI * GUI::s_gui = nullptr;
 GUIDrawCallback GUI::s_guiDrawCallback = nullptr;
+#if defined(VENOM_PLATFORM_MOBILE)
+bool GUI::s_guiDraw = false;
+#else
 bool GUI::s_guiDraw = true;
+#endif
 
 GUI::GUI()
     : _app(nullptr)

@@ -6,6 +6,6 @@
 //layout(location = 3) in vec3 inTangent;
 //layout(location = 4) in vec3 inBitangent;
 
-layout(std430, binding = 0) buffer UniformBufferObject {
+layout(std430, set = 0, binding = 0) readonly buffer UniformBufferObject {
     mat4 models[];
 };

@@ -9,7 +9,7 @@
 
 #include "MainScene.h"
 
-void SceneV(const vc::ScenePhase phase)
+void SceneC(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, camera;
     int nbTiles = 1;

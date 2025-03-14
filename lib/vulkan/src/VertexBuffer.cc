@@ -40,18 +40,20 @@ VertexBuffer& VertexBuffer::operator=(VertexBuffer && other)
 vc::Error VertexBuffer::Init(const uint32_t vertexCount, const uint32_t vertexSize, const VkBufferUsageFlags flags, const void* data)
 {
     Buffer stagingBuffer;
-    stagingBuffer.CreateBuffer(vertexCount * vertexSize,
+    if (auto err = stagingBuffer.CreateBuffer(vertexCount * vertexSize,
         VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
         QueueManager::GetGraphicsTransferSharingMode(),
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
-    );
+    ); err != vc::Error::Success)
+        return err;
     stagingBuffer.WriteBuffer(data);
 
-    __buffer.CreateBuffer(vertexCount * vertexSize,
+    if (auto err = __buffer.CreateBuffer(vertexCount * vertexSize,
         VK_BUFFER_USAGE_TRANSFER_DST_BIT | flags,
         QueueManager::GetGraphicsTransferSharingMode(),
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT
-    );
+    ); err != vc::Error::Success)
+        return err;
 
     if (auto err = CopyBuffer(stagingBuffer, __buffer, vertexCount * vertexSize); err != vc::Error::Success)
         return err;

@@ -45,7 +45,7 @@ void Plugin::RemovePluginObject(IPluginObject* object)
 
 void Plugin::CleanPluginObjects()
 {
-    while (!__objectsToRemove.empty()) {
+    while (__objectsToRemove.size() != 0) {
         __objectsToRemoveLocked = true;
         __objectsToRemove.clear();
         __objectsToRemoveLocked = false;

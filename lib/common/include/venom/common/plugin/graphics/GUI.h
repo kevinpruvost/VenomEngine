@@ -42,7 +42,11 @@ public:
 
     inline void DrawCallback() { if (s_guiDrawCallback) s_guiDrawCallback(); }
     static inline void SetGUIDrawCallback(GUIDrawCallback guiDrawCallback) { s_guiDrawCallback = guiDrawCallback; }
+#if defined(VENOM_PLATFORM_MOBILE)
+    static inline void ToggleGUIDraw() { s_guiDraw = false; }
+#else
     static inline void ToggleGUIDraw() { s_guiDraw = !s_guiDraw; }
+#endif
     static inline bool IsGUIDraw() { return s_guiDraw; }
     static inline bool & IsGUIDrawRef() { return s_guiDraw; }
 

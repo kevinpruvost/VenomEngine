@@ -215,6 +215,10 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
         .pNext = &descriptorIndexingFeatures
     };
+#if defined(VENOM_PLATFORM_IOS)
+    physicalDeviceFeatures2.features.vertexPipelineStoresAndAtomics = VK_TRUE;
+    physicalDeviceFeatures2.features.fragmentStoresAndAtomics = VK_TRUE;
+#endif
     // Only with VK_ENABLE_BETA_EXTENSIONS
     //VkPhysicalDevicePortabilitySubsetFeaturesKHR portabilityFeatures{};
     //portabilityFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;

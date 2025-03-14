@@ -22,14 +22,14 @@ static SkyboxImpl * s_skybox = nullptr;
 SkyboxImpl::SkyboxImpl()
     : __panorama()
 {
-    if (s_skybox == nullptr)
-        s_skybox = this;
+    venom_assert(s_skybox == nullptr, "SkyboxImpl::SkyboxImpl() : Skybox already exists");
+    s_skybox = this;
 }
 
 SkyboxImpl::~SkyboxImpl()
 {
-    if (s_skybox == this)
-        s_skybox = nullptr;
+    venom_assert(s_skybox, "SkyboxImpl::~SkyboxImpl() : Skybox already destroyed");
+    s_skybox = nullptr;
 }
 
 vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)

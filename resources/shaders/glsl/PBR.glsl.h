@@ -5,20 +5,20 @@
 // Shadow Mapping
 //
 
-layout(binding = 3, set = 7) buffer cl3 {
+layout(binding = 3, set = 7) readonly buffer cl3 {
     int shadowMapsLayerIndices[MAX_LIGHTS]; // If light 2 is Spot and it's the first spot light, then shadowMapsLayerIndices[2] = 0
     // And to access it, we go to shadowMapsSpotShadowMaps[shadowMapsLayerIndices[2]]
 };
 
 layout(binding = 0, set = 3) uniform texture2D shadowMaps[];
 layout(binding = 1, set = 3) uniform textureCube shadowMapCube;
-layout(binding = 7, set = 7) buffer cl7 {
+layout(binding = 7, set = 7) readonly buffer cl7 {
     mat4 shadowMapsDirectionalLightSpaceMatrices[];
 };
-layout(binding = 8, set = 7) buffer cl8 {
+layout(binding = 8, set = 7) readonly buffer cl8 {
     mat4 shadowMapsPointLightSpaceMatrices[];
 };
-layout(binding = 9, set = 7) buffer cl9 {
+layout(binding = 9, set = 7) readonly buffer cl9 {
     mat4 shadowMapsSpotLightSpaceMatrices[];
 };
 
