@@ -15,6 +15,8 @@
 #include <venom/vulkan/QueueManager.h>
 
 #include "venom/common/plugin/graphics/GraphicsSettings.h"
+#include <venom/common/context/ContextApple.h>
+#include <venom/common/Config.h>
 
 namespace venom::vulkan
 {
@@ -112,19 +114,29 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     // Extent, if currentExtent is std::numeric_limits<uint32_t>::max(), then the extent can vary, else it's the currentExtent
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
         extent = capabilities.currentExtent;
-    } else {
-#if !defined(VENOM_DISABLE_GLFW)
-        // Gets the window size in terms of total pixels, not to confuse with screen coordinates
-        // Otherwise we would be using glfwGetWindowSize
-        int w, h;
-        glfwGetFramebufferSize((GLFWwindow*)(vc::Context::Get()->GetWindow()), &w, &h);
-
-        extent.width = std::clamp<uint32_t>(w, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
-        extent.height = std::clamp<uint32_t>(h, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
-#else
-        vc::Log::Error("Can't get extent from CAMetalLayer.");
-        return vc::Error::Failure;
+#if defined(VENOM_PLATFORM_APPLE)
+        if (IS_CONTEXT_TYPE(Apple)) {
+            // Weird workaround for how bad ImGui handles DPI scales with Apple Context Management
+            int cmpH = venom::context::apple::ContextApple::GetWindowHeight();
+            if (extent.height != cmpH * vc::Context::GetWindowScale()) {
+                extent.width = venom::context::apple::ContextApple::GetWindowWidth();
+                extent.height = cmpH;
+            }
+        }
 #endif
+    } else {
+        if (IS_CONTEXT_TYPE(GLFW)) {
+            // Gets the window size in terms of total pixels, not to confuse with screen coordinates
+            // Otherwise we would be using glfwGetWindowSize
+            int w, h;
+            glfwGetFramebufferSize((GLFWwindow*)(vc::Context::Get()->GetWindow()), &w, &h);
+            
+            extent.width = std::clamp<uint32_t>(w, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
+            extent.height = std::clamp<uint32_t>(h, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
+        } else {
+            vc::Log::Error("Can't get extent.");
+        }
+        return vc::Error::Failure;
     }
 
     // Viewport

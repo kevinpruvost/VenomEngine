@@ -101,6 +101,7 @@ Context::Context()
     , _currentScreenIndex(0)
     , _currentVideoModeIndex(0)
     , _fullscreen(false)
+    , _scale(1.0f)
 {
     venom_assert(s_context == nullptr, "Context::Context() : Context already exists");
     s_context = this;

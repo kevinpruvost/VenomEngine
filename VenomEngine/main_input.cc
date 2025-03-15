@@ -152,7 +152,7 @@ void SceneGUI()
         vc::GUI::End();
         vc::GUI::PopStyleVar();
 
-        if (vc::GUI::isFirstInitialization())
+        if (vc::GUI::isFirstFrame())
         {
             const vcm::Vec2 dockspaceSize = vc::GUI::GetWindowSize();
             vc::GUI::DockSpaceRemoveNode(mainDockSpaceId);

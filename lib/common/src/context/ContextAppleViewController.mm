@@ -54,10 +54,11 @@
         setGlobalMetalLayer(newLayer);
         layer = getGlobalMetalLayer();
     }
+    _view.autoResizeDrawable = YES;
     _view.device = getGlobalMetalDevice();
     _view.colorPixelFormat = layer.pixelFormat;
     _view.delegate = self;
-    CGSize size = _view.drawableSize;
+    CGSize size = _view.bounds.size;
     venom::context::apple::ContextApple::GetAppleContext()->__UpdateWindowSize(size);
     venom::context::apple::ContextApple::GetAppleContext()->PreRun();
 }
@@ -73,8 +74,14 @@
 #endif
 }
 
-- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size { 
-    venom::context::apple::ContextApple::GetAppleContext()->__UpdateWindowSize(size);
+- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
+    CGSize sz = CGSizeMake(size.width / _view.window.backingScaleFactor, size.height / _view.window.backingScaleFactor);
+    auto test1 = _view.currentDrawable.layer.frame.size;
+    auto test2 = _view.drawableSize;
+    auto test3 = view.bounds.size;
+    auto test4 = view.window.backingScaleFactor;
+    auto test5 = view.bounds.size;
+    venom::context::apple::ContextApple::GetAppleContext()->__UpdateWindowSize(view.bounds.size);
 }
 
 @end

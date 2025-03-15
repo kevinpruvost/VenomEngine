@@ -29,15 +29,15 @@ VulkanGUI::VulkanGUI()
 VulkanGUI::~VulkanGUI()
 {
     ImGui_ImplVulkan_Shutdown();
-//    if (IS_CONTEXT_TYPE(GLFW)) {
-//        ImGui_ImplGlfw_Shutdown();
-//    }
-//#if defined(VENOM_PLATFORM_APPLE)
-//    else if (IS_CONTEXT_TYPE(Apple)) {
-//        _DestroyApple();
-//    }
-//#endif
-//    ImGui::DestroyContext();
+    if (IS_CONTEXT_TYPE(GLFW)) {
+        ImGui_ImplGlfw_Shutdown();
+    }
+#if defined(VENOM_PLATFORM_APPLE)
+    else if (IS_CONTEXT_TYPE(Apple)) {
+        _DestroyApple();
+    }
+#endif
+    ImGui::DestroyContext();
 }
 
 void VulkanGUI::__SetStyle()
@@ -160,6 +160,7 @@ vc::Error VulkanGUI::_Initialize()
         return vc::Error::Failure;
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2(static_cast<float>(vc::Context::GetWindowWidth()), static_cast<float>(vc::Context::GetWindowHeight()));
+    io.DisplayFramebufferScale = ImVec2(vc::Context::GetWindowScale(), vc::Context::GetWindowScale());
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.Fonts->AddFontDefault();
 
@@ -290,6 +291,7 @@ void VulkanGUI::_SetNextWindowPos(const vcm::Vec2& pos, vc::GUICond cond, const 
 
 void VulkanGUI::_SetNextWindowSize(const vcm::Vec2& size, vc::GUICond cond)
 {
+    ImGui::GetIO().DisplaySize = ImVec2(size.x, size.y);
     ImGui::SetNextWindowSize(ImVec2(size.x, size.y), static_cast<ImGuiCond>(cond));
 }
 

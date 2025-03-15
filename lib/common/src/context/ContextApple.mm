@@ -174,6 +174,7 @@ void ContextApple::__GiveMetalLayer(CAMetalLayer * layer)
 
 void ContextApple::__UpdateWindowSize(CGSize size)
 {
+    _scale = GetAppleWindow().screen.backingScaleFactor;
     _width = size.width;
     _height = size.height;
     vc::GraphicsSettings::SetWindowResolution(_width, _height);

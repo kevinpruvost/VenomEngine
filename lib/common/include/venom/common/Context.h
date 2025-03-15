@@ -155,6 +155,7 @@ public:
     inline bool IsKeyRepeat(KeyboardInput key) const { return __keyboardState[key] == InputState::Repeat; }
     static inline int GetWindowWidth() { return s_context->_width; }
     static inline int GetWindowHeight() { return s_context->_height; }
+    static inline float GetWindowScale() { return s_context->_scale; }
 
     /**
      * @brief Checks if a specified keyboard modifier key is currently pressed.
@@ -213,6 +214,7 @@ protected:
     int _currentVideoModeIndex;
     int _currentRefreshRate;
     int _width, _height;
+    float _scale;
     bool _fullscreen;
     vc::Vector<Screen> _screens;
 
