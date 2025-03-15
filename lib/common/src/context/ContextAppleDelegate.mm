@@ -24,6 +24,8 @@
     self.window.rootViewController = viewController;
     [self.window makeKeyWindow];
     self.window.hidden = NO;
+    // Set view to delegate
+    self.view = self.window.rootViewController.view;
     return YES;
 }
 
@@ -44,6 +46,8 @@
     
     [self.window setContentViewController: viewController];
     [self.window makeKeyAndOrderFront:nil];
+    // Set view to delegate
+    self.view = self.window.contentView;
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {

@@ -57,14 +57,14 @@ ContextApple::~ContextApple()
 #endif
 }
 
-vc::Error ContextApple::PostRun()
+vc::Error ContextApple::PreRun()
 {
-    return _postRunLoopFunction();
+    return _preRunLoopFunction();
 }
 
 vc::Error ContextApple::Run(int argc, const char * argv[])
 {
-    venom_assert(_postRunLoopFunction, "Context::Run() : No post run loop function set");
+    venom_assert(_preRunLoopFunction, "Context::Run() : No post run loop function set");
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
     int ret;
 #ifdef VENOM_PLATFORM_MACOS
@@ -99,7 +99,7 @@ AppleWindow* ContextApple::GetAppleWindow()
 
 AppleView* ContextApple::GetAppleView()
 {
-    return __contextAppleData.__view;
+    return ((ContextAppleDelegate *)__contextAppleData.__delegate).view;
 }
 
 vc::Error ContextApple::_InitContext()

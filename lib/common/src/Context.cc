@@ -209,8 +209,8 @@ void Context::PollEvents()
 vc::Error Context::Run(int argc, const char * argv[])
 {
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
-    venom_assert(_postRunLoopFunction, "Context::Run() : No post run loop function set");
-    if (_postRunLoopFunction() != vc::Error::Success) return vc::Error::Failure;
+    venom_assert(_preRunLoopFunction, "Context::Run() : No post run loop function set");
+    if (_preRunLoopFunction() != vc::Error::Success) return vc::Error::Failure;
     while (!ShouldClose()) {
         _runLoopFunction();
         PollEvents();

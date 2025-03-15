@@ -21,5 +21,6 @@
 @interface ContextAppleDelegate : PlatformAppDelegate
 
 @property (nonatomic, strong) AppleWindow * window;
+@property (nonatomic, strong) AppleView * view;
 
 @end

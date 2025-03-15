@@ -59,11 +59,14 @@ if (APPLE)
     find_library(METAL_FRAMEWORK Metal)
     find_library(METALKIT_FRAMEWORK MetalKit)
     find_library(QTZCORE_FRAMEWORK QuartzCore)
+    # Game controller only doesnt work on watchOS
+    find_library(GAMECONTROLLER_FRAMEWORK GameController)
     list(APPEND venom_common_libraries
         ${COREFOUNDATION_FRAMEWORK}
         ${METAL_FRAMEWORK}
         ${METALKIT_FRAMEWORK}
         ${QTZCORE_FRAMEWORK}
+        ${GAMECONTROLLER_FRAMEWORK}
     )
 endif ()
 

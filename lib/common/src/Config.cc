@@ -27,19 +27,9 @@ Config * Config::GetInstance()
     return &instance;
 }
 
-GraphicsPlugin::GraphicsPluginType Config::GetGraphicsPluginType()
-{
-    return GetInstance()->__GetGraphicsPluginType();
-}
-
 void Config::SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type)
 {
     GetInstance()->__SetGraphicsPluginType(type);
-}
-
-vc::Context::ContextType Config::GetContextType()
-{
-    return GetInstance()->__GetContextType();
 }
 
 void Config::SetContextType(vc::Context::ContextType type)

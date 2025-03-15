@@ -15,6 +15,8 @@
 
 #include <ImGuizmo.h>
 
+#include <venom/common/Config.h>
+
 namespace venom
 {
 namespace vulkan
@@ -113,9 +115,18 @@ vc::Error VulkanGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
-#if !defined(VENOM_PLATFORM_IOS)
-    ImGui_ImplGlfw_InitForVulkan((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
+    if (IS_CONTEXT_TYPE(GLFW)) {
+        ImGui_ImplGlfw_InitForVulkan((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
+    }
+#if defined(VENOM_PLATFORM_APPLE)
+    else if (IS_CONTEXT_TYPE(Apple)) {
+        _InitializeApple();
+    }
 #endif
+    else {
+        vc::Log::Error("VulkanGUI::_Initialize() : Invalid context type");
+        return vc::Error::Failure;
+    }
     initInfo.Instance = Instance::GetVkInstance();
     initInfo.PhysicalDevice = PhysicalDevice::GetUsedVkPhysicalDevice();
     initInfo.Device = LogicalDevice::GetInstance().GetVkDevice();
@@ -214,9 +225,18 @@ vc::Error VulkanGUI::_Reset()
 
     vc::Texture::UnloadAllGuiTextures();
     ImGui_ImplVulkan_Shutdown();
-#if !defined(VENOM_PLATFORM_IOS)
-    ImGui_ImplGlfw_Shutdown();
+    if (IS_CONTEXT_TYPE(GLFW)) {
+        ImGui_ImplGlfw_Shutdown();
+    }
+#if defined(VENOM_PLATFORM_APPLE)
+    else if (IS_CONTEXT_TYPE(Apple)) {
+        _DestroyApple();
+    }
 #endif
+    else {
+        vc::Log::Error("VulkanGUI::_Reset() : Invalid context type");
+        return vc::Error::Failure;
+    }
 
     return _Initialize();
 }
@@ -295,8 +315,13 @@ vc::GUIViewport VulkanGUI::_GetMainViewport()
 void VulkanGUI::_NewFrame()
 {
     ImGui_ImplVulkan_NewFrame();
-#if !defined(VENOM_PLATFORM_IOS)
-    ImGui_ImplGlfw_NewFrame();
+    if (IS_CONTEXT_TYPE(GLFW)) {
+        ImGui_ImplGlfw_NewFrame();
+    }
+#if defined(VENOM_PLATFORM_APPLE)
+    else if (IS_CONTEXT_TYPE(Apple)) {
+        _NewFrameApple();
+    }
 #endif
     ImGui::NewFrame();
     ImGuizmo::SetOrthographic(false);

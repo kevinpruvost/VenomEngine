@@ -133,7 +133,7 @@ Error VenomEngine::RunEngine(int argc, const char* argv[])
 
     vc::GraphicsSettings::SetWindowResolution(s_instance->__context->GetWindowWidth(), s_instance->__context->GetWindowWidth());
 
-    s_instance->__context->SetPostRunLoopFunction([&](){
+    s_instance->__context->SetPreRunLoopFunction([&](){
         if (err = graphicsApp->Init(); err != vc::Error::Success) {
             vc::Log::Error("Failed to init application: %d\n", static_cast<int>(err));
             return vc::Error::Failure;

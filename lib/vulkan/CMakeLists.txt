@@ -26,8 +26,12 @@ endif()
 file(GLOB_RECURSE venom_vulkan_srcs src/*.cc)
 file(GLOB_RECURSE venom_vulkan_hdrs include/venom/vulkan/**/**/**/*.h)
 
+if (APPLE)
+    file(GLOB_RECURSE venom_vulkan_srcs_apple src/*.m src/*.mm src/**/*.m src/**/*.mm)
+    set(venom_vulkan_srcs ${venom_vulkan_srcs} ${venom_vulkan_srcs_apple})
+endif ()
 
-        # Create the static library target
+# Create the static library target
 add_library(${PROJECT_NAME} SHARED
     ${venom_vulkan_srcs} ${venom_vulkan_hdrs}
     ${IMGUI_SOURCES}
@@ -46,6 +50,10 @@ if (CMAKE_SYSTEM_NAME MATCHES "iOS")
     set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
 else()
     set(VULKAN_SDK_PATH "$ENV{VULKAN_SDK}/../macOS")
+    # Also add imgui osx source
+    target_sources(${PROJECT_NAME} PRIVATE
+        ${IMGUI_OSX_SOURCE}
+    )
 endif()
 
 # Override CMAKE_PREFIX_PATH to make sure CMake looks in the right location

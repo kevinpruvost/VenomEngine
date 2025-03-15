@@ -18,7 +18,6 @@
 struct ContextAppleData
 {
     __strong id __window;
-    __strong id __view;
     __strong id __delegate;
     id __layer;
 };
@@ -47,7 +46,7 @@ public:
     vc::Error _SetFullscreen() override;
 
     vc::Error Run(int argc, const char * argv[]) override;
-    vc::Error PostRun();
+    vc::Error PreRun();
     inline vc::Error Loop() { return _runLoopFunction(); }
     static inline vc::Error RunLoop() { return GetAppleContext()->Loop(); }
     static void * GetMetalLayer();

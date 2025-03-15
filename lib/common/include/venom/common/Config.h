@@ -10,6 +10,8 @@
 #include <venom/common/plugin/graphics/GraphicsPlugin.h>
 #include <venom/common/Context.h>
 
+#define IS_CONTEXT_TYPE(type) (vc::Config::GetContextType() == vc::Context::ContextType::type)
+
 namespace venom
 {
 namespace common
@@ -23,9 +25,9 @@ private:
 public:
     ~Config();
     static Config * GetInstance();
-    static GraphicsPlugin::GraphicsPluginType GetGraphicsPluginType();
+    inline static GraphicsPlugin::GraphicsPluginType GetGraphicsPluginType() { return GetInstance()->__GetGraphicsPluginType(); }
     static void SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType type);
-    static Context::ContextType GetContextType();
+    inline static Context::ContextType GetContextType() { return GetInstance()->__GetContextType(); }
     static void SetContextType(Context::ContextType type);
 private:
     GraphicsPlugin::GraphicsPluginType __GetGraphicsPluginType() const;

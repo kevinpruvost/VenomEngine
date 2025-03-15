@@ -23,6 +23,12 @@ public:
     ~VulkanGUI() override;
 
     vc::Error _Initialize() override;
+private:
+#if defined(VENOM_PLATFORM_APPLE)
+    vc::Error _InitializeApple();
+    vc::Error _DestroyApple();
+    vc::Error _NewFrameApple();
+#endif
 
 protected:
     void _EntityGuizmo(vc::Transform3D* transform3D, const vcm::Vec2 & renderingSize) override;

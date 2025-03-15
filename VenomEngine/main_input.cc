@@ -12,7 +12,7 @@ bool cameraLocked = true;
 #if defined(VENOM_PLATFORM_MOBILE)
 bool automaticTurn = true;
 #else
-bool automaticTurn = true;
+bool automaticTurn = false;
 #endif
 
 static vc::Timer timer_uni;
