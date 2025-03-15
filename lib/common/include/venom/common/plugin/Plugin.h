@@ -28,9 +28,11 @@ public:
     friend class PluginManager;
 
     const PluginType GetType() const;
+    virtual void TerminatePluginObjects();
 
 protected:
     Plugin(const PluginType type);
+    static vc::Vector<Plugin *> GetAllPlugins();
 
 private:
     void AddPluginObject(IPluginObject * object);

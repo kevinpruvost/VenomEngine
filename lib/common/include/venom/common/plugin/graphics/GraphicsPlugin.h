@@ -51,6 +51,8 @@ public:
     static GraphicsPlugin * Get();
 
     virtual GraphicsApplication * CreateGraphicsApplication(int argc, const char* argv[]) = 0;
+    
+    virtual void TerminatePluginObjects() override;
 
     // Graphics objects
     virtual MaterialImpl * CreateMaterial() = 0;

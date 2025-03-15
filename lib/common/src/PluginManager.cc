@@ -31,6 +31,14 @@ PluginManager::~PluginManager()
 {
 }
 
+void PluginManager::TerminatePluginObjects()
+{
+    // Terminate Plugin Objects before terminating the Plugins themselves
+    for (auto plugin : Plugin::GetAllPlugins()) {
+        plugin->TerminatePluginObjects();
+    }
+}
+
 GraphicsPlugin* PluginManager::GetGraphicsPlugin()
 {
     venom_assert(__graphicsPlugin, "GraphicsPlugin is nullptr");

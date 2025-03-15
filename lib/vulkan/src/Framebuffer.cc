@@ -73,6 +73,7 @@ vc::Error Framebuffer::Init()
         __attachments.emplace_back(imageView->GetVkImageView());
     }
 
+    Destroy();
     __framebufferCreateInfo.attachmentCount = static_cast<uint32_t>(__attachments.size());
     __framebufferCreateInfo.pAttachments = __attachments.data();
     if (VkResult res = vkCreateFramebuffer(LogicalDevice::GetVkDevice(), &__framebufferCreateInfo, Allocator::GetVKAllocationCallbacks(), &__framebuffer); res != VK_SUCCESS) {

@@ -33,6 +33,8 @@ public:
     void AddPluginObject(const PluginType type, IPluginObject * object);
     void RemovePluginObject(const PluginType type, IPluginObject * object);
     void UnloadPlugins();
+    // Must be called before PluginManager Destruction
+    void TerminatePluginObjects();
 private:
     PluginManager();
 

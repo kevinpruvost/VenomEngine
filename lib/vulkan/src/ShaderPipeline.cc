@@ -87,10 +87,12 @@ VulkanShaderResource::~VulkanShaderResource()
         vkDestroyPipelineLayout(LogicalDevice::GetVkDevice(), pipelineLayout, Allocator::GetVKAllocationCallbacks());
 }
 
+static int count = 0;
 void VulkanShaderResource::DestroyShaderModules()
 {
     for (int i = 0; i < shaderStages.size(); ++i) {
         vkDestroyShaderModule(LogicalDevice::GetVkDevice(), shaderStages[i].module, Allocator::GetVKAllocationCallbacks());
+        printf("ShaderModule Destruction: %d\n", --count);
     }
     shaderStages.clear();
 }
@@ -207,9 +209,7 @@ vc::Error VulkanShaderPipeline::_OpenShaders()
             if (_resource->As<VulkanShaderResource>()->shaderStages[i].stage == _resource->As<VulkanShaderResource>()->shaderStages[j].stage)
             {
                 vc::Log::Error("Duplicate shader stages: [%s] | [%s]", _resource->As<VulkanShaderResource>()->shaderPaths[i].c_str(), _resource->As<VulkanShaderResource>()->shaderPaths[j].c_str());
-                for (int k = 0; k < _resource->As<VulkanShaderResource>()->shaderStages.size(); ++k) {
-                    vkDestroyShaderModule(LogicalDevice::GetVkDevice(), _resource->As<VulkanShaderResource>()->shaderStages[k].module, Allocator::GetVKAllocationCallbacks());
-                }
+                _resource->As<VulkanShaderResource>()->DestroyShaderModules();
                 return vc::Error::Failure;
             }
         }
@@ -542,6 +542,7 @@ vc::Error VulkanShaderPipeline::LoadShader(const vc::String& shaderPath, VkPipel
         vc::Log::Error("Failed to create shader module");
         return vc::Error::Failure;
     }
+    printf("ShaderModule Creation: %d\n", ++count);
     pipelineCreateInfo->sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     pipelineCreateInfo->pName = "main";
     if (shaderPath.find("vert") != vc::String::npos || shaderPath.find("vertex") != vc::String::npos || shaderPath.find("vs") != vc::String::npos)

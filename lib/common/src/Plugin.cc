@@ -14,6 +14,8 @@ namespace venom
 {
 namespace common
 {
+static vc::Vector<Plugin *> s_plugins;
+
 Plugin::Plugin(const PluginType type)
     : __type(type)
     , __objects()
@@ -21,6 +23,12 @@ Plugin::Plugin(const PluginType type)
     , __objectsToRemoveLocked(false)
     , __objectsToRemoveNext()
 {
+    s_plugins.emplace_back(this);
+}
+
+vc::Vector<Plugin *> Plugin::GetAllPlugins()
+{
+    return s_plugins;
 }
 
 void Plugin::AddPluginObject(IPluginObject* object)
@@ -55,11 +63,26 @@ void Plugin::CleanPluginObjects()
 
 Plugin::~Plugin()
 {
+    TerminatePluginObjects();
+    // Erase itself from the list
+    std::erase(s_plugins, this);
+}
+
+void Plugin::TerminatePluginObjects()
+{
     // Cleaning objects in reverse order
     // Very important as some objects might depend on others (first object for instance will surely be the Application)
+    int i = __objects.size() - 1;
     for (auto ite = __objects.rbegin(); ite != __objects.rend(); ++ite) {
         ite->reset();
+        CleanPluginObjects();
+        --i;
     }
+//    for (int i = static_cast<int>(__objects.size()) - 1; i >= 0; --i) {
+//        __objects[i].reset();
+//        CleanPluginObjects();
+//    }
+    __objects.clear();
 }
 
 const PluginType Plugin::GetType() const

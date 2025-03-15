@@ -20,6 +20,12 @@ GraphicsPlugin::GraphicsPlugin()
     __graphicsResourceCache.reset(new vc::UMap<vc::String, vc::SPtr<GraphicsCachedResource>>());
 }
 
+void GraphicsPlugin::TerminatePluginObjects()
+{
+    __graphicsResourceCache.reset();
+    Plugin::TerminatePluginObjects();
+}
+
 GraphicsPlugin::~GraphicsPlugin()
 {
 }
