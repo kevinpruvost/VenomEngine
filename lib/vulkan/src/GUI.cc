@@ -29,6 +29,15 @@ VulkanGUI::VulkanGUI()
 VulkanGUI::~VulkanGUI()
 {
     ImGui_ImplVulkan_Shutdown();
+//    if (IS_CONTEXT_TYPE(GLFW)) {
+//        ImGui_ImplGlfw_Shutdown();
+//    }
+//#if defined(VENOM_PLATFORM_APPLE)
+//    else if (IS_CONTEXT_TYPE(Apple)) {
+//        _DestroyApple();
+//    }
+//#endif
+//    ImGui::DestroyContext();
 }
 
 void VulkanGUI::__SetStyle()
@@ -321,6 +330,10 @@ void VulkanGUI::_NewFrame()
 #if defined(VENOM_PLATFORM_APPLE)
     else if (IS_CONTEXT_TYPE(Apple)) {
         _NewFrameApple();
+        // ImGui bug when resizing windows with Apple context management
+        if (ImGui::GetIO().DeltaTime == 0.0f) {
+            ImGui::GetIO().DeltaTime = 1.0f / 60.0f;
+        }
     }
 #endif
     ImGui::NewFrame();
