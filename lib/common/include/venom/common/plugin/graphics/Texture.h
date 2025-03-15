@@ -56,7 +56,7 @@ public:
     TextureResource();
     virtual ~TextureResource();
 
-#ifdef VENOM_BINDLESS_TEXTURES
+#if defined(VENOM_BINDLESS_TEXTURES)
     inline int GetTextureID() const { return __textureID; }
 private:
     const int __textureID;
@@ -91,7 +91,7 @@ public:
     vc::Error CreateShadowMaps(int dimension);
     vc::Error CreateShadowCubeMaps(int dimension);
     static const TextureImpl * GetDummyTexture();
-#ifdef VENOM_BINDLESS_TEXTURES
+#if defined(VENOM_BINDLESS_TEXTURES)
     inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
 #endif
     virtual bool HasTexture() const = 0;
@@ -205,7 +205,7 @@ public:
     inline vc::Error SaveImageToFile(const char * path) { return _impl->As<TextureImpl>()->SaveImageToFile(path); }
 
     inline vc::Error GetGUITextureID(void ** ptrToTextureId) const { return _impl->As<TextureImpl>()->GetGUITextureID(ptrToTextureId); }
-#ifdef VENOM_BINDLESS_TEXTURES
+#if defined(VENOM_BINDLESS_TEXTURES)
     inline int GetTextureID() const { return _impl->As<TextureImpl>()->GetTextureID(); }
 #endif
 

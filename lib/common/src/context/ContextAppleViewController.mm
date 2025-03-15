@@ -18,7 +18,7 @@
 - (void)loadView
 {
     // Explicitly create an MTKView
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     _view = [[MTKView alloc] initWithFrame:NSMakeRect(0, 0, 800, 600)];
     self.view = _view;
 #else
@@ -65,7 +65,7 @@
 
 
 - (void)drawInMTKView:(nonnull MTKView *)view {
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     if (venom::context::apple::ContextApple::RunLoop() != vc::Error::Success) {
         [[NSApplication sharedApplication] stop:nil];
     }
@@ -75,12 +75,6 @@
 }
 
 - (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
-    CGSize sz = CGSizeMake(size.width / _view.window.backingScaleFactor, size.height / _view.window.backingScaleFactor);
-    auto test1 = _view.currentDrawable.layer.frame.size;
-    auto test2 = _view.drawableSize;
-    auto test3 = view.bounds.size;
-    auto test4 = view.window.backingScaleFactor;
-    auto test5 = view.bounds.size;
     venom::context::apple::ContextApple::GetAppleContext()->__UpdateWindowSize(view.bounds.size);
 }
 

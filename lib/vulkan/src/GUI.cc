@@ -6,6 +6,7 @@
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <imgui_internal.h>
+#include <venom/common/Platform.h>
 #include <venom/vulkan/Allocator.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/plugin/graphics/GUI.h>
@@ -29,11 +30,13 @@ VulkanGUI::VulkanGUI()
 VulkanGUI::~VulkanGUI()
 {
     ImGui_ImplVulkan_Shutdown();
+#if !defined(VENOM_DISABLE_GLFW)
     if (IS_CONTEXT_TYPE(GLFW)) {
         ImGui_ImplGlfw_Shutdown();
     }
+#endif
 #if defined(VENOM_PLATFORM_APPLE)
-    else if (IS_CONTEXT_TYPE(Apple)) {
+    if (IS_CONTEXT_TYPE(Apple)) {
         _DestroyApple();
     }
 #endif
@@ -124,11 +127,13 @@ vc::Error VulkanGUI::_Initialize()
 
     // Setup Platform/Renderer backends
 
+#if !defined(VENOM_DISABLE_GLFW)
     if (IS_CONTEXT_TYPE(GLFW)) {
         ImGui_ImplGlfw_InitForVulkan((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
     }
+#endif
 #if defined(VENOM_PLATFORM_APPLE)
-    else if (IS_CONTEXT_TYPE(Apple)) {
+    if (IS_CONTEXT_TYPE(Apple)) {
         _InitializeApple();
     }
 #endif
@@ -149,7 +154,7 @@ vc::Error VulkanGUI::_Initialize()
     initInfo.ImageCount = VENOM_MAX_FRAMES_IN_FLIGHT;
     initInfo.MSAASamples = static_cast<VkSampleCountFlagBits>(app->GetSwapChain()->GetSamples());
     initInfo.Allocator = Allocator::GetVKAllocationCallbacks();
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     initInfo.CheckVkResultFn = [](VkResult err)
     {
         if (err != VK_SUCCESS)
@@ -235,11 +240,13 @@ vc::Error VulkanGUI::_Reset()
 
     vc::Texture::UnloadAllGuiTextures();
     ImGui_ImplVulkan_Shutdown();
+#if !defined(VENOM_DISABLE_GLFW)
     if (IS_CONTEXT_TYPE(GLFW)) {
         ImGui_ImplGlfw_Shutdown();
     }
+#endif
 #if defined(VENOM_PLATFORM_APPLE)
-    else if (IS_CONTEXT_TYPE(Apple)) {
+    if (IS_CONTEXT_TYPE(Apple)) {
         _DestroyApple();
     }
 #endif
@@ -326,11 +333,13 @@ vc::GUIViewport VulkanGUI::_GetMainViewport()
 void VulkanGUI::_NewFrame()
 {
     ImGui_ImplVulkan_NewFrame();
+#if !defined(VENOM_DISABLE_GLFW)
     if (IS_CONTEXT_TYPE(GLFW)) {
         ImGui_ImplGlfw_NewFrame();
     }
+#endif
 #if defined(VENOM_PLATFORM_APPLE)
-    else if (IS_CONTEXT_TYPE(Apple)) {
+    if (IS_CONTEXT_TYPE(Apple)) {
         _NewFrameApple();
         // ImGui bug when resizing windows with Apple context management
         if (ImGui::GetIO().DeltaTime == 0.0f) {

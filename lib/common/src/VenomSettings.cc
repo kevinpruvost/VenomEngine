@@ -9,7 +9,7 @@
 #include <venom/common/Log.h>
 #include <venom/common/Debug.h>
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 #define IS_VENOM_DEBUG true
 #else
 #define IS_VENOM_DEBUG false

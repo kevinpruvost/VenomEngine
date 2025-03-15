@@ -11,7 +11,7 @@
 #define VENOM_DEBUG
 #endif
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 #define _ANALYSIS
 #define DEBUG_CODE(code) code
 #else

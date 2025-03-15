@@ -13,7 +13,13 @@ namespace common
 {
 Config::Config()
     : __graphicsPluginType(GraphicsPlugin::GraphicsPluginType::Vulkan)
+#if !defined(VENOM_DISABLE_GLFW)
     , __contextType(Context::ContextType::GLFW)
+#elif defined(VENOM_PLATFORM_APPLE)
+    , __contextType(Context::ContextType::Apple)
+#else
+#error "No context type defined"
+#endif
 {
 }
 

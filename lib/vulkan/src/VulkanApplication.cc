@@ -50,7 +50,7 @@ VulkanApplication::~VulkanApplication()
     vc::Log::Print("Destroying Vulkan app...");
     // Set global physical device back to nullptr
     PhysicalDevice::SetUsedPhysicalDevice(nullptr);
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     if (__debugMessenger) {
         auto destroyDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkDestroyDebugUtilsMessengerEXT"));
         destroyDebugUtilsMessengerEXT(Instance::GetVkInstance(), __debugMessenger, Allocator::GetVKAllocationCallbacks());
@@ -232,7 +232,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
                 vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
                 {
                 int index;
-                #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+                #if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
                 index = transform.GetModelMatrixId();
                 #endif
                 __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *reflectionRenderingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
@@ -263,7 +263,7 @@ vc::Error VulkanApplication::__GraphicsOperations()
                     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
                     {
                         int index;
-                    #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+                    #if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
                         index = transform.GetModelMatrixId();
                     #endif
                         __graphicsSceneCheckpointCommandBuffers[_currentFrame]->DrawModel(model.GetImpl()->As<VulkanModel>(), index, *lightingPipeline[0].GetImpl()->As<VulkanShaderPipeline>());
@@ -468,7 +468,7 @@ vc::Error VulkanApplication::__GraphicsShadowMapOperationPerLight(const vc::Ligh
     vc::ECS::GetECS()->ForEach<vc::Model, vc::Transform3D>([&](vc::Entity entity, vc::Model & model, vc::Transform3D & transform)
     {
         int index;
-    #ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+    #if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
         index = transform.GetModelMatrixId();
     #endif
         auto name = entity.name();

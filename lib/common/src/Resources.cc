@@ -139,7 +139,7 @@ vc::String Resources::GetShadersFolderPath()
 {
     return GetResourcePath(
        Config::GetGraphicsPluginType() == GraphicsPlugin::GraphicsPluginType::Vulkan ?
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
         "shaders/Debug/"
 #else
         "shaders/Release/"

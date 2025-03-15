@@ -24,7 +24,6 @@ add_library(${PROJECT_NAME} SHARED
     ${venom_metal_srcs} ${venom_metal_hdrs}
     ${IMGUI_SOURCES}
     ${IMGUI_METAL_SOURCE}
-    ${IMGUI_OSX_SOURCE}
 )
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${venom_context_apple_include_dirs}
@@ -33,6 +32,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 if (NOT CMAKE_SYSTEM_NAME MATCHES "iOS")
     target_include_directories(${PROJECT_NAME} PUBLIC
         ${venom_context_glfw_include_dirs}
+    )
+endif ()
+if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    target_sources(${PROJECT_NAME} PUBLIC
+        ${IMGUI_OSX_SOURCE}
     )
 endif ()
 set_target_properties(${PROJECT_NAME} PROPERTIES

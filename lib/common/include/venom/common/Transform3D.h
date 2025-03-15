@@ -75,7 +75,7 @@ public:
     const vcm::Mat4 & GetModelMatrix(); // Get the model matrix of the camera
     vcm::Mat4 & GetModelMatrixMut(); // Get the model matrix for mutation
 
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     inline int GetModelMatrixId() {
         return ShaderResourceTable::GetModelMatrixBufferId(_modelMatrix);
     }
@@ -87,7 +87,7 @@ private:
      * @return
      */
     inline vcm::Mat4 & __GetModelMatrix() {
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
         return *_modelMatrix;
 #else
         return _modelMatrix;
@@ -109,7 +109,7 @@ protected:
             float _pitch,_yaw, _roll;
         };
     };
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     vcm::Mat4 * _modelMatrix;
 #else
     vcm::Mat4 _modelMatrix;

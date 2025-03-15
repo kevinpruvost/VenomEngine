@@ -55,7 +55,7 @@ MetalApplication::~MetalApplication()
     DestroyLayer();
     DestroyCommandQueue();
     DestroyDevice();
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 #endif
     vc::Log::Print("Metal app succesfully destroyed.");
 }

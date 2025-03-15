@@ -26,7 +26,7 @@
 
 #include <venom/common/context/ContextApple.h>
 
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
 
 #define GLFW_INCLUDE_NONE
 #define GLFW_EXPOSE_NATIVE_COCOA

@@ -27,21 +27,21 @@ namespace venom
 {
 namespace common
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 static vc::Vector<ModelImpl *> s_debugModels;
 #endif
 
 ModelImpl::ModelImpl()
     : GraphicsPluginObject()
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     s_debugModels.emplace_back(this);
 #endif
 }
 
 ModelImpl::~ModelImpl()
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
      s_debugModels.erase(std::remove(s_debugModels.begin(), s_debugModels.end(), this), s_debugModels.end());
 #endif
 }
@@ -192,7 +192,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
         return vc::Error::Failure;
     }
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     __name = realPath;
 #endif
 
@@ -312,7 +312,7 @@ vc::Error ModelImpl::ImportModel(const char * path)
                         break;
                 }
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
                 Log::LogToFile("Property Name: %s", property->mKey.C_Str());
                 Log::LogToFile("Property Semantic: %d", property->mSemantic);
                 Log::LogToFile("Property Index: %d", property->mIndex);

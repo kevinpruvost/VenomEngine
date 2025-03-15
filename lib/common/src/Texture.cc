@@ -59,7 +59,7 @@ Texture::~Texture()
 }
 
 TextureResource::TextureResource()
-#ifdef VENOM_BINDLESS_TEXTURES
+#if defined(VENOM_BINDLESS_TEXTURES)
     : __textureID(ShaderResourceTable::BindTexture())
 #endif
 {
@@ -67,7 +67,7 @@ TextureResource::TextureResource()
 
 TextureResource::~TextureResource()
 {
-#ifdef VENOM_BINDLESS_TEXTURES
+#if defined(VENOM_BINDLESS_TEXTURES)
     ShaderResourceTable::UnbindTexture(__textureID);
 #endif
 }

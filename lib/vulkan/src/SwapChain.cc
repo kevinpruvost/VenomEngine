@@ -114,10 +114,11 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     // Extent, if currentExtent is std::numeric_limits<uint32_t>::max(), then the extent can vary, else it's the currentExtent
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
         extent = capabilities.currentExtent;
-#if defined(VENOM_PLATFORM_APPLE)
+#if defined(VENOM_PLATFORM_MACOS)
         if (IS_CONTEXT_TYPE(Apple)) {
-            // Weird workaround for how bad ImGui handles DPI scales with Apple Context Management
+            // Weird workaround for how bad ImGui handles DPI scales with Apple Context Management, on iOS, scales are not a thing for UIKit so just macOS
             int cmpH = venom::context::apple::ContextApple::GetWindowHeight();
+            float scale = vc::Context::GetWindowScale();
             if (extent.height != cmpH * vc::Context::GetWindowScale()) {
                 extent.width = venom::context::apple::ContextApple::GetWindowWidth();
                 extent.height = cmpH;
@@ -125,6 +126,7 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
         }
 #endif
     } else {
+#if !defined(VENOM_DISABLE_GLFW)
         if (IS_CONTEXT_TYPE(GLFW)) {
             // Gets the window size in terms of total pixels, not to confuse with screen coordinates
             // Otherwise we would be using glfwGetWindowSize
@@ -133,10 +135,12 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
             
             extent.width = std::clamp<uint32_t>(w, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
             extent.height = std::clamp<uint32_t>(h, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
-        } else {
+        } else
+#endif
+        {
             vc::Log::Error("Can't get extent.");
+            return vc::Error::Failure;
         }
-        return vc::Error::Failure;
     }
 
     // Viewport

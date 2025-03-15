@@ -58,6 +58,7 @@ vc::Error Surface::CreateSurface(vc::Context* context)
     Destroy();
     auto contextType = vc::Config::GetContextType();
     switch (contextType) {
+#if !defined(VENOM_DISABLE_GLFW)
         case vc::Context::ContextType::GLFW: {
 #if defined(VENOM_PLATFORM_WINDOWS)
             VkWin32SurfaceCreateInfoKHR createInfo{};
@@ -96,6 +97,7 @@ vc::Error Surface::CreateSurface(vc::Context* context)
 #endif
             break;
         };
+#endif
 #if defined(VENOM_PLATFORM_APPLE)
         case vc::Context::ContextType::Apple: {
             VkMetalSurfaceCreateInfoEXT surfaceInfo = {};

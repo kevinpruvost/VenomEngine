@@ -7,7 +7,7 @@
 ///
 #include "MainScene.h"
 
-void SceneSokol(const vc::ScenePhase phase)
+void Scene(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, helmet, camera, light3, light4, focusPoint;
     int nbTiles = 1;
@@ -20,7 +20,7 @@ void SceneSokol(const vc::ScenePhase phase)
 
             helmet = vc::CreateEntity("Helmet")
 //            .emplace<vc::Model>("eye/eye.glb")
-            .emplace<vc::Model>("/Volumes/Kevin潘凯文/Youtube/Video1/Resources/sokol-space-suit.glb")
+            .emplace<vc::Model>("sokol/sokol-space-suit.glb")
             ;
             ;
 

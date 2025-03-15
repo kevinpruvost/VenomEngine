@@ -153,7 +153,7 @@ void CommandBuffer::DrawMesh(const VulkanMesh * vulkanMesh, const int firstInsta
     {
         VulkanMaterial * material = vulkanMesh->GetMaterial().GetImpl()->ConstAs<VulkanMaterial>();
 
-#ifdef VENOM_BINDLESS_TEXTURES
+#if defined(VENOM_BINDLESS_TEXTURES)
         // TODO: Bindless textures
 #endif
         {

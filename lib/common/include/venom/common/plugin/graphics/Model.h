@@ -44,7 +44,7 @@ public:
 private:
     friend class Model;
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     vc::String __name;
 #endif
 };

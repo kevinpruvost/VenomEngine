@@ -66,7 +66,7 @@ public:
     static void UpdateDescriptor(const SetsIndex index, const int binding, const void * data, const size_t size, const size_t offset = 0);
     static void UpdateDescriptor(const SetsIndex index, const int binding, vc::Texture * texture);
 
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     static vcm::Mat4 * GetAllModelMatrixBuffer();
     static vcm::Mat4 * GetModelMatrixBuffer();
     static inline size_t GetAllModelMatrixBytesSize() { return VENOM_MAX_ENTITIES * sizeof(vcm::Mat4); }

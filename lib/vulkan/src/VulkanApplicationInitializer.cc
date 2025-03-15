@@ -385,7 +385,7 @@ bool VulkanApplication::__IsDeviceSuitable(const VkDeviceCreateInfo * createInfo
 
     vc::Set<vc::String> requiredExtensions(createInfo->ppEnabledExtensionNames, createInfo->ppEnabledExtensionNames + createInfo->enabledExtensionCount);
     for (const auto& extension : availableExtensions) {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
         vc::Log::LogToFile("Available extension: %s", extension.extensionName);
 #endif
         requiredExtensions.erase(extension.extensionName);
@@ -420,7 +420,7 @@ void VulkanApplication::__ChangeShadowMapsLayout(VkImageLayout oldLayout, VkImag
 vc::Error VulkanApplication::__CreateInstance()
 {
     vc::Error err;
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     err = Instance::CreateInstance(&__instance, this);
 #else
     err = Instance::CreateInstance(&__instance);

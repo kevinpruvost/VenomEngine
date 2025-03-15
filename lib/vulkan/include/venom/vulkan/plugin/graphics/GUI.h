@@ -9,7 +9,9 @@
 #include <venom/common/plugin/graphics/GUI.h>
 
 #include <imgui.h>
+#if !defined(VENOM_DISABLE_GLFW)
 #include <imgui_impl_glfw.h>
+#endif
 #include <imgui_impl_vulkan.h>
 
 namespace venom

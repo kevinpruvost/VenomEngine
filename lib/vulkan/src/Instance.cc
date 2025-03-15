@@ -56,7 +56,7 @@ void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfo
     createInfos->flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 #endif
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     __instanceExtensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     vc::Log::Print("Instance Extensions:");
     for (const char * extension : __instanceExtensions) {
@@ -68,14 +68,14 @@ void Instance::__Instance_GetRequiredExtensions(VkInstanceCreateInfo* createInfo
     createInfos->ppEnabledExtensionNames = __instanceExtensions.data();
 }
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 void Instance::__SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* createInfos, DebugApplication * debugApp)
 #else
 void Instance::__SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* createInfos)
 #endif
 {
     // Validation Layers
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     createInfos->enabledLayerCount = static_cast<uint32_t>(debugApp->__validationLayersInUse.size());
     createInfos->ppEnabledLayerNames = debugApp->__validationLayersInUse.data();
 
@@ -91,7 +91,7 @@ void Instance::__SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* cre
 #endif
 }
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 vc::Error Instance::CreateInstance(Instance * instance, DebugApplication * debugApp)
 #else
 vc::Error Instance::CreateInstance(Instance * instance)
@@ -115,7 +115,7 @@ vc::Error Instance::CreateInstance(Instance * instance)
     s_instance->__Instance_GetRequiredExtensions(&createInfo);
 
     // Set Validation Layers parameters in VulkanDebugApplication
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     s_instance->__SetInstanceCreateInfoValidationLayers(&createInfo, debugApp);
 #else
     s_instance->__SetInstanceCreateInfoValidationLayers(&createInfo);
@@ -124,7 +124,7 @@ vc::Error Instance::CreateInstance(Instance * instance)
     if (auto res = vkCreateInstance(&createInfo, Allocator::GetVKAllocationCallbacks(), &s_instance->__instance); res != VK_SUCCESS)
     {
         vc::Log::Error("Error during Vulkan instance creation, error code: %d", res);
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
         if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
             uint32_t extensionCount = 0;
             vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);

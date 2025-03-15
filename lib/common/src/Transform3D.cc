@@ -23,7 +23,7 @@ Transform3D::Transform3D()
     , __positionDirty(true)
     , __modelDirty(true)
     , _yaw(0), _pitch(0), _roll(0)
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     , _modelMatrix(ShaderResourceTable::GetModelMatrixBuffer())
 #else
     , _modelMatrix(vcm::Identity())
@@ -33,7 +33,7 @@ Transform3D::Transform3D()
 
 Transform3D::~Transform3D()
 {
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     if (_modelMatrix) ShaderResourceTable::ReleaseModelMatrixBuffer(_modelMatrix);
 #endif
 }
@@ -50,7 +50,7 @@ Transform3D::Transform3D(const Transform3D& other)
     , _modelMatrix(other._modelMatrix)
 #endif
 {
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     _modelMatrix = ShaderResourceTable::GetModelMatrixBuffer();
     *_modelMatrix = *other._modelMatrix;
 #endif
@@ -69,7 +69,7 @@ Transform3D& Transform3D::operator=(const Transform3D& other)
         _yaw = other._yaw;
         _pitch = other._pitch;
         _roll = other._roll;
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
         _modelMatrix = ShaderResourceTable::GetModelMatrixBuffer();
         *_modelMatrix = *other._modelMatrix;
 #else
@@ -91,7 +91,7 @@ Transform3D::Transform3D(Transform3D&& other) noexcept
     , _pitch(other._pitch)
     , _roll(other._roll)
 {
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
     other._modelMatrix = nullptr;
 #endif
 }
@@ -110,7 +110,7 @@ Transform3D& Transform3D::operator=(Transform3D&& other) noexcept
         _yaw = other._yaw;
         _pitch = other._pitch;
         _roll = other._roll;
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
         other._modelMatrix = nullptr;
 #endif
     }

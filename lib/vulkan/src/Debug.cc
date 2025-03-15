@@ -15,7 +15,7 @@ namespace venom::vulkan
 {
 
 DebugApplication::DebugApplication()
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     : __validationLayersInUse()
     , __debugMessenger(VK_NULL_HANDLE)
     , __debugMessengerCreateInfo{}
@@ -29,7 +29,7 @@ DebugApplication::~DebugApplication()
 
 vc::Error DebugApplication::InitDebug()
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     vc::Error res;
     if (res = __InitValidationLayers(); res != vc::Error::Success)
     {
@@ -72,7 +72,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
 void DebugApplication::_SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo* createInfos)
 {
     // Validation Layers
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     createInfos->enabledLayerCount = static_cast<uint32_t>(__validationLayersInUse.size());
     createInfos->ppEnabledLayerNames = __validationLayersInUse.data();
 
@@ -91,7 +91,7 @@ void DebugApplication::_SetInstanceCreateInfoValidationLayers(VkInstanceCreateIn
 template <>
 void DebugApplication::_SetCreateInfoValidationLayers(VkDeviceCreateInfo* createInfos)
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     createInfos->enabledLayerCount = static_cast<uint32_t>(__validationLayersInUse.size());
     createInfos->ppEnabledLayerNames = __validationLayersInUse.data();
 #else
@@ -102,7 +102,7 @@ void DebugApplication::_SetCreateInfoValidationLayers(VkDeviceCreateInfo* create
 
 vc::Error DebugApplication::_PostInstance_SetDebugParameters()
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     // Debug Utils Messenger
     auto createDebugUtilsMessengerEXT = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(Instance::GetVkInstance(), "vkCreateDebugUtilsMessengerEXT"));
     if (createDebugUtilsMessengerEXT(Instance::GetVkInstance(), &__debugMessengerCreateInfo, Allocator::GetVKAllocationCallbacks(), &__debugMessenger) != VK_SUCCESS) {
@@ -136,7 +136,7 @@ void DebugApplication::_UpdateTheoreticalFPS(uint32_t microsecondsWaitedOnVSync)
 
 vc::Error DebugApplication::__InitValidationLayers()
 {
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
     constexpr const char * validationLayers[] = {
         "VK_LAYER_KHRONOS_validation",
         "VK_LAYER_KHRONOS_shader_object",

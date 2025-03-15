@@ -48,7 +48,7 @@ public:
 }
 }
 
-#ifdef VENOM_DEBUG
+#if defined(VENOM_DEBUG)
 #define DEBUG_PRINT(...) vc::Log::Print(__VA_ARGS__)
 #define DEBUG_LOG(...) vc::Log::LogToFile(__VA_ARGS__)
 

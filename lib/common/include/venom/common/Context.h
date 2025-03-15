@@ -134,8 +134,10 @@ public:
 public:
     enum class ContextType
     {
+#if !defined(VENOM_DISABLE_GLFW)
         GLFW = 0,
-#ifdef __APPLE__
+#endif
+#if defined(VENOM_PLATFORM_APPLE)
         Apple, // UIKit / Cocoa
 #endif
         Count

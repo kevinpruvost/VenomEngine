@@ -37,7 +37,7 @@ void ShaderResourceTable::UpdateDescriptor(const SetsIndex index, const int bind
     s_shaderResourceTable->__UpdateDescriptor(index, binding, texture);
 }
 
-#ifdef VENOM_EXTERNAL_PACKED_MODEL_MATRIX
+#if defined(VENOM_EXTERNAL_PACKED_MODEL_MATRIX)
 // Model matrix buffers
 
 class ExternalModelMatrixManager

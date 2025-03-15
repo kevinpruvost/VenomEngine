@@ -23,7 +23,7 @@ namespace apple
 {
 ContextApple::ContextApple()
 {
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     [NSApplication sharedApplication];
 #else
     [UIApplication sharedApplication];
@@ -48,7 +48,7 @@ void* ContextApple::GetMetalLayer()
 
 ContextApple::~ContextApple()
 {
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     if (GetAppleWindow())
         [GetAppleWindow() close];
 #else
@@ -67,7 +67,7 @@ vc::Error ContextApple::Run(int argc, const char * argv[])
     venom_assert(_preRunLoopFunction, "Context::Run() : No post run loop function set");
     venom_assert(_runLoopFunction, "Context::Run() : No run loop function set");
     int ret;
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     ret = NSApplicationMain(argc, argv);
 #else
     // Cast argv as UIApplicationMain prototype is different
@@ -79,7 +79,7 @@ vc::Error ContextApple::Run(int argc, const char * argv[])
 
 void ContextApple::_SetWindowTitle(const char* title)
 {
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     [__contextAppleData.__window setTitle:[NSString stringWithUTF8String:title]];
 #else
     // No equivalent for iOS
@@ -146,7 +146,7 @@ vc::Error ContextApple::_UpdateScreen()
 
 vc::Error ContextApple::_SetFullscreen()
 {
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     [GetAppleWindow() toggleFullScreen:nil];
 #else
     // No equivalent for iOS
@@ -156,7 +156,7 @@ vc::Error ContextApple::_SetFullscreen()
 
 bool ContextApple::_ShouldClose()
 {
-#ifdef VENOM_PLATFORM_MACOS
+#if defined(VENOM_PLATFORM_MACOS)
     return ![GetAppleWindow() isVisible];
 #else
     return GetAppleWindow().isHidden;
@@ -174,7 +174,11 @@ void ContextApple::__GiveMetalLayer(CAMetalLayer * layer)
 
 void ContextApple::__UpdateWindowSize(CGSize size)
 {
+#if defined(VENOM_PLATFORM_MACOS)
     _scale = GetAppleWindow().screen.backingScaleFactor;
+#elif defined(VENOM_PLATFORM_IOS)
+    _scale = GetAppleWindow().screen.scale;
+#endif
     _width = size.width;
     _height = size.height;
     vc::GraphicsSettings::SetWindowResolution(_width, _height);
