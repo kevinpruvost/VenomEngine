@@ -50,6 +50,21 @@ public:
     inline vc::Error Loop() { return _runLoopFunction(); }
     static inline vc::Error RunLoop() { return GetAppleContext()->Loop(); }
     static void * GetMetalLayer();
+    
+    inline void __SetKeyboardState(vc::KeyboardInput key, vc::InputState state) { _SetKeyboardState(key, state); }
+    inline void __SetMouseState(vc::MouseButton button, vc::InputState state) { _SetMouseState(button, state); }
+    inline void __AddKeyReleasedEvent(vc::KeyboardInput key) { _AddKeyReleasedEvent(key); }
+    inline void __AddMouseReleasedEvent(vc::MouseButton button) { _AddMouseReleasedEvent(button); }
+    inline void __SetKeyboardModifierState(bool shift, bool control, bool alt, bool super) { _SetKeyboardModifierState(shift, control, alt, super); }
+    inline void __SetCursorPosition(double x, double y) { __mouseX = x; __mouseY = y; };
+#if defined(VENOM_PLATFORM_MOBILE)
+    inline void __SetVirtualJoystickPress(bool enable) { _SetVirtualJoystickPress(enable); }
+    inline void __SetVirtualCameraPress(bool enable) { _SetVirtualCameraPress(enable); }
+    inline void __SetVirtualJoystickMovement(double x, double y) { _SetVirtualJoystickMovement(x, y); }
+    inline void __SetVirtualCameraRotation(double x, double y) { _SetVirtualCameraRotation(x, y); }
+    inline void __TriggerPreviousAction() { _TriggerPreviousAction(); }
+    inline void __TriggerNextAction() { _TriggerNextAction(); }
+#endif
 
 #ifdef __OBJC__
     void __GiveMetalLayer(CAMetalLayer * layer);
@@ -73,6 +88,8 @@ private:
     ContextAppleData __contextAppleData;
     ContextAppleData * GetData();
 #endif
+    double __mouseX;
+    double __mouseY;
 };
 
 }

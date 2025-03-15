@@ -8,10 +8,11 @@
 #include "MainScene.h"
 #include "../lib/external/imgui/imgui.h"
 
-bool cameraLocked = true;
 #if defined(VENOM_PLATFORM_MOBILE)
+bool cameraLocked = false;
 bool automaticTurn = true;
 #else
+bool cameraLocked = true;
 bool automaticTurn = false;
 #endif
 
@@ -24,6 +25,7 @@ void SceneInput(vc::Context * context)
     timer_uni.Reset();
     if (cameraLocked == false) {
         // Camera controls
+#if !defined(VENOM_PLATFORM_MOBILE)
         if (context->IsKeyPressed(vc::KeyboardInput::KeyboardW)) {
             vc::Camera::GetMainCamera()->MoveForward(cameraSpeed * vc::Timer::GetLambdaSeconds());
         }
@@ -47,6 +49,18 @@ void SceneInput(vc::Context * context)
             vc::Camera::GetMainCamera()->RotateYaw( -mouseMov.x * 0.0025f);
             vc::Camera::GetMainCamera()->RotatePitch(-mouseMov.y * 0.0025f);
         }
+#else
+        if (context->IsVirtualJoystickPressed()) {
+            const vcm::Vec2 & cameraMov = context->GetJoystickMovement();
+            vc::Camera::GetMainCamera()->MoveForward(0.025f * cameraSpeed * vc::Timer::GetLambdaSeconds() * cameraMov.y);
+            vc::Camera::GetMainCamera()->MoveRight(0.025f * cameraSpeed * vc::Timer::GetLambdaSeconds() * cameraMov.x);
+        }
+        if (context->IsVirtualCameraPressed()) {
+            const vcm::Vec2 & cameraMov = context->GetCameraRotation();
+            vc::Camera::GetMainCamera()->RotateYaw(-cameraMov.x * 0.00025f);
+            vc::Camera::GetMainCamera()->RotatePitch(-cameraMov.y * 0.00025f);
+        }
+#endif
     }
 
     if (automaticTurn) {

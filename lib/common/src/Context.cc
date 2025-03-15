@@ -102,6 +102,16 @@ Context::Context()
     , _currentVideoModeIndex(0)
     , _fullscreen(false)
     , _scale(1.0f)
+#if defined(VENOM_PLATFORM_MOBILE)
+    , __virtualJoystickPressed(false)
+    , __virtualCameraPressed(false)
+    , __virtualJoystickReleased(false)
+    , __virtualCameraReleased(false)
+    , __triggerPreviousAction(false)
+    , __triggerNextAction(false)
+    , __virtualJoystickMovement{0.0, 0.0}
+    , __virtualCameraRotation{0.0, 0.0}
+#endif
 {
     venom_assert(s_context == nullptr, "Context::Context() : Context already exists");
     s_context = this;
@@ -195,6 +205,20 @@ void Context::PollEvents()
         __mouseState[__mouseReleasedStack.top()] = InputState::Unknown;
         __mouseReleasedStack.pop();
     }
+#if defined(VENOM_PLATFORM_MOBILE)
+    if (__triggerPreviousAction) {
+        __triggerPreviousAction = false;
+    }
+    if (__triggerNextAction) {
+        __triggerNextAction = false;
+    }
+    if (__virtualJoystickReleased) {
+        __virtualJoystickReleased = false;
+    }
+    if (__virtualCameraReleased) {
+        __virtualCameraReleased = false;
+    }
+#endif
 
     _PollEvents();
 

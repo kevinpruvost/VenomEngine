@@ -174,6 +174,24 @@ public:
     vc::Error ChangeRefreshRate(int rate);
     vc::Error ChangeVideoMode(int index);
     vc::Error ChangeScreen(int index);
+#if defined(VENOM_PLATFORM_MOBILE)
+    inline bool IsVirtualJoystickPressed() const { return __virtualJoystickPressed; }
+    inline bool IsVirtualCameraPressed() const { return __virtualCameraPressed; }
+    inline bool IsVirtualJoystickReleased() const { return __virtualJoystickReleased; }
+    inline bool IsVirtualCameraReleased() const { return __virtualCameraReleased; }
+    inline vcm::Vec2 GetJoystickMovement() const { return vcm::Vec2(static_cast<float>(__virtualJoystickMovement[0]), static_cast<float>(__virtualJoystickMovement[1])); }
+    inline vcm::Vec2 GetCameraRotation() const { return vcm::Vec2(static_cast<float>(__virtualCameraRotation[0]), static_cast<float>(__virtualCameraRotation[1])); }
+    /**
+     * @brief Trigger the previous action, when the user slides from left to right to the edge of the screen.
+     * @return true for 1 frame, after that PollEvents will reset the value to false.
+     */
+    inline bool IsTriggerPreviousAction() const { return __triggerPreviousAction; }
+    /**
+     * @brief Trigger the next action, when the user slides from right to left to the edge of the screen.
+     * @return true for 1 frame, after that PollEvents will reset the value to false.
+     */
+    inline bool IsTriggerNextAction() const { return __triggerNextAction; }
+#endif
 
     //
     // Context Abstraction
@@ -211,6 +229,14 @@ protected:
         if (alt) __keyboardModifierState |= KeyboardModifier::KeyboardModAlt;
         if (super) __keyboardModifierState |= KeyboardModifier::KeyboardModSuper;
     }
+#if defined(VENOM_PLATFORM_MOBILE)
+    inline void _SetVirtualJoystickPress(bool enable) { if (__virtualJoystickPressed) __virtualJoystickReleased = true; __virtualJoystickPressed = enable; }
+    inline void _SetVirtualCameraPress(bool enable) { if (__virtualCameraPressed) __virtualCameraReleased = true; __virtualCameraPressed = enable; }
+    inline void _SetVirtualJoystickMovement(double x, double y) { __virtualJoystickMovement[0] = x; __virtualJoystickMovement[1] = y; }
+    inline void _SetVirtualCameraRotation(double x, double y) { __virtualCameraRotation[0] = x; __virtualCameraRotation[1] = y; }
+    inline void _TriggerPreviousAction() { __triggerPreviousAction = true; }
+    inline void _TriggerNextAction() { __triggerNextAction = true; }
+#endif
 protected:
     int _currentScreenIndex;
     int _currentVideoModeIndex;
@@ -230,6 +256,14 @@ private:
     KeyboardModifierState __keyboardModifierState;
     vc::Stack<KeyboardInput> __keyReleasedStack;
     vc::Stack<MouseButton> __mouseReleasedStack;
+#if defined(VENOM_PLATFORM_MOBILE)
+    bool __virtualJoystickPressed, __virtualCameraPressed;
+    bool __virtualJoystickReleased, __virtualCameraReleased;
+    double __virtualJoystickMovement[2];
+    double __virtualCameraRotation[2];
+    bool __triggerPreviousAction;
+    bool __triggerNextAction;
+#endif
 
     double __mousePos[2];
     double __mouseLastPos[2];

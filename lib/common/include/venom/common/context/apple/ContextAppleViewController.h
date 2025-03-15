@@ -9,6 +9,7 @@
 
 #include <venom/common/Platform.h>
 #include <venom/common/context/apple/ContextAppleInfo.h>
+#include <venom/common/Context.h>
 
 #if defined(VENOM_PLATFORM_IOS)
 #import <UIKit/UIKit.h>
@@ -24,3 +25,6 @@
 @interface ContextAppleViewController : PlatformViewController <MTKViewDelegate>
 
 @end
+
+vc::KeyboardInput convertAppleKeyToVCKey(unsigned short keyCode);
+unsigned short convertVCKeyToAppleKey(vc::KeyboardInput keyCode);

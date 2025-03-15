@@ -86,7 +86,11 @@ if (APPLE)
         set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
     endif()
 
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "15")
+    if (CMAKE_SYSTEM_NAME MATCHES "iOS")
+        set(CMAKE_OSX_DEPLOYMENT_TARGET "18.0")
+    else()
+        set(CMAKE_OSX_DEPLOYMENT_TARGET "15")
+    endif ()
     set(XCODE_VERSION "16.0")
 
     include(./CMake/ios.toolchain_extended.cmake)

@@ -22,6 +22,8 @@ namespace context
 namespace apple
 {
 ContextApple::ContextApple()
+    : __mouseX(0.0f)
+    , __mouseY(0.0f)
 {
 #if defined(VENOM_PLATFORM_MACOS)
     [NSApplication sharedApplication];
@@ -165,6 +167,8 @@ bool ContextApple::_ShouldClose()
 
 void ContextApple::_GetCursorPos(double* pos)
 {
+    pos[0] = __mouseX;
+    pos[1] = __mouseY;
 }
 
 void ContextApple::__GiveMetalLayer(CAMetalLayer * layer)
