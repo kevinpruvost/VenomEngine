@@ -13,10 +13,12 @@
 @implementation ContextAppleViewController
 {
     MTKView *_view;
+#if defined(VENOM_PLATFORM_IOS)
     CGPoint leftTouchStart;  // Left touch (movement)
     CGPoint rightTouchStart; // Right touch (rotation)
     UITouch *leftTouch;
     UITouch *rightTouch;
+#endif
 }
 
 - (void)loadView

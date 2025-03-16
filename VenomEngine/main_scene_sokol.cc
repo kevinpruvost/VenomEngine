@@ -7,7 +7,7 @@
 ///
 #include "MainScene.h"
 
-void Scene(const vc::ScenePhase phase)
+void SceneSokol(const vc::ScenePhase phase)
 {
     static vc::Entity cubemap, helmet, camera, light3, light4, focusPoint;
     int nbTiles = 1;

@@ -109,7 +109,9 @@ vc::Error MetalApplication::__Loop()
     MTLRenderPassDescriptor * renderPassDescriptor = MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor();
     id <MTLRenderPipelineState> renderPipelineState = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Skybox)[0].GetImpl()->As<MetalShaderPipeline>()->GetRenderPipelineState();
     id <CAMetalDrawable> drawable = [getGlobalMetalLayer() nextDrawable];
+    renderPassDescriptor.colorAttachments;
     renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
+    auto test = drawable.texture.sampleCount;
 
     // Create a render command encoder.
     id<MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];

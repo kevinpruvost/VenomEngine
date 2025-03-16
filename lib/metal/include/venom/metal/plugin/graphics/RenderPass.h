@@ -13,6 +13,7 @@
 #include <venom/metal/Device.h>
 
 @interface MetalRenderPassData : NSObject
+    @property (nonatomic, strong) MTLRenderPassDescriptor *renderPassDescriptor;
 @end
 
 #endif
