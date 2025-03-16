@@ -53,7 +53,7 @@
         if ([newLayer respondsToSelector:@selector(setWantsExtendedDynamicRangeContent:)]) {
             newLayer.wantsExtendedDynamicRangeContent = layer.wantsExtendedDynamicRangeContent; // If using HDR
         }
-        newLayer.maximumDrawableCount = layer.maximumDrawableCount; // multisampling
+        newLayer.maximumDrawableCount = layer.maximumDrawableCount; // frames in flight
 
         [layer release];
 
@@ -103,11 +103,25 @@
     venom::context::apple::ContextApple::GetAppleContext()->PollEvents();
 }
 
-- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
+- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size
+{
+    // Adapt the preferred frame rate to the screen's maximum frame rate
+    static AppleScreen *screen = nil;
+    if (view.window.screen != screen) {
+        screen = view.window.screen;
+        _view.preferredFramesPerSecond = screen.maximumFramesPerSecond;
+    }
+    
     venom::context::apple::ContextApple::GetAppleContext()->__UpdateWindowSize(view.bounds.size);
 }
 
 #if defined(VENOM_PLATFORM_MACOS)
+
+- (void)viewDidAppear {
+    [super viewDidAppear];
+    
+    [self.view.window makeFirstResponder:self.view];
+}
 
 - (BOOL)acceptsFirstResponder {
     return YES;
@@ -118,6 +132,7 @@
 {
     NSPoint location = event.locationInWindow;
     CGFloat windowHeight = self.view.frame.size.height; // Get the window height
+    //NSLog(@"Mouse moved: %f, %f", location.x, location.y);
 
     // Y axis reversed
     venom::context::apple::ContextApple::GetAppleContext()->__SetCursorPosition(location.x, windowHeight - location.y);
@@ -127,6 +142,7 @@
 {
     vc::MouseButton button = static_cast<vc::MouseButton>(event.buttonNumber);
     const vc::InputState state = vc::InputState::Pressed;
+    //NSLog(@"Mouse down: %d", button);
 
     venom::context::apple::ContextApple::GetAppleContext()->__SetMouseState(button, state);
 }
@@ -135,6 +151,7 @@
 {
     vc::MouseButton button = static_cast<vc::MouseButton>(event.buttonNumber);
     const vc::InputState state = vc::InputState::Released;
+    //NSLog(@"Mouse up: %d", button);
 
     venom::context::apple::ContextApple::GetAppleContext()->__SetMouseState(button, state);
     venom::context::apple::ContextApple::GetAppleContext()->__AddMouseReleasedEvent(button);
@@ -142,6 +159,7 @@
 
 - (void)keyDown:(NSEvent *)event
 {
+    //NSLog(@"Key pressed: %d", event.keyCode);
     if ((event.modifierFlags & NSEventModifierFlagCommand) && event.keyCode == 12) { // 12 = Q key
         [NSApp terminate:self]; // Quit app
         return;
@@ -150,17 +168,16 @@
     vc::KeyboardInput key = convertAppleKeyToVCKey(event.keyCode); // Convert macOS keycode
     vc::InputState state = vc::InputState::Pressed;
 
-    NSLog(@"Key pressed: %d", key);
     venom::context::apple::ContextApple::GetAppleContext()->__SetKeyboardState(key, state);
     [self updateModifiers:event];
 }
 
 - (void)keyUp:(NSEvent *)event
 {
+    //NSLog(@"Key released: %d", event.keyCode);
     vc::KeyboardInput key = convertAppleKeyToVCKey(event.keyCode);
     vc::InputState state = vc::InputState::Released;
 
-    NSLog(@"Key released: %d", key);
     venom::context::apple::ContextApple::GetAppleContext()->__SetKeyboardState(key, state);
     venom::context::apple::ContextApple::GetAppleContext()->__AddKeyReleasedEvent(key);
     [self updateModifiers:event];

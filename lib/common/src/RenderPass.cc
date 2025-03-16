@@ -56,9 +56,14 @@ void RenderPassImpl::Destroy()
     GraphicsPluginObject::Destroy();
 }
 
-vc::Error RenderPassImpl::Init()
+vc::Error RenderPassImpl::SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode, const vc::GraphicsSettings::MultiSamplingCountOption samples)
 {
-    return _Init();
+    vc::Error err = _SetMultiSampling(mode, samples);
+    if (err != vc::Error::Success) {
+        vc::Log::Error("RenderPassImpl::SetMultiSampling() : Failed to set multi-sampling");
+        return err;
+    }
+    return vc::Error::Success;
 }
 
 void RenderPassImpl::SetRenderingType(const vc::RenderingPipelineType type)

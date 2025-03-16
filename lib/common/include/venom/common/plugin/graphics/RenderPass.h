@@ -10,6 +10,7 @@
 #include <venom/common/plugin/graphics/GraphicsPluginObject.h>
 #include <venom/common/plugin/graphics/RenderingPipelineType.h>
 #include <venom/common/plugin/graphics/Texture.h>
+#include <venom/common/plugin/graphics/GraphicsSettings.h>
 
 #include <venom/common/Containers.h>
 
@@ -28,7 +29,8 @@ public:
     RenderPassImpl& operator=(RenderPassImpl&& other);
 
     void Destroy() override;
-    vc::Error Init();
+    inline vc::Error Init() { return _Init(); }
+    vc::Error SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode, const vc::GraphicsSettings::MultiSamplingCountOption samples);
 
     void SetRenderingType(const vc::RenderingPipelineType type);
     static RenderPassImpl * GetRenderPass(const vc::RenderingPipelineType type);
@@ -36,6 +38,7 @@ public:
     RenderingPipelineType GetRenderingType() const;
 
     virtual vc::Error _Init() = 0;
+    virtual vc::Error _SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode, const vc::GraphicsSettings::MultiSamplingCountOption samples) = 0;
 
 protected:
     vc::RenderingPipelineType _type;

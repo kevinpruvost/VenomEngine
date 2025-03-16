@@ -110,6 +110,12 @@ vc::Error VulkanRenderPass::_Init()
     return vc::Error::Success;
 }
 
+vc::Error VulkanRenderPass::_SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode,
+    const vc::GraphicsSettings::MultiSamplingCountOption samples)
+{
+    return vc::Error::Success;
+}
+
 vc::Error VulkanRenderPass::BeginRenderPass(CommandBuffer* commandBuffer, int framebufferIndex)
 {
     return BeginRenderPassCustomFramebuffer(commandBuffer, &__framebuffers[framebufferIndex]);

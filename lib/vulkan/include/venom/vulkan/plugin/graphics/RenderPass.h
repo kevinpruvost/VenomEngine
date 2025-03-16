@@ -44,6 +44,7 @@ public:
 
     void SetRenderingType(const vc::RenderingPipelineType type);
     vc::Error _Init() override;
+    vc::Error _SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode, const vc::GraphicsSettings::MultiSamplingCountOption samples) override;
     vc::Error BeginRenderPass(CommandBuffer * commandBuffer, int framebufferIndex);
     vc::Error BeginRenderPassCustomFramebuffer(CommandBuffer * commandBuffer, const Framebuffer * const framebuffer);
     void NextSubpass(CommandBuffer * commandBuffer);

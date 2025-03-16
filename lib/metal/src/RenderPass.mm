@@ -2,7 +2,7 @@
 /// Project: VenomEngineWorkspace
 /// @file RenderPass.mm
 /// @date Mar, 08 2025
-/// @brief 
+/// @brief
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
 #include <venom/metal/plugin/graphics/RenderPass.h>
@@ -50,6 +50,30 @@ MTLRenderPassDescriptor * MetalRenderPass::GetMetalRenderPassDescriptor() const 
 
 MetalRenderPassData * MetalRenderPass::GetMetalRenderPassData() const {
     return ((MetalRenderPassData *)renderPassData);
+}
+
+vc::Error MetalRenderPass::_SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode,
+    const vc::GraphicsSettings::MultiSamplingCountOption samples)
+{
+    MTLRenderPassDescriptor * renderPassDescriptor = GetMetalRenderPassData().renderPassDescriptor;
+    switch (mode) {
+        case vc::GraphicsSettings::MultiSamplingModeOption::None:
+            renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+            //renderPassDescriptor.colorAttachments.
+            break;
+            
+        case vc::GraphicsSettings::MultiSamplingModeOption::MSAA:
+            //GetMetalRenderPassData()->renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+            break;
+            
+            
+            
+        default:
+            vc::Log::Error("MultiSampling mode not supported");
+            return vc::Error::Failure;
+            break;
+    }
+    return vc::Error::Success;
 }
 
 vc::Error MetalRenderPass::_Init()

@@ -35,6 +35,7 @@ public:
     inline static MetalRenderPass * GetMetalRenderPass(const vc::RenderingPipelineType type) { return GetRenderPass(type)->DAs<MetalRenderPass>(); }
 
     vc::Error _Init() override;
+    vc::Error _SetMultiSampling(const vc::GraphicsSettings::MultiSamplingModeOption mode, const vc::GraphicsSettings::MultiSamplingCountOption samples) override;
     void * renderPassData;
 
 #ifdef __OBJC__
@@ -42,5 +43,6 @@ public:
     MetalRenderPassData * GetMetalRenderPassData() const;
 #endif
 };
+
 }
 }

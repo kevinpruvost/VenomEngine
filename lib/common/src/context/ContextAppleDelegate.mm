@@ -43,11 +43,15 @@
     [self.window setTitle:@"VenomEngine"];
     
     ContextAppleViewController * viewController = [[ContextAppleViewController alloc] init];
+    //self.windowController = [[ContextAppleWindowController alloc] initWithWindow:self.window];
+    self.windowController = nil;
     
     [self.window setContentViewController: viewController];
     [self.window makeKeyAndOrderFront:nil];
     // Set view to delegate
     self.view = self.window.contentView;
+    // Set the preferredFramesPerSecond to the maximum supported by the display
+    ((MTKView *)self.view).preferredFramesPerSecond = self.window.screen.maximumFramesPerSecond;
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {

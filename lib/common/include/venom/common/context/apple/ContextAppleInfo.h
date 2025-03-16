@@ -15,12 +15,14 @@
 #import <Cocoa/Cocoa.h>
 #define AppleWindow NSWindow
 #define AppleView NSView
+#define AppleScreen NSScreen
 #else
 #import <UIKit/UIKit.h>
 #import <TargetConditionals.h>
 #import <Availability.h>
 #define AppleWindow UIWindow
 #define AppleView UIView
+#define AppleScreen UIScreen
 #endif
 #import <Metal/Metal.h>
 #import <MetalKit/MetalKit.h>

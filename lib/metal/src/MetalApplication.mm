@@ -143,6 +143,7 @@ vc::Error MetalApplication::_OnGfxSettingsChange()
     // If the multisampling is dirty, we need to recreate render pass and shaders
     if (_multisamplingDirty || _hdrDirty)
     {
+        // Shaders
         static vc::ShaderPipeline vkShader;
             for (const auto & [key, shader] : vc::ShaderPipelineImpl::GetCachedObjects()) {
                 if (!shader->IsType<MetalShaderResource>()) continue;
@@ -150,8 +151,17 @@ vc::Error MetalApplication::_OnGfxSettingsChange()
                     shader->GetHolder()->As<MetalShaderPipeline>()->SetMultiSamplingCount(GetActiveSamplesMultisampling());
                 shader->GetHolder()->As<MetalShaderPipeline>()->LoadShaders();
             }
+        
+        // Render Passes
+        for (vc::RenderPassImpl * renderPass : vc::RenderPassImpl::GetRenderPasses()) {
+            if (renderPass)
+                renderPass->SetMultiSampling(GetActiveMultisamplingMode(), GetActiveMultisamplingCount());
+        }
+        
+        // GUI
         if (err = vc::GUI::Get()->Reset(); err != vc::Error::Success)
             return err;
+
         _multisamplingDirty = _hdrDirty = false;
     }
 

@@ -9,6 +9,7 @@
 
 #include <venom/common/context/ContextApple.h>
 #include <venom/common/context/apple/ContextAppleInfo.h>
+#include <venom/common/context/apple/ContextAppleWindowController.h>
 
 #if defined(VENOM_PLATFORM_IOS)
 #import <UIKit/UIKit.h>
@@ -21,6 +22,7 @@
 @interface ContextAppleDelegate : PlatformAppDelegate
 
 @property (nonatomic, strong) AppleWindow * window;
+@property (nonatomic, strong) AppleWindowController * windowController;
 @property (nonatomic, strong) AppleView * view;
 
 @end
