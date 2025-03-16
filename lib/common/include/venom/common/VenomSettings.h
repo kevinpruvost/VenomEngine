@@ -54,7 +54,6 @@ public:
     static uint64_t GetTotalShadowMapGPUSize();
 
     bool IsDebug() const;
-
 private:
     const bool __isDebug;
 };

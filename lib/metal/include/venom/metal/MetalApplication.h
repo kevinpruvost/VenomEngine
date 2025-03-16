@@ -24,6 +24,12 @@
 #include "venom/common/Thread.h"
 #include "venom/common/plugin/graphics/Light.h"
 
+#ifdef __OBJC__
+@interface MetalApplicationData : NSObject
+@property (nonatomic, assign) NSMutableArray<NSMutableArray<id<MTLCommandBuffer>> *> * commandBuffers;
+@end
+#endif
+
 namespace venom
 {
 /// @brief Encapsulation of Metal for the front end of VenomEngine.
@@ -63,11 +69,17 @@ private:
     vcm::Mat4 __shadowMapSpotLightSpaceMatrices[VENOM_MAX_SPOT_LIGHTS];
 
     bool __shouldClose;
-
+    
+    
 #ifdef __OBJC__
 public:
-
+    id<MTLCommandBuffer> CreateCommandBuffer();
+    void WaitForCurrentCommandBuffersToComplete();
+    void WaitForAllCommandBuffersToComplete();
+    NSMutableArray<NSMutableArray<id<MTLCommandBuffer>> *> * GetCommandBuffers();
+    MetalApplicationData * GetMetalApplicationData();
 private:
+    void * __metalApplicationData;
 #endif
     friend class MetalShaderResourceTable;
     friend class MetalLight;

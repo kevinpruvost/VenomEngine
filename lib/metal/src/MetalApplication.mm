@@ -37,16 +37,24 @@
 #include <venom/metal/plugin/graphics/Mesh.h>
 #include <venom/metal/plugin/graphics/ShaderPipeline.h>
 
+@implementation MetalApplicationData
+
+@end
+
 namespace venom::metal
 {
 MetalApplication::MetalApplication()
     : vc::GraphicsApplication()
     , DebugApplication()
     , __shouldClose(false)
+    , __metalApplicationData([[MetalApplicationData alloc] init])
 {
     InitializeDevice();
     InitializeCommandQueue();
     InitializeLayer();
+    [GetMetalApplicationData() setCommandBuffers:[[NSMutableArray alloc] init]];
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; i++)
+        [GetMetalApplicationData().commandBuffers addObject:[[NSMutableArray alloc] init]];
 }
 
 MetalApplication::~MetalApplication()
@@ -59,6 +67,17 @@ MetalApplication::~MetalApplication()
 #endif
     vc::Log::Print("Metal app succesfully destroyed.");
 }
+
+NSMutableArray<NSMutableArray<id<MTLCommandBuffer>> *> * MetalApplication::GetCommandBuffers()
+{
+    return GetMetalApplicationData().commandBuffers;
+}
+
+MetalApplicationData * MetalApplication::GetMetalApplicationData()
+{
+    return (MetalApplicationData *)__metalApplicationData;
+}
+
 
 bool MetalApplication::ShouldClose() { return vc::Context::Get()->ShouldClose(); }
 
@@ -89,6 +108,8 @@ vc::Error MetalApplication::__Loop()
 {
     vc::Error err = vc::Error::Success;
 
+    WaitForCurrentCommandBuffersToComplete();
+    
     typedef struct
     {
         vector_float2 position;
@@ -103,15 +124,14 @@ vc::Error MetalApplication::__Loop()
         { {    0,   250 }, { 0, 0, 1, 1 } },
     };
     
-    id <MTLCommandBuffer> commandBuffer = [GetMetalCommandQueue() commandBuffer];
+    id <MTLCommandBuffer> commandBuffer = CreateCommandBuffer();
     commandBuffer.label = @"Test1";
     
     MTLRenderPassDescriptor * renderPassDescriptor = MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor();
     id <MTLRenderPipelineState> renderPipelineState = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Skybox)[0].GetImpl()->As<MetalShaderPipeline>()->GetRenderPipelineState();
-    id <CAMetalDrawable> drawable = [getGlobalMetalLayer() nextDrawable];
-    renderPassDescriptor.colorAttachments;
-    renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
-    auto test = drawable.texture.sampleCount;
+    id <CAMetalDrawable> nextFrame = [getGlobalMetalLayer() nextDrawable];
+    renderPassDescriptor.colorAttachments[0].texture = nextFrame.texture;
+    auto test = nextFrame.texture.sampleCount;
 
     // Create a render command encoder.
     id<MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
@@ -130,15 +150,19 @@ vc::Error MetalApplication::__Loop()
     
     [renderEncoder endEncoding];
     
-    [commandBuffer presentDrawable:drawable];
+    [commandBuffer presentDrawable:nextFrame];
     [commandBuffer commit];
     __shouldClose = vc::Context::Get()->ShouldClose();
+    _currentFrame = (_currentFrame + 1) % VENOM_MAX_FRAMES_IN_FLIGHT;
     return err;
 }
 
 vc::Error MetalApplication::_OnGfxSettingsChange()
 {
     vc::Error err;
+    
+    // Wait for frames to finish to avoid issues
+    WaitForAllCommandBuffersToComplete();
 
     // If the multisampling is dirty, we need to recreate render pass and shaders
     if (_multisamplingDirty || _hdrDirty)
@@ -198,8 +222,50 @@ vc::Vector<vc::GraphicsSettings::MultiSamplingCountOption> MetalApplication::_Ge
 }
 
 
-vc::Error MetalApplication::_SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples) {
+vc::Error MetalApplication::_SetMultiSampling(const MultiSamplingModeOption mode, const MultiSamplingCountOption samples)
+{
+    CAMetalLayer * layer = getGlobalMetalLayer();
+    switch (mode) {
+        case MultiSamplingModeOption::None: {
+            layer.framebufferOnly = YES;
+            break;
+        }
+        case MultiSamplingModeOption::MSAA: {
+            layer.framebufferOnly = NO;
+            break;
+        }
+        default:
+            break;
+    }
     return vc::Error::Success;
 }
+
+id<MTLCommandBuffer> MetalApplication::CreateCommandBuffer()
+{
+    id<MTLCommandBuffer> buff = [GetMetalCommandQueue() commandBuffer];
+    buff.label = @"Command Buffer";
+    [GetMetalApplicationData().commandBuffers[_currentFrame] addObject:buff];
+    return buff;
+}
+
+void MetalApplication::WaitForCurrentCommandBuffersToComplete()
+{
+    NSMutableArray<id<MTLCommandBuffer>> * commandBuffers = GetMetalApplicationData().commandBuffers[_currentFrame];
+    for (int i = 0; i < commandBuffers.count; i++)
+        [commandBuffers[i] waitUntilCompleted];
+    [commandBuffers removeAllObjects];
+}
+
+void MetalApplication::WaitForAllCommandBuffersToComplete()
+{
+    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; i++) {
+        NSMutableArray<id<MTLCommandBuffer>> * commandBuffers = GetMetalApplicationData().commandBuffers[i];
+        for (int j = 0; j < commandBuffers.count; j++)
+            [commandBuffers[j] waitUntilCompleted];
+        [commandBuffers removeAllObjects];
+    }
+    _currentFrame = 0;
+}
+
 }
 

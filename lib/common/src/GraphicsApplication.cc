@@ -102,7 +102,11 @@ Error GraphicsApplication::Loop()
         _OnGfxSettingsChange();
     if (GraphicsSettings::_IsGfxConstantsDataDirty())
         _OnGfxConstantsChange();
-    return __Loop();
+    if (vc::Error err = __Loop(); err != vc::Error::Success) {
+        vc::Log::Error("Graphics Application Loop failed: %d", static_cast<int>(err));
+        return Error::Failure;
+    }
+    return Error::Success;
 }
 
 void GraphicsApplication::__LoadRenderingPipelines()
