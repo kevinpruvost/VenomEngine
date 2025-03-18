@@ -202,6 +202,11 @@ vec3 GetLightDirection(Light light, vec3 position)
     return vec3(0.0, 0.0, 0.0);
 }
 
+float expInterpolation(float a, float b, float k, float t)
+{
+    return a + (b - a) * (1.0 - exp(-k * t));
+}
+
 vec3 GetLightColor(Light light, vec3 position, vec3 direction)
 {
     if (light.intensity <= 0.0)
@@ -211,10 +216,8 @@ vec3 GetLightColor(Light light, vec3 position, vec3 direction)
     } else if (light.type == LightType_Point) {
         float distance = max(0.01, length(light.position - position));
         float radius = sqrt(light.intensity / PointLight_Threshold);
-        float attenuation = min(100.0, 1.0 / (distance * distance));
-        attenuation *= light.intensity;
-        if (attenuation <= PointLight_Threshold)
-            return vec3(0.0, 0.0, 0.0);
+        float attenuation = 1.0 - clamp(distance / radius, 0.0, 1.0);
+        return expInterpolation(0.0, 20.0, 0.5, attenuation) * light.color * light.intensity;
         return light.color * attenuation;
     } else if (light.type == LightType_Spot) {
         float distance = length(light.position - position);
