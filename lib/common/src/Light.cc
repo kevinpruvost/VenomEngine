@@ -16,6 +16,7 @@ vc::Vector<Light *> Light::__lights;
 LightImpl::LightImpl()
     : __lightType(LightType::Directional)
     , _lightIndexPerType(-1)
+    , _shadowLightIndexPerType(-1)
     , __color(vcm::Vec3(1.0f, 1.0f, 1.0f))
     , __intensity(1.0f)
 {
@@ -28,12 +29,23 @@ LightImpl::~LightImpl()
 
 vc::Error LightImpl::SetType(const LightType type)
 {
-    __DeallocateLightType();
+    if (__lightType != LightType::Count)
+        __DeallocateLightType();
+    
+    if (type == LightType::Count) return vc::Error::Success;
 
+    const LightType oldType = __lightType;
     __lightType = type;
     __AllocateLightType();
 
-    return _SetType(type);
+    if (_lightIndexPerType == -1) {
+        __lightType = oldType;
+        __AllocateLightType();
+        vc::Log::Error("LightImpl::SetType() : No more light of type %d available", static_cast<int>(type));
+        return vc::Error::Success;
+    } else {
+        return _SetType(type);
+    }
 }
 
 Light::Light()
@@ -202,6 +214,7 @@ int LightImpl::GetCascadeIndex(Camera* const camera)
     const CameraCascadedShadowMapData & csmCameraData = camera->GetImpl()->As<CameraImpl>()->GetCascadedShadowMapData();
 
     int cascadeIndex = -1;
+    // CSM disabled for point and spot lights
     switch (__lightType) {
         case LightType::Point: {
             const vcm::Vec3 & lightCenter = __transform->GetPosition();
@@ -211,6 +224,7 @@ int LightImpl::GetCascadeIndex(Camera* const camera)
                     cascadeIndex = i;
                     break;
                 }
+                cascadeIndex = 0;
             }
             break;
         }
@@ -224,6 +238,7 @@ int LightImpl::GetCascadeIndex(Camera* const camera)
                     break;
                 }
             }
+            cascadeIndex = 0;
             break;
         }
         default:
@@ -269,18 +284,76 @@ vcm::Vec3 LightImpl::GetDirection() const
     }
 }
 
+class ShadowIndexAllocator
+{
+public:
+    ShadowIndexAllocator()
+    {
+        for (int i = 0; i < VENOM_CSM_MAX_DIRECTIONAL_LIGHTS; ++i) {
+            __shadowIndexPerType[static_cast<int>(LightType::Directional)].emplace_back(i);
+        }
+        for (int i = 0; i < VENOM_CSM_MAX_POINT_LIGHTS; ++i) {
+            __shadowIndexPerType[static_cast<int>(LightType::Point)].emplace_back(i);
+        }
+        for (int i = 0; i < VENOM_CSM_MAX_SPOT_LIGHTS; ++i) {
+            __shadowIndexPerType[static_cast<int>(LightType::Spot)].emplace_back(i);
+        }
+    }
+
+    inline int AllocateShadowIndex(const LightType type)
+    {
+        if (__shadowIndexPerType[static_cast<int>(type)].empty()) {
+            return -1;
+        }
+        int ret = __shadowIndexPerType[static_cast<int>(type)].front();
+        __shadowIndexPerType[static_cast<int>(type)].erase(__shadowIndexPerType[static_cast<int>(type)].begin());
+        return ret;
+    }
+
+    inline void DeallocateShadowIndex(const LightType type, const int index)
+    {
+        __shadowIndexPerType[static_cast<int>(type)].push_back(index);
+        // Sort to always have the smallest index at the end
+        std::sort(__shadowIndexPerType[static_cast<int>(type)].begin(), __shadowIndexPerType[static_cast<int>(type)].end());
+    }
+
+    inline const size_t GetCountOfLightsOfType(const LightType type)
+    {
+        switch (type)
+        {
+            case LightType::Directional:
+                return VENOM_CSM_MAX_DIRECTIONAL_LIGHTS - __shadowIndexPerType[static_cast<int>(type)].size();
+                break;
+            case LightType::Point:
+                return VENOM_CSM_MAX_POINT_LIGHTS - __shadowIndexPerType[static_cast<int>(type)].size();
+                break;
+            case LightType::Spot:
+                return VENOM_CSM_MAX_SPOT_LIGHTS - __shadowIndexPerType[static_cast<int>(type)].size();
+                break;
+            default:
+                break;
+        }
+        return __shadowIndexPerType[static_cast<int>(type)].size();
+    }
+
+private:
+    // Stacks aren't sortable
+    vc::Vector<int> __shadowIndexPerType[static_cast<size_t>(LightType::Count)];
+};
+static ShadowIndexAllocator s_shadowIndexAllocator;
+
 class LightIndexAllocator
 {
 public:
     LightIndexAllocator()
     {
-        for (int i = 0; i < VENOM_CSM_MAX_DIRECTIONAL_LIGHTS; ++i) {
+        for (int i = 0; i < VENOM_MAX_DIRECTIONAL_LIGHTS; ++i) {
             __lightIndexPerType[static_cast<int>(LightType::Directional)].emplace_back(i);
         }
-        for (int i = 0; i < VENOM_CSM_MAX_POINT_LIGHTS; ++i) {
+        for (int i = 0; i < VENOM_MAX_POINT_LIGHTS; ++i) {
             __lightIndexPerType[static_cast<int>(LightType::Point)].emplace_back(i);
         }
-        for (int i = 0; i < VENOM_CSM_MAX_SPOT_LIGHTS; ++i) {
+        for (int i = 0; i < VENOM_MAX_SPOT_LIGHTS; ++i) {
             __lightIndexPerType[static_cast<int>(LightType::Spot)].emplace_back(i);
         }
     }
@@ -328,6 +401,7 @@ static LightIndexAllocator s_lightIndexAllocator;
 void LightImpl::__AllocateLightType()
 {
     _lightIndexPerType = s_lightIndexAllocator.AllocateLightIndex(__lightType);
+    _shadowLightIndexPerType = s_shadowIndexAllocator.AllocateShadowIndex(__lightType);
 }
 
 void LightImpl::__DeallocateLightType()
@@ -336,11 +410,20 @@ void LightImpl::__DeallocateLightType()
         s_lightIndexAllocator.DeallocateLightIndex(__lightType, _lightIndexPerType);
         _lightIndexPerType = -1;
     }
+    if (_shadowLightIndexPerType != -1) {
+        s_shadowIndexAllocator.DeallocateShadowIndex(__lightType, _shadowLightIndexPerType);
+        _shadowLightIndexPerType = -1;
+    }
 }
 
 const size_t Light::GetCountOfLightsOfType(const LightType type)
 {
     return s_lightIndexAllocator.GetCountOfLightsOfType(type);
+}
+
+const size_t Light::GetCountOfShadowedLightsOfType(const LightType type)
+{
+    return s_shadowIndexAllocator.GetCountOfLightsOfType(type);
 }
 }
 }

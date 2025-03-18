@@ -104,7 +104,7 @@ vc::Error VulkanSkybox::_LoadRadianceMap(const vc::Texture& texture, vc::Texture
             cmdBuffer.SetViewport(viewport);
             cmdBuffer.SetScissor(scissor);
 
-            DescriptorPool::GetPool()->GetDescriptorSets(DSETS_INDEX_MATERIAL).GroupUpdateImageView(imageView, 2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, 0);
+            DescriptorPool::GetPool()->GetDescriptorSets(DSETS_INDEX_MATERIAL).GroupUpdateImageView(imageView, 8, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, 0);
             float roughness = (1.0f / static_cast<float>(SKYBOX_RADIANCE_MIP_LEVELS) * i);
             vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 3, &roughness, sizeof(float));
             cmdBuffer.Dispatch(width, height, 1);

@@ -130,14 +130,14 @@ vc::Error VulkanGUI::_Initialize()
 #if !defined(VENOM_DISABLE_GLFW)
     if (IS_CONTEXT_TYPE(GLFW)) {
         ImGui_ImplGlfw_InitForVulkan((GLFWwindow*)vc::Context::Get()->GetWindow(), true);
-    }
+    } else
 #endif
 #if defined(VENOM_PLATFORM_APPLE)
     if (IS_CONTEXT_TYPE(Apple)) {
         _InitializeApple();
-    }
+    } else
 #endif
-    else {
+    {
         vc::Log::Error("VulkanGUI::_Initialize() : Invalid context type");
         return vc::Error::Failure;
     }
@@ -243,14 +243,14 @@ vc::Error VulkanGUI::_Reset()
 #if !defined(VENOM_DISABLE_GLFW)
     if (IS_CONTEXT_TYPE(GLFW)) {
         ImGui_ImplGlfw_Shutdown();
-    }
+    } else
 #endif
 #if defined(VENOM_PLATFORM_APPLE)
     if (IS_CONTEXT_TYPE(Apple)) {
         _DestroyApple();
-    }
+    } else
 #endif
-    else {
+    {
         vc::Log::Error("VulkanGUI::_Reset() : Invalid context type");
         return vc::Error::Failure;
     }

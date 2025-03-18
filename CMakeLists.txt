@@ -53,6 +53,8 @@ file(GLOB_RECURSE RESOURCE_FILES
     "${CMAKE_SOURCE_DIR}/resources/**/*.obj"
     "${CMAKE_SOURCE_DIR}/resources/**/*.mtl"
     "${CMAKE_SOURCE_DIR}/resources/**/*.tiff"
+
+    "${CMAKE_SOURCE_DIR}/resources/**/*.venomasset"
 )
 
 if (APPLE)

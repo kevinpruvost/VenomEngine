@@ -204,6 +204,19 @@ void CommandBuffer::DrawSkybox(const VulkanSkybox* vulkanSkybox, const VulkanSha
     vkCmdDraw(_commandBuffer, 6, 1, 0, 0);
 }
 
+void CommandBuffer::ClearColorImage(const vc::Texture & texture, VkClearColorValue vkClearColorValue) const
+{
+    const auto & image = texture.GetImpl()->As<VulkanTexture>()->GetImage();
+    VkImageSubresourceRange subresourceRange {
+        .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+        .baseMipLevel = 0,
+        .levelCount = image.GetMipLevels(),
+        .baseArrayLayer = 0,
+        .layerCount = image.GetArrayLayers()
+    };
+    vkCmdClearColorImage(_commandBuffer, image.GetVkImage(), image.GetLayout(), &vkClearColorValue, 1, &subresourceRange);
+}
+
 void CommandBuffer::CopyImage(const Image& image, const Image& getImage)
 {
     VkImageCopy region {

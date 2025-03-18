@@ -5,22 +5,34 @@
 // Shadow Mapping
 //
 
-layout(binding = 3, set = 7) readonly buffer cl3 {
-    int shadowMapsLayerIndices[MAX_LIGHTS]; // If light 2 is Spot and it's the first spot light, then shadowMapsLayerIndices[2] = 0
-    // And to access it, we go to shadowMapsSpotShadowMaps[shadowMapsLayerIndices[2]]
-};
+//layout(binding = 3, set = 7) readonly buffer cl3 {
+//    int shadowMapsLayerIndices[MAX_LIGHTS]; // If light 2 is Spot and it's the first spot light, then shadowMapsLayerIndices[2] = 0
+//    // And to access it, we go to shadowMapsSpotShadowMaps[shadowMapsLayerIndices[2]]
+//};
+//
+//layout(binding = 0, set = 3) uniform texture2D shadowMaps[];
+//layout(binding = 1, set = 3) uniform textureCube shadowMapCube;
+//layout(binding = 7, set = 7) readonly buffer cl7 {
+//    mat4 shadowMapsDirectionalLightSpaceMatrices[];
+//};
+//layout(binding = 8, set = 7) readonly buffer cl8 {
+//    mat4 shadowMapsPointLightSpaceMatrices[];
+//};
+//layout(binding = 9, set = 7) readonly buffer cl9 {
+//    mat4 shadowMapsSpotLightSpaceMatrices[];
+//};
 
-layout(binding = 0, set = 3) uniform texture2D shadowMaps[];
-layout(binding = 1, set = 3) uniform textureCube shadowMapCube;
-layout(binding = 7, set = 7) readonly buffer cl7 {
-    mat4 shadowMapsDirectionalLightSpaceMatrices[];
+#define MAX_SHADOW_DIRECTIONAL_LIGHTS 1
+#define MAX_SHADOW_POINT_LIGHTS 4
+#define MAX_SHADOW_SPOT_LIGHTS 3
+#define VENOM_CSM_TOTAL_CASCADES 3
+
+layout(binding = 1, set = 7) uniform cl7 {
+    mat4 shadowMapsLightSpaceMatrices[MAX_SHADOW_DIRECTIONAL_LIGHTS * VENOM_CSM_TOTAL_CASCADES + MAX_SHADOW_POINT_LIGHTS * 6 + MAX_SHADOW_SPOT_LIGHTS];
 };
-layout(binding = 8, set = 7) readonly buffer cl8 {
-    mat4 shadowMapsPointLightSpaceMatrices[];
-};
-layout(binding = 9, set = 7) readonly buffer cl9 {
-    mat4 shadowMapsSpotLightSpaceMatrices[];
-};
+layout(binding = 4, set = 7) uniform texture2D directionalShadowMaps[];
+layout(binding = 5, set = 7) uniform texture2D pointShadowMaps[];
+layout(binding = 6, set = 7) uniform texture2D spotShadowMaps[];
 
 // Determine which face of the cube to sample
 int GetFaceIndex(vec3 dir) {
@@ -63,7 +75,9 @@ vec2 ConvertDirectionToUV(int face, vec3 dir) {
     return 0.5 * (uv + 1.0);
 }
 
-vec4 GetColorFromPointShadowMap(vec3 dir) {
+//vec4 GetColorFromPointShadowMap(vec3 dir) {
+vec4 GetColorFromPointShadowMap(vec3 dir, int index)
+{
     // Normalize to ensure consistent face selection
     int face = GetFaceIndex(dir);
     vec2 uv = ConvertDirectionToUV(face, dir);
@@ -72,7 +86,8 @@ vec4 GetColorFromPointShadowMap(vec3 dir) {
     uv = clamp(uv, 0.001, 0.999);
 
     // Sample the corresponding shadow map
-    return texture(sampler2D(shadowMaps[face], g_sampler), uv);
+    //return texture(sampler2D(shadowMaps[face], g_sampler), uv);
+    return texture(sampler2D(pointShadowMaps[index * 6 + face], g_sampler), uv);
 }
 
 
@@ -128,7 +143,7 @@ float luminance(vec3 color) {
 vec3 DisneyPrincipledBSDF(
     vec3 L, vec3 V, vec3 N, vec3 X, vec3 Y,
     vec3 baseColor, float metallic, float roughness,
-    float subsurface, float specular, float specularTint,
+    float subsurface, float specular, vec3 specularTint,
     float anisotropic, float sheen, float sheenTint,
     float clearcoat, float clearcoatGloss
 ) {

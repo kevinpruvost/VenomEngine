@@ -79,7 +79,7 @@ private:
     vc::Error __GraphicsOperations();
     vc::Error __GraphicsShadowMapOperations();
     vc::Error __GraphicsShadowMapOperationPerLight(const vc::Light * light, const int lightIndex,
-        const vc::LightCascadedShadowMapConstantsStruct & constants,
+        vc::LightCascadedShadowMapConstantsStruct constants,
         const Framebuffer * const framebuffer, Semaphore * semaphore, CommandBuffer * const commandBuffer,
         const vc::ShaderPipeline * const shaderPipeline);
     vc::Error __ComputeOperations();
@@ -123,21 +123,25 @@ private:
     vc::Texture __brdfLutTexture, __irradianceMapTexture, __radianceMapTexture;
 
     vc::Texture __shadowMapsDirectional[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_DIRECTIONAL_LIGHTS];
-    vc::Texture __shadowMapsPoint[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_POINT_LIGHTS];
-    vc::Texture __shadowMapsSpot[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_SPOT_LIGHTS];
-    ImageView * __shadowMapDirectionalImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_DIRECTIONAL_LIGHTS];
-    ImageView * __shadowMapPointImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS * 6];
-    ImageView __shadowMapPointCubeImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_POINT_LIGHTS];
-    ImageView * __shadowMapSpotImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_MAX_SPOT_LIGHTS];
+    vc::Texture __shadowMapsPoint[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_MAX_POINT_LIGHTS];
+    vc::Texture __shadowMapsSpot[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_MAX_SPOT_LIGHTS];
+    ImageView * __shadowMapDirectionalImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_TOTAL_CASCADES][VENOM_CSM_MAX_DIRECTIONAL_LIGHTS];
+    ImageView * __shadowMapPointImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_MAX_POINT_LIGHTS * 6];
+    ImageView __shadowMapPointCubeImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_MAX_POINT_LIGHTS * 6];
+    ImageView * __shadowMapSpotImageViews[VENOM_MAX_FRAMES_IN_FLIGHT][VENOM_CSM_MAX_SPOT_LIGHTS];
 
-    StorageBuffer __shadowMapsIndicesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    StorageBuffer __shadowMapDirectionalLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    StorageBuffer __shadowMapPointLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    StorageBuffer __shadowMapSpotLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
-    int __shadowMapIndices[VENOM_MAX_LIGHTS];
-    vcm::Mat4 __shadowMapDirectionalLightSpaceMatrices[VENOM_CSM_TOTAL_CASCADES * VENOM_MAX_DIRECTIONAL_LIGHTS];
-    vcm::Mat4 __shadowMapPointLightSpaceMatrices[6 * VENOM_MAX_POINT_LIGHTS];
-    vcm::Mat4 __shadowMapSpotLightSpaceMatrices[VENOM_MAX_SPOT_LIGHTS];
+    vc::Texture __colorPassImage[VENOM_MAX_FRAMES_IN_FLIGHT];
+
+    UniformBuffer __shadowMapLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+    vcm::Mat4 __shadowMapLightSpaceMatrices[VENOM_CSM_MAX_DIRECTIONAL_LIGHTS * VENOM_CSM_TOTAL_CASCADES + 6 * VENOM_CSM_MAX_POINT_LIGHTS + VENOM_CSM_MAX_SPOT_LIGHTS];
+//    StorageBuffer __shadowMapsIndicesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+//    StorageBuffer __shadowMapDirectionalLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+//    StorageBuffer __shadowMapPointLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+//    StorageBuffer __shadowMapSpotLightSpaceMatricesBuffers[VENOM_MAX_FRAMES_IN_FLIGHT];
+//    int __shadowMapIndices[VENOM_MAX_LIGHTS];
+//    vcm::Mat4 __shadowMapDirectionalLightSpaceMatrices[VENOM_CSM_TOTAL_CASCADES * VENOM_MAX_DIRECTIONAL_LIGHTS];
+//    vcm::Mat4 __shadowMapPointLightSpaceMatrices[6 * VENOM_MAX_POINT_LIGHTS];
+//    vcm::Mat4 __shadowMapSpotLightSpaceMatrices[VENOM_MAX_SPOT_LIGHTS];
 
     UniformBuffer __radianceRoughness;
     Image __brdfLut, __irradianceMap;

@@ -1,6 +1,6 @@
 #version 450
 
-layout(binding = 1, set = 4, rgba16f) uniform image2D brdfLUT;
+layout(binding = 8, set = 4, rgba16f) uniform image2D brdfLUT;
 
 const uint NUM_SAMPLES = 1024u;
 
@@ -92,7 +92,7 @@ void main()
 
     vec2 uv = vec2(coords) / vec2(size);
 
-    float NoV = uv.x;
+    float NoV = max(uv.x, 0.0001);
     float roughness = uv.y;
 
 	vec4 outColor = vec4(BRDF(NoV, roughness), 0.0, 1.0);

@@ -9,5 +9,6 @@ layout(input_attachment_index = 0, set = 7, binding = 10) uniform subpassInputMS
 
 void main()
 {
-    finalColor = subpassLoad(lightingResult, 0);
+    discard;
+    // finalColor = subpassLoad(lightingResult, 0);
 }

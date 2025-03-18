@@ -112,8 +112,11 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
         }
     }
     // Extent, if currentExtent is std::numeric_limits<uint32_t>::max(), then the extent can vary, else it's the currentExtent
+    activePresentMode = VK_PRESENT_MODE_IMMEDIATE_KHR;
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
-        extent = capabilities.currentExtent;
+        extent.width = std::min(capabilities.currentExtent.width, static_cast<uint32_t>(vc::Context::GetWindowWidth()));
+        extent.height = std::min(capabilities.currentExtent.height, static_cast<uint32_t>(vc::Context::GetWindowHeight()));
+
 #if defined(VENOM_PLATFORM_MACOS)
         if (IS_CONTEXT_TYPE(Apple)) {
             // Weird workaround for how bad ImGui handles DPI scales with Apple Context Management, on iOS, scales are not a thing for UIKit so just macOS

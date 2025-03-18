@@ -484,12 +484,6 @@ vc::Error TextureImpl::GUITexture::UnloadTextureFromGUI()
     return _UnloadTextureFromGUI(__guiTextureId);
 }
 
-const TextureImpl* TextureImpl::GetDummyTexture()
-{
-    venom_assert(s_dummyTexture != nullptr, "Dummy texture not created");
-    return s_dummyTexture;
-}
-
 vc::Error TextureImpl::SetMemoryAccess(const TextureMemoryAccess access)
 {
     if (access == __memoryAccess) return vc::Error::Success;

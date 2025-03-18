@@ -105,6 +105,7 @@ public:
         vkCmdPipelineBarrier(_commandBuffer, srcStageMask, dstStageMask, dependencyFlags, 0, nullptr, 0, nullptr, 0, nullptr);
     }
 
+    void ClearColorImage(const vc::Texture & texture, VkClearColorValue vkClearColorValue) const;
     void CopyImage(const Image& image, const Image& getImage);
     void CopySwapChainImage(const VkImage& image, const Image& getImage);
     void ClearAttachments(uint32_t i, VkImageAspectFlags vkImageAspectFlagBits, VkClearValue vkClearValue, const VkClearRect * rect, const int rectNumber) const;

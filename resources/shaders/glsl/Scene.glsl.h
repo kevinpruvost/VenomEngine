@@ -65,7 +65,7 @@ const int LightType_Directional = 0;
 const int LightType_Point = 1;
 const int LightType_Spot = 2;
 
-const float PointLight_Threshold = 0.2;
+const float PointLight_Threshold = 1.0;
 const float SpotLight_Threshold = 0.2;
 
 vec3 SpotAndDirectionalDirection(vec3 direction) {
@@ -93,15 +93,19 @@ struct Light {
     float intensity;
     vec3 direction;
     float angle;
+	vec3 padding;
+    int shadowMapIndex;
 };
 
 layout(binding = 0, set = 7) uniform cl1 {
     Light lights[MAX_LIGHTS];
-};
-
-layout(binding = 1, set = 7) uniform cl2 {
+    vec3 padding;
     int lightCount;
 };
+
+//layout(binding = 1, set = 7) uniform cl2 {
+//    int lightCount;
+//};
 
 struct LightBlock {
     int block[NUM_FORWARD_PLUS_INTS];

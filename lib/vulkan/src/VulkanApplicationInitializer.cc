@@ -7,6 +7,9 @@
 ///
 #include <venom/vulkan/VulkanApplication.h>
 #include <venom/common/plugin/graphics/GUI.h>
+#if defined(VENOM_PLATFORM_APPLE)
+#include <vulkan/vulkan_metal.h>
+#endif
 
 namespace venom
 {
@@ -18,12 +21,14 @@ static constexpr const char * s_deviceExtensions[] = {
     VK_EXT_ROBUSTNESS_2_EXTENSION_NAME,
     VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
     VK_KHR_MAINTENANCE3_EXTENSION_NAME,
+    VK_EXT_FRAGMENT_SHADER_INTERLOCK_EXTENSION_NAME,
 #if !defined(VENOM_PLATFORM_IOS)
     VK_EXT_HDR_METADATA_EXTENSION_NAME,
 #endif
-#ifdef __APPLE__ // Maybe Linux ?
+#if defined(VENOM_PLATFORM_APPLE) // Maybe Linux ?
     "VK_KHR_portability_subset",
     VK_KHR_MAINTENANCE1_EXTENSION_NAME,
+    VK_EXT_METAL_OBJECTS_EXTENSION_NAME,
 #endif
 };
 
@@ -211,6 +216,11 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     // All Features
     bool physicalDeviceFeaturesSupported = true;
     VkPhysicalDeviceDescriptorIndexingFeatures descriptorIndexingFeatures{ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES_EXT, nullptr };
+    // Activate Fragment Shader Interlock
+    VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT fragmentShaderInterlockFeatures{};
+    fragmentShaderInterlockFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT;
+    fragmentShaderInterlockFeatures.fragmentShaderPixelInterlock = VK_TRUE;
+    descriptorIndexingFeatures.pNext = &fragmentShaderInterlockFeatures;
     VkPhysicalDeviceFeatures2 physicalDeviceFeatures2{
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
         .pNext = &descriptorIndexingFeatures
@@ -224,6 +234,7 @@ vc::Error VulkanApplication::__InitRenderingPipeline()
     //portabilityFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
     //descriptorIndexingFeatures.pNext = &portabilityFeatures;
     __GetPhysicalDeviceFeatures(physicalDeviceFeaturesSupported, descriptorIndexingFeatures, physicalDeviceFeatures2);
+    
     createInfo.pNext = &physicalDeviceFeatures2;
     if (!physicalDeviceFeaturesSupported) {
         vc::Log::Error("Physical device does not support all required physical features");
@@ -450,8 +461,8 @@ void VulkanApplication::__CreateAttachments()
             switch (j) {
                 case static_cast<int>(vc::ColorAttachmentType::LightingAddition): {
                     AttachmentsManager::Get()->attachments[i][j].GetImpl()->As<VulkanTexture>()->GetImage().SetImageLayout(VK_IMAGE_LAYOUT_GENERAL);
-                    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light)
-                        .GroupUpdateImageViewPerFrame(i, AttachmentsManager::Get()->attachments[i][j].GetImpl()->As<VulkanTexture>()->GetImageView(), 10, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, 0);
+//                    DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light)
+//                        .GroupUpdateImageViewPerFrame(i, AttachmentsManager::Get()->attachments[i][j].GetImpl()->As<VulkanTexture>()->GetImageView(), 10, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1, 0);
                     break;
                 }
                 default: break;
@@ -479,6 +490,12 @@ vc::Error VulkanApplication::__RecreateSwapChain()
         if (renderPass && renderPass->Init() != vc::Error::Success)
             return vc::Error::InitializationFailed;
     }
+    // Reset Light Pass Image
+//    for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
+//        __colorPassImage[i] = vc::Texture();
+//        __colorPassImage[i].CreateReadWriteTexture(__swapChain.extent.width, __swapChain.extent.height, vc::ShaderVertexFormat::Vec4, 1);
+//        DescriptorPool::GetPool()->GetDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Light).GroupUpdateTexturePerFrame(i, __colorPassImage[i], 4, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1, 0);
+//    }
     // We also need to reset the last used semaphore
     for (int i = 0; i < VENOM_MAX_FRAMES_IN_FLIGHT; ++i) {
         __imageAvailableSemaphores[i].InitSemaphore();

@@ -8,7 +8,7 @@
 
 #version 450
 
-layout(binding = 2, set = 4, rgba16f) uniform image2D irradianceMap;
+layout(binding = 8, set = 4, rgba16f) uniform image2D irradianceMap;
 layout(binding = 1, set = 1) uniform sampler g_sampler;
 layout(binding = 0, set = 6) uniform texture2D panoramaTexture;
 

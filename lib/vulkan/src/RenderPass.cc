@@ -490,13 +490,13 @@ vc::Error VulkanRenderPass::__CreateDeferredShadowRenderPass()
     const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
     // Final Attachment : 0
-    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
+    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_LOAD, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
     // Lighting Addition Attachment Write : 1
-    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_UNDEFINED, true);
     // Lighting Addition Attachment Read : 2
-    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, true);
+    __AddAttachment(SwapChain::Get()->activeSurfaceFormat.format, VK_IMAGE_LAYOUT_GENERAL, VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_UNDEFINED, true);
     // Depth Attachment : 3
-    __AddAttachment(VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, false);
+    __AddAttachment(VK_FORMAT_D32_SFLOAT, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_UNDEFINED, false);
 
     if (multisampled)
         __resolveAttachmentDescriptions[0].finalLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
@@ -533,6 +533,7 @@ vc::Error VulkanRenderPass::__CreateDeferredShadowRenderPass()
     dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
     dependency.srcAccessMask = 0;
     dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+    //dependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
     // Dependencies
     vc::Vector<VkSubpassDependency> dependencies = {dependency};
@@ -609,7 +610,7 @@ vc::Error VulkanRenderPass::__CreateDeferredShadowRenderPass()
     return vc::Error::Success;
 }
 
-void VulkanRenderPass::__AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp, const VkImageLayout initalLayout, bool resolve)
+void VulkanRenderPass::__AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp, const VkAttachmentStoreOp storeOp, const VkImageLayout initalLayout, bool resolve)
 {
     const bool multisampled = SwapChain::Get()->GetSamples() != VK_SAMPLE_COUNT_1_BIT;
 
@@ -620,7 +621,7 @@ void VulkanRenderPass::__AddAttachment(const VkFormat format, const VkImageLayou
     // What to do with the data before rendering
     colorAttachment.loadOp = loadOp; // OP_LOAD might be useful for deferred shading or temporal AA
     // What to do with the data after rendering
-    colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE; // OP_STORE might be useful for post-processing
+    colorAttachment.storeOp = storeOp; // OP_STORE might be useful for post-processing
     colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     // Layout of the image before and after the render pass

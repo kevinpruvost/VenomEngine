@@ -32,6 +32,8 @@ struct LightShaderStruct
     float intensity;
     vcm::Vec3 direction;
     float angle;
+    int padding[3];
+    int shadowMapIndex;
 };
 
 struct LightCascadedShadowMapConstantsStruct
@@ -59,11 +61,12 @@ public:
     inline float * GetIntensityPtr() { return &__intensity; }
     inline void SetAngle(const float angle) { __angle = angle; }
     inline const float & GetAngle() const { return __angle; }
-    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, GetDirection(), __angle}; }
+    inline LightShaderStruct GetShaderStruct() const { return {__transform->GetPosition(), __lightType, __color, __intensity, GetDirection(), __angle,  {}, _shadowLightIndexPerType}; }
     inline vc::Error Reinit() { return _SetType(__lightType); }
     LightCascadedShadowMapConstantsStruct GetShadowMapConstantsStruct(const int cascadeIndex, const int faceIndex, Camera * const camera, vcm::Vec3 * lightPos) const;
     int GetCascadeIndex(Camera * const camera);
     inline int GetLightIndexPerType() const { return _lightIndexPerType; }
+    inline int GetShadowLightIndexPerType() const { return _shadowLightIndexPerType; }
 
     vcm::Vec3 GetDirection() const;
 
@@ -77,6 +80,7 @@ private:
 
 protected:
     int _lightIndexPerType;
+    int _shadowLightIndexPerType;
 
 private:
     Transform3D * __transform;
@@ -120,6 +124,7 @@ public:
     static vc::Vector<Light *> & GetLightsMut() { return __lights; }
 
     static const size_t GetCountOfLightsOfType(const LightType type);
+    static const size_t GetCountOfShadowedLightsOfType(const LightType type);
 
 private:
     static vc::Vector<Light *> __lights;

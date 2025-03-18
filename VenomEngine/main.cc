@@ -43,7 +43,7 @@ int main(int argc, const char* argv[])
 #endif
 
     vc::VenomEngine::SetScene(Scene);
-    vc::Config::SetGraphicsPluginType(vc::GraphicsPlugin::GraphicsPluginType::Metal);
+    vc::Config::SetGraphicsPluginType(vc::GraphicsPlugin::GraphicsPluginType::Vulkan);
     vc::Config::SetContextType(vc::Context::ContextType::Apple);
     vc::GUI::SetGUIDrawCallback(SceneGUI);
     vc::VenomEngine::AddInputCallback(SceneInput);

@@ -1,15 +1,16 @@
 #version 450
 
 #extension GL_GOOGLE_include_directive : require
+#extension GL_ARB_fragment_shader_interlock : require
 
 #include "../PBR.glsl.h"
 
-layout(push_constant, std430) uniform RenderData
-{
-    int i;
-} lightData;
+// layout(push_constant, std430) uniform RenderData
+// {
+//     int i;
+// } lightData;
 
-#define SHADOW_BIAS 0.001
+#define SHADOW_BIAS 0.0005
 
 float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
@@ -26,6 +27,27 @@ float pcf(texture2D map, vec2 uv, float depth, int gap)
         }
     }
     return shadow / ((1 + gap * 2) * (1 + gap * 2));
+}
+
+float pcfPoisson(texture2D map, vec2 uv, float depth, int gap)
+{
+    ivec2 tSize = textureSize(sampler2D(map, g_sampler), 0);
+    float shadow = 0.0;
+
+    vec2 poissonDisk[4] = vec2[](
+        vec2(-0.707, -0.707), vec2(0.707, -0.707),
+        vec2(-0.707,  0.707), vec2(0.707,  0.707)
+    );
+
+    for (int i = 0; i < 4; ++i) {
+        vec2 offset = poissonDisk[i] * (1.0 / vec2(tSize) * float(gap));
+        vec2 newUv = uv + offset;
+        float pcfDepth = texture(sampler2D(map, g_ClampSampler), newUv).r;
+        float shadowContribution = smoothstep(depth - SHADOW_BIAS - 0.002, depth - SHADOW_BIAS + 0.002, pcfDepth);
+        shadow += shadowContribution;
+    }
+
+    return shadow / 4.0; // Normalize
 }
 
 vec3 rotateX(vec3 dir, float angle)
@@ -54,13 +76,13 @@ vec3 rotateY(vec3 dir, float angle)
 
 float pcfPoint(vec3 dir, vec3 position, vec3 lightPos, int shadowMapIndex, int gap)
 {
-    float tSize = 1.0 / textureSize(sampler2D(shadowMaps[0], g_sampler), 0).x;
+    float tSize = 1.0 / textureSize(sampler2D(pointShadowMaps[0], g_sampler), 0).x;
     float shadow = 0.0;
     float length = distance(lightPos, position);
     int loopNum = (gap * 2 + 1) * (gap * 2 + 1);
 
     int faceBase = GetFaceIndex(dir);
-    vec4 clipSpaceBase = shadowMapsPointLightSpaceMatrices[faceBase + (6 * shadowMapIndex)] * vec4(position, 1.0);
+    vec4 clipSpaceBase = shadowMapsLightSpaceMatrices[MAX_SHADOW_DIRECTIONAL_LIGHTS * VENOM_CSM_TOTAL_CASCADES + faceBase + (6 * shadowMapIndex)] * vec4(position, 1.0);
     vec3 uvShadowBase = clipSpaceBase.xyz / clipSpaceBase.w;
     float depth = uvShadowBase.z;
 
@@ -72,14 +94,14 @@ float pcfPoint(vec3 dir, vec3 position, vec3 lightPos, int shadowMapIndex, int g
             vec3 newPosition = lightPos + newDir * length;
 
             int face = GetFaceIndex(newDir);
-            vec4 clipSpace = shadowMapsPointLightSpaceMatrices[face + (6 * shadowMapIndex)] * vec4(newPosition, 1.0);
+            vec4 clipSpace = shadowMapsLightSpaceMatrices[MAX_SHADOW_DIRECTIONAL_LIGHTS * VENOM_CSM_TOTAL_CASCADES + face + (6 * shadowMapIndex)] * vec4(newPosition, 1.0);
             vec3 uvShadow = clipSpace.xyz / clipSpace.w;
             uvShadow.y = -uvShadow.y;
             uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
             if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0) {
                 continue;
             } else {
-                float pcfDepth = texture(sampler2D(shadowMaps[face], g_ClampSampler), uvShadow.xy).r;
+                float pcfDepth = texture(sampler2D(pointShadowMaps[face + (6 * shadowMapIndex)], g_ClampSampler), uvShadow.xy).r;
                 shadow += (pcfDepth < (depth - bias) ? 1.0 : 0.0) / loopNum;
             }
         }
@@ -132,33 +154,35 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
 {
     float shadow = 0.0;
 
-    int shadowMapIndex = shadowMapsLayerIndices[lightIndex];
+    int shadowMapIndex = light.shadowMapIndex;
+    if (shadowMapIndex == -1)
+        return 0.0;
     if (light.type == LightType_Directional) {
         for (int i = 0; i < CASCADE_COUNT; ++i) {
-           vec4 clipSpace = shadowMapsDirectionalLightSpaceMatrices[i + (CASCADE_COUNT * shadowMapIndex)] * vec4(position, 1.0);
+           vec4 clipSpace = shadowMapsLightSpaceMatrices[i + (CASCADE_COUNT * shadowMapIndex)] * vec4(position, 1.0);
            vec3 uvShadow = clipSpace.xyz / clipSpace.w;
            uvShadow.y = -uvShadow.y;
            uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
            if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
                continue;
-           float shadowPCF = pcf(shadowMaps[i], uvShadow.xy, uvShadow.z, 3);
+           float shadowPCF = pcf(directionalShadowMaps[i], uvShadow.xy, uvShadow.z, 1);
            shadow += shadowPCF;
            break;
         }
     } else if (light.type == LightType_Point) {
         vec3 dir = normalize(position - light.position);
-        float shadowVal = pcfPoint(dir, position, light.position, shadowMapIndex, 1);
+        float shadowVal = pcfPoint(dir, position, light.position, shadowMapIndex, 0);
         //float shadowVal = 0.0;
         shadow = shadowVal;
     } else if (light.type == LightType_Spot) {
-        vec4 clipSpace = shadowMapsSpotLightSpaceMatrices[shadowMapIndex] * vec4(position, 1.0);
+        vec4 clipSpace = shadowMapsLightSpaceMatrices[MAX_SHADOW_DIRECTIONAL_LIGHTS * VENOM_CSM_TOTAL_CASCADES + 6 * MAX_SHADOW_POINT_LIGHTS + shadowMapIndex] * vec4(position, 1.0);
         vec3 uvShadow = clipSpace.xyz / clipSpace.w;
         uvShadow.y = -uvShadow.y;
         uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
         if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
             return 0.0;
-        float shadowVal = pcf(shadowMaps[0], uvShadow.xy, uvShadow.z, 1);
-        //float shadowVal = texture(sampler2D(shadowMaps[0], g_sampler), uvShadow.xy).r;
+        float shadowVal = pcf(spotShadowMaps[0], uvShadow.xy, uvShadow.z, 0);
+        //float shadowVal = texture(sampler2D(spotShadowMaps[0], g_sampler), uvShadow.xy).r;
         //shadow = shadowVal.r < (uvShadow.z - SHADOW_BIAS) ? 1.0 : 0.0;
         shadow = shadowVal;
     }
@@ -186,6 +210,7 @@ vec3 GetLightColor(Light light, vec3 position, vec3 direction)
         return light.color * light.intensity;
     } else if (light.type == LightType_Point) {
         float distance = max(0.01, length(light.position - position));
+        float radius = sqrt(light.intensity / PointLight_Threshold);
         float attenuation = min(100.0, 1.0 / (distance * distance));
         attenuation *= light.intensity;
         if (attenuation <= PointLight_Threshold)
@@ -208,6 +233,63 @@ vec3 GetLightColor(Light light, vec3 position, vec3 direction)
     return vec3(0.0, 0.0, 0.0);
 }
 
+vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness, float transmission, float ior, vec3 specularTint)
+{
+    // Simplified Fresnel-weighted reflection
+    float NDotV = dot(N, V);
+    //float F0 = 0.04;  // Reflectance at normal incidence (typical for non-metallic materials)
+    float F0 = pow((ior - 1.0) / (ior + 1.0), 2.0);  // This part is correct for IOR
+    F0 = mix(F0, 1.0, metallic);  // Adjust for metallic materials
+    float F = F0 + (1.0 - F0) * pow(1.0 - NDotV, 5.0);  // Fresnel-Schlick Approximation
+
+    vec3 finalColor = vec3(0.0);
+    if (transmission < 1.0) {
+        vec2 brdf = texture(sampler2D(brdfLUT, g_sampler), vec2(NDotV, roughness)).rg;
+
+        vec3 R = normalize(reflect(-V, N));
+
+        // Specular reflection based on environment map sampling
+        vec3 specularReflectionColor = GetPanoramaRadiance(R, roughness).rgb;
+
+        // For metallic materials, baseColor is used directly for reflection
+        // For non-metallic, baseColor affects the reflection based on specularTint
+        vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);  // For non-metallic materials
+        specularReflectionBaseColor = mix(specularReflectionBaseColor, baseColor, specularTint.r);  // Apply specular tint
+
+        vec3 specularReflection = specularReflectionColor * (specularReflectionBaseColor * brdf.x + brdf.y);
+
+        vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
+        vec3 irradiance = GetPanoramaIrradiance(N).rgb;
+        vec3 diffuseReflection = diffuseLight * irradiance;
+
+//        finalColor = mix(diffuseReflection, specularReflection, F);
+        finalColor = diffuseReflection + specularReflection * F;
+    }
+
+
+    if (transmission > 0.0) {
+        // Transmission (refraction) handling:
+        vec3 transmittedColor = vec3(0.0);
+        // Snell's Law for refraction
+        float eta = 1.0 / ior; // Assuming air (IOR = 1) outside, and material IOR inside
+        if (NDotV <= 0.0) {
+            eta = ior;  // If the view is inside the material, switch IOR to the material's IOR
+        }
+
+        // Calculate refraction direction
+        float k = 1.0 - eta * eta * (1.0 - NDotV * NDotV);
+        if (k > 0.0) {
+            vec3 refractDirection = eta * V + (eta * NDotV - sqrt(k)) * N;
+            transmittedColor = GetPanoramaRadiance(refractDirection, roughness).rgb;
+            transmittedColor *= baseColor; // Transmission is colored by the base color (just like reflection)
+        }
+        F0 = pow((ior - 1.0) / (ior + 1.0), 2.0);
+        F = F0 + (1.0 - F0) * pow(1.0 - abs(NDotV), 5.0);
+        finalColor = mix(finalColor, transmittedColor, transmission * (1.0 - F));
+    }
+    return finalColor;
+}
+
 layout(location = 0) in vec3 worldPos;
 layout(location = 1) in vec3 outNormal;
 layout(location = 2) in vec2 uv;
@@ -220,9 +302,19 @@ layout(location = 6) in vec2 screenPos;
 layout(origin_upper_left) in vec4 gl_FragCoord;
 
 layout(location = 1) out vec4 lightingResult;
+layout(pixel_interlock_unordered, early_fragment_tests) in;
+
+layout(binding = 4, set = 7, rgba16f) uniform image2D test;
 
 void main()
 {
+    // Reverse normal if back face
+    vec3 realNormal = outNormal;
+    if (gl_FrontFacing == false) {
+         //discard;
+         realNormal = -realNormal;
+     }
+
     vec4 baseColor;
     vec3 normal;
     vec4 specular;
@@ -231,11 +323,11 @@ void main()
     float ao = 1.0;
     vec3 position = worldPos;
     float opacity = 1.0;
+    vec4 emissive = vec4(0.0, 0.0, 0.0, 0.0);
+    float transmission = 0.0;
+    float ior = 1.5;
+    vec3 specularTint = vec3(0.0);
 
-    // Reverse normal if back face
-    vec3 realNormal = outNormal;
-    if (gl_FrontFacing == false)
-         realNormal = -realNormal;
 
     // mat3 TBN = mat3(inputTangent, inputBitangent, realNormal);
     bool tangentSpace = material.components[MaterialComponentType_NORMAL].valueType == MaterialComponentValueType_TEXTURE;
@@ -247,6 +339,10 @@ void main()
         vec3 N = GetMaterialTexture(MaterialComponentType_NORMAL, uv).rgb * 2.0 - 1.0;
         normal = normalize(TBN * N);
     }
+
+    baseColor = toLinear(MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv));
+    if (baseColor.a < 0.01)
+        return;
 
     // Specular
     if (material.components[MaterialComponentType_SPECULAR].valueType != MaterialComponentValueType_NONE)
@@ -264,14 +360,29 @@ void main()
     if (material.components[MaterialComponentType_AMBIENT_OCCLUSION].valueType != MaterialComponentValueType_NONE)
         ao = MaterialComponentGetValue1(MaterialComponentType_AMBIENT_OCCLUSION, uv);
 
+    // Emissive
+    if (material.components[MaterialComponentType_EMISSIVE].valueType != MaterialComponentValueType_NONE)
+        emissive = toLinear(MaterialComponentGetValue4(MaterialComponentType_EMISSIVE, uv));
+
+    // Transmission
+    if (material.components[MaterialComponentType_TRANSMISSION].valueType != MaterialComponentValueType_NONE)
+        transmission = MaterialComponentGetValue1(MaterialComponentType_TRANSMISSION, uv);
+    // IOR
+    if (material.components[MaterialComponentType_REFRACTION].valueType != MaterialComponentValueType_NONE)
+        ior = MaterialComponentGetValue1(MaterialComponentType_REFRACTION, uv);
+
    // Opacity
    if (material.components[MaterialComponentType_OPACITY].valueType != MaterialComponentValueType_NONE)
         opacity = MaterialComponentGetValue1(MaterialComponentType_OPACITY, uv);
+    opacity *= baseColor.a;
+
+    // Specular Tint
+    if (material.components[MaterialComponentType_SPECULAR].valueType != MaterialComponentValueType_NONE)
+        specularTint = MaterialComponentGetValue3(MaterialComponentType_SPECULAR, uv);
 
     // Define additional material parameters for the Disney BRDF
     float subsurface = 0.0;  // Subsurface scattering amount
     float specularVal = 0.4; // Specular intensity
-    float specularTint = 0.5; // Specular tint
     float anisotropic = 0.0; // Anisotropy
     float sheen = 0.0;       // Sheen amount
     float sheenTint = 0.0;   // Sheen tint
@@ -281,34 +392,31 @@ void main()
     vec3 viewDir = normalize(cameraPos - position);
 
     // Loop over lights
-    lightingResult = vec4(0.0, 0.0, 0.0, opacity);
-    finalColor = vec4(0.0, 0.0, 0.0, 0.0);
+    vec4 toAdd = vec4(0.0, 0.0, 0.0, opacity);
 
     if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_None)
     {
-        if (lightData.i < lightCount)
+        for (int i = 0; i < lightCount; ++i)
         {
-            Light light = lights[lightData.i];
+            Light light = lights[i];
 
-            if (isLightInBlock(gl_FragCoord.xy, lightData.i) == false)
-                return;
+            if (isLightInBlock(gl_FragCoord.xy, i) == false)
+                continue;
 
-            float shadow = ComputeShadow(position, normal, light, lightData.i);
+            float shadow = ComputeShadow(position, normal, light, i);
 
             if (shadow >= 0.995)
-                return;
+                continue;
 
             // Compute BRDF for this light
             vec3 lightDir = GetLightDirection(light, position);
             vec3 lightColor = GetLightColor(light, position, lightDir);
             if (length(lightColor) < 0.01)
-                return;
+                continue;
 
             vec3 radiance = lightColor * clamp(dot(normal, lightDir), 0.0, 1.0);
             vec3 colorToAdd = vec3(0.0, 0.0, 0.0);
 
-            baseColor = MaterialComponentGetValue4(MaterialComponentType_BASE_COLOR, uv);
-            baseColor = toLinear(baseColor);
             if (tangentSpace) {
                 colorToAdd += DisneyPrincipledBSDF(lightDir, viewDir, normal, T, B, baseColor.rgb, metallic, roughness, subsurface, specularVal, specularTint, anisotropic, sheen, sheenTint, clearCoat, clearCoatGloss) * radiance;
             } else {
@@ -316,23 +424,48 @@ void main()
             }
             colorToAdd *= (1.0 - shadow);
             lightingResult.rgb += colorToAdd;
+            toAdd.rgb += colorToAdd;
         }
+
+        vec3 reflectionColor = vec3(0.0, 0.0, 0.0);
+        reflectionColor.rgb += emissive.rgb * emissive.a;
+        reflectionColor.rgb += Reflection(viewDir, normal, baseColor.rgb, metallic, roughness, transmission, ior, specularTint);
+
+        // Set transparency
+        //reflectionColor.a = opacity * baseColor.a;
+
+        // Ambient Occlusion
+        float occlusionStrength = 1.0;
+        reflectionColor = mix(reflectionColor, reflectionColor * ao, occlusionStrength);
+        toAdd.rgb += reflectionColor.rgb;
     }
     else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Depth) {
-        lightingResult = vec4(vec3(gl_FragCoord.z), 1.0);
+        toAdd = vec4(vec3(gl_FragCoord.z), 1.0);
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_Normals) {
-        lightingResult = vec4(normal * 0.5 + 0.5, 1.0);
+        toAdd = vec4(normal * 0.5 + 0.5, 1.0);
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ForwardPlus) {
         for (int i = 0; i < lightCount; ++i) {
             if (isLightInBlock(gl_FragCoord.xy, i) == false)
                 continue;
-            lightingResult.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
+            toAdd.rgb += vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ShadowMapping) {
         for (int i = 0; i < lightCount; ++i) {
             Light light = lights[i];
-            float shadow = ComputeShadow(position, normal, light, i);
-            lightingResult.rgb += vec3(1.0 - shadow) * vec3(1.0, 1.0, 1.0) / float(lightCount);
+            float shadow = 0.0f;//ComputeShadow(position, normal, light, i);
+            toAdd.rgb += vec3(1.0 - shadow) * vec3(1.0, 1.0, 1.0) / float(lightCount);
         }
     }
+    //beginInvocationInterlockARB();
+    // Perform blending
+    finalColor = toAdd;
+    finalColor.a = opacity;
+    // lightingResult = toAdd;
+    // lightingResult.a = 1.0;
+    //ivec2 imageSize = imageSize(test);
+    //ivec2 pos = ivec2(gl_FragCoord.x / graphicsSettings.extentWidth * imageSize.x, gl_FragCoord.y / graphicsSettings.extentHeight * imageSize.y);
+    //vec4 testPrev = imageLoad(test, pos);
+    //imageStore(test, pos, testPrev + toAdd);
+    //lightingResult = testPrev + toAdd;
+    //endInvocationInterlockARB();
 }

@@ -29,6 +29,7 @@ VulkanLight::~VulkanLight()
 
 vc::Error VulkanLight::_SetType(const vc::LightType type)
 {
+    if (_shadowLightIndexPerType == -1) return vc::Error::Success;
     VulkanApplication * app = vc::GraphicsApplication::Get()->DAs<VulkanApplication>();
 
     VulkanRenderPass * csmRenderPass = vc::RenderPassImpl::GetRenderPass(vc::RenderingPipelineType::CascadedShadowMapping)->DAs<VulkanRenderPass>();
@@ -38,6 +39,7 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
         __lastCascades[i] = -1;
         for (int j = 0; j < VENOM_CSM_TOTAL_CASCADES; ++j)
         {
+            bool noCascade = false;
             switch (type)
             {
                 case vc::LightType::Directional: {
@@ -52,10 +54,10 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
                 case vc::LightType::Spot: {
                     VkExtent2D extent = {static_cast<uint32_t>(VENOM_CSM_SPOT_DIMENSION) >> j, static_cast<uint32_t>(VENOM_CSM_SPOT_DIMENSION) >> j};
                     Framebuffer & fb = (*__shadowMapFramebuffers)[i][j].emplace_back();
-                    if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapSpotImageViews[i][j][_lightIndexPerType], extent) != vc::Error::Success)
+                    if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapSpotImageViews[i][_lightIndexPerType], extent) != vc::Error::Success)
                         return vc::Error::Failure;
                     // Update descriptor set
-
+                    noCascade = true;
                     break;
                 }
                 case vc::LightType::Point: {
@@ -63,11 +65,12 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
                     for (int k = 0; k < 6; ++k)
                     {
                         Framebuffer & fb = (*__shadowMapFramebuffers)[i][j].emplace_back();
-                        if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapPointImageViews[i][j][_lightIndexPerType * 6 + k], extent) != vc::Error::Success)
+                        if (__CreateFramebuffer(fb, csmRenderPass, *app->__shadowMapPointImageViews[i][_lightIndexPerType * 6 + k], extent) != vc::Error::Success)
                             return vc::Error::Failure;
                         // Update descriptor set
 
                     }
+                    noCascade = true;
                     break;
                 }
                 default: {
@@ -75,6 +78,7 @@ vc::Error VulkanLight::_SetType(const vc::LightType type)
                     return vc::Error::Failure;
                 }
             }
+            if (noCascade) break;
         }
     }
     return vc::Error::Success;
@@ -98,14 +102,14 @@ void VulkanLight::_SetDescriptorsFromCascade(const int cascadeIndex)
             }
             case vc::LightType::Spot:
             {
-                set.UpdateImageView(*app->__shadowMapSpotImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+                set.UpdateImageView(*app->__shadowMapSpotImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][_lightIndexPerType], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
                 break;
             }
             case vc::LightType::Point:
             {
                 for (int i = 0; i < 6; ++i)
-                    set.UpdateImageView(*app->__shadowMapPointImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType * 6 + i], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
-                set.UpdateImageView(app->__shadowMapPointCubeImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][cascadeIndex][_lightIndexPerType], 1, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
+                    set.UpdateImageView(*app->__shadowMapPointImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][_lightIndexPerType * 6 + i], 0, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, i);
+                set.UpdateImageView(app->__shadowMapPointCubeImageViews[vc::GraphicsApplication::GetCurrentFrameInFlight()][_lightIndexPerType], 1, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1, 0);
                 break;
             }
             default: break;

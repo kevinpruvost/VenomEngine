@@ -65,7 +65,7 @@ private:
     vc::Error __CreateGuiRenderPass();
     vc::Error __CreateDeferredShadowRenderPass();
 
-    void __AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp,  const VkImageLayout initalLayout, bool resolve);
+    void __AddAttachment(const VkFormat format, const VkImageLayout layout, const VkAttachmentLoadOp loadOp, const VkAttachmentStoreOp storeOp, const VkImageLayout initalLayout, bool resolve);
     void __SolveAttachmentReferences();
 
 private:

@@ -65,7 +65,7 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
     } else {
         __irradianceMap.CreateReadWriteTexture(256, 128, vc::ShaderVertexFormat::Vec4, 1);
         __irradianceMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadWrite);
-        vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 2, &__irradianceMap);
+        vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 8, &__irradianceMap);
         if (err = _LoadIrradianceMap(__panorama, __irradianceMap); err != vc::Error::Success) {
             vc::Log::Error("Failed to load irradiance map from file: %s", texturePath);
         }
@@ -75,10 +75,10 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
     }
 
     // TODO: Fix as we generate mipmaps
-    if (vc::Filesystem::Exists(radiancePath.c_str())) {
-        __radianceMap.LoadImageFromFile(radiancePath.c_str());
-    } else
-        {
+    //if (vc::Filesystem::Exists(radiancePath.c_str())) {
+    //    __radianceMap.LoadImageFromFile(radiancePath.c_str());
+    //} else
+    {
         if (err = _LoadRadianceMap(__panorama, __radianceMap); err != vc::Error::Success) {
             vc::Log::Error("Failed to load radiance map from file: %s", texturePath);
         }
@@ -92,7 +92,7 @@ vc::Error SkyboxImpl::LoadSkybox(const char * texturePath)
     } else {
         __blurMap.CreateReadWriteTexture(__panorama.GetWidth(), __panorama.GetHeight(), vc::ShaderVertexFormat::Vec4, 1);
         __blurMap.SetMemoryAccess(vc::TextureMemoryAccess::ReadWrite);
-        vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 2, &__blurMap);
+        vc::ShaderResourceTable::UpdateDescriptor(DSETS_INDEX_MATERIAL, 8, &__blurMap);
         if (err = _LoadBlurMap(__panorama, __blurMap); err != vc::Error::Success) {
             vc::Log::Error("Failed to load blur map from file: %s", texturePath);
         }

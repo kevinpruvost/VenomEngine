@@ -13,7 +13,6 @@
 #include "../Resources.vert.glsl.h"
 
 layout(location = 0) in vec3 inPosition;
-layout(location = 1) in vec3 inNormal;
 
 layout(push_constant, std430) uniform LightData
 {
@@ -23,6 +22,7 @@ layout(push_constant, std430) uniform LightData
 } lightData;
 
 void main() {
+    //gl_Position = lightData.lightSpaceMatrix * vec4(inPosition, 1.0);  // Apply the view matrix
     gl_Position = models[gl_InstanceIndex] * vec4(inPosition, 1.0); // Apply the model matrix
     gl_Position = lightData.lightSpaceMatrix * vec4(gl_Position.xyz / gl_Position.w, 1.0);  // Apply the view matrix
     gl_Position.y = -gl_Position.y; // Invert the Y axis

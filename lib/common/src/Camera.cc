@@ -346,7 +346,10 @@ const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
 {
     if (__csmDataDirty) {
         // Update CSM Camera data
+        const float oldFar = __far;
+        SetFarPlane(__far / VENOM_CSM_TOTAL_CASCADES);
         const auto inversedViewProj = vcm::Inverse(GetProjectionMatrix() * GetViewMatrix());
+        SetFarPlane(oldFar);
         const auto zIncrement = 1.0f / VENOM_CSM_TOTAL_CASCADES;
         vcm::Vec4 frustumNearCorners[4] = {
             vcm::Vec4(-1.0f, -1.0f, 0.0f, 1.0f),

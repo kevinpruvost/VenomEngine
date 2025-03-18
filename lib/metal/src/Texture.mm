@@ -9,11 +9,16 @@
 
 #include "venom/common/plugin/graphics/GraphicsSettings.h"
 
+@implementation MetalTextureData
+
+@end
+
 namespace venom
 {
 namespace metal
 {
 MetalTextureResource::MetalTextureResource()
+    : __metalTextureData([[MetalTextureData alloc] init])
 {
 }
 
@@ -27,15 +32,9 @@ MetalTexture::~MetalTexture()
 {
 }
 
-static MetalTexture * s_dummyTexture = nullptr;
-MetalTexture* MetalTexture::GetDummyTexture()
+MetalTextureData * MetalTexture::GetMetalTextureData() const
 {
-    return s_dummyTexture;
-}
-
-void MetalTexture::SetDummyTexture(MetalTexture* texture)
-{
-    s_dummyTexture = texture;
+    return (MetalTextureData *)(_resource->As<MetalTextureResource>()->__metalTextureData);
 }
 
 void MetalTexture::_ResetResource()

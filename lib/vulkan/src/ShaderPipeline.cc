@@ -400,6 +400,8 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
 
     switch (_renderingPipelineType) {
         case vc::RenderingPipelineType::BRDF_LUT: {
+            static bool brdf_lut_done = false;
+            if (brdf_lut_done) break;
             // Generating BRDF LUT
             SingleTimeCommandBuffer cmdBuffer;
             if (CommandPoolManager::GetComputeCommandPool()->CreateSingleTimeCommandBuffer(cmdBuffer) != vc::Error::Success) {
@@ -409,6 +411,7 @@ vc::Error VulkanShaderPipeline::_ReloadShader()
             cmdBuffer.BindPipeline(this);
             DescriptorPool::GetPool()->BindDescriptorSets(vc::ShaderResourceTable::SetsIndex::SetsIndex_Material, cmdBuffer, this);
             cmdBuffer.Dispatch(1024, 1024, 1);
+            brdf_lut_done = true;
             break;
         }
         default:

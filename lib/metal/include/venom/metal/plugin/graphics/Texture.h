@@ -8,6 +8,15 @@
 #pragma once
 
 #include <venom/common/plugin/graphics/Texture.h>
+#include <venom/common/Error.h>
+
+#ifdef __OBJC__
+#include <Metal/Metal.h>
+@interface MetalTextureData : NSObject
+@property (nonatomic, strong) id<MTLTexture> texture;
+@property (nonatomic, strong) MTLTextureDescriptor *textureDescriptor;
+@end
+#endif
 
 namespace venom
 {
@@ -18,6 +27,8 @@ class MetalTextureResource : public vc::TextureResource
 {
 public:
     MetalTextureResource();
+    
+    void * __metalTextureData;
 };
 
 class MetalTexture : public vc::TextureImpl
@@ -25,9 +36,6 @@ class MetalTexture : public vc::TextureImpl
 public:
     MetalTexture();
     ~MetalTexture();
-
-    static MetalTexture * GetDummyTexture();
-    static void SetDummyTexture(MetalTexture * texture);
 
     void _ResetResource() override;
 
@@ -55,6 +63,10 @@ public:
         vc::Error _UnloadTextureFromGUI(void* guiTextureId) override;
     };
     GUITexture * _NewGuiTextureInstance() override;
+    
+#ifdef __OBJC__
+    MetalTextureData * GetMetalTextureData() const;
+#endif
 
     int GetHeight() const override;
     int GetWidth() const override;

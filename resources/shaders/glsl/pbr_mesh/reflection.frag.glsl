@@ -17,68 +17,10 @@ layout(origin_upper_left) in vec4 gl_FragCoord;
 
 vec3 Reflection(vec3 V, vec3 N, vec3 baseColor, float metallic, float roughness, float transmission, float ior, vec3 specularTint)
 {
-    // Simplified Fresnel-weighted reflection
-    float NDotV = dot(N, V);
-    //float F0 = 0.04;  // Reflectance at normal incidence (typical for non-metallic materials)
-    float F0 = pow((ior - 1.0) / (ior + 1.0), 2.0);  // This part is correct for IOR
-    F0 = mix(F0, 1.0, metallic);  // Adjust for metallic materials
-    float F = F0 + (1.0 - F0) * pow(1.0 - NDotV, 5.0);  // Fresnel-Schlick Approximation
-
-    vec3 finalColor = vec3(0.0);
-    if (transmission < 1.0) {
-        ivec2 imageSizeBrdfLUT = imageSize(brdfLUT);
-        ivec2 coords = ivec2(NDotV * imageSizeBrdfLUT.x, roughness * imageSizeBrdfLUT.y);
-        vec2 brdf = imageLoad(brdfLUT, coords).rg;
-
-        vec3 R = normalize(reflect(-V, N));
-
-        // Specular reflection based on environment map sampling
-        vec3 specularReflectionColor = GetPanoramaRadiance(R, roughness).rgb;
-
-        // For metallic materials, baseColor is used directly for reflection
-        // For non-metallic, baseColor affects the reflection based on specularTint
-        vec3 specularReflectionBaseColor = mix(vec3(0.04), baseColor, metallic);  // For non-metallic materials
-        specularReflectionBaseColor = mix(specularReflectionBaseColor, baseColor, specularTint.r);  // Apply specular tint
-
-        vec3 specularReflection = specularReflectionColor * (specularReflectionBaseColor * brdf.x + brdf.y);
-
-        vec3 diffuseLight = baseColor * (1.0 - metallic) * (1.0 - 0.04);
-    //    vec2 irradianceUvF = mod(PanoramaUvFromDir(N), vec2(1.0));
-    //    ivec2 irradianceMapSize = imageSize(irradianceMap);
-    //    ivec2 irradianceUV = ivec2(irradianceUvF.x * irradianceMapSize.x, irradianceUvF.y * irradianceMapSize.y);
-    //    vec3 irradiance = imageLoad(irradianceMap, irradianceUV).rgb;
-        vec3 irradiance = GetPanoramaIrradiance(N).rgb;
-        vec3 diffuseReflection = diffuseLight * irradiance;
-
-//        finalColor = mix(diffuseReflection, specularReflection, F);
-        finalColor = diffuseReflection + specularReflection * F;
-    }
-
-
-    if (transmission > 0.0) {
-        // Transmission (refraction) handling:
-        vec3 transmittedColor = vec3(0.0);
-        // Snell's Law for refraction
-        float eta = 1.0 / ior; // Assuming air (IOR = 1) outside, and material IOR inside
-        if (NDotV <= 0.0) {
-            eta = ior;  // If the view is inside the material, switch IOR to the material's IOR
-        }
-
-        // Calculate refraction direction
-        float k = 1.0 - eta * eta * (1.0 - NDotV * NDotV);
-        if (k > 0.0) {
-            vec3 refractDirection = eta * V + (eta * NDotV - sqrt(k)) * N;
-            transmittedColor = GetPanoramaRadiance(refractDirection, roughness).rgb;
-            transmittedColor *= baseColor; // Transmission is colored by the base color (just like reflection)
-        }
-        F0 = pow((ior - 1.0) / (ior + 1.0), 2.0);
-        F = F0 + (1.0 - F0) * pow(1.0 - abs(NDotV), 5.0);
-        finalColor = mix(finalColor, transmittedColor, transmission * (1.0 - F));
-    }
-    return finalColor;
+    return vec3(0.0);
 }
 
-layout(location = 1) out vec4 lightingResult;
+//layout(location = 1) out vec4 lightingResult;
 
 void main()
 {
@@ -99,8 +41,10 @@ void main()
 
     // Reverse normal if back face
     vec3 realNormal = outNormal;
-    if (gl_FrontFacing == false)
+    if (gl_FrontFacing == false) {
+         discard;
          realNormal = -realNormal;
+     }
 
     // mat3 TBN = mat3(inputTangent, inputBitangent, realNormal);
     bool tangentSpace = material.components[MaterialComponentType_NORMAL].valueType == MaterialComponentValueType_TEXTURE;
@@ -177,10 +121,10 @@ void main()
     } else if (graphicsSettings.debugVisualizationMode == DebugVisualizationMode_ShadowMapping) {
         return;
     }
-    lightingResult = finalColor;
+    //lightingResult = finalColor;
 
-    if (lightingResult.a < 0.2) {
+    //if (lightingResult.a < 0.2) {
         // No depth write if alpha is low (transparent)
-        discard;
-    }
+      //  discard;
+    //}
 }

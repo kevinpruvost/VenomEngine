@@ -125,7 +125,6 @@ vc::Error MetalApplication::__Loop()
     };
     
     id <MTLCommandBuffer> commandBuffer = CreateCommandBuffer();
-    commandBuffer.label = @"Test1";
     
     MTLRenderPassDescriptor * renderPassDescriptor = MetalRenderPass::GetMetalRenderPass(vc::RenderingPipelineType::Skybox)->GetMetalRenderPassDescriptor();
     id <MTLRenderPipelineState> renderPipelineState = vc::RenderingPipeline::GetRenderingPipelineCache(vc::RenderingPipelineType::Skybox)[0].GetImpl()->As<MetalShaderPipeline>()->GetRenderPipelineState();
@@ -243,7 +242,7 @@ vc::Error MetalApplication::_SetMultiSampling(const MultiSamplingModeOption mode
 id<MTLCommandBuffer> MetalApplication::CreateCommandBuffer()
 {
     id<MTLCommandBuffer> buff = [GetMetalCommandQueue() commandBuffer];
-    buff.label = @"Command Buffer";
+    buff.label = [NSString stringWithFormat:@"Command Buffer (flight %d)", _currentFrame];
     [GetMetalApplicationData().commandBuffers[_currentFrame] addObject:buff];
     return buff;
 }

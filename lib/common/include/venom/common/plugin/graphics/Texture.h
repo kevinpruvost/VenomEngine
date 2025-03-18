@@ -90,7 +90,6 @@ public:
     vc::Error CreateAttachment(int width, int height, int imageCount, vc::ShaderVertexFormat format);
     vc::Error CreateShadowMaps(int dimension);
     vc::Error CreateShadowCubeMaps(int dimension);
-    static const TextureImpl * GetDummyTexture();
 #if defined(VENOM_BINDLESS_TEXTURES)
     inline int GetTextureID() const { return _GetResourceToCache()->As<TextureResource>()->GetTextureID(); }
 #endif
