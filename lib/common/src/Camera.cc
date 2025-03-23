@@ -346,10 +346,10 @@ const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
 {
     if (__csmDataDirty) {
         // Update CSM Camera data
-        const float oldFar = __far;
-        SetFarPlane(__far / VENOM_CSM_TOTAL_CASCADES);
+        //const float oldFar = __far;
+        //SetFarPlane(__far / VENOM_CSM_TOTAL_CASCADES);
         const auto inversedViewProj = vcm::Inverse(GetProjectionMatrix() * GetViewMatrix());
-        SetFarPlane(oldFar);
+        //SetFarPlane(oldFar);
         const auto zIncrement = 1.0f / VENOM_CSM_TOTAL_CASCADES;
         vcm::Vec4 frustumNearCorners[4] = {
             vcm::Vec4(-1.0f, -1.0f, 0.0f, 1.0f),
@@ -382,7 +382,7 @@ const CameraCascadedShadowMapData& CameraImpl::GetCascadedShadowMapData()
                 // Linear Split
                 // TODO: Logarithmic Split instead
                 vcm::Vec4 corner = frustumNearCorners[i] + (frustumDistances[i] * (cascade * zIncrement));
-                __csmData.cascadeFrustumsCorners[cascade][i] = vcm::Vec3(corner.x, corner.y, corner.z);
+                __csmData.cascadeFrustumsCorners[cascade][i] = vcm::Vec3    (corner.x, corner.y, corner.z);
                 //DEBUG_PRINT("Cascade %d, Corner %d: %f, %f, %f", cascade, i, corner.x, corner.y, corner.z);
             }
         }

@@ -27,6 +27,7 @@ class SkyboxImpl;
 class RenderTargetImpl;
 class LightImpl;
 class RenderPassImpl;
+class BufferImpl;
 
 class ShaderResourceTable;
 class GUI;
@@ -66,6 +67,7 @@ public:
     virtual SkyboxImpl * CreateSkybox() = 0;
     virtual RenderTargetImpl * CreateRenderTarget() = 0;
     virtual LightImpl * CreateLight() = 0;
+    virtual BufferImpl * CreateBuffer() = 0;
 
     // Global instances
     virtual ShaderResourceTable * CreateShaderResourceTable() = 0;

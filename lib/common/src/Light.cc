@@ -224,8 +224,8 @@ int LightImpl::GetCascadeIndex(Camera* const camera)
                     cascadeIndex = i;
                     break;
                 }
-                cascadeIndex = 0;
             }
+            cascadeIndex = 0;
             break;
         }
         case LightType::Spot: {

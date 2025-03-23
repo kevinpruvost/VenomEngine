@@ -20,6 +20,7 @@
 #include <venom/metal/plugin/graphics/Skybox.h>
 #include <venom/metal/plugin/graphics/Light.h>
 #include <venom/metal/plugin/graphics/RenderPass.h>
+#include <venom/metal/plugin/graphics/Buffer.h>
 
 #include <venom/metal/plugin/graphics/ShaderResourceTable.h>
 
@@ -85,6 +86,11 @@ vc::RenderTargetImpl* MetalGraphicsPlugin::CreateRenderTarget()
 vc::LightImpl* MetalGraphicsPlugin::CreateLight()
 {
     return new MetalLight();
+}
+
+vc::BufferImpl* MetalGraphicsPlugin::CreateBuffer()
+{
+    return new MetalBuffer();
 }
 
 vc::ShaderResourceTable* MetalGraphicsPlugin::CreateShaderResourceTable()

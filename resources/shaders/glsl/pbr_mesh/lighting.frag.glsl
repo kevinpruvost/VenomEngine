@@ -10,7 +10,7 @@
 //     int i;
 // } lightData;
 
-#define SHADOW_BIAS 0.0005
+#define SHADOW_BIAS 0.0001
 
 float pcf(texture2D map, vec2 uv, float depth, int gap)
 {
@@ -86,7 +86,7 @@ float pcfPoint(vec3 dir, vec3 position, vec3 lightPos, int shadowMapIndex, int g
     vec3 uvShadowBase = clipSpaceBase.xyz / clipSpaceBase.w;
     float depth = uvShadowBase.z;
 
-    float bias = tSize;
+    float bias = SHADOW_BIAS;
 
     for (int x = -gap; x <= gap; ++x) {
         for (int y = -gap; y <= gap; ++y) {
@@ -181,7 +181,7 @@ float ComputeShadow(vec3 position, vec3 normal, Light light, int lightIndex)
         uvShadow.xy = uvShadow.xy * 0.5 + 0.5;
         if (uvShadow.z > 1.0 || uvShadow.z < 0.0 || uvShadow.x > 1.0 || uvShadow.x < 0.0 || uvShadow.y > 1.0 || uvShadow.y < 0.0)
             return 0.0;
-        float shadowVal = pcf(spotShadowMaps[0], uvShadow.xy, uvShadow.z, 0);
+        float shadowVal = pcf(spotShadowMaps[0], uvShadow.xy, uvShadow.z, 1);
         //float shadowVal = texture(sampler2D(spotShadowMaps[0], g_sampler), uvShadow.xy).r;
         //shadow = shadowVal.r < (uvShadow.z - SHADOW_BIAS) ? 1.0 : 0.0;
         shadow = shadowVal;
@@ -426,7 +426,7 @@ void main()
                 colorToAdd += LambertCookTorrance(lightDir, viewDir, normal, baseColor.rgb, metallic, roughness) * radiance;
             }
             colorToAdd *= (1.0 - shadow);
-            lightingResult.rgb += colorToAdd;
+            //lightingResult.rgb += colorToAdd;
             toAdd.rgb += colorToAdd;
         }
 

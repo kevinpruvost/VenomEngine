@@ -8,6 +8,7 @@
 #include <venom/vulkan/plugin/graphics/GraphicsPlugin.h>
 
 #include <venom/vulkan/VulkanApplication.h>
+#include <venom/vulkan/plugin/graphics/Buffer.h>
 #include <venom/vulkan/plugin/graphics/Model.h>
 #include <venom/vulkan/plugin/graphics/Mesh.h>
 #include <venom/vulkan/plugin/graphics/Material.h>
@@ -85,6 +86,11 @@ vc::RenderTargetImpl* VulkanGraphicsPlugin::CreateRenderTarget()
 vc::LightImpl* VulkanGraphicsPlugin::CreateLight()
 {
     return new VulkanLight();
+}
+
+vc::BufferImpl* VulkanGraphicsPlugin::CreateBuffer()
+{
+    return new VulkanBuffer();
 }
 
 vc::ShaderResourceTable* VulkanGraphicsPlugin::CreateShaderResourceTable()

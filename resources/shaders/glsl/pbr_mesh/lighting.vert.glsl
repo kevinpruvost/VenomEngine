@@ -26,14 +26,14 @@ void main() {
     fragColor = vec4(1.0, 1.0, 1.0, 1.0); // Pass the color to the fragment shader
 
     // Transform normal
-    mat3 normalMatrix = transpose(inverse(mat3(models[gl_InstanceIndex])));
-    vec3 transformedNormal = normalize(normalMatrix * inNormal);
+    //mat3 normalMatrix = transpose(inverse(mat3(models[gl_InstanceIndex])));
+    vec3 transformedNormal = normalize(models[gl_InstanceIndex] * vec4(inNormal, 1.0)).rgb;
     normal = transformedNormal; // Normalize for correctness
 
     vec3 T, B;
 
-    T = normalize(normalMatrix * inTangent);
-    B = normalize(normalMatrix * inBitangent);
+    T = normalize(models[gl_InstanceIndex] * vec4(inTangent, 1.0)).rgb;
+    B = normalize(models[gl_InstanceIndex] * vec4(inBitangent, 1.0)).rgb;
 
     tangent = T;
     bitangent = B;

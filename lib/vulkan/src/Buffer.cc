@@ -5,6 +5,7 @@
 /// @brief 
 /// @author Pruvost Kevin | pruvostkevin (pruvostkevin0@gmail.com)
 ///
+#include <venom/vulkan/plugin/graphics/Buffer.h>
 #include <venom/vulkan/Buffer.h>
 #include <venom/vulkan/LogicalDevice.h>
 #include <venom/vulkan/Allocator.h>
@@ -131,6 +132,24 @@ const VkDeviceMemory & Buffer::GetVkDeviceMemory() const
 VkDeviceSize Buffer::GetSize() const
 {
     return static_cast<VkDeviceSize>(__size);
+}
+
+VulkanBuffer::VulkanBuffer()
+{
+}
+
+VulkanBuffer::~VulkanBuffer()
+{
+}
+
+vc::Error VulkanBuffer::_InitWithSize(uint32_t size)
+{
+    return vc::Error::Success;
+}
+
+vc::Error VulkanBuffer::_WriteToBuffer(const void* data, uint32_t size, uint32_t offset)
+{
+    return vc::Error::Success;
 }
 }
 }

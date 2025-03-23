@@ -114,6 +114,8 @@ vc::Error SwapChain::InitSwapChainSettings(const Surface* s)
     // Extent, if currentExtent is std::numeric_limits<uint32_t>::max(), then the extent can vary, else it's the currentExtent
     activePresentMode = VK_PRESENT_MODE_IMMEDIATE_KHR;
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
+        //extent.width = capabilities.currentExtent.width / vc::Context::GetWindowScale();
+        //extent.height = capabilities.currentExtent.height / vc::Context::GetWindowScale();
         extent.width = std::min(capabilities.currentExtent.width, static_cast<uint32_t>(vc::Context::GetWindowWidth()));
         extent.height = std::min(capabilities.currentExtent.height, static_cast<uint32_t>(vc::Context::GetWindowHeight()));
 
