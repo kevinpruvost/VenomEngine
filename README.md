@@ -102,8 +102,6 @@ make release_run
 - [ ] Protobuf Serialization
 - [ ] Virtual Shadow Mapping
 - [ ] Rasterizer Order Views Optimization
-- [ ] ~~CPU Rasterizer for very complex geometry~~ Concurrent Binary Trees for very complex/dense geometry
-- [ ] [Vulkan] Distributing workload between multiple queues if there are multiple compatible
 - [x] Forward+ Rendering
 - [x] Cascaded Shadow Mapping
 - [x] CMake Build System
