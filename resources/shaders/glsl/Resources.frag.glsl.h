@@ -65,6 +65,7 @@ layout(binding = 2, set = 4) uniform texture2D irradianceMap;
 // Function to get a texture value from a material component
 vec4 GetMaterialTexture(int componentType, vec2 uv) {
     // All the textures are in linear color space whether HDR is enabled or not, why ???
+    // Textures are converted automatically to linear color space if they are specified as sRGB in vulkan
     return fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor));
     return graphicsSettings.hdrEnabled == 1 ? fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor)) : fromLinear(GetTexture(componentType, uv * material.textureRepeatFactor));
 }

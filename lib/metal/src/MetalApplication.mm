@@ -109,19 +109,21 @@ vc::Error MetalApplication::__Loop()
     vc::Error err = vc::Error::Success;
 
     WaitForCurrentCommandBuffersToComplete();
-    
-    typedef struct
-    {
-        vector_float2 position;
-        vector_float4 color;
-    } AAPLVertex;
 
-    static const AAPLVertex triangleVertices[] =
+    static const vcm::Vec2 triangleVerticesPos[] =
     {
-        // 2D positions,    RGBA colors
-        { {  250,  -250 }, { 1, 0, 0, 1 } },
-        { { -250,  -250 }, { 0, 1, 0, 1 } },
-        { {    0,   250 }, { 0, 0, 1, 1 } },
+        // 2D positions
+        {  2.0,  -1.0 },
+        { -2.0,  -1.0 },
+        {  0.0,   3.0 },
+    };
+    
+    static const vcm::Vec4 triangleVerticesColor[] =
+    {
+        // RGBA colors
+        { 1.0f, 0.0f, 0.0f, 1.0f },
+        { 0.0f, 1.0f, 0.0f, 1.0f },
+        { 0.0f, 0.0f, 1.0,  1.0f },
     };
     
     id <MTLCommandBuffer> commandBuffer = CreateCommandBuffer();
@@ -140,10 +142,11 @@ vc::Error MetalApplication::__Loop()
     [renderEncoder setViewport:(MTLViewport){0.0, 0.0, (double)vc::Context::GetWindowWidth(), (double)vc::Context::GetWindowHeight(), 0.0, 1.0}];
     
     [renderEncoder setRenderPipelineState:renderPipelineState];
-    
-    [renderEncoder setVertexBytes:triangleVertices length:sizeof(triangleVertices) atIndex:0];
+
+    [renderEncoder setVertexBytes:triangleVerticesPos length:sizeof(triangleVerticesPos) atIndex:0];
+    [renderEncoder setVertexBytes:triangleVerticesColor length:sizeof(triangleVerticesColor) atIndex:1];
     const vector_uint2 viewPortSize = {(unsigned int)vc::Context::GetWindowWidth(), (unsigned int)vc::Context::GetWindowHeight()};
-    [renderEncoder setVertexBytes:&viewPortSize length:sizeof(viewPortSize) atIndex:1];
+    [renderEncoder setVertexBytes:&viewPortSize length:sizeof(viewPortSize) atIndex:2];
 
     [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
     
