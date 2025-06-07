@@ -127,7 +127,7 @@ set(OPENVDB_BUILD_BINARIES OFF)
 add_subdirectory("openvdb")
 
 # openexr
-set(OPENEXR_FORCE_INTERNAL_IMATH ON)
+set(OPENEXR_FORCE_INTERNAL_IMATH OFF)
 set(OPENEXR_BUILD_TOOLS OFF)
 set(OPENEXR_INSTALL_TOOLS OFF)
 set(OPENEXR_BUILD_EXAMPLES OFF)
@@ -135,6 +135,10 @@ set(OPENEXR_BUILD_PYTHON OFF)
 set(OPENEXR_TEST_LIBRARIES OFF)
 set(OPENEXR_TEST_TOOLS OFF)
 set(OPENEXR_TEST_PYTHON OFF)
+# imath
+add_subdirectory("imath")
+find_package(Imath REQUIRED)
+
 add_subdirectory("openexr")
 find_package(OpenEXR REQUIRED)
 set(BUILD_SHARED_LIBS ON)

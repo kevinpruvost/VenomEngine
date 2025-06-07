@@ -68,3 +68,6 @@
 [submodule "lib/external/lz4"]
 	path = lib/external/lz4
 	url = git@github.com:lz4/lz4.git
+[submodule "lib/external/imath"]
+	path = lib/external/imath
+	url = https://github.com/AcademySoftwareFoundation/Imath.git
