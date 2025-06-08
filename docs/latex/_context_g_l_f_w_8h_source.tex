@@ -1,0 +1,55 @@
+\doxysection{Context\+GLFW.\+h}
+\hypertarget{_context_g_l_f_w_8h_source}{}\label{_context_g_l_f_w_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/context/ContextGLFW.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/context/ContextGLFW.h}}
+\mbox{\hyperlink{_context_g_l_f_w_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(VENOM\_PLATFORM\_DESKTOP)\ \&\&\ !defined(VENOM\_PLATFORM\_IOS)}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }context}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }glfw}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ContextGLFW\ :\ \textcolor{keyword}{public}\ vc::Context}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ ContextGLFW();}
+\DoxyCodeLine{00026\ \ \ \ \ \string~ContextGLFW();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ ContextGLFW\ *\ GetGLFWContext();}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetWindowTitle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ \_GetWindow()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ \_InitContext()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ \ \ \ \ vc::Error\ \_UpdateVideoMode()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00033\ \ \ \ \ vc::Error\ \_UpdateRefreshRate()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00034\ \ \ \ \ vc::Error\ \_UpdateScreen()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ \ \ \ \ vc::Error\ \_SetFullscreen()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_ShouldClose()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \_GetCursorPos(\textcolor{keywordtype}{double}\ *\ pos)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PollEvents()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_ConvertKeyboardInputToGLFWEnum(vc::KeyboardInput\ key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ \ \ \ \ vc::KeyboardInput\ \_\_ConvertGLFWEnumToKeyboardInput(\textcolor{keywordtype}{int}\ key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ GLFWwindow\ *\ \_\_window;}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ venom::context::glfw::ContextGLFW\ *\ VENOM\_COMMON\_API\ CreateContextGLFW();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

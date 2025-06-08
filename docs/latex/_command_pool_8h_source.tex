@@ -8,7 +8,7 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_queue_family_8h}{venom/vulkan/QueueFamily.h}}>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_mesh_8h}{venom/vulkan/plugin/graphics/Mesh.h}}>}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_model_8h}{venom/vulkan/plugin/graphics/Model.h}}>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_buffer_8h}{venom/vulkan/Buffer.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2_buffer_8h}{venom/vulkan/Buffer.h}}>}}
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_image_8h}{venom/vulkan/Image.h}}>}}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
@@ -93,58 +93,59 @@
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ vkCmdPipelineBarrier(\_commandBuffer,\ srcStageMask,\ dstStageMask,\ dependencyFlags,\ 0,\ \textcolor{keyword}{nullptr},\ 0,\ \textcolor{keyword}{nullptr},\ 0,\ \textcolor{keyword}{nullptr});}
 \DoxyCodeLine{00106\ \ \ \ \ \}}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ CopyImage(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ getImage);}
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ CopySwapChainImage(\textcolor{keyword}{const}\ VkImage\&\ image,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ getImage);}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ ClearAttachments(uint32\_t\ i,\ VkImageAspectFlags\ vkImageAspectFlagBits,\ VkClearValue\ vkClearValue,\ \textcolor{keyword}{const}\ VkClearRect\ *\ rect,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rectNumber)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ CopyBufferToImage(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ srcBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ dstImage);}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ TransitionImageLayout(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image,\ VkFormat\ format,\ VkImageLayout\ oldLayout,\ VkImageLayout\ newLayout);}
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ TransitionImageLayout(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image,\ VkImageLayout\ oldLayout,\ VkImageLayout\ newLayout);}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeImageLayout(\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ image,\ \textcolor{keyword}{const}\ VkImageLayout\ oldLayout,\ \textcolor{keyword}{const}\ VkImageLayout\ newLayout);}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeImageLayout(\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ image,\ \textcolor{keyword}{const}\ VkImageLayout\ newLayout);}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc::ShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ pValues,\ uint32\ offset,\ uint32\_t\ size)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc::ShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ T\ *\ value,\ uint32\ offset\ =\ 0)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ PushConstants(shaderPipeline,\ stageFlags,\ value,\ offset,\ \textcolor{keyword}{sizeof}(T));}
-\DoxyCodeLine{00121\ \ \ \ \ \}}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{VulkanShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ pValues,\ uint32\ offset,\ uint32\_t\ size)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{VulkanShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ pValues,\ uint32\ offset,\ uint32\_t\ size)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00125\ \ \ \ \ \}}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ BindDescriptorSets(VkPipelineBindPoint\ vkPipelineBindPoint,\ VkPipelineLayout\ vkPipelineLayout,}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ uint32\_t\ firstSet,\ VkDescriptorSet\ vkDescriptors)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ BindDescriptorSets(VkPipelineBindPoint\ vkPipelineBindPoint,\ VkPipelineLayout\ vkPipelineLayout,}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ uint32\_t\ firstSet,\ uint32\_t\ descriptSetCount,\ \textcolor{keyword}{const}\ VkDescriptorSet\ *\ vkDescriptors)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ ClearColorImage(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ texture,\ VkClearColorValue\ vkClearColorValue)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ CopyImage(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ getImage);}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ CopySwapChainImage(\textcolor{keyword}{const}\ VkImage\&\ image,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ getImage);}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ ClearAttachments(uint32\_t\ i,\ VkImageAspectFlags\ vkImageAspectFlagBits,\ VkClearValue\ vkClearValue,\ \textcolor{keyword}{const}\ VkClearRect\ *\ rect,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rectNumber)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ CopyBufferToImage(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_buffer}{Buffer}}\&\ srcBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ dstImage);}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ TransitionImageLayout(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image,\ VkFormat\ format,\ VkImageLayout\ oldLayout,\ VkImageLayout\ newLayout);}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ TransitionImageLayout(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}}\&\ image,\ VkImageLayout\ oldLayout,\ VkImageLayout\ newLayout);}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeImageLayout(\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ image,\ \textcolor{keyword}{const}\ VkImageLayout\ oldLayout,\ \textcolor{keyword}{const}\ VkImageLayout\ newLayout);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeImageLayout(\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ \&\ image,\ \textcolor{keyword}{const}\ VkImageLayout\ newLayout);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc::ShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ pValues,\ uint32\_t\ offset,\ uint32\_t\ size)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc::ShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ T\ *\ value,\ uint32\_t\ offset\ =\ 0)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ PushConstants(shaderPipeline,\ stageFlags,\ value,\ offset,\ \textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{VulkanShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ pValues,\ uint32\_t\ offset,\ uint32\_t\ size)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PushConstants(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{VulkanShaderPipeline}}\ *\ shaderPipeline,\ VkShaderStageFlags\ stageFlags,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ pValues,\ uint32\_t\ offset,\ uint32\_t\ size)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ BindDescriptorSets(VkPipelineBindPoint\ vkPipelineBindPoint,\ VkPipelineLayout\ vkPipelineLayout,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ uint32\_t\ firstSet,\ VkDescriptorSet\ vkDescriptors)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ BindDescriptorSets(VkPipelineBindPoint\ vkPipelineBindPoint,\ VkPipelineLayout\ vkPipelineLayout,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ uint32\_t\ firstSet,\ uint32\_t\ descriptSetCount,\ \textcolor{keyword}{const}\ VkDescriptorSet\ *\ vkDescriptors)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ SubmitToQueue(VkFence\ fence\ =\ VK\_NULL\_HANDLE,\ VkSemaphore\ waitSemaphore\ =\ VK\_NULL\_HANDLE,\ VkPipelineStageFlags\ waitStage\ =\ 0,}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ VkSemaphore\ signalSemaphore\ =\ VK\_NULL\_HANDLE);}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ WaitForQueue()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00136\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_TransitionImageLayout(VkImageMemoryBarrier\ \&\ barrier,\ VkImageLayout\ oldLayout,\ VkImageLayout\ newLayout);}
-\DoxyCodeLine{00138\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00139\ \ \ \ \ VkCommandBuffer\ \_commandBuffer;}
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ *\ \_queue;}
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isActive;}
-\DoxyCodeLine{00142\ \ \ \ \ VkPipeline\ \_lastBoundPipeline;}
-\DoxyCodeLine{00143\ \};}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \textcolor{keyword}{class\ }SingleTimeCommandBuffer\ :\ \textcolor{keyword}{public}\ CommandBuffer}
-\DoxyCodeLine{00146\ \{}
-\DoxyCodeLine{00147\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }CommandPool;}
-\DoxyCodeLine{00149\ \ \ \ \ SingleTimeCommandBuffer();}
-\DoxyCodeLine{00150\ \ \ \ \ \string~SingleTimeCommandBuffer();}
-\DoxyCodeLine{00151\ \ \ \ \ SingleTimeCommandBuffer(\textcolor{keyword}{const}\ SingleTimeCommandBuffer\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00152\ \ \ \ \ SingleTimeCommandBuffer\&\ operator=(\textcolor{keyword}{const}\ SingleTimeCommandBuffer\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00153\ \ \ \ \ SingleTimeCommandBuffer(SingleTimeCommandBuffer\&\&\ other);}
-\DoxyCodeLine{00154\ \ \ \ \ SingleTimeCommandBuffer\&\ operator=(SingleTimeCommandBuffer\&\&\ other);}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00157\ \ \ \ \ VkCommandPool\ \_\_commandPool;}
-\DoxyCodeLine{00158\ \};}
-\DoxyCodeLine{00159\ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ SubmitToQueue(VkFence\ fence\ =\ VK\_NULL\_HANDLE,\ VkSemaphore\ waitSemaphore\ =\ VK\_NULL\_HANDLE,\ VkPipelineStageFlags\ waitStage\ =\ 0,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ VkSemaphore\ signalSemaphore\ =\ VK\_NULL\_HANDLE);}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ WaitForQueue()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00137\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_TransitionImageLayout(VkImageMemoryBarrier\ \&\ barrier,\ VkImageLayout\ oldLayout,\ VkImageLayout\ newLayout);}
+\DoxyCodeLine{00139\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00140\ \ \ \ \ VkCommandBuffer\ \_commandBuffer;}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_queue}{Queue}}\ *\ \_queue;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isActive;}
+\DoxyCodeLine{00143\ \ \ \ \ VkPipeline\ \_lastBoundPipeline;}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{class\ }SingleTimeCommandBuffer\ :\ \textcolor{keyword}{public}\ CommandBuffer}
+\DoxyCodeLine{00147\ \{}
+\DoxyCodeLine{00148\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }CommandPool;}
+\DoxyCodeLine{00150\ \ \ \ \ SingleTimeCommandBuffer();}
+\DoxyCodeLine{00151\ \ \ \ \ \string~SingleTimeCommandBuffer();}
+\DoxyCodeLine{00152\ \ \ \ \ SingleTimeCommandBuffer(\textcolor{keyword}{const}\ SingleTimeCommandBuffer\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00153\ \ \ \ \ SingleTimeCommandBuffer\&\ operator=(\textcolor{keyword}{const}\ SingleTimeCommandBuffer\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00154\ \ \ \ \ SingleTimeCommandBuffer(SingleTimeCommandBuffer\&\&\ other);}
+\DoxyCodeLine{00155\ \ \ \ \ SingleTimeCommandBuffer\&\ operator=(SingleTimeCommandBuffer\&\&\ other);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00158\ \ \ \ \ VkCommandPool\ \_\_commandPool;}
+\DoxyCodeLine{00159\ \};}
 \DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ \}}
 
 \end{DoxyCode}

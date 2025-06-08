@@ -7,7 +7,7 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_error_8h}{venom/common/Error.h}}>}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/plugin/context/Context.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_shader_resource_table_8h}{venom/common/plugin/graphics/ShaderResourceTable.h}}>}}
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_settings_8h}{venom/common/plugin/graphics/GraphicsSettings.h}}>}}
@@ -36,28 +36,30 @@
 \DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ ShouldClose()\ =\ 0;}
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ WaitForDraws()\ =\ 0;}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ *\ GetSkyboxRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_skyboxRenderPass;\ \}}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ *\ GetGraphicsRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_graphicsRenderPass;\ \}}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ *\ GetGuiRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_guiRenderPass;\ \}}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ *\ GetShadowMapRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_shadowMapRenderPass;\ \}}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_LoadRenderingPipelines();}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{ShaderResourceTable}}\ *\ \_shaderResourceTable;}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{GUI}}\ *\ \_gui;}
-\DoxyCodeLine{00057\ \ \ \ \ UPtr<vc::Texture>\ \_dummyTexture;}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_currentFrame;}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Vec2\ \_currentExtent;}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Render\ Passes}}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ \_skyboxRenderPass;}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ \_graphicsRenderPass;}
-\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ \_guiRenderPass;}
-\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ \_shadowMapRenderPass;}
-\DoxyCodeLine{00066\ \};}
-\DoxyCodeLine{00067\ \}}
-\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application_aab656eb7122f3a29e770c1e4b4a5c04e}{PreClose}}()\ =\ 0;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ *\ GetSkyboxRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_skyboxRenderPass;\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass}{RenderPass}}\ *\ GetGraphicsRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_graphicsRenderPass;\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ RenderPass\ *\ GetGuiRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_guiRenderPass;\ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ RenderPass\ *\ GetShadowMapRenderPass()\ \{\ \textcolor{keywordflow}{return}\ \&Get()-\/>\_shadowMapRenderPass;\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_LoadRenderingPipelines();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00061\ \ \ \ \ ShaderResourceTable\ *\ \_shaderResourceTable;}
+\DoxyCodeLine{00062\ \ \ \ \ GUI\ *\ \_gui;}
+\DoxyCodeLine{00063\ \ \ \ \ UPtr<vc::Texture>\ \_dummyTexture;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_currentFrame;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Vec2\ \_currentExtent;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ Render\ Passes}}
+\DoxyCodeLine{00068\ \ \ \ \ RenderPass\ \_skyboxRenderPass;}
+\DoxyCodeLine{00069\ \ \ \ \ RenderPass\ \_graphicsRenderPass;}
+\DoxyCodeLine{00070\ \ \ \ \ RenderPass\ \_guiRenderPass;}
+\DoxyCodeLine{00071\ \ \ \ \ RenderPass\ \_shadowMapRenderPass;}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ \}}
 
 \end{DoxyCode}

@@ -140,6 +140,10 @@ $(function(){initNavTree('common_2src_2_texture_8cc.html',''); initResizable(tru
 <code>#include &lt;<a class="el" href="_log_8h_source.html">venom/common/Log.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_resources_8h_source.html">venom/common/Resources.h</a>&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;flatbuffers/flatbuffers.h&gt;</code><br />
+<code>#include &lt;lz4hc.h&gt;</code><br />
+<code>#include &quot;Texture_generated.h&quot;</code><br />
+<code>#include &lt;venom/common/FileSystem.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -167,6 +171,9 @@ vc::Error VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b
 <tr class="memitem:a0cb5b8a0a04006d8f2d27ad3bc3d98a9" id="r_a0cb5b8a0a04006d8f2d27ad3bc3d98a9"><td class="memItemLeft" align="right" valign="top"><a id="a0cb5b8a0a04006d8f2d27ad3bc3d98a9" name="a0cb5b8a0a04006d8f2d27ad3bc3d98a9"></a>
 vc::Error VENOM_COMMON_API&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::SaveImageToPng</b> (const void *data, const char *path, int width, int height, int channels=4)</td></tr>
 <tr class="separator:a0cb5b8a0a04006d8f2d27ad3bc3d98a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af7e7df4c50a9a0c4171442695b7d67" id="r_a6af7e7df4c50a9a0c4171442695b7d67"><td class="memItemLeft" align="right" valign="top"><a id="a6af7e7df4c50a9a0c4171442695b7d67" name="a6af7e7df4c50a9a0c4171442695b7d67"></a>
+const TextureData *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::LoadTextureData</b> (const char *path)</td></tr>
+<tr class="separator:a6af7e7df4c50a9a0c4171442695b7d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7df8479ee3bd0915a50e4f879c7d3340" id="r_a7df8479ee3bd0915a50e4f879c7d3340"><td class="memItemLeft" align="right" valign="top"><a id="a7df8479ee3bd0915a50e4f879c7d3340" name="a7df8479ee3bd0915a50e4f879c7d3340"></a>
 <a class="el" href="classvenom_1_1common_1_1_texture_loader.html">TextureLoader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>venom::common::CreateTextureLoader</b> (const char *path)</td></tr>
 <tr class="separator:a7df8479ee3bd0915a50e4f879c7d3340"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -67,7 +67,7 @@
 \DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ vcm::Mat4\ \&\ GetModelMatrix();\ \textcolor{comment}{//\ Get\ the\ model\ matrix\ of\ the\ camera}}
 \DoxyCodeLine{00076\ \ \ \ \ vcm::Mat4\ \&\ GetModelMatrixMut();\ \textcolor{comment}{//\ Get\ the\ model\ matrix\ for\ mutation}}
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#if\ defined(VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX)}}
 \DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetModelMatrixId()\ \{}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ShaderResourceTable::GetModelMatrixBufferId(\_modelMatrix);}
 \DoxyCodeLine{00081\ \ \ \ \ \}}
@@ -75,7 +75,7 @@
 \DoxyCodeLine{00083\ }
 \DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{inline}\ vcm::Mat4\ \&\ \_\_GetModelMatrix()\ \{}
-\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#if\ defined(VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX)}}
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\_modelMatrix;}
 \DoxyCodeLine{00092\ \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_modelMatrix;}
@@ -97,7 +97,7 @@
 \DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \_pitch,\_yaw,\ \_roll;}
 \DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \};}
 \DoxyCodeLine{00111\ \ \ \ \ \};}
-\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#if\ defined(VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX)}}
 \DoxyCodeLine{00113\ \ \ \ \ vcm::Mat4\ *\ \_modelMatrix;}
 \DoxyCodeLine{00114\ \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{00115\ \ \ \ \ vcm::Mat4\ \_modelMatrix;}

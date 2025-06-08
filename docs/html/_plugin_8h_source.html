@@ -151,32 +151,34 @@ $(function(){initNavTree('_plugin_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">friend</span> <span class="keyword">class </span>PluginManager;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> PluginType GetType() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    Plugin(<span class="keyword">const</span> PluginType type);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> AddPluginObject(<a class="code hl_class" href="classvenom_1_1common_1_1_i_plugin_object.html">IPluginObject</a> * <span class="keywordtype">object</span>);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> RemovePluginObject(<a class="code hl_class" href="classvenom_1_1common_1_1_i_plugin_object.html">IPluginObject</a> * <span class="keywordtype">object</span>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> CleanPluginObjects();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> PluginType __type;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    vc::Vector&lt;vc::UPtr&lt;IPluginObject&gt;&gt; __objects;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    vc::Vector&lt;vc::UPtr&lt;IPluginObject&gt;&gt; __objectsToRemove;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">// Useful if certain plugin objects contain other plugin objects that are only destroyed after</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">// one clean step</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">bool</span> __objectsToRemoveLocked;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    vc::Vector&lt;vc::UPtr&lt;IPluginObject&gt;&gt; __objectsToRemoveNext;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> TerminatePluginObjects();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    Plugin(<span class="keyword">const</span> PluginType type);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">static</span> vc::Vector&lt;Plugin *&gt; GetAllPlugins();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> AddPluginObject(<a class="code hl_class" href="classvenom_1_1common_1_1_i_plugin_object.html">IPluginObject</a> * <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> RemovePluginObject(<a class="code hl_class" href="classvenom_1_1common_1_1_i_plugin_object.html">IPluginObject</a> * <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> CleanPluginObjects();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">const</span> PluginType __type;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    vc::Vector&lt;vc::UPtr&lt;IPluginObject&gt;&gt; __objects;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    vc::Vector&lt;vc::UPtr&lt;IPluginObject&gt;&gt; __objectsToRemove;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">// Useful if certain plugin objects contain other plugin objects that are only destroyed after</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// one clean step</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">bool</span> __objectsToRemoveLocked;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    vc::Vector&lt;vc::UPtr&lt;IPluginObject&gt;&gt; __objectsToRemoveNext;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
 <div class="ttc" id="a_d_l_l_8h_html"><div class="ttname"><a href="_d_l_l_8h.html">DLL.h</a></div></div>
 <div class="ttc" id="a_error_8h_html"><div class="ttname"><a href="_error_8h.html">Error.h</a></div></div>
 <div class="ttc" id="a_plugin_object_8h_html"><div class="ttname"><a href="_plugin_object_8h.html">PluginObject.h</a></div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_i_plugin_object_html"><div class="ttname"><a href="classvenom_1_1common_1_1_i_plugin_object.html">venom::common::IPluginObject</a></div><div class="ttdef"><b>Definition</b> PluginObject.h:23</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_plugin_manager_html"><div class="ttname"><a href="classvenom_1_1common_1_1_plugin_manager.html">venom::common::PluginManager</a></div><div class="ttdef"><b>Definition</b> PluginManager.h:27</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_plugin_manager_html"><div class="ttname"><a href="classvenom_1_1common_1_1_plugin_manager.html">venom::common::PluginManager</a></div><div class="ttdef"><b>Definition</b> PluginManager.h:26</div></div>
 <div class="ttc" id="anamespacevenom_1_1common_html"><div class="ttname"><a href="namespacevenom_1_1common.html">venom::common</a></div><div class="ttdoc">High-Level Frontend of the VenomEngine project. It also contains all the code shared between every AP...</div><div class="ttdef"><b>Definition</b> Callback.h:15</div></div>
 <div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Callback.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->

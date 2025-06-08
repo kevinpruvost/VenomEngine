@@ -56,9 +56,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_allocator_8cc.html",
-"classvenom_1_1common_1_1_i_plugin_object.html",
-"classvenom_1_1vulkan_1_1_vulkan_rendering_pipeline.html",
-"structvenom_1_1vulkan_1_1_queue_order_pool_1_1_queue_order_info.html"
+"classvenom_1_1common_1_1_graphics_settings.html#a7255e399568a42ce36232a226b3b298ba6adf97f83acf6453d4a6a4b1070f3754",
+"classvenom_1_1vulkan_1_1_vulkan_application.html",
+"ruby_setup.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

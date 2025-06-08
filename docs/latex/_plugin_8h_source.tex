@@ -26,25 +26,27 @@
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }PluginManager;}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ GetType()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00033\ \ \ \ \ Plugin(\textcolor{keyword}{const}\ PluginType\ type);}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginObjects();}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ \_\_type;}
-\DoxyCodeLine{00042\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objects;}
-\DoxyCodeLine{00043\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objectsToRemove;}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Useful\ if\ certain\ plugin\ objects\ contain\ other\ plugin\ objects\ that\ are\ only\ destroyed\ after}}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ one\ clean\ step}}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_objectsToRemoveLocked;}
-\DoxyCodeLine{00047\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objectsToRemoveNext;}
-\DoxyCodeLine{00048\ \};}
-\DoxyCodeLine{00049\ \}}
-\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ TerminatePluginObjects();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00034\ \ \ \ \ Plugin(\textcolor{keyword}{const}\ PluginType\ type);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ vc::Vector<Plugin\ *>\ GetAllPlugins();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginObjects();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ \_\_type;}
+\DoxyCodeLine{00044\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objects;}
+\DoxyCodeLine{00045\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objectsToRemove;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ Useful\ if\ certain\ plugin\ objects\ contain\ other\ plugin\ objects\ that\ are\ only\ destroyed\ after}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ one\ clean\ step}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_objectsToRemoveLocked;}
+\DoxyCodeLine{00049\ \ \ \ \ vc::Vector<vc::UPtr<IPluginObject>>\ \_\_objectsToRemoveNext;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ \}}
 
 \end{DoxyCode}

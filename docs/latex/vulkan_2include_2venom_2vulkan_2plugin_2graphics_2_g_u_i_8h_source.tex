@@ -7,139 +7,149 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_g_u_i_8h}{venom/common/plugin/graphics/GUI.h}}>}}
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <imgui.h>}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_glfw.h>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_vulkan.h>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ !defined(VENOM\_DISABLE\_GLFW)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_glfw.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_vulkan.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VulkanGUI\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{vc::GUI}}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
 \DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ VulkanGUI();}
-\DoxyCodeLine{00023\ \ \ \ \ \string~VulkanGUI()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ vc::Error\ \_Initialize()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VulkanGUI\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_g_u_i}{vc::GUI}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ VulkanGUI();}
+\DoxyCodeLine{00025\ \ \ \ \ \string~VulkanGUI()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EntityGuizmo(\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{vc::Transform3D}}*\ transform3D,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ renderingSize)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ vc::Error\ \_Reset()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \_AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize,\ \textcolor{keyword}{const}\ uint16\_t*\ glyphRanges)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \_AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextWindowPos(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ pos,\ vc::GUICond\ cond,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ pivot)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextWindowSize(\textcolor{keyword}{const}\ vcm::Vec2\&\ size,\ vc::GUICond\ cond)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextWindowViewport(vc::GUIViewport\ viewport)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00027\ \ \ \ \ vc::Error\ \_Initialize()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ defined(VENOM\_PLATFORM\_APPLE)}}
+\DoxyCodeLine{00030\ \ \ \ \ vc::Error\ \_InitializeApple();}
+\DoxyCodeLine{00031\ \ \ \ \ vc::Error\ \_DestroyApple();}
+\DoxyCodeLine{00032\ \ \ \ \ vc::Error\ \_NewFrameApple();}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EntityGuizmo(\mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{vc::Transform3D}}*\ transform3D,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ renderingSize)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ vcm::Vec2\ \_GetContentRegionAvail()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \ \ \ \ vc::Error\ \_Reset()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ vcm::Vec2\ \_GetWindowSize()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00041\ \ \ \ \ vcm::Vec2\ \_GetWindowPos()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00042\ \ \ \ \ vc::GUIViewport\ \_GetMainViewport()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ClearFonts()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \_AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize,\ \textcolor{keyword}{const}\ uint16\_t*\ glyphRanges)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \_AddFont(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fontPath,\ \textcolor{keywordtype}{float}\ fontSize)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \_NewFrame()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \_End()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \_LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Image(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}*\ texture,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ \textcolor{keywordtype}{bool}\ centering)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_InputText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{char}*\ buf,\ \textcolor{keywordtype}{size\_t}\ buf\_size,\ vc::GUIInputTextFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_TreeNode(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TreePop()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TreePush(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SeparatorText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Separator()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Spacing()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Dummy(\textcolor{keyword}{const}\ vcm::Vec2\&\ size)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_InputFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ step,\ \textcolor{keywordtype}{float}\ step\_fast,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_InputFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_CollapsingHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ vc::GUITreeNodeFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextWindowPos(\textcolor{keyword}{const}\ vcm::Vec2\ \&\ pos,\ vc::GUICond\ cond,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ pivot)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextWindowSize(\textcolor{keyword}{const}\ vcm::Vec2\&\ size,\ vc::GUICond\ cond)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextWindowViewport(vc::GUIViewport\ viewport)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ vcm::Vec2\ \_GetContentRegionAvail()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ vcm::Vec2\ \_GetWindowSize()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00051\ \ \ \ \ vcm::Vec2\ \_GetWindowPos()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00052\ \ \ \ \ vc::GUIViewport\ \_GetMainViewport()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \_NewFrame()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ name,\ \textcolor{keywordtype}{bool}\ *\ p\_open,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \_End()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Text(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TextColored(\textcolor{keyword}{const}\ vcm::Vec4\ \&\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \_LabelText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Image(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}*\ texture,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ \textcolor{keywordtype}{bool}\ centering)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_InputText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{char}*\ buf,\ \textcolor{keywordtype}{size\_t}\ buf\_size,\ vc::GUIInputTextFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_TreeNode(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TreePop()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \_TreePush(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SeparatorText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Separator()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Spacing()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Dummy(\textcolor{keyword}{const}\ vcm::Vec2\&\ size)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ vc::GUISelectableFlags\ flags,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_SliderFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_SliderFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keywordtype}{float}\ v\_min,\ \textcolor{keywordtype}{float}\ v\_max,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_InputFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ v,\ \textcolor{keywordtype}{float}\ step,\ \textcolor{keywordtype}{float}\ step\_fast,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_InputFloat3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ v[3],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ vc::GUIComboFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndCombo()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginMenu(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ enabled)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndMenu()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginMainMenuBar()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndMainMenuBar()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginMenuBar()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndMenuBar()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginChild(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ vc::GUIChildFlags\ childFlags,\ vc::GUIWindowFlags\ extra\_flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndChild()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_MenuItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetItemDefaultFocus()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x,\ \textcolor{keywordtype}{float}\ spacing)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ColorEdit3(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}\ col[3],\ vc::GUIColorEditFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_CollapsingHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ vc::GUITreeNodeFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Button(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Checkbox(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}*\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \_ProgressBar(\textcolor{keywordtype}{float}\ fraction,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size\_arg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ overlay)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_Selectable(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ selected,\ vc::GUISelectableFlags\ flags,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginCombo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ preview\_value,\ vc::GUIComboFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndCombo()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginMenu(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{bool}\ enabled)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndMenu()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginMainMenuBar()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndMainMenuBar()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginMenuBar()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndMenuBar()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PushItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PopItemWidth()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginChild(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ \textcolor{keyword}{const}\ vcm::Vec2\ \&\ size,\ vc::GUIChildFlags\ childFlags,\ vc::GUIWindowFlags\ extra\_flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndChild()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PushButtonTextAlign(\textcolor{keyword}{const}\ vcm::Vec2\&\ padding)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PushWindowPadding(\textcolor{keyword}{const}\ vcm::Vec2\&\ padding)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PopStyleVar()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \ \ vc::GUIId\ \_DockSpace(vc::GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\&\ size,\ vc::GUIDockNodeFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00110\ \ \ \ \ vc::GUIId\ \_DockSpace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\&\ size,\ vc::GUIDockNodeFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00111\ \ \ \ \ vc::GUIId\ \_DockSpaceOverViewport()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ vc::GUIId\ \_DockSpaceAddNode(vc::GUIId\ \textcolor{keywordtype}{id},\ vc::GUIDockNodeFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockSpaceRemoveNode(vc::GUIId\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockSpaceSetNodeSize(vc::GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\&\ size)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ vc::GUIId\ \_DockSpaceSplitNode(vc::GUIId\ \textcolor{keywordtype}{id},\ vc::GUIDir\ split\_dir,\ \textcolor{keywordtype}{float}\ size\_ratio,\ vc::GUIId*\ out\_id\_at\_dir,\ vc::GUIId*\ out\_id\_at\_opposite\_dir)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_MenuItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetNextItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetItemDefaultFocus()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SameLine(\textcolor{keywordtype}{float}\ offset\_from\_start\_x,\ \textcolor{keywordtype}{float}\ spacing)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PushItemWidth(\textcolor{keywordtype}{float}\ item\_width)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PopItemWidth()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PushButtonTextAlign(\textcolor{keyword}{const}\ vcm::Vec2\&\ padding)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PushWindowPadding(\textcolor{keyword}{const}\ vcm::Vec2\&\ padding)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \_PopStyleVar()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockWindow(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ vc::GUIId\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockFinish(vc::GUIId\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \_OpenPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ vc::GUIPopupFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginPopupModal(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{bool}*\ p\_open,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginPopupContextItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ common::GUIPopupFlags\ flags)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndPopup()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ \_CloseCurrentPopup()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00119\ \ \ \ \ vc::GUIId\ \_DockSpace(vc::GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\&\ size,\ vc::GUIDockNodeFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00120\ \ \ \ \ vc::GUIId\ \_DockSpace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\&\ size,\ vc::GUIDockNodeFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00121\ \ \ \ \ vc::GUIId\ \_DockSpaceOverViewport()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ vc::GUIId\ \_DockSpaceAddNode(vc::GUIId\ \textcolor{keywordtype}{id},\ vc::GUIDockNodeFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockSpaceRemoveNode(vc::GUIId\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockSpaceSetNodeSize(vc::GUIId\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ vcm::Vec2\&\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ vc::GUIId\ \_DockSpaceSplitNode(vc::GUIId\ \textcolor{keywordtype}{id},\ vc::GUIDir\ split\_dir,\ \textcolor{keywordtype}{float}\ size\_ratio,\ vc::GUIId*\ out\_id\_at\_dir,\ vc::GUIId*\ out\_id\_at\_opposite\_dir)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ vc::GUIId\ \_GetID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ vc::Error\ \_PreUpdate()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Render()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Test()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetStyle();}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockWindow(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ vc::GUIId\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ \_DockFinish(vc::GUIId\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \_OpenPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ vc::GUIPopupFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginPopup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginPopupModal(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{bool}*\ p\_open,\ vc::GUIWindowFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_BeginPopupContextItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id,\ common::GUIPopupFlags\ flags)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ \_EndPopup()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \_CloseCurrentPopup()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_imageVerticalOffset;}
+\DoxyCodeLine{00139\ \ \ \ \ vc::GUIId\ \_GetID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str\_id)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00142\ \ \ \ \ ImGui\_ImplVulkan\_InitInfo\ initInfo;}
-\DoxyCodeLine{00143\ \};}
-\DoxyCodeLine{00144\ \}}
-\DoxyCodeLine{00145\ \}}
+\DoxyCodeLine{00141\ \ \ \ \ vc::Error\ \_PreUpdate()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Render()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{void}\ \_Test()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetStyle();}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_imageVerticalOffset;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00152\ \ \ \ \ ImGui\_ImplVulkan\_InitInfo\ initInfo;}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ \}}
 
 \end{DoxyCode}

@@ -10,6 +10,8 @@ High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_bindless_textures_id_manager}{Bindless\+Textures\+Id\+Manager}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_buffer_impl}{Buffer\+Impl}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classvenom_1_1common_1_1_camera}{Camera} class Classic layout with position, rotation and projection matrices. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvenom_1_1common_1_1_camera_cascaded_shadow_map_data}{Camera\+Cascaded\+Shadow\+Map\+Data}}
@@ -21,8 +23,6 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_camera_impl}{Camera\+Impl}}
 class \mbox{\hyperlink{classvenom_1_1common_1_1_config}{Config}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}}
-\item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_context_plugin}{Context\+Plugin}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_deferred_trash}{Deferred\+Trash}}
 \item 
@@ -36,7 +36,11 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_e_c_s}{ECS}}
 \begin{DoxyCompactList}\small\item\em Entity Component System Will mainly encapsulate the fabulous flecs library (\href{https://github.com/SanderMertens/flecs.git}{\texttt{ https\+://github.\+com/\+Sander\+Mertens/flecs.\+git}}) This class will be contained in the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} class. Also manages/lists all components types for browsing. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_e_x_r___texture_loader}{EXR\+\_\+\+Texture\+Loader}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_fast_vector}{Fast\+Vector}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_filesystem}{Filesystem}}
+\item 
+struct \mbox{\hyperlink{structvenom_1_1common_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s}{FLATBUFFERS\+\_\+\+FINAL\+\_\+\+CLASS}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_fps_counter}{Fps\+Counter}}
 \item 
@@ -94,12 +98,12 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_manager}{Plugin\+Manager}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object}}
 \begin{DoxyCompactList}\small\item\em Base class for all the plugin objects Objects that will be loaded from the plugins as their implementations lie there As a user of \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}, you should not care about that, unless you plan to create your own plugin. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}}
-\begin{DoxyCompactList}\small\item\em Interface for the \doxylink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object} different implementations. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper}}
-\begin{DoxyCompactList}\small\item\em Wrapper for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_optional}{Plugin\+Object\+Optional}}
-\begin{DoxyCompactList}\small\item\em Container for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper} Important to avoid it from loading the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl} if not needed e.\+g. if the object is optional. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Container for the \doxylink{classvenom_1_1common_1_1_plugin_object_wrapper}{Plugin\+Object\+Wrapper} Important to avoid it from loading the \doxylink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object} if not needed e.\+g. if the object is optional. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_wrapper}{Plugin\+Object\+Wrapper}}
+\begin{DoxyCompactList}\small\item\em Wrapper for the Plugin\+Object\+Impl, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_read_buffer}{Read\+Buffer}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline}{Rendering\+Pipeline}}
 \begin{DoxyCompactList}\small\item\em Interface with shader pipelines and shader settings. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_rendering_pipeline_impl}{Rendering\+Pipeline\+Impl}}
@@ -130,6 +134,8 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource}{Shader\+Resourc
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}}
 \item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_shadow_index_allocator}{Shadow\+Index\+Allocator}}
+\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_skybox_impl}{Skybox\+Impl}}
@@ -141,6 +147,8 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_static_venom_can_create_componen
 class \mbox{\hyperlink{classvenom_1_1common_1_1_stbi___texture_loader}{Stbi\+\_\+\+Texture\+Loader}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}
+\item 
+struct \mbox{\hyperlink{structvenom_1_1common_1_1_texture_data_builder}{Texture\+Data\+Builder}}
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_texture_impl}{Texture\+Impl}}
 \item 
@@ -157,6 +165,8 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{Venom\+Componen
 class \mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}}
 \begin{DoxyCompactList}\small\item\em Main class of the engine This class will be the main entry point of the engine. It will contain all the main components of the engine, as singleton are harder to manage, especially for unit tests and memory management. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_venom_settings}{Venom\+Settings}}
+\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_write_read_buffer}{Write\+Read\+Buffer}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Concepts}
 \begin{DoxyCompactItemize}
@@ -205,6 +215,9 @@ concept \mbox{\hyperlink{conceptvenom_1_1common_1_1_not_plugin_object}{Not\+Plug
 \Hypertarget{namespacevenom_1_1common_a5c88dbeb081a36240a00b37f39ff8cfb}\label{namespacevenom_1_1common_a5c88dbeb081a36240a00b37f39ff8cfb} 
 {\footnotesize template$<$class... Args$>$ }\\using {\bfseries Make\+Tuple} = decltype(std\+::make\+\_\+tuple(std\+::declval$<$Args$>$()...))
 \item 
+\Hypertarget{namespacevenom_1_1common_a3af8f786ee16267ec1fec16ace3e18fc}\label{namespacevenom_1_1common_a3af8f786ee16267ec1fec16ace3e18fc} 
+typedef int8\+\_\+t {\bfseries Keyboard\+Modifier\+State}
+\item 
 \Hypertarget{namespacevenom_1_1common_a89ae253f7ca7d8714bf587300472fcb7}\label{namespacevenom_1_1common_a89ae253f7ca7d8714bf587300472fcb7} 
 using {\bfseries Entity} = flecs\+::entity
 \item 
@@ -214,11 +227,17 @@ typedef flecs\+::system {\bfseries System}
 \Hypertarget{namespacevenom_1_1common_a5bea3772b72ceb4748bb7a4b643c5512}\label{namespacevenom_1_1common_a5bea3772b72ceb4748bb7a4b643c5512} 
 typedef \mbox{\hyperlink{classvenom_1_1common_1_1_venom_component}{Venom\+Component}} {\bfseries Component}
 \item 
+\Hypertarget{namespacevenom_1_1common_a8ccae59b8a920376a8547334137bd6f3}\label{namespacevenom_1_1common_a8ccae59b8a920376a8547334137bd6f3} 
+using {\bfseries File\+Stream} = std\+::fstream
+\item 
+\Hypertarget{namespacevenom_1_1common_afe3f304cd4d08af66585159f5aed5af8}\label{namespacevenom_1_1common_afe3f304cd4d08af66585159f5aed5af8} 
+using {\bfseries OFile\+Stream} = std\+::ofstream
+\item 
+\Hypertarget{namespacevenom_1_1common_a7dd73a96c39aa554256b11609fb79604}\label{namespacevenom_1_1common_a7dd73a96c39aa554256b11609fb79604} 
+using {\bfseries IFile\+Stream} = std\+::ifstream
+\item 
 \Hypertarget{namespacevenom_1_1common_ad7b5e0a1d49aa520c22d4ed31c2142e6}\label{namespacevenom_1_1common_ad7b5e0a1d49aa520c22d4ed31c2142e6} 
 {\footnotesize template$<$typename Return, typename... Args$>$ }\\using {\bfseries Function} = std\+::function$<$Return(Args...)$>$
-\item 
-\Hypertarget{namespacevenom_1_1common_a3af8f786ee16267ec1fec16ace3e18fc}\label{namespacevenom_1_1common_a3af8f786ee16267ec1fec16ace3e18fc} 
-typedef int8\+\_\+t {\bfseries Keyboard\+Modifier\+State}
 \item 
 \Hypertarget{namespacevenom_1_1common_ac1720d7fe3b4b46a6a433eac6f7843b5}\label{namespacevenom_1_1common_ac1720d7fe3b4b46a6a433eac6f7843b5} 
 typedef Callback$<$ void $>$ {\bfseries Graphics\+Callback}
@@ -311,6 +330,7 @@ typedef void(\texorpdfstring{$\ast$}{*} {\bfseries Input\+Callback}) (\mbox{\hyp
 enum {\bfseries Input\+State} \+: int8\+\_\+t \{ {\bfseries Released} = 0x1
 , {\bfseries Pressed} = 0x2
 , {\bfseries Repeat} = 0x4
+, {\bfseries Unknown} = 0x8
  \}
 \item 
 \Hypertarget{namespacevenom_1_1common_ae8ca766ddc2cc5d7cf687d7d82733fe4}\label{namespacevenom_1_1common_ae8ca766ddc2cc5d7cf687d7d82733fe4} 
@@ -494,6 +514,12 @@ enum {\bfseries Mouse\+Button} \{ \newline
 , {\bfseries Mouse\+Button\+Middle} = Mouse\+Button3
 , \newline
 {\bfseries Mouse\+Total}
+ \}
+\item 
+\Hypertarget{namespacevenom_1_1common_a859f7155dced0d4e66a233ec6ea66222}\label{namespacevenom_1_1common_a859f7155dced0d4e66a233ec6ea66222} 
+enum class {\bfseries Buffer\+Type} \{ {\bfseries None} = -\/1
+, {\bfseries Read}
+, {\bfseries Write\+Read}
  \}
 \item 
 enum \mbox{\hyperlink{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}{GUIWindow\+Flags\+Bits}} \{ \newline
@@ -911,7 +937,6 @@ enum class {\bfseries Color\+Attachment\+Type} \{ \newline
 \item 
 \Hypertarget{namespacevenom_1_1common_ae063fd539e2f3cf66eb23f77cf93e0f9}\label{namespacevenom_1_1common_ae063fd539e2f3cf66eb23f77cf93e0f9} 
 enum class {\bfseries Plugin\+Type} \{ {\bfseries Graphics} = 0
-, {\bfseries Context} = 1
 , {\bfseries Total\+Count}
  \}
 \item 
@@ -961,8 +986,35 @@ vcm\+::\+Vec3 {\bfseries Spot\+And\+Directional\+Direction} (const vcm\+::\+Vec3
 \Hypertarget{namespacevenom_1_1common_aa7eb02491aa78f124d0d86c22bb40bda}\label{namespacevenom_1_1common_aa7eb02491aa78f124d0d86c22bb40bda} 
 {\bfseries COMPONENT\+\_\+\+CAN\+\_\+\+ADD\+\_\+\+DEFINITION} (\mbox{\hyperlink{classvenom_1_1common_1_1_skybox}{Skybox}}, return s\+\_\+skybox==nullptr;)
 \item 
+\Hypertarget{namespacevenom_1_1common_a6af7e7df4c50a9a0c4171442695b7d67}\label{namespacevenom_1_1common_a6af7e7df4c50a9a0c4171442695b7d67} 
+const Texture\+Data \texorpdfstring{$\ast$}{*} {\bfseries Load\+Texture\+Data} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
 \Hypertarget{namespacevenom_1_1common_a7df8479ee3bd0915a50e4f879c7d3340}\label{namespacevenom_1_1common_a7df8479ee3bd0915a50e4f879c7d3340} 
 \mbox{\hyperlink{classvenom_1_1common_1_1_texture_loader}{Texture\+Loader}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Texture\+Loader} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\Hypertarget{namespacevenom_1_1common_a0dda781f5156788718d47cab6baecf88}\label{namespacevenom_1_1common_a0dda781f5156788718d47cab6baecf88} 
+inline \+::flatbuffers\+::\+Offset$<$ Texture\+Data $>$ {\bfseries Create\+Texture\+Data} (\+::flatbuffers\+::\+Flat\+Buffer\+Builder \&\+\_\+fbb, int32\+\_\+t width=0, int32\+\_\+t height=0, int32\+\_\+t channels=0, float average\+\_\+luminance=0.\+0f, float peak\+\_\+luminance=0.\+0f, \+::flatbuffers\+::\+Offset$<$\+::flatbuffers\+::\+Vector$<$ uint8\+\_\+t $>$ $>$ data=0)
+\item 
+\Hypertarget{namespacevenom_1_1common_ac8b46f04cd26ac1317db41a960415bb9}\label{namespacevenom_1_1common_ac8b46f04cd26ac1317db41a960415bb9} 
+inline \+::flatbuffers\+::\+Offset$<$ Texture\+Data $>$ {\bfseries Create\+Texture\+Data\+Direct} (\+::flatbuffers\+::\+Flat\+Buffer\+Builder \&\+\_\+fbb, int32\+\_\+t width=0, int32\+\_\+t height=0, int32\+\_\+t channels=0, float average\+\_\+luminance=0.\+0f, float peak\+\_\+luminance=0.\+0f, const std\+::vector$<$ uint8\+\_\+t $>$ \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+\Hypertarget{namespacevenom_1_1common_a576dfd69d0d2294b5ed5d5f651e4e162}\label{namespacevenom_1_1common_a576dfd69d0d2294b5ed5d5f651e4e162} 
+const venom\+::common\+::\+Texture\+Data \texorpdfstring{$\ast$}{*} {\bfseries Get\+Texture\+Data} (const void \texorpdfstring{$\ast$}{*}buf)
+\item 
+\Hypertarget{namespacevenom_1_1common_a584b0dbc5b9c10210c8cddbc925a32c6}\label{namespacevenom_1_1common_a584b0dbc5b9c10210c8cddbc925a32c6} 
+const venom\+::common\+::\+Texture\+Data \texorpdfstring{$\ast$}{*} {\bfseries Get\+Size\+Prefixed\+Texture\+Data} (const void \texorpdfstring{$\ast$}{*}buf)
+\item 
+\Hypertarget{namespacevenom_1_1common_aec8787ec04cc55d2d86b44b0a97401f0}\label{namespacevenom_1_1common_aec8787ec04cc55d2d86b44b0a97401f0} 
+bool {\bfseries Verify\+Texture\+Data\+Buffer} (\+::flatbuffers\+::\+Verifier \&verifier)
+\item 
+\Hypertarget{namespacevenom_1_1common_a0fbc7dc679cdc305b6f191d03dcc941c}\label{namespacevenom_1_1common_a0fbc7dc679cdc305b6f191d03dcc941c} 
+bool {\bfseries Verify\+Size\+Prefixed\+Texture\+Data\+Buffer} (\+::flatbuffers\+::\+Verifier \&verifier)
+\item 
+\Hypertarget{namespacevenom_1_1common_a12801b9fb2fb3c50d98220c2d6e2468c}\label{namespacevenom_1_1common_a12801b9fb2fb3c50d98220c2d6e2468c} 
+void {\bfseries Finish\+Texture\+Data\+Buffer} (\+::flatbuffers\+::\+Flat\+Buffer\+Builder \&fbb, \+::flatbuffers\+::\+Offset$<$ venom\+::common\+::\+Texture\+Data $>$ root)
+\item 
+\Hypertarget{namespacevenom_1_1common_a82ff1422e94586a7afc61f51513e9883}\label{namespacevenom_1_1common_a82ff1422e94586a7afc61f51513e9883} 
+void {\bfseries Finish\+Size\+Prefixed\+Texture\+Data\+Buffer} (\+::flatbuffers\+::\+Flat\+Buffer\+Builder \&fbb, \+::flatbuffers\+::\+Offset$<$ venom\+::common\+::\+Texture\+Data $>$ root)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -990,8 +1042,6 @@ enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries Invalid\+Use} = 1 $<$$<$ 5
 \item 
 \Hypertarget{namespacevenom_1_1common_ab81f8b60810099e01ec70f0969bed4ad}\label{namespacevenom_1_1common_ab81f8b60810099e01ec70f0969bed4ad} 
 enum VENOM\+\_\+\+COMMON\+\_\+\+API {\bfseries Feature\+Not\+Supported} = 1 $<$$<$ 6
-\item 
-enum VENOM\+\_\+\+COMMON\+\_\+\+API \mbox{\hyperlink{namespacevenom_1_1common_a69fe990bff91efa726d523bc08838800}{Unknown}}
 \end{DoxyCompactItemize}
 
 
@@ -1012,17 +1062,3 @@ Color edit flags based on GUIColor\+Edit\+Flags\+Bits\+\_\+ (based on \doxylink{
 enum \mbox{\hyperlink{namespacevenom_1_1common_aef2effc6a375f3ea63bc718192f31806}{venom\+::common\+::\+GUIWindow\+Flags\+Bits}}}
 
 Window flags based on GUIWindow\+Flags\+Bits\+\_\+ (based on \doxylink{classvenom_1_1common_1_1_g_u_i}{GUI} 1.\+91.\+5) 
-
-\doxysubsection{Variable Documentation}
-\Hypertarget{namespacevenom_1_1common_a69fe990bff91efa726d523bc08838800}\index{venom::common@{venom::common}!Unknown@{Unknown}}
-\index{Unknown@{Unknown}!venom::common@{venom::common}}
-\doxysubsubsection{\texorpdfstring{Unknown}{Unknown}}
-{\footnotesize\ttfamily \label{namespacevenom_1_1common_a69fe990bff91efa726d523bc08838800} 
-venom\+::common\+::\+Unknown}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{=\ std::numeric\_limits<uint32\_t>::max()}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}

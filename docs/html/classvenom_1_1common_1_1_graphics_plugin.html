@@ -156,6 +156,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a19d2bc8bb70cf8340d6e468893507aa0" id="r_a19d2bc8bb70cf8340d6e468893507aa0"><td class="memItemLeft" align="right" valign="top"><a id="a19d2bc8bb70cf8340d6e468893507aa0" name="a19d2bc8bb70cf8340d6e468893507aa0"></a>
 virtual <a class="el" href="classvenom_1_1common_1_1_graphics_application.html">GraphicsApplication</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateGraphicsApplication</b> (int argc, const char *argv[])=0</td></tr>
 <tr class="separator:a19d2bc8bb70cf8340d6e468893507aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24cdf5ad2a657107d72b71f4bb5674b0" id="r_a24cdf5ad2a657107d72b71f4bb5674b0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24cdf5ad2a657107d72b71f4bb5674b0">TerminatePluginObjects</a> () override</td></tr>
+<tr class="separator:a24cdf5ad2a657107d72b71f4bb5674b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32a2879cf0fe5935d036341143503456" id="r_a32a2879cf0fe5935d036341143503456"><td class="memItemLeft" align="right" valign="top"><a id="a32a2879cf0fe5935d036341143503456" name="a32a2879cf0fe5935d036341143503456"></a>
 virtual <a class="el" href="classvenom_1_1common_1_1_material_impl.html">MaterialImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateMaterial</b> ()=0</td></tr>
 <tr class="separator:a32a2879cf0fe5935d036341143503456"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,6 +191,9 @@ virtual <a class="el" href="classvenom_1_1common_1_1_render_target_impl.html">Re
 <tr class="memitem:a95aaf43540068b1b2fb1614fb62054a3" id="r_a95aaf43540068b1b2fb1614fb62054a3"><td class="memItemLeft" align="right" valign="top"><a id="a95aaf43540068b1b2fb1614fb62054a3" name="a95aaf43540068b1b2fb1614fb62054a3"></a>
 virtual <a class="el" href="classvenom_1_1common_1_1_light_impl.html">LightImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateLight</b> ()=0</td></tr>
 <tr class="separator:a95aaf43540068b1b2fb1614fb62054a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaaa5d00211ca796880b7cbd351e7a9f" id="r_adaaa5d00211ca796880b7cbd351e7a9f"><td class="memItemLeft" align="right" valign="top"><a id="adaaa5d00211ca796880b7cbd351e7a9f" name="adaaa5d00211ca796880b7cbd351e7a9f"></a>
+virtual <a class="el" href="classvenom_1_1common_1_1_buffer_impl.html">BufferImpl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateBuffer</b> ()=0</td></tr>
+<tr class="separator:adaaa5d00211ca796880b7cbd351e7a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48ba08263587e4fa4047405bc9becb29" id="r_a48ba08263587e4fa4047405bc9becb29"><td class="memItemLeft" align="right" valign="top"><a id="a48ba08263587e4fa4047405bc9becb29" name="a48ba08263587e4fa4047405bc9becb29"></a>
 virtual <a class="el" href="classvenom_1_1common_1_1_shader_resource_table.html">ShaderResourceTable</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateShaderResourceTable</b> ()=0</td></tr>
 <tr class="separator:a48ba08263587e4fa4047405bc9becb29"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -227,7 +232,39 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:aa43eeb38aaa3c2cc78df123892d57041 inherit pro_methods_classvenom_1_1common_1_1_plugin" id="r_aa43eeb38aaa3c2cc78df123892d57041"><td class="memItemLeft" align="right" valign="top">
 &#160;</td><td class="memItemRight" valign="bottom"><b>Plugin</b> (const PluginType type)</td></tr>
 <tr class="separator:aa43eeb38aaa3c2cc78df123892d57041 inherit pro_methods_classvenom_1_1common_1_1_plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_classvenom_1_1common_1_1_plugin"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classvenom_1_1common_1_1_plugin')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classvenom_1_1common_1_1_plugin.html">venom::common::Plugin</a></td></tr>
+<tr class="memitem:ab18f6427dd01a78f1669a24437163f1b inherit pro_static_methods_classvenom_1_1common_1_1_plugin" id="r_ab18f6427dd01a78f1669a24437163f1b"><td class="memItemLeft" align="right" valign="top">
+static vc::Vector&lt; <a class="el" href="classvenom_1_1common_1_1_plugin.html">Plugin</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetAllPlugins</b> ()</td></tr>
+<tr class="separator:ab18f6427dd01a78f1669a24437163f1b inherit pro_static_methods_classvenom_1_1common_1_1_plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a24cdf5ad2a657107d72b71f4bb5674b0" name="a24cdf5ad2a657107d72b71f4bb5674b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24cdf5ad2a657107d72b71f4bb5674b0">&#9670;&#160;</a></span>TerminatePluginObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void venom::common::GraphicsPlugin::TerminatePluginObjects </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classvenom_1_1common_1_1_plugin.html">venom::common::Plugin</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/<a class="el" href="common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h_source.html">GraphicsPlugin.h</a></li>
 <li>/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/<a class="el" href="common_2src_2_graphics_plugin_8cc.html">GraphicsPlugin.cc</a></li>

@@ -1,0 +1,172 @@
+\doxysection{Texture\+\_\+generated.\+h}
+\hypertarget{_texture__generated_8h_source}{}\label{_texture__generated_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Texture\_generated.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/src/Texture\_generated.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ automatically\ generated\ by\ the\ FlatBuffers\ compiler,\ do\ not\ modify}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ FLATBUFFERS\_GENERATED\_TEXTURE\_VENOM\_COMMON\_H\_}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ FLATBUFFERS\_GENERATED\_TEXTURE\_VENOM\_COMMON\_H\_}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}flatbuffers/flatbuffers.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Ensure\ the\ included\ flatbuffers.h\ is\ the\ same\ version\ as\ when\ this\ file\ was}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ generated,\ otherwise\ it\ may\ not\ be\ compatible.}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{static\_assert}(FLATBUFFERS\_VERSION\_MAJOR\ ==\ 25\ \&\&}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLATBUFFERS\_VERSION\_MINOR\ ==\ 2\ \&\&}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLATBUFFERS\_VERSION\_REVISION\ ==\ 10,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Non-\/compatible\ flatbuffers\ version\ included"{}});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }TextureData;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_texture_data_builder}{TextureDataBuilder}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }TextureData\ \mbox{\hyperlink{structvenom_1_1common_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s}{FLATBUFFERS\_FINAL\_CLASS}}\ :\ \textcolor{keyword}{private}\ ::flatbuffers::Table\ \{}
+\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structvenom_1_1common_1_1_texture_data_builder}{TextureDataBuilder}}\ Builder;}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{enum}\ FlatBuffersVTableOffset\ FLATBUFFERS\_VTABLE\_UNDERLYING\_TYPE\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ VT\_WIDTH\ =\ 4,}
+\DoxyCodeLine{00026\ \ \ \ \ VT\_HEIGHT\ =\ 6,}
+\DoxyCodeLine{00027\ \ \ \ \ VT\_CHANNELS\ =\ 8,}
+\DoxyCodeLine{00028\ \ \ \ \ VT\_AVERAGE\_LUMINANCE\ =\ 10,}
+\DoxyCodeLine{00029\ \ \ \ \ VT\_PEAK\_LUMINANCE\ =\ 12,}
+\DoxyCodeLine{00030\ \ \ \ \ VT\_DATA\ =\ 14}
+\DoxyCodeLine{00031\ \ \ \};}
+\DoxyCodeLine{00032\ \ \ int32\_t\ width()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ GetField<int32\_t>(VT\_WIDTH,\ 0);}
+\DoxyCodeLine{00034\ \ \ \}}
+\DoxyCodeLine{00035\ \ \ int32\_t\ height()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{return}\ GetField<int32\_t>(VT\_HEIGHT,\ 0);}
+\DoxyCodeLine{00037\ \ \ \}}
+\DoxyCodeLine{00038\ \ \ int32\_t\ channels()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ GetField<int32\_t>(VT\_CHANNELS,\ 0);}
+\DoxyCodeLine{00040\ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{float}\ average\_luminance()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ GetField<float>(VT\_AVERAGE\_LUMINANCE,\ 0.0f);}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{float}\ peak\_luminance()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ GetField<float>(VT\_PEAK\_LUMINANCE,\ 0.0f);}
+\DoxyCodeLine{00046\ \ \ \}}
+\DoxyCodeLine{00047\ \ \ const\ ::flatbuffers::Vector<uint8\_t>\ *data()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ GetPointer<const\ ::flatbuffers::Vector<uint8\_t>\ *>(VT\_DATA);}
+\DoxyCodeLine{00049\ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{bool}\ Verify(::flatbuffers::Verifier\ \&verifier)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyTableStart(verifier)\ \&\&}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ VerifyField<int32\_t>(verifier,\ VT\_WIDTH,\ 4)\ \&\&}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ VerifyField<int32\_t>(verifier,\ VT\_HEIGHT,\ 4)\ \&\&}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ VerifyField<int32\_t>(verifier,\ VT\_CHANNELS,\ 4)\ \&\&}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ VerifyField<float>(verifier,\ VT\_AVERAGE\_LUMINANCE,\ 4)\ \&\&}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ VerifyField<float>(verifier,\ VT\_PEAK\_LUMINANCE,\ 4)\ \&\&}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ VerifyOffset(verifier,\ VT\_DATA)\ \&\&}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ verifier.VerifyVector(data())\ \&\&}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ verifier.EndTable();}
+\DoxyCodeLine{00060\ \ \ \}}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }TextureDataBuilder\ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{typedef}\ TextureData\ Table;}
+\DoxyCodeLine{00065\ \ \ ::flatbuffers::FlatBufferBuilder\ \&fbb\_;}
+\DoxyCodeLine{00066\ \ \ ::flatbuffers::uoffset\_t\ start\_;}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ add\_width(int32\_t\ width)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ fbb\_.AddElement<int32\_t>(TextureData::VT\_WIDTH,\ width,\ 0);}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ add\_height(int32\_t\ height)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ fbb\_.AddElement<int32\_t>(TextureData::VT\_HEIGHT,\ height,\ 0);}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ add\_channels(int32\_t\ channels)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ fbb\_.AddElement<int32\_t>(TextureData::VT\_CHANNELS,\ channels,\ 0);}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ add\_average\_luminance(\textcolor{keywordtype}{float}\ average\_luminance)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ fbb\_.AddElement<\textcolor{keywordtype}{float}>(TextureData::VT\_AVERAGE\_LUMINANCE,\ average\_luminance,\ 0.0f);}
+\DoxyCodeLine{00078\ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ add\_peak\_luminance(\textcolor{keywordtype}{float}\ peak\_luminance)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ fbb\_.AddElement<\textcolor{keywordtype}{float}>(TextureData::VT\_PEAK\_LUMINANCE,\ peak\_luminance,\ 0.0f);}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ add\_data(::flatbuffers::Offset<::flatbuffers::Vector<uint8\_t>>\ data)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ fbb\_.AddOffset(TextureData::VT\_DATA,\ data);}
+\DoxyCodeLine{00084\ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{explicit}\ TextureDataBuilder(::flatbuffers::FlatBufferBuilder\ \&\_fbb)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ :\ fbb\_(\_fbb)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ start\_\ =\ fbb\_.StartTable();}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ \ \ ::flatbuffers::Offset<TextureData>\ Finish()\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ end\ =\ fbb\_.EndTable(start\_);}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{auto}\ o\ =\ ::flatbuffers::Offset<TextureData>(end);}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ o;}
+\DoxyCodeLine{00093\ \ \ \}}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ inline\ ::flatbuffers::Offset<TextureData>\ CreateTextureData(}
+\DoxyCodeLine{00097\ \ \ \ \ ::flatbuffers::FlatBufferBuilder\ \&\_fbb,}
+\DoxyCodeLine{00098\ \ \ \ \ int32\_t\ width\ =\ 0,}
+\DoxyCodeLine{00099\ \ \ \ \ int32\_t\ height\ =\ 0,}
+\DoxyCodeLine{00100\ \ \ \ \ int32\_t\ channels\ =\ 0,}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{float}\ average\_luminance\ =\ 0.0f,}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{float}\ peak\_luminance\ =\ 0.0f,}
+\DoxyCodeLine{00103\ \ \ \ \ ::flatbuffers::Offset<::flatbuffers::Vector<uint8\_t>>\ data\ =\ 0)\ \{}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_texture_data_builder}{TextureDataBuilder}}\ builder\_(\_fbb);}
+\DoxyCodeLine{00105\ \ \ builder\_.add\_data(data);}
+\DoxyCodeLine{00106\ \ \ builder\_.add\_peak\_luminance(peak\_luminance);}
+\DoxyCodeLine{00107\ \ \ builder\_.add\_average\_luminance(average\_luminance);}
+\DoxyCodeLine{00108\ \ \ builder\_.add\_channels(channels);}
+\DoxyCodeLine{00109\ \ \ builder\_.add\_height(height);}
+\DoxyCodeLine{00110\ \ \ builder\_.add\_width(width);}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{return}\ builder\_.Finish();}
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ inline\ ::flatbuffers::Offset<TextureData>\ CreateTextureDataDirect(}
+\DoxyCodeLine{00115\ \ \ \ \ ::flatbuffers::FlatBufferBuilder\ \&\_fbb,}
+\DoxyCodeLine{00116\ \ \ \ \ int32\_t\ width\ =\ 0,}
+\DoxyCodeLine{00117\ \ \ \ \ int32\_t\ height\ =\ 0,}
+\DoxyCodeLine{00118\ \ \ \ \ int32\_t\ channels\ =\ 0,}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{float}\ average\_luminance\ =\ 0.0f,}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{float}\ peak\_luminance\ =\ 0.0f,}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<uint8\_t>\ *data\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{auto}\ data\_\_\ =\ data\ ?\ \_fbb.CreateVector<uint8\_t>(*data)\ :\ 0;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{return}\ venom::common::CreateTextureData(}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \_fbb,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ width,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ height,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ channels,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ average\_luminance,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ peak\_luminance,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ data\_\_);}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ venom::common::TextureData\ *GetTextureData(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buf)\ \{}
+\DoxyCodeLine{00134\ \ \ return\ ::flatbuffers::GetRoot<venom::common::TextureData>(buf);}
+\DoxyCodeLine{00135\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ venom::common::TextureData\ *GetSizePrefixedTextureData(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buf)\ \{}
+\DoxyCodeLine{00138\ \ \ return\ ::flatbuffers::GetSizePrefixedRoot<venom::common::TextureData>(buf);}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ VerifyTextureDataBuffer(}
+\DoxyCodeLine{00142\ \ \ \ \ ::flatbuffers::Verifier\ \&verifier)\ \{}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordflow}{return}\ verifier.VerifyBuffer<venom::common::TextureData>(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ VerifySizePrefixedTextureDataBuffer(}
+\DoxyCodeLine{00147\ \ \ \ \ ::flatbuffers::Verifier\ \&verifier)\ \{}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordflow}{return}\ verifier.VerifySizePrefixedBuffer<venom::common::TextureData>(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00149\ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FinishTextureDataBuffer(}
+\DoxyCodeLine{00152\ \ \ \ \ ::flatbuffers::FlatBufferBuilder\ \&fbb,}
+\DoxyCodeLine{00153\ \ \ \ \ ::flatbuffers::Offset<venom::common::TextureData>\ root)\ \{}
+\DoxyCodeLine{00154\ \ \ fbb.Finish(root);}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FinishSizePrefixedTextureDataBuffer(}
+\DoxyCodeLine{00158\ \ \ \ \ ::flatbuffers::FlatBufferBuilder\ \&fbb,}
+\DoxyCodeLine{00159\ \ \ \ \ ::flatbuffers::Offset<venom::common::TextureData>\ root)\ \{}
+\DoxyCodeLine{00160\ \ \ fbb.FinishSizePrefixed(root);}
+\DoxyCodeLine{00161\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \}\ \ \textcolor{comment}{//\ namespace\ common}}
+\DoxyCodeLine{00164\ \}\ \ \textcolor{comment}{//\ namespace\ venom}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ FLATBUFFERS\_GENERATED\_TEXTURE\_VENOM\_COMMON\_H\_}}
+
+\end{DoxyCode}

@@ -26,9 +26,18 @@ var searchData=
   ['context_23',['Context',['../classvenom_1_1common_1_1_context.html',1,'venom::common']]],
   ['context_2ecc_24',['Context.cc',['../_context_8cc.html',1,'']]],
   ['context_2eh_25',['Context.h',['../_context_8h.html',1,'']]],
-  ['contextplugin_26',['ContextPlugin',['../classvenom_1_1common_1_1_context_plugin.html',1,'venom::common']]],
-  ['contextplugin_2ecc_27',['ContextPlugin.cc',['../_context_plugin_8cc.html',1,'']]],
-  ['contextplugin_2eh_28',['ContextPlugin.h',['../_context_plugin_8h.html',1,'']]],
-  ['create_29',['Create',['../classvenom_1_1common_1_1_d_l_l.html#ab11a2004d9fc1ff8c3d3379a6fc7d06b',1,'venom::common::DLL']]],
-  ['createreadwritetexture_30',['CreateReadWriteTexture',['../classvenom_1_1common_1_1_texture_impl.html#a19a569e68daa49358bc0f52751817378',1,'venom::common::TextureImpl']]]
+  ['contextapple_2eh_26',['ContextApple.h',['../_context_apple_8h.html',1,'']]],
+  ['contextappledelegate_27',['ContextAppleDelegate',['../interface_context_apple_delegate.html',1,'']]],
+  ['contextappledelegate_2eh_28',['ContextAppleDelegate.h',['../_context_apple_delegate_8h.html',1,'']]],
+  ['contextappledelegate_2emm_29',['ContextAppleDelegate.mm',['../_context_apple_delegate_8mm.html',1,'']]],
+  ['contextappleinfo_2eh_30',['ContextAppleInfo.h',['../_context_apple_info_8h.html',1,'']]],
+  ['contextappleinfo_2emm_31',['ContextAppleInfo.mm',['../_context_apple_info_8mm.html',1,'']]],
+  ['contextappleviewcontroller_32',['ContextAppleViewController',['../interface_context_apple_view_controller.html',1,'']]],
+  ['contextappleviewcontroller_2eh_33',['ContextAppleViewController.h',['../_context_apple_view_controller_8h.html',1,'']]],
+  ['contextappleviewcontroller_2emm_34',['ContextAppleViewController.mm',['../_context_apple_view_controller_8mm.html',1,'']]],
+  ['contextapplewindowcontroller_35',['ContextAppleWindowController',['../interface_context_apple_window_controller.html',1,'']]],
+  ['contextglfw_2eh_36',['ContextGLFW.h',['../_context_g_l_f_w_8h.html',1,'']]],
+  ['contextinput_2ecc_37',['ContextInput.cc',['../_context_input_8cc.html',1,'']]],
+  ['create_38',['Create',['../classvenom_1_1common_1_1_d_l_l.html#ab11a2004d9fc1ff8c3d3379a6fc7d06b',1,'venom::common::DLL']]],
+  ['createreadwritetexture_39',['CreateReadWriteTexture',['../classvenom_1_1common_1_1_texture_impl.html#a19a569e68daa49358bc0f52751817378',1,'venom::common::TextureImpl']]]
 ];

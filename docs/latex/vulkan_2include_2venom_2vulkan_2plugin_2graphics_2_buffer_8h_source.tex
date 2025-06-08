@@ -1,0 +1,25 @@
+\doxysection{Buffer.\+h}
+\hypertarget{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_buffer_8h_source}{}\label{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_buffer_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Buffer.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/vulkan/include/venom/vulkan/plugin/graphics/Buffer.h}}
+\mbox{\hyperlink{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_buffer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_buffer_8h}{venom/common/plugin/graphics/Buffer.h}}>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }VulkanBuffer\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_buffer_impl}{vc::BufferImpl}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ VulkanBuffer();}
+\DoxyCodeLine{00019\ \ \ \ \ \string~VulkanBuffer();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ vc::Error\ \_InitWithSize(uint32\_t\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00022\ \ \ \ \ vc::Error\ \_WriteToBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ uint32\_t\ size,\ uint32\_t\ offset)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00025\ \}}
+
+\end{DoxyCode}

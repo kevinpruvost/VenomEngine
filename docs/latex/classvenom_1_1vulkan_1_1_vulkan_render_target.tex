@@ -19,7 +19,7 @@ const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}} \texorpdfstri
 vc\+::\+Error {\bfseries Reset} ()
 \item 
 virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl_a926a87ff43b82b058eaa73ca456e0fbb}{Destroy}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\item 
 vc\+::\+Error {\bfseries Set\+Dimensions} (int width, int height)
 \item 
 vc\+::\+Error {\bfseries Set\+Format} (Shader\+Vertex\+Format format)
@@ -36,8 +36,12 @@ void {\bfseries Set\+Rendering\+Pipeline\+Type} (vc\+::\+Rendering\+Pipeline\+Ty
 \item 
 vc\+::\+Rendering\+Pipeline\+Type {\bfseries Get\+Rendering\+Pipeline\+Type} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
 {\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
@@ -49,20 +53,13 @@ vc\+::\+Rendering\+Pipeline\+Type {\bfseries Get\+Rendering\+Pipeline\+Type} () 
 \item 
 {\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
 \item 
-void {\bfseries Inc\+Ref\+Count} ()
-\item 
-void {\bfseries Dec\+Ref\+Count} ()
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
-\begin{DoxyCompactItemize}
-\item 
-{\bfseries Plugin\+Object} (const Plugin\+Type type)
-\item 
-Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
-\item 
 {\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
 {\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{venom\+::common\+::\+Render\+Target\+Impl}}}

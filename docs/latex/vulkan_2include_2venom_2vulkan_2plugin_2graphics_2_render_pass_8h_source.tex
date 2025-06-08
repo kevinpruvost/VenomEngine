@@ -42,45 +42,46 @@
 \DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRenderingType(\textcolor{keyword}{const}\ vc::RenderingPipelineType\ type);}
 \DoxyCodeLine{00046\ \ \ \ \ vc::Error\ \_Init()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00047\ \ \ \ \ vc::Error\ BeginRenderPass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer,\ \textcolor{keywordtype}{int}\ framebufferIndex);}
-\DoxyCodeLine{00048\ \ \ \ \ vc::Error\ BeginRenderPassCustomFramebuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ *\ \textcolor{keyword}{const}\ framebuffer);}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ NextSubpass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer);}
-\DoxyCodeLine{00050\ \ \ \ \ vc::Error\ EndRenderPass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer);}
-\DoxyCodeLine{00051\ \ \ \ \ VkRenderPass\ GetVkRenderPass()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ *\ GetFramebuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index);}
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ *\ GetCurrentFramebuffer();}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::Vector<VkSubpassDescription>\ \&\ GetSubpassDescriptions()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_subpassDescriptions;\ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Vector<vc::Vector<vc::Texture>>\ \&\ GetAttachments()\ \{\ \textcolor{keywordflow}{return}\ \_\_attachments;\ \}}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ VulkanRenderPass\ *\ GetVulkanRenderPass(\textcolor{keyword}{const}\ vc::RenderingPipelineType\ type)\ \{\ \textcolor{keywordflow}{return}\ GetRenderPass(type)-\/>DAs<VulkanRenderPass>();\ \}}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00062\ \ \ \ \ vc::Error\ \_\_CreateNormalRenderPass();}
-\DoxyCodeLine{00063\ \ \ \ \ vc::Error\ \_\_CreateCSMRenderPass();}
-\DoxyCodeLine{00064\ \ \ \ \ vc::Error\ \_\_CreateGuiRenderPass();}
-\DoxyCodeLine{00065\ \ \ \ \ vc::Error\ \_\_CreateDeferredShadowRenderPass();}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_AddAttachment(\textcolor{keyword}{const}\ VkFormat\ format,\ \textcolor{keyword}{const}\ VkImageLayout\ layout,\ \textcolor{keyword}{const}\ VkAttachmentLoadOp\ loadOp,\ \ \textcolor{keyword}{const}\ VkImageLayout\ initalLayout,\ \textcolor{keywordtype}{bool}\ resolve);}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SolveAttachmentReferences();}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00071\ \ \ \ \ VkRenderPass\ \_\_renderPass;}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ By\ image\ count\ then\ attachments}}
-\DoxyCodeLine{00073\ \ \ \ \ vc::Vector<vc::Vector<vc::Texture>>\ \_\_attachments;}
-\DoxyCodeLine{00074\ \ \ \ \ vc::Vector<Framebuffer>\ \_\_framebuffers;}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ vc::Vector<VkAttachmentDescription>\ \_\_attachmentDescriptions;}
-\DoxyCodeLine{00077\ \ \ \ \ vc::Vector<VkAttachmentDescription>\ \_\_resolveAttachmentDescriptions;}
-\DoxyCodeLine{00078\ \ \ \ \ vc::Vector<VkAttachmentReference>\ \_\_attachmentRefs;}
-\DoxyCodeLine{00079\ \ \ \ \ vc::Vector<VkAttachmentReference>\ \_\_resolveAttachmentRefs;}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ vc::Vector<VkSubpassDescription>\ \_\_subpassDescriptions;}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ vc::Vector<VkClearValue>\ \_\_clearValues;}
-\DoxyCodeLine{00084\ \};}
-\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ vc::Error\ \_SetMultiSampling(\textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{vc::GraphicsSettings::MultiSamplingModeOption}}\ mode,\ \textcolor{keyword}{const}\ vc::GraphicsSettings::MultiSamplingCountOption\ samples)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00048\ \ \ \ \ vc::Error\ BeginRenderPass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer,\ \textcolor{keywordtype}{int}\ framebufferIndex);}
+\DoxyCodeLine{00049\ \ \ \ \ vc::Error\ BeginRenderPassCustomFramebuffer(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ *\ \textcolor{keyword}{const}\ framebuffer);}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ NextSubpass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer);}
+\DoxyCodeLine{00051\ \ \ \ \ vc::Error\ EndRenderPass(\mbox{\hyperlink{classvenom_1_1vulkan_1_1_command_buffer}{CommandBuffer}}\ *\ commandBuffer);}
+\DoxyCodeLine{00052\ \ \ \ \ VkRenderPass\ GetVkRenderPass()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ *\ GetFramebuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1vulkan_1_1_framebuffer}{Framebuffer}}\ *\ GetCurrentFramebuffer();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vc::Vector<VkSubpassDescription>\ \&\ GetSubpassDescriptions()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_subpassDescriptions;\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Vector<vc::Vector<vc::Texture>>\ \&\ GetAttachments()\ \{\ \textcolor{keywordflow}{return}\ \_\_attachments;\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ VulkanRenderPass\ *\ GetVulkanRenderPass(\textcolor{keyword}{const}\ vc::RenderingPipelineType\ type)\ \{\ \textcolor{keywordflow}{return}\ GetRenderPass(type)-\/>DAs<VulkanRenderPass>();\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00063\ \ \ \ \ vc::Error\ \_\_CreateNormalRenderPass();}
+\DoxyCodeLine{00064\ \ \ \ \ vc::Error\ \_\_CreateCSMRenderPass();}
+\DoxyCodeLine{00065\ \ \ \ \ vc::Error\ \_\_CreateGuiRenderPass();}
+\DoxyCodeLine{00066\ \ \ \ \ vc::Error\ \_\_CreateDeferredShadowRenderPass();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_AddAttachment(\textcolor{keyword}{const}\ VkFormat\ format,\ \textcolor{keyword}{const}\ VkImageLayout\ layout,\ \textcolor{keyword}{const}\ VkAttachmentLoadOp\ loadOp,\ \textcolor{keyword}{const}\ VkAttachmentStoreOp\ storeOp,\ \textcolor{keyword}{const}\ VkImageLayout\ initalLayout,\ \textcolor{keywordtype}{bool}\ resolve);}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SolveAttachmentReferences();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ VkRenderPass\ \_\_renderPass;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{//\ By\ image\ count\ then\ attachments}}
+\DoxyCodeLine{00074\ \ \ \ \ vc::Vector<vc::Vector<vc::Texture>>\ \_\_attachments;}
+\DoxyCodeLine{00075\ \ \ \ \ vc::Vector<Framebuffer>\ \_\_framebuffers;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ vc::Vector<VkAttachmentDescription>\ \_\_attachmentDescriptions;}
+\DoxyCodeLine{00078\ \ \ \ \ vc::Vector<VkAttachmentDescription>\ \_\_resolveAttachmentDescriptions;}
+\DoxyCodeLine{00079\ \ \ \ \ vc::Vector<VkAttachmentReference>\ \_\_attachmentRefs;}
+\DoxyCodeLine{00080\ \ \ \ \ vc::Vector<VkAttachmentReference>\ \_\_resolveAttachmentRefs;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ vc::Vector<VkSubpassDescription>\ \_\_subpassDescriptions;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ vc::Vector<VkClearValue>\ \_\_clearValues;}
+\DoxyCodeLine{00085\ \};}
 \DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ \}}
 
 \end{DoxyCode}

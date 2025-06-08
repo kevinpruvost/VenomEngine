@@ -153,7 +153,7 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_mod
 </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_model_impl.html">   31</a></span><span class="keyword">class </span>VENOM_COMMON_API ModelImpl : <span class="keyword">public</span> PluginObjectImpl, <span class="keyword">public</span> GraphicsPluginObject, <span class="keyword">public</span> GraphicsCachedResourceHolder</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_model_impl.html">   31</a></span><span class="keyword">class </span>VENOM_COMMON_API ModelImpl : <span class="keyword">public</span> GraphicsPluginObject, <span class="keyword">public</span> GraphicsCachedResourceHolder</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    ModelImpl();</div>
@@ -169,14 +169,14 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_mod
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">friend</span> <span class="keyword">class </span>Model;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#ifdef VENOM_DEBUG</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#if defined(VENOM_DEBUG)</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    vc::String __name;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
 </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
 <div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_model.html">   54</a></span><span class="keyword">class </span>VENOM_COMMON_API Model : <span class="keyword">public</span> Component, <span class="keyword">public</span> PluginObjectImplWrapper</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_model.html">   54</a></span><span class="keyword">class </span>VENOM_COMMON_API Model : <span class="keyword">public</span> Component, <span class="keyword">public</span> PluginObjectWrapper</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    Model();</div>

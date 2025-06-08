@@ -1,0 +1,40 @@
+\doxysection{Context\+Apple\+Info.\+h}
+\hypertarget{_context_apple_info_8h_source}{}\label{_context_apple_info_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/context/apple/ContextAppleInfo.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/context/apple/ContextAppleInfo.h}}
+\mbox{\hyperlink{_context_apple_info_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_platform_8h}{venom/common/Platform.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ \_\_OBJC\_\_}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(VENOM\_PLATFORM\_MACOS)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#import\ <Cocoa/Cocoa.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ AppleWindow\ NSWindow}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ AppleView\ NSView}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ AppleScreen\ NSScreen}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#import\ <UIKit/UIKit.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#import\ <TargetConditionals.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#import\ <Availability.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ AppleWindow\ UIWindow}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ AppleView\ UIView}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ AppleScreen\ UIScreen}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#import\ <Metal/Metal.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#import\ <MetalKit/MetalKit.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#import\ <Foundation/Foundation.h>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ Declare\ global\ variables\ for\ the\ Metal\ device\ and\ layer}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{extern}\ id<MTLDevice>\ sharedMetalDevice;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{extern}\ CAMetalLayer\ *sharedMetalLayer;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ setGlobaMetallDevice(id<MTLDevice>\ device);}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ setGlobalMetalLayer(CAMetalLayer\ *layer);}
+\DoxyCodeLine{00037\ id<MTLDevice>\ getGlobalMetalDevice(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00038\ CAMetalLayer\ *getGlobalMetalLayer(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

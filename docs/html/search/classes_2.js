@@ -9,5 +9,7 @@ var searchData=
   ['commandpoolmanager_6',['CommandPoolManager',['../classvenom_1_1vulkan_1_1_command_pool_manager.html',1,'venom::vulkan']]],
   ['config_7',['Config',['../classvenom_1_1common_1_1_config.html',1,'venom::common']]],
   ['context_8',['Context',['../classvenom_1_1common_1_1_context.html',1,'venom::common']]],
-  ['contextplugin_9',['ContextPlugin',['../classvenom_1_1common_1_1_context_plugin.html',1,'venom::common']]]
+  ['contextappledelegate_9',['ContextAppleDelegate',['../interface_context_apple_delegate.html',1,'']]],
+  ['contextappleviewcontroller_10',['ContextAppleViewController',['../interface_context_apple_view_controller.html',1,'']]],
+  ['contextapplewindowcontroller_11',['ContextAppleWindowController',['../interface_context_apple_window_controller.html',1,'']]]
 ];

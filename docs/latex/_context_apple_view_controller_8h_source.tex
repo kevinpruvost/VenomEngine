@@ -1,0 +1,30 @@
+\doxysection{Context\+Apple\+View\+Controller.\+h}
+\hypertarget{_context_apple_view_controller_8h_source}{}\label{_context_apple_view_controller_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/context/apple/ContextAppleViewController.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/context/apple/ContextAppleViewController.h}}
+\mbox{\hyperlink{_context_apple_view_controller_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_platform_8h}{venom/common/Platform.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_apple_info_8h}{venom/common/context/apple/ContextAppleInfo.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(VENOM\_PLATFORM\_IOS)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#import\ <UIKit/UIKit.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ PlatformViewController\ UIViewController}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#import\ <AppKit/AppKit.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ PlatformViewController\ NSViewController}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#import\ <MetalKit/MetalKit.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ The\ view\ controller}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{@interface\ }\mbox{\hyperlink{interface_context_apple_view_controller}{ContextAppleViewController}}\ :\ PlatformViewController\ <MTKViewDelegate>}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{@end}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ vc::KeyboardInput\ convertAppleKeyToVCKey(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ keyCode);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ convertVCKeyToAppleKey(vc::KeyboardInput\ keyCode);}
+
+\end{DoxyCode}

@@ -8,16 +8,16 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <memory>}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_plugin_object_8h}{venom/common/plugin/PluginObject.h}}>}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
-\DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}};}
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}};}
-\DoxyCodeLine{00019\ \textcolor{comment}{//\ Helper\ template\ to\ block\ types\ inheriting\ from\ PluginObject\ and\ PluginObjectImpl}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}};}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ Helper\ template\ to\ block\ types\ inheriting\ from\ PluginObject}}
 \DoxyCodeLine{00020\ \textcolor{comment}{//\ This\ is\ to\ avoid\ delete\ issues\ when\ using\ shared/unique\ pointers}}
 \DoxyCodeLine{00021\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00022\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptvenom_1_1common_1_1_not_plugin_object}{NotPluginObject}}\ =\ !std::is\_convertible\_v<T\ *,\ PluginObject\ *>\ \&\&\ !std::is\_convertible\_v<T\ *,\ PluginObject\ *>;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptvenom_1_1common_1_1_not_plugin_object}{NotPluginObject}}\ =\ !std::is\_convertible\_v<T\ *,\ PluginObject\ *>;}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \textcolor{comment}{//\ Modified\ Weak\ pointer\ alias}}
 \DoxyCodeLine{00025\ \textcolor{keyword}{template}\ <NotPluginObject\ T>}

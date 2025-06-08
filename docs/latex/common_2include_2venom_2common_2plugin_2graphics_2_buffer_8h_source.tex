@@ -1,0 +1,57 @@
+\doxysection{Buffer.\+h}
+\hypertarget{common_2include_2venom_2common_2plugin_2graphics_2_buffer_8h_source}{}\label{common_2include_2venom_2common_2plugin_2graphics_2_buffer_8h_source}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Buffer.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/plugin/graphics/Buffer.h}}
+\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_buffer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_graphics_plugin_object_8h}{venom/common/plugin/graphics/GraphicsPluginObject.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{enum\ class}\ BufferType}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ None\ =\ -\/1,}
+\DoxyCodeLine{00020\ \ \ \ \ Read,}
+\DoxyCodeLine{00021\ \ \ \ \ WriteRead}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ BufferImpl\ :\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ BufferImpl();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~BufferImpl()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{inline}\ BufferType\ GetBufferType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_type;\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ SetBufferType(BufferType\ type);}
+\DoxyCodeLine{00032\ \ \ \ \ vc::Error\ InitWithSize(uint32\_t\ size);}
+\DoxyCodeLine{00033\ \ \ \ \ vc::Error\ WriteToBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ uint32\_t\ size,\ uint32\_t\ offset\ =\ 0);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_InitWithSize(uint32\_t\ size)\ =\ 0;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_WriteToBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ uint32\_t\ size,\ uint32\_t\ offset)\ =\ 0;}
+\DoxyCodeLine{00038\ \ \ \ \ BufferType\ \_type;}
+\DoxyCodeLine{00039\ \ \ \ \ uint32\_t\ \_size;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ReadBuffer\ :\ \textcolor{keyword}{public}\ PluginObjectWrapper}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ ReadBuffer();}
+\DoxyCodeLine{00046\ \ \ \ \ \string~ReadBuffer();}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ WriteReadBuffer\ :\ \textcolor{keyword}{public}\ PluginObjectWrapper}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ WriteReadBuffer();}
+\DoxyCodeLine{00053\ \ \ \ \ \string~WriteReadBuffer();}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ \}}
+
+\end{DoxyCode}

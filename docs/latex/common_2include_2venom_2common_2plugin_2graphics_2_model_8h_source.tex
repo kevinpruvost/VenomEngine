@@ -26,7 +26,7 @@
 \DoxyCodeLine{00028\ \ \ \ \ vc::Vector<vc::Material>\ materials;}
 \DoxyCodeLine{00029\ \};}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ModelImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject,\ \textcolor{keyword}{public}\ GraphicsCachedResourceHolder}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ ModelImpl\ :\ \textcolor{keyword}{public}\ GraphicsPluginObject,\ \textcolor{keyword}{public}\ GraphicsCachedResourceHolder}
 \DoxyCodeLine{00032\ \{}
 \DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00034\ \ \ \ \ ModelImpl();}
@@ -42,12 +42,12 @@
 \DoxyCodeLine{00044\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Model;}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#if\ defined(VENOM\_DEBUG)}}
 \DoxyCodeLine{00048\ \ \ \ \ vc::String\ \_\_name;}
 \DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00050\ \};}
 \DoxyCodeLine{00051\ }
-\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Model\ :\ \textcolor{keyword}{public}\ Component,\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Model\ :\ \textcolor{keyword}{public}\ Component,\ \textcolor{keyword}{public}\ PluginObjectWrapper}
 \DoxyCodeLine{00055\ \{}
 \DoxyCodeLine{00056\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00057\ \ \ \ \ Model();}

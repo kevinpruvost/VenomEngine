@@ -30,99 +30,104 @@
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{float}\ intensity;}
 \DoxyCodeLine{00033\ \ \ \ \ vcm::Vec3\ direction;}
 \DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{float}\ angle;}
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{LightCascadedShadowMapConstantsStruct}}}
-\DoxyCodeLine{00038\ \{}
-\DoxyCodeLine{00039\ \ \ \ \ vcm::Mat4\ lightSpaceMatrix;}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ lightType;}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ cascadeIndex;}
-\DoxyCodeLine{00042\ \};}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ POINTLIGHT\_THRESHHOLD\ 0.2}}
-\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ SPOTLIGHT\_THRESHHOLD\ 0.2}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ LightImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
-\DoxyCodeLine{00048\ \{}
-\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00050\ \ \ \ \ LightImpl();}
-\DoxyCodeLine{00051\ \ \ \ \ \string~LightImpl();}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ vc::Error\ SetType(\textcolor{keyword}{const}\ LightType\ type);}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ LightType\ \&\ GetLightType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_lightType;\ \}}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetColor(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ color)\ \{\ \_\_color\ =\ color;\ \}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetColor()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_color;\ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetIntensity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ intensity)\ \{\ \_\_intensity\ =\ intensity;\ \}}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetIntensity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_intensity;\ \}}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ *\ GetIntensityPtr()\ \{\ \textcolor{keywordflow}{return}\ \&\_\_intensity;\ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAngle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle)\ \{\ \_\_angle\ =\ angle;\ \}}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetAngle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_angle;\ \}}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{LightShaderStruct}}\ GetShaderStruct()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \{\_\_transform-\/>GetPosition(),\ \_\_lightType,\ \_\_color,\ \_\_intensity,\ GetDirection(),\ \_\_angle\};\ \}}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ Reinit()\ \{\ \textcolor{keywordflow}{return}\ \_SetType(\_\_lightType);\ \}}
-\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{LightCascadedShadowMapConstantsStruct}}\ GetShadowMapConstantsStruct(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cascadeIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ faceIndex,\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ \textcolor{keyword}{const}\ camera,\ vcm::Vec3\ *\ lightPos)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ GetCascadeIndex(\mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ \textcolor{keyword}{const}\ camera);}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetLightIndexPerType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_lightIndexPerType;\ \}}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \ \ \ \ vcm::Vec3\ GetDirection()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SetType(\textcolor{keyword}{const}\ LightType\ type)\ =\ 0;}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetDescriptorsFromCascade(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cascadeIndex)\ =\ 0;}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_AllocateLightType();}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_DeallocateLightType();}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ \_lightIndexPerType;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ padding[3];}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ shadowMapIndex;}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{LightCascadedShadowMapConstantsStruct}}}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ vcm::Mat4\ lightSpaceMatrix;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ lightType;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ cascadeIndex;}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ POINTLIGHT\_THRESHHOLD\ 0.2}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ SPOTLIGHT\_THRESHHOLD\ 0.2}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ LightImpl\ :\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ LightImpl();}
+\DoxyCodeLine{00053\ \ \ \ \ \string~LightImpl();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ vc::Error\ SetType(\textcolor{keyword}{const}\ LightType\ type);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ LightType\ \&\ GetLightType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_lightType;\ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetColor(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ color)\ \{\ \_\_color\ =\ color;\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetColor()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_color;\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetIntensity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ intensity)\ \{\ \_\_intensity\ =\ intensity;\ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetIntensity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_intensity;\ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ *\ GetIntensityPtr()\ \{\ \textcolor{keywordflow}{return}\ \&\_\_intensity;\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAngle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle)\ \{\ \_\_angle\ =\ angle;\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetAngle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_\_angle;\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{LightShaderStruct}}\ GetShaderStruct()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \{\_\_transform-\/>GetPosition(),\ \_\_lightType,\ \_\_color,\ \_\_intensity,\ GetDirection(),\ \_\_angle,\ \ \{\},\ \_shadowLightIndexPerType\};\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{inline}\ vc::Error\ Reinit()\ \{\ \textcolor{keywordflow}{return}\ \_SetType(\_\_lightType);\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{LightCascadedShadowMapConstantsStruct}}\ GetShadowMapConstantsStruct(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cascadeIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ faceIndex,\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ \textcolor{keyword}{const}\ camera,\ vcm::Vec3\ *\ lightPos)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ GetCascadeIndex(\mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ \textcolor{keyword}{const}\ camera);}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetLightIndexPerType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_lightIndexPerType;\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetShadowLightIndexPerType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_shadowLightIndexPerType;\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ vcm::Vec3\ GetDirection()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{virtual}\ vc::Error\ \_SetType(\textcolor{keyword}{const}\ LightType\ type)\ =\ 0;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_SetDescriptorsFromCascade(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cascadeIndex)\ =\ 0;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_AllocateLightType();}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_DeallocateLightType();}
 \DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ *\ \_\_transform;}
-\DoxyCodeLine{00083\ \ \ \ \ vcm::Vec3\ \_\_color;}
-\DoxyCodeLine{00084\ \ \ \ \ LightType\ \_\_lightType;}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_intensity;}
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_angle;}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Light;}
-\DoxyCodeLine{00089\ \};}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Light\ :\ \textcolor{keyword}{public}\ Component,\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
-\DoxyCodeLine{00092\ \{}
-\DoxyCodeLine{00093\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00094\ \ \ \ \ Light();}
-\DoxyCodeLine{00095\ \ \ \ \ \string~Light()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00096\ \ \ \ \ Light(\textcolor{keyword}{const}\ Light\ \&\ other);}
-\DoxyCodeLine{00097\ \ \ \ \ Light\ \&\ operator=(\textcolor{keyword}{const}\ Light\ \&\ other);}
-\DoxyCodeLine{00098\ \ \ \ \ Light(Light\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00099\ \ \ \ \ Light\ \&\ operator=(Light\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ Init(Entity\ entity)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(Entity\ entity)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \_GUI(\textcolor{keyword}{const}\ Entity\ entity)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00104\ \ \ \ \ vc::String\ \_GetComponentTitle()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ CanRemove(Entity\ entity)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetType(\textcolor{keyword}{const}\ LightType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetType(type);\ \}}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ LightType\ \&\ GetLightType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetLightType();\ \}}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetColor(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ color)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetColor(color);\ \}}
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetColor()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetColor();\ \}}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetIntensity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ intensity)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetIntensity(intensity);\ \}}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetIntensity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetIntensity();\ \}}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ *\ GetIntensityPtr()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetIntensityPtr();\ \}}
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAngle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetAngle(angle);\ \}}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetAngle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetAngle();\ \}}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{LightShaderStruct}}\ GetShaderStruct()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetShaderStruct();\ \}}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{LightCascadedShadowMapConstantsStruct}}\ GetShadowMapConstantsStruct(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ shadowMapIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ faceIndex,\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ \textcolor{keyword}{const}\ camera,\ vcm::Vec3\ *\ lightPos)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetShadowMapConstantsStruct(shadowMapIndex,\ faceIndex,\ camera,\ lightPos);\ \}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ GetCountOfLights()\ \{\ \textcolor{keywordflow}{return}\ \_\_lights.size();\ \}}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vc::Vector<Light\ *>\ \&\ GetLights()\ \{\ \textcolor{keywordflow}{return}\ \_\_lights;\ \}}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{static}\ vc::Vector<Light\ *>\ \&\ GetLightsMut()\ \{\ \textcolor{keywordflow}{return}\ \_\_lights;\ \}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ \_lightIndexPerType;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ \_shadowLightIndexPerType;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_transform3_d}{Transform3D}}\ *\ \_\_transform;}
+\DoxyCodeLine{00087\ \ \ \ \ vcm::Vec3\ \_\_color;}
+\DoxyCodeLine{00088\ \ \ \ \ LightType\ \_\_lightType;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_intensity;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_angle;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Light;}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Light\ :\ \textcolor{keyword}{public}\ Component,\ \textcolor{keyword}{public}\ PluginObjectWrapper}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00098\ \ \ \ \ Light();}
+\DoxyCodeLine{00099\ \ \ \ \ \string~Light()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00100\ \ \ \ \ Light(\textcolor{keyword}{const}\ Light\ \&\ other);}
+\DoxyCodeLine{00101\ \ \ \ \ Light\ \&\ operator=(\textcolor{keyword}{const}\ Light\ \&\ other);}
+\DoxyCodeLine{00102\ \ \ \ \ Light(Light\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00103\ \ \ \ \ Light\ \&\ operator=(Light\ \&\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ Init(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ \_GUI(\textcolor{keyword}{const}\ Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00108\ \ \ \ \ vc::String\ \_GetComponentTitle()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{bool}\ CanRemove(Entity\ entity)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetType(\textcolor{keyword}{const}\ LightType\ type)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetType(type);\ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ LightType\ \&\ GetLightType()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetLightType();\ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetColor(\textcolor{keyword}{const}\ vcm::Vec3\ \&\ color)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetColor(color);\ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ vcm::Vec3\ \&\ GetColor()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetColor();\ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetIntensity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ intensity)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetIntensity(intensity);\ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetIntensity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetIntensity();\ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ *\ GetIntensityPtr()\ \{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetIntensityPtr();\ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAngle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle)\ \{\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>SetAngle(angle);\ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\ GetAngle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetAngle();\ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_shader_struct}{LightShaderStruct}}\ GetShaderStruct()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetShaderStruct();\ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structvenom_1_1common_1_1_light_cascaded_shadow_map_constants_struct}{LightCascadedShadowMapConstantsStruct}}\ GetShadowMapConstantsStruct(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ shadowMapIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ faceIndex,\ \mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}}\ *\ \textcolor{keyword}{const}\ camera,\ vcm::Vec3\ *\ lightPos)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_impl-\/>As<\mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{LightImpl}}>()-\/>GetShadowMapConstantsStruct(shadowMapIndex,\ faceIndex,\ camera,\ lightPos);\ \}}
 \DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ GetCountOfLightsOfType(\textcolor{keyword}{const}\ LightType\ type);}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{static}\ vc::Vector<Light\ *>\ \_\_lights;}
-\DoxyCodeLine{00126\ \};}
-\DoxyCodeLine{00127\ \}}
-\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ GetCountOfLights()\ \{\ \textcolor{keywordflow}{return}\ \_\_lights.size();\ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vc::Vector<Light\ *>\ \&\ GetLights()\ \{\ \textcolor{keywordflow}{return}\ \_\_lights;\ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{static}\ vc::Vector<Light\ *>\ \&\ GetLightsMut()\ \{\ \textcolor{keywordflow}{return}\ \_\_lights;\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ GetCountOfLightsOfType(\textcolor{keyword}{const}\ LightType\ type);}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ GetCountOfShadowedLightsOfType(\textcolor{keyword}{const}\ LightType\ type);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{static}\ vc::Vector<Light\ *>\ \_\_lights;}
+\DoxyCodeLine{00131\ \};}
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ \}}
 
 \end{DoxyCode}

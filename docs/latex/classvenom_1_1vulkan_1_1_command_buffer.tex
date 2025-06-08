@@ -83,6 +83,9 @@ void {\bfseries Pipeline\+Barrier} (Vk\+Pipeline\+Stage\+Flags src\+Stage\+Mask,
 \Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ac50a3aefc2ec0ae1ba032dce9bdf8b9d}\label{classvenom_1_1vulkan_1_1_command_buffer_ac50a3aefc2ec0ae1ba032dce9bdf8b9d} 
 void {\bfseries Pipeline\+Barrier} (Vk\+Pipeline\+Stage\+Flags src\+Stage\+Mask, Vk\+Pipeline\+Stage\+Flags dst\+Stage\+Mask, Vk\+Dependency\+Flags dependency\+Flags) const
 \item 
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a60d5afa28e553db43596de7dce3d306e}\label{classvenom_1_1vulkan_1_1_command_buffer_a60d5afa28e553db43596de7dce3d306e} 
+void {\bfseries Clear\+Color\+Image} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&texture, Vk\+Clear\+Color\+Value vk\+Clear\+Color\+Value) const
+\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a69548db609266bda71fdf1ccb5205ec4}\label{classvenom_1_1vulkan_1_1_command_buffer_a69548db609266bda71fdf1ccb5205ec4} 
 void {\bfseries Copy\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&get\+Image)
 \item 
@@ -107,17 +110,17 @@ void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_
 \Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a386747b3eefb84115d97e6d7d388a964}\label{classvenom_1_1vulkan_1_1_command_buffer_a386747b3eefb84115d97e6d7d388a964} 
 void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&image, const Vk\+Image\+Layout new\+Layout)
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a396a741a317e3d60dd6664809d050afc}\label{classvenom_1_1vulkan_1_1_command_buffer_a396a741a317e3d60dd6664809d050afc} 
-void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_aa6ffab8e5b1cad522bde2c376e01d3fc}\label{classvenom_1_1vulkan_1_1_command_buffer_aa6ffab8e5b1cad522bde2c376e01d3fc} 
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32\+\_\+t offset, uint32\+\_\+t size) const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ad87efb3a356523007c68662c6abf9c98}\label{classvenom_1_1vulkan_1_1_command_buffer_ad87efb3a356523007c68662c6abf9c98} 
-{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const T \texorpdfstring{$\ast$}{*}value, uint32 offset=0) const
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ac2f0b55a6144ddd5daf719796dd1a9d3}\label{classvenom_1_1vulkan_1_1_command_buffer_ac2f0b55a6144ddd5daf719796dd1a9d3} 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const T \texorpdfstring{$\ast$}{*}value, uint32\+\_\+t offset=0) const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a96ef73b8f73c21866ce74bc0aed18cbd}\label{classvenom_1_1vulkan_1_1_command_buffer_a96ef73b8f73c21866ce74bc0aed18cbd} 
-void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_afffe61e9e67345fef9596eff0f2f342c}\label{classvenom_1_1vulkan_1_1_command_buffer_afffe61e9e67345fef9596eff0f2f342c} 
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32\+\_\+t offset, uint32\+\_\+t size) const
 \item 
-\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_ad8796eba3ec5f3096ea9669d4a41fc58}\label{classvenom_1_1vulkan_1_1_command_buffer_ad8796eba3ec5f3096ea9669d4a41fc58} 
-{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+\Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a246da30cbf8cec7e54834b4ba4f42bae}\label{classvenom_1_1vulkan_1_1_command_buffer_a246da30cbf8cec7e54834b4ba4f42bae} 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32\+\_\+t offset, uint32\+\_\+t size) const
 \item 
 \Hypertarget{classvenom_1_1vulkan_1_1_command_buffer_a4f9169e7ec1f3c0e8294d9f38f997ac6}\label{classvenom_1_1vulkan_1_1_command_buffer_a4f9169e7ec1f3c0e8294d9f38f997ac6} 
 void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, Vk\+Descriptor\+Set vk\+Descriptors) const

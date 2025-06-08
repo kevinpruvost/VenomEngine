@@ -68,6 +68,8 @@ void {\bfseries Pipeline\+Barrier} (Vk\+Pipeline\+Stage\+Flags src\+Stage\+Mask,
 \item 
 void {\bfseries Pipeline\+Barrier} (Vk\+Pipeline\+Stage\+Flags src\+Stage\+Mask, Vk\+Pipeline\+Stage\+Flags dst\+Stage\+Mask, Vk\+Dependency\+Flags dependency\+Flags) const
 \item 
+void {\bfseries Clear\+Color\+Image} (const \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&texture, Vk\+Clear\+Color\+Value vk\+Clear\+Color\+Value) const
+\item 
 void {\bfseries Copy\+Image} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&get\+Image)
 \item 
 void {\bfseries Copy\+Swap\+Chain\+Image} (const Vk\+Image \&image, const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_image}{Image}} \&get\+Image)
@@ -84,13 +86,13 @@ void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_
 \item 
 void {\bfseries Change\+Image\+Layout} (\mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc\+::\+Texture}} \&image, const Vk\+Image\+Layout new\+Layout)
 \item 
-void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32\+\_\+t offset, uint32\+\_\+t size) const
 \item 
-{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const T \texorpdfstring{$\ast$}{*}value, uint32 offset=0) const
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1common_1_1_shader_pipeline}{vc\+::\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const T \texorpdfstring{$\ast$}{*}value, uint32\+\_\+t offset=0) const
 \item 
-void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32\+\_\+t offset, uint32\+\_\+t size) const
 \item 
-{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32 offset, uint32\+\_\+t size) const
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries Push\+Constants} (const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_shader_pipeline}{Vulkan\+Shader\+Pipeline}} \texorpdfstring{$\ast$}{*}shader\+Pipeline, Vk\+Shader\+Stage\+Flags stage\+Flags, const void \texorpdfstring{$\ast$}{*}p\+Values, uint32\+\_\+t offset, uint32\+\_\+t size) const
 \item 
 void {\bfseries Bind\+Descriptor\+Sets} (Vk\+Pipeline\+Bind\+Point vk\+Pipeline\+Bind\+Point, Vk\+Pipeline\+Layout vk\+Pipeline\+Layout, uint32\+\_\+t first\+Set, Vk\+Descriptor\+Set vk\+Descriptors) const
 \item 

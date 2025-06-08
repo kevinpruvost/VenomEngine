@@ -6,37 +6,39 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_2include_2venom_2common_2plugin_2graphics_2_graphics_plugin_8h}{venom/common/plugin/graphics/GraphicsPlugin.h}}>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/plugin/context/Context.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_context_8h}{venom/common/Context.h}}>}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ IS\_CONTEXT\_TYPE(type)\ (vc::Config::GetContextType()\ ==\ vc::Context::ContextType::type)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}};}
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Config}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00022\ \ \ \ \ Config();}
-\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00024\ \ \ \ \ \string~Config();}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ Config\ *\ GetInstance();}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ GraphicsPlugin::GraphicsPluginType\ GetGraphicsPluginType();}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType\ type);}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ Context::ContextType\ GetContextType();}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetContextType(Context::ContextType\ type);}
-\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00031\ \ \ \ \ GraphicsPlugin::GraphicsPluginType\ \_\_GetGraphicsPluginType()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType\ type);}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ Context::ContextType\ \_\_GetContextType()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetContextType(Context::ContextType\ type);}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00038\ \ \ \ \ GraphicsPlugin::GraphicsPluginType\ \_\_graphicsPluginType;}
-\DoxyCodeLine{00039\ \ \ \ \ Context::ContextType\ \_\_contextType;}
-\DoxyCodeLine{00040\ \};}
-\DoxyCodeLine{00041\ \}}
-\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1common}{common}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ Config}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ \ \ Config();}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \string~Config();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ Config\ *\ GetInstance();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ GraphicsPlugin::GraphicsPluginType\ GetGraphicsPluginType()\ \{\ \textcolor{keywordflow}{return}\ GetInstance()-\/>\_\_GetGraphicsPluginType();\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType\ type);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ Context::ContextType\ GetContextType()\ \{\ \textcolor{keywordflow}{return}\ GetInstance()-\/>\_\_GetContextType();\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetContextType(Context::ContextType\ type);}
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ GraphicsPlugin::GraphicsPluginType\ \_\_GetGraphicsPluginType()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetGraphicsPluginType(GraphicsPlugin::GraphicsPluginType\ type);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ Context::ContextType\ \_\_GetContextType()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_SetContextType(Context::ContextType\ type);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ GraphicsPlugin::GraphicsPluginType\ \_\_graphicsPluginType;}
+\DoxyCodeLine{00041\ \ \ \ \ Context::ContextType\ \_\_contextType;}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ \}}
 
 \end{DoxyCode}

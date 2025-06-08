@@ -139,7 +139,7 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_ren
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span><a class="code hl_class" href="classvenom_1_1common_1_1_camera.html">Camera</a>;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_render_target_impl.html">   19</a></span><span class="keyword">class </span>VENOM_COMMON_API RenderTargetImpl : <span class="keyword">public</span> PluginObjectImpl, <span class="keyword">public</span> GraphicsPluginObject</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_render_target_impl.html">   19</a></span><span class="keyword">class </span>VENOM_COMMON_API RenderTargetImpl : <span class="keyword">public</span> GraphicsPluginObject</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    RenderTargetImpl();</div>
@@ -147,7 +147,7 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_ren
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <a class="code hl_class" href="classvenom_1_1common_1_1_texture.html">Texture</a> * GetTexture() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    vc::Error Reset();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Destroy() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classvenom_1_1common_1_1_render_target_impl.html#a926a87ff43b82b058eaa73ca456e0fbb">Destroy</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    vc::Error SetDimensions(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    vc::Error SetFormat(ShaderVertexFormat format);</div>
@@ -180,7 +180,7 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_ren
 </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_render_target.html">   58</a></span><span class="keyword">class </span>VENOM_COMMON_API RenderTarget : <span class="keyword">public</span> PluginObjectImplWrapper</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classvenom_1_1common_1_1_render_target.html">   58</a></span><span class="keyword">class </span>VENOM_COMMON_API RenderTarget : <span class="keyword">public</span> PluginObjectWrapper</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    RenderTarget(vc::RenderingPipelineType renderingPipeline, ShaderVertexFormat format);</div>
@@ -194,7 +194,8 @@ $(function(){initNavTree('common_2include_2venom_2common_2plugin_2graphics_2_ren
 <div class="ttc" id="aclassvenom_1_1common_1_1_camera_html"><div class="ttname"><a href="classvenom_1_1common_1_1_camera.html">venom::common::Camera</a></div><div class="ttdoc">Camera class Classic layout with position, rotation and projection matrices.</div><div class="ttdef"><b>Definition</b> Camera.h:132</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_render_target_html"><div class="ttname"><a href="classvenom_1_1common_1_1_render_target.html">venom::common::RenderTarget</a></div><div class="ttdef"><b>Definition</b> RenderTarget.h:59</div></div>
 <div class="ttc" id="aclassvenom_1_1common_1_1_render_target_impl_html"><div class="ttname"><a href="classvenom_1_1common_1_1_render_target_impl.html">venom::common::RenderTargetImpl</a></div><div class="ttdef"><b>Definition</b> RenderTarget.h:20</div></div>
-<div class="ttc" id="aclassvenom_1_1common_1_1_texture_html"><div class="ttname"><a href="classvenom_1_1common_1_1_texture.html">venom::common::Texture</a></div><div class="ttdef"><b>Definition</b> Texture.h:179</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_render_target_impl_html_a926a87ff43b82b058eaa73ca456e0fbb"><div class="ttname"><a href="classvenom_1_1common_1_1_render_target_impl.html#a926a87ff43b82b058eaa73ca456e0fbb">venom::common::RenderTargetImpl::Destroy</a></div><div class="ttdeci">virtual void Destroy() override</div><div class="ttdoc">/!\ THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE delete</div><div class="ttdef"><b>Definition</b> RenderTarget.cc:47</div></div>
+<div class="ttc" id="aclassvenom_1_1common_1_1_texture_html"><div class="ttname"><a href="classvenom_1_1common_1_1_texture.html">venom::common::Texture</a></div><div class="ttdef"><b>Definition</b> Texture.h:178</div></div>
 <div class="ttc" id="acommon_2include_2venom_2common_2plugin_2graphics_2_texture_8h_html"><div class="ttname"><a href="common_2include_2venom_2common_2plugin_2graphics_2_texture_8h.html">Texture.h</a></div></div>
 <div class="ttc" id="anamespacevenom_1_1common_html"><div class="ttname"><a href="namespacevenom_1_1common.html">venom::common</a></div><div class="ttdoc">High-Level Frontend of the VenomEngine project. It also contains all the code shared between every AP...</div><div class="ttdef"><b>Definition</b> Callback.h:15</div></div>
 <div class="ttc" id="anamespacevenom_html"><div class="ttname"><a href="namespacevenom.html">venom</a></div><div class="ttdoc">Contains the entirety of the code of the VenomEngine project.</div><div class="ttdef"><b>Definition</b> Callback.h:13</div></div>

@@ -1,7 +1,7 @@
 \doxysection{/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\+Config.h File Reference}
 \hypertarget{_config_8h}{}\label{_config_8h}\index{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Config.h@{/Users/kevinpruvost/Bossing/Perso/VenomEngine/lib/common/include/venom/common/Config.h}}
 {\ttfamily \#include $<$venom/common/plugin/graphics/\+Graphics\+Plugin.\+h$>$}\newline
-{\ttfamily \#include $<$venom/common/plugin/context/\+Context.\+h$>$}\newline
+{\ttfamily \#include $<$venom/common/\+Context.\+h$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -14,6 +14,11 @@ namespace \mbox{\hyperlink{namespacevenom}{venom}}
 \begin{DoxyCompactList}\small\item\em Contains the entirety of the code of the Venom\+Engine project. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \begin{DoxyCompactList}\small\item\em High-\/\+Level Frontend of the \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine} project. It also contains all the code shared between every APIs/\+Dynamic Libraries. But most importantly, that is where the abstraction is setup for the different APIs contained in this project. Use the alias \textquotesingle{}vc\textquotesingle{} to access the namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_config_8h_ad7dadc1be2f175c9223f0ee60212315e}{IS\+\_\+\+CONTEXT\+\_\+\+TYPE}}(type)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -25,3 +30,17 @@ Aug, 26 2024
 \begin{DoxyAuthor}{Author}
 Pruvost Kevin \texorpdfstring{$\vert$}{|} pruvostkevin (\href{mailto:pruvostkevin0@gmail.com}{\texttt{ pruvostkevin0@gmail.\+com}}) 
 \end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_config_8h_ad7dadc1be2f175c9223f0ee60212315e}\index{Config.h@{Config.h}!IS\_CONTEXT\_TYPE@{IS\_CONTEXT\_TYPE}}
+\index{IS\_CONTEXT\_TYPE@{IS\_CONTEXT\_TYPE}!Config.h@{Config.h}}
+\doxysubsubsection{\texorpdfstring{IS\_CONTEXT\_TYPE}{IS\_CONTEXT\_TYPE}}
+{\footnotesize\ttfamily \label{_config_8h_ad7dadc1be2f175c9223f0ee60212315e} 
+\#define IS\+\_\+\+CONTEXT\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{type}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(vc::Config::GetContextType()\ ==\ vc::Context::ContextType::type)}
+
+\end{DoxyCode}

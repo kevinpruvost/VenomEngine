@@ -25,8 +25,14 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \Hypertarget{_venom_settings_8h_a5a1e3e53b5819193ccbbba59041f4126}\label{_venom_settings_8h_a5a1e3e53b5819193ccbbba59041f4126} 
 \#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+BINDLESS\+\_\+\+TEXTURES}~4096
 \item 
+\Hypertarget{_venom_settings_8h_ab17e7f60f605e14ac1e0961d47c4d233}\label{_venom_settings_8h_ab17e7f60f605e14ac1e0961d47c4d233} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+SAMPLED\+\_\+\+IMAGES}~128
+\item 
 \Hypertarget{_venom_settings_8h_a25215989197b7f6686119abfe948c12c}\label{_venom_settings_8h_a25215989197b7f6686119abfe948c12c} 
 \#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+DYNAMIC\+\_\+\+TEXTURES}~32
+\item 
+\Hypertarget{_venom_settings_8h_acfcd0a31cbdc5754c8b2f3bff8d63a06}\label{_venom_settings_8h_acfcd0a31cbdc5754c8b2f3bff8d63a06} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+SHADOW\+\_\+\+MAPS}~(VENOM\+\_\+\+MAX\+\_\+\+SAMPLED\+\_\+\+IMAGES -\/ VENOM\+\_\+\+MAX\+\_\+\+DYNAMIC\+\_\+\+TEXTURES)
 \item 
 \Hypertarget{_venom_settings_8h_a6c810f71bfb616cefb433d7ce97b9b79}\label{_venom_settings_8h_a6c810f71bfb616cefb433d7ce97b9b79} 
 \#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+LIGHTS}~128
@@ -40,14 +46,23 @@ namespace \mbox{\hyperlink{namespacevenom_1_1common}{venom\+::common}}
 \Hypertarget{_venom_settings_8h_abc661522c96b225ea9d5b5ae94318b72}\label{_venom_settings_8h_abc661522c96b225ea9d5b5ae94318b72} 
 \#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+LIGHTS -\/ VENOM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS -\/ VENOM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS)
 \item 
+\Hypertarget{_venom_settings_8h_af332320a411fec697487624dc66f35a6}\label{_venom_settings_8h_af332320a411fec697487624dc66f35a6} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+SHADOWED\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS}~1
+\item 
+\Hypertarget{_venom_settings_8h_a7b7500634599b362ae1d0efb9745dd4d}\label{_venom_settings_8h_a7b7500634599b362ae1d0efb9745dd4d} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+SHADOWED\+\_\+\+SPOT\+\_\+\+LIGHTS}~3
+\item 
+\Hypertarget{_venom_settings_8h_a8846908d2b20e8eddc94e3753a1da355}\label{_venom_settings_8h_a8846908d2b20e8eddc94e3753a1da355} 
+\#define {\bfseries VENOM\+\_\+\+MAX\+\_\+\+SHADOWED\+\_\+\+POINT\+\_\+\+LIGHTS}~4
+\item 
 \Hypertarget{_venom_settings_8h_a6f53b97e438341dce2d665f4813faf0b}\label{_venom_settings_8h_a6f53b97e438341dce2d665f4813faf0b} 
-\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS}~VENOM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+SHADOWED\+\_\+\+DIRECTIONAL\+\_\+\+LIGHTS)
 \item 
 \Hypertarget{_venom_settings_8h_af30d106e4c200aa42cfe2dc53c5c5cbf}\label{_venom_settings_8h_af30d106e4c200aa42cfe2dc53c5c5cbf} 
-\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS $>$$>$ 2)
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+SPOT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+SHADOWED\+\_\+\+SPOT\+\_\+\+LIGHTS)
 \item 
 \Hypertarget{_venom_settings_8h_a6171099c980d5960681bfbe80a4a2ba6}\label{_venom_settings_8h_a6171099c980d5960681bfbe80a4a2ba6} 
-\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS $>$$>$ 2)
+\#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+MAX\+\_\+\+POINT\+\_\+\+LIGHTS}~(VENOM\+\_\+\+MAX\+\_\+\+SHADOWED\+\_\+\+POINT\+\_\+\+LIGHTS)
 \item 
 \Hypertarget{_venom_settings_8h_aeaf9b535f8b5423959202ca77a2ad91a}\label{_venom_settings_8h_aeaf9b535f8b5423959202ca77a2ad91a} 
 \#define {\bfseries VENOM\+\_\+\+CSM\+\_\+\+TOTAL\+\_\+\+CASCADES}~3

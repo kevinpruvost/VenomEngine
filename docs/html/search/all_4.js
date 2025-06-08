@@ -25,7 +25,7 @@ var searchData=
   ['descriptorsetlayout_22',['DescriptorSetLayout',['../classvenom_1_1vulkan_1_1_descriptor_set_layout.html',1,'venom::vulkan']]],
   ['descriptorsetlayout_2ecc_23',['DescriptorSetLayout.cc',['../_descriptor_set_layout_8cc.html',1,'']]],
   ['descriptorsetlayout_2eh_24',['DescriptorSetLayout.h',['../_descriptor_set_layout_8h.html',1,'']]],
-  ['destroy_25',['Destroy',['../classvenom_1_1common_1_1_graphics_plugin_object.html#ad9f18777cdaa7ebcbfeff2d3a04ffada',1,'venom::common::GraphicsPluginObject::Destroy()'],['../classvenom_1_1common_1_1_plugin_object.html#ab767caede79983aab03a9c8c99c91171',1,'venom::common::PluginObject::Destroy()']]],
+  ['destroy_25',['Destroy',['../classvenom_1_1common_1_1_graphics_plugin_object.html#ad9f18777cdaa7ebcbfeff2d3a04ffada',1,'venom::common::GraphicsPluginObject::Destroy()'],['../classvenom_1_1common_1_1_render_pass_impl.html#aab0b0680770943e11adedb366d8ea2de',1,'venom::common::RenderPassImpl::Destroy()'],['../classvenom_1_1common_1_1_render_target_impl.html#a926a87ff43b82b058eaa73ca456e0fbb',1,'venom::common::RenderTargetImpl::Destroy()'],['../classvenom_1_1common_1_1_plugin_object.html#ab767caede79983aab03a9c8c99c91171',1,'venom::common::PluginObject::Destroy()']]],
   ['directx_20shader_20compiler_20setup_26',['DirectX Shader Compiler Setup',['../dxc_setup.html',1,'setup']]],
   ['dll_27',['DLL',['../classvenom_1_1common_1_1_d_l_l.html',1,'venom::common']]],
   ['dll_2ecc_28',['DLL.cc',['../_d_l_l_8cc.html',1,'']]],

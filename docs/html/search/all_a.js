@@ -15,7 +15,8 @@ var searchData=
   ['log_12',['Log',['../classvenom_1_1common_1_1_log.html',1,'venom::common']]],
   ['log_2ecc_13',['Log.cc',['../_log_8cc.html',1,'']]],
   ['log_2eh_14',['Log.h',['../_log_8h.html',1,'']]],
-  ['logicaldevice_15',['LogicalDevice',['../classvenom_1_1vulkan_1_1_logical_device.html',1,'venom::vulkan']]],
-  ['logicaldevice_2ecc_16',['LogicalDevice.cc',['../_logical_device_8cc.html',1,'']]],
-  ['logicaldevice_2eh_17',['LogicalDevice.h',['../_logical_device_8h.html',1,'']]]
+  ['log_2emm_15',['Log.mm',['../_log_8mm.html',1,'']]],
+  ['logicaldevice_16',['LogicalDevice',['../classvenom_1_1vulkan_1_1_logical_device.html',1,'venom::vulkan']]],
+  ['logicaldevice_2ecc_17',['LogicalDevice.cc',['../_logical_device_8cc.html',1,'']]],
+  ['logicaldevice_2eh_18',['LogicalDevice.h',['../_logical_device_8h.html',1,'']]]
 ];

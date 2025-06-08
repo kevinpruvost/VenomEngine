@@ -1,7 +1,7 @@
 var dir_53f64a10ab1be384b80b0895963e92c7 =
 [
     [ "Allocator.cc", "_allocator_8cc.html", null ],
-    [ "Buffer.cc", "_buffer_8cc.html", null ],
+    [ "Buffer.cc", "vulkan_2src_2_buffer_8cc.html", null ],
     [ "Camera.cc", "vulkan_2src_2_camera_8cc.html", null ],
     [ "CommandPool.cc", "_command_pool_8cc.html", null ],
     [ "CommandPoolManager.cc", "_command_pool_manager_8cc.html", null ],

@@ -14,7 +14,7 @@
 \DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_render_target}{RenderTarget}};}
 \DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_camera}{Camera}};}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderTargetImpl\ :\ \textcolor{keyword}{public}\ PluginObjectImpl,\ \textcolor{keyword}{public}\ GraphicsPluginObject}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderTargetImpl\ :\ \textcolor{keyword}{public}\ GraphicsPluginObject}
 \DoxyCodeLine{00020\ \{}
 \DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00022\ \ \ \ \ RenderTargetImpl();}
@@ -22,7 +22,7 @@
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{Texture}}\ *\ GetTexture()\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00026\ \ \ \ \ vc::Error\ Reset();}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Destroy()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl_a926a87ff43b82b058eaa73ca456e0fbb}{Destroy}}()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \ \ \ \ vc::Error\ SetDimensions(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
 \DoxyCodeLine{00030\ \ \ \ \ vc::Error\ SetFormat(ShaderVertexFormat\ format);}
@@ -53,7 +53,7 @@
 \DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }RenderTarget;}
 \DoxyCodeLine{00056\ \};}
 \DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderTarget\ :\ \textcolor{keyword}{public}\ PluginObjectImplWrapper}
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ RenderTarget\ :\ \textcolor{keyword}{public}\ PluginObjectWrapper}
 \DoxyCodeLine{00059\ \{}
 \DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00061\ \ \ \ \ RenderTarget(vc::RenderingPipelineType\ renderingPipeline,\ ShaderVertexFormat\ format);}

@@ -10,13 +10,14 @@ var searchData=
   ['shaderpipelineimpl_7',['ShaderPipelineImpl',['../classvenom_1_1common_1_1_shader_pipeline_impl.html',1,'venom::common']]],
   ['shaderresource_8',['ShaderResource',['../classvenom_1_1common_1_1_shader_resource.html',1,'venom::common']]],
   ['shaderresourcetable_9',['ShaderResourceTable',['../classvenom_1_1common_1_1_shader_resource_table.html',1,'venom::common']]],
-  ['singletimecommandbuffer_10',['SingleTimeCommandBuffer',['../classvenom_1_1vulkan_1_1_single_time_command_buffer.html',1,'venom::vulkan']]],
-  ['skybox_11',['Skybox',['../classvenom_1_1common_1_1_skybox.html',1,'venom::common']]],
-  ['skyboximpl_12',['SkyboxImpl',['../classvenom_1_1common_1_1_skybox_impl.html',1,'venom::common']]],
-  ['skyboxshaderdata_13',['SkyboxShaderData',['../structvenom_1_1common_1_1_skybox_shader_data.html',1,'venom::common']]],
-  ['staticvenomcancreatecomponent_14',['StaticVenomCanCreateComponent',['../classvenom_1_1common_1_1_static_venom_can_create_component.html',1,'venom::common']]],
-  ['stbi_5ftextureloader_15',['Stbi_TextureLoader',['../classvenom_1_1common_1_1_stbi___texture_loader.html',1,'venom::common']]],
-  ['storagebuffer_16',['StorageBuffer',['../classvenom_1_1vulkan_1_1_storage_buffer.html',1,'venom::vulkan']]],
-  ['surface_17',['Surface',['../classvenom_1_1vulkan_1_1_surface.html',1,'venom::vulkan']]],
-  ['swapchain_18',['SwapChain',['../classvenom_1_1vulkan_1_1_swap_chain.html',1,'venom::vulkan']]]
+  ['shadowindexallocator_10',['ShadowIndexAllocator',['../classvenom_1_1common_1_1_shadow_index_allocator.html',1,'venom::common']]],
+  ['singletimecommandbuffer_11',['SingleTimeCommandBuffer',['../classvenom_1_1vulkan_1_1_single_time_command_buffer.html',1,'venom::vulkan']]],
+  ['skybox_12',['Skybox',['../classvenom_1_1common_1_1_skybox.html',1,'venom::common']]],
+  ['skyboximpl_13',['SkyboxImpl',['../classvenom_1_1common_1_1_skybox_impl.html',1,'venom::common']]],
+  ['skyboxshaderdata_14',['SkyboxShaderData',['../structvenom_1_1common_1_1_skybox_shader_data.html',1,'venom::common']]],
+  ['staticvenomcancreatecomponent_15',['StaticVenomCanCreateComponent',['../classvenom_1_1common_1_1_static_venom_can_create_component.html',1,'venom::common']]],
+  ['stbi_5ftextureloader_16',['Stbi_TextureLoader',['../classvenom_1_1common_1_1_stbi___texture_loader.html',1,'venom::common']]],
+  ['storagebuffer_17',['StorageBuffer',['../classvenom_1_1vulkan_1_1_storage_buffer.html',1,'venom::vulkan']]],
+  ['surface_18',['Surface',['../classvenom_1_1vulkan_1_1_surface.html',1,'venom::vulkan']]],
+  ['swapchain_19',['SwapChain',['../classvenom_1_1vulkan_1_1_swap_chain.html',1,'venom::vulkan']]]
 ];

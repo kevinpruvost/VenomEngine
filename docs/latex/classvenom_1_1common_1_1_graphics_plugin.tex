@@ -19,6 +19,8 @@ enum class {\bfseries Graphics\+Plugin\+Type} \{ {\bfseries Vulkan}
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a19d2bc8bb70cf8340d6e468893507aa0}\label{classvenom_1_1common_1_1_graphics_plugin_a19d2bc8bb70cf8340d6e468893507aa0} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application}{Graphics\+Application}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Graphics\+Application} (int argc, const char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})=0
 \item 
+virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_a24cdf5ad2a657107d72b71f4bb5674b0}{Terminate\+Plugin\+Objects}} () override
+\item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a32a2879cf0fe5935d036341143503456}\label{classvenom_1_1common_1_1_graphics_plugin_a32a2879cf0fe5935d036341143503456} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_material_impl}{Material\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Material} ()=0
 \item 
@@ -51,6 +53,9 @@ virtual \mbox{\hyperlink{classvenom_1_1common_1_1_render_target_impl}{Render\+Ta
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a95aaf43540068b1b2fb1614fb62054a3}\label{classvenom_1_1common_1_1_graphics_plugin_a95aaf43540068b1b2fb1614fb62054a3} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_light_impl}{Light\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Light} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_adaaa5d00211ca796880b7cbd351e7a9f}\label{classvenom_1_1common_1_1_graphics_plugin_adaaa5d00211ca796880b7cbd351e7a9f} 
+virtual \mbox{\hyperlink{classvenom_1_1common_1_1_buffer_impl}{Buffer\+Impl}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Buffer} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a48ba08263587e4fa4047405bc9becb29}\label{classvenom_1_1common_1_1_graphics_plugin_a48ba08263587e4fa4047405bc9becb29} 
 virtual \mbox{\hyperlink{classvenom_1_1common_1_1_shader_resource_table}{Shader\+Resource\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Shader\+Resource\+Table} ()=0
@@ -88,6 +93,24 @@ class {\bfseries Graphics\+Plugin\+Object}
 \item 
 {\bfseries Plugin} (const Plugin\+Type type)
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}}
+\begin{DoxyCompactItemize}
+\item 
+static vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{Plugin}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries Get\+All\+Plugins} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classvenom_1_1common_1_1_graphics_plugin_a24cdf5ad2a657107d72b71f4bb5674b0}\index{venom::common::GraphicsPlugin@{venom::common::GraphicsPlugin}!TerminatePluginObjects@{TerminatePluginObjects}}
+\index{TerminatePluginObjects@{TerminatePluginObjects}!venom::common::GraphicsPlugin@{venom::common::GraphicsPlugin}}
+\doxysubsubsection{\texorpdfstring{TerminatePluginObjects()}{TerminatePluginObjects()}}
+{\footnotesize\ttfamily \label{classvenom_1_1common_1_1_graphics_plugin_a24cdf5ad2a657107d72b71f4bb5674b0} 
+void venom\+::common\+::\+Graphics\+Plugin\+::\+Terminate\+Plugin\+Objects (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin}{venom\+::common\+::\+Plugin}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

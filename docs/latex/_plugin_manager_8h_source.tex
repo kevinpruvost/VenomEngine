@@ -18,36 +18,34 @@
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \textcolor{comment}{//\ Plugins\ list}}
 \DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}};}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_context_plugin}{ContextPlugin}};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}};}
-\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginManager}
-\DoxyCodeLine{00027\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }VenomEngine;}
-\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00030\ \ \ \ \ \string~PluginManager();}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ *\ GetGraphicsPlugin();}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_context_plugin}{ContextPlugin}}\ *\ GetContextPlugin();}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\textcolor{keyword}{const}\ PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\textcolor{keyword}{const}\ PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadPlugins();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1common_1_1_venom_engine}{VenomEngine}};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginManager}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }VenomEngine;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \string~PluginManager();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin}{GraphicsPlugin}}\ *\ GetGraphicsPlugin();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ AddPluginObject(\textcolor{keyword}{const}\ PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ RemovePluginObject(\textcolor{keyword}{const}\ PluginType\ type,\ \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}\ *\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ UnloadPlugins();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Must\ be\ called\ before\ PluginManager\ Destruction}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ TerminatePluginObjects();}
 \DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00039\ \ \ \ \ PluginManager();}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \ \ \ \ Error\ LoadAllPlugins();}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ Error\ LoadGraphicsPlugin();}
-\DoxyCodeLine{00044\ \ \ \ \ Error\ LoadContextPlugin();}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginsObjets();}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ vc::UPtr<GraphicsPlugin>\ \_\_graphicsPlugin;}
-\DoxyCodeLine{00049\ \ \ \ \ vc::UPtr<ContextPlugin>\ \_\_contextPlugin;}
-\DoxyCodeLine{00050\ \};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \}}
-\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ CleanPluginsObjets();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ vc::UPtr<GraphicsPlugin>\ \_\_graphicsPlugin;}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ \}}
 
 \end{DoxyCode}

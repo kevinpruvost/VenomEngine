@@ -5,77 +5,85 @@
 \DoxyCodeLine{00001\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_timer_8h}{venom/common/Timer.h}}>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//\#define\ VK\_ENABLE\_BETA\_EXTENSIONS}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ GLFW\_INCLUDE\_VULKAN}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_WIN32\_KHR}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_MACOS\_MVK}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#elif\ defined(\_\_linux\_\_)}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_XLIB\_KHR}}
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_WIN32}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)}}
-\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_COCOA}}
-\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#elif\ defined(\_\_linux\_\_)}}
-\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_X11}}
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3native.h>}}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_math_8h}{venom/common/math/Math.h}}>}}
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_log_8h}{venom/common/Log.h}}>}}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
-\DoxyCodeLine{00037\ \{}
-\DoxyCodeLine{00038\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
-\DoxyCodeLine{00039\ \{}
-\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_instance}{Instance}};}
-\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{VulkanApplication}};}
-\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }DebugApplication}
-\DoxyCodeLine{00043\ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Instance;}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }VulkanApplication;}
-\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00047\ \ \ \ \ DebugApplication();}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~DebugApplication();}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ vc::Error\ InitDebug();}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ DestroyDebug();}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo\ *\ createInfos);}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ CreateInfo>}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetCreateInfoValidationLayers(CreateInfo\ *\ createInfos);}
-\DoxyCodeLine{00057\ \ \ \ \ vc::Error\ \_PostInstance\_SetDebugParameters();}
-\DoxyCodeLine{00058\ \ \ \ \ PFN\_vkDebugUtilsMessengerCallbackEXT\ \_GetDebugCallback();}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{double}\ \_GetTheoreticalFPS(\textcolor{keywordtype}{double}\ fps);}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \_UpdateTheoreticalFPS(uint32\_t\ microsecondsWaitedOnVSync);}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00066\ \ \ \ \ vc::Error\ \_\_InitValidationLayers();}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_platform_8h}{venom/common/Platform.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_timer_8h}{venom/common/Timer.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_containers_8h}{venom/common/Containers.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\#define\ VK\_ENABLE\_BETA\_EXTENSIONS}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#if\ !defined(VENOM\_PLATFORM\_IOS)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ GLFW\_INCLUDE\_VULKAN}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_WIN32\_KHR}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_MACOS\_MVK}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ VK\_USE\_PLATFORM\_XLIB\_KHR}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_WIN32}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_COCOA}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ GLFW\_EXPOSE\_NATIVE\_X11}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3native.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <vulkan/vulkan.h>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_math_8h}{venom/common/math/Math.h}}>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_log_8h}{venom/common/Log.h}}>}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom}{venom}}}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacevenom_1_1vulkan}{vulkan}}}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_instance}{Instance}};}
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application}{VulkanApplication}};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }DebugApplication}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Instance;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }VulkanApplication;}
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ DebugApplication();}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~DebugApplication();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ vc::Error\ InitDebug();}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ DestroyDebug();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetInstanceCreateInfoValidationLayers(VkInstanceCreateInfo\ *\ createInfos);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ CreateInfo>}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \_SetCreateInfoValidationLayers(CreateInfo\ *\ createInfos);}
+\DoxyCodeLine{00065\ \ \ \ \ vc::Error\ \_PostInstance\_SetDebugParameters();}
+\DoxyCodeLine{00066\ \ \ \ \ PFN\_vkDebugUtilsMessengerCallbackEXT\ \_GetDebugCallback();}
 \DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
-\DoxyCodeLine{00069\ \ \ \ \ vc::Vector<const\ char\ *>\ \ \ \ \ \ \_\_validationLayersInUse;}
-\DoxyCodeLine{00070\ \ \ \ \ vc::Vector<VkLayerProperties>\ \_\_validationLayersAvailable;}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ VkDebugUtilsMessengerEXT\ \_\_debugMessenger;}
-\DoxyCodeLine{00073\ \ \ \ \ VkDebugUtilsMessengerCreateInfoEXT\ \_\_debugMessengerCreateInfo;}
-\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00076\ \ \ \ \ uint64\_t\ \_\_microsecondsWaitedOnVSync;}
-\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_timer}{vc::Timer}}\ \_\_fpsTimer;}
-\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{double}\ \_GetTheoreticalFPS(\textcolor{keywordtype}{double}\ fps);}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \_UpdateTheoreticalFPS(uint32\_t\ microsecondsWaitedOnVSync);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00074\ \ \ \ \ vc::Error\ \_\_InitValidationLayers();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ VENOM\_DEBUG}}
+\DoxyCodeLine{00077\ \ \ \ \ vc::Vector<const\ char\ *>\ \ \ \ \ \ \_\_validationLayersInUse;}
+\DoxyCodeLine{00078\ \ \ \ \ vc::Vector<VkLayerProperties>\ \_\_validationLayersAvailable;}
 \DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \}}
-\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ VkDebugUtilsMessengerEXT\ \_\_debugMessenger;}
+\DoxyCodeLine{00081\ \ \ \ \ VkDebugUtilsMessengerCreateInfoEXT\ \_\_debugMessengerCreateInfo;}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \ \ uint64\_t\ \_\_microsecondsWaitedOnVSync;}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_timer}{vc::Timer}}\ \_\_fpsTimer;}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ \}}
 
 \end{DoxyCode}

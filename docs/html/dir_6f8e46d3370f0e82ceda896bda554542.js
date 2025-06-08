@@ -2,7 +2,7 @@ var dir_6f8e46d3370f0e82ceda896bda554542 =
 [
     [ "plugin", "dir_6a02686f3984d21851a2dcd160dd7377.html", "dir_6a02686f3984d21851a2dcd160dd7377" ],
     [ "Allocator.h", "_allocator_8h.html", "_allocator_8h" ],
-    [ "Buffer.h", "_buffer_8h.html", "_buffer_8h" ],
+    [ "Buffer.h", "vulkan_2include_2venom_2vulkan_2_buffer_8h.html", "vulkan_2include_2venom_2vulkan_2_buffer_8h" ],
     [ "CommandPool.h", "_command_pool_8h.html", "_command_pool_8h" ],
     [ "CommandPoolManager.h", "_command_pool_manager_8h.html", "_command_pool_manager_8h" ],
     [ "Debug.h", "vulkan_2include_2venom_2vulkan_2_debug_8h.html", "vulkan_2include_2venom_2vulkan_2_debug_8h" ],

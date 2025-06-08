@@ -159,9 +159,15 @@ Macros</h2></td></tr>
 <tr class="memitem:a5a1e3e53b5819193ccbbba59041f4126" id="r_a5a1e3e53b5819193ccbbba59041f4126"><td class="memItemLeft" align="right" valign="top"><a id="a5a1e3e53b5819193ccbbba59041f4126" name="a5a1e3e53b5819193ccbbba59041f4126"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_BINDLESS_TEXTURES</b>&#160;&#160;&#160;4096</td></tr>
 <tr class="separator:a5a1e3e53b5819193ccbbba59041f4126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17e7f60f605e14ac1e0961d47c4d233" id="r_ab17e7f60f605e14ac1e0961d47c4d233"><td class="memItemLeft" align="right" valign="top"><a id="ab17e7f60f605e14ac1e0961d47c4d233" name="ab17e7f60f605e14ac1e0961d47c4d233"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_SAMPLED_IMAGES</b>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:ab17e7f60f605e14ac1e0961d47c4d233"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25215989197b7f6686119abfe948c12c" id="r_a25215989197b7f6686119abfe948c12c"><td class="memItemLeft" align="right" valign="top"><a id="a25215989197b7f6686119abfe948c12c" name="a25215989197b7f6686119abfe948c12c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_DYNAMIC_TEXTURES</b>&#160;&#160;&#160;32</td></tr>
 <tr class="separator:a25215989197b7f6686119abfe948c12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfcd0a31cbdc5754c8b2f3bff8d63a06" id="r_acfcd0a31cbdc5754c8b2f3bff8d63a06"><td class="memItemLeft" align="right" valign="top"><a id="acfcd0a31cbdc5754c8b2f3bff8d63a06" name="acfcd0a31cbdc5754c8b2f3bff8d63a06"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_SHADOW_MAPS</b>&#160;&#160;&#160;(VENOM_MAX_SAMPLED_IMAGES - VENOM_MAX_DYNAMIC_TEXTURES)</td></tr>
+<tr class="separator:acfcd0a31cbdc5754c8b2f3bff8d63a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c810f71bfb616cefb433d7ce97b9b79" id="r_a6c810f71bfb616cefb433d7ce97b9b79"><td class="memItemLeft" align="right" valign="top"><a id="a6c810f71bfb616cefb433d7ce97b9b79" name="a6c810f71bfb616cefb433d7ce97b9b79"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_LIGHTS</b>&#160;&#160;&#160;128</td></tr>
 <tr class="separator:a6c810f71bfb616cefb433d7ce97b9b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,14 +180,23 @@ Macros</h2></td></tr>
 <tr class="memitem:abc661522c96b225ea9d5b5ae94318b72" id="r_abc661522c96b225ea9d5b5ae94318b72"><td class="memItemLeft" align="right" valign="top"><a id="abc661522c96b225ea9d5b5ae94318b72" name="abc661522c96b225ea9d5b5ae94318b72"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_POINT_LIGHTS</b>&#160;&#160;&#160;(VENOM_MAX_LIGHTS - VENOM_MAX_DIRECTIONAL_LIGHTS - VENOM_MAX_SPOT_LIGHTS)</td></tr>
 <tr class="separator:abc661522c96b225ea9d5b5ae94318b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af332320a411fec697487624dc66f35a6" id="r_af332320a411fec697487624dc66f35a6"><td class="memItemLeft" align="right" valign="top"><a id="af332320a411fec697487624dc66f35a6" name="af332320a411fec697487624dc66f35a6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_SHADOWED_DIRECTIONAL_LIGHTS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:af332320a411fec697487624dc66f35a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b7500634599b362ae1d0efb9745dd4d" id="r_a7b7500634599b362ae1d0efb9745dd4d"><td class="memItemLeft" align="right" valign="top"><a id="a7b7500634599b362ae1d0efb9745dd4d" name="a7b7500634599b362ae1d0efb9745dd4d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_SHADOWED_SPOT_LIGHTS</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a7b7500634599b362ae1d0efb9745dd4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8846908d2b20e8eddc94e3753a1da355" id="r_a8846908d2b20e8eddc94e3753a1da355"><td class="memItemLeft" align="right" valign="top"><a id="a8846908d2b20e8eddc94e3753a1da355" name="a8846908d2b20e8eddc94e3753a1da355"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_MAX_SHADOWED_POINT_LIGHTS</b>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a8846908d2b20e8eddc94e3753a1da355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f53b97e438341dce2d665f4813faf0b" id="r_a6f53b97e438341dce2d665f4813faf0b"><td class="memItemLeft" align="right" valign="top"><a id="a6f53b97e438341dce2d665f4813faf0b" name="a6f53b97e438341dce2d665f4813faf0b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_MAX_DIRECTIONAL_LIGHTS</b>&#160;&#160;&#160;VENOM_MAX_DIRECTIONAL_LIGHTS</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_MAX_DIRECTIONAL_LIGHTS</b>&#160;&#160;&#160;(VENOM_MAX_SHADOWED_DIRECTIONAL_LIGHTS)</td></tr>
 <tr class="separator:a6f53b97e438341dce2d665f4813faf0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af30d106e4c200aa42cfe2dc53c5c5cbf" id="r_af30d106e4c200aa42cfe2dc53c5c5cbf"><td class="memItemLeft" align="right" valign="top"><a id="af30d106e4c200aa42cfe2dc53c5c5cbf" name="af30d106e4c200aa42cfe2dc53c5c5cbf"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_MAX_SPOT_LIGHTS</b>&#160;&#160;&#160;(VENOM_MAX_SPOT_LIGHTS &gt;&gt; 2)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_MAX_SPOT_LIGHTS</b>&#160;&#160;&#160;(VENOM_MAX_SHADOWED_SPOT_LIGHTS)</td></tr>
 <tr class="separator:af30d106e4c200aa42cfe2dc53c5c5cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6171099c980d5960681bfbe80a4a2ba6" id="r_a6171099c980d5960681bfbe80a4a2ba6"><td class="memItemLeft" align="right" valign="top"><a id="a6171099c980d5960681bfbe80a4a2ba6" name="a6171099c980d5960681bfbe80a4a2ba6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_MAX_POINT_LIGHTS</b>&#160;&#160;&#160;(VENOM_MAX_POINT_LIGHTS &gt;&gt; 2)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_MAX_POINT_LIGHTS</b>&#160;&#160;&#160;(VENOM_MAX_SHADOWED_POINT_LIGHTS)</td></tr>
 <tr class="separator:a6171099c980d5960681bfbe80a4a2ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaf9b535f8b5423959202ca77a2ad91a" id="r_aeaf9b535f8b5423959202ca77a2ad91a"><td class="memItemLeft" align="right" valign="top"><a id="aeaf9b535f8b5423959202ca77a2ad91a" name="aeaf9b535f8b5423959202ca77a2ad91a"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>VENOM_CSM_TOTAL_CASCADES</b>&#160;&#160;&#160;3</td></tr>

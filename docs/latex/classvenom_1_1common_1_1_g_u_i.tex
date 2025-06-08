@@ -41,9 +41,23 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
 {\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
 {\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -69,7 +83,7 @@ static void {\bfseries Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Pa
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a85f68d3ee99b4ca9b1e41630c0925073}\label{classvenom_1_1common_1_1_g_u_i_a85f68d3ee99b4ca9b1e41630c0925073} 
 static void {\bfseries Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Path, float font\+Size)
 \item 
-\Hypertarget{classvenom_1_1common_1_1_g_u_i_a2522192f4d62e7bd3cbe1a3759834d05}\label{classvenom_1_1common_1_1_g_u_i_a2522192f4d62e7bd3cbe1a3759834d05} 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a712b9cc3dac10be3669897ec84bc6dfb}\label{classvenom_1_1common_1_1_g_u_i_a712b9cc3dac10be3669897ec84bc6dfb} 
 static void {\bfseries Clear\+Fonts} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a5bab9b5bf8500231081c70b71f68b485}\label{classvenom_1_1common_1_1_g_u_i_a5bab9b5bf8500231081c70b71f68b485} 
@@ -319,6 +333,9 @@ virtual vc\+::\+Error {\bfseries \+\_\+\+Initialize} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a4edea0bf69f19fa974072596a0416eb8}\label{classvenom_1_1common_1_1_g_u_i_a4edea0bf69f19fa974072596a0416eb8} 
 virtual vc\+::\+Error {\bfseries \+\_\+\+Reset} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_g_u_i_a7d81edad635dbbf4799b272e95f42fb7}\label{classvenom_1_1common_1_1_g_u_i_a7d81edad635dbbf4799b272e95f42fb7} 
+virtual void {\bfseries \+\_\+\+Clear\+Fonts} ()=0
 \item 
 \Hypertarget{classvenom_1_1common_1_1_g_u_i_a0f9e3e06d4a13efa7632b6f9e68642db}\label{classvenom_1_1common_1_1_g_u_i_a0f9e3e06d4a13efa7632b6f9e68642db} 
 virtual void {\bfseries \+\_\+\+Add\+Font} (const char \texorpdfstring{$\ast$}{*}font\+Path, float font\+Size, const uint16\+\_\+t \texorpdfstring{$\ast$}{*}glyph\+Ranges)=0

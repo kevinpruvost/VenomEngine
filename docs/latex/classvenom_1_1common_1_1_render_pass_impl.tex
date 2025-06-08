@@ -22,9 +22,12 @@ Inheritance diagram for venom\+::common\+::Render\+Pass\+Impl\+:\begin{figure}[H
 \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl}{Render\+Pass\+Impl}} \&\&other)
 \item 
 void \mbox{\hyperlink{classvenom_1_1common_1_1_render_pass_impl_aab0b0680770943e11adedb366d8ea2de}{Destroy}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\item 
 \Hypertarget{classvenom_1_1common_1_1_render_pass_impl_a82a5e503dbec245ec2f7354f14bc4e60}\label{classvenom_1_1common_1_1_render_pass_impl_a82a5e503dbec245ec2f7354f14bc4e60} 
 vc\+::\+Error {\bfseries Init} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_render_pass_impl_af2c84cc905cebcac892f865c06d96d10}\label{classvenom_1_1common_1_1_render_pass_impl_af2c84cc905cebcac892f865c06d96d10} 
+vc\+::\+Error {\bfseries Set\+Multi\+Sampling} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{vc\+::\+Graphics\+Settings\+::\+Multi\+Sampling\+Mode\+Option}} mode, const vc\+::\+Graphics\+Settings\+::\+Multi\+Sampling\+Count\+Option samples)
 \item 
 \Hypertarget{classvenom_1_1common_1_1_render_pass_impl_a794b95dee852d652b1f81ba65f2f6a13}\label{classvenom_1_1common_1_1_render_pass_impl_a794b95dee852d652b1f81ba65f2f6a13} 
 void {\bfseries Set\+Rendering\+Type} (const vc\+::\+Rendering\+Pipeline\+Type type)
@@ -34,9 +37,16 @@ Rendering\+Pipeline\+Type {\bfseries Get\+Rendering\+Type} () const
 \item 
 \Hypertarget{classvenom_1_1common_1_1_render_pass_impl_a47112f9b72b60db3772a4d3a3400826b}\label{classvenom_1_1common_1_1_render_pass_impl_a47112f9b72b60db3772a4d3a3400826b} 
 virtual vc\+::\+Error {\bfseries \+\_\+\+Init} ()=0
+\item 
+\Hypertarget{classvenom_1_1common_1_1_render_pass_impl_a34270aaf48bf4ac41ac58a11f83b73bb}\label{classvenom_1_1common_1_1_render_pass_impl_a34270aaf48bf4ac41ac58a11f83b73bb} 
+virtual vc\+::\+Error {\bfseries \+\_\+\+Set\+Multi\+Sampling} (const \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings_a7255e399568a42ce36232a226b3b298b}{vc\+::\+Graphics\+Settings\+::\+Multi\+Sampling\+Mode\+Option}} mode, const vc\+::\+Graphics\+Settings\+::\+Multi\+Sampling\+Count\+Option samples)=0
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
 \begin{DoxyCompactItemize}
+\item 
+{\bfseries Plugin\+Object} (const Plugin\+Type type)
+\item 
+Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
 {\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
 \item 
@@ -48,20 +58,13 @@ virtual vc\+::\+Error {\bfseries \+\_\+\+Init} ()=0
 \item 
 {\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
 \item 
-void {\bfseries Inc\+Ref\+Count} ()
-\item 
-void {\bfseries Dec\+Ref\+Count} ()
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
-\begin{DoxyCompactItemize}
-\item 
-{\bfseries Plugin\+Object} (const Plugin\+Type type)
-\item 
-Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
-\item 
 {\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
 {\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -111,7 +114,11 @@ void venom\+::common\+::\+Render\+Pass\+Impl\+::\+Destroy (\begin{DoxyParamCapti
 
 
 
-Implements \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common\+::\+IPlugin\+Object}}.
+/!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} 
+
+
+
+Reimplemented from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad9f18777cdaa7ebcbfeff2d3a04ffada}{venom\+::common\+::\+Graphics\+Plugin\+Object}}.
 
 
 

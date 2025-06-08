@@ -17,6 +17,8 @@ vc\+::\+Error \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a4819
 \item 
 bool \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_ae355527bae994c60718a28ff97db4fec}{Should\+Close}} () override
 \item 
+void \mbox{\hyperlink{classvenom_1_1vulkan_1_1_vulkan_application_a7e3b7f61de6278b8dde5ecd22e5626fd}{Pre\+Close}} () override
+\begin{DoxyCompactList}\small\item\em Called before the application closes. \end{DoxyCompactList}\item 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a34f85058d5c12bc1e85ed85ade0a2ab3}\label{classvenom_1_1vulkan_1_1_vulkan_application_a34f85058d5c12bc1e85ed85ade0a2ab3} 
 const \mbox{\hyperlink{classvenom_1_1vulkan_1_1_swap_chain}{Swap\+Chain}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Swap\+Chain} () const
 \item 
@@ -50,9 +52,23 @@ virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_plugin_object_ad
 \item 
 Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
 \item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
+\item 
+{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
+\item 
+{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
+\item 
 {\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
 \item 
 {\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\item 
+void {\bfseries Inc\+Ref\+Count} ()
+\item 
+void {\bfseries Dec\+Ref\+Count} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}}
 \begin{DoxyCompactItemize}
@@ -362,6 +378,23 @@ vc\+::\+Error venom\+::vulkan\+::\+Vulkan\+Application\+::\+\_\+\+Set\+Multi\+Sa
 
 
 Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_settings}{venom\+::common\+::\+Graphics\+Settings}}.
+
+\Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_a7e3b7f61de6278b8dde5ecd22e5626fd}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!PreClose@{PreClose}}
+\index{PreClose@{PreClose}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}
+\doxysubsubsection{\texorpdfstring{PreClose()}{PreClose()}}
+{\footnotesize\ttfamily \label{classvenom_1_1vulkan_1_1_vulkan_application_a7e3b7f61de6278b8dde5ecd22e5626fd} 
+void venom\+::vulkan\+::\+Vulkan\+Application\+::\+Pre\+Close (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Called before the application closes. 
+
+\begin{DoxyWarning}{Warning}
+DO NOT FORGET MUST BE CALLED BEFORE CLOSING 
+\end{DoxyWarning}
+
+
+Implements \mbox{\hyperlink{classvenom_1_1common_1_1_graphics_application_aab656eb7122f3a29e770c1e4b4a5c04e}{venom\+::common\+::\+Graphics\+Application}}.
 
 \Hypertarget{classvenom_1_1vulkan_1_1_vulkan_application_ae355527bae994c60718a28ff97db4fec}\index{venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}!ShouldClose@{ShouldClose}}
 \index{ShouldClose@{ShouldClose}!venom::vulkan::VulkanApplication@{venom::vulkan::VulkanApplication}}

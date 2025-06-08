@@ -30,69 +30,62 @@
 \DoxyCodeLine{00038\ \{}
 \DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00040\ \ \ \ \ PluginObject(\textcolor{keyword}{const}\ PluginType\ type);}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~PluginObject();}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_ab767caede79983aab03a9c8c99c91171}{Destroy}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00044\ \ \ \ \ PluginType\ GetType()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ DAs()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ DAs()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
-\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ \_\_type;}
-\DoxyCodeLine{00050\ \};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginObjectImpl\ :\ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{IPluginObject}}}
-\DoxyCodeLine{00056\ \{}
-\DoxyCodeLine{00057\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00058\ \ \ \ \ PluginObjectImpl();}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ As()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ As()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ ConstAs()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{const\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this}));\ \}}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ RAs()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ RAs()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ IncRefCount();}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ DecRefCount();}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_refCount;}
-\DoxyCodeLine{00069\ \};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginObjectImplWrapper}
-\DoxyCodeLine{00076\ \{}
-\DoxyCodeLine{00077\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00078\ \ \ \ \ PluginObjectImplWrapper();}
-\DoxyCodeLine{00079\ \ \ \ \ PluginObjectImplWrapper(\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}}\ *\ impl);}
-\DoxyCodeLine{00080\ \ \ \ \ PluginObjectImplWrapper(\textcolor{keyword}{const}\ PluginObjectImplWrapper\ \&\ other);}
-\DoxyCodeLine{00081\ \ \ \ \ PluginObjectImplWrapper\ \&\ operator=(\textcolor{keyword}{const}\ PluginObjectImplWrapper\ \&\ other);}
-\DoxyCodeLine{00082\ \ \ \ \ PluginObjectImplWrapper(PluginObjectImplWrapper\ \&\&\ other);}
-\DoxyCodeLine{00083\ \ \ \ \ PluginObjectImplWrapper\ \&\ operator=(PluginObjectImplWrapper\ \&\&\ other);}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~PluginObjectImplWrapper();}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}}*\ GetImpl()}
-\DoxyCodeLine{00087\ \ \ \ \ \{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ venom\_assert(\_impl\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}PluginObjectImplWrapper::GetImpl()\ :\ \_impl\ is\ nullptr"{}});}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl;}
-\DoxyCodeLine{00090\ \ \ \ \ \}}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}}*\ GetImpl()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00092\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ venom\_assert(\_impl\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}PluginObjectImplWrapper::GetImpl()\ :\ \_impl\ is\ nullptr"{}});}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl;}
-\DoxyCodeLine{00095\ \ \ \ \ \}}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}}\ *\ GetConstImpl()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ GetImpl();\ \}}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsImplInitialized()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Destroy()\ \{\ \_impl-\/>Destroy();\ \}}
-\DoxyCodeLine{00099\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{PluginObjectImpl}}\ *\ \_impl;}
-\DoxyCodeLine{00101\ \};}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<std::is\_base\_of\_v<PluginObjectImplWrapper,\ T>>>}
-\DoxyCodeLine{00110\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginObjectOptional\ :\ \textcolor{keyword}{public}\ std::optional<T>}
-\DoxyCodeLine{00111\ \{}
-\DoxyCodeLine{00112\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00113\ \ \ \ \ PluginObjectOptional()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00114\ \};}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \}}
-\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~PluginObject();}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_ab767caede79983aab03a9c8c99c91171}{Destroy}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \ \ PluginType\ GetType()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ As()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ As()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ ConstAs()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{const\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this}));\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ RAs()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ RAs()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ T\ *\ DAs()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ T\ *\ DAs()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }T\ *\textcolor{keyword}{>}(\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ IncRefCount();}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ DecRefCount();}
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{const}\ PluginType\ \_\_type;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_refCount;}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginObjectWrapper}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00068\ \ \ \ \ PluginObjectWrapper();}
+\DoxyCodeLine{00069\ \ \ \ \ PluginObjectWrapper(\mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ impl);}
+\DoxyCodeLine{00070\ \ \ \ \ PluginObjectWrapper(\textcolor{keyword}{const}\ PluginObjectWrapper\ \&\ other);}
+\DoxyCodeLine{00071\ \ \ \ \ PluginObjectWrapper\ \&\ operator=(\textcolor{keyword}{const}\ PluginObjectWrapper\ \&\ other);}
+\DoxyCodeLine{00072\ \ \ \ \ PluginObjectWrapper(PluginObjectWrapper\ \&\&\ other);}
+\DoxyCodeLine{00073\ \ \ \ \ PluginObjectWrapper\ \&\ operator=(PluginObjectWrapper\ \&\&\ other);}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~PluginObjectWrapper();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}*\ GetImpl()}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ venom\_assert(\_impl\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}PluginObjectWrapper::GetImpl()\ :\ \_impl\ is\ nullptr"{}});}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}*\ GetImpl()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00082\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ venom\_assert(\_impl\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}PluginObjectWrapper::GetImpl()\ :\ \_impl\ is\ nullptr"{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_impl;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ GetConstImpl()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ GetImpl();\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsImplInitialized()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Destroy()\ \{\ \_impl-\/>Destroy();\ \}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{PluginObject}}\ *\ \_impl;}
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<std::is\_base\_of\_v<PluginObjectWrapper,\ T>>>}
+\DoxyCodeLine{00100\ \textcolor{keyword}{class\ }VENOM\_COMMON\_API\ PluginObjectOptional\ :\ \textcolor{keyword}{public}\ std::optional<T>}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00103\ \ \ \ \ PluginObjectOptional()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \}}
+\DoxyCodeLine{00107\ \}}
 
 \end{DoxyCode}

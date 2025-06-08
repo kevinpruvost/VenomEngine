@@ -1,11 +1,5 @@
 \doxysection{venom\+::common\+::Context Class Reference}
 \hypertarget{classvenom_1_1common_1_1_context}{}\label{classvenom_1_1common_1_1_context}\index{venom::common::Context@{venom::common::Context}}
-Inheritance diagram for venom\+::common\+::Context\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=3.000000cm]{classvenom_1_1common_1_1_context}
-\end{center}
-\end{figure}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,11 +20,11 @@ bool {\bfseries Should\+Close} () const
 \Hypertarget{classvenom_1_1common_1_1_context_ac70ce3f3700a4c74a2eeda06d94ec34a}\label{classvenom_1_1common_1_1_context_ac70ce3f3700a4c74a2eeda06d94ec34a} 
 void {\bfseries Poll\+Events} ()
 \item 
+\Hypertarget{classvenom_1_1common_1_1_context_a7d7ee0a1d7fcedd14e3ce4b5d0e863d8}\label{classvenom_1_1common_1_1_context_a7d7ee0a1d7fcedd14e3ce4b5d0e863d8} 
+void {\bfseries Set\+Pre\+Run\+Loop\+Function} (Callback$<$ vc\+::\+Error $>$ func)
+\item 
 \Hypertarget{classvenom_1_1common_1_1_context_a9dfeae9499c3d7b5999c1f71d7eb8fa6}\label{classvenom_1_1common_1_1_context_a9dfeae9499c3d7b5999c1f71d7eb8fa6} 
 void {\bfseries Set\+Run\+Loop\+Function} (Callback$<$ vc\+::\+Error $>$ func)
-\item 
-\Hypertarget{classvenom_1_1common_1_1_context_a8ce0be097b6282afdb3e2ea4f30b4d39}\label{classvenom_1_1common_1_1_context_a8ce0be097b6282afdb3e2ea4f30b4d39} 
-vc\+::\+Error {\bfseries Run} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a21f3e609b21090d98e6a6458eb22a2fd}\label{classvenom_1_1common_1_1_context_a21f3e609b21090d98e6a6458eb22a2fd} 
 Input\+State {\bfseries Get\+Key\+State} (Keyboard\+Input key) const
@@ -81,39 +75,15 @@ void \texorpdfstring{$\ast$}{*} {\bfseries Get\+Window} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a7153dc446344028db80a95555b368354}\label{classvenom_1_1common_1_1_context_a7153dc446344028db80a95555b368354} 
 vc\+::\+Error {\bfseries Set\+Fullscreen} (bool fullscreen)
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}}
-\begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries As} ()
-\item 
-{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries As} () const
-\item 
-{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries Const\+As} () const
-\item 
-{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries RAs} ()
-\item 
-{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries RAs} () const
-\item 
-void {\bfseries Inc\+Ref\+Count} ()
-\item 
-void {\bfseries Dec\+Ref\+Count} ()
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}}
-\begin{DoxyCompactItemize}
-\item 
-{\bfseries Plugin\+Object} (const Plugin\+Type type)
-\item 
-virtual void \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_ab767caede79983aab03a9c8c99c91171}{Destroy}} () override
-\begin{DoxyCompactList}\small\item\em /!\textbackslash{} THIS FUNCTION MUST BE CALLED FOR DESTRUCTION, DO NOT USE {\ttfamily delete} \end{DoxyCompactList}\item 
-Plugin\+Type \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_a4e2ddf499f1ab33b83c08f9362947041}{Get\+Type}} () const override
-\item 
-{\footnotesize template$<$class T$>$ }\\T \texorpdfstring{$\ast$}{*} {\bfseries DAs} ()
-\item 
-{\footnotesize template$<$class T$>$ }\\const T \texorpdfstring{$\ast$}{*} {\bfseries DAs} () const
+\Hypertarget{classvenom_1_1common_1_1_context_a1ebf540647726dae9ff8e52eee2ce8b4}\label{classvenom_1_1common_1_1_context_a1ebf540647726dae9ff8e52eee2ce8b4} 
+virtual vc\+::\+Error {\bfseries Run} (int argc, const char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_a74ef7b2020f5f060724016b360be12cc}\label{classvenom_1_1common_1_1_context_a74ef7b2020f5f060724016b360be12cc} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Context} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a38d28e14fc6768f8d23de50393d5e85f}\label{classvenom_1_1common_1_1_context_a38d28e14fc6768f8d23de50393d5e85f} 
 static \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}} \texorpdfstring{$\ast$}{*} {\bfseries Get} ()
@@ -123,6 +93,9 @@ static int {\bfseries Get\+Window\+Width} ()
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a48257b6fccca3897a5681a713e91f240}\label{classvenom_1_1common_1_1_context_a48257b6fccca3897a5681a713e91f240} 
 static int {\bfseries Get\+Window\+Height} ()
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_aab6201769633ee55951c935f55e23f49}\label{classvenom_1_1common_1_1_context_aab6201769633ee55951c935f55e23f49} 
+static float {\bfseries Get\+Window\+Scale} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -178,6 +151,9 @@ void {\bfseries \+\_\+\+Set\+Keyboard\+Modifier\+State} (bool shift, bool contro
 \Hypertarget{classvenom_1_1common_1_1_context_a22607c4db995ab72914c91c4f84db446}\label{classvenom_1_1common_1_1_context_a22607c4db995ab72914c91c4f84db446} 
 Callback$<$ vc\+::\+Error $>$ {\bfseries \+\_\+run\+Loop\+Function}
 \item 
+\Hypertarget{classvenom_1_1common_1_1_context_aace460be1f0cfd974ed8377bb335f220}\label{classvenom_1_1common_1_1_context_aace460be1f0cfd974ed8377bb335f220} 
+Callback$<$ vc\+::\+Error $>$ {\bfseries \+\_\+pre\+Run\+Loop\+Function}
+\item 
 \Hypertarget{classvenom_1_1common_1_1_context_a5783e5a08d53d3a8258a95c007ef4336}\label{classvenom_1_1common_1_1_context_a5783e5a08d53d3a8258a95c007ef4336} 
 int {\bfseries \+\_\+current\+Screen\+Index}
 \item 
@@ -193,11 +169,20 @@ int {\bfseries \+\_\+width}
 \Hypertarget{classvenom_1_1common_1_1_context_a4f0f8cb14e72792cd6f10e71f98b2b8e}\label{classvenom_1_1common_1_1_context_a4f0f8cb14e72792cd6f10e71f98b2b8e} 
 int {\bfseries \+\_\+height}
 \item 
+\Hypertarget{classvenom_1_1common_1_1_context_a611c2805d1aa34b14c1bee96f8c6e4d0}\label{classvenom_1_1common_1_1_context_a611c2805d1aa34b14c1bee96f8c6e4d0} 
+float {\bfseries \+\_\+scale}
+\item 
 \Hypertarget{classvenom_1_1common_1_1_context_a6016a1dcd067fb1f4bcf93ecca498a04}\label{classvenom_1_1common_1_1_context_a6016a1dcd067fb1f4bcf93ecca498a04} 
 bool {\bfseries \+\_\+fullscreen}
 \item 
 \Hypertarget{classvenom_1_1common_1_1_context_a79c264963331fe9f90323fb467eb27a5}\label{classvenom_1_1common_1_1_context_a79c264963331fe9f90323fb467eb27a5} 
 vc\+::\+Vector$<$ \mbox{\hyperlink{classvenom_1_1common_1_1_screen}{Screen}} $>$ {\bfseries \+\_\+screens}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvenom_1_1common_1_1_context_ae89f9a96307a223a4939f6da349a7950}\label{classvenom_1_1common_1_1_context_ae89f9a96307a223a4939f6da349a7950} 
+static \mbox{\hyperlink{classvenom_1_1common_1_1_context}{Context}} \texorpdfstring{$\ast$}{*} {\bfseries s\+\_\+context} = nullptr
 \end{DoxyCompactItemize}
 
 
@@ -224,5 +209,5 @@ true if the specified modifier(s) is pressed; otherwise, false.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/plugin/context/\mbox{\hyperlink{_context_8h}{Context.\+h}}\item 
+/\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/include/venom/common/\mbox{\hyperlink{_context_8h}{Context.\+h}}\item 
 /\+Users/kevinpruvost/\+Bossing/\+Perso/\+Venom\+Engine/lib/common/src/\mbox{\hyperlink{_context_8cc}{Context.\+cc}}\end{DoxyCompactItemize}

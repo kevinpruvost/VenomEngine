@@ -14,12 +14,10 @@ class \mbox{\hyperlink{classvenom_1_1common_1_1_i_plugin_object}{venom\+::common
 \item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object}{venom\+::common\+::\+Plugin\+Object}}
 \begin{DoxyCompactList}\small\item\em Base class for all the plugin objects Objects that will be loaded from the plugins as their implementations lie there As a user of \doxylink{classvenom_1_1common_1_1_venom_engine}{Venom\+Engine}, you should not care about that, unless you plan to create your own plugin. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl}{venom\+::common\+::\+Plugin\+Object\+Impl}}
-\begin{DoxyCompactList}\small\item\em Interface for the \doxylink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object} different implementations. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{venom\+::common\+::\+Plugin\+Object\+Impl\+Wrapper}}
-\begin{DoxyCompactList}\small\item\em Wrapper for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl}, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_wrapper}{venom\+::common\+::\+Plugin\+Object\+Wrapper}}
+\begin{DoxyCompactList}\small\item\em Wrapper for the Plugin\+Object\+Impl, inherited by classes like \doxylink{classvenom_1_1common_1_1_model}{Model} or \doxylink{classvenom_1_1common_1_1_mesh}{Mesh} to make them usable as components (for \doxylink{classvenom_1_1common_1_1_e_c_s}{ECS}) and hold the Graphics API specific implementation. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classvenom_1_1common_1_1_plugin_object_optional}{venom\+::common\+::\+Plugin\+Object\+Optional$<$ T, typename $>$}}
-\begin{DoxyCompactList}\small\item\em Container for the \doxylink{classvenom_1_1common_1_1_plugin_object_impl_wrapper}{Plugin\+Object\+Impl\+Wrapper} Important to avoid it from loading the \doxylink{classvenom_1_1common_1_1_plugin_object_impl}{Plugin\+Object\+Impl} if not needed e.\+g. if the object is optional. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Container for the \doxylink{classvenom_1_1common_1_1_plugin_object_wrapper}{Plugin\+Object\+Wrapper} Important to avoid it from loading the \doxylink{classvenom_1_1common_1_1_plugin_object}{Plugin\+Object} if not needed e.\+g. if the object is optional. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 

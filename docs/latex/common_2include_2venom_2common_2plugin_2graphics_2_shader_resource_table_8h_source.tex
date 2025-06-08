@@ -64,7 +64,7 @@
 \DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ offset\ =\ 0);}
 \DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ UpdateDescriptor(\textcolor{keyword}{const}\ SetsIndex\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ binding,\ \mbox{\hyperlink{classvenom_1_1common_1_1_texture}{vc::Texture}}\ *\ texture);}
 \DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#ifdef\ VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#if\ defined(VENOM\_EXTERNAL\_PACKED\_MODEL\_MATRIX)}}
 \DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetAllModelMatrixBuffer();}
 \DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ vcm::Mat4\ *\ GetModelMatrixBuffer();}
 \DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ GetAllModelMatrixBytesSize()\ \{\ \textcolor{keywordflow}{return}\ VENOM\_MAX\_ENTITIES\ *\ \textcolor{keyword}{sizeof}(vcm::Mat4);\ \}}

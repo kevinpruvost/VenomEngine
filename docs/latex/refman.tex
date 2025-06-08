@@ -262,6 +262,7 @@
 \input{classvenom_1_1common_1_1_bindless_textures_id_manager}
 \input{structvenom_1_1vulkan_1_1_vulkan_mesh_1_1_bound_vk_buffer}
 \input{classvenom_1_1vulkan_1_1_buffer}
+\input{classvenom_1_1common_1_1_buffer_impl}
 \input{classvenom_1_1common_1_1_camera}
 \input{structvenom_1_1common_1_1_camera_cascaded_shadow_map_data}
 \input{structvenom_1_1common_1_1_camera_focus_data}
@@ -271,7 +272,9 @@
 \input{classvenom_1_1vulkan_1_1_command_pool_manager}
 \input{classvenom_1_1common_1_1_config}
 \input{classvenom_1_1common_1_1_context}
-\input{classvenom_1_1common_1_1_context_plugin}
+\input{interface_context_apple_delegate}
+\input{interface_context_apple_view_controller}
+\input{interface_context_apple_window_controller}
 \input{classvenom_1_1vulkan_1_1_debug_application}
 \input{classvenom_1_1common_1_1_deferred_trash}
 \input{classvenom_1_1common_1_1_deferred_trash_bin}
@@ -285,8 +288,10 @@
 \input{classvenom_1_1common_1_1_d_l_l___cache}
 \input{classvenom_1_1common_1_1_e_c_s}
 \input{classvenom_1_1common_1_1_e_x_r___texture_loader}
+\input{classvenom_1_1common_1_1_fast_vector}
 \input{classvenom_1_1vulkan_1_1_fence}
 \input{classvenom_1_1common_1_1_filesystem}
+\input{structvenom_1_1common_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s}
 \input{structvenom_1_1common_1_1_g_u_i_1_1_font_data}
 \input{classvenom_1_1common_1_1_fps_counter}
 \input{classvenom_1_1vulkan_1_1_framebuffer}
@@ -326,9 +331,8 @@
 \input{classvenom_1_1common_1_1_plugin}
 \input{classvenom_1_1common_1_1_plugin_manager}
 \input{classvenom_1_1common_1_1_plugin_object}
-\input{classvenom_1_1common_1_1_plugin_object_impl}
-\input{classvenom_1_1common_1_1_plugin_object_impl_wrapper}
 \input{classvenom_1_1common_1_1_plugin_object_optional}
+\input{classvenom_1_1common_1_1_plugin_object_wrapper}
 \input{classvenom_1_1vulkan_1_1_queue}
 \input{classvenom_1_1vulkan_1_1_queue_family}
 \input{classvenom_1_1vulkan_1_1_queue_manager}
@@ -337,6 +341,7 @@
 \input{classvenom_1_1vulkan_1_1_queue_order_pool}
 \input{structvenom_1_1vulkan_1_1_queue_order_pool_1_1_queue_present_info}
 \input{structvenom_1_1vulkan_1_1_queue_order_pool_1_1_queue_submission_info}
+\input{classvenom_1_1common_1_1_read_buffer}
 \input{classvenom_1_1common_1_1_rendering_pipeline}
 \input{classvenom_1_1common_1_1_rendering_pipeline_impl}
 \input{classvenom_1_1common_1_1_render_pass}
@@ -354,6 +359,7 @@
 \input{classvenom_1_1common_1_1_shader_pipeline_impl}
 \input{classvenom_1_1common_1_1_shader_resource}
 \input{classvenom_1_1common_1_1_shader_resource_table}
+\input{classvenom_1_1common_1_1_shadow_index_allocator}
 \input{classvenom_1_1vulkan_1_1_single_time_command_buffer}
 \input{classvenom_1_1common_1_1_skybox}
 \input{classvenom_1_1common_1_1_skybox_impl}
@@ -364,6 +370,7 @@
 \input{classvenom_1_1vulkan_1_1_surface}
 \input{classvenom_1_1vulkan_1_1_swap_chain}
 \input{classvenom_1_1common_1_1_texture}
+\input{structvenom_1_1common_1_1_texture_data_builder}
 \input{classvenom_1_1common_1_1_texture_impl}
 \input{classvenom_1_1common_1_1_texture_loader}
 \input{classvenom_1_1common_1_1_texture_resource}
@@ -377,6 +384,7 @@
 \input{classvenom_1_1vulkan_1_1_vertex_buffer}
 \input{structvenom_1_1common_1_1_shader_pipeline_impl_1_1_vertex_buffer_layout}
 \input{classvenom_1_1vulkan_1_1_vulkan_application}
+\input{classvenom_1_1vulkan_1_1_vulkan_buffer}
 \input{classvenom_1_1vulkan_1_1_vulkan_camera}
 \input{classvenom_1_1vulkan_1_1_vulkan_graphics_plugin}
 \input{classvenom_1_1vulkan_1_1_vulkan_g_u_i}
@@ -395,6 +403,7 @@
 \input{classvenom_1_1vulkan_1_1_vulkan_skybox}
 \input{classvenom_1_1vulkan_1_1_vulkan_texture}
 \input{classvenom_1_1vulkan_1_1_vulkan_texture_resource}
+\input{classvenom_1_1common_1_1_write_read_buffer}
 \chapter{File Documentation}
 \input{_callback_8h}
 \input{_callback_8h_source}
@@ -402,6 +411,19 @@
 \input{_config_8h_source}
 \input{_containers_8h}
 \input{_containers_8h_source}
+\input{_context_8h}
+\input{_context_8h_source}
+\input{_context_apple_delegate_8h}
+\input{_context_apple_delegate_8h_source}
+\input{_context_apple_info_8h}
+\input{_context_apple_info_8h_source}
+\input{_context_apple_view_controller_8h}
+\input{_context_apple_view_controller_8h_source}
+\input{_context_apple_window_controller_8h_source}
+\input{_context_apple_8h}
+\input{_context_apple_8h_source}
+\input{_context_g_l_f_w_8h}
+\input{_context_g_l_f_w_8h_source}
 \input{common_2include_2venom_2common_2_debug_8h}
 \input{common_2include_2venom_2common_2_debug_8h_source}
 \input{vulkan_2include_2venom_2vulkan_2_debug_8h}
@@ -416,6 +438,8 @@
 \input{_error_8h_source}
 \input{_export_8h}
 \input{_export_8h_source}
+\input{_file_8h}
+\input{_file_8h_source}
 \input{_file_system_8h_source}
 \input{_fps_counter_8h}
 \input{_fps_counter_8h_source}
@@ -433,10 +457,12 @@
 \input{_memory_pool_8h_source}
 \input{_platform_8h}
 \input{_platform_8h_source}
-\input{_context_8h}
-\input{_context_8h_source}
-\input{_context_plugin_8h}
-\input{_context_plugin_8h_source}
+\input{common_2include_2venom_2common_2plugin_2graphics_2_buffer_8h}
+\input{common_2include_2venom_2common_2plugin_2graphics_2_buffer_8h_source}
+\input{vulkan_2include_2venom_2vulkan_2_buffer_8h}
+\input{vulkan_2include_2venom_2vulkan_2_buffer_8h_source}
+\input{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_buffer_8h}
+\input{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_buffer_8h_source}
 \input{common_2include_2venom_2common_2plugin_2graphics_2_camera_8h}
 \input{common_2include_2venom_2common_2plugin_2graphics_2_camera_8h_source}
 \input{vulkan_2include_2venom_2vulkan_2plugin_2graphics_2_camera_8h}
@@ -530,11 +556,16 @@
 \input{_venom_engine_8h_source}
 \input{_venom_settings_8h}
 \input{_venom_settings_8h_source}
+\input{common_2src_2_buffer_8cc}
+\input{vulkan_2src_2_buffer_8cc}
 \input{common_2src_2_camera_8cc}
 \input{vulkan_2src_2_camera_8cc}
 \input{_config_8cc}
 \input{_context_8cc}
-\input{_context_plugin_8cc}
+\input{_context_apple_delegate_8mm}
+\input{_context_apple_info_8mm}
+\input{_context_apple_view_controller_8mm}
+\input{_context_input_8cc}
 \input{_deferred_trash_8cc}
 \input{_d_l_l_8cc}
 \input{_e_c_s_8cc}
@@ -550,6 +581,7 @@
 \input{common_2src_2_light_8cc}
 \input{vulkan_2src_2_light_8cc}
 \input{_log_8cc}
+\input{_log_8mm}
 \input{common_2src_2_material_8cc}
 \input{vulkan_2src_2_material_8cc}
 \input{_material_component_8cc}
@@ -576,6 +608,7 @@
 \input{vulkan_2src_2_skybox_8cc}
 \input{common_2src_2_texture_8cc}
 \input{vulkan_2src_2_texture_8cc}
+\input{_texture__generated_8h_source}
 \input{_timer_8cc}
 \input{_transform3_d_8cc}
 \input{_vector_8cc}
@@ -583,8 +616,6 @@
 \input{_venom_settings_8cc}
 \input{_allocator_8h}
 \input{_allocator_8h_source}
-\input{_buffer_8h}
-\input{_buffer_8h_source}
 \input{_command_pool_8h}
 \input{_command_pool_8h_source}
 \input{_command_pool_manager_8h}
@@ -629,7 +660,6 @@
 \input{_vertex_buffer_8h_source}
 \input{_vulkan_application_8h_source}
 \input{_allocator_8cc}
-\input{_buffer_8cc}
 \input{_command_pool_8cc}
 \input{_command_pool_manager_8cc}
 \input{_debug_8cc}
@@ -652,6 +682,7 @@
 \input{_vulkan_application_sets_initializer_8cc}
 \input{_vulkan_application_settings_8cc}
 \input{main_8cc}
+\input{main__graphics_8cc}
 \input{main__input_8cc}
 \input{main__scene_8cc}
 \input{_main_scene_8h}
